@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18C54" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Category" representedClassName=".CategoryEntity" syncable="YES">
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <relationship name="games" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Game" inverseName="category" inverseEntity="Game" syncable="YES"/>
+    </entity>
+    <entity name="Disk" representedClassName=".Disk" syncable="YES">
+        <attribute name="fileName" attributeType="String" syncable="YES"/>
+        <relationship name="game" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Game" inverseName="disks" inverseEntity="Game" syncable="YES"/>
+    </entity>
+    <entity name="Game" representedClassName=".Game" syncable="YES">
+        <attribute name="added" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="autoLoadName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cartridgeEEPROM" optional="YES" attributeType="String" elementID="cartridgeFlash" syncable="YES"/>
+        <attribute name="cartridgeFile" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="directory" attributeType="String" syncable="YES"/>
+        <attribute name="enableJIffyDosRaw" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="lastOpened" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="name" attributeType="String" spotlightIndexingEnabled="YES" syncable="YES"/>
+        <attribute name="programFile" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="publisher" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="showBorderRawValue" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="tapeFile" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="titleImageFileName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="yearRaw" optional="YES" attributeType="Integer 16" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="games" inverseEntity="Category" syncable="YES"/>
+        <relationship name="disks" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Disk" inverseName="game" inverseEntity="Disk" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Disk" positionX="-45" positionY="63" width="128" height="75"/>
+        <element name="Game" positionX="-63" positionY="-18" width="128" height="285"/>
+        <element name="Category" positionX="-54" positionY="99" width="128" height="75"/>
+    </elements>
+</model>

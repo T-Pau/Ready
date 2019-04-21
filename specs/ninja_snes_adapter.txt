@@ -1,0 +1,271 @@
+
+ "how to connect 8 snes-pads to your c64  v1.1"
+
+    by ninja/dreams in 1997-98
+
+========================================================================
+
+the neccessary stuff...
+------------------------
+
+though i tried to make this project as error-free as possible, i can't
+guarantee that there aren't any mistakes left. so i am not responsible
+for damaged hardware or anything else. if you use this, you do it at
+your own risk!!! and: this piece of work is hereby declared as public
+domain. that means you can use it like you developed it by yourself.
+but if you use it, please mention me in the credits and/or send me an
+email. that is all i'm asking for.
+
+but now to the interesting part....
+
+------------------------------------------------------------------------
+
+
+in my opinion the best joypad ever made is the original snes controller
+by nintendo. it features good handling and its 8 buttons are easy to
+"find" after a short time.
+
+so, what about eight (8!) snes-controllers with all their buttons on
+your joyports??? yes, the userport remains free, just the joyports.
+and in addition to that you won't need too much hardware neither,
+because what you have to build is more like a cable. now, how does
+that work?
+
+it is not too complicated, it's just that you have to know how these
+pads work (and nintendo isn't neither famous for giving information nor
+for accepting any kind of standard). at first i will tell you what pin
+does what job. keep in mind that pin a is the one at the flat end!
+
+
+ snes-pad-pin-description:          c64-joyport-pin-description:
+
+  a = +5v                            1 = joy 0
+  b = clock                          2 = joy 1
+  c = reset                          3 = joy 2
+  d = data1                          4 = joy 3
+  e = data2 (unused)                 5 = paddle y
+  f = data3 (unused)                 6 = joy 4
+  g = ground                         7 = +5v
+                                     8 = ground
+                                     9 = paddle x
+
+                                  (but you surely knew that already ;))
+
+you see, the secret of connecting eight pads to the joyports is that the
+data is sent serial! the flow control is done via pins b and c, the data
+itself uses pin d (note: pins e and f are not used by normal pads, they
+are necessary for those snes-port-multiplexers). let's have a closer
+look at this. at the beginning you have to raise and lower the
+reset-line. now you can read the first bit from data1. after that you
+raise and lower the clock-line and get the next bit from data1. repeat
+this until you've got a total of 12 bits, then start again.
+
+no problem with that. and as our c64 got 10 digital lines on
+its joyports, minus two for the flow control, we should be able to
+connect eight of those great pads to it. here is how it can be done:
+
+
+  c64-joystick-ports:
+
+           port 2                          port 1
+
+    7     1 2 3 4 8   6               7 4 6 1 2  3  8
+    o     o o o o o   o               o o o o o  o  o
+    i     i i i i i   i               i i i i i  i  i
+    i *---i-i-i-i-i---i---------------i-* i i i  i  i
+    i i *-i-i-i-i-i---i---------------i-i-* i i  i  i
+    i i i i i i i i   i               i i i i i  i  i
+    i i i i i i i i   i               i i i i i  i  i
+   -*-*-*-*-------*-  i              -*-*-*-*-------*-
+  i o o o o   o o o ) i             i o o o o   o o o )
+   -*-*-*---------*-  i              -*-*-*---------*-
+    i i i   i i i i   i               i i i   i  i  i
+    i i i ,-' i i i   i               i i i ,-'  i  i
+    i i i i   i i i   i               i i i i    i  i
+   -*-*-*-*-------*-  i              -*-*-*-*-------*-
+  i o o o o   o o o ) i             i o o o o   o o o )
+   -*-*-*---------*-  i              -*-*-*---------*-
+    i i i     i i i   i               i i i      i  i
+    i i i ,---' i i   i               i i i ,----'  i
+    i i i i     i i   i               i i i i       i
+   -*-*-*-*-------*-  i              -*-*-*-*-------*-
+  i o o o o   o o o ) i             i o o o o   o o o )
+   -*-*-*---------*-  i              -----------------
+    i i i       i i   i               a b c d   e f g
+    i i i ,-----' i   i
+    i i i i       i   i
+   -*-*-*-*-------*-  i
+  i o o o o   o o o ) i
+   -*-*-*---------*-  i
+    i i i         i   i
+    i i i ,-------i---'
+    i i i i       i
+   -*-*-*-*-------*-
+  ± o o o o   o o o )
+   -----------------
+    a b c d   e f g
+
+i decided to use port 1 for doing the flow control, because then you can
+have three pads connected while still using your joystick in port 2.
+i think this will be suitable for most cases, since there are not too
+many games for more than three players. in addition to that we now
+reduced the chance that keyboard routines will disturb the pads since
+you normally write to $dc00 and rarely to $dc01. on the other hand the
+pads may interfere with the keyboard, but we can get around this problem
+very easy (see listing).
+
+but, of course, there is a problem. the connectors of snes pads are
+really annoying :( but we have to come around this somehow, so here are
+your options:
+
+ 1) try finding a store where they sell them (very unlikely)
+ 2) get them from a snes, multitap or joypad-cable-extender (expensive)
+ 3) be creative and make your own! (is cheap, looks cheap, cheap quality
+    (at least in my case ;))) if you have absolutely no idea how to do
+    this, send me a mail, perhaps i can help you.
+ 4) cut them off and use different connectors. probably the best
+    solution, if you want to use the pads only on your c64 and not on
+    a super-nintendo.
+
+enough about the hardware, let's go over to the software. here is an
+documented example, which should include everything you need to know.
+
+------------------------------------------------------------------------
+              org $c000
+
+joy           = $0500       ; so you can see, if something happens
+                            ; otherwise zeropage should be preferred
+
+              sei
+              ldx #<(irq)   ; standard...
+              ldy #>(irq)   ; procedure...
+              stx $0314     ; for...
+              sty $0315     ; setting...
+              lda #$81      ; up...
+              sta $d01a     ; an...
+              lda #$ff      ; irq-routine.
+              sta $d012     ; nothing...
+              lda #$1b      ; special...
+              sta $d011     ; about...
+              cli           ; it..
+              rts           ; return to basic...
+
+irq:
+              lda $d019     ; get irq-flag
+              bpl noirq     ; irq generated by vic?
+              sta $d019     ; yes, then clear flag
+              jsr getsnes   ; main routine
+noirq:
+
+ ; this routine will prevent the pads from interfering with the
+ ; keyboard. it is necessary as we need to reset $dc03 to zero for the
+ ; keyboard scan. unfortunately this causes a permanent high signal on
+ ; our snes-reset-line, what means we always have the status bit from
+ ; button b present on $dc01. so, this is how you can get around that
+ ; little problem.
+
+              lda #$ff      ; disable keys by setting all keyboard
+              sta $dc00     ; scan lines high...
+              cmp $dc01     ; ...so any low signal must be sent by a pad
+              bne nokeyb    ; did we get an interference?
+              jmp $ea31     ; no, then we can check the keyboard
+nokeyb:
+              jmp $ea7e     ; yes, skip keyboard this time
+
+
+ ; the following routine grabs all the bits from the snes-pads.
+ ; of course, this code isn't optimized, since it is only for
+ ; demonstration purposes. anyway, here are the bit descriptions in the
+ ; order as they are sent by the pad. rol them, ror them, read them at
+ ; once for all 8 pads, or whatever. you have quite a number of options
+ ; :)
+ ;
+ ;    bit  0 : button b
+ ;    bit  1 : button y
+ ;    bit  2 : select
+ ;    bit  3 : start
+ ;    bit  4 : up
+ ;    bit  5 : down
+ ;    bit  6 : left
+ ;    bit  7 : right
+ ;    bit  8 : button a
+ ;    bit  9 : button x
+ ;    bit 10 : top-left l
+ ;    bit 11 : top-right r
+ ;    bit 12+: always 1
+ ;
+ ; normally a cleared bit means 'button pressed'. of course, you can
+ ; change this by using an eor #$?? command.
+
+getsnes:
+              lda #$00      ; pa 0-7 = input
+              sta $dc02     ;
+              lda #$f8      ; pb 0-2 = input
+              sta $dc03     ; pb 3-7 = output
+              lda #$10      ; send "reset" command
+              sta $dc01     ; to all pads
+              lda #0        ; and
+              sta $dc01     ; clear it
+              ldy #16       ; get 16 bits (we actually need only 12
+                            ; bits, but this way we have constant
+loop3:                      ; values on the screen.)
+              ldx #14       ; counter for 8 pads
+              lda $dc01     ; get data from joyport 1
+              eor #7        ; invert bits from pads (not necessary)
+loop1:
+              lsr           ; shift bit from pad into carry...
+              rol joy+0,x   ; ...then into its destination
+              rol joy+1,x   ; ...rotate 16 bits
+              dex           ; decrement counter by 2 as we use
+              dex           ; two bytes for storage
+              cpx #8        ; first three pads done?
+              bne loop1     ; no? then continue
+              lda $dc00     ; get data from joyport 2
+              eor #$1f      ; invert bits from pads (not necessary)
+loop2:
+              lsr           ; shift bit from pad into carry...
+              rol joy+0,x   ; ...then into its destination
+              rol joy+1,x   ; ...rotate 16 bits
+              dex           ; again decrement counter
+              dex
+              bpl loop2     ; all done?
+              lda #8        ; send "next" command
+              sta $dc01     ; to all pads
+              lda #0        ; and
+              sta $dc01     ; clear it
+              dey           ; did we get 12 bits?
+              bne loop3     ; if not, loop
+              lda #$ff      ; back...
+              sta $dc02     ; to...
+              lda #$00      ; normal...
+              sta $dc03     ; for keyboard scan.
+              rts           ; go back...
+
+ ; if you use the rol instruction to collect the bits from the pad,
+ ; you can use this table to fix the directions, so that it is
+ ; compatible with the standard c64 format. simply isolate the
+ ; direction-bits and use them as an index. by the way use the ror
+ ; instruction and you won't have this problem...
+
+fixtab:
+              byt $00,$08,$04,$0c,$02,$0a,$06,$0e
+              byt $01,$09,$05,$0d,$03,$0b,$07,$0f
+
+------------------------------------------------------------------------
+
+i know, this routine isn't fast at all, but as long as you don't need
+all buttons on all pads there are lots of ways to reduce the amount of
+rastertime (even turrican 2 has enough time left for a pad!).
+
+so, with this little piece of inexpensive hardware the limits are now
+eight devices with eight different buttons each. hey, game-developers!
+couldn't this become useful to you???
+
+and look out for my snes-pad-tool-disk. there will be some gfx-tools,
+which i patched to use the extra buttons, as well as an amica-paint
+driver and a special surprise to all game freaks out there ;)
+
+any questions or comments? feel free to write me an email:
+
+   ninja/dreams   (email: ninja@p25.boox.fido.de)
+
