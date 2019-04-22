@@ -24,7 +24,7 @@ The authors can be contacted at c64@spiderlab.at.
 
 ### Installing
 
-Since the App Store does not allow emulators, you will have to install it yourself. You will need Xcode and a developer certificate.
+Since emulators where users can add their own programs are not allowed in the App Store, you will have to install it yourself. You will need Xcode and a developer certificate.
 
 You can build it from source yourself. C64 has no external dependencies. 
 
