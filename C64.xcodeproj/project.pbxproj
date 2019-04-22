@@ -2112,6 +2112,7 @@
 		4B3FABA221D7AD8800C272C4 /* renderyuv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = renderyuv.h; sourceTree = "<group>"; };
 		4B3FABA321D7AD8800C272C4 /* debug.h.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = debug.h.in; sourceTree = "<group>"; };
 		4B460E1E2269F70100815E7F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		4B460E1F226DBFBA00815E7F /* C64.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = C64.entitlements; sourceTree = "<group>"; };
 		4B697C6E21E36B340091BFCC /* FullScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenViewController.swift; sourceTree = "<group>"; };
 		4B697C7021E378DE0091BFCC /* SingleSelectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSelectionTableViewController.swift; sourceTree = "<group>"; };
 		4B697C7221E38EDA0091BFCC /* Vice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vice.swift; sourceTree = "<group>"; };
@@ -2414,6 +2415,7 @@
 		4B3F974521D7ACC700C272C4 /* C64 */ = {
 			isa = PBXGroup;
 			children = (
+				4B460E1F226DBFBA00815E7F /* C64.entitlements */,
 				4B3F974621D7ACC700C272C4 /* AppDelegate.swift */,
 				4B3E4A612212B3D200511F08 /* Assets */,
 				4BBF86B721DBA70F00EF99ED /* Audio.h */,
@@ -4325,6 +4327,11 @@
 					4B3F974221D7ACC700C272C4 = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1020;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 0;
+							};
+						};
 					};
 					4B7609EF21F47B900058FBCD = {
 						CreatedOnToolsVersion = 10.1;
