@@ -150,7 +150,24 @@ struct Keyboard: Codable {
                                   leftShiftLeft: 286,
                                   leftShiftRight: 580,
                                   rightShiftLeft: 2543,
-                                  rightShiftRight: 2837)
+                                  rightShiftRight: 2837),
+        "VIC-20 Keyboard": Keyboard(imageName: "VIC-20 Keyboard",
+                                 rows: [ 69, 257, 446, 635, 824, 1012 ],
+                                 topHalfLeft: 100,
+                                 topHalfRight: 3034,
+                                 bottomHalfLeft: 49,
+                                 bottomHalfRight: 2984,
+                                 functionKeysLeft: 3115,
+                                 functionKeysRight: 3415,
+                                 spaceLeft: 544,
+                                 spaceRight: 2207,
+                                 ctrlRight: 330,
+                                 restoreLeft: 2778,
+                                 returnLeft: 2681,
+                                 leftShiftLeft: 283,
+                                 leftShiftRight: 559,
+                                 rightShiftLeft: 2341,
+                                 rightShiftRight: 2681),
     ]
     
     static func keyboard(named name: String) -> Keyboard? {

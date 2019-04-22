@@ -121,10 +121,11 @@ struct Controller: MachinePart {
     var viceType: ViceType
     var inputType: InputType { return viceType.inputType }
 
-    init(identifier: String, name: String, fullName: String? = nil, iconName: String?, priority: Int = MachinePartNormalPriority, viceType: ViceType) {
+    init(identifier: String, name: String, fullName: String? = nil, variantName: String? = nil, iconName: String?, priority: Int = MachinePartNormalPriority, viceType: ViceType) {
         self.identifier = identifier
         self.name = name
         self.fullName = fullName ?? name
+        self.variantName = variantName
         if let iconName = iconName {
             self.icon = UIImage(named: iconName)
         }
@@ -140,9 +141,12 @@ struct Controller: MachinePart {
     static let controllers = [
         none,
         Controller(identifier: "Competition Pro", name: "Comp. Pro", fullName: "Competition Pro", iconName: "Competition Pro", priority: MachinePartHighPriority, viceType: .joystick),
+        Controller(identifier: "Competition Pro Blue", name: "Comp. Pro", fullName: "Competition Pro", variantName: "Blue", iconName: "Competition Pro Blue", viceType: .joystick),
+        Controller(identifier: "Competition Pro Cleaer", name: "Comp. Pro", fullName: "Competition Pro", variantName: "Clear", iconName: "Competition Pro Clear", viceType: .joystick),
         Controller(identifier: "QuickShot II", name: "QuickShot", fullName: "Spectravideo QuickShot II", iconName: "Spectravideo QuickShot II", viceType: .joystick),
-        Controller(identifier: "1311", name: "1311", fullName: "Commodore Joystick 1311", iconName: "Commodore Joystick 1311", viceType: .joystick),
+        Controller(identifier: "QuickShot IX", name: "QuickShot IX", fullName: "Spectravideo QuickShot IX", iconName: "Spectravideo QuickShot IX", viceType: .joystick),
         //Controller(identifier: "Annihilator", name: "Annihilator", fullName: "Cheetah Annihilator", iconName: "Cheetah Annihilator", viceType: .joystick), // has two buttons
+        Controller(identifier: "1311", name: "1311", fullName: "Commodore Joystick 1311", iconName: "Commodore Joystick 1311", viceType: .joystick),
         Controller(identifier: "1351", name: "1351", fullName: "Commodore Mouse 1351", iconName: "Commodore 1351", viceType: .mouse1351),
         Controller(identifier: "STM1", name: "Atari STM1", fullName: "Atari Mouse STM1", iconName: "Atari Mouse STM1", viceType: .mouseSt)
         //Controller(identifier: "Sinclair Magnum", name: "Magnum", fullName: "Sinclair Magnum Light Phaser", iconName: "Sinclair Magnum Light Phaser", inputType: .lightGun)

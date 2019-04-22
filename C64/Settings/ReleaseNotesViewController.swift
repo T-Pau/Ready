@@ -33,6 +33,10 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Release 1.1 (Build 2)", year: 2019, month: 4, day: 22, changes: [
+            "Add Commodore 64 variants with VIC-20 Style Keyboard.",
+            "Add Competition Pro variants and QuickShot IX."
+        ]),
         Release(name: "Release 1.1", year: 2019, month: 4, day: 21, changes: [
             "First public release."
         ])

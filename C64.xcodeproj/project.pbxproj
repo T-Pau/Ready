@@ -2112,7 +2112,6 @@
 		4B3FABA221D7AD8800C272C4 /* renderyuv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = renderyuv.h; sourceTree = "<group>"; };
 		4B3FABA321D7AD8800C272C4 /* debug.h.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = debug.h.in; sourceTree = "<group>"; };
 		4B460E1E2269F70100815E7F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		4B460E1F226DBFBA00815E7F /* C64.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = C64.entitlements; sourceTree = "<group>"; };
 		4B697C6E21E36B340091BFCC /* FullScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenViewController.swift; sourceTree = "<group>"; };
 		4B697C7021E378DE0091BFCC /* SingleSelectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSelectionTableViewController.swift; sourceTree = "<group>"; };
 		4B697C7221E38EDA0091BFCC /* Vice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vice.swift; sourceTree = "<group>"; };
