@@ -33,6 +33,9 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Release 1.1 (Build 3)", year: 2019, month: 4, day: 23, changes: [
+            "Improve thumbstick handling for MfI controllers."
+        ]),
         Release(name: "Release 1.1 (Build 2)", year: 2019, month: 4, day: 22, changes: [
             "Add Commodore 64 variants with VIC-20 Style Keyboard.",
             "Add Competition Pro variants and QuickShot IX."

@@ -2,18 +2,17 @@
 
 ## other
 
-- Cheetah Annihilator Joystick (C64GS) (2nd button connecting POTX to VCC)
 - fix dragging files out of C64
 - sharing
   - add share button
   - allow selecting media, images in all game views
-  - share whole gamef
+  - share whole game
 - documentation
 - disk select: sub views for game / tools (inbox?)
 - disk select: show currently selected (other drives too)
 - rewrite machine configuration view as collection view
 - turn off disk drives (via status bar)
-- no two mice
+- no two mice (Vice limitation)
 - tape status view left border too wide (led view too wide?)
 - sharing of whole game
 - create blank disk images
@@ -27,12 +26,12 @@
     - choose file to autostart from disk
     - save states
 - REU support
+- MIDI support
+- Cheetah Annihilator Joystick (C64GS) (2nd button connecting POTX to VCC, nut supported by Vice)
 - save states
 - allow removing border from screenshots
 - hardware keyboard
     - control
-    - restore
-    - run/stop + restore (option/command + ?)
     - commodore? (optionally via caps lock?)
 - use Metal to draw image, support shaders for CRT effects
 - software keyboard

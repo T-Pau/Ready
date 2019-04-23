@@ -38,6 +38,9 @@ class MfiInputDevice: InputDevice {
         }
     }
     
+    static var deadZone = 0.1
+    static var coneAngle = 67.5
+    
     init(controller: GCController) {
         self.controller = controller
         super.init(identifier: "\(ObjectIdentifier(controller))", name: "", supportedModes: [ .joystick ])
@@ -58,11 +61,9 @@ class MfiInputDevice: InputDevice {
         if let gamepad = controller.extendedGamepad {
             gamepad.valueChangedHandler = { gamepad, _ in
                 var buttons = JoystickButtons()
-                
-                buttons.up = gamepad.dpad.up.isPressed || gamepad.leftThumbstick.up.isPressed
-                buttons.down = gamepad.dpad.down.isPressed || gamepad.leftThumbstick.down.isPressed
-                buttons.left = gamepad.dpad.left.isPressed || gamepad.leftThumbstick.left.isPressed
-                buttons.right = gamepad.dpad.right.isPressed || gamepad.leftThumbstick.right.isPressed
+
+                buttons.update(dpad: gamepad.dpad)
+                buttons.update(thumbstick: gamepad.leftThumbstick)
                 buttons.fire = gamepad.buttonA.isPressed
                 
                 self.update(buttons: buttons)
@@ -72,10 +73,7 @@ class MfiInputDevice: InputDevice {
             gamepad.valueChangedHandler = { gamepad, _ in
                 var buttons = JoystickButtons()
                 
-                buttons.up = gamepad.dpad.up.isPressed
-                buttons.down = gamepad.dpad.down.isPressed
-                buttons.left = gamepad.dpad.left.isPressed
-                buttons.right = gamepad.dpad.right.isPressed
+                buttons.update(dpad: gamepad.dpad)
                 buttons.fire = gamepad.buttonA.isPressed
                 
                 self.update(buttons: buttons)
@@ -108,7 +106,49 @@ class MfiInputDevice: InputDevice {
             "Mad Catz C.T.R.L.i Blue",
             "Mad Catz C.T.R.L.i Red"
         ]),
-        "Steel Series Nimbus" : Product(name: "Nimubs", iconNames: [ "Steel Series Nimbus" ]),
+        "Nimbus" : Product(name: "Nimubs", iconNames: [ "Steel Series Nimbus" ]),
         "Steel Series Stratus" : Product(name: "Stratus", iconNames: [ "Steel Series Stratus White" ])
     ]
+}
+
+extension JoystickButtons {
+    mutating func update(dpad: GCControllerDirectionPad) {
+        up = dpad.up.isPressed
+        down = dpad.down.isPressed
+        left = dpad.left.isPressed
+        right = dpad.right.isPressed
+    }
+    
+    mutating func update(thumbstick: GCControllerDirectionPad) {
+        let x = Double(thumbstick.xAxis.value)
+        let y = Double(thumbstick.yAxis.value)
+        
+        let distance = sqrt(abs(x) * abs(x) + abs(y) * abs(y))
+        var angle: Double
+        
+        if (distance == 0) {
+            angle = 0
+        }
+        else {
+            angle = acos(x / distance) * 180 / Double.pi
+            if y < 0 {
+                angle = 360 - angle
+            }
+        }
+        
+        if distance >= MfiInputDevice.deadZone {
+            if angle < MfiInputDevice.coneAngle || angle > 360 - MfiInputDevice.coneAngle {
+                right = true
+            }
+            if  angle > 90 - MfiInputDevice.coneAngle && angle < 90 + MfiInputDevice.coneAngle {
+                up = true
+            }
+            if angle > 180 - MfiInputDevice.coneAngle && angle < 180 + MfiInputDevice.coneAngle {
+                left = true
+            }
+            if angle > 270 - MfiInputDevice.coneAngle && angle < 270 + MfiInputDevice.coneAngle {
+                down = true
+            }
+        }
+    }
 }
