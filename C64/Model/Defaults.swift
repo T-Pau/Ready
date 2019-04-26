@@ -54,6 +54,7 @@ class Defaults {
         case BiosJiffyDos1541II
         case BiosJiffyDos1581
         case BorderMode
+        case CapsLockAsCommodore
         case CurrentTab
         case EmulateDriveSounds
         case EnableJiffyDos
@@ -94,6 +95,15 @@ class Defaults {
     var biosJiffyDos1581: String? {
         get { return stringValue(for: .BiosJiffyDos1581) }
         set { set(value: newValue, for: .BiosJiffyDos1581) }
+    }
+    
+    var capsLockAsCommodore: Bool {
+        get {
+            return boolValue(for: .CapsLockAsCommodore)
+        }
+        set {
+            set(value: newValue, for: .CapsLockAsCommodore)
+        }
     }
     
     var emulateDriveSounds: Bool {
@@ -218,6 +228,8 @@ class Defaults {
             return value
         }
         switch key {
+        case .CapsLockAsCommodore:
+            return true
         case .EmulateDriveSounds:
             return true
         case .EnableJiffyDos:

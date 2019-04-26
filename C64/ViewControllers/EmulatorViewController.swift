@@ -72,6 +72,7 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
     @IBOutlet weak var controllerView: VirtualControlsView!
     @IBOutlet weak var saveTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var fullscreenTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var controllerViewTopConstraint: NSLayoutConstraint!
     
     private var driveStatus = [DriveStatusView]()
     
@@ -87,10 +88,14 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
     struct Binding {
         var key: Key
         var shift: Bool
+        var control: Bool
+        var commodore: Bool
         
-        init(key: Key, shift: Bool = false) {
+        init(key: Key, shift: Bool = false, control: Bool = false, commodore: Bool = false) {
             self.key = key
             self.shift = shift
+            self.control = control
+            self.commodore = commodore
         }
     }
 
@@ -113,7 +118,7 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
         }
     }
 
-    let bindings = [
+    let bindings: [KeyBinding] = [
         KeyBinding(input: "1", modifierFlags: [.alternate], title: "F1", binding: Binding(key: .F1)),
         KeyBinding(input: "2", modifierFlags: [.alternate], title: "F2", binding: Binding(key: .F1, shift: true)),
         KeyBinding(input: "3", modifierFlags: [.alternate], title: "F3", binding: Binding(key: .F3)),
@@ -155,8 +160,29 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
         KeyBinding(input: "(", binding: Binding(key: .Char("8"), shift: true)),
         KeyBinding(input: ")", binding: Binding(key: .Char("9"), shift: true)),
 
+        KeyBinding(input: "1", modifierFlags: [.control], binding: Binding(key: .Char("1"), control: true)),
+        KeyBinding(input: "2", modifierFlags: [.control], binding: Binding(key: .Char("2"), control: true)),
+        KeyBinding(input: "3", modifierFlags: [.control], binding: Binding(key: .Char("3"), control: true)),
+        KeyBinding(input: "4", modifierFlags: [.control], binding: Binding(key: .Char("4"), control: true)),
+        KeyBinding(input: "5", modifierFlags: [.control], binding: Binding(key: .Char("5"), control: true)),
+        KeyBinding(input: "6", modifierFlags: [.control], binding: Binding(key: .Char("6"), control: true)),
+        KeyBinding(input: "7", modifierFlags: [.control], binding: Binding(key: .Char("7"), control: true)),
+        KeyBinding(input: "8", modifierFlags: [.control], binding: Binding(key: .Char("8"), control: true)),
+        KeyBinding(input: "9", modifierFlags: [.control], binding: Binding(key: .Char("9"), control: true)),
+        KeyBinding(input: "0", modifierFlags: [.control], binding: Binding(key: .Char("0"), control: true)),
+
+        KeyBinding(input: "1", modifierFlags: [.alphaShift], binding: Binding(key: .Char("1"), commodore: true)),
+        KeyBinding(input: "2", modifierFlags: [.alphaShift], binding: Binding(key: .Char("2"), commodore: true)),
+        KeyBinding(input: "3", modifierFlags: [.alphaShift], binding: Binding(key: .Char("3"), commodore: true)),
+        KeyBinding(input: "4", modifierFlags: [.alphaShift], binding: Binding(key: .Char("4"), commodore: true)),
+        KeyBinding(input: "5", modifierFlags: [.alphaShift], binding: Binding(key: .Char("5"), commodore: true)),
+        KeyBinding(input: "6", modifierFlags: [.alphaShift], binding: Binding(key: .Char("6"), commodore: true)),
+        KeyBinding(input: "7", modifierFlags: [.alphaShift], binding: Binding(key: .Char("7"), commodore: true)),
+        KeyBinding(input: "8", modifierFlags: [.alphaShift], binding: Binding(key: .Char("8"), commodore: true)),
+
         KeyBinding(input: "@"),
         KeyBinding(input: "*"),
+        KeyBinding(input: "p", modifierFlags: [.alternate], title: "π", binding: Binding(key: .ArrowUp, shift: true)),
         
         KeyBinding(input: ":"),
         KeyBinding(input: ";"),
@@ -178,6 +204,9 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
         KeyBinding(input: UIKeyCommand.inputUpArrow, binding: Binding(key: .CursorUpDown, shift: true)),
         KeyBinding(input: UIKeyCommand.inputLeftArrow, binding: Binding(key: .CursorLeftRight, shift: true)),
         
+        KeyBinding(input: "", modifierFlags: [.alphaShift], title: "Commodore", binding: Binding(key: .Commodore)),
+        KeyBinding(input: "", modifierFlags: [.shift, .alphaShift], binding: Binding(key: .Commodore, shift: true)),
+        
         KeyBinding(input: " ")
     ]
     
@@ -191,6 +220,7 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
     
     override func viewDidLoad() {
         driveStatus = [ drive8Status, drive9Status, drive10Status, drive11Status ]
+        controllerView.topOffset = controllerViewTopConstraint.constant
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -363,12 +393,25 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
             }
 
             if machine.specification.computer.keyboard != nil {
+                let capsLockAsCommodore = Defaults.standard.capsLockAsCommodore
+
+                var modifiers: [UIKeyModifierFlags] = [[], [.shift]]
+                
+                if capsLockAsCommodore {
+                    modifiers.append([.alphaShift])
+                }
                 for key in [ "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" ] {
-                    _keyboardCommands.append(UIKeyCommand(input: key, modifierFlags: [], action: #selector(handleKeyCommand(_:))))
-                    _keyboardCommands.append(UIKeyCommand(input: key, modifierFlags: [.shift], action: #selector(handleKeyCommand(_:))))
+                    for modifier in modifiers {
+                        _keyboardCommands.append(UIKeyCommand(input: key, modifierFlags: modifier, action: #selector(handleKeyCommand(_:))))
+                    }
                 }
                 
+                
                 for keyBinding in bindings {
+                    if !capsLockAsCommodore && keyBinding.modifierFlags.contains(.alphaShift) {
+                        continue
+                    }
+                    
                     let command: UIKeyCommand
                     if let title = keyBinding.title {
                         command = UIKeyCommand(input: keyBinding.input, modifierFlags: keyBinding.modifierFlags, action: #selector(handleKeyCommand(_:)), discoverabilityTitle: title)
@@ -380,7 +423,9 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
                     _keyboardCommands.append(command)
                 }
                 
-                _keyboardCommands.append(UIKeyCommand(input: "", modifierFlags: [.alphaShift], action: #selector(handleCapsLock(_:))))
+                if !capsLockAsCommodore {
+                    _keyboardCommands.append(UIKeyCommand(input: "", modifierFlags: [.alphaShift], action: #selector(handleCapsLock(_:))))
+                }
             }
         }
         return _keyboardCommands
@@ -443,29 +488,45 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
         
         if let binding = bindingFor(command: command) {
             vice.press(key: binding.key)
+            if (binding.control) {
+                vice.press(key: .Control)
+            }
             if (binding.shift) {
                 vice.press(key: .ShiftLeft)
+            }
+            if (binding.commodore) {
+                vice.press(key: .Commodore)
             }
 
             Timer.scheduledTimer(withTimeInterval: 0.08, repeats: false) { timer in
                 self.vice.release(key: binding.key)
+                if (binding.control) {
+                    self.vice.release(key: .Control)
+                }
                 if (binding.shift) {
                     self.vice.release(key: .ShiftLeft)
+                }
+                if (binding.commodore) {
+                    self.vice.release(key: .Commodore)
                 }
             }
         }
     }
     
     func bindingFor(command: UIKeyCommand) -> Binding? {
+        if let binding = boundKeyCommands[command] {
+            return binding
+        }
+        
         guard let input = command.input else { return nil }
         
         if input >= "a" && input <= "z" && input.count == 1 {
             if let char = input.first {
-                return Binding(key: .Char(char), shift: capsLockPressed || command.modifierFlags.contains(.shift))
+                return Binding(key: .Char(char), shift: capsLockPressed || command.modifierFlags.contains(.shift), control: command.modifierFlags.contains(.control), commodore: command.modifierFlags.contains(.alphaShift))
             }
         }
         
-        return boundKeyCommands[command]
+        return nil
     }
     
     // MARK: - Navigation

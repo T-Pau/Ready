@@ -45,7 +45,8 @@ class GeneralSettingsViewController: UIViewController {
             Row(name: "Border Mode", reuseIdentifier: .Enum, defaultsKey: nil),
             Row(name: "Video Scaling", reuseIdentifier: .Enum, defaultsKey: .VideoFilter),
             Row(name: "Emulate Drive Sounds", reuseIdentifier: .Switch, defaultsKey: .EmulateDriveSounds),
-            Row(name: "Enable JiffyDOS", reuseIdentifier: .Switch, defaultsKey: .EnableJiffyDos)
+            Row(name: "Enable JiffyDOS", reuseIdentifier: .Switch, defaultsKey: .EnableJiffyDos),
+            Row(name: "Use Caps Lock as Commodore Key", reuseIdentifier: .Switch, defaultsKey: .CapsLockAsCommodore)
         ])
     ]
     

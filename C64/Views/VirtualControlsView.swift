@@ -24,6 +24,8 @@ import UIKit
 import C64UIComponents
 
 class VirtualControlsView: UIView {
+    @IBInspectable var topOffset: CGFloat = 0
+    
     var currentMode = Controller.InputType.none {
         didSet {
             view(for: oldValue)?.isHidden = true
@@ -32,6 +34,7 @@ class VirtualControlsView: UIView {
     }
     var joystickView = JoystickView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     var mouseView = MouseView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+//    var lightPenView =
 
     required init?(coder decoder: NSCoder) {
         super.init(coder: decoder)

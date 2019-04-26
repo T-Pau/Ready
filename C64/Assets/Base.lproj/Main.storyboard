@@ -1349,6 +1349,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="controllerView" destination="SD9-Ec-zdE" id="RbO-4e-KJI"/>
+                        <outlet property="controllerViewTopConstraint" destination="aQx-wl-htc" id="vwg-Wd-fKX"/>
                         <outlet property="drive10Status" destination="Hlc-Q7-BPl" id="kYB-45-28Q"/>
                         <outlet property="drive11Status" destination="bhQ-dM-GHE" id="8KN-98-kpa"/>
                         <outlet property="drive8Status" destination="lSY-0d-bx7" id="bBO-Jf-Iky"/>
@@ -1720,17 +1721,17 @@
                                                         <rect key="frame" x="20" y="20" width="984" height="128"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="General" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qqy-PO-oXz">
-                                                                <rect key="frame" x="0.0" y="0.0" width="83" height="29"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="88" height="29"/>
                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wRb-av-VoO" userLabel="Padding">
-                                                                <rect key="frame" x="91" y="0.0" width="797" height="128"/>
+                                                                <rect key="frame" x="96" y="0.0" width="797" height="128"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </view>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gj8-IX-uW9">
-                                                                <rect key="frame" x="896" y="0.0" width="51" height="33"/>
+                                                                <rect key="frame" x="901" y="0.0" width="46" height="33"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <state key="normal" title="Export"/>
                                                                 <connections>
@@ -2034,7 +2035,7 @@
                                                                             <rect key="frame" x="0.0" y="0.0" width="482" height="59"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                             <subviews>
-                                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rSo-nS-zEu" customClass="MediaView" customModule="C64UIComponents">
+                                                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rSo-nS-zEu" customClass="MediaView" customModule="C64UIComponents">
                                                                                     <rect key="frame" x="8" y="10" width="474" height="39"/>
                                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                     <userDefinedRuntimeAttributes>
@@ -2403,7 +2404,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MN6-3c-Oli" customClass="MediaView" customModule="C64UIComponents">
+                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MN6-3c-Oli" customClass="MediaView" customModule="C64UIComponents">
                                                     <rect key="frame" x="443" y="10" width="89" height="39"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>

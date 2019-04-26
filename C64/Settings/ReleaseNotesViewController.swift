@@ -33,6 +33,9 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Release 1.1 (Build 4)", year: 2019, month: 4, day: 26, changes: [
+            "Add hardware keyboard support for Control and Commodore (via CapsLock, can be disabled in Settings)."
+        ]),
         Release(name: "Release 1.1 (Build 3)", year: 2019, month: 4, day: 23, changes: [
             "Improve thumbstick handling for MfI controllers."
         ]),
