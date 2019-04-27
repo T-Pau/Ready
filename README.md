@@ -16,6 +16,10 @@ The **Inbox** provides a place to quickly try new programs. You can easily move 
 
 **Tools** mode allows attaching a cartridge like Action Replay or Final Cartridge and a collection of disks with your favorite tools, to help you dig into the programs, like back in the day.
 
+### Documentation
+
+The beginnings of a [User Manual](https://github.com/Spider-Lab/C64/wiki/User%20Manual) can be found in the wiki. Any help on expanding it would be greatly appreciated.
+
 ### Contact
 
 Visit the website [spiderlab.at/c64](http://spiderlab.at/c64/) for screenshots.
@@ -24,7 +28,7 @@ The authors can be contacted at c64@spiderlab.at.
 
 ### Installing
 
-Since emulators where users can add their own programs are not allowed in the App Store, you will have to install it yourself. You will need Xcode and a developer certificate.
+Since emulators where users can add their own programs are not allowed in the App Store, you will have to install it yourself. You will need [Xcode](https://developer.apple.com/xcode/) and a [developer certificate](https://developer.apple.com/account/).
 
 You can build it from source yourself. C64 has no external dependencies. 
 
