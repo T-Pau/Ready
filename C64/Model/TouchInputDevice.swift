@@ -30,11 +30,12 @@ class TouchInputDevice: InputDevice {
     init(view: VirtualControlsView) {
         controllerView = view
         
-        super.init(identifier: "Touch", name: "Touch", iconName: "Touch", priority: MachinePartLowPriority, supportedModes: [ .joystick, .mouse ])
+        super.init(identifier: "Touch", name: "Touch", iconName: "Touch", priority: MachinePartLowPriority, supportedModes: [ .joystick, .lightPen, .mouse ])
         
         controllerView.mouseView.delegate = self
         controllerView.mouseView.sensitivity = 1.25
         controllerView.joystickView.delegate = self
+        controllerView.lightPenView.delegate = self
     }
     
     override var currentMode: Controller.InputType {
@@ -60,5 +61,11 @@ extension TouchInputDevice: MouseViewDelegate {
 extension TouchInputDevice: JoystickViewDelegate {
     func joystickView(_ sender: JoystickView, changed buttons: JoystickButtons) {
         delegate?.inputDevice(self, joystickChanged: buttons)
+    }
+}
+
+extension TouchInputDevice: LightPenViewDelegate {
+    func lightPenView(_ sender: LightPenView, changed position: CGPoint?, size: CGSize) {
+        delegate?.inputDevice(self, lightPenMoved: position, size: size)
     }
 }

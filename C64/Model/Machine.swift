@@ -301,10 +301,8 @@ extension Machine {
         case .none:
             break
             
-        case .joystick, .lightGun, .mouse:
+        case .joystick, .lightGun, .lightPen, .mouse:
             inputPorts.append(InputPort(port: port, isUserPort: isUserPort, controller: controller))
-        case .lightPen:
-            break // TODO
         case .paddle:
             break // TODO
         }
@@ -332,6 +330,12 @@ extension Machine: InputDeviceDelegate {
     func inputDevice(_ device: InputDevice, mouseButtonReleased index: Int) {
         guard let _ = port(for: device) else { return }
         vice?.mouse(release: index)
+    }
+    
+    func inputDevice(_ device: InputDevice, lightPenMoved position: CGPoint?, size: CGSize) {
+        guard let _ = port(for: device) else { return }
+        
+        vice?.lightPen(moved: position, size: size)
     }
     
     func inputDeviceDidDisconnect(_ inputDevice: InputDevice) {

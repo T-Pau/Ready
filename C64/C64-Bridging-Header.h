@@ -46,6 +46,9 @@
 #define DRIVE_IDLE_SKIP_CYCLES 1
 #define DRIVE_IDLE_TRAP_IDLE   2
 
+#define LP_HOST_BUTTON_1    1
+#define LP_HOST_BUTTON_2    4
+
 #define MACHINE_RESET_MODE_SOFT 0
 #define MACHINE_RESET_MODE_HARD 1
 
@@ -81,6 +84,8 @@ extern int resources_set_string(const char *name, const char *value);
 
 void keyboard_restore_pressed(void);
 void keyboard_restore_released(void);
+
+void update_light_pen(int x, int y, int width, int height);
 
 const char *drive_get_status(int unit);
 void drive_set_id(int unit, uint8_t id1, uint8_t id2);

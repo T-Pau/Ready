@@ -148,7 +148,8 @@ struct Controller: MachinePart {
         //Controller(identifier: "Annihilator", name: "Annihilator", fullName: "Cheetah Annihilator", iconName: "Cheetah Annihilator", viceType: .joystick), // has two buttons
         Controller(identifier: "1311", name: "1311", fullName: "Commodore Joystick 1311", iconName: "Commodore Joystick 1311", viceType: .joystick),
         Controller(identifier: "1351", name: "1351", fullName: "Commodore Mouse 1351", iconName: "Commodore 1351", viceType: .mouse1351),
-        Controller(identifier: "STM1", name: "Atari STM1", fullName: "Atari Mouse STM1", iconName: "Atari Mouse STM1", viceType: .mouseSt)
+        Controller(identifier: "STM1", name: "Atari STM1", fullName: "Atari Mouse STM1", iconName: "Atari Mouse STM1", viceType: .mouseSt),
+        Controller(identifier: "Rex 9631", name: "Rex 9631", fullName: "Rex Light Pen 9631", iconName: "Rex Light Pen 9631", viceType: .lightpenL) // TODO: correct viceType?
         //Controller(identifier: "Sinclair Magnum", name: "Magnum", fullName: "Sinclair Magnum Light Phaser", iconName: "Sinclair Magnum Light Phaser", inputType: .lightGun)
     ]
     

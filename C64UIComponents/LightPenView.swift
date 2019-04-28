@@ -1,5 +1,5 @@
 /*
- JoystickView.swift -- Virtual Joystick
+ LightPenView.swift -- Virtual Light Pen
  Copyright (C) 2019 Dieter Baron
  
  This file is part of C64, a Commodore 64 emulator for iOS, based on VICE.
@@ -23,14 +23,16 @@
 
 import UIKit
 
-public protocol JoystickViewDelegate {
-    func joystickView(_ sender: JoystickView, changed buttons: JoystickButtons)
+public protocol LightPenViewDelegate {
+    func lightPenView(_ sender: LightPenView, changed position: CGPoint?, size: CGSize)
 }
 
-public class JoystickView: UIView {
-    public var delegate: JoystickViewDelegate?
+public class LightPenView: UIView {
+    @IBInspectable public var topOffset: CGFloat = 0
+
+    public var delegate: LightPenViewDelegate?
     
-    private var joystickGestureRecoginzer: JoystickGestureRecognizer!
+    private var lightPenGestureRecoginzer: LightPenGestureRecognizer!
     
     public required init?(coder decoder: NSCoder) {
         super.init(coder: decoder)
@@ -46,11 +48,19 @@ public class JoystickView: UIView {
         isUserInteractionEnabled = true
         isMultipleTouchEnabled = true
         
-        joystickGestureRecoginzer = JoystickGestureRecognizer(target: self, action: #selector(joystick(_:)))
-        addGestureRecognizer(joystickGestureRecoginzer)
+        lightPenGestureRecoginzer = LightPenGestureRecognizer(target: self, action: #selector(lightPen(_:)))
+        addGestureRecognizer(lightPenGestureRecoginzer)
     }
     
-    @objc func joystick(_ sender: JoystickGestureRecognizer) {
-        delegate?.joystickView(self, changed: sender.currentButtons)
+    @objc func lightPen(_ sender: LightPenGestureRecognizer) {
+        var size = frame.size
+        size.height += topOffset
+        
+        if let position = lightPenGestureRecoginzer.position {
+            delegate?.lightPenView(self, changed: CGPoint(x: position.x, y: position.y + topOffset), size: size)
+        }
+        else {
+            delegate?.lightPenView(self, changed: nil, size: size)
+        }
     }
 }

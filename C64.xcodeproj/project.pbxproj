@@ -36,6 +36,8 @@
 		4B3F6E472254C1F70065180A /* DiskDirectoryTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F6E462254C1F70065180A /* DiskDirectoryTableViewDelegate.swift */; };
 		4B3F974721D7ACC700C272C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F974621D7ACC700C272C4 /* AppDelegate.swift */; };
 		4B3F974C21D7ACC700C272C4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B3F974A21D7ACC700C272C4 /* Main.storyboard */; };
+		4B460E472274529200815E7F /* LightPenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B460E462274529200815E7F /* LightPenView.swift */; };
+		4B460E492274530500815E7F /* LightPenGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B460E482274530500815E7F /* LightPenGestureRecognizer.swift */; };
 		4B697C6F21E36B350091BFCC /* FullScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B697C6E21E36B340091BFCC /* FullScreenViewController.swift */; };
 		4B697C7121E378DE0091BFCC /* SingleSelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B697C7021E378DE0091BFCC /* SingleSelectionTableViewController.swift */; };
 		4B697C7321E38EDA0091BFCC /* Vice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B697C7221E38EDA0091BFCC /* Vice.swift */; };
@@ -2112,6 +2114,8 @@
 		4B3FABA221D7AD8800C272C4 /* renderyuv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = renderyuv.h; sourceTree = "<group>"; };
 		4B3FABA321D7AD8800C272C4 /* debug.h.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = debug.h.in; sourceTree = "<group>"; };
 		4B460E1E2269F70100815E7F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		4B460E462274529200815E7F /* LightPenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightPenView.swift; sourceTree = "<group>"; };
+		4B460E482274530500815E7F /* LightPenGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightPenGestureRecognizer.swift; sourceTree = "<group>"; };
 		4B697C6E21E36B340091BFCC /* FullScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenViewController.swift; sourceTree = "<group>"; };
 		4B697C7021E378DE0091BFCC /* SingleSelectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSelectionTableViewController.swift; sourceTree = "<group>"; };
 		4B697C7221E38EDA0091BFCC /* Vice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vice.swift; sourceTree = "<group>"; };
@@ -4128,6 +4132,8 @@
 				4BD5B373221FF363000C77B8 /* JoystickGestureRecognizer.swift */,
 				4BD5B379222019CE000C77B8 /* JoystickView.swift */,
 				4B0E62C62208714700C3681A /* LedView.swift */,
+				4B460E482274530500815E7F /* LightPenGestureRecognizer.swift */,
+				4B460E462274529200815E7F /* LightPenView.swift */,
 				4BD5B37B2221C425000C77B8 /* MachinePartView.swift */,
 				4B2B9BB1224E7ABC002948B7 /* MediaTableHeaderView.swift */,
 				4B841CFE21F8CEDF009CAF4B /* MediaView.swift */,
@@ -4490,6 +4496,7 @@
 			files = (
 				4B0E62CD220997F000C3681A /* TapeStatusView.swift in Sources */,
 				4BD5B37A222019CE000C77B8 /* JoystickView.swift in Sources */,
+				4B460E492274530500815E7F /* LightPenGestureRecognizer.swift in Sources */,
 				4B841CFD21F8CE78009CAF4B /* ShareableImageView.swift in Sources */,
 				4B2B9BB2224E7ABC002948B7 /* MediaTableHeaderView.swift in Sources */,
 				4BEBC6CD22008B9A009DED63 /* PlaceholderButton.swift in Sources */,
@@ -4497,6 +4504,7 @@
 				4BACE33B2218582000FC3403 /* MouseGestureRecognizer.swift in Sources */,
 				4BD5B37C2221C425000C77B8 /* MachinePartView.swift in Sources */,
 				4BACE33922172AB600FC3403 /* MouseView.swift in Sources */,
+				4B460E472274529200815E7F /* LightPenView.swift in Sources */,
 				4B0E62C72208714700C3681A /* LedView.swift in Sources */,
 				4B0E62CB22098C6900C3681A /* TapeCounterView.swift in Sources */,
 				4BD5B374221FF364000C77B8 /* JoystickGestureRecognizer.swift in Sources */,

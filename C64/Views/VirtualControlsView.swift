@@ -24,7 +24,11 @@ import UIKit
 import C64UIComponents
 
 class VirtualControlsView: UIView {
-    @IBInspectable var topOffset: CGFloat = 0
+    @IBInspectable var topOffset: CGFloat = 0 {
+        didSet {
+            lightPenView.topOffset = topOffset
+        }
+    }
     
     var currentMode = Controller.InputType.none {
         didSet {
@@ -34,7 +38,7 @@ class VirtualControlsView: UIView {
     }
     var joystickView = JoystickView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     var mouseView = MouseView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-//    var lightPenView =
+    var lightPenView = LightPenView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
 
     required init?(coder decoder: NSCoder) {
         super.init(coder: decoder)
@@ -51,6 +55,8 @@ class VirtualControlsView: UIView {
     private func setup() {
         setup(view: joystickView)
         setup(view: mouseView)
+        setup(view: lightPenView)
+        lightPenView.topOffset = topOffset
     }
     
     private func setup(view: UIView) {
@@ -73,9 +79,12 @@ class VirtualControlsView: UIView {
         case .joystick:
             return joystickView
             
-        case .lightGun, .lightPen:
+        case .lightGun:
             return nil
-
+            
+        case .lightPen:
+            return lightPenView
+            
         case .mouse:
             return mouseView
             

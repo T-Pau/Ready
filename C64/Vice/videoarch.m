@@ -37,6 +37,8 @@
 #include "archdep.h"
 #include "kbdbuf.h"
 #include "machine.h"
+#include "viciitypes.h"
+#include "lightpen.h"
 
 #import <CoreImage/CoreImage.h>
 #import "ViceThread.h"
@@ -52,6 +54,10 @@ unsigned int border_animation[] = {
     4
 };
 int num_animation = sizeof(border_animation) / sizeof(border_animation[0]);
+
+static int lightpen_x;
+static int lightpen_y;
+static int lightpen_buttons;
 
 /* For border auto hiding */
 /* Number of consecutive frames border must not change until it's hidden */
@@ -86,6 +92,9 @@ static uint32_t c64_palette[] = {
  *  \sa video_canvas_create
  */
 void video_arch_canvas_init(struct video_canvas_s *canvas) {
+    lightpen_x = -1;
+    lightpen_y = -1;
+    lightpen_buttons = 0;
 }
 
 
@@ -292,15 +301,17 @@ void video_canvas_refresh(struct video_canvas_s *canvas, unsigned int xs, unsign
         }
     }
     
-    xs = canvas->geometry->gfx_position.x - MY_MIN(left_border, canvas->border_width);
-    ys = canvas->geometry->gfx_position.y - MY_MIN(top_border, canvas->border_width);
-    w = canvas->geometry->gfx_size.width + MY_MIN(left_border, canvas->border_width) + MY_MIN(right_border, canvas->border_width);
-    h = canvas->geometry->gfx_size.height + MY_MIN(top_border, canvas->border_width) + MY_MIN(bottom_border, canvas->border_width);
+    canvas->current_offset.x = MY_MIN(left_border, canvas->border_width);
+    canvas->current_offset.y = MY_MIN(top_border, canvas->border_width);
+    canvas->current_size.width = canvas->geometry->gfx_size.width + canvas->current_offset.x + MY_MIN(right_border, canvas->border_width);
+    canvas->current_size.height = canvas->geometry->gfx_size.height + canvas->current_offset.y + MY_MIN(bottom_border, canvas->border_width);
+    xs = canvas->geometry->gfx_position.x - canvas->current_offset.x;
+    ys = canvas->geometry->gfx_position.y - canvas->current_offset.y;
 
     uint8_t *source = canvas->draw_buffer->draw_buffer + canvas->draw_buffer->draw_buffer_pitch * ys + xs;
     uint32_t *destination = canvas->bitmapData + canvas->bitmapWidth * yi + xi;
-    for (int y = 0; y < h; y++) {
-        for (int x = 0; x < w; x++) {
+    for (int y = 0; y < canvas->current_size.height; y++) {
+        for (int x = 0; x < canvas->current_size.width; x++) {
             destination[x] = c64_palette[source[x]];
         }
         
@@ -308,7 +319,7 @@ void video_canvas_refresh(struct video_canvas_s *canvas, unsigned int xs, unsign
         destination += canvas->bitmapWidth;
     }
     
-    [viceThread updateBitmapWidth: w height: h];
+    [viceThread updateBitmapWidth: canvas->current_size.width height: canvas->current_size.height];
     
 }
 
@@ -397,6 +408,7 @@ void vsyncarch_presync(void) {
         return;
     }
     
+    lightpen_update(0, lightpen_x, lightpen_y, lightpen_buttons);
     kbdbuf_flush();
 }
 
@@ -437,4 +449,30 @@ void vsyncarch_sleep(unsigned long delay)
         }
         nanosleep(&ts, NULL);
     }
+}
+
+void update_light_pen(int x, int y, int width, int height) {
+    video_canvas_t *canvas = vicii.raster.canvas;
+    
+    if (x > 0 && y > 0) {
+        double scale = MY_MIN((double)width / canvas->current_size.width, (double)height / canvas->current_size.height);
+        int x_offset = (width - canvas->current_size.width * scale) / 2;
+        int y_offset = (height - canvas->current_size.height * scale) / 2;
+        
+        x = (x - x_offset) / scale - canvas->current_offset.x;
+        y = (y - y_offset) / scale - canvas->current_offset.y;
+
+        if (x >= 0 && x < 320 && y >= 0 && y < 200) {
+            lightpen_x = x;
+            lightpen_y = y;
+            lightpen_buttons = LP_HOST_BUTTON_1;
+            return;
+        }
+    }
+
+    lightpen_x = -1;
+    lightpen_y = -1;
+    lightpen_buttons = 0;
+    return;
+
 }

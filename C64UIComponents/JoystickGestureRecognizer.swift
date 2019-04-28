@@ -1,5 +1,5 @@
 /*
- JoystickGestureRecognizer.swift -- Recognize Joystick Gestures
+ JoystickGestureRecognizer.swift -- Recognize Light Pen Gestures
  Copyright (C) 2019 Dieter Baron
  
  This file is part of C64, a Commodore 64 emulator for iOS, based on VICE.
@@ -19,7 +19,7 @@
  along with this program; if not, write to the Free Software
  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
  02111-1307  USA.
-*/
+ */
 
 import UIKit
 
@@ -42,11 +42,11 @@ public struct JoystickButtons: Equatable {
 public class JoystickGestureRecognizer: UIGestureRecognizer {
     @IBInspectable public var buttonWidthRatio: CGFloat = 0.3
     @IBInspectable public var directionThreshold: CGFloat = 20
-
+    
     public var previousButtons = JoystickButtons()
     public var currentButtons = JoystickButtons()
     private var newButtons = JoystickButtons()
-
+    
     private var center: CGPoint?
     private var directionTouches = Set<UITouch>()
     private var buttonTouches = Set<UITouch>()
@@ -90,7 +90,7 @@ public class JoystickGestureRecognizer: UIGestureRecognizer {
             newButtons = JoystickButtons()
             center = nil
         }
-
+        
         updateState()
     }
     
@@ -117,7 +117,7 @@ public class JoystickGestureRecognizer: UIGestureRecognizer {
                     newButtons.right = true
                     newCenter.x = max(newCenter.x, location.x - 2 * directionThreshold)
                 }
-
+                
                 if location.y < newCenter.y - directionThreshold {
                     newButtons.up = true
                     newCenter.y = min(newCenter.y, location.y + 2 * directionThreshold)
@@ -126,7 +126,7 @@ public class JoystickGestureRecognizer: UIGestureRecognizer {
                     newButtons.down = true
                     newCenter.y = max(newCenter.y, location.y - 2 * directionThreshold)
                 }
-
+                
                 center = newCenter
                 updateState()
             }
@@ -135,7 +135,7 @@ public class JoystickGestureRecognizer: UIGestureRecognizer {
     
     private func updateState() {
         newButtons.fire = buttonTouches.count == 1
-
+        
         if newButtons != currentButtons  || state == .possible {
             previousButtons = currentButtons
             currentButtons = newButtons

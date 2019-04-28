@@ -25,6 +25,7 @@
 */
 
 #include <stdint.h>
+#include "viewport.h"
 
 typedef struct video_canvas_s {
     /** \brief Nonzero if it is safe to access other members of the
@@ -59,6 +60,9 @@ typedef struct video_canvas_s {
     
     uint32_t *bitmapData;
     int bitmapWidth;
+
+    position_t current_offset;
+    rectangle_t current_size;
 
     /* For border auto hiding */
     /* Currently showing border? */

@@ -32,6 +32,8 @@ protocol InputDeviceDelegate {
     func inputDevice(_ device: InputDevice, mouseMoved distance: CGPoint)
     func inputDevice(_ device: InputDevice, mouseButtonPressed: Int)
     func inputDevice(_ device: InputDevice, mouseButtonReleased: Int)
+    
+    func inputDevice(_ device: InputDevice, lightPenMoved position: CGPoint?, size: CGSize)
 }
 
 class InputDevice: MachinePart {

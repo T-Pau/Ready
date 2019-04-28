@@ -296,6 +296,15 @@ extension JoystickButtons {
     func mouse(release button: Int) {
         send(event: .mouseButton(button: button, pressed: false))
     }
+    
+    func lightPen(moved position: CGPoint?, size: CGSize) {
+        if let position = position {
+            update_light_pen(Int32(position.x), Int32(position.y), Int32(size.width), Int32(size.height))
+        }
+        else {
+            update_light_pen(-1, -1, 1, 1);
+        }
+    }
 
     func setResource(name: Machine.ResourceName, value: Machine.ResourceValue) {
         send(event: .setResource(key: name, value: value))
