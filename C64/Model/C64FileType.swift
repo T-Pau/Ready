@@ -35,11 +35,11 @@ struct C64FileType {
             case .cartridge:
                 return [ "com.apple.macbinary-archive", "public.x509-certificate" ]
             case .disk:
-                return [ "at.spiderlab.c64.d1m", "at.spiderlab.c64.d2m", "at.spiderlab.c64.d4m", "at.spiderlab.c64.d64", "at.spiderlab.c64.d81", "at.spiderlab.c64.g64" ]
+                return [ "at.spiderlab.c64.d1m", "at.spiderlab.c64.d2m", "at.spiderlab.c64.d4m", "at.spiderlab.c64.d64", "at.spiderlab.c64.d81", "at.spiderlab.c64.g64", "org.sidmusic.d64" ]
             case .programFile:
-                return [ "at.spiderlab.c64.prg" ]
+                return [ "at.spiderlab.c64.prg", "org.sidmusic.prg" ]
             case .tape:
-                return [ "at.spiderlab.c64.t64", "at.spiderlab.c64.tap" ]
+                return [ "at.spiderlab.c64.t64", "at.spiderlab.c64.tap", "org.sidmusic.tap" ]
             }
         }
     }
@@ -117,6 +117,17 @@ struct C64FileType {
             
             if let type = C64FileType.knownExtensions[pathExtension] {
                 self.type = type
+            }
+            else {
+                return nil
+            }
+        }
+        else if typeIdentifier.hasPrefix("org.sidmusic.") {
+            pathExtension = String(typeIdentifier.dropFirst(13))
+
+            if let type = C64FileType.knownExtensions[pathExtension] {
+                self.type = type
+                self.typeIdentifier = "at.spiderlab.c64.\(pathExtension)"
             }
             else {
                 return nil
