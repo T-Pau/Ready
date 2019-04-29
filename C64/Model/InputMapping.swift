@@ -56,7 +56,7 @@ struct InputPort: Hashable {
             priority = MachinePartLowPriority - port
         }
         else {
-            if controller.inputType == .mouse {
+            if controller.inputType == .mouse || controller.inputType == .lightGun || controller.inputType == .lightPen {
                 priority = MachinePartHighPriority + 10
             }
             else if port == 2 {

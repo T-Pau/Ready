@@ -35,7 +35,7 @@ struct Controller: MachinePart {
         case mouseSt = 7
         case mouseSmart = 8
         case mouseMicromys = 9
-        case koalapad = 10
+        case koalaPad = 10
         case lightpenU = 11
         case lightpenL = 12
         case lightpenDatel = 13
@@ -64,7 +64,7 @@ struct Controller: MachinePart {
                 return .joystick
             case .paddles:
                 return .paddle
-            case .koalapad, .mouse1351, .mouseAmiga, .mouseCx22, .mouseMicromys, .mouseNeos, .mouseSmart, .mouseSt:
+            case .koalaPad, .mouse1351, .mouseAmiga, .mouseCx22, .mouseMicromys, .mouseNeos, .mouseSmart, .mouseSt:
                 return .mouse
             case .lightgunL, .lightgunY:
                 return .lightGun
@@ -79,17 +79,21 @@ struct Controller: MachinePart {
             switch self {
             case .bbrtc, .coplinKeypad, .joystick, .mouseAmiga, .mouseCx22, .mouseNeos, .mouseSt, .none, .paperclip64, .rushwareKeypad, .sampler2bit, .sampler4bit:
                 return true
-            case .cx21Keypad, .cx85Keypad, .cardcoKeypad, .koalapad, .lightgunL, .lightgunY, .lightpenDatel, .lightpenInkwell, .lightpenL, .lightpenU, .mouse1351, .mouseMicromys, .mouseSmart, .paddles, .script64Dongle, .snespad, .vizawrite64Dongle, .waasoftDongle:
+            case .cx21Keypad, .cx85Keypad, .cardcoKeypad, .koalaPad, .lightgunL, .lightgunY, .lightpenDatel, .lightpenInkwell, .lightpenL, .lightpenU, .mouse1351, .mouseMicromys, .mouseSmart, .paddles, .script64Dongle, .snespad, .vizawrite64Dongle, .waasoftDongle:
                 return false
             }
         }
         
         var numberOfButtons: Int {
             switch self {
-            case .lightgunL, .lightgunY, .lightpenDatel, .lightpenL, .lightpenU, .joystick:
+            case .joystick, .lightgunL, .lightgunY, .lightpenDatel, .lightpenL, .lightpenU, .mouseCx22:
                 return 1
-            case .lightpenInkwell, .mouse1351, .mouseSt:
+            case .koalaPad, .lightpenInkwell, .mouse1351, .mouseNeos, .mouseSmart, .mouseSt:
                 return 2
+            case .mouseAmiga:
+                return 3
+            case .mouseMicromys:
+                return 5
             default: // TODO
                 return 0
             }
@@ -167,17 +171,27 @@ struct Controller: MachinePart {
 
     static let controllers = [
         none,
+        
+        // Joysticks
         Controller(identifier: "Competition Pro", name: "Comp. Pro", fullName: "Competition Pro", iconName: "Competition Pro", priority: MachinePartHighPriority, viceType: .joystick),
         Controller(identifier: "Competition Pro Blue", name: "Comp. Pro", fullName: "Competition Pro", variantName: "Blue", iconName: "Competition Pro Blue", viceType: .joystick),
         Controller(identifier: "Competition Pro Cleaer", name: "Comp. Pro", fullName: "Competition Pro", variantName: "Clear", iconName: "Competition Pro Clear", viceType: .joystick),
         Controller(identifier: "QuickShot II", name: "QuickShot", fullName: "Spectravideo QuickShot II", iconName: "Spectravideo QuickShot II", viceType: .joystick),
         Controller(identifier: "QuickShot IX", name: "QuickShot IX", fullName: "Spectravideo QuickShot IX", iconName: "Spectravideo QuickShot IX", viceType: .joystick),
         //Controller(identifier: "Annihilator", name: "Annihilator", fullName: "Cheetah Annihilator", iconName: "Cheetah Annihilator", viceType: .joystick, numberOfButtons: 2), // has two buttons
+        
+        // Mice
         Controller(identifier: "1311", name: "1311", fullName: "Commodore Joystick 1311", iconName: "Commodore Joystick 1311", viceType: .joystick),
         Controller(identifier: "1351", name: "1351", fullName: "Commodore Mouse 1351", iconName: "Commodore 1351", viceType: .mouse1351),
         Controller(identifier: "STM1", name: "Atari STM1", fullName: "Atari Mouse STM1", iconName: "Atari Mouse STM1", viceType: .mouseSt),
+        Controller(identifier: "Neos", name: "Neos", fullName: "Nihon Neos Mouse", iconName: "Nihon Neos Mouse", viceType: .mouseNeos),
+        Controller(identifier: "KoalaPad", name: "KoalaPad", iconName: "KoalaPad", viceType: .koalaPad),
+        
+        // Light Pen
         Controller(identifier: "Rex 9631", name: "Rex 9631", fullName: "Rex Light Pen 9631", iconName: "Rex Light Pen 9631", viceType: .lightpenL, numberOfButtons: 0),
         Controller(identifier: "Inkwell 184C", name: "Inkwell 184C", fullName: "Inkwell Light Pen 184C", iconName: "Inkwell Light Pen 184C", viceType: .lightpenInkwell),
+        
+        // Light Guns
         Controller(identifier: "Sinclair Magnum", name: "Magnum", fullName: "Sinclair Magnum Light Phaser", iconName: "Sinclair Magnum Light Phaser", viceType: .lightgunY)
     ]
     

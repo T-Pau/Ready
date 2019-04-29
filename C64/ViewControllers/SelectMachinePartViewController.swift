@@ -30,6 +30,7 @@ class SelectMachinePartViewController: UIViewController {
     var changeHandler: ((SelectMachinePartViewController) -> ())?
     
     var iconWidth: CGFloat = 39
+    var dismissOnSelect = false
 
     var selectedRow: Int? {
         guard let identifier = selectedIdentifier else { return nil }
@@ -59,16 +60,22 @@ extension SelectMachinePartViewController: UITableViewDelegate, UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard indexPath.row != selectedRow else { return }
+        var changedIndexPaths = [IndexPath]()
 
-        var changedIndexPaths = [ indexPath ]
-        
-        if let oldRow = selectedRow {
-            changedIndexPaths.append(IndexPath(row: oldRow, section: 0))
+        if indexPath.row != selectedRow {
+            changedIndexPaths.append(indexPath)
+            if let oldRow = selectedRow {
+                changedIndexPaths.append(IndexPath(row: oldRow, section: 0))
+            }
+            selectedIdentifier = machineParts[indexPath.row].identifier
         }
-        selectedIdentifier = machineParts[indexPath.row].identifier
-        
-        tableView.reloadRows(at: changedIndexPaths, with: .automatic)
-        tableView.deselectRow(at: indexPath, animated: true)
+            
+        if dismissOnSelect {
+            navigationController?.popViewController(animated: true)
+        }
+        else {
+            tableView.reloadRows(at: changedIndexPaths, with: .automatic)
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
     }
 }

@@ -41,6 +41,7 @@ class InputMappingTableViewController: UITableViewController, SeguePreparer {
             let indexPath = tableView.indexPathForSelectedRow,
             let inputMapping = inputMapping else { return }
             let port = inputMapping.ports[indexPath.row]
+            destination.dismissOnSelect = true
             destination.machineParts = inputMapping.devices.filter({ $0.supports(inputType: port.inputType) })
             destination.selectedIdentifier = inputMapping[port]?.device.identifier
             destination.changeHandler = { sender in
