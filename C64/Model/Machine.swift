@@ -332,10 +332,28 @@ extension Machine: InputDeviceDelegate {
         vice?.mouse(release: index)
     }
     
-    func inputDevice(_ device: InputDevice, lightPenMoved position: CGPoint?, size: CGSize) {
-        guard let _ = port(for: device) else { return }
+    func inputDevice(_ device: InputDevice, lightPenMoved position: CGPoint?, size: CGSize, button1 rawButton1: Bool, button2 rawButton2: Bool) {
+        guard let controller = port(for: device)?.controller else { return }
+
+        var button1 = false
+        var button2 = false
         
-        vice?.lightPen(moved: position, size: size)
+        if controller.viceType.lightPenNeedsButtonOnTouch {
+            button1 = position != nil
+            if controller.numberOfButtons >= 1 {
+                button2 = rawButton1
+            }
+        }
+        else {
+            if controller.numberOfButtons >= 1 {
+                button1 = rawButton1
+            }
+            if controller.numberOfButtons >= 2 {
+                button2 = rawButton2
+            }
+        }
+
+        vice?.lightPen(moved: position, size: size, button1: button1, button2: button2)
     }
     
     func inputDeviceDidDisconnect(_ inputDevice: InputDevice) {

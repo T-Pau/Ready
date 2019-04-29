@@ -79,10 +79,7 @@ class VirtualControlsView: UIView {
         case .joystick:
             return joystickView
             
-        case .lightGun:
-            return nil
-            
-        case .lightPen:
+        case .lightGun, .lightPen:
             return lightPenView
             
         case .mouse:

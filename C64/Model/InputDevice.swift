@@ -33,7 +33,7 @@ protocol InputDeviceDelegate {
     func inputDevice(_ device: InputDevice, mouseButtonPressed: Int)
     func inputDevice(_ device: InputDevice, mouseButtonReleased: Int)
     
-    func inputDevice(_ device: InputDevice, lightPenMoved position: CGPoint?, size: CGSize)
+    func inputDevice(_ device: InputDevice, lightPenMoved position: CGPoint?, size: CGSize, button1: Bool, button2: Bool)
 }
 
 class InputDevice: MachinePart {

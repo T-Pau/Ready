@@ -79,7 +79,27 @@ struct Controller: MachinePart {
             switch self {
             case .bbrtc, .coplinKeypad, .joystick, .mouseAmiga, .mouseCx22, .mouseNeos, .mouseSt, .none, .paperclip64, .rushwareKeypad, .sampler2bit, .sampler4bit:
                 return true
-        case .cx21Keypad, .cx85Keypad, .cardcoKeypad, .koalapad, .lightgunL, .lightgunY, .lightpenDatel, .lightpenInkwell, .lightpenL, .lightpenU, .mouse1351, .mouseMicromys, .mouseSmart, .paddles, .script64Dongle, .snespad, .vizawrite64Dongle, .waasoftDongle:
+            case .cx21Keypad, .cx85Keypad, .cardcoKeypad, .koalapad, .lightgunL, .lightgunY, .lightpenDatel, .lightpenInkwell, .lightpenL, .lightpenU, .mouse1351, .mouseMicromys, .mouseSmart, .paddles, .script64Dongle, .snespad, .vizawrite64Dongle, .waasoftDongle:
+                return false
+            }
+        }
+        
+        var numberOfButtons: Int {
+            switch self {
+            case .lightgunL, .lightgunY, .lightpenDatel, .lightpenL, .lightpenU, .joystick:
+                return 1
+            case .lightpenInkwell, .mouse1351, .mouseSt:
+                return 2
+            default: // TODO
+                return 0
+            }
+        }
+        
+        var lightPenNeedsButtonOnTouch: Bool {
+            switch self {
+            case .lightpenDatel, .lightpenL, .lightpenU:
+                return true
+            default:
                 return false
             }
         }
@@ -120,8 +140,9 @@ struct Controller: MachinePart {
     
     var viceType: ViceType
     var inputType: InputType { return viceType.inputType }
+    var numberOfButtons: Int
 
-    init(identifier: String, name: String, fullName: String? = nil, variantName: String? = nil, iconName: String?, priority: Int = MachinePartNormalPriority, viceType: ViceType) {
+    init(identifier: String, name: String, fullName: String? = nil, variantName: String? = nil, iconName: String?, priority: Int = MachinePartNormalPriority, viceType: ViceType, numberOfButtons: Int? = nil) {
         self.identifier = identifier
         self.name = name
         self.fullName = fullName ?? name
@@ -134,6 +155,12 @@ struct Controller: MachinePart {
         }
         self.priority = priority
         self.viceType = viceType
+        if let numberOfButtons = numberOfButtons {
+            self.numberOfButtons = numberOfButtons
+        }
+        else {
+            self.numberOfButtons = viceType.numberOfButtons
+        }
     }
     
     static let none = Controller(identifier: "none", name: "None", iconName: nil, priority: 0, viceType: .none)
@@ -145,12 +172,13 @@ struct Controller: MachinePart {
         Controller(identifier: "Competition Pro Cleaer", name: "Comp. Pro", fullName: "Competition Pro", variantName: "Clear", iconName: "Competition Pro Clear", viceType: .joystick),
         Controller(identifier: "QuickShot II", name: "QuickShot", fullName: "Spectravideo QuickShot II", iconName: "Spectravideo QuickShot II", viceType: .joystick),
         Controller(identifier: "QuickShot IX", name: "QuickShot IX", fullName: "Spectravideo QuickShot IX", iconName: "Spectravideo QuickShot IX", viceType: .joystick),
-        //Controller(identifier: "Annihilator", name: "Annihilator", fullName: "Cheetah Annihilator", iconName: "Cheetah Annihilator", viceType: .joystick), // has two buttons
+        //Controller(identifier: "Annihilator", name: "Annihilator", fullName: "Cheetah Annihilator", iconName: "Cheetah Annihilator", viceType: .joystick, numberOfButtons: 2), // has two buttons
         Controller(identifier: "1311", name: "1311", fullName: "Commodore Joystick 1311", iconName: "Commodore Joystick 1311", viceType: .joystick),
         Controller(identifier: "1351", name: "1351", fullName: "Commodore Mouse 1351", iconName: "Commodore 1351", viceType: .mouse1351),
         Controller(identifier: "STM1", name: "Atari STM1", fullName: "Atari Mouse STM1", iconName: "Atari Mouse STM1", viceType: .mouseSt),
-        Controller(identifier: "Rex 9631", name: "Rex 9631", fullName: "Rex Light Pen 9631", iconName: "Rex Light Pen 9631", viceType: .lightpenL) // TODO: correct viceType?
-        //Controller(identifier: "Sinclair Magnum", name: "Magnum", fullName: "Sinclair Magnum Light Phaser", iconName: "Sinclair Magnum Light Phaser", inputType: .lightGun)
+        Controller(identifier: "Rex 9631", name: "Rex 9631", fullName: "Rex Light Pen 9631", iconName: "Rex Light Pen 9631", viceType: .lightpenL, numberOfButtons: 0),
+        Controller(identifier: "Inkwell 184C", name: "Inkwell 184C", fullName: "Inkwell Light Pen 184C", iconName: "Inkwell Light Pen 184C", viceType: .lightpenInkwell),
+        Controller(identifier: "Sinclair Magnum", name: "Magnum", fullName: "Sinclair Magnum Light Phaser", iconName: "Sinclair Magnum Light Phaser", viceType: .lightgunY)
     ]
     
     static var userPortControllers: [Controller] {

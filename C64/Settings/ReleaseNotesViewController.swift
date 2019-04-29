@@ -33,6 +33,9 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Release 1.1 (Build 7)", year: 2019, month: 4, day: 29, changes: [
+            "Light Pen and Light Gun support."
+        ]),
         Release(name: "Release 1.1 (Build 5)", year: 2019, month: 4, day: 28, changes: [
             "Preliminary Light Pen support."
         ]),

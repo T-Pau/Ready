@@ -27,26 +27,64 @@ public class LightPenGestureRecognizer: UIGestureRecognizer {
     public var position: CGPoint? {
         return penTouch?.location(in: view)
     }
+    public var button1: Bool {
+        return buttonTouchesCount == 1 || penTouch?.force ?? 0 > 0.75
+    }
+    public var button2: Bool {
+        return buttonTouchesCount == 2
+    }
+    
+    private static var buttonTouchDelay = 0.1
 
     private var penTouch: UITouch?
+    private var buttonTouches = Set<UITouch>()
+    private var beginningButtonTouches = false
+    
+    private var buttonTouchesCount = 0
     
     override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
-        guard penTouch == nil else { return }
-        guard touches.count == 1 else { return }
-        
-        penTouch = Array(touches)[0]
-        
+        guard penTouch != nil || touches.count == 1 else { return }
+
+        if penTouch == nil {
+            penTouch = Array(touches)[0]
+        }
+        else if buttonTouches.isEmpty || beginningButtonTouches {
+            buttonTouches = buttonTouches.union(touches)
+            if !beginningButtonTouches {
+                beginningButtonTouches = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + LightPenGestureRecognizer.buttonTouchDelay) {
+                    guard self.beginningButtonTouches else { return }
+                    self.buttonTouchesCount = self.buttonTouches.count
+                    self.beginningButtonTouches = false
+                    self.updateState()
+                }
+            }
+        }
+
         updateState()
     }
     
     override public func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) {
-        guard let touch = penTouch else { return }
+        var changed = false
         
-        if touches.contains(touch) {
-            penTouch = nil
-            updateState()
+        for touch in touches {
+            if let touch = penTouch, touches.contains(touch) {
+                penTouch = nil
+                changed = true
+            }
+            else if buttonTouches.contains(touch) {
+                buttonTouches.remove(touch)
+                if buttonTouches.isEmpty {
+                    buttonTouchesCount = 0
+                    beginningButtonTouches = false
+                    changed = true
+                }
+            }
         }
         
+        if changed {
+            updateState()
+        }
     }
     
     override public func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent) {
@@ -62,7 +100,7 @@ public class LightPenGestureRecognizer: UIGestureRecognizer {
     }
     
     private func updateState() {
-        if penTouch != nil {
+        if penTouch != nil || !buttonTouches.isEmpty {
             if state == .possible {
                 state = .began
             }

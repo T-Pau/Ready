@@ -63,6 +63,7 @@ typedef struct video_canvas_s {
 
     position_t current_offset;
     rectangle_t current_size;
+    position_t border_offset;
 
     /* For border auto hiding */
     /* Currently showing border? */

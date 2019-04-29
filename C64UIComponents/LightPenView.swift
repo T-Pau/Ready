@@ -24,7 +24,7 @@
 import UIKit
 
 public protocol LightPenViewDelegate {
-    func lightPenView(_ sender: LightPenView, changed position: CGPoint?, size: CGSize)
+    func lightPenView(_ sender: LightPenView, changed position: CGPoint?, size: CGSize, button1: Bool, button2: Bool)
 }
 
 public class LightPenView: UIView {
@@ -57,10 +57,10 @@ public class LightPenView: UIView {
         size.height += topOffset
         
         if let position = lightPenGestureRecoginzer.position {
-            delegate?.lightPenView(self, changed: CGPoint(x: position.x, y: position.y + topOffset), size: size)
+            delegate?.lightPenView(self, changed: CGPoint(x: position.x, y: position.y + topOffset), size: size, button1: lightPenGestureRecoginzer.button1, button2: lightPenGestureRecoginzer.button2)
         }
         else {
-            delegate?.lightPenView(self, changed: nil, size: size)
+            delegate?.lightPenView(self, changed: nil, size: size, button1: lightPenGestureRecoginzer.button1, button2: lightPenGestureRecoginzer.button2)
         }
     }
 }

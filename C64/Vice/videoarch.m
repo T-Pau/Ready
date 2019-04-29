@@ -301,6 +301,8 @@ void video_canvas_refresh(struct video_canvas_s *canvas, unsigned int xs, unsign
         }
     }
     
+    canvas->border_offset.x = left_border;
+    canvas->border_offset.y = top_border;
     canvas->current_offset.x = MY_MIN(left_border, canvas->border_width);
     canvas->current_offset.y = MY_MIN(top_border, canvas->border_width);
     canvas->current_size.width = canvas->geometry->gfx_size.width + canvas->current_offset.x + MY_MIN(right_border, canvas->border_width);
@@ -451,28 +453,30 @@ void vsyncarch_sleep(unsigned long delay)
     }
 }
 
-void update_light_pen(int x, int y, int width, int height) {
+void update_light_pen(int x, int y, int width, int height, int button_1, int button_2) {
     video_canvas_t *canvas = vicii.raster.canvas;
+    
+    lightpen_buttons = (button_1 ? LP_HOST_BUTTON_1 : 0) | (button_2 ? LP_HOST_BUTTON_2 : 0);
     
     if (x > 0 && y > 0) {
         double scale = MY_MIN((double)width / canvas->current_size.width, (double)height / canvas->current_size.height);
         int x_offset = (width - canvas->current_size.width * scale) / 2;
         int y_offset = (height - canvas->current_size.height * scale) / 2;
         
-        x = (x - x_offset) / scale - canvas->current_offset.x;
-        y = (y - y_offset) / scale - canvas->current_offset.y;
+        x = (x - x_offset) / scale;
+        y = (y - y_offset) / scale;
 
-        if (x >= 0 && x < 320 && y >= 0 && y < 200) {
-            lightpen_x = x;
-            lightpen_y = y;
-            lightpen_buttons = LP_HOST_BUTTON_1;
+        if (x >= 0 && x < canvas->current_size.width && y >= 0 && y < canvas->current_size.height) {
+            lightpen_x = x - canvas->current_offset.x + canvas->border_offset.x;
+            lightpen_y = y - canvas->current_offset.y + canvas->border_offset.y;
+            /* printf("light pen at %dx%d, buttons: %d\n", lightpen_x, lightpen_y, lightpen_buttons); */
             return;
         }
     }
 
     lightpen_x = -1;
     lightpen_y = -1;
-    lightpen_buttons = 0;
+    /* printf("light pen off, buttons: %d\n", lightpen_buttons); */
     return;
 
 }

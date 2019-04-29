@@ -36,8 +36,6 @@
 - support more input devices
     - paddle
         - sliding area
-    - lightgun
-        - tap on C64 screen
 - map input device buttons to key / joystick presses
 - adapt view layouts for compact width
 - support x64, p64 (UTI, document type, DiskImage)
