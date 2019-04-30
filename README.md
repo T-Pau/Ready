@@ -24,6 +24,8 @@ The beginnings of a [User Manual](https://github.com/Spider-Lab/C64/wiki/User%20
 
 Visit the website [spiderlab.at/c64](http://spiderlab.at/c64/) for screenshots.
 
+You can join us on [Discord](https://discord.gg/4GuSY5e).
+
 The authors can be contacted at c64@spiderlab.at.
 
 ### Installing
