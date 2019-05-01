@@ -61,19 +61,6 @@ struct DummyMachinePart: MachinePart {
         }
         variantName = description
     }
-    
-    init(identifier: String, fullName: String, baseCartridge: CartridgeImage) {
-        self.identifier = identifier
-        name = baseCartridge.name ?? "Cartridge"
-        self.fullName = fullName
-        icon = baseCartridge.displayIcon
-        smallIcon = baseCartridge.displayIcon
-        var description = name
-        if let variantName = baseCartridge.displaySubtitle {
-            description += " (\(variantName))"
-        }
-        variantName = description
-    }
-    
+        
     static let none = DummyMachinePart(identifier: "none", name: "None")
 }

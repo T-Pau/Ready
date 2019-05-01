@@ -27,6 +27,7 @@ import C64UIComponents
 @objc class Machine: NSObject {
     enum ResourceName: String {
         case AutostartPrgMode
+        case CartridgeFile
         case DosName1541
         case DosName1541II
         case DosName1581
@@ -49,6 +50,8 @@ import C64UIComponents
         case LogFileName
         case Mouse
         case REU
+        case REUfilename
+        case REUImageWrite
         case REUsize
         case SidModel
         case UserportJoy
@@ -83,6 +86,7 @@ import C64UIComponents
     @objc var autostart: Bool
 
     var cartridgeImage: CartridgeImage?
+    var ramExpansionUnit: RamExpansionUnit?
     var programFile: ProgramFile?
     var diskImages = [DiskImage]()
     var tapeImages = [TapeImage]()
@@ -207,6 +211,15 @@ import C64UIComponents
                         }
                     }
                 }
+            }
+        }
+        
+        if cartridges.isEmpty { // TODO: contains auto
+            if let cartridge = cartridgeImage {
+                cartridges.append(cartridge)
+            }
+            else if let cartridge = ramExpansionUnit {
+                cartridges.append(cartridge)
             }
         }
         

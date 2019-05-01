@@ -399,7 +399,7 @@ struct GameViewItemMedia {
             case .programFile:
                 return C64FileType.MediaType.programFile.typeIdentifiers
             case .ramExpansionUnit:
-                return []
+                return C64FileType.MediaType.ramExpansionUnit.typeIdentifiers
             case .tapes:
                 return C64FileType.MediaType.tape.typeIdentifiers
             case .mixed:

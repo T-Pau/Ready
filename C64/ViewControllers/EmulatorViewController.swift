@@ -245,6 +245,8 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
                     machine.diskImages.insert(mediaItem as! DiskImage, at: 0)
                 case .programFile:
                     machine.programFile = mediaItem as? ProgramFile
+                case .ramExpansionUnit:
+                    machine.ramExpansionUnit = mediaItem as? RamExpansionUnit
                 case .tape:
                     if let index = machine.tapeImages.firstIndex(where: { $0.url == mediaItem.url }) {
                         machine.tapeImages.remove(at: index)

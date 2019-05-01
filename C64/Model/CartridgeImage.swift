@@ -102,7 +102,7 @@ struct CartridgeImage {
     
     var isCrt: Bool
     var type: CartridgeType
-    var name: String?
+    var title: String?
     var url: URL?
     var eepromUrl: URL? {
         didSet {
@@ -144,19 +144,66 @@ struct CartridgeImage {
         
         if String(bytes: bytes[0...15], encoding: .ascii) == "C64 CARTRIDGE   " {
             isCrt = true
-            name = String(bytes: bytes[0x20...0x3f], encoding: .ascii)
-            if name?.isEmpty ?? false {
-                name = nil
+            title = String(bytes: bytes[0x20...0x3f], encoding: .ascii)
+            if title?.isEmpty ?? false {
+                title = nil
             }
             type = CartridgeType(rawValue: Int(bytes[0x16]) << 8 | Int(bytes[0x17])) ?? .generic
         }
         else {
             isCrt = false
             type = .generic
-            name = nil
+            title = nil
         }
         
         self.bytes = bytes
         url = nil
+    }
+}
+
+extension CartridgeImage: Cartridge {
+    var identifier: String {
+        return url?.lastPathComponent ?? "<unknown>"
+    }
+    
+    var resources: [Machine.ResourceName: Machine.ResourceValue] {
+        guard let fileName = url?.path else { return [:] }
+        return [
+            .CartridgeFile: .String(fileName)
+        ]
+    }
+
+}
+
+extension CartridgeImage: MachinePart {
+    var name: String {
+        return title ?? "Cartridge"
+    }
+    
+    var icon: UIImage? {
+        let name: String
+        switch type {
+        case .actionReplay2, .actionReplay3, .actionReplay4, .actionReplay5:
+            name = "Action Replay"
+        case .atomicPower:
+            name = "Nordic Power"
+        case .easyFlash, .easyFlashXbank:
+            name = "Easy Flash Cartridge"
+        case .finalCartridge1, .finalCartridge3, .finalCartridgePlus:
+            name = "Final Cartridge III"
+        case .gmod2:
+            name = "GMod2 Cartridge"
+        case .magicFormel:
+            name = "Magic Formel"
+        case .pagefox:
+            name = "Scanntronics Pagefox"
+        default:
+            name = isCrt ? "Cartridge" : "EPROM Cartridge"
+        }
+        return UIImage(named: name)
+    }
+    
+    var priority: Int {
+        return MachinePartNormalPriority
     }
 }

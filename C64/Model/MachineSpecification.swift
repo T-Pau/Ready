@@ -101,6 +101,11 @@ extension MachineSpecification {
         }
     }
     
+    var cartridges: [Cartridge] {
+        guard let cartridge = OtherCartridge.cartridge(identifier: identifier(for: .expansionPort)) else { return [] }
+        return [cartridge]
+    }
+    
     var cassetteDrive: CasstteDrive {
         guard computer.ports.contains(.cassetteDrive) else { return CasstteDrive.none }
         return CasstteDrive.drive(identifier: identifier(for: .cassetteDrive)) ?? CasstteDrive.none
@@ -167,11 +172,6 @@ extension MachineSpecification {
         return UserPortModule.module(identifier: identifier(for: .userPort)) ?? UserPortModule.none
     }
     
-    var cartridges: [Cartridge] {
-        guard let cartridge = Cartridge.cartridge(identifier: identifier(for: .expansionPort)) else { return [] }
-        return [cartridge]
-    }
-    
     func automount(images: [DiskImage]) -> ([DiskDrive], [DiskImage?]) {
         let ports = computer.ports
         var drives = diskDrives
@@ -225,7 +225,10 @@ extension MachineSpecification {
 
             case .expansionPort:
                 if let cartridge = machine.cartridgeImage {
-                    return DummyMachinePart(identifier: "auto", fullName: "Automatic", baseCartridge: cartridge)
+                    part = cartridge
+                }
+                else if let ramExpansionUnit = machine.ramExpansionUnit {
+                    part = ramExpansionUnit
                 }
                 annotateName = false
                 
@@ -298,7 +301,7 @@ extension MachineSpecification {
             
         case .expansionPort:
             // TODO: CartridgeImage
-            return Cartridge.cartridge(identifier: value) ?? Cartridge.none
+            return OtherCartridge.cartridge(identifier: value) as? MachinePart ?? OtherCartridge.none
             
         case .userPort:
             return UserPortModule.module(identifier: value) ?? UserPortModule.none
@@ -338,7 +341,7 @@ extension MachineSpecification {
 
         case .expansionPort:
             // TODO: CartridgeImage
-            partList.append(contentsOf: Cartridge.cartridges)
+            partList.append(contentsOf: OtherCartridge.cartridges as! [MachinePart])
             
         case .userPort:
             partList.append(contentsOf: UserPortModule.modules)

@@ -34,6 +34,9 @@ class ReleaseNotesViewController: UIViewController {
     
     var releases = [
         Release(name: "Release 1.1 (Build 9)", year: 2019, month: 5, day: 1, changes: [
+            "Add support for file-backed Ram Expansion Unit."
+        ]),
+        Release(name: "Release 1.1 (Build 9)", year: 2019, month: 5, day: 1, changes: [
             "Add Ram Expansion Units.",
             "Add Commodore 64 Silver."
         ]),

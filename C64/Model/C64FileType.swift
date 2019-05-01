@@ -28,18 +28,21 @@ struct C64FileType {
         case cartridge
         case disk
         case programFile
+        case ramExpansionUnit
         case tape
         
         var typeIdentifiers: Set<String> {
             switch self {
             case .cartridge:
-                return [ "com.apple.macbinary-archive", "public.x509-certificate" ]
+                return ["com.apple.macbinary-archive", "public.x509-certificate"]
             case .disk:
-                return [ "at.spiderlab.c64.d1m", "at.spiderlab.c64.d2m", "at.spiderlab.c64.d4m", "at.spiderlab.c64.d64", "at.spiderlab.c64.d81", "at.spiderlab.c64.g64", "org.sidmusic.d64" ]
+                return ["at.spiderlab.c64.d1m", "at.spiderlab.c64.d2m", "at.spiderlab.c64.d4m", "at.spiderlab.c64.d64", "at.spiderlab.c64.d81", "at.spiderlab.c64.g64", "org.sidmusic.d64"]
+            case .ramExpansionUnit:
+                return ["at.spiderlab.c64.reu"]
             case .programFile:
-                return [ "at.spiderlab.c64.prg", "org.sidmusic.prg" ]
+                return ["at.spiderlab.c64.prg", "org.sidmusic.prg"]
             case .tape:
-                return [ "at.spiderlab.c64.t64", "at.spiderlab.c64.tap", "org.sidmusic.tap" ]
+                return ["at.spiderlab.c64.t64", "at.spiderlab.c64.tap", "org.sidmusic.tap"]
             }
         }
     }
@@ -63,6 +66,7 @@ struct C64FileType {
         "g71": .disk,
         "p00": .programFile,
         "prg": .programFile,
+        "reu": .ramExpansionUnit,
         "t64": .tape,
         "tap": .tape
     ]

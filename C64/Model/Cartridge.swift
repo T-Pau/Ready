@@ -23,25 +23,18 @@
 
 import Foundation
 
-struct Cartridge: MachinePart {
-    enum CartridgeType {
-        case none
-        case ramExpansionUnit(size: Int)
-        
-        var resources: [Machine.ResourceName: Machine.ResourceValue] {
-            switch self {
-            case .none:
-                return [:]
-                
-            case .ramExpansionUnit(let size):
-                return [
-                    .REU: .Bool(true),
-                    .REUsize: .Int(Int32(size))
-                ]
-            }
-        }
-    }
+protocol Cartridge {
+    var identifier: String { get }
+    var resources: [Machine.ResourceName: Machine.ResourceValue] { get }
+}
 
+extension Cartridge {
+    var resources: [Machine.ResourceName: Machine.ResourceValue] {
+        return [:]
+    }
+}
+
+struct OtherCartridge: Cartridge {
     var identifier: String
     var name: String
     var fullName: String
@@ -49,13 +42,9 @@ struct Cartridge: MachinePart {
     var icon: UIImage?
     var priority: Int
     
-    var type: CartridgeType
+    var resources: [Machine.ResourceName: Machine.ResourceValue]
     
-    var resources: [Machine.ResourceName: Machine.ResourceValue] {
-        return type.resources
-    }
-    
-    init(identifier: String, name: String, fullName: String? = nil, iconName: String?, priority: Int = MachinePartNormalPriority, type: CartridgeType) {
+    init(identifier: String, name: String, fullName: String? = nil, iconName: String?, priority: Int = MachinePartNormalPriority, resources: [Machine.ResourceName: Machine.ResourceValue]) {
         self.identifier = identifier
         self.name = name
         self.fullName = fullName ?? name
@@ -63,67 +52,22 @@ struct Cartridge: MachinePart {
             self.icon = UIImage(named: iconName)
         }
         self.priority = priority
-        self.type = type
-        switch type {
-        case .ramExpansionUnit(let size):
-            if size > 1024 && size % 1024 == 0 {
-                variantName = "\(size / 1024) megabytes"
-            }
-            else {
-                variantName = "\(size) kilobytes"
-            }
-        default:
-            break
-        }
+        self.resources = resources
     }
+
     
-    static let none = Cartridge(identifier: "none", name: "None", iconName: nil, type: .none)
-    
-    static let cartridges: [Cartridge] = [
-        none,
+    static let none = OtherCartridge(identifier: "none", name: "None", iconName: nil, resources: [:])
+
+
+    static var _cartridges = [Cartridge]()
+    static var cartridges: [Cartridge] {
+        if _cartridges.isEmpty {
+            _cartridges = [none]
+            _cartridges.append(contentsOf: RamExpansionUnit.ramExpansionUnits.sorted(by: { $0.key < $1.key }).map({ $0.value }))
+        }
         
-        Cartridge(identifier: "1700",
-                  name: "1700",
-                  fullName: "Commodore 1700 REU",
-                  iconName: "Commodore RAM Expansion",
-                  type: .ramExpansionUnit(size: 128)),
-        
-        Cartridge(identifier: "1764",
-                  name: "1764",
-                  fullName: "Commodore 1764 REU",
-                  iconName: "Commodore RAM Expansion",
-                  type: .ramExpansionUnit(size: 256)),
-        
-        Cartridge(identifier: "1750",
-                  name: "1750",
-                  fullName: "Commodore 1750 REU",
-                  iconName: "Commodore RAM Expansion",
-                  type: .ramExpansionUnit(size: 512)),
-        
-        Cartridge(identifier: "1750XL",
-                  name: "1750XL",
-                  fullName: "CMD 1750XL REU",
-                  iconName: "CMD 1750XL REU",
-                  type: .ramExpansionUnit(size: 2048)),
-        
-        Cartridge(identifier: "4MB REU",
-                  name: "4MB REU",
-                  fullName: "4MB REU (emulated by Ultimate II)",
-                  iconName: "Ultimate II",
-                  type: .ramExpansionUnit(size: 4096)),
-        
-        Cartridge(identifier: "8MB REU",
-                  name: "8MB REU",
-                  fullName: "8MB REU (emulated by Ultimate II)",
-                  iconName: "Ultimate II",
-                  type: .ramExpansionUnit(size: 8192)),
-        
-        Cartridge(identifier: "16MB REU",
-                  name: "16MB REU",
-                  fullName: "16MB REU (emulated by Ultimate II)",
-                  iconName: "Ultimate II",
-                  type: .ramExpansionUnit(size: 16384))
-    ]
+        return _cartridges
+    }
     
     static private var byIdentifier = [String: Cartridge]()
     
@@ -137,4 +81,8 @@ struct Cartridge: MachinePart {
         return byIdentifier[identifier]
     }
 
+}
+
+extension OtherCartridge: MachinePart {
+    
 }

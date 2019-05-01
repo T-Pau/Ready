@@ -55,7 +55,7 @@ extension CartridgeImage: MediaItem {
     
     var displaySubtitle: String? {
         if isCrt {
-            return name
+            return title
         }
         else {
             if bytes.count % 1024 == 0 {
@@ -71,26 +71,7 @@ extension CartridgeImage: MediaItem {
     }
     
     var displayIcon: UIImage? {
-        let name: String
-        switch type {
-        case .actionReplay2, .actionReplay3, .actionReplay4, .actionReplay5:
-            name = "Action Replay"
-        case .atomicPower:
-            name = "Nordic Power"
-        case .easyFlash, .easyFlashXbank:
-            name = "Easy Flash Cartridge"
-        case .finalCartridge1, .finalCartridge3, .finalCartridgePlus:
-            name = "Final Cartridge III"
-        case .gmod2:
-            name = "GMod2 Cartridge"
-        case .magicFormel:
-            name = "Magic Formel"
-        case .pagefox:
-            name = "Scanntronics Pagefox"
-        default:
-            name = isCrt ? "Cartridge" : "EPROM Cartridge"
-        }
-        return UIImage(named: name)
+        return icon
     }
 }
 
@@ -109,6 +90,24 @@ extension TapeImage where Self: MediaItem {
     
     var displayIcon: UIImage? {
         return UIImage(named: "Tape")
+    }
+}
+
+extension RamExpansionUnit: MediaItem {
+    var displayTitle: String? {
+        return url?.lastPathComponent ?? fullName
+    }
+    
+    var displaySubtitle: String? {
+        return url != nil ? fullName : variantName
+    }
+    
+    var subtitleIsPETASCII: Bool {
+        return false
+    }
+    
+    var displayIcon: UIImage? {
+        return icon
     }
 }
 
@@ -165,6 +164,8 @@ extension MediaItem {
             return DxxImage.image(from: url) as? MediaItem
         case .programFile:
             return ProgramFile(url: url)
+        case .ramExpansionUnit:
+            return RamExpansionUnit(url: url)
         case .tape:
             return TapImage.image(from: url) as? MediaItem
         }
@@ -224,6 +225,9 @@ extension Game {
                     
                 case .programFile:
                     programFile = fileName
+                    
+                case .ramExpansionUnit:
+                    ramExpansionFile = fileName
                     
                 case .tape:
                     tapeFile = fileName

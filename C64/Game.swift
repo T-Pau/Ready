@@ -39,13 +39,12 @@ public class Game: NSManagedObject {
     @NSManaged var cartridgeEEPROM: String?
     @NSManaged var deletedDate: Date?
     @NSManaged var directory: String
-    @NSManaged var enableJiffyDosRaw: NSNumber?
     @NSManaged var favorite: Bool
     @NSManaged var lastOpened: Date?
     @NSManaged var name: String
     @NSManaged var programFile: String?
     @NSManaged var publisher: String?
-    @NSManaged var showBorderRawValue: NSNumber?
+    @NSManaged var ramExpansionFile: String?
     @NSManaged var tapeFile: String?
     @NSManaged var titleImageFileName: String?
     @NSManaged var yearRaw: NSNumber?
@@ -54,39 +53,6 @@ public class Game: NSManagedObject {
     @NSManaged var disks: NSOrderedSet?
     
     // MARK: - processed properties
-    
-    var enableJiffyDos: Bool? {
-        get {
-            return enableJiffyDosRaw?.boolValue
-        }
-        set {
-            if let value = newValue {
-                enableJiffyDosRaw = NSNumber(value: value)
-            }
-            else {
-                enableJiffyDosRaw = nil
-            }
-        }
-    }
-    
-    var showBorder: ShowBorder? {
-        get {
-            if let rawValue = showBorderRawValue {
-                return ShowBorder(rawValue: rawValue.intValue)
-            }
-            else {
-                return nil
-            }
-        }
-        set {
-            if let rawValue = newValue?.rawValue {
-                showBorderRawValue = NSNumber(value: rawValue)
-            }
-            else {
-                showBorderRawValue = nil
-            }
-        }
-    }
     
     var year: Int? {
         get {
@@ -295,6 +261,11 @@ public class Game: NSManagedObject {
                             programFile = name
                         }
                         
+                    case "reu":
+                        if ramExpansionFile == nil {
+                            ramExpansionFile = name
+                        }
+                        
                     case "t64", "tap":
                         if tapeFile == nil {
                             tapeFile = name
@@ -453,6 +424,7 @@ public class Game: NSManagedObject {
     
     private var imagesLoaded = false
     private var _cartridge: CartridgeImage? = nil
+    private var _ramExpansionUnit: RamExpansionUnit? = nil
     private var _program: ProgramFile? = nil
     private var _diskImages = [DiskImage]()
     private var _tape: TapeImage? = nil
@@ -462,6 +434,14 @@ public class Game: NSManagedObject {
             loadImages()
         }
         return _cartridge
+    }
+    
+    var ramExpansionUnit: RamExpansionUnit? {
+        if !imagesLoaded {
+            loadImages()
+        }
+        
+        return _ramExpansionUnit
     }
     
     var program: ProgramFile? {
@@ -505,6 +485,13 @@ public class Game: NSManagedObject {
         _diskImages = diskObjects.compactMap({ return DxxImage.image(from: directoryURL.appendingPathComponent($0.fileName)) })
         _tape = T64Image.image(directory: directoryURL, file: tapeFile)
         imagesLoaded = true
+
+        if let ramExpansionFile = ramExpansionFile {
+            _ramExpansionUnit = RamExpansionUnit(url: directoryURL.appendingPathComponent(ramExpansionFile))
+        }
+        else {
+            _ramExpansionUnit = nil
+        }
     }
 }
 
@@ -560,6 +547,7 @@ extension Machine {
         self.init(specification: game.machineSpecification)
         
         cartridgeImage = game.cartridge
+        ramExpansionUnit = game.ramExpansionUnit
         programFile = game.program
         tapeImages = game.tapes
         diskImages = game.diskImages
@@ -593,7 +581,11 @@ extension Game: GameViewItem {
             cartridgeSection.items.append(cartridge)
         }
         
-        // TODO: REU
+        var ramExpansionSection = GameViewItemMedia.Section(type: .ramExpansionUnit, supportsMultiple: false, supportsReorder: false, addInFront: false, items: [])
+        
+        if let ramExpansionUint = ramExpansionUnit {
+            ramExpansionSection.items.append(ramExpansionUint)
+        }
      
         var programSection = GameViewItemMedia.Section(type: .programFile, supportsMultiple: false, supportsReorder: false, addInFront: false, items: [])
 
@@ -605,7 +597,7 @@ extension Game: GameViewItem {
         
         let tapeSection = GameViewItemMedia.Section(type: .tapes, supportsMultiple: false, supportsReorder: false, addInFront: false, items: tapes as! [MediaItem])
 
-        return GameViewItemMedia(sections: [ cartridgeSection, programSection, diskSection, tapeSection ])
+        return GameViewItemMedia(sections: [ cartridgeSection, ramExpansionSection, programSection, diskSection, tapeSection ])
     }
     
     func addMedia(mediaItem: MediaItem, at row: Int, sectionType: GameViewItemMedia.SectionType) {
@@ -669,7 +661,9 @@ extension Game: GameViewItem {
             _program = nil
             
         case .ramExpansionUnit:
-            break
+            removeFile(ramExpansionFile)
+            ramExpansionFile = nil
+            _ramExpansionUnit = nil
             
         case .tapes:
             removeFile(tapeFile)
@@ -704,7 +698,11 @@ extension Game: GameViewItem {
             _program = program
 
         case .ramExpansionUnit:
-            // TODO
+            guard let ramExpansionUnit = mediaItem as? RamExpansionUnit,
+                let fileName = ramExpansionUnit.url?.lastPathComponent else { return }
+            removeFile(ramExpansionFile)
+            ramExpansionFile = fileName
+            _ramExpansionUnit = ramExpansionUnit
             break
 
         case .tapes:
