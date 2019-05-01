@@ -75,12 +75,16 @@ extension CartridgeImage: MediaItem {
         switch type {
         case .actionReplay2, .actionReplay3, .actionReplay4, .actionReplay5:
             name = "Action Replay"
+        case .atomicPower:
+            name = "Nordic Power"
         case .easyFlash, .easyFlashXbank:
             name = "Easy Flash Cartridge"
         case .finalCartridge1, .finalCartridge3, .finalCartridgePlus:
             name = "Final Cartridge III"
         case .gmod2:
             name = "GMod2 Cartridge"
+        case .magicFormel:
+            name = "Magic Formel"
         case .pagefox:
             name = "Scanntronics Pagefox"
         default:
