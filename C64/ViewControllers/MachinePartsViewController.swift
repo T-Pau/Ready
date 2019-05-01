@@ -74,7 +74,7 @@ class MachinePartsViewController: UIViewController, SeguePreparer {
             PartInfo(view: userPortJoystick1View, key: .userPortJoystick1, iconWidth: narrow, editableWhenRunning: true),
             PartInfo(view: userPortJoystick2View, key: .userPortJoystick2, iconWidth: narrow, editableWhenRunning: true),
             PartInfo(view: expansionPortView, key: .expansionPort, iconWidth: narrow, editableWhenRunning: false)
-            // TODO: screen, cartridges
+            // TODO: screen
         ]
     }
     

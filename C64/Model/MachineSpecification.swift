@@ -167,6 +167,11 @@ extension MachineSpecification {
         return UserPortModule.module(identifier: identifier(for: .userPort)) ?? UserPortModule.none
     }
     
+    var cartridges: [Cartridge] {
+        guard let cartridge = Cartridge.cartridge(identifier: identifier(for: .expansionPort)) else { return [] }
+        return [cartridge]
+    }
+    
     func automount(images: [DiskImage]) -> ([DiskDrive], [DiskImage?]) {
         let ports = computer.ports
         var drives = diskDrives
@@ -292,8 +297,8 @@ extension MachineSpecification {
             return CasstteDrive.drive(identifier: value) ?? CasstteDrive.none
             
         case .expansionPort:
-            // TODO
-            return DummyMachinePart.none
+            // TODO: CartridgeImage
+            return Cartridge.cartridge(identifier: value) ?? Cartridge.none
             
         case .userPort:
             return UserPortModule.module(identifier: value) ?? UserPortModule.none
@@ -319,6 +324,9 @@ extension MachineSpecification {
         }
         
         switch key {
+        case .cassetteDrive:
+            partList.append(contentsOf: CasstteDrive.drives)
+            
         case .computer:
             partList.append(contentsOf: Computer.computers)
             
@@ -327,9 +335,10 @@ extension MachineSpecification {
             
         case .diskDrive8, .diskDrive9, .diskDrive10, .diskDrive11:
             partList.append(contentsOf: DiskDrive.drives)
-            
-        case .cassetteDrive:
-            partList.append(contentsOf: CasstteDrive.drives)
+
+        case .expansionPort:
+            // TODO: CartridgeImage
+            partList.append(contentsOf: Cartridge.cartridges)
             
         case .userPort:
             partList.append(contentsOf: UserPortModule.modules)

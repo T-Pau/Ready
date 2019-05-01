@@ -48,6 +48,8 @@ import C64UIComponents
         case KernalName
         case LogFileName
         case Mouse
+        case REU
+        case REUsize
         case SidModel
         case UserportJoy
         case UserportJoyType
@@ -88,6 +90,7 @@ import C64UIComponents
     var diskDrives = [DiskDrive]()
     var controllers = [Controller]()
     var cassetteDrive: CasstteDrive
+    var cartridges = [Cartridge]()
     var userPortModule: UserPortModule?
     var userPortControllers = [Controller]()
     
@@ -110,7 +113,7 @@ import C64UIComponents
         diskDrives = specification.diskDrives
         cassetteDrive = specification.cassetteDrive
         userPortModule = specification.userPortModule
-        
+        cartridges = specification.cartridges
         
         if let userJoystickType = userPortModule?.viceJoystickType {
             resources[.UserportJoy] = .Bool(true)
@@ -141,8 +144,14 @@ import C64UIComponents
     @objc func viceSetResources() {
         for (index, drive) in diskDrives.enumerated() {
             if let name = ResourceName(rawValue: "Drive\(index + 8)Type") {
-                NSLog("\(name) = \(drive.viceType.rawValue)") // DEBUGPRINT
                 viceSetResource(name: name, value: .Int(drive.viceType.rawValue))
+            }
+        }
+        
+        for cartridge in cartridges {
+            for (name, value) in cartridge.resources {
+                NSLog("cartridge resource \(name) -> \(value)")
+                viceSetResource(name: name, value: value)
             }
         }
         

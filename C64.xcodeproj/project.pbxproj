@@ -38,6 +38,7 @@
 		4B3F974C21D7ACC700C272C4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B3F974A21D7ACC700C272C4 /* Main.storyboard */; };
 		4B460E472274529200815E7F /* LightPenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B460E462274529200815E7F /* LightPenView.swift */; };
 		4B460E492274530500815E7F /* LightPenGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B460E482274530500815E7F /* LightPenGestureRecognizer.swift */; };
+		4B460E4C227991F900815E7F /* Cartridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B460E4B227991F900815E7F /* Cartridge.swift */; };
 		4B697C6F21E36B350091BFCC /* FullScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B697C6E21E36B340091BFCC /* FullScreenViewController.swift */; };
 		4B697C7121E378DE0091BFCC /* SingleSelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B697C7021E378DE0091BFCC /* SingleSelectionTableViewController.swift */; };
 		4B697C7321E38EDA0091BFCC /* Vice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B697C7221E38EDA0091BFCC /* Vice.swift */; };
@@ -2116,6 +2117,7 @@
 		4B460E1E2269F70100815E7F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		4B460E462274529200815E7F /* LightPenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightPenView.swift; sourceTree = "<group>"; };
 		4B460E482274530500815E7F /* LightPenGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightPenGestureRecognizer.swift; sourceTree = "<group>"; };
+		4B460E4B227991F900815E7F /* Cartridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cartridge.swift; sourceTree = "<group>"; };
 		4B697C6E21E36B340091BFCC /* FullScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenViewController.swift; sourceTree = "<group>"; };
 		4B697C7021E378DE0091BFCC /* SingleSelectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSelectionTableViewController.swift; sourceTree = "<group>"; };
 		4B697C7221E38EDA0091BFCC /* Vice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vice.swift; sourceTree = "<group>"; };
@@ -2314,6 +2316,7 @@
 			isa = PBXGroup;
 			children = (
 				4B7609E921F240180058FBCD /* C64FileType.swift */,
+				4B460E4B227991F900815E7F /* Cartridge.swift */,
 				4BB22ED021F1E78A0075E694 /* CartridgeImage.swift */,
 				4B9DBB712233C9AB0032B280 /* CasstteDrive.swift */,
 				4B2B9BBA2253B60F002948B7 /* Chargen.swift */,
@@ -4443,6 +4446,7 @@
 				4B697C6F21E36B350091BFCC /* FullScreenViewController.swift in Sources */,
 				4B841CF521F5E8DF009CAF4B /* ui.m in Sources */,
 				4BB22E4221E9678E0075E694 /* KeyboardView.swift in Sources */,
+				4B460E4C227991F900815E7F /* Cartridge.swift in Sources */,
 				4B9DBB642231431B0032B280 /* MfiInputDevice.swift in Sources */,
 				4B3E4A5F220F0E5D00511F08 /* Tools.swift in Sources */,
 				4B2B9BB622533F7F002948B7 /* TableViewUpdates.swift in Sources */,

@@ -38,6 +38,9 @@ class LicensesViewController: UIViewController {
         ]),
         Section(title: nil, rows: [
             "C64 Japanese Keyboard",
+            "PET Style Keyboard"
+        ]),
+        Section(title: nil, rows: [
             "CwlMutex",
             "ringbuffer",
             "SearchTextField",
