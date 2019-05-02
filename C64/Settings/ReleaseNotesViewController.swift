@@ -33,6 +33,9 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Release 1.1 (Build 12)", year: 2019, month: 5, day: 3, changes: [
+            "Add C64 Drean, Educator 64."
+        ]),
         Release(name: "Release 1.1 (Build 11)", year: 2019, month: 5, day: 2, changes: [
             "Fix VideoFilter default value."
         ]),

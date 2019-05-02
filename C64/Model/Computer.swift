@@ -218,7 +218,15 @@ struct Computer: MachinePart {
                  viceMachineModel: .c64cNtsc,
                  keyboardName: "C64C New Keyboard",
                  caseColorName: "C64C Case"),
-        
+
+        Computer(identifier: "C64 Drean",
+                 name: "Commodore 64 Drean",
+                 fullName: "Commodore 64 Drean",
+                 iconName: "Commodore 64 Drean",
+                 viceMachineModel: .c64PalN,
+                 keyboardName: "C64C Keyboard",
+                 caseColorName: "C64C Case"),
+
         Computer(identifier: "SX64 PAL",
                  name: "CommodoreSX-64 (PAL)",
                  fullName: "Commodore SX-64",
@@ -240,6 +248,24 @@ struct Computer: MachinePart {
                  caseColorName: "SX64 Case",
                  drive8: DiskDrive.sx64,
                  missingPorts: [ .cassetteDrive ]),
+        
+        Computer(identifier: "Educator 64 PAL",
+                 name: "Commodore Educator 64 (PAL)",
+                 fullName: "Commodore Educator 64",
+                 variantName: "PAL",
+                 iconName: "Commodore Educator 64",
+                 viceMachineModel: .pet64Pal,
+                 keyboardName: "C64 Keyboard",
+                 caseColorName: "Educator 64 Case"),
+        
+        Computer(identifier: "Educator 64 NTSC",
+                 name: "Commodore Educator 64 (NTSC)",
+                 fullName: "Commodore Educator 64",
+                 variantName: "NTSC",
+                 iconName: "Commodore Educator 64",
+                 viceMachineModel: .pet64Ntsc,
+                 keyboardName: "C64 Keyboard",
+                 caseColorName: "Educator 64 Case"),
         
         Computer(identifier: "Max",
                  name: "Commodore Ultimax",
