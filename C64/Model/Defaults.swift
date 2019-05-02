@@ -216,7 +216,7 @@ class Defaults {
     
     var videoFilter: String {
         get {
-            return stringValue(for: .VideoFilter) ?? "none"
+            return stringValue(for: .VideoFilter) ?? "None"
         }
         set {
             set(value: newValue, for: .VideoFilter)

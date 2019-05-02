@@ -342,7 +342,7 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
         vice.imageView = imageView
         vice.delegate = self
        
-        if Defaults.standard.videoFilter == "none" {
+        if Defaults.standard.videoFilter == "None" {
             imageView.layer.magnificationFilter = .nearest
         }
     
