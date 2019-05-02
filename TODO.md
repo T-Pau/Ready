@@ -2,6 +2,7 @@
 
 ## other
 
+- warn if media can't be used due to machine configuration
 - fix dragging files out of C64
 - sharing
   - add share button
@@ -25,7 +26,6 @@
     - select button
     - choose file to autostart from disk
     - save states
-- REU support
 - MIDI support
 - Cheetah Annihilator Joystick (C64GS) (2nd button connecting POTX to VCC, nut supported by Vice)
 - allow removing border from screenshots
