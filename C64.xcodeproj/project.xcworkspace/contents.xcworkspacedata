@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:C64.xcodeproj">
+      location = "group:/Users/dillo/Projects/spiderlab/C64/Document Icons/FUCK.png">
+   </FileRef>
+   <FileRef
+      location = "self:">
    </FileRef>
 </Workspace>

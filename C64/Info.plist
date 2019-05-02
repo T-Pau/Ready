@@ -25,7 +25,9 @@
 		</dict>
 		<dict>
 			<key>CFBundleTypeIconFiles</key>
-			<array/>
+			<array>
+				<string>CartridgeDocument.png</string>
+			</array>
 			<key>CFBundleTypeName</key>
 			<string>Commodore 64 Cartridge Image</string>
 			<key>CFBundleTypeRole</key>
@@ -374,6 +376,51 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>reu</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
+	<key>UTImportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Commodore 64 Cartridge Image</string>
+			<key>UTTypeIconFiles</key>
+			<array>
+				<string>CartridgeDocument.png</string>
+			</array>
+			<key>UTTypeIdentifier</key>
+			<string>com.apple.macbinary-archive</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>bin</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Commodore 64 Cartridge Image</string>
+			<key>UTTypeIconFiles</key>
+			<array>
+				<string>CartridgeDocument.png</string>
+			</array>
+			<key>UTTypeIdentifier</key>
+			<string>public.x509-certificate</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>crt</string>
 				</array>
 			</dict>
 		</dict>

@@ -37,7 +37,7 @@ class ReleaseNotesViewController: UIViewController {
             "Add support for file-backed Ram Expansion Unit."
         ]),
         Release(name: "Release 1.1 (Build 9)", year: 2019, month: 5, day: 1, changes: [
-            "Add Ram Expansion Units.",
+            "Add RAM Expansion Units.",
             "Add Commodore 64 Silver."
         ]),
         Release(name: "Release 1.1 (Build 8)", year: 2019, month: 4, day: 29, changes: [
