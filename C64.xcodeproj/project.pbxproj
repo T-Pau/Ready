@@ -804,7 +804,7 @@
 		4B0E62CC220997F000C3681A /* TapeStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapeStatusView.swift; sourceTree = "<group>"; };
 		4B1638C02243BF810056A275 /* StatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 		4B1638C2224672A50056A275 /* Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
-		4B1B2DB0227AE5090022B053 /* CartridgeDocument.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CartridgeDocument.png; path = "/Users/dillo/Projects/spiderlab/C64/Document Icons/CartridgeDocument.png"; sourceTree = "<absolute>"; };
+		4B1B2DB0227AE5090022B053 /* CartridgeDocument.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CartridgeDocument.png; sourceTree = "<group>"; };
 		4B1CCBA8223A8C340032B9F0 /* InputMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputMapping.swift; sourceTree = "<group>"; };
 		4B1CCBAD223BDDDD0032B9F0 /* CwlMutex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CwlMutex.swift; sourceTree = "<group>"; };
 		4B1CCBAF223FF3990032B9F0 /* GameCollectionNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCollectionNavigationViewController.swift; sourceTree = "<group>"; };
