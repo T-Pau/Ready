@@ -8,6 +8,7 @@
   - add share button
   - allow selecting media, images in all game views
   - share whole game
+- organize machine parts into sections
 - documentation
 - disk select: sub views for game / tools (inbox?)
 - disk select: show currently selected (other drives too)

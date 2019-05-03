@@ -33,36 +33,12 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
-        Release(name: "Release 1.1 (Build 12)", year: 2019, month: 5, day: 3, changes: [
-            "Add C64 Drean, Educator 64."
-        ]),
-        Release(name: "Release 1.1 (Build 11)", year: 2019, month: 5, day: 2, changes: [
-            "Fix VideoFilter default value."
-        ]),
-        Release(name: "Release 1.1 (Build 10)", year: 2019, month: 5, day: 1, changes: [
-            "Add support for file-backed Ram Expansion Unit."
-        ]),
-        Release(name: "Release 1.1 (Build 9)", year: 2019, month: 5, day: 1, changes: [
+        Release(name: "Release 1.2", year: 2019, month: 5, day: 3, changes: [
+            "Add hardware keyboard support for Control and Commodore (via CapsLock, can be disabled in Settings).",
+            "Improve thumbstick handling for MfI controllers.",
             "Add RAM Expansion Units.",
-            "Add Commodore 64 Silver."
-        ]),
-        Release(name: "Release 1.1 (Build 8)", year: 2019, month: 4, day: 29, changes: [
-            "Add KoalaPad, Nihon Neos Mouse."
-        ]),
-        Release(name: "Release 1.1 (Build 7)", year: 2019, month: 4, day: 29, changes: [
-            "Light Pen and Light Gun support.",
-        ]),
-        Release(name: "Release 1.1 (Build 5)", year: 2019, month: 4, day: 28, changes: [
-            "Preliminary Light Pen support."
-        ]),
-        Release(name: "Release 1.1 (Build 4)", year: 2019, month: 4, day: 26, changes: [
-            "Add hardware keyboard support for Control and Commodore (via CapsLock, can be disabled in Settings)."
-        ]),
-        Release(name: "Release 1.1 (Build 3)", year: 2019, month: 4, day: 23, changes: [
-            "Improve thumbstick handling for MfI controllers."
-        ]),
-        Release(name: "Release 1.1 (Build 2)", year: 2019, month: 4, day: 22, changes: [
-            "Add Commodore 64 variants with VIC-20 Style Keyboard.",
+            "Add C64 variants Silver, VIC-20 Style Keyboard, Drean, Educator 64.",
+            "Add Light Pen, Light Gun, KoalaPad, Nihon Neos Mouse.",
             "Add Competition Pro variants and QuickShot IX."
         ]),
         Release(name: "Release 1.1", year: 2019, month: 4, day: 21, changes: [
