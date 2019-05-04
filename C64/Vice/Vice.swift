@@ -289,6 +289,16 @@ extension JoystickButtons {
         viceThread.mouseY = (viceThread.mouseY - Int32(distance.y)) & 0xffff
     }
     
+    func mouse(setX x: Int32) {
+        guard let viceThread = viceThread else { return }
+        viceThread.mouseX = x
+    }
+
+    func mouse(setY y: Int32) {
+        guard let viceThread = viceThread else { return }
+        viceThread.mouseY = y
+    }
+
     func mouse(pressed button: Int) {
         send(event: .mouseButton(button: button, pressed: true))
     }

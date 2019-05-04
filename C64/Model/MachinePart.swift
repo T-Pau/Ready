@@ -42,3 +42,8 @@ extension MachinePart {
     var smallIcon: UIImage? { return icon }
     var variantName: String? { return nil }
 }
+
+struct MachinePartSection {
+    var title: String?
+    var parts: [MachinePart]
+}

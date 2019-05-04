@@ -29,14 +29,12 @@
     - save states
 - MIDI support
 - Cheetah Annihilator Joystick (C64GS) (2nd button connecting POTX to VCC, nut supported by Vice)
+- support mice / paddles in both ports simultaneously (not supported by Vice)
 - allow removing border from screenshots
 - use Metal to draw image, support shaders for CRT effects
 - software keyboard
     - visual feedback for key presses
     - shift lock
-- support more input devices
-    - paddle
-        - sliding area
 - map input device buttons to key / joystick presses
 - adapt view layouts for compact width
 - support x64, p64 (UTI, document type, DiskImage)

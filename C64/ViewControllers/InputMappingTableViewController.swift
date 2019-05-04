@@ -42,7 +42,8 @@ class InputMappingTableViewController: UITableViewController, SeguePreparer {
             let inputMapping = inputMapping else { return }
             let port = inputMapping.ports[indexPath.row]
             destination.dismissOnSelect = true
-            destination.machineParts = inputMapping.devices.filter({ $0.supports(inputType: port.inputType) })
+            destination.machineParts = [MachinePartSection(title: nil, parts: inputMapping.devices.filter({ $0.supports(inputType: port.inputType) }))]
+            destination.isGrouped = false
             destination.selectedIdentifier = inputMapping[port]?.device.identifier
             destination.changeHandler = { sender in
                 guard let identifier = destination.selectedIdentifier,

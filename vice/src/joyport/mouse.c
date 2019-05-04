@@ -562,6 +562,17 @@ static inline uint8_t mouse_paddle_update(uint8_t paddle_v, int16_t *old_v, int1
     return (uint8_t)new_paddle;
 }
 
+static inline uint8_t mouse_paddle_update_absolute(uint16_t new_paddle) {
+    if (new_paddle > 255) {
+        return 255;
+    }
+    if (new_paddle < 0) {
+        return 0;
+    }
+    
+    return (uint8_t)new_paddle;
+}
+
 /*
     note: for the expected behaviour look at testprogs/SID/paddles/readme.txt
 
@@ -584,6 +595,22 @@ static uint8_t mouse_get_paddle_y(void)
 {
     if (_mouse_enabled) {
         paddle_val[3] = mouse_paddle_update(paddle_val[3], &(paddle_old[3]), (int16_t)mousedrv_get_y());
+        return (uint8_t)(0xff - paddle_val[3]);
+    }
+    return 0xff;
+}
+
+static uint8_t mouse_get_paddle_absolute_x(void) {
+    if (_mouse_enabled) {
+        paddle_val[2] = mouse_paddle_update_absolute((int16_t)mousedrv_get_x());
+        return (uint8_t)(0xff - paddle_val[2]);
+    }
+    return 0xff;
+}
+
+static uint8_t mouse_get_paddle_absolute_y(void) {
+    if (_mouse_enabled) {
+        paddle_val[3] = mouse_paddle_update_absolute((int16_t)mousedrv_get_y());
         return (uint8_t)(0xff - paddle_val[3]);
     }
     return 0xff;
@@ -691,8 +718,8 @@ static joyport_t paddles_joyport_device = {
     joyport_mouse_enable,
     joyport_mouse_value,
     NULL,				/* no store digital */
-    mouse_get_paddle_x,
-    mouse_get_paddle_y,
+    mouse_get_paddle_absolute_x,
+    mouse_get_paddle_absolute_y,
     paddles_write_snapshot,
     paddles_read_snapshot
 };

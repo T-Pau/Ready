@@ -88,7 +88,7 @@ struct Controller: MachinePart {
             switch self {
             case .joystick, .lightgunL, .lightgunY, .lightpenDatel, .lightpenL, .lightpenU, .mouseCx22:
                 return 1
-            case .koalaPad, .lightpenInkwell, .mouse1351, .mouseNeos, .mouseSmart, .mouseSt:
+            case .koalaPad, .lightpenInkwell, .mouse1351, .mouseNeos, .mouseSmart, .mouseSt, .paddles:
                 return 2
             case .mouseAmiga:
                 return 3
@@ -140,13 +140,16 @@ struct Controller: MachinePart {
     var fullName: String
     var variantName: String?
     var icon: UIImage?
+    var portIcon: UIImage?
     var priority: Int
     
     var viceType: ViceType
     var inputType: InputType { return viceType.inputType }
     var numberOfButtons: Int
+    
+    var sensitivity: Double
 
-    init(identifier: String, name: String, fullName: String? = nil, variantName: String? = nil, iconName: String?, priority: Int = MachinePartNormalPriority, viceType: ViceType, numberOfButtons: Int? = nil) {
+    init(identifier: String, name: String, fullName: String? = nil, variantName: String? = nil, iconName: String?, portIconName: String? = nil, priority: Int = MachinePartNormalPriority, viceType: ViceType, numberOfButtons: Int? = nil, sensitivity: Double = 1) {
         self.identifier = identifier
         self.name = name
         self.fullName = fullName ?? name
@@ -157,6 +160,12 @@ struct Controller: MachinePart {
         else {
             self.icon = nil
         }
+        if let portIconName = portIconName {
+            self.portIcon = UIImage(named: portIconName)
+        }
+        else {
+            self.portIcon = self.icon
+        }
         self.priority = priority
         self.viceType = viceType
         if let numberOfButtons = numberOfButtons {
@@ -165,46 +174,159 @@ struct Controller: MachinePart {
         else {
             self.numberOfButtons = viceType.numberOfButtons
         }
+        self.sensitivity = sensitivity
     }
     
     static let none = Controller(identifier: "none", name: "None", iconName: nil, priority: 0, viceType: .none)
 
     static let controllers = [
-        none,
+        MachinePartSection(title: nil, parts: [
+            none,
+        ]),
         
-        // Joysticks
-        Controller(identifier: "Competition Pro", name: "Comp. Pro", fullName: "Competition Pro", iconName: "Competition Pro", priority: MachinePartHighPriority, viceType: .joystick),
-        Controller(identifier: "Competition Pro Blue", name: "Comp. Pro", fullName: "Competition Pro", variantName: "Blue", iconName: "Competition Pro Blue", viceType: .joystick),
-        Controller(identifier: "Competition Pro Cleaer", name: "Comp. Pro", fullName: "Competition Pro", variantName: "Clear", iconName: "Competition Pro Clear", viceType: .joystick),
-        Controller(identifier: "QuickShot II", name: "QuickShot", fullName: "Spectravideo QuickShot II", iconName: "Spectravideo QuickShot II", viceType: .joystick),
-        Controller(identifier: "QuickShot IX", name: "QuickShot IX", fullName: "Spectravideo QuickShot IX", iconName: "Spectravideo QuickShot IX", viceType: .joystick),
-        //Controller(identifier: "Annihilator", name: "Annihilator", fullName: "Cheetah Annihilator", iconName: "Cheetah Annihilator", viceType: .joystick, numberOfButtons: 2), // has two buttons
+        MachinePartSection(title: "Joysticks", parts: [
+            Controller(identifier: "Competition Pro",
+                       name: "Comp. Pro",
+                       fullName: "Competition Pro",
+                       iconName: "Competition Pro",
+                       priority: MachinePartHighPriority,
+                       viceType: .joystick),
+            
+            Controller(identifier: "Competition Pro Blue",
+                       name: "Comp. Pro",
+                       fullName: "Competition Pro",
+                       variantName: "Blue",
+                       iconName: "Competition Pro Blue",
+                       viceType: .joystick),
+            
+            Controller(identifier: "Competition Pro Cleaer",
+                       name: "Comp. Pro",
+                       fullName: "Competition Pro",
+                       variantName: "Clear",
+                       iconName: "Competition Pro Clear",
+                       viceType: .joystick),
+            
+            Controller(identifier: "1311",
+                       name: "1311",
+                       fullName: "Commodore Joystick 1311",
+                       iconName: "Commodore Joystick 1311",
+                       viceType: .joystick),
+            
+            Controller(identifier: "QuickShot II",
+                       name: "QuickShot",
+                       fullName: "Spectravideo QuickShot II",
+                       iconName: "Spectravideo QuickShot II",
+                       viceType: .joystick),
+            
+            Controller(identifier: "QuickShot IX",
+                       name: "QuickShot IX",
+                       fullName: "Spectravideo QuickShot IX",
+                       iconName: "Spectravideo QuickShot IX",
+                       viceType: .joystick),
+            
+            /* 2nd button not supported by Vice
+            Controller(identifier: "Annihilator",
+                       name: "Annihilator",
+                       fullName: "Cheetah Annihilator",
+                       iconName: "Cheetah Annihilator",
+                       viceType: .joystick,
+                       numberOfButtons: 2)
+             */
+        ]),
         
-        // Mice
-        Controller(identifier: "1311", name: "1311", fullName: "Commodore Joystick 1311", iconName: "Commodore Joystick 1311", viceType: .joystick),
-        Controller(identifier: "1351", name: "1351", fullName: "Commodore Mouse 1351", iconName: "Commodore 1351", viceType: .mouse1351),
-        Controller(identifier: "STM1", name: "Atari STM1", fullName: "Atari Mouse STM1", iconName: "Atari Mouse STM1", viceType: .mouseSt),
-        Controller(identifier: "Neos", name: "Neos", fullName: "Nihon Neos Mouse", iconName: "Nihon Neos Mouse", viceType: .mouseNeos),
-        Controller(identifier: "KoalaPad", name: "KoalaPad", iconName: "KoalaPad", viceType: .koalaPad),
+        MachinePartSection(title: "Mice", parts: [
+            Controller(identifier: "1351",
+                       name: "1351",
+                       fullName: "Commodore Mouse 1351",
+                       iconName: "Commodore 1351",
+                       viceType: .mouse1351),
+            
+            Controller(identifier: "STM1",
+                       name: "Atari STM1",
+                       fullName: "Atari Mouse STM1",
+                       iconName: "Atari Mouse STM1",
+                       viceType: .mouseSt),
+            
+            Controller(identifier: "Neos",
+                       name: "Neos",
+                       fullName: "Nihon Neos Mouse",
+                       iconName: "Nihon Neos Mouse",
+                       viceType: .mouseNeos),
+            
+            Controller(identifier: "KoalaPad",
+                       name: "KoalaPad",
+                       iconName: "KoalaPad",
+                       viceType: .koalaPad)
+        ]),
         
-        // Light Pen
-        Controller(identifier: "Rex 9631", name: "Rex 9631", fullName: "Rex Light Pen 9631", iconName: "Rex Light Pen 9631", viceType: .lightpenL, numberOfButtons: 0),
-        Controller(identifier: "Inkwell 184C", name: "Inkwell 184C", fullName: "Inkwell Light Pen 184C", iconName: "Inkwell Light Pen 184C", viceType: .lightpenInkwell),
+        MachinePartSection(title: "Paddles", parts: [
+            Controller(identifier: "1312",
+                       name: "1312",
+                       fullName: "Commodore Paddles 1312",
+                       iconName: "Commodore Paddles 1312",
+                       portIconName: "Commodore Paddles 1312 Single",
+                       viceType: .paddles,
+                       sensitivity: 180 / 135),
+            
+            Controller(identifier: "VIC-20 Paddles",
+                       name: "VIC-20",
+                       fullName: "Commodore VIC-20 Paddles",
+                       iconName: "Commodore VIC-20 Paddles",
+                       portIconName: "Commodore VIC-20 Paddles Single",
+                       viceType: .paddles,
+                       sensitivity: 180 / 100),
+
+            Controller(identifier: "CX30",
+                       name: "CX30",
+                       fullName: "Atari Paddles CX30",
+                       iconName: "Atari Paddles CX30",
+                       portIconName: "Atari Paddles CX30 Single",
+                       viceType: .paddles,
+                       sensitivity: 180 / 90),
+        ]),
         
-        // Light Guns
-        Controller(identifier: "Sinclair Magnum", name: "Magnum", fullName: "Sinclair Magnum Light Phaser", iconName: "Sinclair Magnum Light Phaser", viceType: .lightgunY)
+        MachinePartSection(title: "Light Pen", parts: [
+            Controller(identifier: "Inkwell 184C",
+                       name: "Inkwell 184C",
+                       fullName: "Inkwell Light Pen 184C",
+                       iconName: "Inkwell Light Pen 184C",
+                       viceType: .lightpenInkwell),
+
+            Controller(identifier: "Rex 9631",
+                       name: "Rex 9631",
+                       fullName: "Rex Light Pen 9631",
+                       iconName: "Rex Light Pen 9631",
+                       viceType: .lightpenL,
+                       numberOfButtons: 0)
+        ]),
+        
+        MachinePartSection(title: "Light Guns", parts: [
+            Controller(identifier: "Sinclair Magnum",
+                       name: "Magnum",
+                       fullName: "Sinclair Magnum Light Phaser",
+                       iconName: "Sinclair Magnum Light Phaser",
+                       viceType: .lightgunY)
+        ])
     ]
     
-    static var userPortControllers: [Controller] {
-        return controllers.filter({ $0.viceType.isUserPortCompatible })
+    static var userPortControllers: [MachinePartSection] {
+        return controllers.map({
+            MachinePartSection(title: $0.title, parts: $0.parts.filter({
+                ($0 as? Controller)?.viceType.isUserPortCompatible ?? false
+            }))
+        }).filter({
+            !$0.parts.isEmpty
+        })
     }
     
     static private var byIdentifier = [String : Controller]()
     
     static func controller(identifier: String) -> Controller? {
         if byIdentifier.isEmpty {
-            for controller in controllers {
-                byIdentifier[controller.identifier] = controller
+            for section in controllers {
+                for controller in section.parts {
+                    byIdentifier[controller.identifier] = controller as? Controller
+                }
             }
         }
         

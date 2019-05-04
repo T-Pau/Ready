@@ -104,7 +104,9 @@ public class LightPenGestureRecognizer: UIGestureRecognizer {
             if state == .possible {
                 state = .began
             }
-            state = .changed
+            else {
+                state = .changed
+            }
         }
         else {
             state = .ended

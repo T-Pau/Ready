@@ -24,18 +24,33 @@
 import UIKit
 
 class SelectMachinePartViewController: UIViewController {
-    var machineParts = [MachinePart]()
+    @IBOutlet weak var tableView: UITableView!
+
+    var machineParts = [MachinePartSection]()
     var selectedIdentifier: String?
+    var isGrouped = true
     
     var changeHandler: ((SelectMachinePartViewController) -> ())?
     
     var iconWidth: CGFloat = 39
     var dismissOnSelect = false
 
-    var selectedRow: Int? {
+    var selectedIndexPath: IndexPath? {
         guard let identifier = selectedIdentifier else { return nil }
         
-        return machineParts.firstIndex(where: { $0.identifier == identifier })
+        for (section, machinePartSection) in machineParts.enumerated() {
+            if let row = machinePartSection.parts.firstIndex(where: { $0.identifier == identifier }) {
+                return IndexPath(row: row, section: section)
+            }
+        }
+        
+        return nil
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if !isGrouped {
+            tableView.sectionHeaderHeight = 0.0
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -44,17 +59,25 @@ class SelectMachinePartViewController: UIViewController {
 }
 
 extension SelectMachinePartViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return machineParts.count
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return machineParts[section].parts.count
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return machineParts[section].title
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let rawCell = tableView.dequeueReusableCell(withIdentifier: "MachinePart", for: indexPath)
         guard let cell = rawCell as? MachinePartTableViewCell else { return rawCell }
         
-        cell.configure(from: machineParts[indexPath.row])
+        cell.configure(from: machineParts[indexPath.section].parts[indexPath.row])
         cell.iconWidthConstraint.constant = iconWidth
-        cell.accessoryType = indexPath.row == selectedRow ? .checkmark : .none
+        cell.accessoryType = indexPath == selectedIndexPath ? .checkmark : .none
         
         return cell
     }
@@ -62,12 +85,12 @@ extension SelectMachinePartViewController: UITableViewDelegate, UITableViewDataS
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         var changedIndexPaths = [IndexPath]()
 
-        if indexPath.row != selectedRow {
+        if indexPath != selectedIndexPath {
             changedIndexPaths.append(indexPath)
-            if let oldRow = selectedRow {
-                changedIndexPaths.append(IndexPath(row: oldRow, section: 0))
+            if let oldIndexPath = selectedIndexPath {
+                changedIndexPaths.append(oldIndexPath)
             }
-            selectedIdentifier = machineParts[indexPath.row].identifier
+            selectedIdentifier = machineParts[indexPath.section].parts[indexPath.row].identifier
         }
             
         if dismissOnSelect {

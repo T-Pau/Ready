@@ -39,6 +39,7 @@ class VirtualControlsView: UIView {
     var joystickView = JoystickView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     var mouseView = MouseView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     var lightPenView = LightPenView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+    var paddleView = PaddleView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
 
     required init?(coder decoder: NSCoder) {
         super.init(coder: decoder)
@@ -57,6 +58,7 @@ class VirtualControlsView: UIView {
         setup(view: mouseView)
         setup(view: lightPenView)
         lightPenView.topOffset = topOffset
+        setup(view: paddleView)
     }
     
     private func setup(view: UIView) {
@@ -86,7 +88,7 @@ class VirtualControlsView: UIView {
             return mouseView
             
         case .paddle:
-            return nil
+            return paddleView
         }
     }
 }

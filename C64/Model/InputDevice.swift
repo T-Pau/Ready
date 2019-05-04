@@ -34,6 +34,9 @@ protocol InputDeviceDelegate {
     func inputDevice(_ device: InputDevice, mouseButtonReleased: Int)
     
     func inputDevice(_ device: InputDevice, lightPenMoved position: CGPoint?, size: CGSize, button1: Bool, button2: Bool)
+    
+    func inputDevice(_ device: InputDevice, paddleMoved position: Double)
+    func inputDevice(_ device: InputDevice, paddleChangedButton: Bool)
 }
 
 class InputDevice: MachinePart {
@@ -78,3 +81,4 @@ extension InputDevice: Hashable {
         ObjectIdentifier(self).hash(into: &hasher)
     }
 }
+

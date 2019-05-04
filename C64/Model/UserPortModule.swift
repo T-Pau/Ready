@@ -74,16 +74,23 @@ struct UserPortModule: MachinePart {
     static let none = UserPortModule(identifier: "none", name: "None", iconName: nil)
     
     static let modules = [
-        none,
-        UserPortModule(identifier: "Protovision 4 Player Adapter", name: "4 Player", fullName: "Protovision 4 Player Adapter", iconName: "Protovision 4 Player Adapter", viceJoystickType: .cga)
+        MachinePartSection(title: nil, parts: [
+            none
+        ]),
+        
+        MachinePartSection(title: "4-Player Adapters", parts: [
+            UserPortModule(identifier: "Protovision 4 Player Adapter", name: "4 Player", fullName: "Protovision 4 Player Adapter", iconName: "Protovision 4 Player Adapter", viceJoystickType: .cga)
+        ])
     ]
     
     static private var byIdentifier = [String: UserPortModule]()
     
     static func module(identifier: String) -> UserPortModule? {
         if byIdentifier.isEmpty {
-            for module in modules {
-                byIdentifier[module.identifier] = module
+            for section in modules {
+                for module in section.parts {
+                    byIdentifier[module.identifier] = module as? UserPortModule
+                }
             }
         }
         

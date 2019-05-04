@@ -224,7 +224,7 @@ import C64UIComponents
         }
         
         if !tapeImages.isEmpty && specification.string(for: .cassetteDrive) == "auto" {
-            cassetteDrive = CasstteDrive.drives.sorted(by: { $0.priority > $1.priority })[0]
+            cassetteDrive = CasstteDrive.drives[1].parts.sorted(by: { $0.priority > $1.priority })[0] as! CasstteDrive
         }
     }
 }
@@ -326,6 +326,10 @@ extension Machine {
         case .joystick, .lightGun, .lightPen, .mouse:
             inputPorts.append(InputPort(port: port, isUserPort: isUserPort, controller: controller))
         case .paddle:
+            if !isUserPort {
+                inputPorts.append(InputPort(port: port, isUserPort: false, orderFraction: 0, controller: controller))
+                inputPorts.append(InputPort(port: port, isUserPort: false, orderFraction: 1, controller: controller))
+            }
             break // TODO
         }
 
@@ -376,6 +380,32 @@ extension Machine: InputDeviceDelegate {
         }
 
         vice?.lightPen(moved: position, size: size, button1: button1, button2: button2)
+    }
+    
+    func inputDevice(_ device: InputDevice, paddleMoved position: Double) {
+        guard let port = port(for: device) else { return }
+        
+        let adjustedPosition = max(0, min((position - 0.5) * port.controller.sensitivity + 0.5, 1))
+        let value = Int32(255 * adjustedPosition)
+        
+        if port.orderFraction == 0 {
+            vice?.mouse(setX: value)
+        }
+        else {
+            vice?.mouse(setY: value)
+        }
+    }
+    
+    func inputDevice(_ device: InputDevice, paddleChangedButton isPressed: Bool) {
+        guard let port = port(for: device) else { return }
+
+        let index = port.orderFraction == 0 ? 1 : 2
+        if isPressed {
+            vice?.mouse(pressed: index)
+        }
+        else {
+            vice?.mouse(release: index)
+        }
     }
     
     func inputDeviceDidDisconnect(_ inputDevice: InputDevice) {

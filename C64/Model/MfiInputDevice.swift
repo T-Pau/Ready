@@ -41,9 +41,22 @@ class MfiInputDevice: InputDevice {
     static var deadZone = 0.1
     static var coneAngle = 67.5
     
+    struct Radial {
+        var distance: Double
+        var angle: Double
+    }
+    
+    struct Paddle {
+        var position = 128.0
+        var button = false
+    }
+    
     init(controller: GCController) {
         self.controller = controller
         super.init(identifier: "\(ObjectIdentifier(controller))", name: "", supportedModes: [ .joystick ])
+        if controller.extendedGamepad != nil {
+            supportedModes.insert(.paddle)
+        }
         fullName = controller.vendorName ?? "MfI Controller"
         if let vendorName = controller.vendorName, let product = MfiInputDevice.products[vendorName] {
             name = product.name
@@ -60,23 +73,53 @@ class MfiInputDevice: InputDevice {
         
         if let gamepad = controller.extendedGamepad {
             gamepad.valueChangedHandler = { gamepad, _ in
-                var buttons = JoystickButtons()
+                switch self.currentMode {
+                case .joystick:
+                    var buttons = JoystickButtons()
 
-                buttons.update(dpad: gamepad.dpad)
-                buttons.update(thumbstick: gamepad.leftThumbstick)
-                buttons.fire = gamepad.buttonA.isPressed
+                    buttons.update(dpad: gamepad.dpad)
+                    buttons.update(radial: self.getRadial(from: gamepad.leftThumbstick))
+                    buttons.fire = gamepad.buttonA.isPressed
+                    
+                    self.update(buttons: buttons)
+                    
+                case .paddle:
+                    var paddle = self.previousPaddle
+                    let radial = self.getRadial(from: gamepad.leftThumbstick)
+                    if radial.distance > MfiInputDevice.deadZone {
+                        var angle = radial.angle
+                        if angle > 270 {
+                            angle = 0
+                        }
+                        if angle > 180 {
+                            angle = 180
+                        }
+                        paddle.position = 1 - angle / 180
+                    }
+                    paddle.button = gamepad.buttonA.isPressed
+                    
+                    self.update(paddle: paddle)
+                    
+                default:
+                    break
+                }
                 
-                self.update(buttons: buttons)
             }
         }
         else if let gamepad = controller.microGamepad {
             gamepad.valueChangedHandler = { gamepad, _ in
-                var buttons = JoystickButtons()
+                switch self.currentMode {
+                case .joystick:
+                    var buttons = JoystickButtons()
+                    
+                    buttons.update(dpad: gamepad.dpad)
+                    buttons.fire = gamepad.buttonA.isPressed
                 
-                buttons.update(dpad: gamepad.dpad)
-                buttons.fire = gamepad.buttonA.isPressed
-                
-                self.update(buttons: buttons)
+                    self.update(buttons: buttons)
+                    
+                default:
+                    break
+                }
             }
         }
     }
@@ -87,12 +130,23 @@ class MfiInputDevice: InputDevice {
     }
     
     private var previousButtons = JoystickButtons()
+    private var previousPaddle = Paddle()
     
     private func update(buttons: JoystickButtons) {
         if buttons != previousButtons {
             previousButtons = buttons
             delegate?.inputDevice(self, joystickChanged: buttons)
         }
+    }
+    
+    private func update(paddle: Paddle) {
+        if paddle.position != previousPaddle.position {
+            delegate?.inputDevice(self, paddleMoved: paddle.position)
+        }
+        if paddle.button != previousPaddle.button {
+            delegate?.inputDevice(self, paddleChangedButton: paddle.button)
+        }
+        previousPaddle = paddle
     }
 
     private struct Product {
@@ -109,17 +163,8 @@ class MfiInputDevice: InputDevice {
         "Nimbus" : Product(name: "Nimubs", iconNames: [ "Steel Series Nimbus" ]),
         "Steel Series Stratus" : Product(name: "Stratus", iconNames: [ "Steel Series Stratus White" ])
     ]
-}
-
-extension JoystickButtons {
-    mutating func update(dpad: GCControllerDirectionPad) {
-        up = dpad.up.isPressed
-        down = dpad.down.isPressed
-        left = dpad.left.isPressed
-        right = dpad.right.isPressed
-    }
     
-    mutating func update(thumbstick: GCControllerDirectionPad) {
+    func getRadial(from thumbstick: GCControllerDirectionPad) -> Radial {
         let x = Double(thumbstick.xAxis.value)
         let y = Double(thumbstick.yAxis.value)
         
@@ -135,18 +180,31 @@ extension JoystickButtons {
                 angle = 360 - angle
             }
         }
-        
-        if distance >= MfiInputDevice.deadZone {
-            if angle < MfiInputDevice.coneAngle || angle > 360 - MfiInputDevice.coneAngle {
+
+        return Radial(distance: distance, angle: angle)
+    }
+}
+
+extension JoystickButtons {
+    mutating func update(dpad: GCControllerDirectionPad) {
+        up = dpad.up.isPressed
+        down = dpad.down.isPressed
+        left = dpad.left.isPressed
+        right = dpad.right.isPressed
+    }
+    
+    mutating func update(radial: MfiInputDevice.Radial) {
+        if radial.distance >= MfiInputDevice.deadZone {
+            if radial.angle < MfiInputDevice.coneAngle || radial.angle > 360 - MfiInputDevice.coneAngle {
                 right = true
             }
-            if  angle > 90 - MfiInputDevice.coneAngle && angle < 90 + MfiInputDevice.coneAngle {
+            if  radial.angle > 90 - MfiInputDevice.coneAngle && radial.angle < 90 + MfiInputDevice.coneAngle {
                 up = true
             }
-            if angle > 180 - MfiInputDevice.coneAngle && angle < 180 + MfiInputDevice.coneAngle {
+            if radial.angle > 180 - MfiInputDevice.coneAngle && radial.angle < 180 + MfiInputDevice.coneAngle {
                 left = true
             }
-            if angle > 270 - MfiInputDevice.coneAngle && angle < 270 + MfiInputDevice.coneAngle {
+            if radial.angle > 270 - MfiInputDevice.coneAngle && radial.angle < 270 + MfiInputDevice.coneAngle {
                 down = true
             }
         }

@@ -25,6 +25,8 @@
 		4B2B9BB622533F7F002948B7 /* TableViewUpdates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B9BB522533F7F002948B7 /* TableViewUpdates.swift */; };
 		4B2B9BB9225355E1002948B7 /* maxbasic.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B9BB7225355E0002948B7 /* maxbasic.c */; };
 		4B2B9BBB2253B60F002948B7 /* Chargen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B9BBA2253B60F002948B7 /* Chargen.swift */; };
+		4B2CE99F227D8E8800F782AC /* PaddleGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2CE99E227D8E8800F782AC /* PaddleGestureRecognizer.swift */; };
+		4B2CE9A1227D912100F782AC /* PaddleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2CE9A0227D912100F782AC /* PaddleView.swift */; };
 		4B3E4A4C220E056500511F08 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3E4A4B220E056500511F08 /* SettingsViewController.swift */; };
 		4B3E4A4E220E165200511F08 /* GeneralSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3E4A4D220E165200511F08 /* GeneralSettingsViewController.swift */; };
 		4B3E4A50220E1C2F00511F08 /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3E4A4F220E1C2F00511F08 /* ButtonTableViewCell.swift */; };
@@ -815,6 +817,8 @@
 		4B2B9BB7225355E0002948B7 /* maxbasic.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = maxbasic.c; sourceTree = "<group>"; };
 		4B2B9BB8225355E1002948B7 /* maxbasic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = maxbasic.h; sourceTree = "<group>"; };
 		4B2B9BBA2253B60F002948B7 /* Chargen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chargen.swift; sourceTree = "<group>"; };
+		4B2CE99E227D8E8800F782AC /* PaddleGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaddleGestureRecognizer.swift; sourceTree = "<group>"; };
+		4B2CE9A0227D912100F782AC /* PaddleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaddleView.swift; sourceTree = "<group>"; };
 		4B3E4A4B220E056500511F08 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		4B3E4A4D220E165200511F08 /* GeneralSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsViewController.swift; sourceTree = "<group>"; };
 		4B3E4A4F220E1C2F00511F08 /* ButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCell.swift; sourceTree = "<group>"; };
@@ -4150,6 +4154,8 @@
 				4B841CFE21F8CEDF009CAF4B /* MediaView.swift */,
 				4BACE33A2218582000FC3403 /* MouseGestureRecognizer.swift */,
 				4BACE337221708F200FC3403 /* MouseView.swift */,
+				4B2CE99E227D8E8800F782AC /* PaddleGestureRecognizer.swift */,
+				4B2CE9A0227D912100F782AC /* PaddleView.swift */,
 				4BEBC6CC22008B99009DED63 /* PlaceholderButton.swift */,
 				4BF57F002262543500909B2B /* PlaceholderView.swift */,
 				4BB22EA821EA27570075E694 /* ShareableImageView.swift */,
@@ -4519,9 +4525,11 @@
 				4BEBC6CD22008B9A009DED63 /* PlaceholderButton.swift in Sources */,
 				4B1638C12243BF820056A275 /* StatusView.swift in Sources */,
 				4BACE33B2218582000FC3403 /* MouseGestureRecognizer.swift in Sources */,
+				4B2CE99F227D8E8800F782AC /* PaddleGestureRecognizer.swift in Sources */,
 				4BD5B37C2221C425000C77B8 /* MachinePartView.swift in Sources */,
 				4BACE33922172AB600FC3403 /* MouseView.swift in Sources */,
 				4B460E472274529200815E7F /* LightPenView.swift in Sources */,
+				4B2CE9A1227D912100F782AC /* PaddleView.swift in Sources */,
 				4B0E62C72208714700C3681A /* LedView.swift in Sources */,
 				4B0E62CB22098C6900C3681A /* TapeCounterView.swift in Sources */,
 				4BD5B374221FF364000C77B8 /* JoystickGestureRecognizer.swift in Sources */,

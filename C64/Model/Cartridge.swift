@@ -59,13 +59,17 @@ struct OtherCartridge: Cartridge {
     static let none = OtherCartridge(identifier: "none", name: "None", iconName: nil, resources: [:])
 
 
-    static var _cartridges = [Cartridge]()
-    static var cartridges: [Cartridge] {
+    static var _cartridges = [MachinePartSection]()
+    static var cartridges: [MachinePartSection] {
         if _cartridges.isEmpty {
-            _cartridges = [none]
-            _cartridges.append(contentsOf: RamExpansionUnit.ramExpansionUnits.sorted(by: { $0.key < $1.key }).map({ $0.value }))
-        }
+            _cartridges = [
+                MachinePartSection(title: nil, parts: [
+                    none
+                ]),
         
+                MachinePartSection(title: "RAM Expansion Units", parts: RamExpansionUnit.ramExpansionUnits.sorted(by: { $0.key < $1.key }).map({ $0.value }))
+            ]
+        }
         return _cartridges
     }
     
@@ -73,8 +77,10 @@ struct OtherCartridge: Cartridge {
     
     static func cartridge(identifier: String) -> Cartridge? {
         if byIdentifier.isEmpty {
-            for cartridge in cartridges {
-                byIdentifier[cartridge.identifier] = cartridge
+            for section in cartridges {
+                for cartridge in section.parts {
+                    byIdentifier[cartridge.identifier] = cartridge as? Cartridge
+                }
             }
         }
         

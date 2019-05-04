@@ -315,42 +315,42 @@ extension MachineSpecification {
         return part(for: key, value: string(for: key), machine: machine)
     }
     
-    func partList(for key: MachineConfig.Key, machine: Machine?) -> [MachinePart] {
-        var partList = [MachinePart]()
-        
-        let defaultValue = string(for: key, skipFirstLayer: true)
-        let defaultPart = DummyMachinePart(identifier: "default", fullName: "Default", annotateName: false, basePart: part(for: key, value: defaultValue, machine: machine))
-        partList.append(defaultPart)
-        
-        if key.supportsAuto {
-            partList.append(autoPart(for: key, machine: machine))
-        }
+    func partList(for key: MachineConfig.Key, machine: Machine?) -> [MachinePartSection] {
+        var partList = [MachinePartSection]()
         
         switch key {
         case .cassetteDrive:
-            partList.append(contentsOf: CasstteDrive.drives)
+            partList = CasstteDrive.drives
             
         case .computer:
-            partList.append(contentsOf: Computer.computers)
+            partList = Computer.computers
             
         case .controlPort1, .controlPort2:
-            partList.append(contentsOf: Controller.controllers)
+            partList = Controller.controllers
             
         case .diskDrive8, .diskDrive9, .diskDrive10, .diskDrive11:
-            partList.append(contentsOf: DiskDrive.drives)
+            partList = DiskDrive.drives
 
         case .expansionPort:
-            // TODO: CartridgeImage
-            partList.append(contentsOf: OtherCartridge.cartridges as! [MachinePart])
+            // TODO: CartridgeImage, REUImage
+            partList = OtherCartridge.cartridges
             
         case .userPort:
-            partList.append(contentsOf: UserPortModule.modules)
+            partList = UserPortModule.modules
             
         case .userPortJoystick1, .userPortJoystick2:
-            partList.append(contentsOf: Controller.userPortControllers)
+            partList = Controller.userPortControllers
             
         default:
             break
+        }
+        
+        let defaultValue = string(for: key, skipFirstLayer: true)
+        let defaultPart = DummyMachinePart(identifier: "default", fullName: "Default", annotateName: false, basePart: part(for: key, value: defaultValue, machine: machine))
+        partList[0].parts.insert(defaultPart, at: 0)
+        
+        if key.supportsAuto {
+            partList[0].parts.insert(autoPart(for: key, machine: machine), at: 1)
         }
         
         return partList

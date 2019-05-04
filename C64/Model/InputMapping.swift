@@ -32,8 +32,12 @@ struct InputPort: Hashable {
     var vicePort: Int
     var orderNumber: Double
     
+    var orderFraction: Double {
+        return orderNumber - Double(vicePort)
+    }
+    
     var icon: UIImage? {
-        return controller.icon
+        return controller.portIcon
     }
     var inputType: Controller.InputType {
         return controller.inputType
