@@ -3,6 +3,8 @@
 ## other
 
 - warn if media can't be used due to machine configuration
+- controller auto-mapping: input device priority per input type
+- use absolute positioning for KoalaPad
 - fix dragging files out of C64
 - sharing
   - add share button
@@ -14,11 +16,10 @@
 - disk select: show currently selected (other drives too)
 - rewrite machine configuration view as collection view
 - turn off disk drives (via status bar)
-- no two mice (Vice limitation)
+- no two mice / paddle pairs (Vice limitation)
 - tape status view left border too wide (led view too wide?)
 - sharing of whole game
 - create blank disk images
-- t64 with only one file: inject (maybe even with multiple files?)
 - can't add disks to ongoing drag session
 - pause emulation when losing focus
 - tape controls (tapping on tape status)
@@ -46,6 +47,7 @@
 - choose title image (from screenshots, Photos, files)
 - GameInfo: copy/paste media, title image, screenshots
 - fix init/shutdown of sfx_soundexpander and reenable
+- t64 with only one file: inject (maybe even with multiple files?)
 
 ## warts
 
