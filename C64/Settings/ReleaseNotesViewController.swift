@@ -33,6 +33,10 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Release 1.2 (Build 3)", year: 2019, month: 5, day: 5, changes: [
+            "Add support for joysticks with up to three fire buttons.",
+            "Add Cheetah Annihilator."
+        ]),
         Release(name: "Release 1.2 (Build 2)", year: 2019, month: 5, day: 4, changes: [
             "Add paddles.",
             "Group hardware parts into subcategories."
