@@ -568,16 +568,16 @@ int sound_resources_init(void)
 void sound_resources_shutdown(void)
 {
     lib_free(device_name);
-    lib_free(device_arg);
-    lib_free(recorddevice_name);
-    lib_free(recorddevice_arg);
-    lib_free(playback_devices_cmdline);
-    lib_free(record_devices_cmdline);
     device_name = NULL;
+    lib_free(device_arg);
     device_arg = NULL;
+    lib_free(recorddevice_name);
     recorddevice_name = NULL;
+    lib_free(recorddevice_arg);
     recorddevice_arg = NULL;
+    lib_free(playback_devices_cmdline);
     playback_devices_cmdline = NULL;
+    lib_free(record_devices_cmdline);
     record_devices_cmdline = NULL;
 }
 
