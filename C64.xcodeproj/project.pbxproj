@@ -1132,7 +1132,6 @@
 		4B3F98F421D7AD4B00C272C4 /* c64-resources.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "c64-resources.c"; sourceTree = "<group>"; };
 		4B3F98F521D7AD4B00C272C4 /* c64keyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = c64keyboard.h; sourceTree = "<group>"; };
 		4B3F98F621D7AD4B00C272C4 /* psiddrv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = psiddrv.h; sourceTree = "<group>"; };
-		4B3F98F721D7AD4B00C272C4 /* c64cpu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = c64cpu.c; sourceTree = "<group>"; };
 		4B3F98F821D7AD4B00C272C4 /* c64pla.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = c64pla.h; sourceTree = "<group>"; };
 		4B3F98F921D7AD4B00C272C4 /* vsidpla.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vsidpla.c; sourceTree = "<group>"; };
 		4B3F98FA21D7AD4B00C272C4 /* c64-memory-hacks.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "c64-memory-hacks.c"; sourceTree = "<group>"; };
@@ -1545,7 +1544,6 @@
 		4B3F9B2421D7AD5300C272C4 /* log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = log.h; sourceTree = "<group>"; };
 		4B3F9B2521D7AD5300C272C4 /* debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = debug.h; sourceTree = "<group>"; };
 		4B3F9B2621D7AD5400C272C4 /* romset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = romset.h; sourceTree = "<group>"; };
-		4B3F9B2721D7AD5400C272C4 /* maincpu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = maincpu.c; sourceTree = "<group>"; };
 		4B3F9B2821D7AD5400C272C4 /* mainc64cpu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mainc64cpu.h; sourceTree = "<group>"; };
 		4B3F9B2921D7AD5400C272C4 /* 6510core.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = 6510core.c; sourceTree = "<group>"; };
 		4B3F9B2A21D7AD5400C272C4 /* socket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = socket.c; sourceTree = "<group>"; };
@@ -1775,7 +1773,6 @@
 		4B3FA98D21D7AD6F00C272C4 /* mos6510.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mos6510.h; sourceTree = "<group>"; };
 		4B3FA98E21D7AD6F00C272C4 /* diskconstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = diskconstants.h; sourceTree = "<group>"; };
 		4B3FA98F21D7AD6F00C272C4 /* info.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = info.c; sourceTree = "<group>"; };
-		4B3FA9E821D7AD7000C272C4 /* mainviccpu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mainviccpu.c; sourceTree = "<group>"; };
 		4B3FA9EA21D7AD7000C272C4 /* fsimage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fsimage.h; sourceTree = "<group>"; };
 		4B3FA9EB21D7AD7000C272C4 /* fsimage-dxx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "fsimage-dxx.h"; sourceTree = "<group>"; };
 		4B3FA9EC21D7AD7000C272C4 /* fsimage-probe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "fsimage-probe.h"; sourceTree = "<group>"; };
@@ -2590,9 +2587,7 @@
 				4B3F97BC21D7AD4700C272C4 /* main65816cpu.h */,
 				4B3FAB4121D7AD8200C272C4 /* mainc64cpu.c */,
 				4B3F9B2821D7AD5400C272C4 /* mainc64cpu.h */,
-				4B3F9B2721D7AD5400C272C4 /* maincpu.c */,
 				4B3FA9FF21D7AD7200C272C4 /* maincpu.h */,
-				4B3FA9E821D7AD7000C272C4 /* mainviccpu.c */,
 				4B3F9A4F21D7AD4E00C272C4 /* mem.h */,
 				4B3F9AD821D7AD5200C272C4 /* midi.c */,
 				4B3F97C521D7AD4800C272C4 /* midi.h */,
@@ -3052,7 +3047,6 @@
 				4B3F98F321D7AD4B00C272C4 /* c64cia.h */,
 				4B3F98D521D7AD4B00C272C4 /* c64cia1.c */,
 				4B3F98E821D7AD4B00C272C4 /* c64cia2.c */,
-				4B3F98F721D7AD4B00C272C4 /* c64cpu.c */,
 				4B3F98EE21D7AD4B00C272C4 /* c64cpusc.c */,
 				4B3F99BA21D7AD4B00C272C4 /* c64datasette.c */,
 				4B3F98FC21D7AD4B00C272C4 /* c64drive.c */,
