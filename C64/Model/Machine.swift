@@ -28,6 +28,7 @@ import C64UIComponents
     enum ResourceName: String {
         case AutostartPrgMode
         case CartridgeFile
+        case CPMCart
         case DosName1541
         case DosName1541II
         case DosName1581

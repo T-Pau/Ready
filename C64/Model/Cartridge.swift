@@ -67,7 +67,13 @@ struct OtherCartridge: Cartridge {
                     none
                 ]),
         
-                MachinePartSection(title: "RAM Expansion Units", parts: RamExpansionUnit.ramExpansionUnits.sorted(by: { $0.key < $1.key }).map({ $0.value }))
+                MachinePartSection(title: "RAM Expansion Units", parts: RamExpansionUnit.ramExpansionUnits.sorted(by: { $0.key < $1.key }).map({ $0.value })),
+                
+                MachinePartSection(title: "CPU Expansions", parts: [
+                    OtherCartridge(identifier: "CPM", name: "CP/M", fullName: "CP/M Cartridge", iconName: "CPM Cartridge", resources: [
+                        .CPMCart: .Bool(true)
+                    ])
+                ])
             ]
         }
         return _cartridges
