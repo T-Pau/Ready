@@ -24,6 +24,11 @@
 import Foundation
 
 struct Controller: MachinePart {
+    struct DeviceConfig: Equatable {
+        var sensitivity = 1.0
+        var numberOfButtons = 1
+    }
+
     enum ViceType: Int32 {
         case none = 0
         case joystick = 1
@@ -145,10 +150,8 @@ struct Controller: MachinePart {
     
     var viceType: ViceType
     var inputType: InputType { return viceType.inputType }
-    var numberOfButtons: Int
+    var deviceConfig = DeviceConfig()
     
-    var sensitivity: Double
-
     init(identifier: String, name: String, fullName: String? = nil, variantName: String? = nil, iconName: String?, portIconName: String? = nil, priority: Int = MachinePartNormalPriority, viceType: ViceType, numberOfButtons: Int? = nil, sensitivity: Double = 1) {
         self.identifier = identifier
         self.name = name
@@ -169,12 +172,12 @@ struct Controller: MachinePart {
         self.priority = priority
         self.viceType = viceType
         if let numberOfButtons = numberOfButtons {
-            self.numberOfButtons = numberOfButtons
+            deviceConfig.numberOfButtons = numberOfButtons
         }
         else {
-            self.numberOfButtons = viceType.numberOfButtons
+            deviceConfig.numberOfButtons = viceType.numberOfButtons
         }
-        self.sensitivity = sensitivity
+        deviceConfig.sensitivity = sensitivity
     }
     
     static let none = Controller(identifier: "none", name: "None", iconName: nil, priority: 0, viceType: .none)
@@ -224,14 +227,12 @@ struct Controller: MachinePart {
                        iconName: "Spectravideo QuickShot IX",
                        viceType: .joystick),
             
-            /* 2nd button not supported by Vice
             Controller(identifier: "Annihilator",
                        name: "Annihilator",
                        fullName: "Cheetah Annihilator",
                        iconName: "Cheetah Annihilator",
                        viceType: .joystick,
                        numberOfButtons: 2)
-             */
         ]),
         
         MachinePartSection(title: "Mice", parts: [
@@ -286,6 +287,13 @@ struct Controller: MachinePart {
         ]),
         
         MachinePartSection(title: "Light Pen", parts: [
+/*            Controller(identifier: "Inkwell 170C",
+                       name: "Inkwell 170C",
+                       fullName: "Inkwell Light Pen 170C",
+                       iconName: "Inkwell Light Pen 170C",
+                       viceType: .lightpenInkwell,
+                       numberOfButtons: 1), */
+
             Controller(identifier: "Inkwell 184C",
                        name: "Inkwell 184C",
                        fullName: "Inkwell Light Pen 184C",

@@ -61,7 +61,13 @@ extension JoystickButtons {
         if fire {
             value |= 0x10
         }
-        
+        if fire2 {
+            value |= 0x20
+        }
+        if fire3 {
+            value |= 0x40
+        }
+
         return value
     }
 }

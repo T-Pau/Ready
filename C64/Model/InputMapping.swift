@@ -214,6 +214,7 @@ class InputMapping {
         
         device.currentMode = port.inputType
         device.playerIndex = port.playerIndex
+        device.deviceConfig = port.controller.deviceConfig
         
         if isManual {
             automap(cancelAutomatic: false)

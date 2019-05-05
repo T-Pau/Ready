@@ -29,7 +29,7 @@
     - choose file to autostart from disk
     - save states
 - MIDI support
-- Cheetah Annihilator Joystick (C64GS) (2nd button connecting POTX to VCC, nut supported by Vice)
+- Commodore 1350 (mouse emulating joystick) (not supported by Vice)
 - support mice / paddles in both ports simultaneously (not supported by Vice)
 - allow removing border from screenshots
 - use Metal to draw image, support shaders for CRT effects

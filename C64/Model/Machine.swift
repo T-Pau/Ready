@@ -366,15 +366,15 @@ extension Machine: InputDeviceDelegate {
         
         if controller.viceType.lightPenNeedsButtonOnTouch {
             button1 = position != nil
-            if controller.numberOfButtons >= 1 {
+            if controller.deviceConfig.numberOfButtons >= 1 {
                 button2 = rawButton1
             }
         }
         else {
-            if controller.numberOfButtons >= 1 {
+            if controller.deviceConfig.numberOfButtons >= 1 {
                 button1 = rawButton1
             }
-            if controller.numberOfButtons >= 2 {
+            if controller.deviceConfig.numberOfButtons >= 2 {
                 button2 = rawButton2
             }
         }
@@ -385,7 +385,8 @@ extension Machine: InputDeviceDelegate {
     func inputDevice(_ device: InputDevice, paddleMoved position: Double) {
         guard let port = port(for: device) else { return }
         
-        let adjustedPosition = max(0, min((position - 0.5) * port.controller.sensitivity + 0.5, 1))
+        // TODO: move to InputDevice
+        let adjustedPosition = max(0, min((position - 0.5) * port.controller.deviceConfig.sensitivity + 0.5, 1))
         let value = Int32(255 * adjustedPosition)
         
         if port.orderFraction == 0 {

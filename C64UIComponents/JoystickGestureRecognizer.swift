@@ -29,6 +29,8 @@ public struct JoystickButtons: Equatable {
     public var left: Bool
     public var right: Bool
     public var fire: Bool
+    public var fire2: Bool
+    public var fire3: Bool
     
     public init() {
         up = false
@@ -36,6 +38,8 @@ public struct JoystickButtons: Equatable {
         left = false
         right = false
         fire = false
+        fire2 = false
+        fire3 = false
     }
 }
 

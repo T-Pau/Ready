@@ -47,9 +47,11 @@ class InputDevice: MachinePart {
     var priority: Int
     var playerIndex: Int?
     
-    var currentMode = Controller.InputType.none
     var supportedModes: Set<Controller.InputType>
-    
+
+    var deviceConfig = Controller.DeviceConfig()
+    var currentMode = Controller.InputType.none
+
     var delegate: InputDeviceDelegate?
 
     init(identifier: String, name: String, fullName: String? = nil, iconName: String? = nil, priority: Int = MachinePartNormalPriority, supportedModes: Set<Controller.InputType>) {

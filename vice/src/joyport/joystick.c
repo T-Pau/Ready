@@ -75,6 +75,8 @@
 #define DBG(x)
 #endif
 
+#define JOYPAD_FIRE2 0x20
+#define JOYPAD_FIRE3 0x40
 #define JOYPAD_FIRE 0x10
 #define JOYPAD_E    0x08
 #define JOYPAD_W    0x04
@@ -363,6 +365,10 @@ static const resource_int_t joykeys_resources_int[] = {
       &joykeys[JOYSTICK_KEYSET_IDX_A][JOYSTICK_KEYSET_W], set_keyset1, (void *)JOYSTICK_KEYSET_W },
     { "KeySet1Fire", ARCHDEP_KEYBOARD_SYM_NONE, RES_EVENT_NO, NULL,
       &joykeys[JOYSTICK_KEYSET_IDX_A][JOYSTICK_KEYSET_FIRE], set_keyset1, (void *)JOYSTICK_KEYSET_FIRE },
+    { "KeySet1Fire2", ARCHDEP_KEYBOARD_SYM_NONE, RES_EVENT_NO, NULL,
+        &joykeys[JOYSTICK_KEYSET_IDX_A][JOYSTICK_KEYSET_FIRE2], set_keyset1, (void *)JOYSTICK_KEYSET_FIRE },
+    { "KeySet1Fire3", ARCHDEP_KEYBOARD_SYM_NONE, RES_EVENT_NO, NULL,
+        &joykeys[JOYSTICK_KEYSET_IDX_A][JOYSTICK_KEYSET_FIRE3], set_keyset1, (void *)JOYSTICK_KEYSET_FIRE },
     { "KeySet2NorthWest", ARCHDEP_KEYBOARD_SYM_NONE, RES_EVENT_NO, NULL,
       &joykeys[JOYSTICK_KEYSET_IDX_B][JOYSTICK_KEYSET_NW], set_keyset2, (void *)JOYSTICK_KEYSET_NW },
     { "KeySet2North", ARCHDEP_KEYBOARD_SYM_NONE, RES_EVENT_NO, NULL,
@@ -381,6 +387,10 @@ static const resource_int_t joykeys_resources_int[] = {
       &joykeys[JOYSTICK_KEYSET_IDX_B][JOYSTICK_KEYSET_W], set_keyset2, (void *)JOYSTICK_KEYSET_W },
     { "KeySet2Fire", ARCHDEP_KEYBOARD_SYM_NONE, RES_EVENT_NO, NULL,
       &joykeys[JOYSTICK_KEYSET_IDX_B][JOYSTICK_KEYSET_FIRE], set_keyset2, (void *)JOYSTICK_KEYSET_FIRE },
+    { "KeySet2Fire2", ARCHDEP_KEYBOARD_SYM_NONE, RES_EVENT_NO, NULL,
+        &joykeys[JOYSTICK_KEYSET_IDX_B][JOYSTICK_KEYSET_FIRE2], set_keyset1, (void *)JOYSTICK_KEYSET_FIRE },
+    { "KeySet2Fire3", ARCHDEP_KEYBOARD_SYM_NONE, RES_EVENT_NO, NULL,
+        &joykeys[JOYSTICK_KEYSET_IDX_B][JOYSTICK_KEYSET_FIRE3], set_keyset1, (void *)JOYSTICK_KEYSET_FIRE },
     { "KeySetEnable", 1, RES_EVENT_NO, NULL,
       &joykeys_enable, set_joykeys_enable, NULL },
     RESOURCE_INT_LIST_END
@@ -518,7 +528,15 @@ static int joyport_enable_joystick(int port, int val)
 
 static uint8_t read_joystick(int port)
 {
-    return (uint8_t)(~joystick_value[port + 1]);
+    return (uint8_t)(~(joystick_value[port + 1] & 0x1f));
+}
+
+static uint8_t read_potx(int port) {
+    return joystick_value[port + 1] & JOYPAD_FIRE2 ? 0x00 : 0xff;
+}
+
+static uint8_t read_poty(int port) {
+    return joystick_value[port + 1] & JOYPAD_FIRE3 ? 0x00 : 0xff;
 }
 
 /* Some prototypes are needed */
@@ -533,8 +551,8 @@ static joyport_t joystick_device = {
     joyport_enable_joystick,
     read_joystick,
     NULL,               /* no store digital */
-    NULL,               /* no read potx */
-    NULL,               /* no read poty */
+    read_potx,
+    read_poty,
     joystick_snapshot_write_module,
     joystick_snapshot_read_module
 };

@@ -79,7 +79,15 @@ class MfiInputDevice: InputDevice {
 
                     buttons.update(dpad: gamepad.dpad)
                     buttons.update(radial: self.getRadial(from: gamepad.leftThumbstick))
-                    buttons.fire = gamepad.buttonA.isPressed
+                    if self.deviceConfig.numberOfButtons >= 1 {
+                        buttons.fire = gamepad.buttonA.isPressed
+                        if self.deviceConfig.numberOfButtons >= 2 {
+                            buttons.fire2 = gamepad.buttonB.isPressed
+                        }
+                        if self.deviceConfig.numberOfButtons >= 3 {
+                            buttons.fire3 = gamepad.buttonX.isPressed
+                        }
+                    }
                     
                     self.update(buttons: buttons)
                     
@@ -113,7 +121,12 @@ class MfiInputDevice: InputDevice {
                     var buttons = JoystickButtons()
                     
                     buttons.update(dpad: gamepad.dpad)
-                    buttons.fire = gamepad.buttonA.isPressed
+                    if self.deviceConfig.numberOfButtons >= 1 {
+                        buttons.fire = gamepad.buttonA.isPressed
+                        if self.deviceConfig.numberOfButtons >= 2 {
+                            buttons.fire2 = gamepad.buttonX.isPressed
+                        }
+                    }
                 
                     self.update(buttons: buttons)
                     
