@@ -89,6 +89,15 @@ struct Controller: MachinePart {
             }
         }
         
+        var isPort2Compatible: Bool {
+            switch self {
+            case .lightgunL, .lightgunY, .lightpenL, .lightpenU, .lightpenDatel, .lightpenInkwell:
+                return false
+            default:
+                return true
+            }
+        }
+        
         var numberOfButtons: Int {
             switch self {
             case .joystick, .lightgunL, .lightgunY, .lightpenDatel, .lightpenL, .lightpenU, .mouseCx22:
@@ -182,7 +191,7 @@ struct Controller: MachinePart {
     
     static let none = Controller(identifier: "none", name: "None", iconName: nil, priority: 0, viceType: .none)
 
-    static let controllers = [
+    static let controllers = MachinePartList(sections: [
         MachinePartSection(title: nil, parts: [
             none,
         ]),
@@ -232,7 +241,14 @@ struct Controller: MachinePart {
                        fullName: "Cheetah Annihilator",
                        iconName: "Cheetah Annihilator",
                        viceType: .joystick,
-                       numberOfButtons: 2)
+                       numberOfButtons: 2),
+
+            Controller(identifier: "Elite 2002 Joystick",
+                       name: "Elite 2002",
+                       fullName: "Elite Multi-Function 2002",
+                       variantName: "Joystick Mode",
+                       iconName: "Elite Multi-Function 2002 Joystick",
+                       viceType: .joystick)
         ]),
         
         MachinePartSection(title: "Mice", parts: [
@@ -284,6 +300,14 @@ struct Controller: MachinePart {
                        portIconName: "Atari Paddles CX30 Single",
                        viceType: .paddles,
                        sensitivity: 180 / 90),
+
+            Controller(identifier: "Elite 2002 Paddles",
+                       name: "Elite 2002",
+                       fullName: "Elite Multi-Function 2002",
+                       variantName: "Paddles Mode",
+                       iconName: "Elite Multi-Function 2002 Paddles",
+                       viceType: .paddles,
+                       sensitivity: 180 / 135) // TODO: guessed
         ]),
         
         MachinePartSection(title: "Light Pen", parts: [
@@ -315,15 +339,17 @@ struct Controller: MachinePart {
                        iconName: "Sinclair Magnum Light Phaser",
                        viceType: .lightgunY)
         ])
-    ]
+    ])
     
-    static var userPortControllers: [MachinePartSection] {
-        return controllers.map({
-            MachinePartSection(title: $0.title, parts: $0.parts.filter({
-                ($0 as? Controller)?.viceType.isUserPortCompatible ?? false
-            }))
-        }).filter({
-            !$0.parts.isEmpty
+    static var port2Controllers: MachinePartList {
+        return controllers.filter({
+            ($0 as? Controller)?.viceType.isPort2Compatible ?? false
+        })
+    }
+    
+    static var userPortControllers: MachinePartList {
+        return controllers.filter({
+            ($0 as? Controller)?.viceType.isUserPortCompatible ?? false
         })
     }
     
@@ -331,10 +357,8 @@ struct Controller: MachinePart {
     
     static func controller(identifier: String) -> Controller? {
         if byIdentifier.isEmpty {
-            for section in controllers {
-                for controller in section.parts {
-                    byIdentifier[controller.identifier] = controller as? Controller
-                }
+            for controller in controllers.parts {
+                byIdentifier[controller.identifier] = controller as? Controller
             }
         }
         

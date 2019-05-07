@@ -33,6 +33,10 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Release 1.2 (Build 4)", year: 2019, month: 5, day: 6, changes: [
+            "Add Elite Multi-Function 2002, in Joystick and Paddle mode.",
+            "Light pen and light guns don't work in Control Port 2."
+        ]),
         Release(name: "Release 1.2 (Build 3)", year: 2019, month: 5, day: 5, changes: [
             "Add support for joysticks with up to three fire buttons.",
             "Add Cheetah Annihilator."

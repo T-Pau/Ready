@@ -47,3 +47,31 @@ struct MachinePartSection {
     var title: String?
     var parts: [MachinePart]
 }
+
+struct MachinePartList {
+    var sections: [MachinePartSection]
+    
+    subscript(_ indexPath: IndexPath) -> MachinePart {
+        return sections[indexPath.section].parts[indexPath.row]
+    }
+    
+    func filter(_ isIncluded: ((MachinePart) throws -> Bool)) rethrows -> MachinePartList {
+        return MachinePartList(sections: try sections.map({
+            MachinePartSection(title: $0.title, parts: try $0.parts.filter({ try isIncluded($0) }))
+        }).filter({
+            !$0.parts.isEmpty
+        }))
+    }
+    
+    var parts: [MachinePart] {
+        return sections.flatMap({ $0.parts })
+    }
+    
+    var isEmpty: Bool {
+        return sections.isEmpty
+    }
+    
+    mutating func insert(_ machienPart: MachinePart, at indexPath: IndexPath) {
+        sections[indexPath.section].parts.insert(machienPart, at: indexPath.row)
+    }
+}

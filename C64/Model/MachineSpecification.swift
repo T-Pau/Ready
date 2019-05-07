@@ -315,8 +315,8 @@ extension MachineSpecification {
         return part(for: key, value: string(for: key), machine: machine)
     }
     
-    func partList(for key: MachineConfig.Key, machine: Machine?) -> [MachinePartSection] {
-        var partList = [MachinePartSection]()
+    func partList(for key: MachineConfig.Key, machine: Machine?) -> MachinePartList {
+        var partList: MachinePartList
         
         switch key {
         case .cassetteDrive:
@@ -325,8 +325,11 @@ extension MachineSpecification {
         case .computer:
             partList = Computer.computers
             
-        case .controlPort1, .controlPort2:
+        case .controlPort1:
             partList = Controller.controllers
+            
+        case .controlPort2:
+            partList = Controller.port2Controllers
             
         case .diskDrive8, .diskDrive9, .diskDrive10, .diskDrive11:
             partList = DiskDrive.drives
@@ -342,15 +345,15 @@ extension MachineSpecification {
             partList = Controller.userPortControllers
             
         default:
-            break
+            return MachinePartList(sections: [])
         }
         
         let defaultValue = string(for: key, skipFirstLayer: true)
         let defaultPart = DummyMachinePart(identifier: "default", fullName: "Default", annotateName: false, basePart: part(for: key, value: defaultValue, machine: machine))
-        partList[0].parts.insert(defaultPart, at: 0)
+        partList.insert(defaultPart, at: IndexPath(row: 0, section: 0))
         
         if key.supportsAuto {
-            partList[0].parts.insert(autoPart(for: key, machine: machine), at: 1)
+            partList.insert(autoPart(for: key, machine: machine), at: IndexPath(row: 1, section: 0))
         }
         
         return partList

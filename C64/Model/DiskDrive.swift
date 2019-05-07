@@ -117,39 +117,144 @@ struct DiskDrive: MachinePart {
     
     var hasStatus: Bool { return viceType != .none }
     
-    static let none = DiskDrive(identifier: "none", name: "None", iconName: nil, priority: 0, viceType: .none, supportedMediaTypes: [], leds: [], caseColorName: nil)
+    static let none = DiskDrive(identifier: "none",
+                                name: "None",
+                                iconName: nil,
+                                priority: 0,
+                                viceType: .none,
+                                supportedMediaTypes: [],
+                                leds: [],
+                                caseColorName: nil)
 
-    static let sx64 = DiskDrive(identifier: "SX64", name: "SX 64", iconName: "Commodore SX64", viceType: .cbm1541, supportedMediaTypes: [ .singleDensitySingleSided5_25 ], leds: [Led(isRound: true, colorName: "1541")], caseColorName: "SX64 Case", textColorName: "SX64 Frame", jiffyDosKey: .BiosJiffyDos1541)
+    static let sx64 = DiskDrive(identifier: "SX64",
+                                name: "SX 64",
+                                iconName: "Commodore SX64",
+                                viceType: .cbm1541,
+                                supportedMediaTypes: [ .singleDensitySingleSided5_25 ],
+                                leds: [Led(isRound: true, colorName: "1541")],
+                                caseColorName: "SX64 Case",
+                                textColorName: "SX64 Frame",
+                                jiffyDosKey: .BiosJiffyDos1541)
 
-    static var drives = [
+    static var drives = MachinePartList(sections: [
         MachinePartSection(title: nil, parts: [
             none
         ]),
         
         MachinePartSection(title: "5.25\"", parts: [
-            DiskDrive(identifier: "1541 Alps", name: "1541", fullName: "Commodore 1541", variantName: "Alps Drive", iconName: "Commodore 1541 Alps", viceType: .cbm1541, supportedMediaTypes: [ .singleDensitySingleSided5_25 ], leds: [Led(isRound: true, colorName: "1541")], caseColorName: "C64 Case", jiffyDosKey: .BiosJiffyDos1541),
-            DiskDrive(identifier: "1541 Newtroncs", name: "1541", fullName: "Commodore 1541", variantName: "Newtronics Drive", iconName: "Commodore 1541 Newtronics", priority: MachinePartLowPriority, viceType: .cbm1541, supportedMediaTypes: [ .singleDensitySingleSided5_25 ], leds: [Led(isRound: false, colorName: "1541")], caseColorName: "C64 Case", jiffyDosKey: .BiosJiffyDos1541),
-            DiskDrive(identifier: "1541C Alps", name: "1541C", fullName: "Commodore 1541C", variantName: "Alps Drive", iconName: "Commodore 1541C Alps", priority: MachinePartLowPriority, viceType: .cbm1541, supportedMediaTypes: [ .singleDensitySingleSided5_25 ], leds: [Led(isRound: false, colorName: "1541")], caseColorName: "C64C Case", jiffyDosKey: .BiosJiffyDos1541),
-            DiskDrive(identifier: "1541C Newtroncs", name: "1541C", fullName: "Commodore 1541C", variantName: "Newtronics Drive", iconName: "Commodore 1541C Newtronics", priority: MachinePartLowPriority, viceType: .cbm1541, supportedMediaTypes: [ .singleDensitySingleSided5_25 ], leds: [Led(isRound: false, colorName: "1541")], caseColorName: "C64C Case", jiffyDosKey: .BiosJiffyDos1541),
-            DiskDrive(identifier: "1541-II JPN", name: "1541-II", fullName: "Commodore 1541-II", variantName: "JPN Drive", iconName: "Commodore 1541-II JPN", priority: MachinePartHighPriority,  viceType: .cbm1541II, supportedMediaTypes: [ .singleDensitySingleSided5_25 ], leds: [Led(isRound: false, colorName: "1541-II JPN")], caseColorName: "C64C Case", jiffyDosKey: .BiosJiffyDos1541II),
-            DiskDrive(identifier: "1541-II Chinon", name: "1541-II", fullName: "Commodore 1541-II", variantName: "Chinon Drive", iconName: "Commodore 1541-II Chinon", priority: MachinePartLowPriority,  viceType: .cbm1541II, supportedMediaTypes: [ .singleDensitySingleSided5_25 ], leds: [Led(isRound: false, colorName: "1541-II Chinon")], caseColorName: "C64C Case", jiffyDosKey: .BiosJiffyDos1541II),
+            DiskDrive(identifier: "1541 Alps",
+                      name: "1541",
+                      fullName: "Commodore 1541",
+                      variantName: "Alps Drive",
+                      iconName: "Commodore 1541 Alps",
+                      viceType: .cbm1541,
+                      supportedMediaTypes: [ .singleDensitySingleSided5_25 ],
+                      leds: [Led(isRound: true, colorName: "1541")],
+                      caseColorName: "C64 Case",
+                      jiffyDosKey: .BiosJiffyDos1541),
+            
+            DiskDrive(identifier: "1541 Newtroncs",
+                      name: "1541",
+                      fullName: "Commodore 1541",
+                      variantName: "Newtronics Drive",
+                      iconName: "Commodore 1541 Newtronics",
+                      priority: MachinePartLowPriority,
+                      viceType: .cbm1541,
+                      supportedMediaTypes: [ .singleDensitySingleSided5_25 ],
+                      leds: [Led(isRound: false, colorName: "1541")],
+                      caseColorName: "C64 Case",
+                      jiffyDosKey: .BiosJiffyDos1541),
+            
+            DiskDrive(identifier: "1541C Alps",
+                      name: "1541C",
+                      fullName: "Commodore 1541C",
+                      variantName: "Alps Drive",
+                      iconName: "Commodore 1541C Alps",
+                      priority: MachinePartLowPriority,
+                      viceType: .cbm1541,
+                      supportedMediaTypes: [ .singleDensitySingleSided5_25 ],
+                      leds: [Led(isRound: false, colorName: "1541")],
+                      caseColorName: "C64C Case",
+                      jiffyDosKey: .BiosJiffyDos1541),
+            
+            DiskDrive(identifier: "1541C Newtroncs",
+                      name: "1541C",
+                      fullName: "Commodore 1541C",
+                      variantName: "Newtronics Drive",
+                      iconName: "Commodore 1541C Newtronics",
+                      priority: MachinePartLowPriority,
+                      viceType: .cbm1541,
+                      supportedMediaTypes: [ .singleDensitySingleSided5_25 ],
+                      leds: [Led(isRound: false, colorName: "1541")],
+                      caseColorName: "C64C Case",
+                      jiffyDosKey: .BiosJiffyDos1541),
+            
+            DiskDrive(identifier: "1541-II JPN",
+                      name: "1541-II",
+                      fullName: "Commodore 1541-II",
+                      variantName: "JPN Drive",
+                      iconName: "Commodore 1541-II JPN",
+                      priority: MachinePartHighPriority,
+                      viceType: .cbm1541II,
+                      supportedMediaTypes: [ .singleDensitySingleSided5_25 ],
+                      leds: [Led(isRound: false, colorName: "1541-II JPN")],
+                      caseColorName: "C64C Case",
+                      jiffyDosKey: .BiosJiffyDos1541II),
+            
+            DiskDrive(identifier: "1541-II Chinon",
+                      name: "1541-II",
+                      fullName: "Commodore 1541-II",
+                      variantName: "Chinon Drive",
+                      iconName: "Commodore 1541-II Chinon",
+                      priority: MachinePartLowPriority,
+                      viceType: .cbm1541II,
+                      supportedMediaTypes: [ .singleDensitySingleSided5_25 ],
+                      leds: [Led(isRound: false, colorName: "1541-II Chinon")],
+                      caseColorName: "C64C Case",
+                      jiffyDosKey: .BiosJiffyDos1541II)
         ]),
         
         MachinePartSection(title: "3.5\"", parts: [
-            DiskDrive(identifier: "1581", name: "1581", fullName: "Commodore 1581", iconName: "Commodore 1581", viceType: .cbm1581, supportedMediaTypes: [ .doubleDensity3_5 ], leds: [Led(isRound: false, colorName: "1581")], caseColorName: "C64C Case", jiffyDosKey: .BiosJiffyDos1581),
-            DiskDrive(identifier: "FD-2000", name: "FD-2000", fullName: "CMD FD-2000", iconName: "CMD FD", viceType: .cmd_fd2000, supportedMediaTypes: [ .doubleDensity3_5, .cmdDoubleDensity3_5, .cmdHighDensity3_5 ], leds: [Led(isRound: false, colorName: "FD Green"), Led(isRound: false, colorName: "FD Red")], caseColorName: "CMD FD Case", textColorName: "CMD FD Text", biosKey: .BiosFD2000),
-            DiskDrive(identifier: "FD-4000", name: "FD-4000", fullName: "CMD FD-4000", iconName: "CMD FD", viceType: .cmd_fd4000, supportedMediaTypes: [ .doubleDensity3_5, .cmdDoubleDensity3_5, .cmdHighDensity3_5, .cmdExtendedDensity3_5 ], leds: [Led(isRound: false, colorName: "FD Green"), Led(isRound: false, colorName: "FD Red")], caseColorName: "CMD FD Case", textColorName: "CMD FD Text", biosKey: .BiosFD4000)
+            DiskDrive(identifier: "1581",
+                      name: "1581",
+                      fullName: "Commodore 1581",
+                      iconName: "Commodore 1581",
+                      viceType: .cbm1581,
+                      supportedMediaTypes: [ .doubleDensity3_5 ],
+                      leds: [Led(isRound: false, colorName: "1581")],
+                      caseColorName: "C64C Case",
+                      jiffyDosKey: .BiosJiffyDos1581),
+            
+            DiskDrive(identifier: "FD-2000",
+                      name: "FD-2000",
+                      fullName: "CMD FD-2000",
+                      iconName: "CMD FD",
+                      viceType: .cmd_fd2000,
+                      supportedMediaTypes: [ .doubleDensity3_5, .cmdDoubleDensity3_5, .cmdHighDensity3_5 ],
+                      leds: [Led(isRound: false, colorName: "FD Green"), Led(isRound: false, colorName: "FD Red")],
+                      caseColorName: "CMD FD Case",
+                      textColorName: "CMD FD Text",
+                      biosKey: .BiosFD2000),
+            
+            DiskDrive(identifier: "FD-4000",
+                      name: "FD-4000",
+                      fullName: "CMD FD-4000",
+                      iconName: "CMD FD",
+                      viceType: .cmd_fd4000,
+                      supportedMediaTypes: [ .doubleDensity3_5, .cmdDoubleDensity3_5, .cmdHighDensity3_5, .cmdExtendedDensity3_5 ],
+                      leds: [Led(isRound: false, colorName: "FD Green"), Led(isRound: false, colorName: "FD Red")],
+                      caseColorName: "CMD FD Case",
+                      textColorName: "CMD FD Text",
+                      biosKey: .BiosFD4000)
         ])
-    ]
+    ])
     
     static private var byIdentifier = [String: DiskDrive]()
     
     static func drive(identifier: String) -> DiskDrive? {
         if byIdentifier.isEmpty {
-            for section in drives {
-                for drive in section.parts {
-                    byIdentifier[drive.identifier] = drive as? DiskDrive
-                }
+            for drive in drives.parts {
+                byIdentifier[drive.identifier] = drive as? DiskDrive
             }
         }
         
@@ -161,12 +266,10 @@ struct DiskDrive: MachinePart {
     }
 
     static func getDriveSupporting(mediaType: MediaType) -> DiskDrive? {
-        for section in drives {
-            for drive in section.parts.sorted(by: { $0.priority > $1.priority }) as? [DiskDrive] ?? [] {
+            for drive in drives.parts.sorted(by: { $0.priority > $1.priority }) as? [DiskDrive] ?? [] {
                 if drive.supportedMediaTypes.contains(mediaType) {
                     return drive
                 }
-            }
         }
         return nil
     }

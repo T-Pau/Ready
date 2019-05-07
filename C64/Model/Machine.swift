@@ -225,7 +225,7 @@ import C64UIComponents
         }
         
         if !tapeImages.isEmpty && specification.string(for: .cassetteDrive) == "auto" {
-            cassetteDrive = CasstteDrive.drives[1].parts.sorted(by: { $0.priority > $1.priority })[0] as! CasstteDrive
+            cassetteDrive = CasstteDrive.drives.parts.sorted(by: { $0.priority > $1.priority })[0] as! CasstteDrive
         }
     }
 }

@@ -59,10 +59,10 @@ struct OtherCartridge: Cartridge {
     static let none = OtherCartridge(identifier: "none", name: "None", iconName: nil, resources: [:])
 
 
-    static var _cartridges = [MachinePartSection]()
-    static var cartridges: [MachinePartSection] {
+    static var _cartridges = MachinePartList(sections: [])
+    static var cartridges: MachinePartList {
         if _cartridges.isEmpty {
-            _cartridges = [
+            _cartridges = MachinePartList(sections: [
                 MachinePartSection(title: nil, parts: [
                     none
                 ]),
@@ -74,7 +74,7 @@ struct OtherCartridge: Cartridge {
                         .CPMCart: .Bool(true)
                     ])
                 ])
-            ]
+            ])
         }
         return _cartridges
     }
@@ -83,10 +83,8 @@ struct OtherCartridge: Cartridge {
     
     static func cartridge(identifier: String) -> Cartridge? {
         if byIdentifier.isEmpty {
-            for section in cartridges {
-                for cartridge in section.parts {
-                    byIdentifier[cartridge.identifier] = cartridge as? Cartridge
-                }
+            for cartridge in cartridges.parts {
+                byIdentifier[cartridge.identifier] = cartridge as? Cartridge
             }
         }
         

@@ -49,7 +49,7 @@ struct CasstteDrive: MachinePart {
     
     static let none = CasstteDrive(identifier: "none", name: "None", iconName: nil, priority: 0, caseColorName: nil)
     
-    static let drives = [
+    static let drives = MachinePartList(sections: [
         MachinePartSection(title: nil, parts: [
             none
         ]),
@@ -57,16 +57,14 @@ struct CasstteDrive: MachinePart {
         MachinePartSection(title: "Datasette", parts: [
             CasstteDrive(identifier: "1530", name: "1530", fullName: "Commodore 1530 C2N", iconName: "Commodore 1530 C2N", caseColorName: "1530 C2N Case")
         ])
-    ]
+    ])
     
     static private var byIdentifier = [String: CasstteDrive]()
     
     static func drive(identifier: String) -> CasstteDrive? {
         if byIdentifier.isEmpty {
-            for section in drives {
-                for drive in section.parts {
-                    byIdentifier[drive.identifier] = drive as? CasstteDrive
-                }
+            for drive in drives.parts {
+                byIdentifier[drive.identifier] = drive as? CasstteDrive
             }
         }
         

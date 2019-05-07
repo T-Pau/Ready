@@ -125,7 +125,7 @@ struct Computer: MachinePart {
                                  keyboardName: "C64 Keyboard",
                                  caseColorName: "C64 Case")
     
-    static let computers = [
+    static let computers = MachinePartList(sections: [
         MachinePartSection(title: nil, parts: []),
         
         MachinePartSection(title: "Commodore 64", parts: [
@@ -291,16 +291,14 @@ struct Computer: MachinePart {
                      caseColorName: "C64 GS Case",
                      missingPorts: [ .cassetteDrive, .diskDrive8, .diskDrive9, .diskDrive10, .diskDrive11, .userPort ])
             ])
-   ]
+   ])
     
     static private var byIdentifier = [String: Computer]()
     
     static func computer(identifier: String) -> Computer? {
         if byIdentifier.isEmpty {
-            for section in computers {
-                for computer in section.parts {
-                    byIdentifier[computer.identifier] = computer as? Computer
-                }
+            for computer in computers.parts {
+                byIdentifier[computer.identifier] = computer as? Computer
             }
         }
         
