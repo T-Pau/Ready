@@ -33,6 +33,9 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Release 1.2 (Build 5)", year: 2019, month: 5, day: 7, changes: [
+            "Add IDE64 Cartridge and Compact Flash and Hard Disk support.",
+        ]),
         Release(name: "Release 1.2 (Build 4)", year: 2019, month: 5, day: 6, changes: [
             "Add Elite Multi-Function 2002, in Joystick and Paddle mode.",
             "Light pen and light guns don't work in Control Port 2."

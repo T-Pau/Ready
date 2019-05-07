@@ -41,16 +41,16 @@ struct OtherCartridge: Cartridge {
     var variantName: String?
     var icon: UIImage?
     var priority: Int
-    
     var resources: [Machine.ResourceName: Machine.ResourceValue]
     
-    init(identifier: String, name: String, fullName: String? = nil, iconName: String?, priority: Int = MachinePartNormalPriority, resources: [Machine.ResourceName: Machine.ResourceValue]) {
+    init(identifier: String, name: String, fullName: String? = nil, variantName: String? = nil, iconName: String?, priority: Int = MachinePartNormalPriority, resources: [Machine.ResourceName: Machine.ResourceValue]) {
         self.identifier = identifier
         self.name = name
         self.fullName = fullName ?? name
         if let iconName = iconName {
             self.icon = UIImage(named: iconName)
         }
+        self.variantName = variantName
         self.priority = priority
         self.resources = resources
     }
@@ -69,12 +69,18 @@ struct OtherCartridge: Cartridge {
         
                 MachinePartSection(title: "RAM Expansion Units", parts: RamExpansionUnit.ramExpansionUnits.sorted(by: { $0.key < $1.key }).map({ $0.value })),
                 
-                MachinePartSection(title: "CPU Expansions", parts: [
-                    OtherCartridge(identifier: "CPM", name: "CP/M", fullName: "CP/M Cartridge", iconName: "CPM Cartridge", resources: [
-                        .CPMCart: .Bool(true)
+                MachinePartSection(title: "Other Cartridges", parts: [
+                    Ide64Cartridge(version: .version4_1),
+                    
+                    OtherCartridge(identifier: "CPM",
+                                   name: "CP/M",
+                                   fullName: "CP/M Cartridge",
+                                   iconName: "CPM Cartridge",
+                                   resources: [
+                                    .CPMCart: .Bool(true)
+                        ])
                     ])
                 ])
-            ])
         }
         return _cartridges
     }
@@ -96,3 +102,4 @@ struct OtherCartridge: Cartridge {
 extension OtherCartridge: MachinePart {
     
 }
+

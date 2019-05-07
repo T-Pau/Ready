@@ -108,6 +108,38 @@
 				<string>at.spiderlab.c64.reu</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeIconFiles</key>
+			<array>
+				<string>IDE Hard Disk.png</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>Commodore 64 Hard Disk Image</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>at.spiderlab.c64.hdd</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeIconFiles</key>
+			<array>
+				<string>Compact Flash Card.png</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>Commodore 64 Compact Flash Image</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>at.spiderlab.c64.cfa</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
@@ -122,7 +154,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.2</string>
 	<key>CFBundleVersion</key>
-	<string>4</string>
+	<string>5</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSApplicationCategoryType</key>
@@ -376,6 +408,48 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>reu</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Commodore 64 Hard Disk Image</string>
+			<key>UTTypeIconFiles</key>
+			<array>
+				<string>IDE Hard Disk.png</string>
+			</array>
+			<key>UTTypeIdentifier</key>
+			<string>at.spiderlab.c64.hdd</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>hdd</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Commodore 64 Compact Flash Image</string>
+			<key>UTTypeIconFiles</key>
+			<array>
+				<string>Compact Flash Card.png</string>
+			</array>
+			<key>UTTypeIdentifier</key>
+			<string>at.spiderlab.c64.cfa</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>cfa</string>
 				</array>
 			</dict>
 		</dict>

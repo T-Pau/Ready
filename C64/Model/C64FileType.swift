@@ -27,6 +27,7 @@ struct C64FileType {
     enum MediaType: CaseIterable {
         case cartridge
         case disk
+        case ideDisk
         case programFile
         case ramExpansionUnit
         case tape
@@ -37,6 +38,8 @@ struct C64FileType {
                 return ["com.apple.macbinary-archive", "public.x509-certificate"]
             case .disk:
                 return ["at.spiderlab.c64.d1m", "at.spiderlab.c64.d2m", "at.spiderlab.c64.d4m", "at.spiderlab.c64.d64", "at.spiderlab.c64.d81", "at.spiderlab.c64.g64", "org.sidmusic.d64"]
+            case .ideDisk:
+                return ["at.spiderlab.c64.cfa", "at.spiderlab.c64.hdd"]
             case .ramExpansionUnit:
                 return ["at.spiderlab.c64.reu"]
             case .programFile:
@@ -53,6 +56,7 @@ struct C64FileType {
     
     static let knownExtensions: [String : MediaType ] = [
         "bin": .cartridge,
+        "cfa": .ideDisk,
         "crt": .cartridge,
         "d1m": .disk,
         "d2m": .disk,
@@ -64,6 +68,7 @@ struct C64FileType {
         "d82": .disk,
         "g64": .disk,
         "g71": .disk,
+        "hdd": .ideDisk,
         "p00": .programFile,
         "prg": .programFile,
         "reu": .ramExpansionUnit,

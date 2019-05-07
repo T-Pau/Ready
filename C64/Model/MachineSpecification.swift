@@ -230,6 +230,9 @@ extension MachineSpecification {
                 else if let ramExpansionUnit = machine.ramExpansionUnit {
                     part = ramExpansionUnit
                 }
+                else if !machine.ideDiskImages.isEmpty {
+                    part = Ide64Cartridge.standard
+                }
                 annotateName = false
                 
             case .diskDrive8:

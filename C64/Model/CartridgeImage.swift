@@ -64,7 +64,7 @@ struct CartridgeImage {
         case retroReplay = 36
         case mmc64 = 37 // TODO
         case mmcReplay = 38 // TODO
-        case ide64 = 39 // TODO
+        case ide64 = 39
         case superSnapshot4 = 40
         case ieee488 = 41
         case gameKiller = 42

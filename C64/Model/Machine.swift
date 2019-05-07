@@ -28,6 +28,7 @@ import C64UIComponents
     enum ResourceName: String {
         case AutostartPrgMode
         case CartridgeFile
+        case CartridgeType
         case CPMCart
         case DosName1541
         case DosName1541II
@@ -43,6 +44,11 @@ import C64UIComponents
         case Drive11IdleMethod
         case Drive11Type
         case DriveSoundEmulation
+        case IDE64version
+        case IDE64Image1
+        case IDE64Image2
+        case IDE64Image3
+        case IDE64Image4
         case JoyPort1Device
         case JoyPort2Device
         case JoyPort3Device
@@ -59,13 +65,18 @@ import C64UIComponents
         case UserportJoyType
         case VICIIBorderMode
         
-        init?(joyDevice port: Int) {
-            guard let resourceName = ResourceName(rawValue: "JoyPort\(port)Device") else { return nil }
-            self = resourceName
-        }
-
         init?(driveType unit: Int) {
             guard let resourceName = ResourceName(rawValue: "Drive\(unit)Type") else { return nil }
+            self = resourceName
+        }
+        
+        init?(ide64Image unit: Int) {
+            guard let resourceName = ResourceName(rawValue: "IDE64Image\(unit)") else { return nil }
+            self = resourceName
+        }
+        
+        init?(joyDevice port: Int) {
+            guard let resourceName = ResourceName(rawValue: "JoyPort\(port)Device") else { return nil }
             self = resourceName
         }
     }
@@ -90,6 +101,7 @@ import C64UIComponents
     var ramExpansionUnit: RamExpansionUnit?
     var programFile: ProgramFile?
     var diskImages = [DiskImage]()
+    var ideDiskImages = [IdeDiskImage]()
     var tapeImages = [TapeImage]()
 
     var diskDrives = [DiskDrive]()
@@ -148,7 +160,7 @@ import C64UIComponents
     
     @objc func viceSetResources() {
         for (index, drive) in diskDrives.enumerated() {
-            if let name = ResourceName(rawValue: "Drive\(index + 8)Type") {
+            if let name = ResourceName(driveType: index + 8) {
                 viceSetResource(name: name, value: .Int(drive.viceType.rawValue))
             }
         }
@@ -157,6 +169,13 @@ import C64UIComponents
             for (name, value) in cartridge.resources {
                 NSLog("cartridge resource \(name) -> \(value)")
                 viceSetResource(name: name, value: value)
+            }
+        }
+        
+        for (index, disk) in ideDiskImages.enumerated() {
+            if let name = ResourceName(ide64Image: index + 1),
+                let url = disk.url {
+                viceSetResource(name: name, value: .String(url.path))
             }
         }
         
@@ -221,6 +240,9 @@ import C64UIComponents
             }
             else if let cartridge = ramExpansionUnit {
                 cartridges.append(cartridge)
+            }
+            else if !ideDiskImages.isEmpty {
+                cartridges.append(Ide64Cartridge.standard)
             }
         }
         

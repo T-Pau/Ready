@@ -162,6 +162,8 @@ extension MediaItem {
             return CartridgeImage(url: url)
         case .disk:
             return DxxImage.image(from: url) as? MediaItem
+        case .ideDisk:
+            return IdeDiskImage(url: url)
         case .programFile:
             return ProgramFile(url: url)
         case .ramExpansionUnit:
@@ -222,6 +224,10 @@ extension Game {
 
                 case .disk:
                     addToDisks(Disk(fileName: fileName, insertInto: context))
+                    
+                case .ideDisk:
+                    addToIdeDisks(Disk(fileName: fileName, insertInto: context))
+                    break
                     
                 case .programFile:
                     programFile = fileName

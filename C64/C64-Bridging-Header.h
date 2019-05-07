@@ -46,6 +46,11 @@
 #define DRIVE_IDLE_SKIP_CYCLES 1
 #define DRIVE_IDLE_TRAP_IDLE   2
 
+/* values to be used with IDE64Version resource */
+#define IDE64_VERSION_3 0
+#define IDE64_VERSION_4_1 1
+#define IDE64_VERSION_4_2 2
+
 #define LP_HOST_BUTTON_1    1
 #define LP_HOST_BUTTON_2    4
 

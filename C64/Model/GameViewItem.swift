@@ -385,6 +385,7 @@ struct GameViewItemMedia {
     enum SectionType {
         case cartridge
         case disks
+        case ideDisks
         case programFile
         case ramExpansionUnit
         case tapes
@@ -396,6 +397,8 @@ struct GameViewItemMedia {
                 return C64FileType.MediaType.cartridge.typeIdentifiers
             case .disks:
                 return C64FileType.MediaType.disk.typeIdentifiers
+            case .ideDisks:
+                return C64FileType.MediaType.ideDisk.typeIdentifiers
             case .programFile:
                 return C64FileType.MediaType.programFile.typeIdentifiers
             case .ramExpansionUnit:
@@ -414,6 +417,9 @@ struct GameViewItemMedia {
                 
             case .disks:
                 return plural ? "Disks" : "Disk"
+                
+            case .ideDisks:
+                return plural ? "IDE Disks" : "IDE Disk"
                 
             case .mixed:
                 return nil

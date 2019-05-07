@@ -1,0 +1,38 @@
+This is the rewritten version of IDEDOS, version 0.90.
+
+The actual version of the source and the 64tass compiler can be found on
+
+ftp://c64.rulez.org/pub/c64/IDE64/source/
+
+Homepage of IDEDOS: http://singularcrew.hu/idedos/
+Also you can download the IDE64 user's guide here.
+
+Also visit http://www.ide64.org for more information on the IDE64
+cartridge.
+
+Copyright notice for this version:
+----------------------------------
+
+Copyright C 2001-2006 Kajtar Zsolt
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+Copyright for the old 0.8x and before:
+--------------------------------------
+
+Copyright C 1998-2003 Josef Soucek
+Copyright C 1998-2003 Tomas Prybil
+Copyright C 2001 Kajtar Zsolt
+

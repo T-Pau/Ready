@@ -51,7 +51,8 @@ public class Game: NSManagedObject {
 
     @NSManaged var category: CategoryEntity?
     @NSManaged var disks: NSOrderedSet?
-    
+    @NSManaged var ideDisks: NSOrderedSet?
+
     // MARK: - processed properties
     
     var year: Int? {
@@ -427,6 +428,7 @@ public class Game: NSManagedObject {
     private var _ramExpansionUnit: RamExpansionUnit? = nil
     private var _program: ProgramFile? = nil
     private var _diskImages = [DiskImage]()
+    private var _ideDiskImages = [IdeDiskImage]()
     private var _tape: TapeImage? = nil
     
     var cartridge: CartridgeImage? {
@@ -458,6 +460,13 @@ public class Game: NSManagedObject {
         return _diskImages
     }
     
+    var ideDiskImages: [IdeDiskImage] {
+        if !imagesLoaded {
+            loadImages()
+        }
+        return _ideDiskImages
+    }
+    
     var tape: TapeImage? {
         if !imagesLoaded {
             loadImages()
@@ -483,6 +492,8 @@ public class Game: NSManagedObject {
         _program = ProgramFile(directory: directoryURL, file: programFile)
         let diskObjects = disks?.array as? [Disk] ?? []
         _diskImages = diskObjects.compactMap({ return DxxImage.image(from: directoryURL.appendingPathComponent($0.fileName)) })
+        let ideDiskObjects = ideDisks?.array as? [Disk] ?? []
+        _ideDiskImages = ideDiskObjects.compactMap({ return IdeDiskImage(url: directoryURL.appendingPathComponent($0.fileName)) })
         _tape = T64Image.image(directory: directoryURL, file: tapeFile)
         imagesLoaded = true
 
@@ -527,7 +538,37 @@ extension Game {
     
     @objc(removeDisks:)
     @NSManaged public func removeFromDisks(_ values: NSOrderedSet)
+
     
+    @objc(insertObject:inIdeDisksAtIndex:)
+    @NSManaged public func insertIntoIdeDisks(_ value: Disk, at idx: Int)
+    
+    @objc(removeObjectFromIdeDisksAtIndex:)
+    @NSManaged public func removeFromIdeDisks(at idx: Int)
+    
+    @objc(insertIdeDisks:atIndexes:)
+    @NSManaged public func insertIntoIdeDisks(_ values: [Disk], at indexes: NSIndexSet)
+    
+    @objc(removeIdeDisksAtIndexes:)
+    @NSManaged public func removeFromIdeDisks(at indexes: NSIndexSet)
+    
+    @objc(replaceObjectInIdeDisksAtIndex:withObject:)
+    @NSManaged public func replaceIdeDisks(at idx: Int, with value: Disk)
+    
+    @objc(replaceIdeDisksAtIndexes:withIdeDisks:)
+    @NSManaged public func replaceIdeDisks(at indexes: NSIndexSet, with values: [Disk])
+    
+    @objc(addIdeDisksObject:)
+    @NSManaged public func addToIdeDisks(_ value: Disk)
+    
+    @objc(removeIdeDisksObject:)
+    @NSManaged public func removeFromIdeDisks(_ value: Disk)
+    
+    @objc(addIdeDisks:)
+    @NSManaged public func addToIdeDisks(_ values: NSOrderedSet)
+    
+    @objc(removeIdeDisks:)
+    @NSManaged public func removeFromIdeDisks(_ values: NSOrderedSet)
 }
 
 extension Game {
@@ -551,6 +592,7 @@ extension Machine {
         programFile = game.program
         tapeImages = game.tapes
         diskImages = game.diskImages
+        ideDiskImages = game.ideDiskImages
     }
 }
 
@@ -594,10 +636,12 @@ extension Game: GameViewItem {
         }
         
         let diskSection = GameViewItemMedia.Section(type: .disks, supportsMultiple: true, supportsReorder: true, addInFront: false, items: diskImages as! [MediaItem])
-        
+
+        let ideDiskSection = GameViewItemMedia.Section(type: .ideDisks, supportsMultiple: true, supportsReorder: true, addInFront: false, items: ideDiskImages)
+
         let tapeSection = GameViewItemMedia.Section(type: .tapes, supportsMultiple: false, supportsReorder: false, addInFront: false, items: tapes as! [MediaItem])
 
-        return GameViewItemMedia(sections: [ cartridgeSection, ramExpansionSection, programSection, diskSection, tapeSection ])
+        return GameViewItemMedia(sections: [ cartridgeSection, ramExpansionSection, programSection, diskSection, ideDiskSection, tapeSection ])
     }
     
     func addMedia(mediaItem: MediaItem, at row: Int, sectionType: GameViewItemMedia.SectionType) {
@@ -611,7 +655,14 @@ extension Game: GameViewItem {
                 let fileName = disk.url?.lastPathComponent  else { return }
             insertIntoDisks(Disk(fileName: fileName, insertInto: managedObjectContext), at: row)
             _diskImages.insert(disk, at: row)
-            
+
+        case .ideDisks:
+            guard let managedObjectContext = managedObjectContext,
+                let disk = mediaItem as? IdeDiskImage,
+                let fileName = disk.url?.lastPathComponent  else { return }
+            insertIntoIdeDisks(Disk(fileName: fileName, insertInto: managedObjectContext), at: row)
+            _ideDiskImages.insert(disk, at: row)
+
         case .tapes:
             // TODO
             return
@@ -630,6 +681,14 @@ extension Game: GameViewItem {
             _diskImages.remove(at: sourceRow)
             insertIntoDisks(disk, at: destinationRow)
             _diskImages.insert(diskImage, at: destinationRow)
+            
+        case .ideDisks:
+            guard let disk = ideDisks?[sourceRow] as? Disk else { return }
+            let diskImage = _ideDiskImages[sourceRow]
+            removeFromIdeDisks(at: sourceRow)
+            _ideDiskImages.remove(at: sourceRow)
+            insertIntoIdeDisks(disk, at: destinationRow)
+            _ideDiskImages.insert(diskImage, at: destinationRow)
             
         case .tapes:
             // TODO
@@ -651,6 +710,12 @@ extension Game: GameViewItem {
             removeFile(disk.fileName)
             removeFromDisks(at: row)
             _diskImages.remove(at: row)
+            
+        case .ideDisks:
+            guard let disk = ideDisks?[row] as? Disk else { return }
+            removeFile(disk.fileName)
+            removeFromIdeDisks(at: row)
+            _ideDiskImages.remove(at: row)
             
         case .mixed:
             return
@@ -687,7 +752,7 @@ extension Game: GameViewItem {
             cartridgeEEPROM = cartridge.eepromUrl?.lastPathComponent
             _cartridge = cartridge
             
-        case .disks:
+        case .disks, .ideDisks:
             break
             
         case .programFile:
