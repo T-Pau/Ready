@@ -69,13 +69,10 @@ extension Ide64Cartridge: MachinePart {
 
 extension Ide64Cartridge: Cartridge {
     var resources: [Machine.ResourceName: Machine.ResourceValue] {
-        //let url = Bundle.main.resourceURL!.appendingPathComponent("vice/C64/ide64.bin").path
-        
         return [
             .IDE64version : .Int(version.rawValue),
             .CartridgeType: .Int(Int32(CartridgeImage.CartridgeType.ide64.rawValue)),
-            .CartridgeFile: .String(Bundle.main.resourceURL!.appendingPathComponent("vice/C64/ide64.bin").path)
+            .CartridgeFile: .String(AppDelegate.viceDataURL.appendingPathComponent("C64/ide64.bin").path)
         ]
     }
-
 }

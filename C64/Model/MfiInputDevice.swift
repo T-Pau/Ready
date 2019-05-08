@@ -95,14 +95,11 @@ class MfiInputDevice: InputDevice {
                     var paddle = self.previousPaddle
                     let radial = self.getRadial(from: gamepad.leftThumbstick)
                     if radial.distance > MfiInputDevice.deadZone {
-                        var angle = radial.angle
-                        if angle > 270 {
-                            angle = 0
-                        }
+                        var angle = radial.angle - 90
                         if angle > 180 {
-                            angle = 180
+                            angle -= 360
                         }
-                        paddle.position = 1 - angle / 180
+                        paddle.position = max(min(90, angle * self.deviceConfig.sensitivity), -90) / 180 + 0.5
                     }
                     paddle.button = gamepad.buttonA.isPressed
                     
@@ -154,6 +151,7 @@ class MfiInputDevice: InputDevice {
     
     private func update(paddle: Paddle) {
         if paddle.position != previousPaddle.position {
+            
             delegate?.inputDevice(self, paddleMoved: paddle.position)
         }
         if paddle.button != previousPaddle.button {

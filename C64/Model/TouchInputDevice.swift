@@ -73,7 +73,9 @@ extension TouchInputDevice: LightPenViewDelegate {
 
 extension TouchInputDevice: PaddleViewDelegate {
     func paddleView(_ sender: PaddleView, changedPosition: Double) {
-        delegate?.inputDevice(self, paddleMoved: changedPosition)
+        let adjustedPosition = max(0, min((changedPosition - 0.5) * max(1.05, deviceConfig.sensitivity) + 0.5, 1))
+
+        delegate?.inputDevice(self, paddleMoved: adjustedPosition)
     }
     
     func paddleView(_ sender: PaddleView, changedButton: Bool) {

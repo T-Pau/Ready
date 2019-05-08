@@ -31,6 +31,7 @@
 		4B3182C72281E320006D86AC /* IDE Hard Disk.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B3182C52281E320006D86AC /* IDE Hard Disk.png */; };
 		4B3182C922820095006D86AC /* Ide64Cartridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3182C822820095006D86AC /* Ide64Cartridge.swift */; };
 		4B3182CC228209BB006D86AC /* IdeDiskImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3182CB228209BB006D86AC /* IdeDiskImage.swift */; };
+		4B3182CE2282F36E006D86AC /* Compact Disc Document.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B3182CD2282F36D006D86AC /* Compact Disc Document.png */; };
 		4B3E4A4C220E056500511F08 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3E4A4B220E056500511F08 /* SettingsViewController.swift */; };
 		4B3E4A4E220E165200511F08 /* GeneralSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3E4A4D220E165200511F08 /* GeneralSettingsViewController.swift */; };
 		4B3E4A50220E1C2F00511F08 /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3E4A4F220E1C2F00511F08 /* ButtonTableViewCell.swift */; };
@@ -828,6 +829,8 @@
 		4B3182C822820095006D86AC /* Ide64Cartridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ide64Cartridge.swift; sourceTree = "<group>"; };
 		4B3182CA228208AE006D86AC /* C64-8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "C64-8.xcdatamodel"; sourceTree = "<group>"; };
 		4B3182CB228209BB006D86AC /* IdeDiskImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeDiskImage.swift; sourceTree = "<group>"; };
+		4B3182CD2282F36D006D86AC /* Compact Disc Document.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Compact Disc Document.png"; sourceTree = "<group>"; };
+		4B3182CF2282F4AA006D86AC /* C64-9.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "C64-9.xcdatamodel"; sourceTree = "<group>"; };
 		4B3E4A4B220E056500511F08 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		4B3E4A4D220E165200511F08 /* GeneralSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsViewController.swift; sourceTree = "<group>"; };
 		4B3E4A4F220E1C2F00511F08 /* ButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCell.swift; sourceTree = "<group>"; };
@@ -4178,6 +4181,7 @@
 				4B3182C42281E320006D86AC /* Compact Flash Card.png */,
 				4B3182C52281E320006D86AC /* IDE Hard Disk.png */,
 				4BAE5BF121FDD72E0098ADFF /* FileDocument.png */,
+				4B3182CD2282F36D006D86AC /* Compact Disc Document.png */,
 				4B841CF921F75C12009CAF4B /* Floppy35Document.png */,
 				4B841CFB21F76AB3009CAF4B /* Floppy525Document.png */,
 				4B460E4D2279F46A00815E7F /* REU Document.png */,
@@ -4400,6 +4404,7 @@
 				4B3182C62281E320006D86AC /* Compact Flash Card.png in Resources */,
 				4B79795021DBDBB70047FBE6 /* LaunchScreen.storyboard in Resources */,
 				4B841CFA21F75C12009CAF4B /* Floppy35Document.png in Resources */,
+				4B3182CE2282F36E006D86AC /* Compact Disc Document.png in Resources */,
 				4B460E4E2279F46A00815E7F /* REU Document.png in Resources */,
 				4B3182C72281E320006D86AC /* IDE Hard Disk.png in Resources */,
 				4BB22ECC21EE60960075E694 /* CBM.ttf in Resources */,
@@ -5512,6 +5517,7 @@
 		4BB22BFE21E8F9200075E694 /* C64.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				4B3182CF2282F4AA006D86AC /* C64-9.xcdatamodel */,
 				4B3182CA228208AE006D86AC /* C64-8.xcdatamodel */,
 				4B460E4F227A001700815E7F /* C64-7.xcdatamodel */,
 				4BEBC6D32201E5F3009DED63 /* C64-6.xcdatamodel */,
@@ -5521,7 +5527,7 @@
 				4BB22EA521EA1A140075E694 /* C64-2.xcdatamodel */,
 				4BB22BFF21E8F9200075E694 /* C64.xcdatamodel */,
 			);
-			currentVersion = 4B3182CA228208AE006D86AC /* C64-8.xcdatamodel */;
+			currentVersion = 4B3182CF2282F4AA006D86AC /* C64-9.xcdatamodel */;
 			path = C64.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

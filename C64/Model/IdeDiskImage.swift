@@ -26,6 +26,7 @@ import C64UIComponents
 
 struct IdeDiskImage {
     enum IdeType {
+        case cd
         case compactFlash
         case hardDisk
         
@@ -35,6 +36,8 @@ struct IdeDiskImage {
                 self = .compactFlash
             case "hdd":
                 self = .hardDisk
+            case "iso":
+                self = .cd
             default:
                 return nil
             }
@@ -67,6 +70,9 @@ extension IdeDiskImage: MediaItem {
     
     var displayIcon: UIImage? {
         switch ideType {
+        case .cd:
+            return UIImage(named: "Compact Disc")
+            
         case .compactFlash:
             return UIImage(named: "Compact Flash Card")
             

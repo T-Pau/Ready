@@ -33,6 +33,10 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Release 1.2 (Build 6)", year: 2019, month: 5, day: 8, changes: [
+            "Fix IDE disk support, add CD images.",
+            "Fix sensibility of Elite Multifunction 2002 paddles."
+        ]),
         Release(name: "Release 1.2 (Build 5)", year: 2019, month: 5, day: 7, changes: [
             "Add IDE64 Cartridge and Compact Flash and Hard Disk support.",
         ]),

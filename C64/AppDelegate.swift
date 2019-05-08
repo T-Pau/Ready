@@ -154,6 +154,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static var toolsURL: URL {
         return applicationSupportURL.appendingPathComponent("Tools")
     }
+    
+    static var viceDataURL: URL {
+        return Bundle.main.resourceURL!.appendingPathComponent("vice")
+    }
 
     // MARK: - Core Data stack
 

@@ -178,6 +178,7 @@ class InputMapping {
                 mappedPorts[oldPort] = nil
                 mappedPorts[newPort] = pairing
                 pairing.device.currentMode = newPort.inputType
+                pairing.device.deviceConfig = newPort.controller.deviceConfig
             }
             else {
                 cancel(pairing: pairing)

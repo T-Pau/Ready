@@ -307,7 +307,7 @@ struct Controller: MachinePart {
                        variantName: "Paddles Mode",
                        iconName: "Elite Multi-Function 2002 Paddles",
                        viceType: .paddles,
-                       sensitivity: 180 / 135) // TODO: guessed
+                       sensitivity: 180 / 185) // logical: 185°, pysical: 280°
         ]),
         
         MachinePartSection(title: "Light Pen", parts: [

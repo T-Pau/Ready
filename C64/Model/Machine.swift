@@ -408,9 +408,7 @@ extension Machine: InputDeviceDelegate {
     func inputDevice(_ device: InputDevice, paddleMoved position: Double) {
         guard let port = port(for: device) else { return }
         
-        // TODO: move to InputDevice
-        let adjustedPosition = max(0, min((position - 0.5) * port.controller.deviceConfig.sensitivity + 0.5, 1))
-        let value = Int32(255 * adjustedPosition)
+        let value = Int32(255 * position)
         
         if port.orderFraction == 0 {
             vice?.mouse(setX: value)
