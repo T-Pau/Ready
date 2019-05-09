@@ -47,6 +47,7 @@ struct UserPortModule: MachinePart {
     var identifier: String
     var name: String
     var fullName: String
+    var variantName: String?
     var icon: UIImage?
     var priority: Int
     var viceJoystickType: ViceJoystickType?
@@ -60,10 +61,11 @@ struct UserPortModule: MachinePart {
         }
     }
     
-    init(identifier: String, name: String, fullName: String? = nil, iconName: String?, priority: Int = MachinePartNormalPriority, viceJoystickType: ViceJoystickType? = nil) {
+    init(identifier: String, name: String, fullName: String? = nil, variantName: String? = nil, iconName: String?, priority: Int = MachinePartNormalPriority, viceJoystickType: ViceJoystickType? = nil) {
         self.identifier = identifier
         self.name = name
         self.fullName = fullName ?? name
+        self.variantName = variantName
         if let iconName = iconName {
             self.icon = UIImage(named: iconName)
         }
@@ -78,12 +80,30 @@ struct UserPortModule: MachinePart {
             none
         ]),
         
-        MachinePartSection(title: "4-Player Adapters", parts: [
+        MachinePartSection(title: "Joystick Adapters", parts: [
             UserPortModule(identifier: "Protovision 4 Player Adapter",
-                           name: "4 Player",
+                           name: "Protovision",
                            fullName: "Protovision 4 Player Adapter",
                            iconName: "Protovision 4 Player Adapter",
-                           viceJoystickType: .cga)
+                           viceJoystickType: .cga),
+            UserPortModule(identifier: "Singular 4 Player Adapter CGA",
+                           name: "CGA",
+                           fullName: "Singular Crew 4 Player Adapter",
+                           variantName: "Classical Games / Protovision Mode",
+                           iconName: "Singular Crew 4 Player Adapter (CGA)",
+                           viceJoystickType: .cga),
+            UserPortModule(identifier: "Singular 4 Player Adapter D&H",
+                           name: "Hitmen",
+                           fullName: "Singular Crew 4 Player Adapter",
+                           variantName: "Digital Excess / Hitmen Mode",
+                           iconName: "Singular Crew 4 Player Adapter (D&H)",
+                           viceJoystickType: .hit),
+            UserPortModule(identifier: "Singular 4 Player Adapter BBA",
+                           name: "Kingsoft",
+                           fullName: "Singular Crew 4 Player Adapter",
+                           variantName: "Bug Bomber / Kingsoft Mode",
+                           iconName: "Singular Crew 4 Player Adapter (BBA)",
+                           viceJoystickType: .kingsoft)
         ])
     ])
     

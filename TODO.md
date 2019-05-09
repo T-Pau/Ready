@@ -2,6 +2,7 @@
 
 ## other
 
+- delete category
 - warn if media can't be used due to machine configuration
 - controller auto-mapping: input device priority per input type
 - use absolute positioning for KoalaPad
@@ -31,6 +32,7 @@
 - MIDI support
 - Commodore 1350 (mouse emulating joystick) (not supported by Vice)
 - support mice / paddles in both ports simultaneously (not supported by Vice)
+- Superpad64 (snespad for user port) (not supported by Vice)
 - allow removing border from screenshots
 - use Metal to draw image, support shaders for CRT effects
 - software keyboard
