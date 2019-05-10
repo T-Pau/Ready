@@ -157,7 +157,7 @@ class MachinePartsViewController: UIViewController, SeguePreparer {
         driveViews[3].isHidden = !ports.contains(.diskDrive11)
         cassetteView.isHidden = !ports.contains(.cassetteDrive)
         userPortView.isHidden = !ports.contains(.userPort)
-        switch machineSpecification.userPortModule.joystickPorts {
+        switch machineSpecification.userPortModule.getJoystickPorts(for: machineSpecification) {
         case 0:
             userPortJoystick1View.isHidden = true
             userPortJoystick2View.isHidden = true

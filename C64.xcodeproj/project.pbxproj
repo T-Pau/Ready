@@ -32,6 +32,8 @@
 		4B3182C922820095006D86AC /* Ide64Cartridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3182C822820095006D86AC /* Ide64Cartridge.swift */; };
 		4B3182CC228209BB006D86AC /* IdeDiskImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3182CB228209BB006D86AC /* IdeDiskImage.swift */; };
 		4B3182CE2282F36E006D86AC /* Compact Disc Document.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B3182CD2282F36D006D86AC /* Compact Disc Document.png */; };
+		4B3182D222844A3A006D86AC /* SIngularAdapterStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3182D0228446D5006D86AC /* SIngularAdapterStatusView.swift */; };
+		4B3182D4228455E2006D86AC /* SingularAdapterStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3182D3228455E2006D86AC /* SingularAdapterStatusViewController.swift */; };
 		4B3E4A4C220E056500511F08 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3E4A4B220E056500511F08 /* SettingsViewController.swift */; };
 		4B3E4A4E220E165200511F08 /* GeneralSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3E4A4D220E165200511F08 /* GeneralSettingsViewController.swift */; };
 		4B3E4A50220E1C2F00511F08 /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3E4A4F220E1C2F00511F08 /* ButtonTableViewCell.swift */; };
@@ -831,6 +833,8 @@
 		4B3182CB228209BB006D86AC /* IdeDiskImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdeDiskImage.swift; sourceTree = "<group>"; };
 		4B3182CD2282F36D006D86AC /* Compact Disc Document.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Compact Disc Document.png"; sourceTree = "<group>"; };
 		4B3182CF2282F4AA006D86AC /* C64-9.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "C64-9.xcdatamodel"; sourceTree = "<group>"; };
+		4B3182D0228446D5006D86AC /* SIngularAdapterStatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SIngularAdapterStatusView.swift; path = ../../C64UIComponents/SIngularAdapterStatusView.swift; sourceTree = "<group>"; };
+		4B3182D3228455E2006D86AC /* SingularAdapterStatusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingularAdapterStatusViewController.swift; sourceTree = "<group>"; };
 		4B3E4A4B220E056500511F08 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		4B3E4A4D220E165200511F08 /* GeneralSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsViewController.swift; sourceTree = "<group>"; };
 		4B3E4A4F220E1C2F00511F08 /* ButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCell.swift; sourceTree = "<group>"; };
@@ -2384,6 +2388,7 @@
 				4B9DBB5F222A8B9A0032B280 /* MachinePartTableViewCell.swift */,
 				4BB22ECE21F1DD910075E694 /* MediaTableViewCell.swift */,
 				4BB22EAB21EA575E0075E694 /* ScreenshotCollectionViewCell.swift */,
+				4B3182D0228446D5006D86AC /* SIngularAdapterStatusView.swift */,
 				4BEBC6D02200A6C3009DED63 /* SwitchTableViewCell.swift */,
 				4BD5B3752220184E000C77B8 /* VirtualControlsView.swift */,
 			);
@@ -2403,6 +2408,7 @@
 				4BD5B37D2222DDC0000C77B8 /* MachinePartsViewController.swift */,
 				4BEBC6CE22009281009DED63 /* SelectCategoryTableViewController.swift */,
 				4BF9A34B220856120012DC9C /* SelectDiskViewController.swift */,
+				4B3182D3228455E2006D86AC /* SingularAdapterStatusViewController.swift */,
 				4B9DBB61222A8BE60032B280 /* SelectMachinePartViewController.swift */,
 				4B697C7021E378DE0091BFCC /* SingleSelectionTableViewController.swift */,
 				4BB22EBE21EBB6320075E694 /* SortTableViewController.swift */,
@@ -4465,6 +4471,7 @@
 				4BB22ED121F1E78A0075E694 /* CartridgeImage.swift in Sources */,
 				4B697C7321E38EDA0091BFCC /* Vice.swift in Sources */,
 				4BBF86B621DBA50900EF99ED /* Audio.m in Sources */,
+				4B3182D222844A3A006D86AC /* SIngularAdapterStatusView.swift in Sources */,
 				4B9DBB702232DE6E0032B280 /* AboutViewController.swift in Sources */,
 				4BBF86AC21DAB03200EF99ED /* EmulatorViewController.swift in Sources */,
 				4B1CCBB0223FF3990032B9F0 /* GameCollectionNavigationViewController.swift in Sources */,
@@ -4476,6 +4483,7 @@
 				4B7609EA21F240180058FBCD /* C64FileType.swift in Sources */,
 				4BEBC6DA2205A237009DED63 /* DebugLog.swift in Sources */,
 				4B460E51227A064E00815E7F /* RamExpansionUnit.swift in Sources */,
+				4B3182D4228455E2006D86AC /* SingularAdapterStatusViewController.swift in Sources */,
 				4B1CCBAE223BDDDD0032B9F0 /* CwlMutex.swift in Sources */,
 				4B697C6F21E36B350091BFCC /* FullScreenViewController.swift in Sources */,
 				4B841CF521F5E8DF009CAF4B /* ui.m in Sources */,
@@ -5444,6 +5452,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = NO;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
+				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = NO;

@@ -132,7 +132,7 @@ import C64UIComponents
         userPortModule = specification.userPortModule
         cartridges = specification.cartridges
         
-        if let userJoystickType = userPortModule?.viceJoystickType {
+        if let userJoystickType = userPortModule?.getViceJoystickType(for: specification) {
             resources[.UserportJoy] = .Bool(true)
             resources[.UserportJoyType] = .Int(userJoystickType.rawValue)
         }
@@ -268,6 +268,18 @@ extension Machine {
                 
             case .userPortJoystick1, .userPortJoystick2:
                 update(controllers: newSpecification.userPortControllers, isUserPort: true)
+
+            case .singularAdapterMode:
+                if userPortModule?.moduleType == .singularAdapter {
+                    if let type = specification.singularAdapterMode.viceJoystickType {
+                        viceSetResource(name: .UserportJoy, value: .Bool(true))
+                        viceSetResource(name: .UserportJoyType, value: .Int(type.rawValue))
+                    }
+                    else {
+                        viceSetResource(name: .UserportJoy, value: .Bool(false))
+                    }
+                    update(controllers: newSpecification.userPortControllers, isUserPort: true)
+                }
 
             default:
                 // TODO

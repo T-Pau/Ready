@@ -23,6 +23,21 @@
 
 import Foundation
 
+extension MachineConfig.SingularAdapterMode {
+    var viceJoystickType: UserPortModule.ViceJoystickType? {
+        switch self {
+        case .cga:
+            return .cga
+        case .hs:
+            return .hit
+        case .bba:
+            return .kingsoft
+        case .off:
+            return nil
+        }
+    }
+}
+
 struct UserPortModule: MachinePart {
     enum ViceJoystickType: Int32 {
         case cga = 0
@@ -43,25 +58,38 @@ struct UserPortModule: MachinePart {
             }
         }
     }
-
+    
+    enum ModuleType: Equatable {
+        case none
+        case protovisionAdapter
+        case singularAdapter
+    }
+    
     var identifier: String
     var name: String
     var fullName: String
     var variantName: String?
     var icon: UIImage?
     var priority: Int
-    var viceJoystickType: ViceJoystickType?
     
-    var joystickPorts: Int {
-        if let type = viceJoystickType {
-            return type.joystickPorts
-        }
-        else {
-            return 0
+    var moduleType: ModuleType
+    
+    func getViceJoystickType(for specification: MachineSpecification) -> ViceJoystickType? {
+        switch moduleType {
+        case .protovisionAdapter:
+            return .cga
+        case .singularAdapter:
+            return specification.singularAdapterMode.viceJoystickType
+        default:
+            return nil
         }
     }
     
-    init(identifier: String, name: String, fullName: String? = nil, variantName: String? = nil, iconName: String?, priority: Int = MachinePartNormalPriority, viceJoystickType: ViceJoystickType? = nil) {
+    func getJoystickPorts(for specification: MachineSpecification) -> Int {
+        return getViceJoystickType(for: specification)?.joystickPorts ?? 0
+    }
+    
+    init(identifier: String, name: String, fullName: String? = nil, variantName: String? = nil, iconName: String?, priority: Int = MachinePartNormalPriority, moduleType: ModuleType = .none) {
         self.identifier = identifier
         self.name = name
         self.fullName = fullName ?? name
@@ -70,7 +98,7 @@ struct UserPortModule: MachinePart {
             self.icon = UIImage(named: iconName)
         }
         self.priority = priority
-        self.viceJoystickType = viceJoystickType
+        self.moduleType = moduleType
     }
     
     static let none = UserPortModule(identifier: "none", name: "None", iconName: nil)
@@ -81,29 +109,16 @@ struct UserPortModule: MachinePart {
         ]),
         
         MachinePartSection(title: "Joystick Adapters", parts: [
+            UserPortModule(identifier: "Singular 4 Player Adapter",
+                           name: "Singular",
+                           fullName: "Singular Crew 4 Player Adapter",
+                           iconName: "Singular Crew 4 Player Adapter",
+                           moduleType: .singularAdapter),
             UserPortModule(identifier: "Protovision 4 Player Adapter",
                            name: "Protovision",
                            fullName: "Protovision 4 Player Adapter",
                            iconName: "Protovision 4 Player Adapter",
-                           viceJoystickType: .cga),
-            UserPortModule(identifier: "Singular 4 Player Adapter CGA",
-                           name: "CGA",
-                           fullName: "Singular Crew 4 Player Adapter",
-                           variantName: "Classical Games / Protovision Mode",
-                           iconName: "Singular Crew 4 Player Adapter (CGA)",
-                           viceJoystickType: .cga),
-            UserPortModule(identifier: "Singular 4 Player Adapter D&H",
-                           name: "Hitmen",
-                           fullName: "Singular Crew 4 Player Adapter",
-                           variantName: "Digital Excess / Hitmen Mode",
-                           iconName: "Singular Crew 4 Player Adapter (D&H)",
-                           viceJoystickType: .hit),
-            UserPortModule(identifier: "Singular 4 Player Adapter BBA",
-                           name: "Kingsoft",
-                           fullName: "Singular Crew 4 Player Adapter",
-                           variantName: "Bug Bomber / Kingsoft Mode",
-                           iconName: "Singular Crew 4 Player Adapter (BBA)",
-                           viceJoystickType: .kingsoft)
+                           moduleType: .protovisionAdapter),
         ])
     ])
     

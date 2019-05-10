@@ -41,15 +41,15 @@ class SelectDiskViewController: UIViewController {
     
     var changeCallback: ((_: DiskImage?) -> ())?
     
-    override func viewDidLoad() {
-        let height = tableView.rowHeight * CGFloat(diskImages.count) + 78 + 16 // TODO: don't hardcode icon height
-        
-        preferredContentSize = CGSize(width: 430.0, height: min(height, 600.0))
-    }
-    
+    private var rowHeight: CGFloat = 55 // TODO: don't hardcode row height
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        let height = rowHeight * CGFloat(diskImages.count) + tableView.frame.minY
+        
+        preferredContentSize = CGSize(width: 430.0, height: min(height, 600.0))
+
         iconView.image = drive?.icon
         
         if let unit = unit {

@@ -23,10 +23,10 @@
 
 import UIKit
 
-@IBDesignable public class StatusView: UIControl {
+@IBDesignable open class StatusView: UIControl {
     public var stackView = UIStackView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     
-    required init?(coder decoder: NSCoder) {
+    required public init?(coder decoder: NSCoder) {
         super.init(coder: decoder)
         setup()
     }
@@ -36,7 +36,7 @@ import UIKit
     @IBInspectable public var xMarginWidth: CGFloat = 4
     @IBInspectable public var yMarginWidth: CGFloat = 0
 
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
     }
@@ -60,7 +60,7 @@ import UIKit
         NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "V:|-yInset-[view]-yInset-|", options: [], metrics: metrics, views: views))
     }
     
-    public override func draw(_ rect: CGRect) {
+    open override func draw(_ rect: CGRect) {
         guard let context = UIGraphicsGetCurrentContext() else { return }
         
         context.setStrokeColor(borderColor.cgColor)

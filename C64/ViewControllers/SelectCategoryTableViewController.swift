@@ -49,12 +49,10 @@ class SelectCategoryTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return categories.count + 2
     }
 
@@ -109,6 +107,28 @@ class SelectCategoryTableViewController: UITableViewController {
         if shouldDismiss {
             dismiss(animated: true)
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext else { return }
+
+        do {
+            try context.save()
+        }
+        catch { }
+    }
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { action, indexPath in
+            guard let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext else { return }
+            
+            let index = indexPath.row - 2
+            context.delete(self.categories[index])
+            self.categories.remove(at: index)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+        return [ deleteAction ]
+
     }
     
     private func presentCreateNewCategory() {

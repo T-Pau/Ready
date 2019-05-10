@@ -77,6 +77,18 @@ struct MachineSpecification {
         return nil
     }
     
+    func integer(for key: MachineConfig.Key, skipFirstLayer: Bool = false) -> Int? {
+        if let value = value(for: key, skipFirstLayer: skipFirstLayer) {
+            switch value {
+            case .integer(let integer):
+                return integer
+            default:
+                break
+            }
+        }
+        return nil
+    }
+    
     mutating func set(string: String?, for key: MachineConfig.Key) {
         layers[0].set(string: string, for: key)
     }
@@ -99,6 +111,17 @@ extension MachineSpecification {
         set {
             set(string: newValue.rawValue, for: .borderMode)
         }
+    }
+    
+    var singularAdapterMode: MachineConfig.SingularAdapterMode {
+        get {
+            guard let value = string(for: .singularAdapterMode) else { return .cga }
+            return MachineConfig.SingularAdapterMode(rawValue: value) ?? .cga
+        }
+        set {
+            set(string: newValue.rawValue, for: .singularAdapterMode)
+        }
+
     }
     
     var cartridges: [Cartridge] {
@@ -146,7 +169,7 @@ extension MachineSpecification {
     }
     
     var userPortController1: Controller {
-        if userPortModule.joystickPorts >= 1 {
+        if userPortModule.getJoystickPorts(for: self) >= 1 {
             return Controller.controller(identifier: identifier(for: .userPortJoystick1)) ?? Controller.none
         }
         else {
@@ -155,7 +178,7 @@ extension MachineSpecification {
     }
 
     var userPortController2: Controller {
-        if userPortModule.joystickPorts >= 2 {
+        if userPortModule.getJoystickPorts(for: self) >= 2 {
             return Controller.controller(identifier: identifier(for: .userPortJoystick2)) ?? Controller.none
         }
         else {
@@ -309,7 +332,7 @@ extension MachineSpecification {
         case .userPort:
             return UserPortModule.module(identifier: value) ?? UserPortModule.none
             
-        case .borderMode:
+        case .borderMode, .singularAdapterMode:
             return DummyMachinePart.none
         }
     }

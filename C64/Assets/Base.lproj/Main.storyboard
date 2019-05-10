@@ -1086,7 +1086,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aAu-Wu-ot3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="386" y="803"/>
+            <point key="canvasLocation" x="212" y="997"/>
         </scene>
         <!--Library-->
         <scene sceneID="GR0-8Z-Uqh">
@@ -1173,11 +1173,19 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="9NH-rt-nKV">
                                                 <rect key="frame" x="8" y="4" width="1008" height="30"/>
                                                 <subviews>
-                                                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LIz-fo-TeO" userLabel="Padding">
-                                                        <rect key="frame" x="0.0" y="0.0" width="102" height="30"/>
+                                                    <view opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LIz-fo-TeO" userLabel="Padding">
+                                                        <rect key="frame" x="0.0" y="0.0" width="181" height="30"/>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PRh-Td-Duu" customClass="SingularAdapterStatusView" customModule="C64" customModuleProvider="target">
+                                                        <rect key="frame" x="197" y="0.0" width="39" height="30"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <gestureRecognizers/>
+                                                        <connections>
+                                                            <outletCollection property="gestureRecognizers" destination="iE5-B1-JIf" appends="YES" id="g3m-dm-mUn"/>
+                                                        </connections>
                                                     </view>
                                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TFG-4c-Gy0" customClass="TapeStatusView" customModule="C64UIComponents">
-                                                        <rect key="frame" x="118" y="0.0" width="210" height="30"/>
+                                                        <rect key="frame" x="252" y="0.0" width="76" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="210" id="6Pm-JP-YtM"/>
                                                         </constraints>
@@ -1370,6 +1378,7 @@
                         <outlet property="safeInsetView" destination="33m-AQ-J5J" id="TPC-5d-Vrt"/>
                         <outlet property="saveTopConstraint" destination="L70-qa-EaF" id="0nI-AW-UoW"/>
                         <outlet property="screenshotFlashView" destination="TIh-sV-LcP" id="NIi-d4-Otu"/>
+                        <outlet property="singularStatus" destination="PRh-Td-Duu" id="jQb-b1-joo"/>
                         <outlet property="stackView" destination="KOL-qw-sBT" id="vbF-BT-NU0"/>
                         <outlet property="statusBarView" destination="ufs-jw-ysx" id="7Ye-Pd-lag"/>
                         <outlet property="tapeStatus" destination="TFG-4c-Gy0" id="X2q-u0-exY"/>
@@ -1377,35 +1386,42 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <exit id="hGq-Dc-eCT" userLabel="Exit" sceneMemberID="exit"/>
-                <tapGestureRecognizer id="sbR-tC-7gE">
+                <tapGestureRecognizer id="sbR-tC-7gE" userLabel="Keyboard Tap Gesture Recognizer">
                     <connections>
                         <action selector="tapped:" destination="hGq-Dc-eCT" id="DB6-4Q-izo"/>
                     </connections>
                 </tapGestureRecognizer>
-                <tapGestureRecognizer id="ebM-Um-n3x">
+                <tapGestureRecognizer id="ebM-Um-n3x" userLabel="Drife 8 Tap Gesture Recognizer">
                     <connections>
                         <segue destination="7aK-GJ-pl9" kind="popoverPresentation" identifier="diskDrive8Control" popoverAnchorView="lSY-0d-bx7" id="YWm-io-5mw">
                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                         </segue>
                     </connections>
                 </tapGestureRecognizer>
-                <tapGestureRecognizer id="8Yf-fe-FMK">
+                <tapGestureRecognizer id="8Yf-fe-FMK" userLabel="Drive 9 Tap Gesture Recognizer">
                     <connections>
                         <segue destination="7aK-GJ-pl9" kind="popoverPresentation" identifier="diskDrive9Control" popoverAnchorView="grb-xR-8ga" id="rQq-KA-8bJ">
                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                         </segue>
                     </connections>
                 </tapGestureRecognizer>
-                <tapGestureRecognizer id="Gaf-4I-1wN">
+                <tapGestureRecognizer id="Gaf-4I-1wN" userLabel="Drive 10 Tap Gesture Recognizer">
                     <connections>
                         <segue destination="7aK-GJ-pl9" kind="popoverPresentation" identifier="diskDrive10Control" popoverAnchorView="Hlc-Q7-BPl" id="Uko-dl-en4">
                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                         </segue>
                     </connections>
                 </tapGestureRecognizer>
-                <tapGestureRecognizer id="dXm-qq-ffh">
+                <tapGestureRecognizer id="dXm-qq-ffh" userLabel="Drive 11 Tap Gesture Recognizer">
                     <connections>
                         <segue destination="7aK-GJ-pl9" kind="popoverPresentation" identifier="diskDrive11Control" popoverAnchorView="bhQ-dM-GHE" id="lh6-v7-cV8">
+                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                        </segue>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="iE5-B1-JIf" userLabel="Singular Tap Gesture Recognizer">
+                    <connections>
+                        <segue destination="fzR-Yw-zc7" kind="popoverPresentation" identifier="singularAdapterMode" popoverAnchorView="PRh-Td-Duu" id="yGX-oL-KEj">
                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                         </segue>
                     </connections>
@@ -1552,7 +1568,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="30J-1f-mIR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2016" y="423"/>
+            <point key="canvasLocation" x="2656" y="528"/>
         </scene>
         <!--Full Screen Image View Controller-->
         <scene sceneID="bdB-kY-Cwo">
@@ -1595,7 +1611,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AEf-QS-ufD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1075.1953125" y="807.32064421669099"/>
+            <point key="canvasLocation" x="-430" y="1422"/>
         </scene>
         <!--Select Disk View Controller-->
         <scene sceneID="zLj-EE-PVY">
@@ -1636,15 +1652,15 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="59" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Kwp-zi-Wni">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Kwp-zi-Wni">
                                 <rect key="frame" x="0.0" y="122.5" width="375" height="544.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Disk" id="bJ7-iL-aj3" customClass="MediaTableViewCell" customModule="C64" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="59"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bJ7-iL-aj3" id="suk-DH-bae">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="58.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="haP-gg-Qwf" customClass="MediaView" customModule="C64UIComponents">
@@ -1704,7 +1720,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LKF-x9-CTs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1745.5078125" y="812.5915080527086"/>
+            <point key="canvasLocation" x="1138" y="940"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="lru-SS-psm">
@@ -2410,7 +2426,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MN6-3c-Oli" customClass="MediaView" customModule="C64UIComponents">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MN6-3c-Oli" customClass="MediaView" customModule="C64UIComponents">
                                                     <rect key="frame" x="443" y="10" width="89" height="39"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
@@ -2578,6 +2594,79 @@
             </objects>
             <point key="canvasLocation" x="-1705" y="2788"/>
         </scene>
+        <!--Singular Adapter Status View Controller-->
+        <scene sceneID="jyr-a4-6Or">
+            <objects>
+                <viewController id="fzR-Yw-zc7" customClass="SingularAdapterStatusViewController" customModule="C64" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Z7d-EX-ou2">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LYS-aD-WEq">
+                                <rect key="frame" x="20" y="8" width="80" height="78"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="B8O-Dv-AsL"/>
+                                    <constraint firstAttribute="height" constant="78" id="fAP-ph-vVa"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Drive Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Ou-Mp-N96">
+                                <rect key="frame" x="108" y="36.5" width="92.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zP6-tE-bqf">
+                                <rect key="frame" x="0.0" y="94" width="375" height="573"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Disk" textLabel="i6M-Lw-1bd" style="IBUITableViewCellStyleDefault" id="Y8T-oL-y7H" customClass="MediaTableViewCell" customModule="C64" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Y8T-oL-y7H" id="Gxj-EJ-WQZ">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="i6M-Lw-1bd">
+                                                    <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="fzR-Yw-zc7" id="Lya-DZ-t9G"/>
+                                    <outlet property="delegate" destination="fzR-Yw-zc7" id="1jJ-wj-t2b"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="LYS-aD-WEq" firstAttribute="top" secondItem="urF-ag-LRq" secondAttribute="top" constant="8" id="7Gz-za-zvA"/>
+                            <constraint firstItem="LYS-aD-WEq" firstAttribute="leading" secondItem="urF-ag-LRq" secondAttribute="leading" constant="20" id="9TI-ft-Bm6"/>
+                            <constraint firstAttribute="bottom" secondItem="zP6-tE-bqf" secondAttribute="bottom" id="C3V-4H-JJ4"/>
+                            <constraint firstItem="zP6-tE-bqf" firstAttribute="trailing" secondItem="urF-ag-LRq" secondAttribute="trailing" id="E0e-30-fAa"/>
+                            <constraint firstItem="urF-ag-LRq" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="9Ou-Mp-N96" secondAttribute="trailing" constant="20" id="RO2-So-0St"/>
+                            <constraint firstItem="zP6-tE-bqf" firstAttribute="leading" secondItem="urF-ag-LRq" secondAttribute="leading" id="T2e-VN-2Xt"/>
+                            <constraint firstItem="9Ou-Mp-N96" firstAttribute="centerY" secondItem="LYS-aD-WEq" secondAttribute="centerY" id="XRI-bh-aN1"/>
+                            <constraint firstItem="9Ou-Mp-N96" firstAttribute="leading" secondItem="LYS-aD-WEq" secondAttribute="trailing" constant="8" id="w1D-cl-L49"/>
+                            <constraint firstItem="zP6-tE-bqf" firstAttribute="top" secondItem="LYS-aD-WEq" secondAttribute="bottom" constant="8" id="yri-Df-ccc"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="urF-ag-LRq"/>
+                    </view>
+                    <connections>
+                        <outlet property="iconView" destination="LYS-aD-WEq" id="XoG-6E-KGW"/>
+                        <outlet property="tableView" destination="zP6-tE-bqf" id="Hsl-14-7HY"/>
+                        <outlet property="titleLabel" destination="9Ou-Mp-N96" id="Tev-Nl-8ug"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rt4-6F-rFX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1898" y="940"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Add" width="22" height="22.5"/>
@@ -2614,9 +2703,9 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="WvI-DU-ekV"/>
-        <segue reference="lh6-v7-cV8"/>
+        <segue reference="Uko-dl-en4"/>
         <segue reference="fyt-Cy-pp8"/>
-        <segue reference="F0r-Rm-INo"/>
+        <segue reference="L40-fc-b91"/>
         <segue reference="aJA-5G-D1v"/>
         <segue reference="HEU-xw-QdH"/>
         <segue reference="tS1-wI-YaV"/>

@@ -35,13 +35,14 @@ struct MachineConfig: ExpressibleByDictionaryLiteral {
         case diskDrive10
         case diskDrive11
         case expansionPort
+        case singularAdapterMode
         case userPortJoystick1
         case userPortJoystick2
         case userPort
         
         var supportsAuto: Bool {
             switch self {
-            case .diskDrive8, .diskDrive9, .diskDrive10, .diskDrive11, .cassetteDrive:
+            case .diskDrive8, .diskDrive9, .diskDrive10, .diskDrive11, .cassetteDrive, .expansionPort:
                 return true
             default:
                 return false
@@ -99,6 +100,27 @@ struct MachineConfig: ExpressibleByDictionaryLiteral {
             }
         }
     }
+    
+    enum SingularAdapterMode: String, CaseIterable, CustomStringConvertible {
+        case cga
+        case hs
+        case bba
+        case off
+        
+        var description: String {
+            switch self {
+            case .cga:
+                return "Classical Game Adapter / Protovision"
+            case .hs:
+                return "Digital Excess & Hitmen"
+            case .bba:
+                return "Kingsoft Bug Bomber Adapter"
+            case .off:
+                return "Disable"
+            }
+        }
+    }
+
     
     enum Value: Codable, Equatable {
         case string(_ value: String)
@@ -184,6 +206,7 @@ struct MachineConfig: ExpressibleByDictionaryLiteral {
         .diskDrive10: .string("auto"),
         .diskDrive11: .string("auto"),
         .expansionPort: .string("auto"),
+        .singularAdapterMode: .integer(Int(UserPortModule.ViceJoystickType.cga.rawValue)),
         .userPortJoystick1: .string("Competition Pro"),
         .userPortJoystick2: .string("Competition Pro")
     ]

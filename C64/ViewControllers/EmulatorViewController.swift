@@ -37,6 +37,7 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
         case diskDrive11Control
         case inputMapping
         case machineParts
+        case singularAdapterMode
         
         var unit: Int? {
             switch self {
@@ -64,6 +65,7 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
     @IBOutlet var drive9Status: DriveStatusView!
     @IBOutlet var drive10Status: DriveStatusView!
     @IBOutlet var drive11Status: DriveStatusView!
+    @IBOutlet var singularStatus: SingularAdapterStatusView!
     @IBOutlet weak var statusBarView: UIView!
     @IBOutlet weak var safeInsetView: UIView!
     @IBOutlet weak var screenshotFlashView: UIView!
@@ -293,6 +295,14 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
             else {
                 driveStatus[index].isHidden = true
             }
+        }
+        
+        if machine.userPortModule?.moduleType == .singularAdapter {
+            singularStatus.isHidden = false
+            singularStatus.mode = machine.specification.singularAdapterMode
+        }
+        else {
+            singularStatus.isHidden = true
         }
         
         if let tapeFile = (machine.tapeImages.isEmpty ? nil : machine.tapeImages[0])?.url, machine.cassetteDrive.hasStatus {
@@ -583,6 +593,17 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
             destination.isMachineRunning = true
             destination.changeHandler = { machineSpecification in
                 self.machine.update(specification: machineSpecification)
+            }
+            
+        case .singularAdapterMode:
+            guard let destination = segue.destination as? SingularAdapterStatusViewController else { return }
+            destination.selectedValue = machine.specification.singularAdapterMode
+            destination.singularAdapter = machine.userPortModule
+            destination.changeCallback = { mode in
+                var newSpecification = self.machine.specification
+                newSpecification.singularAdapterMode = mode
+                self.machine.update(specification: newSpecification)
+                self.singularStatus.mode = mode
             }
         }
     }

@@ -37,12 +37,19 @@ import UIKit
         }
     }
     
+    public func setColor(name: String) {
+        guard let dark = UIColor(named: "LED \(name) Off"),
+            let light = UIColor(named: "LED \(name) On") else { return }
+        darkColor = dark
+        lightColor = light
+    }
+    
     required init?(coder decoder: NSCoder) {
         super.init(coder: decoder)
         isOpaque = false
     }
     
-    override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         isOpaque = false
     }

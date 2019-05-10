@@ -2,7 +2,6 @@
 
 ## other
 
-- delete category
 - warn if media can't be used due to machine configuration
 - controller auto-mapping: input device priority per input type
 - use absolute positioning for KoalaPad
@@ -11,13 +10,11 @@
   - add share button
   - allow selecting media, images in all game views
   - share whole game
-- organize machine parts into sections
 - documentation
 - disk select: sub views for game / tools (inbox?)
 - disk select: show currently selected (other drives too)
 - rewrite machine configuration view as collection view
 - turn off disk drives (via status bar)
-- no two mice / paddle pairs (Vice limitation)
 - tape status view left border too wide (led view too wide?)
 - sharing of whole game
 - create blank disk images
@@ -30,17 +27,23 @@
     - choose file to autostart from disk
     - save states
 - MIDI support
-- Commodore 1350 (mouse emulating joystick) (not supported by Vice)
-- support mice / paddles in both ports simultaneously (not supported by Vice)
-- Superpad64 (snespad for user port) (not supported by Vice)
 - allow removing border from screenshots
 - use Metal to draw image, support shaders for CRT effects
 - software keyboard
+    - keyboard sounds
     - visual feedback for key presses
     - shift lock
 - map input device buttons to key / joystick presses
 - adapt view layouts for compact width
 - support x64, p64 (UTI, document type, DiskImage)
+
+## Vice enhancements
+
+- multiple mice/paddles
+- Commodore 1350
+- Superpad64 (snespad for user port)
+- all 12 buttons on SNES controller
+- 3.5" drive sounds
     
 ## less important
 
