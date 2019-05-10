@@ -22,6 +22,7 @@
 */
 
 #include "mousedrv.h"
+
 #include "ViceThreadC.h"
 
 static mouse_func_t *mouse_funcs;
@@ -100,3 +101,5 @@ int mousedrv_resources_init(mouse_func_t *funcs) {
     mouse_funcs = funcs;
     return 0;
 }
+
+

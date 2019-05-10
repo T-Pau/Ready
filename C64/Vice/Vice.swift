@@ -313,12 +313,12 @@ extension JoystickButtons {
         send(event: .mouseButton(button: button, pressed: false))
     }
     
-    func lightPen(moved position: CGPoint?, size: CGSize, button1: Bool, button2: Bool) {
+    func lightPen(moved position: CGPoint?, size: CGSize, button1: Bool, button2: Bool, isKoalaPad: Bool) {
         if let position = position {
-            update_light_pen(Int32(position.x), Int32(position.y), Int32(size.width), Int32(size.height), button1 ? 1 : 0, button2 ? 1 : 0)
+            update_light_pen(Int32(position.x), Int32(position.y), Int32(size.width), Int32(size.height), button1 ? 1 : 0, button2 ? 1 : 0, isKoalaPad ? 1 : 0)
         }
         else {
-            update_light_pen(-1, -1, 1, 1, button1 ? 1 : 0, button2 ? 1 : 0)
+            update_light_pen(-1, -1, 1, 1, button1 ? 1 : 0, button2 ? 1 : 0, isKoalaPad ? 1 : 0)
         }
     }
 

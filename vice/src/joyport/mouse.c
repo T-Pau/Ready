@@ -921,7 +921,7 @@ static joyport_t mouse_micromys_joyport_device = {
 
 static uint8_t joyport_koalapad_pot_x(int port)
 {
-    return _mouse_enabled ? (uint8_t)(255 - mouse_get_paddle_x(port)) : 0xff;
+    return _mouse_enabled ? (uint8_t)(255 - mouse_get_paddle_absolute_x(port)) : 0xff;
 }
 
 /* Some prototypes are needed */
@@ -937,7 +937,7 @@ static joyport_t koalapad_joyport_device = {
     joyport_mouse_value,
     NULL,               /* no store digital */
     joyport_koalapad_pot_x,
-    mouse_get_paddle_y,
+    mouse_get_paddle_absolute_y,
     koalapad_write_snapshot,
     koalapad_read_snapshot
 };

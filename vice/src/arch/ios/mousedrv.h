@@ -87,4 +87,7 @@ void mouse_button(int bnumber, int state);
  */    
 void mouse_move(float dx, float dy);
 
+
+void mouse_button_press(int button, int pressed);
+
 #endif

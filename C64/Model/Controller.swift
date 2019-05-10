@@ -69,11 +69,11 @@ struct Controller: MachinePart {
                 return .joystick
             case .paddles:
                 return .paddle
-            case .koalaPad, .mouse1351, .mouseAmiga, .mouseCx22, .mouseMicromys, .mouseNeos, .mouseSmart, .mouseSt:
+            case .mouse1351, .mouseAmiga, .mouseCx22, .mouseMicromys, .mouseNeos, .mouseSmart, .mouseSt:
                 return .mouse
             case .lightgunL, .lightgunY:
                 return .lightGun
-            case .lightpenDatel, .lightpenInkwell, .lightpenL, .lightpenU:
+            case .koalaPad, .lightpenDatel, .lightpenInkwell, .lightpenL, .lightpenU:
                 return .lightPen
             case .cardcoKeypad, .coplinKeypad, .cx21Keypad, .cx85Keypad, .rushwareKeypad, .sampler2bit, .sampler4bit, .snespad:
                 return .none // TODO

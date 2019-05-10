@@ -413,8 +413,8 @@ extension Machine: InputDeviceDelegate {
                 button2 = rawButton2
             }
         }
-
-        vice?.lightPen(moved: position, size: size, button1: button1, button2: button2)
+        
+        vice?.lightPen(moved: position, size: size, button1: button1, button2: button2, isKoalaPad: controller.viceType == .koalaPad)
     }
     
     func inputDevice(_ device: InputDevice, paddleMoved position: Double) {

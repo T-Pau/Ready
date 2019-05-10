@@ -39,6 +39,7 @@
 #include "machine.h"
 #include "viciitypes.h"
 #include "lightpen.h"
+#include "mousedrv.h"
 
 #import <CoreImage/CoreImage.h>
 #import "ViceThread.h"
@@ -453,30 +454,46 @@ void vsyncarch_sleep(unsigned long delay)
     }
 }
 
-void update_light_pen(int x, int y, int width, int height, int button_1, int button_2) {
+
+void update_light_pen(int x_in, int y_in, int width, int height, int button_1, int button_2, int is_koala_pad) {
     video_canvas_t *canvas = vicii.raster.canvas;
     
-    lightpen_buttons = (button_1 ? LP_HOST_BUTTON_1 : 0) | (button_2 ? LP_HOST_BUTTON_2 : 0);
+    if (is_koala_pad) {
+        mouse_button_press(1, button_1);
+        mouse_button_press(2, button_2);
+    }
+    else {
+        lightpen_buttons = (button_1 ? LP_HOST_BUTTON_1 : 0) | (button_2 ? LP_HOST_BUTTON_2 : 0);
+    }
     
-    if (x > 0 && y > 0) {
+    if (x_in > 0 && y_in > 0) {
         double scale = MY_MIN((double)width / canvas->current_size.width, (double)height / canvas->current_size.height);
         int x_offset = (width - canvas->current_size.width * scale) / 2;
         int y_offset = (height - canvas->current_size.height * scale) / 2;
         
-        x = (x - x_offset) / scale;
-        y = (y - y_offset) / scale;
-
+        double x = (x_in - x_offset) / scale;
+        double y = (y_in - y_offset) / scale;
+        
         if (x >= 0 && x < canvas->current_size.width && y >= 0 && y < canvas->current_size.height) {
-            lightpen_x = x - canvas->current_offset.x + canvas->border_offset.x;
-            lightpen_y = y - canvas->current_offset.y + canvas->border_offset.y;
-            /* printf("light pen at %dx%d, buttons: %d\n", lightpen_x, lightpen_y, lightpen_buttons); */
+            if (is_koala_pad) {
+                viceThread.mouseX = x / canvas->current_size.width * (225 - 44) + 45;
+                viceThread.mouseY = (1 - y / canvas->current_size.height) * (204 - 6) + 7;
+            }
+            else {
+                lightpen_x = x - canvas->current_offset.x + canvas->border_offset.x;
+                lightpen_y = y - canvas->current_offset.y + canvas->border_offset.y;
+                /* printf("light pen at %dx%d, buttons: %d\n", lightpen_x, lightpen_y, lightpen_buttons); */
+            }
             return;
         }
     }
-
-    lightpen_x = -1;
-    lightpen_y = -1;
-    /* printf("light pen off, buttons: %d\n", lightpen_buttons); */
-    return;
-
+    
+    if (is_koala_pad) {
+        viceThread.mouseX = 0xff;
+        viceThread.mouseY = 0xff;
+    }
+    else {
+        lightpen_x = -1;
+        lightpen_y = -1;
+    }
 }
