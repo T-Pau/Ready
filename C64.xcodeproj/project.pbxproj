@@ -1135,7 +1135,6 @@
 		4B3F98E721D7AD4B00C272C4 /* c64memsc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = c64memsc.c; sourceTree = "<group>"; };
 		4B3F98E821D7AD4B00C272C4 /* c64cia2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = c64cia2.c; sourceTree = "<group>"; };
 		4B3F98E921D7AD4B00C272C4 /* c64mem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = c64mem.h; sourceTree = "<group>"; };
-		4B3F98EA21D7AD4B00C272C4 /* c64model.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = c64model.c; sourceTree = "<group>"; };
 		4B3F98EB21D7AD4B00C272C4 /* vsidmem.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vsidmem.c; sourceTree = "<group>"; };
 		4B3F98EC21D7AD4B00C272C4 /* c64memlimit.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = c64memlimit.c; sourceTree = "<group>"; };
 		4B3F98ED21D7AD4B00C272C4 /* patchrom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = patchrom.h; sourceTree = "<group>"; };
@@ -3092,7 +3091,6 @@
 				4B3F98E721D7AD4B00C272C4 /* c64memsc.c */,
 				4B3F99B921D7AD4B00C272C4 /* c64memsnapshot.c */,
 				4B3F98D621D7AD4B00C272C4 /* c64memsnapshot.h */,
-				4B3F98EA21D7AD4B00C272C4 /* c64model.c */,
 				4B3F99C421D7AD4B00C272C4 /* c64model.h */,
 				4B3F98DF21D7AD4B00C272C4 /* c64parallel.c */,
 				4B3F99B521D7AD4B00C272C4 /* c64parallel.h */,
