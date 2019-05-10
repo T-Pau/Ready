@@ -4,7 +4,6 @@
 
 - warn if media can't be used due to machine configuration
 - controller auto-mapping: input device priority per input type
-- use absolute positioning for KoalaPad
 - fix dragging files out of C64
 - sharing
   - add share button

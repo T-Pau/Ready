@@ -90,6 +90,8 @@ extern int resources_set_string(const char *name, const char *value);
 void keyboard_restore_pressed(void);
 void keyboard_restore_released(void);
 
+extern unsigned long vsyncarch_gettime(void);
+
 void update_light_pen(int x, int y, int width, int height, int button_1, int button_2, int is_koala_pad);
 
 const char *drive_get_status(int unit);

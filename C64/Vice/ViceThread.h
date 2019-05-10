@@ -41,6 +41,8 @@
 // these are read by vice thread, written by main thread
 @property int mouseX;
 @property int mouseY;
+@property unsigned long mouseTimestamp;
+
 
 @property NSArray * _Nullable argv;
 

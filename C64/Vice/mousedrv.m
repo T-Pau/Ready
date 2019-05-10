@@ -56,7 +56,7 @@ int mousedrv_cmdline_options_init(void) {
  *  \return The current X value, in the range 0-65536.
  */
 unsigned long mousedrv_get_timestamp(void) {
-    return 0;
+    return viceThread.mouseTimestamp;
 }
 
 /** \brief Returns the current mouse X value.

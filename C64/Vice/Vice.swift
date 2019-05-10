@@ -293,6 +293,7 @@ extension JoystickButtons {
         guard let viceThread = viceThread else { return }
         viceThread.mouseX = (viceThread.mouseX + Int32(distance.x)) & 0xffff
         viceThread.mouseY = (viceThread.mouseY - Int32(distance.y)) & 0xffff
+        viceThread.mouseTimestamp = vsyncarch_gettime();
     }
     
     func mouse(setX x: Int32) {
