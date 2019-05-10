@@ -34,6 +34,7 @@ class ReleaseNotesViewController: UIViewController {
     
     var releases = [
         Release(name: "Release 1.2 (Build 8)", year: 2019, month: 5, day: 10, changes: [
+            "Use absolute positioning for KoalaPad.",
             "Fix Neos and Atari ST mice."
         ]),
         Release(name: "Release 1.2 (Build 7)", year: 2019, month: 5, day: 10, changes: [
