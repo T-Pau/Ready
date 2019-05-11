@@ -33,6 +33,10 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Release 1.2 (Build 9)", year: 2019, month: 5, day: 11, changes: [
+            "Fix port naming and numbering for paddles.",
+            "Add two button Amiga mouse."
+        ]),
         Release(name: "Release 1.2 (Build 8)", year: 2019, month: 5, day: 10, changes: [
             "Use absolute positioning for KoalaPad.",
             "Fix Neos and Atari ST mice."

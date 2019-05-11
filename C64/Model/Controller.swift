@@ -257,7 +257,14 @@ struct Controller: MachinePart {
                        fullName: "Commodore Mouse 1351",
                        iconName: "Commodore 1351",
                        viceType: .mouse1351),
-            
+
+            Controller(identifier: "Amiga Mouse",
+                       name: "Amiga",
+                       fullName: "Commodore Amiga Mouse",
+                       iconName: "Commodore 1351",
+                       viceType: .mouseAmiga,
+                       numberOfButtons: 2),
+
             Controller(identifier: "STM1",
                        name: "Atari STM1",
                        fullName: "Atari Mouse STM1",

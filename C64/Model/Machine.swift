@@ -362,8 +362,8 @@ extension Machine {
             inputPorts.append(InputPort(port: port, isUserPort: isUserPort, controller: controller))
         case .paddle:
             if !isUserPort {
-                inputPorts.append(InputPort(port: port, isUserPort: false, orderFraction: 0, controller: controller))
-                inputPorts.append(InputPort(port: port, isUserPort: false, orderFraction: 1, controller: controller))
+                inputPorts.append(InputPort(port: port, isUserPort: false, subPort: 1, controller: controller))
+                inputPorts.append(InputPort(port: port, isUserPort: false, subPort: 2, controller: controller))
             }
             break // TODO
         }
@@ -422,7 +422,7 @@ extension Machine: InputDeviceDelegate {
         
         let value = Int32(255 * position)
         
-        if port.orderFraction == 0 {
+        if port.subPort == 1 {
             vice?.mouse(setX: value)
         }
         else {
@@ -433,7 +433,7 @@ extension Machine: InputDeviceDelegate {
     func inputDevice(_ device: InputDevice, paddleChangedButton isPressed: Bool) {
         guard let port = port(for: device) else { return }
 
-        let index = port.orderFraction == 0 ? 1 : 2
+        let index = port.subPort == 1 ? 1 : 2
         if isPressed {
             vice?.mouse(pressed: index)
         }

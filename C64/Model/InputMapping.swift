@@ -30,11 +30,8 @@ struct InputPort: Hashable {
     var priority: Int
     var playerIndex: Int
     var vicePort: Int
+    var subPort: Int?
     var orderNumber: Double
-    
-    var orderFraction: Double {
-        return orderNumber - Double(vicePort)
-    }
     
     var icon: UIImage? {
         return controller.portIcon
@@ -43,7 +40,7 @@ struct InputPort: Hashable {
         return controller.inputType
     }
 
-    init(port: Int, isUserPort: Bool, orderFraction: Double = 0, controller: Controller) {
+    init(port: Int, isUserPort: Bool, subPort: Int? = nil, controller: Controller) {
         if isUserPort {
             name = "Userport \(port)"
             fullName = "Userport Joystick \(port)"
@@ -54,6 +51,7 @@ struct InputPort: Hashable {
             fullName = "Controller Port \(port)"
             vicePort = port
         }
+        self.subPort = subPort
         playerIndex = vicePort
         self.controller = controller
         if isUserPort {
@@ -70,7 +68,11 @@ struct InputPort: Hashable {
                 priority = MachinePartNormalPriority - port
             }
         }
-        orderNumber = Double(vicePort) + orderFraction
+        orderNumber = Double(vicePort)
+        if let subPort = subPort {
+            name += " / \(subPort)"
+            orderNumber += Double(subPort) / 100
+        }
     }
     
     func hash(into hasher: inout Hasher) {
