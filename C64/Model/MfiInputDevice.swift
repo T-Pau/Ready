@@ -99,7 +99,7 @@ class MfiInputDevice: InputDevice {
                         if angle > 180 {
                             angle -= 360
                         }
-                        paddle.position = max(min(90, angle * self.deviceConfig.sensitivity), -90) / 180 + 0.5
+                        paddle.position = max(min(90, -angle * self.deviceConfig.sensitivity), -90) / 180 + 0.5
                     }
                     paddle.button = gamepad.buttonA.isPressed
                     
