@@ -40,17 +40,20 @@ extension DriveStatusView {
         
         backgroundColor = drive.caseColor
         textColor = drive.textColor
+        trackView.isDoubleSided = drive.isDoubleSided
 
         configureFrom(image: drive.image)
     }
     
     func configureFrom(image: DiskImage?) {
         if let image = image {
-            trackView.isDoubleSided = image.mediaType.isDoubleSided
             trackView.tracks = image.tracks
+            if trackView.isDoubleSided && !image.mediaType.isDoubleSided {
+                // single sided disk in double sided drive: only first side is used
+                trackView.tracks *= 2
+            }
         }
         else {
-            trackView.isDoubleSided = false
             trackView.tracks = 35
         }
         trackView.currentTrack = 1

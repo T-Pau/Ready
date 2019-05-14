@@ -89,6 +89,7 @@ struct DiskDrive: MachinePart {
     var textColor: UIColor?
     var biosKey: Defaults.Key?
     var jiffyDosKey: Defaults.Key?
+    var isDoubleSided: Bool
 
     var image: DiskImage?
 
@@ -113,6 +114,7 @@ struct DiskDrive: MachinePart {
         self.biosKey = biosKey
         self.jiffyDosKey = jiffyDosKey
         self.image = image
+        self.isDoubleSided = supportedMediaTypes.contains(where: { $0.isDoubleSided })
     }
     
     var hasStatus: Bool { return viceType != .none }
