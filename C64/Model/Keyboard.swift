@@ -26,6 +26,7 @@ import Foundation
 
 struct Keyboard: Codable {
     var imageName: String
+    var lockIsShift: Bool
     
     var rows: [CGFloat]
     
@@ -50,6 +51,7 @@ struct Keyboard: Codable {
 
     private static var keyboards = [
         "C64 Keyboard": Keyboard(imageName: "C64 Keyboard",
+                                 lockIsShift: true,
                                  rows: [ 69, 257, 446, 635, 824, 1012 ],
                                  topHalfLeft: 100,
                                  topHalfRight: 3034,
@@ -67,6 +69,7 @@ struct Keyboard: Codable {
                                  rightShiftLeft: 2341,
                                  rightShiftRight: 2681),
         "C64 Keyboard Japanese": Keyboard(imageName: "C64 Keyboard Japanese",
+                                 lockIsShift: false,
                                  rows: [ 70, 263, 457, 650, 843, 1027 ],
                                  topHalfLeft: 97,
                                  topHalfRight: 3148,
@@ -84,6 +87,7 @@ struct Keyboard: Codable {
                                  rightShiftLeft: 2436,
                                  rightShiftRight: 2723),
         "C64C Keyboard": Keyboard(imageName: "C64C Keyboard",
+                                  lockIsShift: true,
                                   rows: [ 69, 257, 446, 635, 824, 1012 ],
                                   topHalfLeft: 100,
                                   topHalfRight: 3034,
@@ -101,6 +105,7 @@ struct Keyboard: Codable {
                                   rightShiftLeft: 2341,
                                   rightShiftRight: 2681),
         "C64C New Keyboard": Keyboard(imageName: "C64C New Keyboard",
+                                  lockIsShift: true,
                                   rows: [ 50, 233, 402, 571, 746, 917 ],
                                   topHalfLeft: 97,
                                   topHalfRight: 2853,
@@ -118,6 +123,7 @@ struct Keyboard: Codable {
                                   rightShiftLeft: 2215,
                                   rightShiftRight: 2476),
         "Max Keyboard": Keyboard(imageName: "Max Keyboard",
+                                  lockIsShift: true,
                                   rows: [ 32, 217, 400, 588, 780, 972 ],
                                   topHalfLeft: 39,
                                   topHalfRight: 3058,
@@ -135,6 +141,7 @@ struct Keyboard: Codable {
                                   rightShiftLeft: 2390,
                                   rightShiftRight: 2671),
         "PET Style Keyboard": Keyboard(imageName: "PET Style Keyboard",
+                                 lockIsShift: true,
                                  rows: [ 44, 194, 338, 485, 631, 772 ],
                                  topHalfLeft: 66,
                                  topHalfRight: 2388,
@@ -152,6 +159,7 @@ struct Keyboard: Codable {
                                  rightShiftLeft: 1853,
                                  rightShiftRight: 2071),
         "SX64 Keyboard": Keyboard(imageName: "SX64 Keyboard",
+                                  lockIsShift: true,
                                   rows: [ 69, 269, 469, 669, 869, 1060 ],
                                   topHalfLeft: 90,
                                   topHalfRight: 3229,
@@ -169,6 +177,7 @@ struct Keyboard: Codable {
                                   rightShiftLeft: 2543,
                                   rightShiftRight: 2837),
         "VIC-20 Keyboard": Keyboard(imageName: "VIC-20 Keyboard",
+                                 lockIsShift: true,
                                  rows: [ 69, 257, 446, 635, 824, 1012 ],
                                  topHalfLeft: 100,
                                  topHalfRight: 3034,

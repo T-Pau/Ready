@@ -281,7 +281,7 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
             keyboardView.isHidden = true
         }
 
-        if toolsMode {
+        if gameViewItem?.type != .tools && toolsMode {
             machine.diskImages.append(contentsOf: Tools.standard.disks)
         }
         
@@ -609,12 +609,30 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
     }
     
     // MARK: - KeyboardViewDelegate
+    
+    var shiftLockPressed = false
 
     func pressed(key: Key) {
-        vice.press(key: key)
+        if key == .ShiftLock {
+            let lockKey = keyboardView.keyboard?.lockIsShift ?? true ? Key.ShiftLeft : Key.Commodore
+            if shiftLockPressed {
+                vice.release(key: lockKey)
+            }
+            else {
+                vice.press(key: lockKey)
+            }
+            shiftLockPressed = !shiftLockPressed
+            // TODO: update view
+        }
+        else {
+            vice.press(key: key)
+        }
     }
     
     func released(key: Key) {
+        if key == .ShiftLock {
+            return
+        }
         vice.release(key: key)
     }
     
