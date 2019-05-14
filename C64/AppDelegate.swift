@@ -70,26 +70,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             // TODO: check that media item can be created from file
             
-            guard url.startAccessingSecurityScopedResource() else { return false }
+            _ = url.startAccessingSecurityScopedResource()
             
             let fileCoordinator = NSFileCoordinator(filePresenter: nil)
 
             var error: NSError?
             
-            var ok = true
+            var ok = false
             
             fileCoordinator.coordinate(readingItemAt: url, options: .withoutChanges, error: &error) { coordinatedUrl in
                 do {
                     let fileURL = try uniqeName(directory: directoryURL, name: url.lastPathComponent, pathExtension: url.pathExtension)
-                    try FileManager.default.copyItem(at: url, to: fileURL)
+                    try FileManager.default.copyItem(at: coordinatedUrl, to: fileURL)
+                    ok = true
                 }
                 catch {
                     print("can't open \(url): \(error.localizedDescription)")
-                    ok = false
                 }
             }
             url.stopAccessingSecurityScopedResource()
 
+            if !ok, let error = error {
+                print("can't open \(url): \(error.localizedDescription)")
+            }
+            
             if ok && viceThread == nil {
                 if let tabBarController = window?.rootViewController as? TabBarViewController {
                     tabBarController.selectedTab = .inbox

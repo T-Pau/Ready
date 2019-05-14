@@ -27,8 +27,9 @@ class TabBarViewController: UITabBarController {
     enum Tab: Int {
         case library = 0
         case favorites = 1
-        case inbox = 2
-        case deleted = 3
+        case tools = 2
+        case inbox = 3
+        case deleted = 4
     }
     
     var selectedTab: Tab {
