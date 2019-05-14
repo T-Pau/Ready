@@ -252,7 +252,7 @@ int vdrive_command_execute(vdrive_t *vdrive, const uint8_t *buf,
 
     vdrive_command_set_error(vdrive, status, 0, 0);
 
-    lib_free((char *)p);
+    lib_free(p);
     return status;
 }
 

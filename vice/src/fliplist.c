@@ -104,9 +104,7 @@ void fliplist_resources_shutdown(void)
     }
 
     lib_free(fliplist_file_name);
-    fliplist_file_name = NULL;
-    lib_free((char *)(resources_string[0].factory_value));
-    resources_string[0].factory_value = NULL;
+    lib_free((resources_string[0].factory_value));
 }
 
 static const cmdline_option_t cmdline_options[] =

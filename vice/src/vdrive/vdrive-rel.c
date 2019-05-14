@@ -654,7 +654,7 @@ static int vdrive_rel_open_existing(vdrive_t *vdrive, unsigned int secondary)
 
     if (vdrive_read_sector(vdrive, p->super_side_sector, track, sector) != 0) {
         log_error(vdrive_rel_log, "Cannot read side sector.");
-        lib_free((char *)p->super_side_sector);
+        lib_free(p->super_side_sector);
         return -1;
     }
 
@@ -1414,31 +1414,23 @@ int vdrive_rel_close(vdrive_t *vdrive, unsigned int secondary)
 
     p->mode = BUFFER_NOT_IN_USE;
 
-    lib_free((char *)p->buffer);
-    p->buffer = NULL;
-
-    lib_free((char *)p->buffer_next);
-    p->buffer_next = NULL;
+    lib_free(p->buffer);
+    lib_free(p->buffer_next);
 
     /* remove side sectors */
     lib_free(p->side_sector);
-    p->side_sector = NULL;
 
     /* remove side sector tracks */
     lib_free(p->side_sector_track);
-    p->side_sector_track = NULL;
 
     /* remove side sector sectors */
     lib_free(p->side_sector_sector);
-    p->side_sector_sector = NULL;
 
     /* remove super side sector too */
     lib_free(p->super_side_sector);
-    p->super_side_sector = NULL;
 
     /* remove dirty flags */
     lib_free(p->side_sector_needsupdate);
-    p->side_sector_needsupdate = NULL;
 
     /* Free the slot */
     lib_free(p->slot);
