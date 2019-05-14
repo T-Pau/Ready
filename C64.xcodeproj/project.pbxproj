@@ -407,8 +407,6 @@
 		4BB22D4B21E963E00075E694 /* waasoft_dongle.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F9B7821D7AD5800C272C4 /* waasoft_dongle.c */; };
 		4BB22D4C21E963EC0075E694 /* p64.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF863421D7B80E00EF99ED /* p64.c */; };
 		4BB22D4D21E963F60075E694 /* midi-osx-drv.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F97A421D7AD4700C272C4 /* midi-osx-drv.c */; };
-		4BB22D4E21E963F60075E694 /* midi-win32-drv.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F97A521D7AD4700C272C4 /* midi-win32-drv.c */; };
-		4BB22D4F21E963F60075E694 /* midi-unix-drv.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F97A621D7AD4700C272C4 /* midi-unix-drv.c */; };
 		4BB22D6F21E964140075E694 /* asm6502.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F9BAF21D7AD5900C272C4 /* asm6502.c */; };
 		4BB22D7021E964140075E694 /* asm6502dtv.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F9BBE21D7AD5900C272C4 /* asm6502dtv.c */; };
 		4BB22D7121E964140075E694 /* asm6809.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F9BB821D7AD5900C272C4 /* asm6809.c */; };
@@ -856,7 +854,6 @@
 		4B3F97A121D7AD4700C272C4 /* palette.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = palette.c; sourceTree = "<group>"; };
 		4B3F97A221D7AD4700C272C4 /* initcmdline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = initcmdline.h; sourceTree = "<group>"; };
 		4B3F97A421D7AD4700C272C4 /* midi-osx-drv.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "midi-osx-drv.c"; sourceTree = "<group>"; };
-		4B3F97A521D7AD4700C272C4 /* midi-win32-drv.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "midi-win32-drv.c"; sourceTree = "<group>"; };
 		4B3F97A621D7AD4700C272C4 /* midi-unix-drv.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "midi-unix-drv.c"; sourceTree = "<group>"; };
 		4B3F97A721D7AD4700C272C4 /* vice-version.sh.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "vice-version.sh.in"; sourceTree = "<group>"; };
 		4B3F97A821D7AD4700C272C4 /* autostart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = autostart.h; sourceTree = "<group>"; };
@@ -2733,7 +2730,6 @@
 			children = (
 				4B3F97A421D7AD4700C272C4 /* midi-osx-drv.c */,
 				4B3F97A621D7AD4700C272C4 /* midi-unix-drv.c */,
-				4B3F97A521D7AD4700C272C4 /* midi-win32-drv.c */,
 			);
 			path = mididrv;
 			sourceTree = "<group>";
@@ -4730,7 +4726,6 @@
 				4BB22D2321E963B10075E694 /* hs-win32-isa.c in Sources */,
 				4BB22E6A21E968B80075E694 /* final3.c in Sources */,
 				4BB22D9321E964420075E694 /* drv-raw.c in Sources */,
-				4BB22D4E21E963F60075E694 /* midi-win32-drv.c in Sources */,
 				4BB22D0621E9639E0075E694 /* psid.c in Sources */,
 				4BB22DBE21E964880075E694 /* rtc-72421.c in Sources */,
 				4BB22E0521E9653D0075E694 /* userport_digimax.c in Sources */,
@@ -5024,7 +5019,6 @@
 				4BB22DE321E965020075E694 /* soundflac.c in Sources */,
 				4BB22D2921E963B10075E694 /* ps-unix-file.c in Sources */,
 				4BB22E5621E968B80075E694 /* comal80.c in Sources */,
-				4BB22D4F21E963F60075E694 /* midi-unix-drv.c in Sources */,
 				4BB22D7D21E964140075E694 /* mon_drive.c in Sources */,
 				4BB22C3D21E961FB0075E694 /* cbmdos.c in Sources */,
 				4BB22DBF21E964880075E694 /* rtc.c in Sources */,

@@ -397,7 +397,7 @@
 /* #undef HAVE_MEMORY_H */
 
 /* Enable MIDI emulation. */
-/* #define HAVE_MIDI */
+#define HAVE_MIDI
 
 /* Define to 1 if you have the `mkstemp' function. */
 #define HAVE_MKSTEMP 1

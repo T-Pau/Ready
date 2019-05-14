@@ -29,7 +29,7 @@
 
 #include "vice.h"
 
-#ifdef MACOSX_SUPPORT
+/* #ifdef MACOSX_SUPPORT */
 
 #ifdef HAVE_MIDI
 
@@ -447,4 +447,4 @@ int mididrv_in(uint8_t *b)
 }
 
 #endif /* HAVE_MIDI */
-#endif /* MACOSX_SUPPORT */
+/* #endif */ /* MACOSX_SUPPORT */

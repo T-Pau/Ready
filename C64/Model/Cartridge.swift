@@ -72,6 +72,16 @@ struct OtherCartridge: Cartridge {
                 MachinePartSection(title: "Other Cartridges", parts: [
                     Ide64Cartridge(version: .version4_1),
                     
+/*                    OtherCartridge(identifier: "MIDI Print Technik",
+                                   name: "MIDI",
+                                   fullName: "MIDI",
+                                   variantName: "Sequential",
+                                   iconName: "MIDI",
+                                   resources: [
+                                    .MIDIEnable: .Bool(true),
+                                    .MIDIMode: .Int(0) // TODO: sybmolic name
+                        ]), */
+                    
                     OtherCartridge(identifier: "CPM",
                                    name: "CP/M",
                                    fullName: "CP/M Cartridge",

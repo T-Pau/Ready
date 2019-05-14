@@ -98,9 +98,13 @@ public class Game: NSManagedObject {
                         if let oldName = self.titleImageFileName {
                             let oldURL = directoryURL.appendingPathComponent(oldName)
                             if fileManager.fileExists(atPath: oldURL.path) {
-                                try FileManager.default.removeItem(at: oldURL)
+                                try fileManager.removeItem(at: oldURL)
                                 titleImageFileName = nil
                             }
+                        }
+                        let destinationURL = directoryURL.appendingPathComponent("title.png")
+                        if fileManager.fileExists(atPath: destinationURL.path) {
+                            try fileManager.removeItem(at: destinationURL)
                         }
                         try FileManager.default.moveItem(at: tempURL, to: directoryURL.appendingPathComponent("title.png"))
                         titleImageFileName = "title.png"

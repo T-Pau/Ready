@@ -55,6 +55,8 @@ import C64UIComponents
         case JoyPort4Device
         case KernalName
         case LogFileName
+        case MIDIEnable
+        case MIDIMode
         case Mouse
         case REU
         case REUfilename
@@ -365,7 +367,6 @@ extension Machine {
                 inputPorts.append(InputPort(port: port, isUserPort: false, subPort: 1, controller: controller))
                 inputPorts.append(InputPort(port: port, isUserPort: false, subPort: 2, controller: controller))
             }
-            break // TODO
         }
 
         return inputPorts

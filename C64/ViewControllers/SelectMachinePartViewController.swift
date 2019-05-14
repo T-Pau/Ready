@@ -51,6 +51,9 @@ class SelectMachinePartViewController: UIViewController {
         if !isGrouped {
             tableView.sectionHeaderHeight = 0.0
         }
+        if let indexPath = selectedIndexPath {
+            tableView.scrollToRow(at: indexPath, at: .middle, animated: false)
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {

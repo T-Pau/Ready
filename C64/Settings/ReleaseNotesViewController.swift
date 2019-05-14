@@ -33,6 +33,12 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Release 1.3 (Build 10)", year: 2019, month: 5, day: 24, changes: [
+            "Implement ShiftLock in virtual keyboard (C=-Lock for Japanese C64). No visual indication of pressed key yet.",
+            "Fix Open in from Safari.",
+            "Always display two drive heads for double-sided drives.",
+            "Don't duplicate disks when starting emulation in Tools tab."
+        ]),
         Release(name: "Release 1.2 (Build 9)", year: 2019, month: 5, day: 11, changes: [
             "Fix port naming and numbering for paddles.",
             "Add two button Amiga mouse."
@@ -98,6 +104,7 @@ class ReleaseNotesViewController: UIViewController {
         }
         
         textView.attributedText = text
+        textView.scrollRangeToVisible(NSRange(location: 0, length: 1))
     }
     
     @IBAction func done(_ sender: Any) {
