@@ -28,13 +28,49 @@ protocol KeyboardViewDelegate {
     func released(key: Key)
 }
 
-class KeyboardView: UIImageView {
+class KeyboardView: UIView {
+    var keyboardImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+    var shiftLockImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+
     var delegate: KeyboardViewDelegate?
     
     var keyboard: Keyboard? {
         didSet {
             updateLayout()
         }
+    }
+    
+    var isShiftLockPressed = false { 
+        didSet {
+            shiftLockImageView.isHidden = !isShiftLockPressed
+        }
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
+    }
+    
+    required init?(coder decoder: NSCoder) {
+        super.init(coder: decoder)
+        setup()
+    }
+    
+    private func setup() {
+        setup(view: keyboardImageView)
+        setup(view: shiftLockImageView)
+        shiftLockImageView.isHidden = true
+    }
+    
+    private func setup(view: UIView) {
+        addSubview(view)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            NSLayoutConstraint(item: self, attribute: .left, relatedBy: .equal, toItem: view, attribute: .left, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: self, attribute: .right, relatedBy: .equal, toItem: view, attribute: .right, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: self, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: self, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0),
+            ])
     }
     
     private struct Span {
@@ -85,7 +121,8 @@ class KeyboardView: UIImageView {
             layout = Layout(rows: [])
             return
         }
-        image = UIImage(named: keyboard.imageName)
+        keyboardImageView.image = UIImage(named: keyboard.imageName)
+        shiftLockImageView.image = UIImage(named: keyboard.imageName + " ShiftLock")
         
         layout = Layout(rows: [
             Row(top: CGFloat(keyboard.rows[0]), bottom: CGFloat(keyboard.rows[1]), spans: [
@@ -132,8 +169,8 @@ class KeyboardView: UIImageView {
         
         for touch in touches {
             var location = touch.location(in: self)
-            location.x *= (image?.size.width ?? 0) / frame.width
-            location.y *= (image?.size.height ?? 0) / frame.height
+            location.x *= (keyboardImageView.image?.size.width ?? 0) / frame.width
+            location.y *= (keyboardImageView.image?.size.height ?? 0) / frame.height
             
             if let key = layout.hit(location) {
                 keyTouches[touch] = key

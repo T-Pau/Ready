@@ -610,19 +610,16 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
     
     // MARK: - KeyboardViewDelegate
     
-    var shiftLockPressed = false
-
     func pressed(key: Key) {
         if key == .ShiftLock {
             let lockKey = keyboardView.keyboard?.lockIsShift ?? true ? Key.ShiftLeft : Key.Commodore
-            if shiftLockPressed {
+            if keyboardView.isShiftLockPressed {
                 vice.release(key: lockKey)
             }
             else {
                 vice.press(key: lockKey)
             }
-            shiftLockPressed = !shiftLockPressed
-            // TODO: update view
+            keyboardView.isShiftLockPressed = !keyboardView.isShiftLockPressed
         }
         else {
             vice.press(key: key)
