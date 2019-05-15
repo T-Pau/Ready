@@ -24,7 +24,7 @@
 import Foundation
 
 struct CartridgeImage {
-    enum CartridgeType: Int {
+    enum ViceType: Int {
         case generic
         case actionReplay5 = 1
         case kcsPower = 2
@@ -101,14 +101,14 @@ struct CartridgeImage {
     var bytes: Data
     
     var isCrt: Bool
-    var type: CartridgeType
+    var type: ViceType
     var title: String?
     var url: URL?
     var eepromUrl: URL? {
         didSet {
             if eepromUrl == nil {
                 if isCrt {
-                    type = CartridgeType(rawValue: Int(bytes[0x16]) << 8 | Int(bytes[0x17])) ?? .generic
+                    type = ViceType(rawValue: Int(bytes[0x16]) << 8 | Int(bytes[0x17])) ?? .generic
                 }
                 else {
                     type = .generic
@@ -148,7 +148,7 @@ struct CartridgeImage {
             if title?.isEmpty ?? false {
                 title = nil
             }
-            type = CartridgeType(rawValue: Int(bytes[0x16]) << 8 | Int(bytes[0x17])) ?? .generic
+            type = ViceType(rawValue: Int(bytes[0x16]) << 8 | Int(bytes[0x17])) ?? .generic
         }
         else {
             isCrt = false
@@ -162,6 +162,10 @@ struct CartridgeImage {
 }
 
 extension CartridgeImage: Cartridge {
+    var cartridgeType: CartridgeType {
+        return .main
+    }
+
     var identifier: String {
         return url?.lastPathComponent ?? "<unknown>"
     }

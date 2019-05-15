@@ -35,17 +35,53 @@ struct MachineConfig: ExpressibleByDictionaryLiteral {
         case diskDrive10
         case diskDrive11
         case expansionPort
+        case expansionPort1
+        case expansionPort2
         case singularAdapterMode
         case userPortJoystick1
         case userPortJoystick2
         case userPort
         
+        init?(expansionPort index: Int) {
+            let suffix = index > 0 ? "\(index)" : ""
+            guard let key = Key(rawValue: "expansionPort\(suffix)") else { return nil }
+            self = key
+        }
+        
         var supportsAuto: Bool {
             switch self {
-            case .diskDrive8, .diskDrive9, .diskDrive10, .diskDrive11, .cassetteDrive, .expansionPort:
+            case .diskDrive8, .diskDrive9, .diskDrive10, .diskDrive11, .cassetteDrive, .expansionPort, .expansionPort1, .expansionPort2:
                 return true
             default:
                 return false
+            }
+        }
+        
+        var driveNumber: Int? {
+            switch  self {
+            case .diskDrive8:
+                return 8
+            case .diskDrive9:
+                return 9
+            case .diskDrive10:
+                return 10
+            case .diskDrive11:
+                return 11
+            default:
+                return nil
+            }
+        }
+        
+        var expansionPortIndex: Int? {
+            switch self {
+            case .expansionPort:
+                return 0
+            case .expansionPort1:
+                return 1
+            case .expansionPort2:
+                return 2
+            default:
+                return nil
             }
         }
     }
@@ -193,6 +229,7 @@ struct MachineConfig: ExpressibleByDictionaryLiteral {
     
     private var values = [String: Value]()
     
+    static let cartridgeKeys: [Key] = [ .expansionPort, .expansionPort1, .expansionPort2 ]
     static let diskDriveKeys: [Key] = [ .diskDrive8, .diskDrive9, .diskDrive10, .diskDrive11 ]
     
     static let defaultConfig: MachineConfig = [
@@ -206,6 +243,8 @@ struct MachineConfig: ExpressibleByDictionaryLiteral {
         .diskDrive10: .string("auto"),
         .diskDrive11: .string("auto"),
         .expansionPort: .string("auto"),
+        .expansionPort1: .string("auto"),
+        .expansionPort2: .string("auto"),
         .singularAdapterMode: .integer(Int(UserPortModule.ViceJoystickType.cga.rawValue)),
         .userPortJoystick1: .string("Competition Pro"),
         .userPortJoystick2: .string("Competition Pro")

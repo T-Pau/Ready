@@ -148,19 +148,6 @@ extension JoystickButtons {
         var argv = [ "vice" ]
         
         var autostartDisk = machine.autostart
-
-        if let cartridgeURL = machine.cartridgeImage?.url {
-            if let cartridgeEeprom = machine.cartridgeImage?.eepromUrl {
-                argv.append("-cartgmod2")
-                argv.append(cartridgeURL.path)
-                argv.append("-gmod2eepromimage")
-                argv.append(cartridgeEeprom.path)
-            }
-            else {
-                argv.append("-cartcrt")
-                argv.append(cartridgeURL.path)
-            }
-        }
         
         if let programFileURL = machine.programFile?.url {
             argv.append("-autostart")

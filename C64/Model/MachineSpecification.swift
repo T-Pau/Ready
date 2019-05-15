@@ -124,9 +124,58 @@ extension MachineSpecification {
 
     }
     
-    var cartridges: [Cartridge] {
-        guard let cartridge = OtherCartridge.cartridge(identifier: identifier(for: .expansionPort)) else { return [] }
-        return [cartridge]
+    func cartridges(for machine: Machine?) -> [Cartridge] {
+        var cartridges = [Cartridge](repeating: OtherCartridge.none, count: 3)
+        
+        let identifiers = MachineConfig.cartridgeKeys.map({ identifier(for: $0) })
+        var specifiedCartridges = identifiers.map({ OtherCartridge.cartridge(identifier: $0) })
+        var machineCartridges = [Cartridge]()
+
+        if let machine = machine {
+            if let cartridge = machine.cartridgeImage {
+                machineCartridges.append(cartridge)
+            }
+            if let ramExpansionUnit = machine.ramExpansionUnit {
+                machineCartridges.append(ramExpansionUnit)
+            }
+            if !machine.ideDiskImages.isEmpty {
+                machineCartridges.append(Ide64Cartridge.standard)
+            }
+        }
+        
+        var isMainSlotFull = false
+
+        if identifiers[0] == "auto" {
+            if specifiedCartridges[1] != nil || specifiedCartridges[2] != nil || machineCartridges.count > 1 {
+                cartridges[0] = OtherCartridge.expander
+            }
+            else if !machineCartridges.isEmpty {
+                cartridges[0] = machineCartridges[0]
+                machineCartridges.remove(at: 0)
+            }
+        }
+        else {
+            cartridges[0] = specifiedCartridges[0] ?? OtherCartridge.none
+        }
+        isMainSlotFull = cartridges[0].cartridgeType == .main
+
+        if cartridges[0].numberOfSlots > 0 {
+            for index in (1 ... cartridges[0].numberOfSlots) {
+                if isMainSlotFull {
+                    machineCartridges.removeAll(where: { $0.cartridgeType == .main })
+                }
+                if identifiers[index] == "auto" && !machineCartridges.isEmpty {
+                    cartridges[index] = machineCartridges[0]
+                    machineCartridges.remove(at: 0)
+                }
+                else {
+                    cartridges[index] = specifiedCartridges[index] ?? OtherCartridge.none
+                }
+                isMainSlotFull = isMainSlotFull || cartridges[index].cartridgeType == .main
+            }
+        }
+        
+        return cartridges
     }
     
     var cassetteDrive: CasstteDrive {
@@ -239,45 +288,34 @@ extension MachineSpecification {
         if let machine = machine {
             var part: MachinePart = DummyMachinePart.none
             var annotateName = true
-            var driveNumber: Int?
-            
+
             switch key {
             case .cassetteDrive:
                 part = machine.cassetteDrive
                 annotateName = false
 
-            case .expansionPort:
-                if let cartridge = machine.cartridgeImage {
-                    part = cartridge
-                }
-                else if let ramExpansionUnit = machine.ramExpansionUnit {
-                    part = ramExpansionUnit
-                }
-                else if !machine.ideDiskImages.isEmpty {
-                    part = Ide64Cartridge.standard
-                }
+            case .expansionPort, .expansionPort1, .expansionPort2:
                 annotateName = false
+                guard let index = key.expansionPortIndex else { break }
+                let specification = self.appending(layer: [ key: .string("auto") ])
+                let cartridges = specification.cartridges(for: machine)
                 
-            case .diskDrive8:
-                driveNumber = 0
-            case .diskDrive9:
-                driveNumber = 1
-            case .diskDrive10:
-                driveNumber = 2
-            case .diskDrive11:
-                driveNumber = 3
+                if index < cartridges.count {
+                    part = cartridges[index] as! MachinePart
+                }
                 
-            default:
-                return DummyMachinePart.none
-            }
-            
-            if let driveNumber = driveNumber {
+            case .diskDrive8, .diskDrive9, .diskDrive10, .diskDrive11:
+                guard let driveNumber = key.driveNumber else { break }
+                let index = driveNumber - 8
                 let specification = self.appending(layer: [ key: .string("auto") ])
                 let (drives, _) = specification.automount(images: machine.diskImages)
                 
-                if driveNumber < drives.count {
-                    part = drives[driveNumber]
+                if index < drives.count {
+                    part = drives[index]
                 }
+
+            default:
+                return DummyMachinePart.none
             }
             
             return DummyMachinePart(identifier: "auto", fullName: "Automatic", annotateName: annotateName, basePart: part)
@@ -325,7 +363,7 @@ extension MachineSpecification {
         case .cassetteDrive:
             return CasstteDrive.drive(identifier: value) ?? CasstteDrive.none
             
-        case .expansionPort:
+        case .expansionPort, .expansionPort1, .expansionPort2:
             // TODO: CartridgeImage
             return OtherCartridge.cartridge(identifier: value) as? MachinePart ?? OtherCartridge.none
             
@@ -363,7 +401,11 @@ extension MachineSpecification {
         case .expansionPort:
             // TODO: CartridgeImage, REUImage
             partList = OtherCartridge.cartridges
-            
+
+        case .expansionPort1, .expansionPort2:
+            // TODO: CartridgeImage, REUImage
+            partList = OtherCartridge.cartridges.filter({ ($0 as! Cartridge).cartridgeType != .expander })
+
         case .userPort:
             partList = UserPortModule.modules
             

@@ -33,7 +33,10 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
-        Release(name: "Release 1.3 (Build 10)", year: 2019, month: 5, day: 24, changes: [
+        Release(name: "Release 1.2 (Build 11)", year: 2019, month: 5, day: 15, changes: [
+            "Support for multiple cartridges."
+        ]),
+        Release(name: "Release 1.2 (Build 10)", year: 2019, month: 5, day: 14, changes: [
             "Implement ShiftLock in virtual keyboard (C=-Lock for Japanese C64). No visual indication of pressed key yet.",
             "Fix Open in from Safari.",
             "Always display two drive heads for double-sided drives.",

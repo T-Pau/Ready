@@ -693,12 +693,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="571" height="970"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CSR-vr-YwM" userLabel="Screen View" customClass="MachinePartView" customModule="C64UIComponents">
-                                <rect key="frame" x="8" y="60" width="326" height="290"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="sublabel" value="Screen"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d7w-KQ-q8x" userLabel="Tape View" customClass="MachinePartView" customModule="C64UIComponents">
                                 <rect key="frame" x="122" y="519" width="98" height="137"/>
                                 <constraints>
@@ -857,16 +851,28 @@
                                     <action selector="selectPart:" destination="0Vj-1E-Sq0" eventType="touchUpInside" id="ecX-hW-cGO"/>
                                 </connections>
                             </view>
-                            <view hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0xf-dy-CLi" userLabel="Cartridge 2 View" customClass="MachinePartView" customModule="C64UIComponents">
+                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0xf-dy-CLi" userLabel="Cartridge 1 View" customClass="MachinePartView" customModule="C64UIComponents">
                                 <rect key="frame" x="236" y="366" width="98" height="137"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="98" id="bLN-mr-dD5"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="sublabel" value="Cartridge 2"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="sublabel" value="Cartridge 1"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="selectPart:" destination="0Vj-1E-Sq0" eventType="touchUpInside" id="kUL-j8-Nf4"/>
+                                </connections>
+                            </view>
+                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZoL-FO-9zp" userLabel="Cartridge 2 View" customClass="MachinePartView" customModule="C64UIComponents">
+                                <rect key="frame" x="236" y="213" width="98" height="137"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="98" id="Tme-XL-ClQ"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="sublabel" value="Cartridge 2"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="selectPart:" destination="0Vj-1E-Sq0" eventType="touchUpInside" id="s1J-W3-5vT"/>
                                 </connections>
                             </view>
                         </subviews>
@@ -877,26 +883,25 @@
                             <constraint firstItem="GIW-op-riX" firstAttribute="bottom" secondItem="dnR-Oh-TYM" secondAttribute="bottom" id="5E4-rY-yva"/>
                             <constraint firstItem="M9r-XF-UI8" firstAttribute="leading" secondItem="SkY-Da-7Z7" secondAttribute="trailing" constant="16" id="5zM-U4-QMw"/>
                             <constraint firstItem="ljM-UT-DA5" firstAttribute="leading" secondItem="QSN-kv-sBY" secondAttribute="leading" id="7AV-cZ-e9T"/>
+                            <constraint firstItem="ZoL-FO-9zp" firstAttribute="bottom" secondItem="jVz-j1-oMF" secondAttribute="bottom" id="8P5-Nh-emw"/>
                             <constraint firstItem="M9r-XF-UI8" firstAttribute="trailing" secondItem="QSN-kv-sBY" secondAttribute="trailing" id="ACq-sM-zd9"/>
-                            <constraint firstItem="jVz-j1-oMF" firstAttribute="bottom" secondItem="CSR-vr-YwM" secondAttribute="bottom" id="D9h-AI-BIg"/>
                             <constraint firstItem="ljM-UT-DA5" firstAttribute="top" secondItem="se7-1d-rhe" secondAttribute="bottom" constant="16" id="Gp8-7Q-BPr"/>
-                            <constraint firstItem="SkY-Da-7Z7" firstAttribute="leading" secondItem="CSR-vr-YwM" secondAttribute="leading" id="HbQ-nz-2Ka"/>
                             <constraint firstItem="dnR-Oh-TYM" firstAttribute="leading" secondItem="0xf-dy-CLi" secondAttribute="leading" id="Iy6-Gw-hdb"/>
                             <constraint firstItem="se7-1d-rhe" firstAttribute="leading" secondItem="QSN-kv-sBY" secondAttribute="leading" id="K5Z-ag-MLs"/>
+                            <constraint firstItem="ZoL-FO-9zp" firstAttribute="trailing" secondItem="0xf-dy-CLi" secondAttribute="trailing" id="K8M-e1-Ymu"/>
                             <constraint firstItem="se7-1d-rhe" firstAttribute="top" secondItem="cgu-NW-ua0" secondAttribute="top" id="M1Q-qd-0vA"/>
                             <constraint firstItem="d7w-KQ-q8x" firstAttribute="leading" secondItem="oAF-HW-aYQ" secondAttribute="leading" id="OWd-sv-l2v"/>
                             <constraint firstItem="GIW-op-riX" firstAttribute="leading" secondItem="cgu-NW-ua0" secondAttribute="leading" id="P2I-8x-yVw"/>
                             <constraint firstItem="V0a-xp-cbs" firstAttribute="leading" secondItem="SkY-Da-7Z7" secondAttribute="trailing" constant="16" id="Q4L-Tm-3x9"/>
                             <constraint firstItem="GIW-op-riX" firstAttribute="trailing" secondItem="cgu-NW-ua0" secondAttribute="trailing" id="SQg-h9-bNv"/>
                             <constraint firstItem="se7-1d-rhe" firstAttribute="top" secondItem="jVz-j1-oMF" secondAttribute="bottom" constant="16" id="TJg-A7-aie"/>
-                            <constraint firstItem="QSN-kv-sBY" firstAttribute="top" secondItem="CSR-vr-YwM" secondAttribute="top" id="TmG-Lr-GkX"/>
                             <constraint firstItem="ljM-UT-DA5" firstAttribute="bottom" secondItem="dnR-Oh-TYM" secondAttribute="bottom" id="VJa-GF-OXg"/>
                             <constraint firstItem="Bwr-ON-cCL" firstAttribute="bottom" secondItem="SkY-Da-7Z7" secondAttribute="bottom" constant="8" id="Vqt-WA-v25"/>
                             <constraint firstItem="dnR-Oh-TYM" firstAttribute="top" secondItem="d7w-KQ-q8x" secondAttribute="top" id="XTV-hQ-mkB"/>
                             <constraint firstItem="jVz-j1-oMF" firstAttribute="leading" secondItem="QSN-kv-sBY" secondAttribute="leading" id="Y0T-js-EvL"/>
                             <constraint firstItem="oAF-HW-aYQ" firstAttribute="bottom" secondItem="cgu-NW-ua0" secondAttribute="bottom" id="aIZ-Zc-MEd"/>
                             <constraint firstItem="V0a-xp-cbs" firstAttribute="bottom" secondItem="SkY-Da-7Z7" secondAttribute="bottom" id="cR7-Dz-B4v"/>
-                            <constraint firstItem="QSN-kv-sBY" firstAttribute="leading" secondItem="CSR-vr-YwM" secondAttribute="trailing" constant="16" id="eTA-bU-uyg"/>
+                            <constraint firstItem="ZoL-FO-9zp" firstAttribute="top" secondItem="jVz-j1-oMF" secondAttribute="top" id="fKU-t0-ObN"/>
                             <constraint firstItem="SkY-Da-7Z7" firstAttribute="leading" secondItem="Bwr-ON-cCL" secondAttribute="leading" constant="8" id="ggF-BN-Ma5"/>
                             <constraint firstItem="se7-1d-rhe" firstAttribute="bottom" secondItem="cgu-NW-ua0" secondAttribute="bottom" id="h4R-I3-a53"/>
                             <constraint firstItem="0xf-dy-CLi" firstAttribute="top" secondItem="oAF-HW-aYQ" secondAttribute="top" id="htJ-dw-Zcz"/>
@@ -916,6 +921,7 @@
                             <constraint firstItem="jVz-j1-oMF" firstAttribute="top" secondItem="QSN-kv-sBY" secondAttribute="bottom" constant="16" id="wrt-18-Wwt"/>
                             <constraint firstItem="d7w-KQ-q8x" firstAttribute="leading" secondItem="GIW-op-riX" secondAttribute="trailing" constant="16" id="y5B-IP-9C8"/>
                             <constraint firstItem="ljM-UT-DA5" firstAttribute="top" secondItem="GIW-op-riX" secondAttribute="top" id="ytO-xQ-QxG"/>
+                            <constraint firstItem="ZoL-FO-9zp" firstAttribute="leading" secondItem="0xf-dy-CLi" secondAttribute="leading" id="yya-IP-567"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Bwr-ON-cCL"/>
                     </view>
@@ -928,11 +934,11 @@
                     </navigationItem>
                     <value key="contentSizeForViewInPopover" type="size" width="571" height="920"/>
                     <connections>
-                        <outlet property="cartridge2View" destination="0xf-dy-CLi" id="VsR-wk-EkC"/>
+                        <outlet property="cartridge1View" destination="0xf-dy-CLi" id="80C-10-t5i"/>
+                        <outlet property="cartridge2View" destination="ZoL-FO-9zp" id="Iou-kv-1sL"/>
                         <outlet property="cassetteView" destination="d7w-KQ-q8x" id="vvx-ua-w6E"/>
                         <outlet property="computerView" destination="SkY-Da-7Z7" id="aWg-Vs-XvU"/>
                         <outlet property="expansionPortView" destination="dnR-Oh-TYM" id="UDr-Sg-MY4"/>
-                        <outlet property="screenView" destination="CSR-vr-YwM" id="sXq-eu-s1k"/>
                         <outlet property="userPortJoystick1View" destination="cgu-NW-ua0" id="ku3-73-1XD"/>
                         <outlet property="userPortJoystick2View" destination="oAF-HW-aYQ" id="Vat-P0-dF4"/>
                         <outlet property="userPortView" destination="GIW-op-riX" id="aQb-YR-IkQ"/>
@@ -1174,10 +1180,10 @@
                                                 <rect key="frame" x="8" y="4" width="1008" height="30"/>
                                                 <subviews>
                                                     <view opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LIz-fo-TeO" userLabel="Padding">
-                                                        <rect key="frame" x="0.0" y="0.0" width="181" height="30"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="141" height="30"/>
                                                     </view>
                                                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PRh-Td-Duu" customClass="SingularAdapterStatusView" customModule="C64" customModuleProvider="target">
-                                                        <rect key="frame" x="197" y="0.0" width="39" height="30"/>
+                                                        <rect key="frame" x="157" y="0.0" width="79" height="30"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <gestureRecognizers/>
                                                         <connections>
@@ -1664,7 +1670,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="haP-gg-Qwf" customClass="MediaView" customModule="C64UIComponents">
-                                                    <rect key="frame" x="8" y="8" width="359" height="42.5"/>
+                                                    <rect key="frame" x="8" y="8" width="359" height="27.5"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
                                             </subviews>

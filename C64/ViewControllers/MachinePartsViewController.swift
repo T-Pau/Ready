@@ -34,11 +34,12 @@ class MachinePartsViewController: UIViewController, SeguePreparer {
     @IBOutlet weak var userPortView: MachinePartView!
     @IBOutlet weak var computerView: MachinePartView!
     @IBOutlet weak var expansionPortView: MachinePartView!
+    @IBOutlet weak var cartridge1View: MachinePartView!
+    @IBOutlet weak var cartridge2View: MachinePartView!
     @IBOutlet var driveViews: [MachinePartView]!
     @IBOutlet var controlPortViews: [MachinePartView]!
     @IBOutlet weak var userPortJoystick1View: MachinePartView!
     @IBOutlet weak var userPortJoystick2View: MachinePartView!
-    @IBOutlet weak var cartridge2View: MachinePartView!
     
     var machineSpecification = MachineSpecification(layers: [])
     var machine: Machine?
@@ -73,7 +74,9 @@ class MachinePartsViewController: UIViewController, SeguePreparer {
             PartInfo(view: userPortView, key: .userPort, iconWidth: narrow, editableWhenRunning: false),
             PartInfo(view: userPortJoystick1View, key: .userPortJoystick1, iconWidth: narrow, editableWhenRunning: true),
             PartInfo(view: userPortJoystick2View, key: .userPortJoystick2, iconWidth: narrow, editableWhenRunning: true),
-            PartInfo(view: expansionPortView, key: .expansionPort, iconWidth: narrow, editableWhenRunning: false)
+            PartInfo(view: expansionPortView, key: .expansionPort, iconWidth: narrow, editableWhenRunning: false),
+            PartInfo(view: cartridge1View, key: .expansionPort1, iconWidth: narrow, editableWhenRunning: false),
+            PartInfo(view: cartridge2View, key: .expansionPort2, iconWidth: narrow, editableWhenRunning: false)
             // TODO: screen
         ]
     }
@@ -169,6 +172,19 @@ class MachinePartsViewController: UIViewController, SeguePreparer {
         default:
             userPortJoystick1View.isHidden = false
             userPortJoystick2View.isHidden = false
+        }
+        
+        let cartridges = machineSpecification.cartridges(for: machine)
+        switch cartridges[0].numberOfSlots {
+        case 0:
+            cartridge1View.isHidden = true
+            cartridge2View.isHidden = true
+        case 1:
+            cartridge1View.isHidden = false
+            cartridge2View.isHidden = true
+        default:
+            cartridge1View.isHidden = false
+            cartridge2View.isHidden = false
         }
     }
     

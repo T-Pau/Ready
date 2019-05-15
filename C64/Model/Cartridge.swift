@@ -23,14 +23,26 @@
 
 import Foundation
 
+enum CartridgeType {
+    case none
+    case expander
+    case io
+    case main
+}
+
 protocol Cartridge {
     var identifier: String { get }
     var resources: [Machine.ResourceName: Machine.ResourceValue] { get }
+    var numberOfSlots: Int { get }
+    var cartridgeType: CartridgeType { get }
 }
 
 extension Cartridge {
     var resources: [Machine.ResourceName: Machine.ResourceValue] {
         return [:]
+    }
+    var numberOfSlots: Int {
+        return 0
     }
 }
 
@@ -42,8 +54,10 @@ struct OtherCartridge: Cartridge {
     var icon: UIImage?
     var priority: Int
     var resources: [Machine.ResourceName: Machine.ResourceValue]
+    var numberOfSlots: Int
+    var cartridgeType: CartridgeType
     
-    init(identifier: String, name: String, fullName: String? = nil, variantName: String? = nil, iconName: String?, priority: Int = MachinePartNormalPriority, resources: [Machine.ResourceName: Machine.ResourceValue]) {
+    init(identifier: String, name: String, fullName: String? = nil, variantName: String? = nil, iconName: String?, priority: Int = MachinePartNormalPriority, cartridgeType: CartridgeType, numberOfSlots: Int = 0, resources: [Machine.ResourceName: Machine.ResourceValue]) {
         self.identifier = identifier
         self.name = name
         self.fullName = fullName ?? name
@@ -53,11 +67,14 @@ struct OtherCartridge: Cartridge {
         self.variantName = variantName
         self.priority = priority
         self.resources = resources
+        self.cartridgeType = cartridgeType
+        self.numberOfSlots = numberOfSlots
     }
 
     
-    static let none = OtherCartridge(identifier: "none", name: "None", iconName: nil, resources: [:])
+    static let none = OtherCartridge(identifier: "none", name: "None", iconName: nil, cartridgeType: .none, resources: [:])
 
+    static let expander = OtherCartridge(identifier: "Mini X-Pander", name: "X-Pander", fullName: "MIni X-Pander", iconName: "Mini X-Pander", cartridgeType: .expander, numberOfSlots: 2, resources: [:])
 
     static var _cartridges = MachinePartList(sections: [])
     static var cartridges: MachinePartList {
@@ -70,13 +87,15 @@ struct OtherCartridge: Cartridge {
                 MachinePartSection(title: "RAM Expansion Units", parts: RamExpansionUnit.ramExpansionUnits.sorted(by: { $0.key < $1.key }).map({ $0.value })),
                 
                 MachinePartSection(title: "Other Cartridges", parts: [
+                    expander,
                     Ide64Cartridge(version: .version4_1),
-                    
+
 /*                    OtherCartridge(identifier: "MIDI Print Technik",
                                    name: "MIDI",
                                    fullName: "MIDI",
                                    variantName: "Sequential",
                                    iconName: "MIDI",
+                                   cartridgeType: .io,
                                    resources: [
                                     .MIDIEnable: .Bool(true),
                                     .MIDIMode: .Int(0) // TODO: sybmolic name
@@ -86,6 +105,7 @@ struct OtherCartridge: Cartridge {
                                    name: "CP/M",
                                    fullName: "CP/M Cartridge",
                                    iconName: "CPM Cartridge",
+                                   cartridgeType: .main,
                                    resources: [
                                     .CPMCart: .Bool(true)
                         ])

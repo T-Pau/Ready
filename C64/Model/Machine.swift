@@ -132,7 +132,6 @@ import C64UIComponents
         diskDrives = specification.diskDrives
         cassetteDrive = specification.cassetteDrive
         userPortModule = specification.userPortModule
-        cartridges = specification.cartridges
         
         if let userJoystickType = userPortModule?.getViceJoystickType(for: specification) {
             resources[.UserportJoy] = .Bool(true)
@@ -236,18 +235,9 @@ import C64UIComponents
             }
         }
         
-        if cartridges.isEmpty { // TODO: contains auto
-            if let cartridge = cartridgeImage {
-                cartridges.append(cartridge)
-            }
-            else if let cartridge = ramExpansionUnit {
-                cartridges.append(cartridge)
-            }
-            else if !ideDiskImages.isEmpty {
-                cartridges.append(Ide64Cartridge.standard)
-            }
-        }
-        
+        cartridges = specification.cartridges(for: self)
+        // TODO: remove all but first main slot cartridge
+
         if !tapeImages.isEmpty && specification.string(for: .cassetteDrive) == "auto" {
             cassetteDrive = CasstteDrive.drives.parts.sorted(by: { $0.priority > $1.priority })[0] as! CasstteDrive
         }

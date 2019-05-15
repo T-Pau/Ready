@@ -122,6 +122,10 @@ struct RamExpansionUnit {
 }
 
 extension RamExpansionUnit: Cartridge {
+    var cartridgeType: CartridgeType {
+        return .io
+    }
+    
     var resources: [Machine.ResourceName: Machine.ResourceValue] {
         var resources: [Machine.ResourceName: Machine.ResourceValue] = [
             .REU: .Bool(true),
