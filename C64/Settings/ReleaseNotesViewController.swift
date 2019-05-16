@@ -33,6 +33,9 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Release 1.2 (Build 13)", year: 2019, month: 5, day: 16, changes: [
+            "Fix starting emulation multiple times in release build."
+        ]),
         Release(name: "Release 1.2 (Build 12)", year: 2019, month: 5, day: 15, changes: [
             "Fix cartridge in Tools mode."
         ]),

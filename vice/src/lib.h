@@ -36,10 +36,11 @@
 
 #include "debug.h"
 
-#ifdef DEBUG
+/* #ifdef DEBUG */
 /* memory leak pinpointing, don't forget to enable in lib.c */
+/* always enable this to get pointer set to NULL after free */
 #define LIB_DEBUG_PINPOINT
-#endif
+/* #endif */
 
 extern void lib_init_rand(void);
 extern unsigned int lib_unsigned_rand(unsigned int min, unsigned int max);

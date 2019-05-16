@@ -61,7 +61,8 @@
 #  endif
 #endif
 
-#ifdef DEBUG
+/* #ifdef DEBUG */
+/* memory leak pinpointing, don't forget to enable in lib.c */
 /* enable memory debugging */
 # define LIB_DEBUG
 /* enable pinpointing of memory leaks, don't forget to enable in lib.h */
@@ -73,7 +74,7 @@
 #  define DEBUG_BT_MAXDEPTH 16
 #  include <execinfo.h>
 # endif
-#endif
+/* #endif */
 
 
 #ifdef LIB_DEBUG
