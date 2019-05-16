@@ -33,6 +33,9 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Release 1.2 (Build 12)", year: 2019, month: 5, day: 15, changes: [
+            "Fix cartridge in Tools mode."
+        ]),
         Release(name: "Release 1.2 (Build 11)", year: 2019, month: 5, day: 15, changes: [
             "Visual indication of Shift Lock key for C64 and SX64 keyboards (others to come).",
             "Support for multiple cartridges."

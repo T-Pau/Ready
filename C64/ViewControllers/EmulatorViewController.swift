@@ -267,6 +267,12 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
         else {
             machine = Machine()
         }
+        
+        if toolsMode {
+            machine.cartridgeImage = Tools.standard.selectedCartridge
+            machine.autostart = false
+        }
+        
         machine.vice = vice
         
         _keyboardCommands.removeAll()
@@ -326,11 +332,6 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
         
         let biosURL = AppDelegate.biosURL
 
-        if toolsMode {
-            machine.cartridgeImage = Tools.standard.selectedCartridge
-            machine.autostart = false
-        }
-        
         if !toolsMode && machine.tapeImages.isEmpty && Defaults.standard.enableJiffyDOS {
             if let romC64 = Defaults.standard.biosJiffyDosC64 {
                 machine.resources[.KernalName] = .String(biosURL.appendingPathComponent(romC64).path)
