@@ -136,7 +136,7 @@ extension JoystickButtons {
         machine.resources[.AutostartPrgMode] = .Int(AUTOSTART_PRG_MODE_INJECT);
         //machineSpecification.resources[.VICIIBorderMode] = .Int(VICII_TALL_BORDERS)
         machine.resources[.Mouse] = .Bool(true)
-        machine.resources[.LogFileName] = .String(AppDelegate.libraryURL.appendingPathComponent("vice-log.txt").path)
+        machine.resources[.LogFileName] = .String(AppDelegate.documentURL.appendingPathComponent("vice-log.txt").path)
         machine.resources[.Drive8IdleMethod] = .Int(DRIVE_IDLE_TRAP_IDLE)
         machine.resources[.Drive9IdleMethod] = .Int(DRIVE_IDLE_TRAP_IDLE)
         machine.resources[.Drive10IdleMethod] = .Int(DRIVE_IDLE_TRAP_IDLE)

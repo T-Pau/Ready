@@ -101,6 +101,10 @@ struct Chargen {
         return UIImage(ciImage: ciImage)
     }
     
+    static let asciiToScreenMap: [UInt8] = [
+        0x00, 0x20, 0x40, 0x00,
+        0x40, 0x60, 0x00, 0x60
+    ]
     static let petsciiToScreenMap: [UInt8] = [
         0x00, 0x20, 0x00, 0x40,
         0x00, 0x60, 0x40, 0x60
@@ -108,5 +112,9 @@ struct Chargen {
     
     static func petsciiToScreen(_ string: [UInt8]) -> [UInt8] {
         return string.map { Chargen.petsciiToScreenMap[Int($0 >> 5)] | ($0 & 0x1f) }
+    }
+
+    static func asciiToScreen(_ string: [UInt8]) -> [UInt8] {
+        return string.map { Chargen.asciiToScreenMap[Int($0 >> 5)] | ($0 & 0x1f) }
     }
 }

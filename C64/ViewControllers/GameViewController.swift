@@ -349,8 +349,9 @@ class GameViewController: UIViewController, UITextFieldDelegate, ShareableImageV
         
         machine = item.machine
         
-        diskDirectoryTableViewDelegate.chargen = machine.specification.computer.chargenUppercase
-        
+        diskDirectoryTableViewDelegate.chargenUppercase = machine.specification.computer.chargenUppercase
+        diskDirectoryTableViewDelegate.chargenLowercase = machine.specification.computer.chargenLowercase
+
         cancelSelectMediaButton?.isHidden = true
         
         if let game = item as? Game {

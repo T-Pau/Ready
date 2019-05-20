@@ -44,6 +44,8 @@ import C64UIComponents
         case Drive11IdleMethod
         case Drive11Type
         case DriveSoundEmulation
+        case GMod2EEPROMImage
+        case GMod2EEPROMRW
         case IDE64version
         case IDE64Image1
         case IDE64Image2

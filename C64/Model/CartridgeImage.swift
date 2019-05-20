@@ -172,9 +172,16 @@ extension CartridgeImage: Cartridge {
     
     var resources: [Machine.ResourceName: Machine.ResourceValue] {
         guard let fileName = url?.path else { return [:] }
-        return [
+        var resources: [Machine.ResourceName: Machine.ResourceValue] = [
             .CartridgeFile: .String(fileName)
         ]
+        
+        if let eepromUrl = eepromUrl {
+            resources[.CartridgeType] = .Int(Int32(ViceType.gmod2.rawValue))
+            resources[.GMod2EEPROMImage] = .String(eepromUrl.path)
+            resources[.GMod2EEPROMRW] = .Bool(true)
+        }
+        return resources
     }
 
 }

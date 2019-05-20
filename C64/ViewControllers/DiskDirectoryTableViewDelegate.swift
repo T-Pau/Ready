@@ -32,11 +32,23 @@ import Foundation
             }
         }
     }
-    var chargen: Chargen? {
+    var useUppercase = true
+    var isGEOS = false
+    var chargenUppercase: Chargen? {
         didSet {
             tableView?.reloadData()
         }
     }
+    var chargenLowercase: Chargen? {
+        didSet {
+            tableView?.reloadData()
+        }
+    }
+    
+    var chargen: Chargen? {
+        return useUppercase ? chargenUppercase : chargenLowercase
+    }
+    
     var tableView: UITableView? {
         didSet {
             tableView?.delegate = self
@@ -73,6 +85,8 @@ import Foundation
         directoryLines.removeAll()
         
         if let directory = disk?.readDirectory() {
+            isGEOS = directory.isGEOS
+            useUppercase = !directory.isGEOS
             directoryLines.append(getTitleLine(directory: directory))
             directoryLines.append(contentsOf: directory.entries.map( { getEntryLine(entry: $0) }))
             directoryLines.append(getBlocksFreeLine(directory: directory))
@@ -88,11 +102,7 @@ import Foundation
         line.append(contentsOf: [ 0x22, 0x20 ])
         line.append(contentsOf: directory.diskIdPETASCII)
         
-        line = Chargen.petsciiToScreen(line)
-        for i in (2 ..< line.count) {
-            line[i] = line[i] ^ 0x80
-        }
-        return line
+        return convert(line: line, invert: true)
     }
     
     private func getEntryLine(entry: Directory.Entry) -> [UInt8] {
@@ -110,10 +120,20 @@ import Foundation
             line.append(0x3c)
         }
 
-        return Chargen.petsciiToScreen(line)
+        return convert(line: line)
     }
     
     private func getBlocksFreeLine(directory: Directory) -> [UInt8] {
-        return Chargen.petsciiToScreen("\(directory.freeBlocks) BLOCKS FREE.".unicodeScalars.map({ UInt8($0.value) }))
+        return convert(line: "\(directory.freeBlocks) BLOCKS FREE.".unicodeScalars.map({ UInt8($0.value) }))
+    }
+    
+    private func convert(line: [UInt8], invert: Bool = false) -> [UInt8] {
+        var converted = isGEOS ? Chargen.asciiToScreen(line) : Chargen.petsciiToScreen(line)
+        if invert {
+            for i in (2 ..< converted.count) {
+                converted[i] = converted[i] ^ 0x80
+            }
+        }
+        return converted
     }
 }
