@@ -121,11 +121,11 @@ extension ProgramFile: MediaItem {
     }
     
     var displaySubtitle: String? {
-        return nil
+        return name
     }
     
     var subtitleIsPETASCII: Bool {
-        return false
+        return true
     }
     
     var displayIcon: UIImage? {

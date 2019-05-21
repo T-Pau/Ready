@@ -33,9 +33,12 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Release 1.2 (Build 17)", year: 2019, month: 5, day: 21, changes: [
+            "Fix p00 file handling."
+        ]),
         Release(name: "Release 1.2 (Build 16)", year: 2019, month: 5, day: 20, changes: [
             "Fix cartridges.",
-            "Display GEOS disk with lowercase character set."
+            "Display GEOS disks with lowercase character set."
         ]),
         Release(name: "Release 1.2 (Build 15)", year: 2019, month: 5, day: 16, changes: [
             "Visual indication of ShiftLock for remaining keyboards."

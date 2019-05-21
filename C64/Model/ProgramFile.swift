@@ -24,14 +24,27 @@
 import Foundation
 
 struct ProgramFile {
+    var bytes: Data
+    var name: String?
     var url: URL?
-    
+
     init?(directory: URL, file: String?) {
         guard let file = file else { return nil }
         self.init(url: directory.appendingPathComponent(file))
     }
     
-    init(url: URL) {
+    init?(url: URL) {
+        do {
+            bytes = try Data(contentsOf: url)
+        }
+        catch {
+            return nil
+        }
         self.url = url
+
+        if String(bytes: bytes[0x00 ..< 0x08], encoding: .ascii) == "C64File\0" {
+            name = String(bytes: bytes[0x08 ..< 0x017], encoding: .isoLatin1)?.trimmingCharacters(in: CharacterSet(charactersIn: "\0"))
+            // TODO: strip trailing space/0xa0?
+        }
     }
 }

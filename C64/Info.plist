@@ -54,6 +54,7 @@
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>at.spiderlab.c64.prg</string>
+				<string>at.spiderlab.c64.p00</string>
 			</array>
 		</dict>
 		<dict>
@@ -487,6 +488,30 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>iso</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Commodore 64 Wrapped Program File</string>
+			<key>UTTypeIconFiles</key>
+			<array>
+				<string>FileDocument.png</string>
+			</array>
+			<key>UTTypeIdentifier</key>
+			<string>at.spiderlab.c64.p00</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>p00</string>
+					<string>p01</string>
+					<string>p02</string>
+					<string>p03</string>
 				</array>
 			</dict>
 		</dict>

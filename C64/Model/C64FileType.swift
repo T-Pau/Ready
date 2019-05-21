@@ -43,7 +43,7 @@ struct C64FileType {
             case .ramExpansionUnit:
                 return ["at.spiderlab.c64.reu"]
             case .programFile:
-                return ["at.spiderlab.c64.prg", "org.sidmusic.prg"]
+                return ["at.spiderlab.c64.p00", "at.spiderlab.c64.prg", "org.sidmusic.prg"]
             case .tape:
                 return ["at.spiderlab.c64.t64", "at.spiderlab.c64.tap", "org.sidmusic.tap"]
             }
@@ -71,6 +71,9 @@ struct C64FileType {
         "hdd": .ideDisk,
         "iso": .ideDisk,
         "p00": .programFile,
+        "p01": .programFile,
+        "p02": .programFile,
+        "p03": .programFile,
         "prg": .programFile,
         "reu": .ramExpansionUnit,
         "t64": .tape,
@@ -111,8 +114,8 @@ struct C64FileType {
             else if pathExtension == "crt" {
                 typeIdentifier = "public.x509-certificate"
             }
-            else if pathExtension == "p00" {
-                typeIdentifier = "at.spiderlab.c64.prg"
+            else if pathExtension == "p01" || pathExtension == "p02" || pathExtension == "p03" {
+                typeIdentifier = "at.spiderlab.c64.p00"
             }
         }
         else {
