@@ -121,14 +121,15 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
     }
 
     let bindings: [KeyBinding] = [
-        KeyBinding(input: "1", modifierFlags: [.alternate], title: "F1", binding: Binding(key: .F1)),
-        KeyBinding(input: "2", modifierFlags: [.alternate], title: "F2", binding: Binding(key: .F1, shift: true)),
-        KeyBinding(input: "3", modifierFlags: [.alternate], title: "F3", binding: Binding(key: .F3)),
-        KeyBinding(input: "4", modifierFlags: [.alternate], title: "F4", binding: Binding(key: .F3, shift: true)),
-        KeyBinding(input: "5", modifierFlags: [.alternate], title: "F5", binding: Binding(key: .F5)),
-        KeyBinding(input: "6", modifierFlags: [.alternate], title: "F6", binding: Binding(key: .F5, shift: true)),
-        KeyBinding(input: "7", modifierFlags: [.alternate], title: "F7", binding: Binding(key: .F7)),
-        KeyBinding(input: "8", modifierFlags: [.alternate], title: "F8", binding: Binding(key: .F7, shift: true)),
+        KeyBinding(input: "1", modifierFlags: [.command], title: "F1", binding: Binding(key: .F1)),
+        KeyBinding(input: "2", modifierFlags: [.command], title: "F2", binding: Binding(key: .F1, shift: true)),
+        KeyBinding(input: "3", modifierFlags: [.command], title: "F3", binding: Binding(key: .F3)),
+        KeyBinding(input: "4", modifierFlags: [.command], title: "F4", binding: Binding(key: .F3, shift: true)),
+        KeyBinding(input: "5", modifierFlags: [.command], title: "F5", binding: Binding(key: .F5)),
+        KeyBinding(input: "6", modifierFlags: [.command], title: "F6", binding: Binding(key: .F5, shift: true)),
+        KeyBinding(input: "7", modifierFlags: [.command], title: "F7", binding: Binding(key: .F7)),
+        KeyBinding(input: "8", modifierFlags: [.command], title: "F8", binding: Binding(key: .F7, shift: true)),
+        
         KeyBinding(input: "\t", title: "Run/Stop", binding: Binding(key: .RunStop)),
         KeyBinding(input: "\t", modifierFlags: [.shift], binding: Binding(key: .RunStop, shift: true)),
         KeyBinding(input: "\\", title: "Restore", binding: Binding(key: .Restore)),
@@ -150,6 +151,7 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
         KeyBinding(input: "0"),
         KeyBinding(input: "+"),
         KeyBinding(input: "-"),
+        KeyBinding(input: "3", modifierFlags: [.alternate], title: "£", binding: Binding(key: .Char("£"))),
         KeyBinding(input: "\u{8}", binding: Binding(key: .InsertDelete)),
         
         KeyBinding(input: "!", binding: Binding(key: .Char("1"), shift: true)),

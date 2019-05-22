@@ -33,7 +33,8 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
-        Release(name: "Release 1.2 (Build 17)", year: 2019, month: 5, day: 21, changes: [
+        Release(name: "Release 1.2 (Build 17)", year: 2019, month: 5, day: 22, changes: [
+            "Change function key keyboard shortcuts to Command-1 through Command-8.",
             "Fix p00 file handling."
         ]),
         Release(name: "Release 1.2 (Build 16)", year: 2019, month: 5, day: 20, changes: [
