@@ -193,8 +193,9 @@ struct GameViewItemMedia {
                 }
             }
             
-            if let gameViewController = gameViewController {
+            if gameViewItem.type != .inbox, let gameViewController = gameViewController {
                 gameViewController.media = gameViewItem.media
+                print("applying gameviewitemchanges updates: \(tableViewUpdates.insertedRows.count)")
                 tableViewUpdates.apply(to: gameViewController.mediaTableView, animation: .automatic)
             }
             
@@ -317,6 +318,8 @@ struct GameViewItemMedia {
                 row = 0
                 self.gameViewItem.replaceMedia(mediaItem: mediaItem, sectionType: sectionType)
             }
+            
+            guard gameViewItem.type != .inbox else { return } // Inbox propagates changes itself
             guard let gameViewController = self.gameViewController else { return }
             let wasActive = gameViewController.media.sections[sectionIndex].isActive
             gameViewController.media = self.gameViewItem.media

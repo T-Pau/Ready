@@ -180,11 +180,10 @@ extension Inbox: GameViewItem {
     }
     
     func addMedia(mediaItem: MediaItem, at index: Int, sectionType: GameViewItemMedia.SectionType) {
-        items.insert(Item(media: mediaItem, date: Date()), at: index)
+        // file already created, will be picked up by directory watcher
     }
     
     func moveMedia(from sourceRow: Int, to destinationRow: Int, sectionType: GameViewItemMedia.SectionType) {
-        return
     }
     
     func removeMedia(at index: Int, sectionType: GameViewItemMedia.SectionType) {
@@ -195,7 +194,7 @@ extension Inbox: GameViewItem {
             }
             catch { }
         }
-        items.remove(at: index)
+        // removal will be picked up by directory watcher
     }
     
     func renameMedia(name: String, at: Int, sectionType: GameViewItemMedia.SectionType) {

@@ -535,6 +535,7 @@ extension GameViewController: UITableViewDataSource, UITableViewDelegate {
             let sectionType = self.media.sections[sectionIndex].type
 
             gameViewItem.removeMedia(at: indexPath.row, sectionType: sectionType)
+            guard self.gameViewItem?.type != .inbox else { return } // inbox notifies of changes
             self.media = gameViewItem.media
             if self.media.sections[sectionIndex].isActive {
                 tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -641,7 +642,7 @@ extension GameViewController: UITableViewDropDelegate {
         
         let section = media.activeSections[indexPath.section]
         
-        if !section.supportsMultiple {
+        if !section.supportsMultiple || !section.supportsReorder {
             return false
         }
 

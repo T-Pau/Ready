@@ -31,7 +31,6 @@
 - software keyboard
     - keyboard sounds
     - visual feedback for key presses
-    - shift lock
 - map input device buttons to key / joystick presses
 - adapt view layouts for compact width
 - support x64, p64 (UTI, document type, DiskImage)

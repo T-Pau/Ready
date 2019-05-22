@@ -33,63 +33,21 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
-        Release(name: "Release 1.2 (Build 17)", year: 2019, month: 5, day: 22, changes: [
+        Release(name: "Release 1.3", year: 2019, month: 5, day: 22, changes: [
             "Change function key keyboard shortcuts to Command-1 through Command-8.",
-            "Fix p00 file handling."
-        ]),
-        Release(name: "Release 1.2 (Build 16)", year: 2019, month: 5, day: 20, changes: [
-            "Fix cartridges.",
-            "Display GEOS disks with lowercase character set."
-        ]),
-        Release(name: "Release 1.2 (Build 15)", year: 2019, month: 5, day: 16, changes: [
-            "Visual indication of ShiftLock for remaining keyboards."
-        ]),
-        Release(name: "Release 1.2 (Build 13)", year: 2019, month: 5, day: 16, changes: [
-            "Fix starting emulation multiple times in release build."
-        ]),
-        Release(name: "Release 1.2 (Build 12)", year: 2019, month: 5, day: 15, changes: [
-            "Fix cartridge in Tools mode."
-        ]),
-        Release(name: "Release 1.2 (Build 11)", year: 2019, month: 5, day: 15, changes: [
-            "Visual indication of Shift Lock key for C64 and SX64 keyboards (others to come).",
-            "Support for multiple cartridges."
-        ]),
-        Release(name: "Release 1.2 (Build 10)", year: 2019, month: 5, day: 14, changes: [
-            "Implement ShiftLock in virtual keyboard (C=-Lock for Japanese C64). No visual indication of pressed key yet.",
-            "Fix Open in from Safari.",
-            "Always display two drive heads for double-sided drives.",
-            "Don't duplicate disks when starting emulation in Tools tab."
-        ]),
-        Release(name: "Release 1.2 (Build 9)", year: 2019, month: 5, day: 11, changes: [
-            "Fix port naming and numbering for paddles.",
-            "Add two button Amiga mouse."
-        ]),
-        Release(name: "Release 1.2 (Build 8)", year: 2019, month: 5, day: 10, changes: [
-            "Use absolute positioning for KoalaPad.",
-            "Fix Neos and Atari ST mice."
-        ]),
-        Release(name: "Release 1.2 (Build 7)", year: 2019, month: 5, day: 10, changes: [
+            "Implement ShiftLock in virtual keyboard (C=-Lock for Japanese C64).",
+            "Support multiple cartridges (via Mini X-Pander).",
+            "Add IDE64 Cartridge.",
             "Add Singular Crew 4-Player Adapter.",
-            "Allow deleting categories."
-        ]),
-        Release(name: "Release 1.2 (Build 6)", year: 2019, month: 5, day: 8, changes: [
-            "Fix IDE disk support, add CD images.",
-            "Fix sensibility of Elite Multifunction 2002 paddles."
-        ]),
-        Release(name: "Release 1.2 (Build 5)", year: 2019, month: 5, day: 7, changes: [
-            "Add IDE64 Cartridge and Compact Flash and Hard Disk support.",
-        ]),
-        Release(name: "Release 1.2 (Build 4)", year: 2019, month: 5, day: 6, changes: [
-            "Add Elite Multi-Function 2002, in Joystick and Paddle mode.",
-            "Light pen and light guns don't work in Control Port 2."
-        ]),
-        Release(name: "Release 1.2 (Build 3)", year: 2019, month: 5, day: 5, changes: [
-            "Add support for joysticks with up to three fire buttons.",
-            "Add Cheetah Annihilator."
-        ]),
-        Release(name: "Release 1.2 (Build 2)", year: 2019, month: 5, day: 4, changes: [
             "Add paddles.",
-            "Group hardware parts into subcategories."
+            "Add Cheetah Annihilator (two button joystick for C64 Game System).",
+            "Add two button Amiga mouse.",
+            "Fix Neos and Atari ST mice.",
+            "Use absolute positioning for KoalaPad.",
+            "Group hardware parts into subcategories.",
+            "Display GEOS disks with lowercase character set.",
+            "Allow deleting categories.",
+            "Fix p00 file handling."
         ]),
         Release(name: "Release 1.2", year: 2019, month: 5, day: 3, changes: [
             "Add hardware keyboard support for Control and Commodore (via CapsLock, can be disabled in Settings).",
