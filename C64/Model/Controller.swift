@@ -277,6 +277,12 @@ struct Controller: MachinePart {
                        iconName: "Nihon Neos Mouse",
                        viceType: .mouseNeos),
             
+            Controller(identifier: "CX22",
+                       name: "CX22",
+                       fullName: "Atari Track-Ball CX22",
+                       iconName: "Atari Track-Ball CX22",
+                       viceType: .mouseCx22),
+
             Controller(identifier: "KoalaPad",
                        name: "KoalaPad",
                        iconName: "KoalaPad",

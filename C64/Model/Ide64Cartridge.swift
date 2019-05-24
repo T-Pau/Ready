@@ -39,6 +39,16 @@ struct Ide64Cartridge {
                 return "4.2"
             }
         }
+        
+        var romName: String {
+            switch self {
+            case .version3:
+                return "idedos20151012-v3-c64.rom"
+            case .version4_1, .version4_2:
+                return "idedos20151012-v4-c64.rom"
+            }
+            
+        }
     }
     
     var version: Version
@@ -76,7 +86,7 @@ extension Ide64Cartridge: Cartridge {
         return [
             .IDE64version : .Int(version.rawValue),
             .CartridgeType: .Int(Int32(CartridgeImage.ViceType.ide64.rawValue)),
-            .CartridgeFile: .String(AppDelegate.viceDataURL.appendingPathComponent("C64/ide64.bin").path)
+            .CartridgeFile: .String(AppDelegate.viceDataURL.appendingPathComponent("C64/" + version.romName).path)
         ]
     }
 }

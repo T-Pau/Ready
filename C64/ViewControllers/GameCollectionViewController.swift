@@ -73,7 +73,13 @@ class GameCollectionViewController: UIViewController, UICollectionViewDataSource
         
         let backgroundView = PlaceholderView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         backgroundView.color = UIColor.darkGray
-        backgroundView.text = "Use + or the Inbox\nto create entries\nfor your games and demos."
+        switch mode {
+        case .all, .favorites:
+            backgroundView.text = "Use + or the Inbox\nto create entries\nfor your games and demos."
+        case .deleted:
+            backgroundView.frameWidth = 0
+            backgroundView.text = "No recently deleted games."
+        }
         collectionView.backgroundView = backgroundView
     }
     

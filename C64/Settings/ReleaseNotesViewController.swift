@@ -33,6 +33,13 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Release 1.3 (Build 3)", year: 2019, month: 5, day: 24, changes: [
+            "Update IDE64 BIOS.",
+            "Add Atari Track-Ball CX22."
+        ]),
+        Release(name: "Release 1.3 (Build 2)", year: 2019, month: 5, day: 22, changes: [
+            "Make Start / Tools buttons more prominent."
+        ]),
         Release(name: "Release 1.3", year: 2019, month: 5, day: 22, changes: [
             "Change function key keyboard shortcuts to Command-1 through Command-8.",
             "Implement ShiftLock in virtual keyboard (C=-Lock for Japanese C64).",

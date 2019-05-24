@@ -90,7 +90,7 @@ import UIKit
     }
 
     override public func draw(_ rect: CGRect) {
-        guard let context = UIGraphicsGetCurrentContext() else { return }
+        guard frameWidth > 0, let context = UIGraphicsGetCurrentContext() else { return }
 
         let width = label.intrinsicContentSize.width + margin * 2
         let height = label.intrinsicContentSize.height + margin * 2

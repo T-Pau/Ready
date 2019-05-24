@@ -1190,7 +1190,7 @@
                                                             <outletCollection property="gestureRecognizers" destination="iE5-B1-JIf" appends="YES" id="g3m-dm-mUn"/>
                                                         </connections>
                                                     </view>
-                                                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TFG-4c-Gy0" customClass="TapeStatusView" customModule="C64UIComponents">
+                                                    <view opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TFG-4c-Gy0" customClass="TapeStatusView" customModule="C64UIComponents">
                                                         <rect key="frame" x="252" y="0.0" width="76" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="210" id="6Pm-JP-YtM"/>
@@ -1796,7 +1796,7 @@
                                                         </connections>
                                                     </imageView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XaN-zX-xqp" userLabel="Info">
-                                                        <rect key="frame" x="360" y="168" width="644" height="158"/>
+                                                        <rect key="frame" x="360" y="168" width="644" height="157"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uw7-A7-r3z">
                                                                 <rect key="frame" x="0.0" y="0.5" width="76" height="20.5"/>
@@ -1858,18 +1858,22 @@
                                                                     </segue>
                                                                 </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Oj-vZ-2lb" userLabel="Start Button">
-                                                                <rect key="frame" x="84" y="125" width="42" height="33"/>
-                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                                <state key="normal" title="Start"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Oj-vZ-2lb" userLabel="Start Button" customClass="PillButton" customModule="C64UIComponents">
+                                                                <rect key="frame" x="84" y="125" width="84" height="32"/>
+                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                                                <state key="normal" title="START">
+                                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </state>
                                                                 <connections>
                                                                     <segue destination="BYZ-38-t0r" kind="show" identifier="start" id="fyt-Cy-pp8"/>
                                                                 </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KQT-o5-uyI">
-                                                                <rect key="frame" x="158" y="125" width="44" height="33"/>
-                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                                <state key="normal" title="Tools"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KQT-o5-uyI" customClass="PillButton" customModule="C64UIComponents">
+                                                                <rect key="frame" x="200" y="125" width="87" height="32"/>
+                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                                                <state key="normal" title="TOOLS">
+                                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </state>
                                                                 <connections>
                                                                     <segue destination="BYZ-38-t0r" kind="show" identifier="startTools" id="dHw-0q-8gy"/>
                                                                 </connections>
@@ -2063,7 +2067,7 @@
                                                                             <rect key="frame" x="0.0" y="0.0" width="482" height="59"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                             <subviews>
-                                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rSo-nS-zEu" customClass="MediaView" customModule="C64UIComponents">
+                                                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rSo-nS-zEu" customClass="MediaView" customModule="C64UIComponents">
                                                                                     <rect key="frame" x="8" y="10" width="474" height="39"/>
                                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                     <userDefinedRuntimeAttributes>
@@ -2100,24 +2104,28 @@
                                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="hay-QN-KyQ">
                                                                 <rect key="frame" x="0.0" y="0.0" width="482" height="33"/>
                                                                 <subviews>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WU8-RS-VWj" userLabel="Start Button">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="42" height="33"/>
-                                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                                        <state key="normal" title="Start"/>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WU8-RS-VWj" userLabel="Start Button" customClass="PillButton" customModule="C64UIComponents">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="84" height="33"/>
+                                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                                                        <state key="normal" title="START">
+                                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        </state>
                                                                         <connections>
                                                                             <segue destination="BYZ-38-t0r" kind="show" identifier="startSelected" id="Jxe-Gy-dzr"/>
                                                                         </connections>
                                                                     </button>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NaR-ga-Aoz">
-                                                                        <rect key="frame" x="74" y="0.0" width="44" height="33"/>
-                                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                                        <state key="normal" title="Tools"/>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NaR-ga-Aoz" customClass="PillButton" customModule="C64UIComponents">
+                                                                        <rect key="frame" x="116" y="0.0" width="87" height="33"/>
+                                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                                                        <state key="normal" title="TOOLS">
+                                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        </state>
                                                                         <connections>
                                                                             <segue destination="BYZ-38-t0r" kind="show" identifier="startToolsSelected" id="MvW-qS-yf2"/>
                                                                         </connections>
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EQ4-qn-iIL">
-                                                                        <rect key="frame" x="150" y="0.0" width="166" height="33"/>
+                                                                        <rect key="frame" x="235" y="0.0" width="81" height="33"/>
                                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                                         <state key="normal" title="Create Library Entry"/>
                                                                         <connections>
@@ -2432,7 +2440,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MN6-3c-Oli" customClass="MediaView" customModule="C64UIComponents">
+                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MN6-3c-Oli" customClass="MediaView" customModule="C64UIComponents">
                                                     <rect key="frame" x="443" y="10" width="89" height="39"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
@@ -2711,7 +2719,7 @@
         <segue reference="WvI-DU-ekV"/>
         <segue reference="Uko-dl-en4"/>
         <segue reference="fyt-Cy-pp8"/>
-        <segue reference="L40-fc-b91"/>
+        <segue reference="F0r-Rm-INo"/>
         <segue reference="aJA-5G-D1v"/>
         <segue reference="HEU-xw-QdH"/>
         <segue reference="tS1-wI-YaV"/>

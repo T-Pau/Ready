@@ -88,6 +88,7 @@
 		4B9DBB722233C9AB0032B280 /* CasstteDrive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9DBB712233C9AB0032B280 /* CasstteDrive.swift */; };
 		4B9DBB742233CAA00032B280 /* UserPortModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9DBB732233CAA00032B280 /* UserPortModule.swift */; };
 		4B9DBB78223904B00032B280 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B9DBB77223904B00032B280 /* Assets.xcassets */; };
+		4BA0AE7D22957B1600E54C96 /* PillButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA0AE7C22957B1600E54C96 /* PillButton.swift */; };
 		4BAAD2AB21E76B4700709807 /* DiskImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAAD2AA21E76B4700709807 /* DiskImage.swift */; };
 		4BACE33922172AB600FC3403 /* MouseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BACE337221708F200FC3403 /* MouseView.swift */; };
 		4BACE33B2218582000FC3403 /* MouseGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BACE33A2218582000FC3403 /* MouseGestureRecognizer.swift */; };
@@ -2172,6 +2173,7 @@
 		4B9DBB712233C9AB0032B280 /* CasstteDrive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CasstteDrive.swift; sourceTree = "<group>"; };
 		4B9DBB732233CAA00032B280 /* UserPortModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPortModule.swift; sourceTree = "<group>"; };
 		4B9DBB77223904B00032B280 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4BA0AE7C22957B1600E54C96 /* PillButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillButton.swift; sourceTree = "<group>"; };
 		4BAAD2AA21E76B4700709807 /* DiskImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskImage.swift; sourceTree = "<group>"; };
 		4BACE337221708F200FC3403 /* MouseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseView.swift; sourceTree = "<group>"; };
 		4BACE33A2218582000FC3403 /* MouseGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseGestureRecognizer.swift; sourceTree = "<group>"; };
@@ -4164,6 +4166,7 @@
 				4BACE337221708F200FC3403 /* MouseView.swift */,
 				4B2CE99E227D8E8800F782AC /* PaddleGestureRecognizer.swift */,
 				4B2CE9A0227D912100F782AC /* PaddleView.swift */,
+				4BA0AE7C22957B1600E54C96 /* PillButton.swift */,
 				4BEBC6CC22008B99009DED63 /* PlaceholderButton.swift */,
 				4BF57F002262543500909B2B /* PlaceholderView.swift */,
 				4BB22EA821EA27570075E694 /* ShareableImageView.swift */,
@@ -4541,6 +4544,7 @@
 				4B841CFD21F8CE78009CAF4B /* ShareableImageView.swift in Sources */,
 				4B2B9BB2224E7ABC002948B7 /* MediaTableHeaderView.swift in Sources */,
 				4BEBC6CD22008B9A009DED63 /* PlaceholderButton.swift in Sources */,
+				4BA0AE7D22957B1600E54C96 /* PillButton.swift in Sources */,
 				4B1638C12243BF820056A275 /* StatusView.swift in Sources */,
 				4BACE33B2218582000FC3403 /* MouseGestureRecognizer.swift in Sources */,
 				4B2CE99F227D8E8800F782AC /* PaddleGestureRecognizer.swift in Sources */,
