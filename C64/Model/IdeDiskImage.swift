@@ -46,12 +46,21 @@ struct IdeDiskImage {
     
     var ideType: IdeType
     var url: URL?
+    var size: Int
     
     init?(url: URL) {
         guard let ideType = IdeType(pathExtension: url.pathExtension) else { return nil }
         
         self.ideType = ideType
         self.url = url
+        do {
+            let values = try url.resourceValues(forKeys: [.fileSizeKey])
+            guard let size = values.fileSize else { return nil }
+            self.size = size
+        }
+        catch {
+            return nil
+        }
     }
 }
 
@@ -61,7 +70,14 @@ extension IdeDiskImage: MediaItem {
     }
     
     var displaySubtitle: String? {
-        return nil
+        if size > 1024 * 1024 * 1024 {
+            let value = Int((Double(size) / (1024 * 1024 * 1024)).rounded(.up))
+            return "\(value)gb"
+        }
+        else {
+            let value = Int((Double(size) / (1024 * 1024)).rounded(.up))
+            return "\(value)mb"
+        }
     }
     
     var subtitleIsPETASCII: Bool {
