@@ -2238,6 +2238,7 @@
 		4BBF86BC21DBCB5500EF99ED /* ringbuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ringbuffer.h; sourceTree = "<group>"; };
 		4BC5BBD821DE245D00D44A10 /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
 		4BC5BBDA21DF548000D44A10 /* Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
+		4BD164F0229C4B4900B25212 /* C64.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = C64.entitlements; sourceTree = "<group>"; };
 		4BD5B373221FF363000C77B8 /* JoystickGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoystickGestureRecognizer.swift; sourceTree = "<group>"; };
 		4BD5B3752220184E000C77B8 /* VirtualControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualControlsView.swift; sourceTree = "<group>"; };
 		4BD5B379222019CE000C77B8 /* JoystickView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoystickView.swift; sourceTree = "<group>"; };
@@ -2448,6 +2449,7 @@
 		4B3F974521D7ACC700C272C4 /* C64 */ = {
 			isa = PBXGroup;
 			children = (
+				4BD164F0229C4B4900B25212 /* C64.entitlements */,
 				4B3F974621D7ACC700C272C4 /* AppDelegate.swift */,
 				4B3E4A612212B3D200511F08 /* Assets */,
 				4BBF86B721DBA70F00EF99ED /* Audio.h */,
@@ -4365,6 +4367,9 @@
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1020;
 						SystemCapabilities = {
+							com.apple.AccessWiFi = {
+								enabled = 0;
+							};
 							com.apple.iCloud = {
 								enabled = 0;
 							};

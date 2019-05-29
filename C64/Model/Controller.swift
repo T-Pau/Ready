@@ -257,6 +257,18 @@ struct Controller: MachinePart {
                        fullName: "Commodore Mouse 1351",
                        iconName: "Commodore 1351",
                        viceType: .mouse1351),
+            
+            Controller(identifier: "Smart Mouse",
+                       name: "Smart Mouse",
+                       fullName: "CMD Smart Mouse",
+                       iconName: "CMD Smart Mouse",
+                       viceType: .mouseSmart),
+
+            Controller(identifier: "Smart Track",
+                       name: "Smart Track",
+                       fullName: "CMD Smart Track",
+                       iconName: "CMD Smart Track",
+                       viceType: .mouseSmart),
 
             Controller(identifier: "Amiga Mouse",
                        name: "Amiga",
