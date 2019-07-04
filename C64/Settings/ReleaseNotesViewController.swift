@@ -33,6 +33,10 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Release 1.3 (Build 5)", year: 2019, month: 7, day: 4, changes: [
+            "Map more buttons from MiF controllers.",
+            "Fix directory and sub-partition in directory listing."
+        ]),
         Release(name: "Release 1.3 (Build 4)", year: 2019, month: 5, day: 28, changes: [
             "Add CMD Smart Mouse and Smart Track."
         ]),
