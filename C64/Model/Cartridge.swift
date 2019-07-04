@@ -47,6 +47,14 @@ extension Cartridge {
 }
 
 struct OtherCartridge: Cartridge {
+    enum MidiMode: Int32 {
+        case sequential = 0
+        case passport = 1
+        case datel = 2
+        case namesoft = 3
+        case maplin = 4
+    }
+    
     var identifier: String
     var name: String
     var fullName: String
@@ -98,7 +106,7 @@ struct OtherCartridge: Cartridge {
                                    cartridgeType: .io,
                                    resources: [
                                     .MIDIEnable: .Bool(true),
-                                    .MIDIMode: .Int(0) // TODO: sybmolic name
+                                    .MIDIMode: .Int(MidiMode.sequential.rawValue)
                         ]), */
                     
                     OtherCartridge(identifier: "CPM",
