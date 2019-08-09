@@ -474,7 +474,7 @@ io_source_list_t *io_source_register(io_source_t *device)
     return retval;
 }
 
-void io_source_unregister(io_source_list_t *device)
+void io_source_unregister_(io_source_list_t *device)
 {
     io_source_list_t *prev;
 

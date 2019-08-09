@@ -195,7 +195,8 @@ typedef struct io_source_detach_s {
 } io_source_detach_t;
 
 extern io_source_list_t *io_source_register(io_source_t *device);
-extern void io_source_unregister(io_source_list_t *device);
+#define io_source_unregister(device) (io_source_unregister_(device), (void)((device) = NULL))
+extern void io_source_unregister_(io_source_list_t *device);
 
 extern void cartio_shutdown(void);
 
