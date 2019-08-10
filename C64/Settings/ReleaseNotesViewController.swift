@@ -33,6 +33,9 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Release 1.3 (Build 7)", year: 2019, month: 8, day: 10, changes: [
+            "Save IDE64 configuration between emulations."
+            ]),
         Release(name: "Release 1.3 (Build 6)", year: 2019, month: 8, day: 9, changes: [
             "Fix IDE64 on subsequent emulator launches."
         ]),

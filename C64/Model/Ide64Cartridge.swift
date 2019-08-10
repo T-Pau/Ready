@@ -84,7 +84,8 @@ extension Ide64Cartridge: Cartridge {
     
     var resources: [Machine.ResourceName: Machine.ResourceValue] {
         return [
-            .IDE64version : .Int(version.rawValue),
+            .IDE64version: .Int(version.rawValue),
+            .IDE64RTCSave: .Bool(true),
             .CartridgeType: .Int(Int32(CartridgeImage.ViceType.ide64.rawValue)),
             .CartridgeFile: .String(AppDelegate.viceDataURL.appendingPathComponent("C64/" + version.romName).path)
         ]

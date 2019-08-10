@@ -105,7 +105,6 @@
 		4BB22C1C21E961760075E694 /* archdep_default_autostart_disk_image_file_name.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAAAB21D7AD7700C272C4 /* archdep_default_autostart_disk_image_file_name.c */; };
 		4BB22C1D21E9617A0075E694 /* archdep_default_fliplist_file_name.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAAA321D7AD7700C272C4 /* archdep_default_fliplist_file_name.c */; };
 		4BB22C1E21E9617F0075E694 /* archdep_default_resource_file_name.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAA9D21D7AD7700C272C4 /* archdep_default_resource_file_name.c */; };
-		4BB22C1F21E961830075E694 /* archdep_default_rtc_file_name.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAABE21D7AD7700C272C4 /* archdep_default_rtc_file_name.c */; };
 		4BB22C2021E961870075E694 /* archdep_default_sysfile_pathlist.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAA8421D7AD7700C272C4 /* archdep_default_sysfile_pathlist.c */; };
 		4BB22C2121E9618C0075E694 /* archdep_expand_path.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAA9521D7AD7700C272C4 /* archdep_expand_path.c */; };
 		4BB22C2221E961920075E694 /* archdep_extra_title_text.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAA9121D7AD7700C272C4 /* archdep_extra_title_text.c */; };
@@ -4677,7 +4676,6 @@
 				4BB22CA021E962AC0075E694 /* tpicore.c in Sources */,
 				4BB22C4521E961FB0075E694 /* datasette.c in Sources */,
 				4BB22E4321E968070075E694 /* c64carthooks.c in Sources */,
-				4BB22C1F21E961830075E694 /* archdep_default_rtc_file_name.c in Sources */,
 				4BB22E5B21E968B80075E694 /* delaep7x8.c in Sources */,
 				4BB22C4A21E9620B0075E694 /* findpath.c in Sources */,
 				4BB22D2B21E963B10075E694 /* ps-win32-dll.c in Sources */,

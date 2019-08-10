@@ -238,6 +238,8 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
         
         if let gameViewItem = gameViewItem {
             machine = gameViewItem.machine
+            machine.directoryURL = gameViewItem.directoryURL
+            
             if let mediaItem = selectedMedia {
                 switch mediaItem.mediaType {
                 case .cartridge:

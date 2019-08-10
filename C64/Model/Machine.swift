@@ -51,6 +51,7 @@ import C64UIComponents
         case IDE64Image2
         case IDE64Image3
         case IDE64Image4
+        case IDE64RTCSave
         case JoyPort1Device
         case JoyPort2Device
         case JoyPort3Device
@@ -100,6 +101,8 @@ import C64UIComponents
     var resources = [ResourceName: ResourceValue]()
     
     @objc var autostart: Bool
+
+    @objc var directoryURL: URL?
 
     var cartridgeImage: CartridgeImage?
     var ramExpansionUnit: RamExpansionUnit?

@@ -26,6 +26,7 @@
 #include <stdlib.h>
 
 #include "archdep.h"
+#include "archdep_defs.h"
 #include "fullscreen.h"
 #include "lib.h"
 #include "util.h"
@@ -106,11 +107,22 @@ int archdep_spawn(const char *name, char **argv, char **pstdout_redir, const cha
     return -1;
 }
 
+/** \brief  Generate path to the default RTC file
+ *
+ * \return  path to default RTC file, must be freed with lib_free()
+ */
+char *archdep_default_rtc_file_name(void)
+{
+    return archdep_join_paths(viceThread.machine.directoryURL.path.UTF8String, ARCHDEP_VICE_RTC_NAME, NULL);
+}
+
 
 /** \brief  Architecture-dependent shutdown hanlder
  */
 void archdep_shutdown(void) {
 }
+
+
 
 
 void fullscreen_capability(struct cap_fullscreen_s *cap_fullscreen) {
