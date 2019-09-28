@@ -33,9 +33,13 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Release 1.3 (Build 8)", year: 2019, month: 9, day: 28, changes: [
+            "Update IDE64 BIOS to 0.90 patch 53 (2019-08-19).",
+            "Fix version number in About screen."
+        ]),
         Release(name: "Release 1.3 (Build 7)", year: 2019, month: 8, day: 10, changes: [
             "Save IDE64 configuration between emulations."
-            ]),
+        ]),
         Release(name: "Release 1.3 (Build 6)", year: 2019, month: 8, day: 9, changes: [
             "Fix IDE64 on subsequent emulator launches."
         ]),

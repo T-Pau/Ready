@@ -43,9 +43,9 @@ struct Ide64Cartridge {
         var romName: String {
             switch self {
             case .version3:
-                return "idedos20151012-v3-c64.rom"
+                return "idedos20190819-v3-c64.rom"
             case .version4_1, .version4_2:
-                return "idedos20151012-v4-c64.rom"
+                return "idedos20190819-v4-c64.rom"
             }
             
         }
