@@ -85,11 +85,12 @@ class MachinePartsViewController: UIViewController, SeguePreparer {
         super.viewWillAppear(animated)
         
         for partInfo in partInfos {
+            let color = UIColor.init(named: "MachinePartBackground") ?? UIColor.white
             if isMachineRunning && !partInfo.editableWhenRunning {
-                partInfo.view.insideColor = UIColor.white.withAlphaComponent(0.33)
+                partInfo.view.insideColor = color.withAlphaComponent(0.33)
             }
             else {
-                partInfo.view.insideColor = UIColor.white
+                partInfo.view.insideColor = color
             }
         }
         
