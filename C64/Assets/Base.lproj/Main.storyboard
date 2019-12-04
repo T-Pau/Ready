@@ -242,6 +242,7 @@
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Vice" translatesAutoresizingMaskIntoConstraints="NO" id="Nvt-ay-CBA">
                                         <rect key="frame" x="180.5" y="528" width="179" height="50"/>
+                                        <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <accessibility key="accessibilityConfiguration" label="Vice">
                                             <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
                                             <bool key="isElement" value="YES"/>
@@ -253,6 +254,7 @@
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SpiderLab" translatesAutoresizingMaskIntoConstraints="NO" id="har-S2-hYe">
                                         <rect key="frame" x="168.5" y="678" width="203" height="50"/>
+                                        <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <accessibility key="accessibilityConfiguration" label="Spider Lab">
                                             <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
                                             <bool key="isElement" value="YES"/>
@@ -263,7 +265,7 @@
                                         </constraints>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstItem="Nvt-ay-CBA" firstAttribute="top" secondItem="Uaq-AY-VyI" secondAttribute="bottom" constant="16" id="1pv-5k-J5c"/>
                                     <constraint firstItem="Uaq-AY-VyI" firstAttribute="top" secondItem="nWU-vj-bJA" secondAttribute="bottom" constant="50" id="2wq-ee-5CX"/>
@@ -362,7 +364,7 @@
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N3f-Aw-2q8">
                                 <rect key="frame" x="0.0" y="56" width="540" height="564"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" priority="600" constant="600" id="Yvk-8X-Wl0"/>
                                 </constraints>
@@ -1174,10 +1176,10 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="9NH-rt-nKV">
                                                 <rect key="frame" x="8" y="4" width="1008" height="30"/>
                                                 <subviews>
-                                                    <view opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LIz-fo-TeO" userLabel="Padding">
+                                                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LIz-fo-TeO" userLabel="Padding">
                                                         <rect key="frame" x="0.0" y="0.0" width="141" height="30"/>
                                                     </view>
-                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PRh-Td-Duu" customClass="SingularAdapterStatusView" customModule="C64" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PRh-Td-Duu" customClass="SingularAdapterStatusView" customModule="C64" customModuleProvider="target">
                                                         <rect key="frame" x="157" y="0.0" width="79" height="30"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <gestureRecognizers/>
@@ -1185,11 +1187,16 @@
                                                             <outletCollection property="gestureRecognizers" destination="iE5-B1-JIf" appends="YES" id="g3m-dm-mUn"/>
                                                         </connections>
                                                     </view>
-                                                    <view opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TFG-4c-Gy0" customClass="TapeStatusView" customModule="C64UIComponents">
+                                                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TFG-4c-Gy0" customClass="TapeStatusView" customModule="C64UIComponents">
                                                         <rect key="frame" x="252" y="0.0" width="76" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="210" id="6Pm-JP-YtM"/>
                                                         </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                                                <color key="value" cocoaTouchSystemColor="darkTextColor"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
                                                         <variation key="default">
                                                             <mask key="constraints">
                                                                 <exclude reference="6Pm-JP-YtM"/>
@@ -1208,6 +1215,9 @@
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="unit">
                                                                 <integer key="value" value="8"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                                                <color key="value" cocoaTouchSystemColor="darkTextColor"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
@@ -1228,6 +1238,9 @@
                                                             <userDefinedRuntimeAttribute type="number" keyPath="unit">
                                                                 <integer key="value" value="9"/>
                                                             </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                                                <color key="value" cocoaTouchSystemColor="darkTextColor"/>
+                                                            </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="chooseDisk:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QaG-Tz-gAa"/>
@@ -1247,6 +1260,9 @@
                                                             <userDefinedRuntimeAttribute type="number" keyPath="unit">
                                                                 <integer key="value" value="10"/>
                                                             </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                                                <color key="value" cocoaTouchSystemColor="darkTextColor"/>
+                                                            </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="chooseDisk:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lWV-zI-oqw"/>
@@ -1265,6 +1281,9 @@
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="unit">
                                                                 <integer key="value" value="11"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                                                <color key="value" cocoaTouchSystemColor="darkTextColor"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
@@ -2135,6 +2154,7 @@
                                                                             <subviews>
                                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Vuy-sI-Wmw">
                                                                                     <rect key="frame" x="8" y="0.0" width="16" height="12"/>
+                                                                                    <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" constant="16" placeholder="YES" id="y3b-qA-7gh"/>
                                                                                     </constraints>
@@ -2708,7 +2728,7 @@
         <segue reference="y1V-6h-4Dq"/>
         <segue reference="Uko-dl-en4"/>
         <segue reference="fyt-Cy-pp8"/>
-        <segue reference="F0r-Rm-INo"/>
+        <segue reference="L40-fc-b91"/>
         <segue reference="aJA-5G-D1v"/>
         <segue reference="HEU-xw-QdH"/>
         <segue reference="tS1-wI-YaV"/>

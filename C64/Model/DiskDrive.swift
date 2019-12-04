@@ -111,6 +111,9 @@ struct DiskDrive: MachinePart {
         if let textColorName = textColorName {
             self.textColor = UIColor(named: textColorName)
         }
+        else {
+            self.textColor = UIColor.darkText
+        }
         self.biosKey = biosKey
         self.jiffyDosKey = jiffyDosKey
         self.image = image

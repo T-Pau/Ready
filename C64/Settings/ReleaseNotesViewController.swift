@@ -33,6 +33,9 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Release 1.3 (Build 10)", year: 2019, month: 12, day: 4, changes: [
+            "More Dark Mode fixes."
+        ]),
         Release(name: "Release 1.3 (Build 9)", year: 2019, month: 12, day: 3, changes: [
             "Mostly fix Dark Mode."
         ]),
@@ -109,6 +112,9 @@ class ReleaseNotesViewController: UIViewController {
             text.append(NSAttributedString(string: "\n\n", attributes: bodyAttributes))
         }
         
+        if #available(iOS 13.0, *) {
+            text.addAttribute(.foregroundColor, value: UIColor.label, range: NSRange(location: 0, length: text.length))
+        }
         textView.attributedText = text
         textView.scrollRangeToVisible(NSRange(location: 0, length: 1))
     }

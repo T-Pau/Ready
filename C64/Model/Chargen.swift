@@ -98,7 +98,7 @@ struct Chargen {
         
         let ciImage = CIImage(bitmapData: data, bytesPerRow: lineWidth, size: CGSize(width: lineWidth, height: 8), format: .A8, colorSpace: nil)
         
-        return UIImage(ciImage: ciImage)
+        return UIImage(ciImage: ciImage).withRenderingMode(.alwaysTemplate)
     }
     
     static let asciiToScreenMap: [UInt8] = [
