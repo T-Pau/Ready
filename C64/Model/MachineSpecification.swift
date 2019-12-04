@@ -128,7 +128,7 @@ extension MachineSpecification {
         var cartridges = [Cartridge](repeating: OtherCartridge.none, count: 3)
         
         let identifiers = MachineConfig.cartridgeKeys.map({ identifier(for: $0) })
-        var specifiedCartridges = identifiers.map({ OtherCartridge.cartridge(identifier: $0) })
+        let specifiedCartridges = identifiers.map({ OtherCartridge.cartridge(identifier: $0) })
         var machineCartridges = [Cartridge]()
 
         if let machine = machine {

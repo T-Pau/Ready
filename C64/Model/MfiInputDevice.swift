@@ -63,6 +63,9 @@ class MfiInputDevice: InputDevice {
             if !product.iconNames.isEmpty {
                 icon = UIImage(named: product.iconNames[0])
             }
+            if let n = product.fullName {
+                fullName = n
+            }
         }
         else {
             name = "Controller" // TODO
@@ -165,16 +168,18 @@ class MfiInputDevice: InputDevice {
 
     private struct Product {
         var name: String
+        var fullName: String?
         var iconNames: [String]
     }
     
     private static let products = [
+        "DUALSHOCK 4 Wireless Controller": Product(name: "DualShock 4", fullName: "Sony DualShock 4", iconNames: [ "Sony DualShock 4"]),
         "Mad Catz C.T.R.L.i": Product(name: "C.T.R.L.i", iconNames: [
             "Mad Catz C.T.R.L.i Black",
             "Mad Catz C.T.R.L.i Blue",
             "Mad Catz C.T.R.L.i Red"
         ]),
-        "Nimbus" : Product(name: "Nimubs", iconNames: [ "Steel Series Nimbus" ]),
+        "Nimbus" : Product(name: "Nimubs", fullName: "Steel Series Numbus", iconNames: [ "Steel Series Nimbus" ]),
         "Steel Series Stratus" : Product(name: "Stratus", iconNames: [ "Steel Series Stratus White" ])
     ]
     

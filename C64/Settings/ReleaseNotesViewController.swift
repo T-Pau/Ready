@@ -33,6 +33,9 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Release 1.3 (Build 11)", year: 2019, month: 12, day: 5, changes: [
+            "Add Sony DualShock 4 icon."
+        ]),
         Release(name: "Release 1.3 (Build 10)", year: 2019, month: 12, day: 4, changes: [
             "More Dark Mode fixes."
         ]),
