@@ -72,7 +72,7 @@ class GameCollectionViewController: UIViewController, UICollectionViewDataSource
         }
         
         let backgroundView = PlaceholderView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-        backgroundView.color = UIColor.darkGray
+        backgroundView.color = UIColor(named: "EmptyCollection") ?? UIColor.darkGray
         switch mode {
         case .all, .favorites:
             backgroundView.text = "Use + or the Inbox\nto create entries\nfor your games and demos."
@@ -228,6 +228,9 @@ class GameCollectionViewController: UIViewController, UICollectionViewDataSource
         if kind == UICollectionView.elementKindSectionHeader {
             if let headerView = view as? GameHeaderCollectionViewCell {
                 headerView.title.text = resultController?.sections?[indexPath.section].name
+            }
+            if !grouped {
+                view.isHidden = true
             }
         }
         

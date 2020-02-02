@@ -138,7 +138,7 @@ class GameViewController: UIViewController, UITextFieldDelegate, ShareableImageV
         mediaTableView?.delegate = self
         mediaTableView?.register(MediaTableHeaderView.self, forHeaderFooterViewReuseIdentifier: "Header")
         let backgroundView = PlaceholderView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-        backgroundView.color = UIColor.darkGray
+        backgroundView.color = UIColor(named: "EmptyCollection") ?? UIColor.darkGray
         backgroundView.text = "Use + or drag files here\nto add cartridges,\n disks, or tapes."
         mediaTableView?.backgroundView = backgroundView
         
