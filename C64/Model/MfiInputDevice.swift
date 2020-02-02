@@ -179,7 +179,7 @@ class MfiInputDevice: InputDevice {
             "Mad Catz C.T.R.L.i Blue",
             "Mad Catz C.T.R.L.i Red"
         ]),
-        "Nimbus" : Product(name: "Nimubs", fullName: "Steel Series Numbus", iconNames: [ "Steel Series Nimbus" ]),
+        "Nimbus" : Product(name: "Nimbus", fullName: "Steel Series Nimbus", iconNames: [ "Steel Series Nimbus" ]),
         "Steel Series Stratus" : Product(name: "Stratus", iconNames: [ "Steel Series Stratus White" ])
     ]
     
