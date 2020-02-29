@@ -40,6 +40,7 @@ class BiosSettingsViewController: UIViewController {
             Row(name: "Commodore 64", defaultsKey: .BiosJiffyDosC64),
             Row(name: "Commodore 1541", defaultsKey: .BiosJiffyDos1541),
             Row(name: "Commodore 1541-II", defaultsKey: .BiosJiffyDos1541II),
+            Row(name: "Commodore 1571", defaultsKey: .BiosJiffyDos1571),
             Row(name: "Commodore 1581", defaultsKey: .BiosJiffyDos1581)
         ]),
         Section(title: "Device ROM", rows: [

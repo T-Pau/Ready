@@ -216,7 +216,17 @@ struct DiskDrive: MachinePart {
                       supportedMediaTypes: [ .singleDensitySingleSided5_25 ],
                       leds: [Led(isRound: false, colorName: "1541-II Chinon")],
                       caseColorName: "C64C Case",
-                      jiffyDosKey: .BiosJiffyDos1541II)
+                      jiffyDosKey: .BiosJiffyDos1541II),
+            DiskDrive(identifier: "1571",
+                      name: "1571",
+                      fullName: "Commodore 1571",
+                      iconName: "Commodore 1571",
+                      priority: MachinePartLowPriority,
+                      viceType: .cbm1571,
+                      supportedMediaTypes: [ .singleDensitySingleSided5_25, .singleDensityDoubleSided5_25 ],
+                      leds: [Led(isRound: false, colorName: "1541-II Chinon")],
+                      caseColorName: "C64C Case",
+                      jiffyDosKey: .BiosJiffyDos1571)
         ]),
         
         MachinePartSection(title: "3.5\"", parts: [

@@ -23,6 +23,7 @@
 			<array>
 				<string>at.spiderlab.c64.d64</string>
 				<string>at.spiderlab.c64.g64</string>
+				<string>at.spiderlab.c64.d71</string>
 			</array>
 		</dict>
 		<dict>
@@ -515,6 +516,26 @@
 					<string>p02</string>
 					<string>p03</string>
 				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>at.spiderlab.c64.disk</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Commodore 1571 Disk Image</string>
+			<key>UTTypeIconFiles</key>
+			<array>
+				<string>Floppy525Document.png</string>
+			</array>
+			<key>UTTypeIdentifier</key>
+			<string>at.spiderlab.c64.d71</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<string>d71</string>
 			</dict>
 		</dict>
 	</array>

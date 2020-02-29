@@ -52,6 +52,7 @@ class Defaults {
         case BiosJiffyDosC64
         case BiosJiffyDos1541
         case BiosJiffyDos1541II
+        case BiosJiffyDos1571
         case BiosJiffyDos1581
         case BorderMode
         case CapsLockAsCommodore
@@ -91,7 +92,12 @@ class Defaults {
         get { return stringValue(for: .BiosJiffyDos1541II) }
         set { set(value: newValue, for: .BiosJiffyDos1541II) }
     }
-    
+
+    var biosJiffyDos1571: String? {
+        get { return stringValue(for: .BiosJiffyDos1571) }
+        set { set(value: newValue, for: .BiosJiffyDos1571) }
+    }
+
     var biosJiffyDos1581: String? {
         get { return stringValue(for: .BiosJiffyDos1581) }
         set { set(value: newValue, for: .BiosJiffyDos1581) }
