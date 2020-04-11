@@ -2143,6 +2143,7 @@
 		4B697C7221E38EDA0091BFCC /* Vice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vice.swift; sourceTree = "<group>"; };
 		4B69AFDB21E8AEDF00D90C42 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		4B69AFDD21E8B15200D90C42 /* Disk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Disk.swift; sourceTree = "<group>"; };
+		4B7560F72441BF72004B170F /* THANKS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = THANKS.md; sourceTree = "<group>"; };
 		4B7609E921F240180058FBCD /* C64FileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C64FileType.swift; sourceTree = "<group>"; };
 		4B7609F021F47B900058FBCD /* C64UIComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = C64UIComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B7609F221F47B900058FBCD /* C64UIComponents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = C64UIComponents.h; sourceTree = "<group>"; };
@@ -2420,6 +2421,7 @@
 			children = (
 				4B460E1E2269F70100815E7F /* README.md */,
 				4BBF869C21DA20CA00EF99ED /* TODO.md */,
+				4B7560F72441BF72004B170F /* THANKS.md */,
 				4BB22EB621EB4ADC0075E694 /* res */,
 				4BB22EB521EB4ADC0075E694 /* specs */,
 				4B3E4A55220EE8A000511F08 /* Licenses */,
