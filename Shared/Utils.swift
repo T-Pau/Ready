@@ -57,20 +57,38 @@ func typeName(some: Any) -> String {
     return (some is Any.Type) ? "\(some)" : "\(type(of: some))"
 }
 
-func uniqeName(directory: URL, name: String?, pathExtension: String, create: Bool = false) throws -> URL {
+struct UniqueNameOptions: OptionSet {
+    let rawValue: Int
+    
+    init(rawValue: Int) {
+        self.rawValue = rawValue
+    }
+    
+    typealias RawValue = Int
+
+    static let create = UniqueNameOptions(rawValue: 1 << 0)
+    static let directory = UniqueNameOptions(rawValue: 1 << 1)
+}
+
+func uniqueName(directory: URL, name: String?, pathExtension: String, options: UniqueNameOptions = []) throws -> URL {
     let fileManager = FileManager.default
     let basename = (name as NSString?)?.deletingPathExtension ?? "unknown"
     let suffix = pathExtension.isEmpty ? "" : ".\(pathExtension)"
     var i = 0
-    if create {
+    if options.contains(.create) {
         try ensureDirectory(directory)
     }
     while (true) {
         let fileUrl = directory.appendingPathComponent(basename + (i > 0 ? " \(i)" : "") + suffix)
         if !fileManager.fileExists(atPath: fileUrl.path) {
-            if create {
+            if options.contains(.create) {
                 do {
-                    try Data().write(to: fileUrl)
+                    if (options.contains(.directory)) {
+                        try fileManager.createDirectory(at: fileUrl, withIntermediateDirectories: false, attributes: [:])
+                    }
+                    else {
+                        try Data().write(to: fileUrl)
+                    }
                 }
                 catch { continue }
             }
@@ -123,7 +141,7 @@ func createEmptyFile(for itemProvider: NSItemProvider, typeIdentifiers: Set<Stri
         guard let type = C64FileType(typeIdentifier: typeIdentifier) else { continue }
         
         do {
-            return try uniqeName(directory: directory, name: itemProvider.suggestedName, pathExtension: type.pathExtension, create: true)
+            return try uniqueName(directory: directory, name: itemProvider.suggestedName, pathExtension: type.pathExtension, options: [.create])
         }
         catch {
             return nil

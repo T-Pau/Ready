@@ -673,7 +673,7 @@ extension GameViewItem {
         let fileURL: URL
         
         do {
-            fileURL = try uniqeName(directory: directoryURL, name: fileName, pathExtension: pathExtension)
+            fileURL = try uniqueName(directory: directoryURL, name: fileName, pathExtension: pathExtension)
             try FileManager.default.moveItem(at: url, to: fileURL)
         }
         catch {
@@ -694,7 +694,7 @@ extension GameViewItem {
         let fileURL: URL
         
         do {
-            fileURL = try uniqeName(directory: directoryURL, name: fileName, pathExtension: pathExtension)
+            fileURL = try uniqueName(directory: directoryURL, name: fileName, pathExtension: pathExtension)
             try data.write(to: fileURL)
         }
         catch {

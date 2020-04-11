@@ -192,7 +192,7 @@ extension Game {
             
             guard let sourceUrl = item.url else { continue }
             do {
-                let destinationUrl = try uniqeName(directory: directoryURL, name: sourceUrl.lastPathComponent, pathExtension: sourceUrl.pathExtension)
+                let destinationUrl = try uniqueName(directory: directoryURL, name: sourceUrl.lastPathComponent, pathExtension: sourceUrl.pathExtension)
                 let fileName = destinationUrl.lastPathComponent
                 if move {
                     try fileManager.moveItem(at: sourceUrl, to: destinationUrl)
@@ -207,7 +207,7 @@ extension Game {
                     cartridgeFile = fileName
                     if let cartridge = item as? CartridgeImage, let eepromSourceUrl = cartridge.eepromUrl {
                         do {
-                            let eepromDestinationUrl = try uniqeName(directory: directoryURL, name: eepromSourceUrl.lastPathComponent, pathExtension: eepromSourceUrl.pathExtension)
+                            let eepromDestinationUrl = try uniqueName(directory: directoryURL, name: eepromSourceUrl.lastPathComponent, pathExtension: eepromSourceUrl.pathExtension)
                             if move {
                                 try fileManager.moveItem(at: eepromSourceUrl, to: eepromDestinationUrl)
                             }

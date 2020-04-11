@@ -109,7 +109,7 @@ extension BiosSettingsViewController: MediaViewDropDelegate {
                 do {
                     try ensureDirectory(directory)
 
-                    fileName = try uniqeName(directory: directory, name: item.itemProvider.suggestedName ?? "unknown", pathExtension: type.pathExtension)
+                    fileName = try uniqueName(directory: directory, name: item.itemProvider.suggestedName ?? "unknown", pathExtension: type.pathExtension)
                     try data.write(to: fileName)
 
                     Defaults.standard.set(value: fileName.lastPathComponent, for: row.defaultsKey)

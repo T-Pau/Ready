@@ -80,7 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             fileCoordinator.coordinate(readingItemAt: url, options: .withoutChanges, error: &error) { coordinatedUrl in
                 do {
-                    let fileURL = try uniqeName(directory: directoryURL, name: url.lastPathComponent, pathExtension: url.pathExtension)
+                    let fileURL = try uniqueName(directory: directoryURL, name: url.lastPathComponent, pathExtension: url.pathExtension)
                     try FileManager.default.copyItem(at: coordinatedUrl, to: fileURL)
                     ok = true
                 }
@@ -252,7 +252,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     continue
                 }
                 print("importing \(name)")
-                let targetUrl = try uniqeName(directory: libraryURL, name: name, pathExtension: "")
+                let targetUrl = try uniqueName(directory: libraryURL, name: name, pathExtension: "")
                 do {
                     try fileManager.moveItem(at: directory, to: targetUrl)
                     _ = Game(name: name, directory: targetUrl.lastPathComponent, insertInto: context, importFiles: true)

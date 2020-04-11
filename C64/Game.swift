@@ -300,7 +300,7 @@ public class Game: NSManagedObject {
     convenience init?(name: String, insertInto context: NSManagedObjectContext) {
         do {
             // TODO: replace unsafe characters (:, /, &c)
-            let directoryURL = try uniqeName(directory: AppDelegate.libraryURL, name: name, pathExtension: "", create: true)
+            let directoryURL = try uniqueName(directory: AppDelegate.libraryURL, name: name, pathExtension: "", options: [.create, .directory])
             self.init(name: name, directory: directoryURL.lastPathComponent, insertInto: context)
         }
         catch {
@@ -376,7 +376,7 @@ public class Game: NSManagedObject {
         let fileURL: URL
             
         do {
-            fileURL = try uniqeName(directory: directoryURL, name: fileName, pathExtension: pathExtension)
+            fileURL = try uniqueName(directory: directoryURL, name: fileName, pathExtension: pathExtension)
             try data.write(to: fileURL)
         }
         catch {
