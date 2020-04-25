@@ -33,42 +33,16 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
-        Release(name: "Release 1.3 (Build 12)", year: 2019, month: 12, day: 5, changes: [
-            "Add Commodore 1571"
-        ]),
-        Release(name: "Release 1.3 (Build 11)", year: 2019, month: 12, day: 5, changes: [
+        Release(name: "Release 1.4", year: 2020, month: 4, day: 25, changes: [
+            "Fix compatibility issues with Dark Mode.",
+            "Fix bug that prevented adding games to the library on fresh installs.",
+            "Fixes and BIOS update for IDE64.",
+            "Add Commodore 1571",
+            "Add CMD Smart Mouse and Smart Track.",
+            "Add Atari Track-Ball CX22.",
             "Add Sony DualShock 4 icon.",
-            "More Dark Mode fixes."
-        ]),
-        Release(name: "Release 1.3 (Build 10)", year: 2019, month: 12, day: 4, changes: [
-            "More Dark Mode fixes."
-        ]),
-        Release(name: "Release 1.3 (Build 9)", year: 2019, month: 12, day: 3, changes: [
-            "Mostly fix Dark Mode."
-        ]),
-        Release(name: "Release 1.3 (Build 8)", year: 2019, month: 9, day: 28, changes: [
-            "Update IDE64 BIOS to 0.90 patch 53 (2019-08-19).",
-            "Fix version number in About screen."
-        ]),
-        Release(name: "Release 1.3 (Build 7)", year: 2019, month: 8, day: 10, changes: [
-            "Save IDE64 configuration between emulations."
-        ]),
-        Release(name: "Release 1.3 (Build 6)", year: 2019, month: 8, day: 9, changes: [
-            "Fix IDE64 on subsequent emulator launches."
-        ]),
-        Release(name: "Release 1.3 (Build 5)", year: 2019, month: 7, day: 4, changes: [
             "Map more buttons from MiF controllers.",
-            "Fix directory and sub-partition in directory listing."
-        ]),
-        Release(name: "Release 1.3 (Build 4)", year: 2019, month: 5, day: 28, changes: [
-            "Add CMD Smart Mouse and Smart Track."
-        ]),
-        Release(name: "Release 1.3 (Build 3)", year: 2019, month: 5, day: 24, changes: [
-            "Update IDE64 BIOS.",
-            "Add Atari Track-Ball CX22."
-        ]),
-        Release(name: "Release 1.3 (Build 2)", year: 2019, month: 5, day: 22, changes: [
-            "Make Start / Tools buttons more prominent."
+            "Fix directory and sub-partition in directory listing.",
         ]),
         Release(name: "Release 1.3", year: 2019, month: 5, day: 22, changes: [
             "Change function key keyboard shortcuts to Command-1 through Command-8.",
