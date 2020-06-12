@@ -97,9 +97,15 @@ class GameCollectionViewController: UIViewController, UICollectionViewDataSource
     }
     
     override var keyCommands: [UIKeyCommand]? {
-        return [
+        var commands = [
             UIKeyCommand(title: "Search", action: #selector(showSearch(_:)), input: "f", modifierFlags: .command, discoverabilityTitle: "Search")
         ]
+        
+        if mode != .deleted {
+            commands.append(UIKeyCommand(title: "Add New Title", action: #selector(addGame(_:)), input: "n", modifierFlags: .command, discoverabilityTitle: "Add New Title"))
+        }
+        
+        return commands
     }
     
     // MARK: - Actions
