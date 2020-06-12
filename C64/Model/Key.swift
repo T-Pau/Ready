@@ -47,7 +47,7 @@ import Foundation
  +-----+-----+-----+-----+-----+-----+-----+-----+-----+
  */
 
-enum Key : Equatable {
+enum Key : Equatable, Hashable {
     case Char(Character)
     case ArrowLeft
     case ArrowUp
@@ -116,10 +116,19 @@ enum Key : Equatable {
         }
     }
     
+    var isShift: Bool {
+        switch self {
+        case .ShiftLeft, .ShiftLock, .ShiftRight:
+            return true
+        default:
+            return false
+        }
+    }
+    
     static func ==(_ lhs: Key, rhs: Key) -> Bool {
         switch (lhs, rhs) {
         case (.ArrowLeft, .ArrowLeft),
-             (.ArrowUp, .ArrowLeft),
+             (.ArrowUp, .ArrowUp),
              (.ClearHome, .ClearHome),
              (.Commodore, .Commodore),
              (.Control, .Control),

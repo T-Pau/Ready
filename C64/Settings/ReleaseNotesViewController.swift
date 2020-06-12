@@ -33,6 +33,9 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Relase 1.4 Build 2", year: 2020, month: 6, day: 11, changes: [
+            "Use new keyboard API to support long key presses."
+        ]),
         Release(name: "Release 1.4", year: 2020, month: 4, day: 25, changes: [
             "Fix compatibility issues with Dark Mode.",
             "Fix bug that prevented adding games to the library on fresh installs.",

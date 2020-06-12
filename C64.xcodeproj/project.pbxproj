@@ -51,6 +51,7 @@
 		4B460E4C227991F900815E7F /* Cartridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B460E4B227991F900815E7F /* Cartridge.swift */; };
 		4B460E4E2279F46A00815E7F /* REU Document.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B460E4D2279F46A00815E7F /* REU Document.png */; };
 		4B460E51227A064E00815E7F /* RamExpansionUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B460E50227A064E00815E7F /* RamExpansionUnit.swift */; };
+		4B467E36248B7A88007E631D /* KeyPressHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B467E35248B7A88007E631D /* KeyPressHandler.swift */; };
 		4B697C6F21E36B350091BFCC /* FullScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B697C6E21E36B340091BFCC /* FullScreenViewController.swift */; };
 		4B697C7121E378DE0091BFCC /* SingleSelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B697C7021E378DE0091BFCC /* SingleSelectionTableViewController.swift */; };
 		4B697C7321E38EDA0091BFCC /* Vice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B697C7221E38EDA0091BFCC /* Vice.swift */; };
@@ -2138,6 +2139,7 @@
 		4B460E4D2279F46A00815E7F /* REU Document.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "REU Document.png"; sourceTree = "<group>"; };
 		4B460E4F227A001700815E7F /* C64-7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "C64-7.xcdatamodel"; sourceTree = "<group>"; };
 		4B460E50227A064E00815E7F /* RamExpansionUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RamExpansionUnit.swift; sourceTree = "<group>"; };
+		4B467E35248B7A88007E631D /* KeyPressHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPressHandler.swift; sourceTree = "<group>"; };
 		4B697C6E21E36B340091BFCC /* FullScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenViewController.swift; sourceTree = "<group>"; };
 		4B697C7021E378DE0091BFCC /* SingleSelectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSelectionTableViewController.swift; sourceTree = "<group>"; };
 		4B697C7221E38EDA0091BFCC /* Vice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vice.swift; sourceTree = "<group>"; };
@@ -2359,6 +2361,7 @@
 				4B1CCBA8223A8C340032B9F0 /* InputMapping.swift */,
 				4BC5BBDA21DF548000D44A10 /* Key.swift */,
 				4B1638C2224672A50056A275 /* Keyboard.swift */,
+				4B467E35248B7A88007E631D /* KeyPressHandler.swift */,
 				4BB22EC221ECD40E0075E694 /* Machine.swift */,
 				4B9DBB69223247B10032B280 /* MachineConfig.swift */,
 				4B9DBB59222911CC0032B280 /* MachinePart.swift */,
@@ -4500,6 +4503,7 @@
 				4B9DBB5C222922420032B280 /* Controller.swift in Sources */,
 				4BB22EC321ECD40F0075E694 /* Machine.swift in Sources */,
 				4B9DBB68223147300032B280 /* MachineSpecification.swift in Sources */,
+				4B467E36248B7A88007E631D /* KeyPressHandler.swift in Sources */,
 				4B3182C922820095006D86AC /* Ide64Cartridge.swift in Sources */,
 				4BB22EC121EBCF0B0075E694 /* GameHeaderCollectionViewCell.swift in Sources */,
 				4B2B9BB4224F84F9002948B7 /* GameViewItem.swift in Sources */,
@@ -5344,9 +5348,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				INFOPLIST_FILE = "$(SRCROOT)/C64/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5370,9 +5375,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				INFOPLIST_FILE = "$(SRCROOT)/C64/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
