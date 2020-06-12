@@ -527,25 +527,35 @@ extension GameViewController: UITableViewDataSource, UITableViewDelegate {
         catch { }
     }
     
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { action, indexPath in
-            guard let gameViewItem = self.gameViewItem else { return }
-            
-            let sectionIndex = self.media.sectionIndexFor(activeIndex: indexPath.section)
-            let sectionType = self.media.sections[sectionIndex].type
-
-            gameViewItem.removeMedia(at: indexPath.row, sectionType: sectionType)
-            guard self.gameViewItem?.type != .inbox else { return } // inbox notifies of changes
-            self.media = gameViewItem.media
-            if self.media.sections[sectionIndex].isActive {
-                tableView.deleteRows(at: [indexPath], with: .automatic)
-            }
-            else {
-                tableView.deleteSections([indexPath.section], with: .automatic)
-            }
-        }
-        return [ deleteAction ]
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        return UISwipeActionsConfiguration(actions: [
+            UIContextualAction(style: .destructive, title: "Delete", handler: { action, view, completionHandler in
+                guard let gameViewItem = self.gameViewItem else {
+                    completionHandler(false)
+                    return
+                }
+                
+                let sectionIndex = self.media.sectionIndexFor(activeIndex: indexPath.section)
+                let sectionType = self.media.sections[sectionIndex].type
+                
+                gameViewItem.removeMedia(at: indexPath.row, sectionType: sectionType)
+                guard self.gameViewItem?.type != .inbox else { // inbox notifies of changes
+                    completionHandler(true)
+                    return
+                }
+                self.media = gameViewItem.media
+                if self.media.sections[sectionIndex].isActive {
+                    tableView.deleteRows(at: [indexPath], with: .automatic)
+                }
+                else {
+                    tableView.deleteSections([indexPath.section], with: .automatic)
+                }
+                completionHandler(true)
+            })
+        ])
     }
+    
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true

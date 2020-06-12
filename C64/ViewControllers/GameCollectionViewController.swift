@@ -97,7 +97,9 @@ class GameCollectionViewController: UIViewController, UICollectionViewDataSource
     }
     
     override var keyCommands: [UIKeyCommand]? {
-        return [UIKeyCommand(input: "f", modifierFlags: .command, action: #selector(showSearch(_:)), discoverabilityTitle: "Search")]
+        return [
+            UIKeyCommand(title: "Search", action: #selector(showSearch(_:)), input: "f", modifierFlags: .command, discoverabilityTitle: "Search")
+        ]
     }
     
     // MARK: - Actions

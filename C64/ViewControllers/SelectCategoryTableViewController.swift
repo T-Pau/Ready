@@ -118,18 +118,24 @@ class SelectCategoryTableViewController: UITableViewController {
         catch { }
     }
     
-    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { action, indexPath in
-            guard let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext else { return }
-            
-            let index = indexPath.row - 2
-            context.delete(self.categories[index])
-            self.categories.remove(at: index)
-            tableView.deleteRows(at: [indexPath], with: .automatic)
-        }
-        return [ deleteAction ]
-
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        return UISwipeActionsConfiguration(actions: [
+            UIContextualAction(style: .destructive, title: "Delete", handler: { action, view, completionHandler in
+                guard let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext else {
+                    completionHandler(false)
+                    return
+                }
+                
+                let index = indexPath.row - 2
+                context.delete(self.categories[index])
+                self.categories.remove(at: index)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+                completionHandler(true)
+            })
+        ])
     }
+    
     
     private func presentCreateNewCategory() {
         guard let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext else { return }
