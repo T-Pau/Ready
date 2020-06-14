@@ -33,6 +33,10 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Release 1.4 Build 3", year: 2020, month: 6, day: 14, changes: [
+            "Use right shift key to force shfit.",
+            "When forcing shift on/off, delay other key presses by one frame."
+        ]),
         Release(name: "Relase 1.4 Build 2", year: 2020, month: 6, day: 11, changes: [
             "Use new keyboard API to support long key presses."
         ]),

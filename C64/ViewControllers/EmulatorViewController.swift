@@ -925,12 +925,12 @@ extension EmulatorViewController: KeyPressTranslatorDelegate {
         }
     }
     
-    func press(key: Key) {
-        vice.press(key: key)
+    func press(key: Key, delayed: Int) {
+        vice.press(key: key, delayed: delayed)
     }
     
-    func release(key: Key) {
-        vice.release(key: key)
+    func release(key: Key, delayed: Int) {
+        vice.release(key: key, delayed: delayed)
     }
     
     override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {

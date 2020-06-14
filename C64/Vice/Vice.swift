@@ -33,13 +33,14 @@ protocol ViceDelegate {
 enum ViceEvent {
     case attach(unit: Int, image: DiskImage?)
     case freeze
-    case setResource(key: Machine.ResourceName, value: Machine.ResourceValue)
     case joystick(port: Int, buttons: JoystickButtons)
     case mouseButton(button: Int, pressed: Bool)
     case playPause(_ running: Bool)
     case quit
     case reset
+    case key(_ key: Key, pressed: Bool, delayed: Int = 0)
     case restore(pressed: Bool)
+    case setResource(key: Machine.ResourceName, value: Machine.ResourceValue)
 }
 
 
@@ -234,13 +235,13 @@ extension JoystickButtons {
         send(event: .freeze)
     }
 
-    func press(key: Key) {
+    func press(key: Key, delayed: Int = 0) {
         if key == .Restore {
             send(event: .restore(pressed: true))
         }
         else if let row = key.row, let column = key.column {
             if (keyboard[row][column] == 0) {
-                viceThread?.pressKey(row: Int32(row), column: Int32(column))
+                send(event: .key(key, pressed: true, delayed: delayed))
             }
             keyboard[row][column] += 1
         }
@@ -250,7 +251,7 @@ extension JoystickButtons {
         send(event: .quit)
     }
 
-    func release(key: Key) {
+    func release(key: Key, delayed: Int = 0) {
         if key == .Restore {
             send(event: .restore(pressed: false))
         }
@@ -258,7 +259,7 @@ extension JoystickButtons {
             if (keyboard[row][column] > 0) {
                 keyboard[row][column] -= 1
                 if (keyboard[row][column] == 0) {
-                    viceThread?.releaseKey(row: Int32(row), column: Int32(column))
+                    send(event: .key(key, pressed: false, delayed: delayed))
                 }
             }
         }
@@ -361,6 +362,8 @@ extension JoystickButtons {
         return eventMutex.sync {
             var continueProcessing = true
             
+            var delayedEvents = [ViceEvent]()
+            
             for event in eventQueue {
                 switch event {
                 case .attach(let unit, let image):
@@ -374,11 +377,23 @@ extension JoystickButtons {
                 case .freeze:
                     cartridge_trigger_freeze()
                     
-                case .setResource(let key, let value):
-                    machine.viceSetResource(name: key, value: value)
-                    
                 case .joystick(let port, let buttons):
                     joystick_set_value_absolute(UInt32(port), UInt8(buttons.value))
+                    
+                case .key(let key, pressed: let pressed, delayed: let delayed):
+                    if delayed > 0{
+                        print("delayed \(pressed ? "press" : "release") of \(key) for \(delayed - 1)")
+                        delayedEvents.append(.key(key, pressed: pressed, delayed: delayed - 1))
+                    }
+                    else if let row = key.row, let column = key.column {
+                        print("\(pressed ? "pressed" : "released") \(key)")
+                        if pressed {
+                            viceThread?.pressKey(row: Int32(row), column: Int32(column))
+                        }
+                        else {
+                            viceThread?.releaseKey(row: Int32(row), column: Int32(column))
+                        }
+                    }
                     
                 case .mouseButton(let button, let pressed):
                     mouse_button_press(Int32(button), pressed ? 1 : 0)
@@ -401,9 +416,11 @@ extension JoystickButtons {
                     else {
                         keyboard_restore_released()
                     }
+                case .setResource(let key, let value):
+                    machine.viceSetResource(name: key, value: value)
                 }
             }
-            eventQueue.removeAll()
+            eventQueue = delayedEvents
         
             return continueProcessing
         }

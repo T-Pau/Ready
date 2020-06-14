@@ -9,8 +9,18 @@
 import UIKit
 
 protocol KeyPressTranslatorDelegate {
-    func press(key: Key);
-    func release(key: Key);
+    func press(key: Key, delayed: Int)
+    func release(key: Key, delayed: Int)
+}
+
+extension KeyPressTranslatorDelegate {
+    func press(key: Key) {
+        press(key: key, delayed: 0)
+    }
+    
+    func release(key: Key) {
+        release(key: key, delayed: 0)
+    }
 }
 
 enum Symbol: Hashable {
@@ -87,11 +97,13 @@ class KeyPressTranslator {
     var pressedKeys = Set<Key>()
     var forcedShiftKeys = Set<Key>()
     
+    let forcedShiftDelay = 1
+    
     init(modifierMap: [UIKeyboardHIDUsage: Key], keyMap: [Key: KeySymbols], symbolRemap: [ModifiedSymbol: ModifiedSymbol] = [:], shiftKey: Key? = nil) {
         self.modifierMap = modifierMap
         self.keyMap = keyMap
         self.symbolRemap = symbolRemap
-        self.shiftKey = shiftKey ?? modifierMap[.keyboardLeftShift] ?? Key.ShiftLeft
+        self.shiftKey = shiftKey ?? modifierMap[.keyboardRightShift] ?? Key.ShiftRight
         
         for entry in keyMap {
             symbolToKey[entry.value.normal] = entry.key
@@ -105,6 +117,7 @@ class KeyPressTranslator {
         var newPressedShiftKeys = Set<Key>()
         var forceShift: Bool?
         var shiftedKeys = Set<Key>()
+        var newPressedKeys = Set<Key>()
 
         for uipress in presses {
             guard let mappedSymbol = map(press: uipress) else { continue }
@@ -119,7 +132,7 @@ class KeyPressTranslator {
                     newPressedShiftKeys.insert(key)
                 }
                 else {
-                    press(key: key)
+                    newPressedKeys.insert(key)
                 }
 
             case .key(let key, shift: let shift):
@@ -129,13 +142,15 @@ class KeyPressTranslator {
                         shiftedKeys.insert(key)
                     }
                 }
-                press(key: key)
-                
+                newPressedKeys.insert(key)
+
             case .command(_):
                 break // ignore keyboard shortcuts
             }
         }
         
+        var delayed = false
+
         if forceShift == true {
             if !forcedShiftKeys.isEmpty {
                 forcedShiftKeys.formUnion(shiftedKeys)
@@ -143,14 +158,19 @@ class KeyPressTranslator {
             else if newPressedShiftKeys.isEmpty && !isShiftPressed {
                 press(key: shiftKey)
                 forcedShiftKeys.formUnion(shiftedKeys)
+                delayed = true
             }
         }
         else if forceShift == false {
             newPressedShiftKeys.removeAll()
             forcedShiftKeys.removeAll()
+            delayed = isShiftPressed
             releaseAllShiftKeys()
         }
 
+        for key in newPressedKeys {
+            press(key: key, delayed: delayed ? forcedShiftDelay : 0)
+        }
         for key in newPressedShiftKeys {
             press(key: key)
         }
@@ -216,16 +236,16 @@ class KeyPressTranslator {
         return .key(key, shift: shift)
     }
 
-    func press(key: Key) {
+    func press(key: Key, delayed: Int = 0) {
         guard !pressedKeys.contains(key) else { return }
         pressedKeys.insert(key)
-        delegate?.press(key: key)
+        delegate?.press(key: key, delayed: delayed)
     }
     
-    func release(key: Key) {
+    func release(key: Key, delayed: Int = 0) {
         guard pressedKeys.contains(key) else { return }
         pressedKeys.remove(key)
-        delegate?.release(key: key)
+        delegate?.release(key: key, delayed: delayed)
     }
     
     var isShiftPressed: Bool {
