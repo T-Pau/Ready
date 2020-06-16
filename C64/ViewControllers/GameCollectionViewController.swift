@@ -24,6 +24,7 @@
 import CoreData
 import UIKit
 import C64UIComponents
+import Emulator
 
 private let reuseIdentifier = "Game"
 

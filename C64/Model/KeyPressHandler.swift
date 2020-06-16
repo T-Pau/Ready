@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Emulator
 
 protocol KeyPressTranslatorDelegate {
     func press(key: Key, delayed: Int)

@@ -22,6 +22,7 @@
 */
 
 import UIKit
+import Emulator
 
 class SettingsViewController: UIViewController, SeguePreparer {
     enum SegueType: String {

@@ -21,7 +21,8 @@
  02111-1307  USA.
 */
 
-import Foundation
+import UIKit
+import Emulator
 
 @objc class DiskDirectoryTableViewDelegate: NSObject, UITableViewDelegate, UITableViewDataSource  {
     var disk: DiskImage? {

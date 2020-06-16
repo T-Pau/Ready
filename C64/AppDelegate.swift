@@ -23,6 +23,7 @@
 
 import UIKit
 import CoreData
+import Emulator
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -65,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         do {
-            let directoryURL = AppDelegate.inboxURL
+            let directoryURL = Defaults.inboxURL
             try ensureDirectory(directoryURL)
             
             // TODO: check that media item can be created from file
@@ -94,7 +95,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("can't open \(url): \(error.localizedDescription)")
             }
             
-            if ok && viceThread == nil {
+            if ok /* TODO: && viceThread == nil */ {
                 if let tabBarController = window?.rootViewController as? TabBarViewController {
                     tabBarController.selectedTab = .inbox
                 }
@@ -119,49 +120,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: - Globals
     
-    static var documentURL: URL {
-        guard let documentDirectoryPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first else { fatalError("no document directory found") }
-        
-        return URL(fileURLWithPath: documentDirectoryPath)
-    }
-    
-    static var applicationSupportURL: URL {
-        guard let documentDirectoryPath = NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true).first else { fatalError("no ApplicationSupport directory found") }
-        
-        return URL(fileURLWithPath: documentDirectoryPath)
-    }
-
-    static var inboxName: String {
-        return "Unsorted"
-    }
-    
-    static var exporedName: String {
-        return "Exported"
-    }
-    
-    static var inboxURL: URL {
-        return documentURL.appendingPathComponent(inboxName)
-    }
-    
-    static var exportedURL: URL {
-        return documentURL.appendingPathComponent(exporedName)
-    }
-    
-    static var libraryURL: URL {
-        return applicationSupportURL.appendingPathComponent("Library")
-    }
-    
-    static var biosURL: URL {
-        return applicationSupportURL.appendingPathComponent("BIOS")
-    }
-    
-    static var toolsURL: URL {
-        return applicationSupportURL.appendingPathComponent("Tools")
-    }
-    
-    static var viceDataURL: URL {
-        return Bundle.main.resourceURL!.appendingPathComponent("vice")
-    }
 
     // MARK: - Core Data stack
 
@@ -235,14 +193,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func importDocumentsDirectory(context: NSManagedObjectContext) {
         do {
-            let libraryURL = AppDelegate.libraryURL
-            let documentURL = AppDelegate.documentURL
+            let libraryURL = Defaults.libraryURL
+            let documentURL = Defaults.documentURL
             let fileManager = FileManager.default
             
             let ignoredDirectories: Set<String> = [
                 "Inbox",
-                AppDelegate.exporedName,
-                AppDelegate.inboxName
+                Defaults.exporedName,
+                Defaults.inboxName
             ]
             
             for directory in try fileManager.contentsOfDirectory(at: documentURL, includingPropertiesForKeys: [.isDirectoryKey], options: [.skipsPackageDescendants, .skipsHiddenFiles]) {
@@ -283,7 +241,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             try context.save()
             
             let fileManager = FileManager.default
-            let libraryUrl = AppDelegate.libraryURL
+            let libraryUrl = Defaults.libraryURL
             
             for directory in directories {
                 do {

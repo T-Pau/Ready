@@ -23,6 +23,7 @@
 
 import Foundation
 import C64UIComponents
+import Emulator
 
 enum GameViewItemType {
     case game

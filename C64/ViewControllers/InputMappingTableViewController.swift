@@ -22,6 +22,7 @@
 */
 
 import UIKit
+import Emulator
 
 class InputMappingTableViewController: UITableViewController, SeguePreparer {
     enum SegueType: String {

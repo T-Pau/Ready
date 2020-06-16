@@ -25,7 +25,6 @@
 #define ViceThreadC_h
 
 #import "ViceThread.h"
-#include "C64-Swift.h"
 
 #define BORDER_MODE_AUTO 0
 #define BORDER_MODE_HIDE 2

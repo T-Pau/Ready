@@ -23,6 +23,7 @@
 
 import Foundation
 import C64UIComponents
+import Emulator
 
 class Inbox {
     typealias ChangeHandler = (_ inbox: Inbox, _ updates: TableViewUpdates) -> Void
@@ -39,7 +40,7 @@ class Inbox {
     private var directoryWatcher: DirectoryWatcher?
     
     init() {
-        directoryURL = AppDelegate.inboxURL
+        directoryURL = Defaults.inboxURL
         items = getFiles()
         
         directoryWatcher = DirectoryWatcher(url: directoryURL, changeHandler: handleChanges(_:))

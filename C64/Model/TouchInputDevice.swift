@@ -23,6 +23,7 @@
 
 import UIKit
 import C64UIComponents
+import Emulator
 
 class TouchInputDevice: InputDevice {
     var controllerView: VirtualControlsView

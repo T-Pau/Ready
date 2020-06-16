@@ -1,0 +1,441 @@
+/*
+ Machine.swift -- C64 Hardware Configuration
+ Copyright (C) 2019 Dieter Baron
+ 
+ This file is part of C64, a Commodore 64 emulator for iOS, based on VICE.
+ The authors can be contacted at <c64@spiderlab.at>
+ 
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ 02111-1307  USA.
+*/
+
+import Foundation
+import C64UIComponents
+
+public class Machine {
+    public enum ResourceName: String {
+        case AutostartPrgMode
+        case CartridgeFile
+        case CartridgeType
+        case CPMCart
+        case DosName1541
+        case DosName1541II
+        case DosName1581
+        case DosName2000
+        case DosName4000
+        case Drive8IdleMethod
+        case Drive8Type
+        case Drive9IdleMethod
+        case Drive9Type
+        case Drive10IdleMethod
+        case Drive10Type
+        case Drive11IdleMethod
+        case Drive11Type
+        case DriveSoundEmulation
+        case GMod2EEPROMImage
+        case GMod2EEPROMRW
+        case IDE64version
+        case IDE64Image1
+        case IDE64Image2
+        case IDE64Image3
+        case IDE64Image4
+        case IDE64RTCSave
+        case JoyPort1Device
+        case JoyPort2Device
+        case JoyPort3Device
+        case JoyPort4Device
+        case KernalName
+        case LogFileName
+        case MIDIEnable
+        case MIDIMode
+        case Mouse
+        case REU
+        case REUfilename
+        case REUImageWrite
+        case REUsize
+        case SidModel
+        case UserportJoy
+        case UserportJoyType
+        case VICIIBorderMode
+        
+        public init?(driveType unit: Int) {
+            guard let resourceName = ResourceName(rawValue: "Drive\(unit)Type") else { return nil }
+            self = resourceName
+        }
+        
+        public init?(ide64Image unit: Int) {
+            guard let resourceName = ResourceName(rawValue: "IDE64Image\(unit)") else { return nil }
+            self = resourceName
+        }
+        
+        public init?(joyDevice port: Int) {
+            guard let resourceName = ResourceName(rawValue: "JoyPort\(port)Device") else { return nil }
+            self = resourceName
+        }
+    }
+
+    public enum ResourceValue {
+        case Bool(Bool)
+        case Int(Int32)
+        case String(String)
+    }
+    
+    public weak var vice: Emulator?
+    
+    public var specification: MachineSpecification
+    
+    public var inputMapping = InputMapping()
+    
+    public var resources = [ResourceName: ResourceValue]()
+    
+    public var autostart: Bool
+
+    public var directoryURL: URL?
+
+    public var cartridgeImage: CartridgeImage?
+    public var ramExpansionUnit: RamExpansionUnit?
+    public var programFile: ProgramFile?
+    public var diskImages = [DiskImage]()
+    public var ideDiskImages = [IdeDiskImage]()
+    public var tapeImages = [TapeImage]()
+
+    public var diskDrives = [DiskDrive]()
+    public var controllers = [Controller]()
+    public var cassetteDrive: CasstteDrive
+    public var cartridges = [Cartridge]()
+    public var userPortModule: UserPortModule?
+    public var userPortControllers = [Controller]()
+    
+    public var hasMouse: Bool {
+        return controllers.contains(where: { $0.inputType == .mouse })
+    }
+    
+    private static let controllerKeys: [MachineConfig.Key] = [ .controlPort1, .controlPort2 ]
+
+    private static let driveKeys: [MachineConfig.Key] = [ .diskDrive8, .diskDrive9, .diskDrive10, .diskDrive11 ]
+
+    public convenience init() {
+        self.init(specification: Defaults.standard.machineSpecification)
+    }
+    
+    public init(specification: MachineSpecification) {
+        self.specification = specification
+        autostart = true
+        
+        diskDrives = specification.diskDrives
+        cassetteDrive = specification.cassetteDrive
+        userPortModule = specification.userPortModule
+        
+        if let userJoystickType = userPortModule?.getViceJoystickType(for: specification) {
+            resources[.UserportJoy] = .Bool(true)
+            resources[.UserportJoyType] = .Int(userJoystickType.rawValue)
+        }
+
+        update(controllers: specification.controllers, isUserPort: false)
+        update(controllers: specification.userPortControllers, isUserPort: true)
+    }
+    
+    public func change(borderMode: MachineConfig.BorderMode) {
+        guard borderMode != specification.borderMode else { return }
+        vice?.set(borderMode: borderMode)
+        specification.borderMode = borderMode
+        do {
+            try specification.save()
+        }
+        catch { }
+    }
+    
+    public func connect(inputDevice: InputDevice) {
+        inputDevice.delegate = self
+        inputMapping.add(device: inputDevice)
+    }
+    
+    public func viceSetResources() {
+        for (index, drive) in diskDrives.enumerated() {
+            if let name = ResourceName(driveType: index + 8) {
+                viceSetResource(name: name, value: .Int(drive.viceType.rawValue))
+            }
+        }
+        
+        for cartridge in cartridges {
+            for (name, value) in cartridge.resources {
+                NSLog("cartridge resource \(name) -> \(value)")
+                viceSetResource(name: name, value: value)
+            }
+        }
+        
+        for (index, disk) in ideDiskImages.enumerated() {
+            if let name = ResourceName(ide64Image: index + 1),
+                let url = disk.url {
+                viceSetResource(name: name, value: .String(url.path))
+            }
+        }
+        
+        for (name, value) in resources {
+            viceSetResource(name: name, value: value)
+        }
+    }
+        
+    public func viceSetResource(name: ResourceName, value: ResourceValue) {
+        vice?.setResourceNow(name: name, value: value)
+    }
+    
+    public func setResource(name: ResourceName, value: ResourceValue) {
+        resources[name] = value
+        vice?.setResource(name: name, value: value)
+    }
+    
+    public func mountDisks() {
+        let ports = specification.computer.ports
+        
+        // TODO: use MachineSpecification.automount
+        for disk in diskImages {
+            var mountable = false
+            for (index, drive) in diskDrives.enumerated() {
+                if drive.supports(image: disk) {
+                    if !mountable && drive.image == nil {
+                        diskDrives[index].image = disk
+                    }
+                    mountable = true
+                    break
+                }
+            }
+            if !mountable {
+                guard var newDrive = DiskDrive.getDriveSupporting(image: disk) else { continue }
+                for (index, drive) in diskDrives.enumerated() {
+                    if ports.contains(Machine.driveKeys[index]) && specification.string(for: Machine.driveKeys[index]) == "auto" {
+                        if !drive.hasStatus {
+                            newDrive.image = disk
+                            diskDrives[index] = newDrive
+                            break
+                        }
+                        if let image = drive.image, newDrive.supports(image: image) {
+                            newDrive.image = image
+                            diskDrives[index] = newDrive
+                            break
+                        }
+                    }
+                }
+            }
+        }
+        
+        cartridges = specification.cartridges(for: self)
+        // TODO: remove all but first main slot cartridge
+
+        if !tapeImages.isEmpty && specification.string(for: .cassetteDrive) == "auto" {
+            cassetteDrive = CasstteDrive.drives.parts.sorted(by: { $0.priority > $1.priority })[0] as! CasstteDrive
+        }
+    }
+}
+
+extension Machine {
+    public func update(specification newSpecification: MachineSpecification) {
+        let oldSpecification = specification
+        specification = newSpecification
+        do {
+            try specification.save()
+        }
+        catch { }
+
+        for key in oldSpecification.differences(to: newSpecification) {
+            switch key {
+            case .controlPort1, .controlPort2:
+                update(controllers: newSpecification.controllers, isUserPort: false)
+                
+            case .userPortJoystick1, .userPortJoystick2:
+                update(controllers: newSpecification.userPortControllers, isUserPort: true)
+
+            case .singularAdapterMode:
+                if userPortModule?.moduleType == .singularAdapter {
+                    if let type = specification.singularAdapterMode.viceJoystickType {
+                        viceSetResource(name: .UserportJoy, value: .Bool(true))
+                        viceSetResource(name: .UserportJoyType, value: .Int(type.rawValue))
+                    }
+                    else {
+                        viceSetResource(name: .UserportJoy, value: .Bool(false))
+                    }
+                    update(controllers: newSpecification.userPortControllers, isUserPort: true)
+                }
+
+            default:
+                // TODO
+                break
+            }
+        }
+    }
+    
+    private func update(controllers newControllers: [Controller], isUserPort: Bool) {
+        let oldControllers = isUserPort ? userPortControllers : controllers
+        for index in (0 ..< min(oldControllers.count, newControllers.count)) {
+            let oldController = oldControllers[index]
+            let newController = newControllers[index]
+            let port = index + 1
+            
+            if oldController != newController {
+                replace(oldController: oldController, newController: newController, port: port, isUserPort: isUserPort)
+                updateVice(controller: newController, port: port, isUserPort: isUserPort)
+            }
+        }
+        if oldControllers.count > newControllers.count {
+            for index in (newControllers.count ..< oldControllers.count) {
+                let port = index + 1
+                remove(controller: oldControllers[index], port: port, isUserPort: isUserPort)
+                updateVice(controller: nil, port: port, isUserPort: isUserPort)
+            }
+        }
+        if newControllers.count > oldControllers.count {
+            for index in (oldControllers.count ..< newControllers.count) {
+                let port = index + 1
+                add(controller: newControllers[index], port: port, isUserPort: isUserPort)
+                updateVice(controller: newControllers[index], port: port, isUserPort: isUserPort)
+            }
+        }
+        if isUserPort {
+            userPortControllers = newControllers
+        }
+        else {
+            controllers = newControllers
+        }
+    }
+    
+    private func remove(controller: Controller, port: Int, isUserPort: Bool) {
+        inputMapping.remove(ports: inputPorts(for: controller, port: port, isUserPort: isUserPort))
+    }
+    
+    private func add(controller: Controller, port: Int, isUserPort: Bool) {
+        inputMapping.add(ports: inputPorts(for: controller, port: port, isUserPort: isUserPort))
+    }
+    
+    private func replace(oldController: Controller, newController: Controller, port: Int, isUserPort: Bool) {
+        let oldPorts = inputPorts(for: oldController, port: port, isUserPort: isUserPort)
+        let newPorts = inputPorts(for: newController, port: port, isUserPort: isUserPort)
+        
+        for index in (0 ..< min(oldPorts.count, newPorts.count)) {
+            inputMapping.replace(oldPorts[index], with: newPorts[index])
+        }
+        if oldPorts.count > newPorts.count {
+            inputMapping.remove(ports: Array(oldPorts[newPorts.count ..< oldPorts.count]))
+        }
+        if newPorts.count > oldPorts.count {
+            inputMapping.add(ports: Array(newPorts[oldPorts.count ..< newPorts.count]))
+        }
+    }
+    
+    private func updateVice(controller: Controller?, port: Int, isUserPort: Bool) {
+        let vicePort = port + (isUserPort ? 2 : 0)
+        guard let key = Machine.ResourceName(joyDevice: vicePort) else { return }
+        setResource(name: key, value: .Int((controller?.viceType ?? .none).rawValue))
+    }
+    
+    private func inputPorts(for controller: Controller, port: Int, isUserPort: Bool) -> [InputPort] {
+        var inputPorts = [InputPort]()
+        
+        switch controller.inputType {
+        case .none:
+            break
+            
+        case .joystick, .lightGun, .lightPen, .mouse:
+            inputPorts.append(InputPort(port: port, isUserPort: isUserPort, controller: controller))
+        case .paddle:
+            if !isUserPort {
+                inputPorts.append(InputPort(port: port, isUserPort: false, subPort: 1, controller: controller))
+                inputPorts.append(InputPort(port: port, isUserPort: false, subPort: 2, controller: controller))
+            }
+        }
+
+        return inputPorts
+    }
+}
+
+extension Machine: InputDeviceDelegate {
+    public func inputDevice(_ device: InputDevice, joystickChanged buttons: JoystickButtons) {
+        guard let port = port(for: device) else { return }
+        vice?.joystick(port.vicePort, buttons: buttons)
+    }
+    
+    public func inputDevice(_ device: InputDevice, mouseMoved distance: CGPoint) {
+        guard let _ = port(for: device) else { return }
+        vice?.mouse(moved: distance)
+    }
+    
+    public func inputDevice(_ device: InputDevice, mouseButtonPressed index: Int) {
+        guard let _ = port(for: device) else { return }
+        vice?.mouse(pressed: index)
+    }
+    
+    public func inputDevice(_ device: InputDevice, mouseButtonReleased index: Int) {
+        guard let _ = port(for: device) else { return }
+        vice?.mouse(release: index)
+    }
+    
+    public func inputDevice(_ device: InputDevice, lightPenMoved position: CGPoint?, size: CGSize, button1 rawButton1: Bool, button2 rawButton2: Bool) {
+        guard let controller = port(for: device)?.controller else { return }
+
+        var button1 = false
+        var button2 = false
+        
+        if controller.viceType.lightPenNeedsButtonOnTouch {
+            button1 = position != nil
+            if controller.deviceConfig.numberOfButtons >= 1 {
+                button2 = rawButton1
+            }
+        }
+        else {
+            if controller.deviceConfig.numberOfButtons >= 1 {
+                button1 = rawButton1
+            }
+            if controller.deviceConfig.numberOfButtons >= 2 {
+                button2 = rawButton2
+            }
+        }
+        
+        vice?.lightPen(moved: position, size: size, button1: button1, button2: button2, isKoalaPad: controller.viceType == .koalaPad)
+    }
+    
+    public func inputDevice(_ device: InputDevice, paddleMoved position: Double) {
+        guard let port = port(for: device) else { return }
+        
+        let value = Int32(255 * position)
+        
+        if port.subPort == 1 {
+            vice?.mouse(setX: value)
+        }
+        else {
+            vice?.mouse(setY: value)
+        }
+    }
+    
+    public func inputDevice(_ device: InputDevice, paddleChangedButton isPressed: Bool) {
+        guard let port = port(for: device) else { return }
+
+        let index = port.subPort == 1 ? 1 : 2
+        if isPressed {
+            vice?.mouse(pressed: index)
+        }
+        else {
+            vice?.mouse(release: index)
+        }
+    }
+    
+    public func inputDeviceDidDisconnect(_ inputDevice: InputDevice) {
+        inputMapping.remove(device: inputDevice)
+    }
+    
+    private func port(for device: InputDevice) -> InputPort? {
+        guard let pairing = inputMapping[device] else { return nil }
+        pairing.lastActivity = Date()
+        return pairing.port
+    }
+}

@@ -22,6 +22,7 @@
 */
 
 import UIKit
+import Emulator
 
 class MachinePartTableViewCell: UITableViewCell {
     @IBOutlet weak var iconView: UIImageView!

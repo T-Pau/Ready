@@ -89,13 +89,13 @@
 - (BOOL)vsync {
     if (_firstFrame) {
         _firstFrame = false;
-        [self.vice autostartInjectDeviceInfo];
+        [self.delegate autostartInjectDeviceInfo];
     }
     
-    BOOL continueProcessing = [self.vice handleEvents];
+    BOOL continueProcessing = [self.delegate handleEvents];
     
     if (continueProcessing) {
-        [self.vice updateStatusBar];
+        [self.delegate updateStatusBar];
     }
     
     return continueProcessing;

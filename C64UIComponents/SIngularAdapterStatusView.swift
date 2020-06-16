@@ -23,6 +23,7 @@
 
 import UIKit
 import C64UIComponents
+import Emulator
 
 @IBDesignable class SingularAdapterStatusView: StatusView {
     public var mode = MachineConfig.SingularAdapterMode.cga {

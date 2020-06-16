@@ -23,7 +23,7 @@
 
 import UIKit
 import C64UIComponents
-
+import Emulator
 
 class SingularAdapterStatusViewController: UIViewController {
     @IBOutlet weak var iconView: UIImageView!

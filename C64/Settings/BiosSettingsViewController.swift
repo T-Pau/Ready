@@ -23,6 +23,7 @@
 
 import UIKit
 import C64UIComponents
+import Emulator
 
 class BiosSettingsViewController: UIViewController {
     struct Section {
@@ -81,7 +82,7 @@ extension BiosSettingsViewController: UITableViewDataSource, UITableViewDelegate
         let row = self.row(for: indexPath)
         
         cell.titleLabel?.text = row.name
-        cell.mediaView?.item = CartridgeImage.init(directory: AppDelegate.biosURL, file: Defaults.standard.stringValue(for: row.defaultsKey))
+        cell.mediaView?.item = CartridgeImage.init(directory: Defaults.biosURL, file: Defaults.standard.stringValue(for: row.defaultsKey))
         cell.mediaView?.acceptableDropTypes = C64FileType.MediaType.cartridge.typeIdentifiers
         cell.mediaView?.dropDelegate = self
         cell.mediaView?.textAlignment = .right
@@ -105,7 +106,7 @@ extension BiosSettingsViewController: MediaViewDropDelegate {
                 
                 let oldFileName = Defaults.standard.stringValue(for: row.defaultsKey)
                 let fileName: URL
-                let directory = AppDelegate.biosURL
+                let directory = Defaults.biosURL
                 do {
                     try ensureDirectory(directory)
 

@@ -23,6 +23,7 @@
 
 import UIKit
 import CoreData
+import Emulator
 
 class SortTableViewController: UITableViewController {
     var changedCallback: ((_ animated: Bool) -> ())?

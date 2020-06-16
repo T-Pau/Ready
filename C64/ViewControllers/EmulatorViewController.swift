@@ -27,6 +27,8 @@ import GameController
 import MobileCoreServices
 
 import C64UIComponents
+import Emulator
+import Vice_C64
 
 class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, SeguePreparer, UIGestureRecognizerDelegate {
     enum SegueType: String {
@@ -337,7 +339,7 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
             }
         }
         
-        let biosURL = AppDelegate.biosURL
+        let biosURL = Defaults.biosURL
 
         if !toolsMode && machine.tapeImages.isEmpty && Defaults.standard.enableJiffyDOS {
             if let romC64 = Defaults.standard.biosJiffyDosC64 {
@@ -584,7 +586,7 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
             destination.unit = unit
             destination.diskImages = vice.machine.diskImages.filter({ drive.supports(image: $0) })
             destination.currentDiskImage = drive.image
-            destination.status = String(cString: drive_get_status(Int32(unit)))
+            //destination.status = String(cString: drive_get_status(Int32(unit)))
 
             destination.changeCallback = { diskImage in
                 self.driveStatus[unit - 8].configureFrom(image: diskImage)
@@ -758,7 +760,7 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
     }
 }
 
-extension EmulatorViewController: ViceDelegate {
+extension EmulatorViewController: EmulatorDelegate {
     func updateDriveStatus(unit: Int, track: Double, led1Intensity: Double, led2Intensity: Double) {
         guard haveStatusBar else { return }
         
@@ -771,21 +773,21 @@ extension EmulatorViewController: ViceDelegate {
         statusBar(item: statusView, isActive: led1Intensity != 0 || led2Intensity != 0)
     }
     
-    func updateTapeStatus(controlStatus: Int32, isMotorOn: Bool, counter: Double) {
+func updateTapeStatus(controlStatus: DatasetteControlStatus, isMotorOn: Bool, counter: Double) {
         guard haveStatusBar else { return }
 
         tapeStatus.counterView?.counter = counter
-        tapeStatus.ledView?.intensity = controlStatus == DATASETTE_CONTROL_RECORD ? 1 : 0
+        tapeStatus.ledView?.intensity = controlStatus == .record ? 1 : 0
 
         let imageName: String
         switch controlStatus {
-        case DATASETTE_CONTROL_FORWARD:
+        case .forward:
             imageName = "Tape Forward"
 
-        case DATASETTE_CONTROL_REWIND:
+        case .rewind:
             imageName = "Tape Rewind"
             
-        case DATASETTE_CONTROL_RECORD, DATASETTE_CONTROL_START:
+        case .record, .start:
             imageName = "Tape Play"
             
         default:

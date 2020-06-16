@@ -23,7 +23,7 @@
 
 import UIKit
 import C64UIComponents
-
+import Emulator
 
 class SelectDiskViewController: UIViewController {
     @IBOutlet weak var iconView: UIImageView!

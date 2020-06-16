@@ -60,11 +60,10 @@ public class ShareableImageView: UIImageView, UIDropInteractionDelegate, UIDragI
             case .began:
                 becomeFirstResponder()
                 let menuController = UIMenuController.shared
-                menuController.setTargetRect(bounds, in: self)
-                menuController.setMenuVisible(true, animated: true)
+                menuController.showMenu(from: self, rect: bounds)
                 
             case .cancelled:
-                UIMenuController.shared.setMenuVisible(false, animated: true)
+                UIMenuController.shared.hideMenu(from: self)
                 
             default:
                 break

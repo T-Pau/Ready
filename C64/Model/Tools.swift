@@ -23,6 +23,7 @@
 
 import Foundation
 import C64UIComponents
+import Emulator
 
 class Tools {
     struct OldSerialized: Codable {
@@ -79,7 +80,7 @@ class Tools {
     }
     
     init() {
-        directoryURL = AppDelegate.toolsURL
+        directoryURL = Defaults.toolsURL
     }
     
     static func create() -> Tools {

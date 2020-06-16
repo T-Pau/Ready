@@ -22,6 +22,7 @@
 */
 
 import UIKit
+import Emulator
 
 protocol KeyboardViewDelegate {
     func pressed(key: Key)

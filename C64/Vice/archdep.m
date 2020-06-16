@@ -113,7 +113,7 @@ int archdep_spawn(const char *name, char **argv, char **pstdout_redir, const cha
  */
 char *archdep_default_rtc_file_name(void)
 {
-    return archdep_join_paths(viceThread.machine.directoryURL.path.UTF8String, ARCHDEP_VICE_RTC_NAME, NULL);
+    return archdep_join_paths([viceThread.delegate getDirectoryPath].UTF8String, ARCHDEP_VICE_RTC_NAME, NULL);
 }
 
 
@@ -182,7 +182,7 @@ void archdep_vice_exit(int excode)
 void archdep_set_resources(void) {
     resources_set_int("SFXSoundExpander", 0);
     
-    [viceThread.machine viceSetResources];
+    [viceThread.delegate viceSetResources];
 }
 
 int archdep_late_init(void) {

@@ -25,21 +25,22 @@ import Foundation
 import CoreData
 
 import C64UIComponents
+import Emulator
 
 extension DiskImage where Self: MediaItem {
-    var displayIcon: UIImage? {
+    public var displayIcon: UIImage? {
         return mediaType.is5_25Inch ? UIImage(named: "Floppy 5.25") : UIImage(named: "Floppy 3.5")
     }
-    var displayTitle: String? {
+    public var displayTitle: String? {
         return url?.lastPathComponent
     }
-    var displaySubtitle: String? {
+    public var displaySubtitle: String? {
         guard let directory = readDirectory() else { return nil }
         guard let diskTitle = String(bytes: directory.diskNamePETASCII, encoding: .isoLatin1),
             let diskId = String(bytes: directory.diskIdPETASCII, encoding: .isoLatin1) else { return nil }
         return "0\"\(diskTitle)\" \(diskId)"
     }
-    var subtitleIsPETASCII: Bool {
+    public var subtitleIsPETASCII: Bool {
         return true
     }
 }
@@ -49,11 +50,11 @@ extension GxxImage: MediaItem { }
 extension StubImage: MediaItem { }
 
 extension CartridgeImage: MediaItem {
-    var displayTitle: String? {
+    public var displayTitle: String? {
         return url?.lastPathComponent
     }
     
-    var displaySubtitle: String? {
+    public var displaySubtitle: String? {
         if isCrt {
             return title
         }
@@ -66,47 +67,47 @@ extension CartridgeImage: MediaItem {
         return nil
     }
     
-    var subtitleIsPETASCII: Bool {
+    public var subtitleIsPETASCII: Bool {
         return false
     }
     
-    var displayIcon: UIImage? {
+    public var displayIcon: UIImage? {
         return icon
     }
 }
 
 extension TapeImage where Self: MediaItem {
-    var displayTitle: String? {
+    public var displayTitle: String? {
         return url?.lastPathComponent
     }
     
-    var displaySubtitle: String? {
+    public var displaySubtitle: String? {
         return name
     }
     
-    var subtitleIsPETASCII: Bool {
+    public var subtitleIsPETASCII: Bool {
         return false
     }
     
-    var displayIcon: UIImage? {
+    public var displayIcon: UIImage? {
         return UIImage(named: "Tape")
     }
 }
 
 extension RamExpansionUnit: MediaItem {
-    var displayTitle: String? {
+    public var displayTitle: String? {
         return url?.lastPathComponent ?? fullName
     }
     
-    var displaySubtitle: String? {
+    public var displaySubtitle: String? {
         return url != nil ? fullName : variantName
     }
     
-    var subtitleIsPETASCII: Bool {
+    public var subtitleIsPETASCII: Bool {
         return false
     }
     
-    var displayIcon: UIImage? {
+    public var displayIcon: UIImage? {
         return icon
     }
 }
@@ -116,19 +117,19 @@ extension T64Image: MediaItem { }
 extension TapImage: MediaItem { }
 
 extension ProgramFile: MediaItem {
-    var displayTitle: String? {
+    public var displayTitle: String? {
         return url?.lastPathComponent
     }
     
-    var displaySubtitle: String? {
+    public var displaySubtitle: String? {
         return name
     }
     
-    var subtitleIsPETASCII: Bool {
+    public var subtitleIsPETASCII: Bool {
         return true
     }
     
-    var displayIcon: UIImage? {
+    public var displayIcon: UIImage? {
         return UIImage(named: "File")
     }
 }
@@ -149,7 +150,7 @@ extension MediaItem {
         }
     }
 
-    var typeIdentifier: String? {
+    public var typeIdentifier: String? {
         guard let pathExtension = url?.pathExtension else { return nil }
         return C64FileType.init(pathExtension: pathExtension)?.typeIdentifier
     }
@@ -240,6 +241,40 @@ extension Game {
                 }
             }
             catch { }
+        }
+    }
+}
+
+extension IdeDiskImage: MediaItem {
+    public var displayTitle: String? {
+        return url?.lastPathComponent
+    }
+    
+    public var displaySubtitle: String? {
+        if size > 1024 * 1024 * 1024 {
+            let value = Int((Double(size) / (1024 * 1024 * 1024)).rounded(.up))
+            return "\(value)gb"
+        }
+        else {
+            let value = Int((Double(size) / (1024 * 1024)).rounded(.up))
+            return "\(value)mb"
+        }
+    }
+    
+    public var subtitleIsPETASCII: Bool {
+        return false
+    }
+    
+    public var displayIcon: UIImage? {
+        switch ideType {
+        case .cd:
+            return UIImage(named: "Compact Disc")
+            
+        case .compactFlash:
+            return UIImage(named: "Compact Flash Card")
+            
+        case .hardDisk:
+            return UIImage(named: "IDE Hard Disk")
         }
     }
 }

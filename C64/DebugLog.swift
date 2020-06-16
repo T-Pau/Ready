@@ -22,6 +22,7 @@
 */
 
 import Foundation
+import Emulator
 
 class DebugLog {
     static var shared = DebugLog()
@@ -31,7 +32,7 @@ class DebugLog {
     init() {
         do {
             let fileManager = FileManager.default
-            let fileURL = AppDelegate.libraryURL.appendingPathComponent("Debug Log.txt")
+            let fileURL = Defaults.libraryURL.appendingPathComponent("Debug Log.txt")
             if !fileManager.fileExists(atPath: fileURL.path) {
                 fileManager.createFile(atPath: fileURL.path, contents: nil, attributes: nil)
             }

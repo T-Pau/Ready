@@ -23,6 +23,7 @@
 
 import UIKit
 import C64UIComponents
+import Emulator
 
 class MachinePartsViewController: UIViewController, SeguePreparer {
     enum SegueType: String {

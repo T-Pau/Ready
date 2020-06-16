@@ -22,6 +22,7 @@
 */
 import UIKit
 import C64UIComponents
+import Emulator
 
 class VirtualControlsView: UIView {
     @IBInspectable var topOffset: CGFloat = 0 {

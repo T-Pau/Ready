@@ -1,0 +1,4 @@
+module ViceX64sc [system][extern_c] {
+    header "vice_x64sc.h"
+    export *
+}

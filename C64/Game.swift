@@ -22,6 +22,7 @@
 */
 
 import CoreData
+import Emulator
 
 // TODO: move elsewhere
 public enum ShowBorder: Int {
@@ -300,7 +301,7 @@ public class Game: NSManagedObject {
     convenience init?(name: String, insertInto context: NSManagedObjectContext) {
         do {
             // TODO: replace unsafe characters (:, /, &c)
-            let directoryURL = try uniqueName(directory: AppDelegate.libraryURL, name: name, pathExtension: "", options: [.create, .directory])
+            let directoryURL = try uniqueName(directory: Defaults.libraryURL, name: name, pathExtension: "", options: [.create, .directory])
             self.init(name: name, directory: directoryURL.lastPathComponent, insertInto: context)
         }
         catch {
@@ -311,7 +312,7 @@ public class Game: NSManagedObject {
     // MARK: - other methods
     
     var directoryURL: URL {
-        return AppDelegate.libraryURL.appendingPathComponent(directory)
+        return Defaults.libraryURL.appendingPathComponent(directory)
     }
     
     func loadTitleImage(completion: @escaping (_: UIImage?) -> Void) {

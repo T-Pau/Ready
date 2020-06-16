@@ -158,7 +158,7 @@ void ui_display_drive_current_image(unsigned int drive_number, const char *image
  *        drives.
  */
 void ui_display_drive_led(int drive_number, unsigned int pwm1, unsigned int led_pwm2) {
-    [viceThread.vice updateDriveUnit:drive_number led1Intensity:pwm1 / 1000.0 led2Intensity: led_pwm2 / 1000.0];
+    [viceThread.delegate updateDriveUnit:drive_number led1Intensity:pwm1 / 1000.0 led2Intensity: led_pwm2 / 1000.0];
 }
 
 /** \brief Statusbar API function to report changes in drive head
@@ -173,7 +173,7 @@ void ui_display_drive_led(int drive_number, unsigned int pwm1, unsigned int led_
  *        once it does.
  */
 void ui_display_drive_track(unsigned int drive_number, unsigned int drive_base, unsigned int half_track_number) {
-    [viceThread.vice updateDriveUnit:drive_number track:half_track_number / 2.0];
+    [viceThread.delegate updateDriveUnit:drive_number track:half_track_number / 2.0];
 }
 
 
@@ -241,7 +241,7 @@ void ui_display_tape_current_image(const char *image) {
  *                 parameter.
  */
 void ui_display_tape_control_status(int control) {
-    [viceThread.vice updateTapeControlStatus: control];
+    [viceThread.delegate updateTapeControlStatus: control];
 }
 
 
@@ -250,7 +250,7 @@ void ui_display_tape_control_status(int control) {
  *  \param counter The new value of the position counter.
  */
 void ui_display_tape_counter(double counter) {
-    [viceThread.vice updateTapeCounter:counter];
+    [viceThread.delegate updateTapeCounter:counter];
 }
 
 
@@ -259,7 +259,7 @@ void ui_display_tape_counter(double counter) {
  *  \param motor Nonzero if the tape motor is now on.
  */
 void ui_display_tape_motor_status(int motor) {
-    [viceThread.vice updateTapeIsMotorOn: motor != 0];
+    [viceThread.delegate updateTapeIsMotorOn: motor != 0];
 }
 
 
@@ -351,7 +351,7 @@ char *ui_get_file(const char *format, ...) {
  */
 int ui_init(int *argc, char **argv) {
     archdep_set_resources();
-    [viceThread.vice setupVice];
+    [viceThread.delegate setupVice];
     return 0;
 }
 

@@ -22,7 +22,10 @@
 */
 
 import Foundation
+import GameController
+
 import C64UIComponents
+import Emulator
 
 class MfiInputDevice: InputDevice {
     var controller: GCController?

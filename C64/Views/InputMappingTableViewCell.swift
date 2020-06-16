@@ -22,6 +22,7 @@
 */
 
 import UIKit
+import Emulator
 
 class InputMappingTableViewCell: UITableViewCell {
     @IBOutlet weak var portTitleLabel: UILabel!

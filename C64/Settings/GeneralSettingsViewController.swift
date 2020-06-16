@@ -22,6 +22,7 @@
 */
 
 import UIKit
+import Emulator
 
 class GeneralSettingsViewController: UIViewController {
     enum ReuseIdentifier: String {

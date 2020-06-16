@@ -26,10 +26,23 @@
 
 #import <UIKit/UIKit.h>
 @import GameController;
+#import "Emulator/Emulator.h"
+#import <Emulator/Emulator-Swift.h>
 
-@class Vice;
-@class ViceEvent;
-@class Machine;
+@protocol ViceThreadDelegate
+@required
+- (NSString *_Nonnull)getDirectoryPath;
+- (void)updateDriveUnit:(int) unit track: (double)track;
+- (void)updateDriveUnit:(int) uint led1Intensity: (double)intensity1 led2Intensity: (double)intensity2;
+- (void)updateTapeControlStatus: (int)control;
+- (void)updateTapeCounter: (double)counter;
+- (void)updateTapeIsMotorOn: (int)motor;
+- (void)setupVice;
+- (void)viceSetResources;
+- (void)autostartInjectDeviceInfo;
+- (BOOL)handleEvents;
+- (void)updateStatusBar;
+@end
 
 @interface ViceThread : NSThread
 
@@ -47,13 +60,12 @@
 @property NSArray * _Nullable argv;
 
 @property NSMutableArray * _Nonnull eventQueue;
-@property Machine * _Nullable machine;
 
 @property int currentBorderMode;
 @property int newBorderMode;
 @property bool firstFrame;
 
-@property (weak) Vice * _Nullable vice;
+@property (weak) id _Nullable delegate;
 
 - (void)main;
 

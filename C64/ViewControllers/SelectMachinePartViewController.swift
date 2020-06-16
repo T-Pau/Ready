@@ -23,6 +23,8 @@
 
 import UIKit
 
+import Emulator
+
 class SelectMachinePartViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
 

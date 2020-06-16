@@ -23,7 +23,7 @@
 
 import UIKit
 import C64UIComponents
-
+import Emulator
 
 class GameViewController: UIViewController, UITextFieldDelegate, ShareableImageViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, SeguePreparer {
     enum SegueType: String {
@@ -248,8 +248,8 @@ class GameViewController: UIViewController, UITextFieldDelegate, ShareableImageV
         guard let game = gameViewItem as? Game else { return }
 
         do {
-            try ensureDirectory(AppDelegate.exportedURL)
-            try FileManager.default.copyItem(at: game.directoryURL, to: AppDelegate.exportedURL.appendingPathComponent(game.directory))
+            try ensureDirectory(Defaults.exportedURL)
+            try FileManager.default.copyItem(at: game.directoryURL, to: Defaults.exportedURL.appendingPathComponent(game.directory))
         }
         catch { }
     }
