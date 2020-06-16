@@ -28,33 +28,13 @@
 
 #define AUTOSTART_PRG_MODE_INJECT   1
 
-// datasette.h
-#define DATASETTE_CONTROL_STOP    0
-#define DATASETTE_CONTROL_START   1
-#define DATASETTE_CONTROL_FORWARD 2
-#define DATASETTE_CONTROL_REWIND  3
-#define DATASETTE_CONTROL_RECORD  4
-#define DATASETTE_CONTROL_RESET   5
-#define DATASETTE_CONTROL_RESET_COUNTER   6
-
 /* Drive idling methods.  */
 #define DRIVE_IDLE_NO_IDLE     0
 #define DRIVE_IDLE_SKIP_CYCLES 1
 #define DRIVE_IDLE_TRAP_IDLE   2
 
-/* values to be used with IDE64Version resource */
-#define IDE64_VERSION_3 0
-#define IDE64_VERSION_4_1 1
-#define IDE64_VERSION_4_2 2
-
-#define LP_HOST_BUTTON_1    1
-#define LP_HOST_BUTTON_2    4
-
 #define MACHINE_RESET_MODE_SOFT 0
 #define MACHINE_RESET_MODE_HARD 1
-
-#define SID_MODEL_6581           0
-#define SID_MODEL_8580           1
 
 #define VICII_NORMAL_BORDERS 0
 #define VICII_FULL_BORDERS   1
