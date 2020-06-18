@@ -71,79 +71,6 @@ extension JoystickButtons {
 }
 
 
-/*
- C64 keyboard matrix:
- 
- +-----+-----+-----+-----+-----+-----+-----+-----+
- |Bit 0|Bit 1|Bit 2|Bit 3|Bit 4|Bit 5|Bit 6|Bit 7|
- +-----+-----+-----+-----+-----+-----+-----+-----+-----+
- |Bit 0| DEL |Retrn|C_L/R|  F7 |  F1 |  F3 |  F5 |C_U/D|
- +-----+-----+-----+-----+-----+-----+-----+-----+-----+
- |Bit 1| 3 # |  W  |  A  | 4 $ |  Z  |  S  |  E  | S_L |
- +-----+-----+-----+-----+-----+-----+-----+-----+-----+
- |Bit 2| 5 % |  R  |  D  | 6 & |  C  |  F  |  T  |  X  |
- +-----+-----+-----+-----+-----+-----+-----+-----+-----+
- |Bit 3| 7 ' |  Y  |  G  | 8 ( |  B  |  H  |  U  |  V  |
- +-----+-----+-----+-----+-----+-----+-----+-----+-----+
- |Bit 4| 9 ) |  I  |  J  |  0  |  M  |  K  |  O  |  N  |
- +-----+-----+-----+-----+-----+-----+-----+-----+-----+
- |Bit 5|  +  |  P  |  L  |  -  | . > | : [ |  @  | , < |
- +-----+-----+-----+-----+-----+-----+-----+-----+-----+
- |Bit 6|POUND|  *  | ; ] | HOME| S_R |  =  | A_UP| / ? |
- +-----+-----+-----+-----+-----+-----+-----+-----+-----+
- |Bit 7| 1 ! |A_LFT| CTRL| 2 " |SPACE|  C= |  Q  | R/S |
- +-----+-----+-----+-----+-----+-----+-----+-----+-----+
- */
-
-extension Key {
-    var column: Int? {
-        switch self {
-        case .InsertDelete, .Char("3"), .Char("5"), .Char("7"), .Char("9"), .Char("+"), .Char("£"), .Char("1"):
-            return 0
-        case .Return, .Char("w"), .Char("r"), .Char("y"), .Char("i"), .Char("p"), .Char("*"), .ArrowLeft:
-            return 1
-        case .CursorLeftRight, .Char("a"), .Char("d"), .Char("g"), .Char("j"), .Char("l"), .Char(";"), .Control:
-            return 2
-        case .F7, .Char("4"), .Char("6"), .Char("8"), .Char("0"), .Char("-"), .ClearHome, .Char("2"):
-            return 3
-        case .F1, .Char("z"), .Char("c"), .Char("b"), .Char("m"), .Char("."), .ShiftRight, .Char(" "):
-            return 4
-        case .F3, .Char("s"), .Char("f"), .Char("h"), .Char("k"), .Char(":"), .Char("="), .Commodore:
-            return 5
-        case .F5, .Char("e"), .Char("t"), .Char("u"), .Char("o"), .Char("@"), .ArrowUp, .Char("q"):
-            return 6
-        case .CursorUpDown, .ShiftLeft, .ShiftLock, .Char("x"), .Char("v"), .Char("n"), .Char(","), .Char("/"), .RunStop:
-            return 7
-            
-        case .Char(_), .Restore:
-            return nil
-        }
-    }
-    
-    var row: Int? {
-        switch self {
-        case .InsertDelete, .Return, .CursorLeftRight, .F7, .F1, .F3, .F5, .CursorUpDown:
-            return 0
-        case .Char("3"), .Char("w"), .Char("a"), .Char("4"), .Char("z"), .Char("s"), .Char("e"), .ShiftLeft, .ShiftLock:
-            return 1
-        case .Char("5"), .Char("r"), .Char("d"), .Char("6"), .Char("c"), .Char("f"), .Char("t"), .Char("x"):
-            return 2
-        case .Char("7"), .Char("y"), .Char("g"), .Char("8"), .Char("b"), .Char("h"), .Char("u"), .Char("v"):
-            return 3
-        case .Char("9"), .Char("i"), .Char("j"), .Char("0"), .Char("m"), .Char("k"), .Char("o"), .Char("n"):
-            return 4
-        case .Char("+"), .Char("p"), .Char("l"), .Char("-"), .Char("."), .Char(":"), .Char("@"), .Char(","):
-            return 5
-        case .Char("£"), .Char("*"), .Char(";"), .ClearHome, .ShiftRight, .Char("="), .ArrowUp, .Char("/"):
-            return 6
-        case .Char("1"), .ArrowLeft, .Control, .Char("2"), .Char(" "), .Commodore, .Char("q"), .RunStop:
-            return 7
-            
-        case .Char(_), .Restore:
-            return nil
-        }
-    }
-}
 
 @objc public class Vice: NSObject, Emulator {
     public var machine = Machine()
@@ -309,7 +236,7 @@ extension Key {
         if key == .Restore {
             send(event: .restore(pressed: true))
         }
-        else if let row = key.row, let column = key.column {
+        else if let row = KeyboardMatrix.row(for: key), let column = KeyboardMatrix.column(for: key) {
             if (keyboard[row][column] == 0) {
                 send(event: .key(key, pressed: true, delayed: delayed))
             }
@@ -325,7 +252,7 @@ extension Key {
         if key == .Restore {
             send(event: .restore(pressed: false))
         }
-        else if let row = key.row, let column = key.column {
+        else if let row = KeyboardMatrix.row(for: key), let column = KeyboardMatrix.column(for: key) {
             if (keyboard[row][column] > 0) {
                 keyboard[row][column] -= 1
                 if (keyboard[row][column] == 0) {
@@ -386,6 +313,7 @@ extension Key {
     }
     
     public func setResourceNow(name: Machine.ResourceName, value: Machine.ResourceValue) {
+        // print("setting resource: \(name) = \(value)")
         switch value {
         case .Bool(let value):
             resources_set_int(name.rawValue, value ? 1 : 0)
@@ -456,11 +384,9 @@ extension Vice: ViceThreadDelegate {
                     
                 case .key(let key, pressed: let pressed, delayed: let delayed):
                     if delayed > 0{
-                        print("delayed \(pressed ? "press" : "release") of \(key) for \(delayed - 1)")
                         delayedEvents.append(.key(key, pressed: pressed, delayed: delayed - 1))
                     }
-                    else if let row = key.row, let column = key.column {
-                        print("\(pressed ? "pressed" : "released") \(key)")
+                    else if let row = KeyboardMatrix.row(for: key), let column = KeyboardMatrix.column(for: key){
                         if pressed {
                             viceThread?.pressKey(row: Int32(row), column: Int32(column))
                         }
@@ -502,7 +428,7 @@ extension Vice: ViceThreadDelegate {
 
     
     @objc public func setupVice() {
-        c64model_set(machine.specification.computer.viceMachineModel.int32Value)
+        model_set(machine.specification.computer.viceMachineModel.int32Value)
     }
 
     

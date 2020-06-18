@@ -270,6 +270,8 @@ int main_program(int argc, char **argv)
     log_message(LOG_DEFAULT, "Main CPU: starting at ($FFFC).");
     maincpu_mainloop();
 
+    machine_shutdown();
+
     // log_error(LOG_DEFAULT, "perkele!");
 
     return 0;

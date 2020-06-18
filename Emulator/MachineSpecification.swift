@@ -188,7 +188,12 @@ extension MachineSpecification {
     }
     
     public var controllers: [Controller] {
-        return [ controller1, controller2 ]
+        if computer.ports.contains(.controlPort2) {
+            return [ controller1, controller2 ]
+        }
+        else {
+            return [ controller1 ]
+        }
     }
     
     public var controller1: Controller {

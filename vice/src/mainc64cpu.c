@@ -643,8 +643,6 @@ void maincpu_mainloop(void)
     o_bank_base = NULL;
     o_bank_start = NULL;
     o_bank_limit = NULL;
-    
-    machine_shutdown();
 }
 
 /* ------------------------------------------------------------------------- */

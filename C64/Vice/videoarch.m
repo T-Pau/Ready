@@ -44,17 +44,10 @@
 #import <CoreImage/CoreImage.h>
 #import "ViceThread.h"
 #import "ViceThreadC.h"
+#include "render.h"
 
 #define MY_MIN(a, b) ((a) < (b) ? (a) : (b))
 #define MY_MAX(a, b) ((a) > (b) ? (a) : (b))
-
-unsigned int border_animation[] = {
-    1, 1,
-    2, 2,  2, 2,
-    3, 3, 3,  3, 3, 3,  3, 3, 3,
-    4
-};
-int num_animation = sizeof(border_animation) / sizeof(border_animation[0]);
 
 static int lightpen_x;
 static int lightpen_y;
@@ -68,25 +61,8 @@ static int lightpen_buttons;
 
 #define TICKSPERSECOND  1000000000L  /* Nanoseconds resolution. */
 
-/* taken from https://www.pepto.de/projects/colorvic/ */
-static uint32_t c64_palette[] = {
-    0x000000FF,
-    0xFFFFFFFF,
-    0x813338FF,
-    0x75CEC8FF,
-    0x8E3C97FF,
-    0x56AC4DFF,
-    0x2E2C9BFF,
-    0xEDF171FF,
-    0x8E5029FF,
-    0x553800FF,
-    0xC46C71FF,
-    0x4A4A4AFF,
-    0x7B7B7BFF,
-    0xA9FF9FFF,
-    0x706DEBFF,
-    0xB2B2B2FF
-};
+extern uint32_t palette[];
+
 
 /** \brief  Arch-specific initialization for a video canvas
  *  \param[in,out] canvas The canvas being initialized
@@ -146,11 +122,9 @@ video_canvas_t *video_canvas_create(video_canvas_t *canvas, unsigned int *width,
     canvas->created = 1;
     canvas->initialized = 1;
 
-    
-    canvas->show_border = viceThread.currentBorderMode == BORDER_MODE_SHOW ? 1 : 0;
-    canvas->border_width = 0xff;
-    canvas->border_color = 0xe; // light blue
-    canvas->transition_countdown = BORDER_SHOW_FRAMES;
+    canvas->render = NULL;
+    canvas->bitmap = NULL;
+    canvas->bitmap_row_size = 0;
 
     return canvas;
 }
@@ -164,44 +138,7 @@ void video_canvas_destroy(struct video_canvas_s *canvas) {
 }
 
 
-// get color of border, or 0xff if it contains more than one color
-static uint8_t get_border_color(struct video_canvas_s *canvas) {
-    /*
-     geometry:
-     screen size - incl. border
-     gfx_size - excl. border
-     gfx_position - offset of screen w/o border
-     first_displayed_line / last_displayed_line - ignore parts outside
-     */
 
-    struct geometry_s *geometry = canvas->geometry;
-    
-    unsigned int width = geometry->screen_size.width;
-    unsigned int height = geometry->last_displayed_line - geometry->first_displayed_line + 1;
-    unsigned int top_border_end = geometry->gfx_position.y - geometry->first_displayed_line;
-    unsigned int bottom_border_start = top_border_end + geometry->gfx_size.height;
-    unsigned int left_border_end = geometry->gfx_position.x;
-    unsigned int right_border_start = left_border_end + geometry->gfx_size.width;
-    
-    unsigned int pitch = canvas->draw_buffer->draw_buffer_pitch;
-    uint8_t *buffer = canvas->draw_buffer->draw_buffer + pitch * geometry->first_displayed_line;
-    
-    uint8_t color = buffer[0];
-    
-    for (unsigned int y = 0; y < height; y++) {
-        for (unsigned int x = 0; x < width; x++) {
-            if (x == left_border_end && y >= top_border_end && y < bottom_border_start) {
-                x = right_border_start;
-            }
-            if (buffer[x + y * pitch] != color) {
-//                printf("%xx%x: %x != %x\n", x, y, buffer[x + y * pitch], color);
-                return 0xff;
-            }
-        }
-    }
-    
-    return color;
-}
 
 /** \brief Update the display on a video canvas to reflect the machine
  *         state.
@@ -215,115 +152,48 @@ static uint8_t get_border_color(struct video_canvas_s *canvas) {
  */
 void video_canvas_refresh(struct video_canvas_s *canvas, unsigned int xs, unsigned int ys, unsigned int xi, unsigned int yi, unsigned int w, unsigned int h) {
     
-    if (viceThread.newBorderMode != viceThread.currentBorderMode) {
-        switch (viceThread.newBorderMode) {
-            case BORDER_MODE_AUTO: {
-                if (canvas->show_border) {
-                    if (canvas->border_color != 0xff) {
-                        canvas->show_border = false;
-                        canvas->transition_countdown = BORDER_SHOW_FRAMES;
-                    }
-                    else {
-                        canvas->transition_countdown = BORDER_HIDE_FRAMES;
-                    }
-                }
-                else {
-                    if (canvas->border_color != 0xff) {
-                        canvas->transition_countdown = BORDER_SHOW_FRAMES;
-                    }
-                    else {
-                        canvas->show_border = true;
-                        canvas->transition_countdown = BORDER_HIDE_FRAMES;
-                    }
-                }
-                break;
-            }
-                
-            case BORDER_MODE_HIDE:
-                canvas->show_border = false;
-                break;
-                
-            case BORDER_MODE_SHOW:
-                canvas->show_border = true;
-                break;
-        }
-        
-        viceThread.currentBorderMode = viceThread.newBorderMode;
-    }
+    size_t full_width = MY_MIN(canvas->geometry->screen_size.width - canvas->viewport->first_x, canvas->draw_buffer->canvas_width);
+    size_t full_height = canvas->viewport->last_line - canvas->viewport->first_line + 1;
     
-    if (viceThread.currentBorderMode == BORDER_MODE_AUTO) {
-        uint8_t border_color = get_border_color(canvas);
-        uint8_t border_changed = (border_color == 0xff || border_color != canvas->border_color);
-        canvas->border_color = border_color;
-        
-        if (canvas->show_border == border_changed) {
-            /* reset transition countdown */
-            canvas->transition_countdown = border_changed ? BORDER_HIDE_FRAMES : BORDER_SHOW_FRAMES;
-        }
-        else {
-            canvas->transition_countdown--;
-            printf("transition to %s in %u\n", canvas->show_border ? "hide" : "show", canvas->transition_countdown);
-            if (canvas->transition_countdown == 0) {
-                canvas->show_border = !canvas->show_border;
-                printf("%s border\n", canvas->show_border ? "show" : "hide");
-                canvas->transition_countdown = border_changed ? BORDER_HIDE_FRAMES : BORDER_SHOW_FRAMES;
-            }
-        }
-    }
+    render_image_t image;
     
-    unsigned int left_border = canvas->geometry->gfx_position.x - xs;
-    unsigned int right_border = w - left_border - canvas->geometry->gfx_size.width;
-    unsigned int top_border = canvas->geometry->gfx_position.y - ys;
-    unsigned int bottom_border = h - top_border - canvas->geometry->gfx_size.height;
-    unsigned int max_border = MY_MAX(left_border, right_border);
-    max_border = MY_MAX(max_border, top_border);
-    max_border = MY_MAX(max_border, bottom_border);
-    
-    if (canvas->border_width == 0xff) {
-        if (canvas->show_border) {
-            canvas->border_width = max_border;
-        }
-        else {
-            canvas->border_width = 0;
-        }
-    }
+    uint8_t *source = canvas->draw_buffer->draw_buffer + canvas->draw_buffer->draw_buffer_pitch * ys + xs;
 
-    unsigned int diff = MY_MIN(canvas->border_width, max_border - canvas->border_width);
-    unsigned int step = border_animation[MY_MIN(diff, num_animation - 1)];
-    
-    if (canvas->show_border) {
-        if (canvas->border_width < max_border) {
-            canvas->border_width += step;
-        }
+    if (xi == 0 && yi == 0 && w == full_width && h == full_height) {
+        image.data = source;
+        image.row_size = canvas->draw_buffer->draw_buffer_pitch;
     }
     else {
-        if (canvas->border_width > 0) {
-            canvas->border_width -= step;
-        }
-    }
-    
-    canvas->border_offset.x = left_border;
-    canvas->border_offset.y = top_border;
-    canvas->current_offset.x = MY_MIN(left_border, canvas->border_width);
-    canvas->current_offset.y = MY_MIN(top_border, canvas->border_width);
-    canvas->current_size.width = canvas->geometry->gfx_size.width + canvas->current_offset.x + MY_MIN(right_border, canvas->border_width);
-    canvas->current_size.height = canvas->geometry->gfx_size.height + canvas->current_offset.y + MY_MIN(bottom_border, canvas->border_width);
-    xs = canvas->geometry->gfx_position.x - canvas->current_offset.x;
-    ys = canvas->geometry->gfx_position.y - canvas->current_offset.y;
-
-    uint8_t *source = canvas->draw_buffer->draw_buffer + canvas->draw_buffer->draw_buffer_pitch * ys + xs;
-    uint32_t *destination = canvas->bitmapData + canvas->bitmapWidth * yi + xi;
-    for (int y = 0; y < canvas->current_size.height; y++) {
-        for (int x = 0; x < canvas->current_size.width; x++) {
-            destination[x] = c64_palette[source[x]];
+        const render_size_t *size = render_get_bitmap_size(canvas->render);
+        if (canvas->bitmap == NULL) {
+            canvas->bitmap = calloc(size->width * size->height, 1);
+            canvas->bitmap_row_size = size->width;
         }
         
-        source += canvas->draw_buffer->draw_buffer_pitch;
-        destination += canvas->bitmapWidth;
+        uint8_t *destination = canvas->bitmap + yi * canvas->bitmap_row_size + xi;
+        
+        for (size_t y = 0; y < h; y++) {
+            memcpy(destination, source, w);
+            source += canvas->draw_buffer->draw_buffer_pitch;
+            destination += canvas->bitmap_row_size;
+        }
+        
+        image.data = canvas->bitmap;
+        image.row_size = canvas->bitmap_row_size;
     }
     
-    [viceThread updateBitmapWidth: canvas->current_size.width height: canvas->current_size.height];
-    
+    image.size.width = full_width;
+    image.size.height = full_height;
+    image.screen.origin.x = canvas->geometry->gfx_position.x - canvas->viewport->first_x;
+    image.screen.origin.y = canvas->geometry->gfx_position.y - canvas->geometry->first_displayed_line;
+    image.screen.size.width = canvas->geometry->gfx_size.width;
+    image.screen.size.height = canvas->geometry->gfx_size.height;
+
+    const render_size_t *current_size = render(canvas->render, &image, viceThread.newBorderMode);
+    if (current_size != NULL) {
+        [viceThread updateBitmapWidth: current_size->width height: current_size->height];
+    }
+    viceThread.currentBorderMode = viceThread.newBorderMode;
 }
 
 
@@ -335,14 +205,42 @@ void video_canvas_refresh(struct video_canvas_s *canvas, unsigned int xs, unsign
  */
 
 void video_canvas_resize(struct video_canvas_s *canvas, char resize_canvas) {
-    int height = canvas->viewport->last_line - canvas->viewport->first_line + 1;
-    int width = canvas->draw_buffer->draw_buffer_width;
-
-    viceThread.bytesPerRow = width * 4;
-    viceThread.imageData = [NSMutableData dataWithLength:width * height * 4];
+#if 0
+    printf("creating canvas:\n");
+    printf("  draw_buffer:\n");
+    printf("    canvas_width/height: (%d, %d)\n", canvas->draw_buffer->canvas_width, canvas->draw_buffer->canvas_height);
+    printf("    canvas_pysical_width/height: (%d, %d)\n", canvas->draw_buffer->canvas_physical_width, canvas->draw_buffer->canvas_physical_height);
+    printf("    draw_buffer_width/height: (%d, %d)\n", canvas->draw_buffer->draw_buffer_width, canvas->draw_buffer->draw_buffer_height);
+    printf("    draw_buffer_pitch: %d\n", canvas->draw_buffer->draw_buffer_pitch);
+    printf("  geometry:\n");
+    printf("    char_pixel_width: %d\n", canvas->geometry->char_pixel_width);
+    printf("    extra_offscreen_border_left/right: %d / %d\n", canvas->geometry->extra_offscreen_border_left, canvas->geometry->extra_offscreen_border_right);
+    printf("    first/last_displayed_line: %d / %d\n", canvas->geometry->first_displayed_line, canvas->geometry->last_displayed_line);
+    printf("    gfx_area_moves: %d\n", canvas->geometry->gfx_area_moves);
+    printf("    gfx_position: (%d, %d)\n", canvas->geometry->gfx_position.x, canvas->geometry->gfx_position.y);
+    printf("    gfx_size: (%d, %d)\n", canvas->geometry->gfx_size.width, canvas->geometry->gfx_size.height);
+    printf("    pixel_aspect_ratio: %g\n", canvas->geometry->pixel_aspect_ratio);
+    printf("    screen_size: (%d, %d)\n", canvas->geometry->screen_size.width, canvas->geometry->screen_size.height);
+    printf("    text_size: (%d, %d)\n", canvas->geometry->text_size.width, canvas->geometry->text_size.height);
+    printf("  viewport:\n");
+    printf("    title: %s\n", canvas->viewport->title);
+    printf("    first/last_line: %d / %d\n", canvas->viewport->first_line, canvas->viewport->last_line);
+    printf("    first_x: %d\n", canvas->viewport->first_x);
+    printf("    x/y_offset: (%d, %d)\n", canvas->viewport->x_offset, canvas->viewport->y_offset);
+#endif
     
-    canvas->bitmapData = viceThread.imageData.mutableBytes;
-    canvas->bitmapWidth = width;
+    int height = canvas->viewport->last_line - canvas->viewport->first_line + 1;
+    int width = canvas->geometry->screen_size.width;
+
+    render_free(canvas->render);
+    
+    render_size_t size = { width, height };
+    viceThread.bytesPerRow = width * 4;
+    viceThread.imageData = [NSMutableData dataWithLength:render_data_size(size)];
+    
+    if ((canvas->render = render_new(size, viceThread.imageData.mutableBytes, palette, viceThread.currentBorderMode)) == NULL) {
+        printf("can't create render\n");
+    }
 }
 
 
@@ -454,7 +352,7 @@ void vsyncarch_sleep(unsigned long delay)
     }
 }
 
-
+#ifdef VICE_C64
 void update_light_pen(int x_in, int y_in, int width, int height, int button_1, int button_2, int is_koala_pad) {
     video_canvas_t *canvas = vicii.raster.canvas;
     
@@ -467,21 +365,25 @@ void update_light_pen(int x_in, int y_in, int width, int height, int button_1, i
     }
     
     if (x_in > 0 && y_in > 0) {
-        double scale = MY_MIN((double)width / canvas->current_size.width, (double)height / canvas->current_size.height);
-        int x_offset = (width - canvas->current_size.width * scale) / 2;
-        int y_offset = (height - canvas->current_size.height * scale) / 2;
+        const render_size_t *current_size = render_get_current_size(canvas->render);
+//        const render_rect_t *current_screen = render_get_current_screen(canvas->render);
+        
+        double scale = MY_MIN((double)width / current_size->width, (double)height / current_size->height);
+        int x_offset = (width - current_size->width * scale) / 2;
+        int y_offset = (height - current_size->height * scale) / 2;
         
         double x = (x_in - x_offset) / scale;
         double y = (y_in - y_offset) / scale;
         
-        if (x >= 0 && x < canvas->current_size.width && y >= 0 && y < canvas->current_size.height) {
+        if (x >= 0 && x < current_size->width && y >= 0 && y < current_size->height) {
             if (is_koala_pad) {
-                viceThread.mouseX = x / canvas->current_size.width * (225 - 44) + 45;
-                viceThread.mouseY = (1 - y / canvas->current_size.height) * (204 - 6) + 7;
+                viceThread.mouseX = x / current_size->width * (225 - 44) + 45;
+                viceThread.mouseY = (1 - y / current_size->height) * (204 - 6) + 7;
             }
             else {
-                lightpen_x = x - canvas->current_offset.x + canvas->border_offset.x;
-                lightpen_y = y - canvas->current_offset.y + canvas->border_offset.y;
+                const render_point_t *current_offset = render_get_current_offset(canvas->render);
+                lightpen_x = x + current_offset->x;
+                lightpen_y = y + current_offset->y;
                 /* printf("light pen at %dx%d, buttons: %d\n", lightpen_x, lightpen_y, lightpen_buttons); */
             }
             return;
@@ -497,3 +399,7 @@ void update_light_pen(int x_in, int y_in, int width, int height, int button_1, i
         lightpen_y = -1;
     }
 }
+#else
+void update_light_pen(int x_in, int y_in, int width, int height, int button_1, int button_2, int is_koala_pad) {
+}
+#endif

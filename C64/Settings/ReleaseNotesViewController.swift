@@ -33,6 +33,9 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Release 1.4 Build 4", year: 2020, month: 6, day: 19, changes: [
+            "Preliminary VIC-20 support (startup colors are wrong on subsequent runs)."
+        ]),
         Release(name: "Release 1.4 Build 3", year: 2020, month: 6, day: 14, changes: [
             "Use right shift key to force shfit.",
             "When forcing shift on/off, delay other key presses by one frame."

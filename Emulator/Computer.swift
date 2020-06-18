@@ -24,22 +24,37 @@
 import UIKit
 
 public struct Computer: MachinePart {
+    public enum ViceMachine {
+        case c64
+        case vic
+    }
+    
     public enum ViceModel: String {
-        case c64Pal
-        case c64cPal
-        case c64OldPal
-        case c64Ntsc
         case c64cNtsc
-        case c64OldNtsc
-        case c64PalN
-        case sx64Pal
-        case sx64Ntsc
+        case c64cPal
         case c64Japanese
         case c64Gs
-        case pet64Pal
+        case c64Ntsc
+        case c64OldNtsc
+        case c64OldPal
+        case c64Pal
+        case c64PalN
         case pet64Ntsc
+        case pet64Pal
+        case sx64Pal
+        case sx64Ntsc
         case ultimax
+        case vic20Pal
+        case vic20Ntsc
 
+        public var viceMachine: ViceMachine {
+            switch self {
+            case .c64cNtsc, .c64cPal, .c64Japanese, .c64Gs, .c64Ntsc, .c64OldNtsc, .c64OldPal, .c64Pal, .c64PalN, .pet64Ntsc, .pet64Pal, .sx64Ntsc, .sx64Pal, .ultimax:
+                return .c64
+            case .vic20Pal, .vic20Ntsc:
+                return .vic
+            }
+        }
         public var int32Value: Int32 {
             switch self {
             case .c64Pal:
@@ -70,6 +85,11 @@ public struct Computer: MachinePart {
                 return 12
             case .ultimax:
                 return 13
+                
+            case .vic20Pal:
+                return 0
+            case .vic20Ntsc:
+                return 1
             }
         }
     }
@@ -107,7 +127,7 @@ public struct Computer: MachinePart {
         if let keyboardName = keyboardName {
             self.keyboard = Keyboard.keyboard(named: keyboardName)
         }
-        self.ports = [ .cassetteDrive, .controlPort1, .controlPort2, .diskDrive8, .diskDrive9, .diskDrive10, .diskDrive11, .userPort ]
+        self.ports = [ .cassetteDrive, .controlPort1, .controlPort2, .diskDrive8, .diskDrive9, .diskDrive10, .diskDrive11, .expansionPort, .userPort ]
         self.drive8 = drive8
         if drive8 != nil {
             self.ports.remove(.diskDrive8)
@@ -232,9 +252,9 @@ public struct Computer: MachinePart {
                      caseColorName: "C64C Case"),
         ]),
         
-        MachinePartSection(title: "Other", parts: [
+        MachinePartSection(title: "Other Commodore 64 Variants", parts: [
             Computer(identifier: "SX64 PAL",
-                     name: "CommodoreSX-64 (PAL)",
+                     name: "Commodore SX-64 (PAL)",
                      fullName: "Commodore SX-64",
                      variantName: "PAL",
                      iconName: "Commodore SX64",
@@ -290,7 +310,32 @@ public struct Computer: MachinePart {
                      keyboardName: nil,
                      caseColorName: "C64 GS Case",
                      missingPorts: [ .cassetteDrive, .diskDrive8, .diskDrive9, .diskDrive10, .diskDrive11, .userPort ])
-            ])
+            ]),
+        MachinePartSection(title: "Commodore VIC-20", parts: [
+            Computer(identifier: "VIC-20 PAL",
+                     name: "Commodore VIC-20 (PAL)",
+                     fullName: "Commodore VIC-20",
+                     variantName: "PAL",
+                     iconName: "Commodore 64 VIC-20", // TODO: own icon
+                     viceMachineModel: .vic20Pal,
+                     keyboardName: "VIC-20 Keyboard",
+                     caseColorName: "C64C Case",
+                     // TODO: chargen
+                     // TODO: disable expansion port until we have support for VIC-20 cartridges
+                     missingPorts: [ .controlPort2, .expansionPort ]),
+            
+            Computer(identifier: "VIC-20 NTSC",
+                     name: "Commodore VIC-20 (NTSC)",
+                     fullName: "Commodore VIC-20",
+                     variantName: "NTSC",
+                     iconName: "Commodore 64 VIC-20", // TODO: own icon
+                     viceMachineModel: .vic20Ntsc,
+                     keyboardName: "VIC-20 Keyboard",
+                     caseColorName: "C64C Case",
+                     // TODO: chargen
+                     // TODO: disable expansion port until we have support for VIC-20 cartridges
+                     missingPorts: [ .controlPort2, .expansionPort ])
+        ])
    ])
     
     static private var byIdentifier = [String: Computer]()

@@ -26,8 +26,4 @@
 
 #import "ViceThread.h"
 
-#define BORDER_MODE_AUTO 0
-#define BORDER_MODE_HIDE 2
-#define BORDER_MODE_SHOW 1
-
 #endif /* ViceThreadC_h */

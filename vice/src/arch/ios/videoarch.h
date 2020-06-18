@@ -58,22 +58,10 @@ typedef struct video_canvas_s {
      *         window colors. */
     struct palette_s *palette;
     
-    uint32_t *bitmapData;
-    int bitmapWidth;
-
-    position_t current_offset;
-    rectangle_t current_size;
-    position_t border_offset;
-
-    /* For border auto hiding */
-    /* Currently showing border? */
-    uint8_t show_border;
-    /* Current width (used for transition animation) */
-    uint8_t border_width;
-    /* Color of the border in the last frame, 0xff if it contained multiple colors. */
-    uint8_t border_color;
-    /* Number of frames until transition */
-    unsigned int transition_countdown;
+    void *render;
+    
+    uint8_t *bitmap;
+    size_t bitmap_row_size;
 } video_canvas_t;
 
 #endif /* VICE_VIDEOARCH_H */

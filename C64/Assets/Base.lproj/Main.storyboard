@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Nj7-39-MUg">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Nj7-39-MUg">
     <device id="ipad12_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -957,21 +956,21 @@
             <objects>
                 <viewController id="mj7-fK-GX4" customClass="SelectMachinePartViewController" customModule="C64" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Rr6-Xm-XvI">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="680"/>
+                        <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="c1j-Ye-cXG">
-                                <rect key="frame" x="0.0" y="63" width="375" height="617"/>
+                                <rect key="frame" x="0.0" y="56" width="540" height="564"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="55" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="eAz-zC-zt2">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="617"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="540" height="564"/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MachinePart" id="uNp-Ng-6KT" customClass="MachinePartTableViewCell" customModule="C64" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="55.5" width="375" height="55"/>
+                                                <rect key="frame" x="0.0" y="55.5" width="540" height="55"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uNp-Ng-6KT" id="1lS-Bb-DhQ">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="540" height="55"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CMD FD" translatesAutoresizingMaskIntoConstraints="NO" id="DT0-HC-gNh">
@@ -982,13 +981,13 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KZJ-rC-Naw">
-                                                            <rect key="frame" x="113" y="8" width="239" height="20.5"/>
+                                                            <rect key="frame" x="113" y="8" width="404" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WJ0-eH-1gW">
-                                                            <rect key="frame" x="113" y="30" width="254" height="17"/>
+                                                            <rect key="frame" x="113" y="30" width="419" height="17"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -1869,7 +1868,7 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Oj-vZ-2lb" userLabel="Start Button" customClass="PillButton" customModule="C64UIComponents">
-                                                                <rect key="frame" x="84" y="128" width="52" height="32"/>
+                                                                <rect key="frame" x="84" y="128" width="84" height="32"/>
                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                                 <state key="normal" title="START">
                                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1879,7 +1878,7 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KQT-o5-uyI" customClass="PillButton" customModule="C64UIComponents">
-                                                                <rect key="frame" x="168" y="128" width="55" height="32"/>
+                                                                <rect key="frame" x="200" y="128" width="87" height="32"/>
                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                                 <state key="normal" title="TOOLS">
                                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2073,7 +2072,7 @@
                                                                             <rect key="frame" x="0.0" y="0.0" width="482" height="59"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                             <subviews>
-                                                                                <view opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rSo-nS-zEu" customClass="MediaView" customModule="C64UIComponents">
+                                                                                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rSo-nS-zEu" customClass="MediaView" customModule="C64UIComponents">
                                                                                     <rect key="frame" x="8" y="10" width="474" height="39"/>
                                                                                     <userDefinedRuntimeAttributes>
                                                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="subtitleIsPETASCII" value="YES"/>
@@ -2109,7 +2108,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="482" height="33"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WU8-RS-VWj" userLabel="Start Button" customClass="PillButton" customModule="C64UIComponents">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="31" height="33"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="33"/>
                                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                                         <state key="normal" title="START">
                                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2119,7 +2118,7 @@
                                                                         </connections>
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NaR-ga-Aoz" customClass="PillButton" customModule="C64UIComponents">
-                                                                        <rect key="frame" x="63" y="0.0" width="55" height="33"/>
+                                                                        <rect key="frame" x="32" y="0.0" width="86" height="33"/>
                                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                                         <state key="normal" title="TOOLS">
                                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2689,7 +2688,7 @@
         <segue reference="Uko-dl-en4"/>
         <segue reference="fyt-Cy-pp8"/>
         <segue reference="L40-fc-b91"/>
-        <segue reference="olq-sv-gAr"/>
+        <segue reference="aJA-5G-D1v"/>
         <segue reference="HEU-xw-QdH"/>
         <segue reference="084-Qa-dKX"/>
         <segue reference="Gfr-8p-ORJ"/>

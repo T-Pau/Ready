@@ -46,8 +46,6 @@ extern int maincpu_running;
 
 extern void cartridge_trigger_freeze(void);
 
-extern void c64model_set(int model);
-
 extern int file_system_attach_disk(unsigned int unit, const char *filename);
 
 void joystick_set_value_absolute(unsigned int joyport, uint8_t value);
@@ -72,5 +70,8 @@ void update_light_pen(int x, int y, int width, int height, int button_1, int but
 
 const char *drive_get_status(int unit);
 void drive_set_id(int unit, uint8_t id1, uint8_t id2);
+
+
+void model_set(int model);
 
 #endif /* HAD_VICE_C64_H */

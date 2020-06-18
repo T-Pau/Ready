@@ -29,6 +29,12 @@
 #import "Emulator/Emulator.h"
 #import <Emulator/Emulator-Swift.h>
 
+#if VICE_C64
+#define ViceThread ViceThreadC64
+#elif VICE_VIC20
+#define ViceThread ViceThreadVIC20
+#endif
+
 @protocol ViceThreadDelegate
 @required
 - (NSString *_Nonnull)getDirectoryPath;

@@ -1,5 +1,10 @@
 #  TODO
 
+## framework restructuring
+
+- move Audio.m, ringbuffer.c to Emulator
+- split machine specific ui callbacks into their own files
+
 ## other
 
 - warn if media can't be used due to machine configuration

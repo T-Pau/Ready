@@ -7,9 +7,13 @@
 //
 
 import Foundation
-import CoreGraphics
+import UIKit
 
 public protocol Emulator: class {
+    var machine: Machine { get set }
+    var imageView: UIImageView? { get set }
+    var delegate: EmulatorDelegate? { get set }
+
     // trigger cartridge freeze function
     func freeze()
     
@@ -24,6 +28,10 @@ public protocol Emulator: class {
 
     // reset machine
     func reset()
+    
+    func start()
+    
+    func attach(drive: Int, image: DiskImage?)
 
     func joystick(_ index: Int, buttons: JoystickButtons)
     

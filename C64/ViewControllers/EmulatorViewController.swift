@@ -29,6 +29,7 @@ import MobileCoreServices
 import C64UIComponents
 import Emulator
 import Vice_C64
+import ViceVIC20
 
 class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, SeguePreparer, UIGestureRecognizerDelegate {
     enum SegueType: String {
@@ -83,7 +84,7 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
     var gameViewItem: GameViewItem?
     var toolsMode = false
     var selectedMedia: MediaItem?
-    var vice =  Vice()
+    var emulator: Emulator?
     var running = false
     var machine = Machine()
     
@@ -281,7 +282,13 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
             machine.autostart = false
         }
         
-        machine.vice = vice
+        switch machine.specification.computer.viceMachineModel.viceMachine {
+        case .c64:
+            emulator = Vice_C64.Vice()
+        case .vic:
+            emulator = ViceVIC20.Vice()
+        }
+        machine.vice = emulator
         
         _keyboardCommands.removeAll()
         preapareKeyPressTranslator()
@@ -343,7 +350,9 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
 
         if !toolsMode && machine.tapeImages.isEmpty && Defaults.standard.enableJiffyDOS {
             if let romC64 = Defaults.standard.biosJiffyDosC64 {
-                machine.resources[.KernalName] = .String(biosURL.appendingPathComponent(romC64).path)
+                if machine.specification.computer.viceMachineModel.viceMachine == .c64 {
+                    machine.resources[.KernalName] = .String(biosURL.appendingPathComponent(romC64).path)
+                }
                 if let rom1541 = Defaults.standard.biosJiffyDos1541 {
                     machine.resources[.DosName1541] = .String(biosURL.appendingPathComponent(rom1541).path)
                 }
@@ -365,9 +374,9 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
         
         machine.resources[.DriveSoundEmulation] = .Bool(Defaults.standard.emulateDriveSounds)
 
-        vice.machine = machine
-        vice.imageView = imageView
-        vice.delegate = self
+        emulator?.machine = machine
+        emulator?.imageView = imageView
+        emulator?.delegate = self
        
         if Defaults.standard.videoFilter == "None" {
             imageView.layer.magnificationFilter = .nearest
@@ -401,11 +410,11 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
         }
         
         running = true
-        vice.start()
+        emulator?.start()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        vice.quit()
+        emulator?.quit()
         running = false
     }
     
@@ -503,11 +512,11 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
     }
 
     @IBAction func freezeMachine(_ sender: Any) {
-        vice.freeze()
+        emulator?.freeze()
     }
 
     @IBAction func resetMachine(_ sender: Any) {
-        vice.reset()
+        emulator?.reset()
     }
     
     @objc func handleCapsLock(_ command: UIKeyCommand) {
@@ -518,27 +527,27 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
         // key commands repeat first after 401ms, then every 101ms
         
         if let binding = bindingFor(command: command) {
-            vice.press(key: binding.key)
+            emulator?.press(key: binding.key)
             if (binding.control) {
-                vice.press(key: .Control)
+                emulator?.press(key: .Control)
             }
             if (binding.shift) {
-                vice.press(key: .ShiftLeft)
+                emulator?.press(key: .ShiftLeft)
             }
             if (binding.commodore) {
-                vice.press(key: .Commodore)
+                emulator?.press(key: .Commodore)
             }
 
             Timer.scheduledTimer(withTimeInterval: 0.08, repeats: false) { timer in
-                self.vice.release(key: binding.key)
+                self.emulator?.release(key: binding.key)
                 if (binding.control) {
-                    self.vice.release(key: .Control)
+                    self.emulator?.release(key: .Control)
                 }
                 if (binding.shift) {
-                    self.vice.release(key: .ShiftLeft)
+                    self.emulator?.release(key: .ShiftLeft)
                 }
                 if (binding.commodore) {
-                    self.vice.release(key: .Commodore)
+                    self.emulator?.release(key: .Commodore)
                 }
             }
         }
@@ -578,19 +587,19 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
             }
 
         case .diskDrive8Control, .diskDrive9Control, .diskDrive10Control, .diskDrive11Control:
-            guard let destination = segue.destination as? SelectDiskViewController,
+            guard let destination = segue.destination as? SelectDiskViewController, let emulator = emulator,
                 let unit = segueType.unit else { return }
 
-            let drive = vice.machine.diskDrives[unit - 8]
+            let drive = emulator.machine.diskDrives[unit - 8]
             destination.drive = drive
             destination.unit = unit
-            destination.diskImages = vice.machine.diskImages.filter({ drive.supports(image: $0) })
+            destination.diskImages = emulator.machine.diskImages.filter({ drive.supports(image: $0) })
             destination.currentDiskImage = drive.image
             //destination.status = String(cString: drive_get_status(Int32(unit)))
 
             destination.changeCallback = { diskImage in
                 self.driveStatus[unit - 8].configureFrom(image: diskImage)
-                self.vice.attach(drive: unit, image: diskImage)
+                self.emulator?.attach(drive: unit, image: diskImage)
             }
             
         case .inputMapping:
@@ -626,15 +635,15 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
         if key == .ShiftLock {
             let lockKey = keyboardView.keyboard?.lockIsShift ?? true ? Key.ShiftLeft : Key.Commodore
             if keyboardView.isShiftLockPressed {
-                vice.release(key: lockKey)
+                emulator?.release(key: lockKey)
             }
             else {
-                vice.press(key: lockKey)
+                emulator?.press(key: lockKey)
             }
             keyboardView.isShiftLockPressed = !keyboardView.isShiftLockPressed
         }
         else {
-            vice.press(key: key)
+            emulator?.press(key: key)
         }
     }
     
@@ -642,7 +651,7 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
         if key == .ShiftLock {
             return
         }
-        vice.release(key: key)
+        emulator?.release(key: key)
     }
     
     // MARK: - Status Bar Handling
@@ -928,11 +937,11 @@ extension EmulatorViewController: KeyPressTranslatorDelegate {
     }
     
     func press(key: Key, delayed: Int) {
-        vice.press(key: key, delayed: delayed)
+        emulator?.press(key: key, delayed: delayed)
     }
     
     func release(key: Key, delayed: Int) {
-        vice.release(key: key, delayed: delayed)
+        emulator?.release(key: key, delayed: delayed)
     }
     
     override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {

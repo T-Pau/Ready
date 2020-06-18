@@ -126,6 +126,28 @@ void scpu64ui_shutdown(void) {
 }
 
 
+/** \brief  Initialize the UI
+ *
+ * \return  0 on success, -1 on failure
+ */
+int vic20ui_init(void) {
+    return 0;
+}
+
+
+/** \brief  Pre-initialize the UI before the canvas window gets created
+ *
+ * \return  0 on success, -1 on failure
+ */
+int vic20ui_init_early(void)
+{
+    return 0;
+}
+
+void vic20ui_shutdown(void) {
+}
+
+
 /** \brief  Initialize command line options (generic)
  *
  * \return  0 on success, -1 on failure
