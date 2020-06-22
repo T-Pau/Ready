@@ -179,7 +179,7 @@ extension MachineSpecification {
     }
     
     public var cassetteDrive: CasstteDrive {
-        guard computer.ports.contains(.cassetteDrive) else { return CasstteDrive.none }
+        guard computer.has(port: .cassetteDrive) else { return CasstteDrive.none }
         return CasstteDrive.drive(identifier: identifier(for: .cassetteDrive)) ?? CasstteDrive.none
     }
     
@@ -188,7 +188,7 @@ extension MachineSpecification {
     }
     
     public var controllers: [Controller] {
-        if computer.ports.contains(.controlPort2) {
+        if computer.has(port: .controlPort2) {
             return [ controller1, controller2 ]
         }
         else {
@@ -201,6 +201,7 @@ extension MachineSpecification {
     }
     
     public var controller2: Controller {
+        guard computer.has(port: .controlPort2) else { return Controller.none }
         return Controller.controller(identifier: identifier(for: .controlPort2)) ?? Controller.none
     }
 
@@ -212,7 +213,7 @@ extension MachineSpecification {
             keys.removeFirst()
         }
         for key in keys {
-            if computer.ports.contains(key) {
+            if computer.has(port: key) {
                 drives.append(DiskDrive.drive(identifier: identifier(for: key)) ?? DiskDrive.none)
             }
             else {
@@ -245,12 +246,11 @@ extension MachineSpecification {
     }
     
     public var userPortModule: UserPortModule {
-        guard computer.ports.contains(.userPort) else { return UserPortModule.none }
+        guard computer.has(port: .userPort) else { return UserPortModule.none }
         return UserPortModule.module(identifier: identifier(for: .userPort)) ?? UserPortModule.none
     }
     
     public func automount(images: [DiskImage]) -> ([DiskDrive], [DiskImage?]) {
-        let ports = computer.ports
         var drives = diskDrives
         var mountedImages = [DiskImage?](repeating: nil, count: drives.count)
 
@@ -269,7 +269,7 @@ extension MachineSpecification {
             if !mountable {
                 guard let newDrive = DiskDrive.getDriveSupporting(image: image) else { continue }
                 for index in drives.indices {
-                    if ports.contains(MachineConfig.diskDriveKeys[index]) && string(for: MachineConfig.diskDriveKeys[index]) == "auto" {
+                    if computer.has(port: MachineConfig.diskDriveKeys[index]) && string(for: MachineConfig.diskDriveKeys[index]) == "auto" {
                         if !drives[index].hasStatus {
                             drives[index] = newDrive
                             mountedImages[index] = image
@@ -377,6 +377,8 @@ extension MachineSpecification {
             
         case .borderMode, .singularAdapterMode:
             return DummyMachinePart.none
+        case .screen:
+            return DummyMachinePart.none // TODO
         }
     }
 

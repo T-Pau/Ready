@@ -1,5 +1,5 @@
 /*
- CartridgeImage.swift -- Access Tape Images
+ TapeImage.swift -- Access Tape Images
  Copyright (C) 2019 Dieter Baron
  
  This file is part of C64, a Commodore 64 emulator for iOS, based on VICE.

@@ -23,35 +23,109 @@
 
 import UIKit
 
+public struct Keyboard {
+    private struct Span {
+        var left: Int
+        var right: Int
+        var keys: [Key]
+        
+        func hit(_ point: CGPoint) -> Key? {
+            guard (Int(point.x) >= left && Int(point.x) < Int(right)) else { return nil }
+            let idx = (Int(point.x) - left) * keys.count / (right - left)
+            return keys[idx]
+        }
+    }
+    
+    private struct Row {
+        var top: Int
+        var bottom: Int
+        var spans: [Span]
+        
+        func hit(_ point: CGPoint) -> Key? {
+            guard (Int(point.y) >= top && Int(point.y) < bottom) else { return nil }
+            for span in spans {
+                if let key = span.hit(point) {
+                    return key
+                }
+            }
+            
+            return nil
+        }
+    }
+    
+    private struct Layout {
+        var rows: [Row]
+        
+        func hit(_ point: CGPoint) -> Key? {
+            for row in rows {
+                if let key = row.hit(point) {
+                    return key
+                }
+            }
+            
+            return nil
+        }
+    }
 
-public struct Keyboard: Codable {
     public var imageName: String
-    public var lockIsShift: Bool
+    public var toggleKeys: [Key: String]
+    public var keyboardSymbols: KeyboardSymbols
     
-    public var rows: [CGFloat]
+    public func hit(_ point: CGPoint) -> Key? {
+        return layout.hit(point)
+    }
     
-    public var topHalfLeft: CGFloat
-    public var topHalfRight: CGFloat
-    public var bottomHalfLeft: CGFloat
-    public var bottomHalfRight: CGFloat
-    
-    public var functionKeysLeft: CGFloat
-    public var functionKeysRight: CGFloat
-    
-    public var spaceLeft: CGFloat
-    public var spaceRight: CGFloat
-    
-    public var ctrlRight: CGFloat
-    public var restoreLeft: CGFloat
-    public var returnLeft: CGFloat
-    public var leftShiftLeft: CGFloat
-    public var leftShiftRight: CGFloat
-    public var rightShiftLeft: CGFloat
-    public var rightShiftRight: CGFloat
+    private var layout: Layout
+       
+    private init(c64ImageName: String, lockIsShift: Bool = true, rows: [Int], topHalfLeft: Int, topHalfRight: Int, bottomHalfLeft: Int, bottomHalfRight: Int, functionKeysLeft: Int, functionKeysRight: Int, spaceLeft: Int, spaceRight: Int, ctrlRight: Int, restoreLeft: Int, returnLeft: Int, leftShiftLeft: Int, leftShiftRight: Int, rightShiftLeft: Int, rightShiftRight: Int) {
+        self.imageName = c64ImageName
+        if lockIsShift {
+            self.toggleKeys = [.ShiftLock: c64ImageName + " ShiftLock"]
+        }
+        else {
+            self.toggleKeys = [.CommodoreLock: c64ImageName + " ShiftLock"]
+        }
+        self.layout = Layout(rows: [
+            Row(top: rows[0], bottom: rows[1], spans: [
+                Span(left: topHalfLeft, right: topHalfRight, keys: [
+                    .ArrowLeft, .Char("1"), .Char("2"), .Char("3"), .Char("4"), .Char("5"), .Char("6"), .Char("7"), .Char("8"), .Char("9"), .Char("0"), .Char("+"), .Char("-"), .Char("£"), .ClearHome, .InsertDelete
+                ]),
+                Span(left: functionKeysLeft, right: functionKeysRight, keys: [.F1])
+            ]),
+            Row(top: rows[1], bottom: rows[2], spans: [
+                Span(left: topHalfLeft, right: ctrlRight, keys: [.Control]),
+                Span(left: ctrlRight, right: restoreLeft, keys: [
+                    .Char("q"), .Char("w"), .Char("e"), .Char("r"), .Char("t"), .Char("y"), .Char("u"), .Char("i"), .Char("o"), .Char("p"), .Char("@"), .Char("*"), .ArrowUp
+                ]),
+                Span(left: restoreLeft, right: topHalfRight, keys: [.Restore]),
+                Span(left: functionKeysLeft, right: functionKeysRight, keys: [.F3])
+            ]),
+            Row(top: rows[2], bottom: rows[3], spans: [
+                Span(left: bottomHalfLeft, right: returnLeft, keys: [
+                    .RunStop, .ShiftLock, .Char("a"), .Char("s"), .Char("d"), .Char("f"), .Char("g"), .Char("h"), .Char("j"), .Char("k"), .Char("l"), .Char(":"), .Char(";"), .Char("=")
+                ]),
+                Span(left: returnLeft, right: bottomHalfRight, keys: [.Return]),
+                Span(left: functionKeysLeft, right: functionKeysRight, keys: [.F5])
+            ]),
+            Row(top: rows[3], bottom: rows[4], spans: [
+                Span(left: bottomHalfLeft, right: leftShiftLeft, keys: [.Commodore]),
+                Span(left: leftShiftLeft, right: leftShiftRight, keys: [.ShiftLeft]),
+                Span(left: leftShiftRight, right: rightShiftLeft, keys: [
+                    .Char("z"), .Char("x"), .Char("c"), .Char("v"), .Char("b"), .Char("n"), .Char("m"), .Char(","), .Char("."), .Char("/"),
+                ]),
+                Span(left: rightShiftLeft, right: rightShiftRight, keys: [.ShiftRight]),
+                Span(left: rightShiftRight, right: bottomHalfRight, keys: [.CursorUpDown, .CursorLeftRight]),
+                Span(left: functionKeysLeft, right: functionKeysRight, keys: [.F7])
+            ]),
+            Row(top: rows[4], bottom: rows[5], spans: [
+                Span(left: spaceLeft, right: spaceRight, keys: [.Char(" ")])
+            ])
+        ])
+        self.keyboardSymbols = KeyboardSymbols.c64
+    }
 
-    private static var keyboards = [
-        "C64 Keyboard": Keyboard(imageName: "C64 Keyboard",
-                                 lockIsShift: true,
+    private static var keyboards: [String: Keyboard] = [
+        "C64 Keyboard": Keyboard(c64ImageName: "C64 Keyboard",
                                  rows: [ 69, 257, 446, 635, 824, 1012 ],
                                  topHalfLeft: 100,
                                  topHalfRight: 3034,
@@ -68,7 +142,7 @@ public struct Keyboard: Codable {
                                  leftShiftRight: 559,
                                  rightShiftLeft: 2341,
                                  rightShiftRight: 2681),
-        "C64 Keyboard Japanese": Keyboard(imageName: "C64 Keyboard Japanese",
+        "C64 Keyboard Japanese": Keyboard(c64ImageName: "C64 Keyboard Japanese",
                                  lockIsShift: false,
                                  rows: [ 70, 263, 457, 650, 843, 1027 ],
                                  topHalfLeft: 97,
@@ -86,8 +160,7 @@ public struct Keyboard: Codable {
                                  leftShiftRight: 524,
                                  rightShiftLeft: 2436,
                                  rightShiftRight: 2723),
-        "C64C Keyboard": Keyboard(imageName: "C64C Keyboard",
-                                  lockIsShift: true,
+        "C64C Keyboard": Keyboard(c64ImageName: "C64C Keyboard",
                                   rows: [ 69, 257, 446, 635, 824, 1012 ],
                                   topHalfLeft: 100,
                                   topHalfRight: 3034,
@@ -104,8 +177,7 @@ public struct Keyboard: Codable {
                                   leftShiftRight: 559,
                                   rightShiftLeft: 2341,
                                   rightShiftRight: 2681),
-        "C64C New Keyboard": Keyboard(imageName: "C64C New Keyboard",
-                                  lockIsShift: true,
+        "C64C New Keyboard": Keyboard(c64ImageName: "C64C New Keyboard",
                                   rows: [ 50, 233, 402, 571, 746, 917 ],
                                   topHalfLeft: 97,
                                   topHalfRight: 2853,
@@ -122,8 +194,7 @@ public struct Keyboard: Codable {
                                   leftShiftRight: 477,
                                   rightShiftLeft: 2215,
                                   rightShiftRight: 2476),
-        "Max Keyboard": Keyboard(imageName: "Max Keyboard",
-                                  lockIsShift: true,
+        "Max Keyboard": Keyboard(c64ImageName: "Max Keyboard",
                                   rows: [ 32, 217, 400, 588, 780, 972 ],
                                   topHalfLeft: 39,
                                   topHalfRight: 3058,
@@ -140,8 +211,7 @@ public struct Keyboard: Codable {
                                   leftShiftRight: 517,
                                   rightShiftLeft: 2390,
                                   rightShiftRight: 2671),
-        "PET Style Keyboard": Keyboard(imageName: "PET Style Keyboard",
-                                 lockIsShift: true,
+        "PET Style Keyboard": Keyboard(c64ImageName: "PET Style Keyboard",
                                  rows: [ 44, 194, 338, 485, 631, 772 ],
                                  topHalfLeft: 66,
                                  topHalfRight: 2388,
@@ -158,8 +228,7 @@ public struct Keyboard: Codable {
                                  leftShiftRight: 391,
                                  rightShiftLeft: 1853,
                                  rightShiftRight: 2071),
-        "SX64 Keyboard": Keyboard(imageName: "SX64 Keyboard",
-                                  lockIsShift: true,
+        "SX64 Keyboard": Keyboard(c64ImageName: "SX64 Keyboard",
                                   rows: [ 69, 269, 469, 669, 869, 1060 ],
                                   topHalfLeft: 90,
                                   topHalfRight: 3229,
@@ -176,8 +245,7 @@ public struct Keyboard: Codable {
                                   leftShiftRight: 580,
                                   rightShiftLeft: 2543,
                                   rightShiftRight: 2837),
-        "VIC-20 Keyboard": Keyboard(imageName: "VIC-20 Keyboard",
-                                 lockIsShift: true,
+        "VIC-20 Keyboard": Keyboard(c64ImageName: "VIC-20 Keyboard",
                                  rows: [ 69, 257, 446, 635, 824, 1012 ],
                                  topHalfLeft: 100,
                                  topHalfRight: 3034,

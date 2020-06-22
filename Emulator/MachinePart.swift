@@ -1,6 +1,6 @@
 /*
- MachinePart.swift
- Copyright (C) 2019 Dieter Baron
+ MachinePart.swift -- Static information about a Device
+ Copyright (C) 2019-2020 Dieter Baron
  
  This file is part of C64, a Commodore 64 emulator for iOS, based on VICE.
  The authors can be contacted at <c64@spiderlab.at>
@@ -35,12 +35,23 @@ public protocol MachinePart {
     var icon: UIImage? { get }
     var smallIcon: UIImage? { get }
     var priority: Int { get }
+    var ports: [Port] { get }
+    var connector: ConnectorType { get }
 }
 
 extension MachinePart {
     public var fullName: String { return name }
     public var smallIcon: UIImage? { return icon  }
     public var variantName: String? { return nil }
+    public var ports: [Port] { return [] }
+    
+    public func isCompatible(with port: Port) -> Bool {
+        return connector == .none || port.connectorTypes.contains(connector)
+    }
+    
+    public func has(port: MachineConfig.Key) -> Bool {
+        return ports.contains(where: { $0.key == port })
+    }
 }
 
 public struct MachinePartSection {

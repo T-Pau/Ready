@@ -61,11 +61,14 @@ public struct OtherCartridge: Cartridge {
     public var variantName: String?
     public var icon: UIImage?
     public var priority: Int
+    public var connector: ConnectorType
+
+
     public var resources: [Machine.ResourceName: Machine.ResourceValue]
     public var numberOfSlots: Int
     public var cartridgeType: CartridgeType
     
-    public init(identifier: String, name: String, fullName: String? = nil, variantName: String? = nil, iconName: String?, priority: Int = MachinePartNormalPriority, cartridgeType: CartridgeType, numberOfSlots: Int = 0, resources: [Machine.ResourceName: Machine.ResourceValue]) {
+    public init(identifier: String, name: String, fullName: String? = nil, variantName: String? = nil, iconName: String?, priority: Int = MachinePartNormalPriority, connector: ConnectorType = .c64ExpansionPort, cartridgeType: CartridgeType, numberOfSlots: Int = 0, resources: [Machine.ResourceName: Machine.ResourceValue]) {
         self.identifier = identifier
         self.name = name
         self.fullName = fullName ?? name
@@ -74,6 +77,7 @@ public struct OtherCartridge: Cartridge {
         }
         self.variantName = variantName
         self.priority = priority
+        self.connector = connector
         self.resources = resources
         self.cartridgeType = cartridgeType
         self.numberOfSlots = numberOfSlots

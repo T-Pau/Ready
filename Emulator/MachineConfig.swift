@@ -24,7 +24,7 @@
 import Foundation
 
 public struct MachineConfig: ExpressibleByDictionaryLiteral {
-    public enum Key: String, CaseIterable {
+    public enum Key: String, CaseIterable, CodingKey {
         case borderMode
         case cassetteDrive
         case computer
@@ -37,6 +37,7 @@ public struct MachineConfig: ExpressibleByDictionaryLiteral {
         case expansionPort
         case expansionPort1
         case expansionPort2
+        case screen
         case singularAdapterMode
         case userPortJoystick1
         case userPortJoystick2
@@ -249,14 +250,6 @@ public struct MachineConfig: ExpressibleByDictionaryLiteral {
         .userPortJoystick1: .string("Competition Pro"),
         .userPortJoystick2: .string("Competition Pro")
     ]
-    
-    private struct ValueCodingKey: CodingKey {
-        init?(stringValue: String) { self.stringValue = stringValue }
-        let stringValue: String
-        
-        init?(intValue: Int) { return nil }
-        var intValue: Int? { return nil }
-    }
     
     public init() {
     }

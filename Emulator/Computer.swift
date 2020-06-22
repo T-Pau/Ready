@@ -24,9 +24,40 @@
 import UIKit
 
 public struct Computer: MachinePart {
-    public enum ViceMachine {
+    public enum ComputerType {
         case c64
         case vic
+        
+        var ports: [Port] {
+            switch self {
+            case .c64:
+                return [
+                    Port(name: "Screen", key: .screen, connectorTypes: [.videoComponent], iconWidth: 2, iconHeight: 2),
+                    Port(name: "User Port", key: .userPort, connectorTypes: [.c64UserPort]),
+                    Port(name: "Cassette", key: .cassetteDrive, connectorTypes: [.commodoreTape]),
+                    Port(name: "Cartridge", key: .expansionPort, connectorTypes: [.c64ExpansionPort]),
+                    Port(name: "Disk Drive 8", key: .diskDrive8, connectorTypes: [.commodoreIEC], iconWidth: 2),
+                    Port(name: "Disk Drive 9", key: .diskDrive9, connectorTypes: [.commodoreIEC], iconWidth: 2),
+                    Port(name: "Disk Drive 10", key: .diskDrive10, connectorTypes: [.commodoreIEC], iconWidth: 2),
+                    Port(name: "Disk Drive 11", key: .diskDrive11, connectorTypes: [.commodoreIEC], iconWidth: 2),
+                    Port(name: "Control Port 1", key: .controlPort1, connectorTypes: [.atariJoystick, .atariJoystickAnalog, .c64JoystickLightpen]),
+                    Port(name: "Control Port 2", key: .controlPort2, connectorTypes: [.atariJoystick, .atariJoystickAnalog])
+                ]
+                
+            case .vic:
+                return [
+                    Port(name: "Screen", key: .screen, connectorTypes: [.videoComponent], iconWidth: 2, iconHeight: 2),
+                    Port(name: "User Port", key: .userPort, connectorTypes: [.c64UserPort]),
+                    Port(name: "Cassette", key: .cassetteDrive, connectorTypes: [.commodoreTape]),
+                    Port(name: "Cartridge", key: .expansionPort, connectorTypes: [.vic20ExpansionPort]),
+                    Port(name: "Disk Drive 8", key: .diskDrive8, connectorTypes: [.commodoreIEC], iconWidth: 2),
+                    Port(name: "Disk Drive 9", key: .diskDrive9, connectorTypes: [.commodoreIEC], iconWidth: 2),
+                    Port(name: "Disk Drive 10", key: .diskDrive10, connectorTypes: [.commodoreIEC], iconWidth: 2),
+                    Port(name: "Disk Drive 11", key: .diskDrive11, connectorTypes: [.commodoreIEC], iconWidth: 2),
+                    Port(name: "Control Port", key: .controlPort1, connectorTypes: [.atariJoystick, .atariJoystickAnalog]) // TODO: lightpen?
+                ]
+            }
+        }
     }
     
     public enum ViceModel: String {
@@ -47,7 +78,7 @@ public struct Computer: MachinePart {
         case vic20Pal
         case vic20Ntsc
 
-        public var viceMachine: ViceMachine {
+        public var viceMachine: ComputerType {
             switch self {
             case .c64cNtsc, .c64cPal, .c64Japanese, .c64Gs, .c64Ntsc, .c64OldNtsc, .c64OldPal, .c64Pal, .c64PalN, .pet64Ntsc, .pet64Pal, .sx64Ntsc, .sx64Pal, .ultimax:
                 return .c64
@@ -101,10 +132,12 @@ public struct Computer: MachinePart {
     public var icon: UIImage? = nil
     public var priority: Int
     
+    public var connector: ConnectorType { return .computer }
+    public var ports: [Port]
+
     public var viceMachineModel: ViceModel
     public var caseColor: UIColor
     public var keyboard: Keyboard?
-    public var ports: Set<MachineConfig.Key>
     public var drive8: DiskDrive?
     public var chargenName: String
     
@@ -127,12 +160,15 @@ public struct Computer: MachinePart {
         if let keyboardName = keyboardName {
             self.keyboard = Keyboard.keyboard(named: keyboardName)
         }
-        self.ports = [ .cassetteDrive, .controlPort1, .controlPort2, .diskDrive8, .diskDrive9, .diskDrive10, .diskDrive11, .expansionPort, .userPort ]
+        self.ports = viceMachineModel.viceMachine.ports
+
         self.drive8 = drive8
         if drive8 != nil {
-            self.ports.remove(.diskDrive8)
+            ports.removeAll(where: { $0.key == .diskDrive8 })
         }
-        self.ports.subtract(missingPorts)
+        for port in missingPorts {
+            ports.removeAll(where: { $0.key == port })
+        }
         self.chargenName = chargenName
     }
     
@@ -311,6 +347,7 @@ public struct Computer: MachinePart {
                      caseColorName: "C64 GS Case",
                      missingPorts: [ .cassetteDrive, .diskDrive8, .diskDrive9, .diskDrive10, .diskDrive11, .userPort ])
             ]),
+        
         MachinePartSection(title: "Commodore VIC-20", parts: [
             Computer(identifier: "VIC-20 PAL",
                      name: "Commodore VIC-20 (PAL)",
@@ -319,10 +356,7 @@ public struct Computer: MachinePart {
                      iconName: "Commodore 64 VIC-20", // TODO: own icon
                      viceMachineModel: .vic20Pal,
                      keyboardName: "VIC-20 Keyboard",
-                     caseColorName: "C64C Case",
-                     // TODO: chargen
-                     // TODO: disable expansion port until we have support for VIC-20 cartridges
-                     missingPorts: [ .controlPort2, .expansionPort ]),
+                     caseColorName: "C64C Case"),
             
             Computer(identifier: "VIC-20 NTSC",
                      name: "Commodore VIC-20 (NTSC)",
@@ -331,10 +365,7 @@ public struct Computer: MachinePart {
                      iconName: "Commodore 64 VIC-20", // TODO: own icon
                      viceMachineModel: .vic20Ntsc,
                      keyboardName: "VIC-20 Keyboard",
-                     caseColorName: "C64C Case",
-                     // TODO: chargen
-                     // TODO: disable expansion port until we have support for VIC-20 cartridges
-                     missingPorts: [ .controlPort2, .expansionPort ])
+                     caseColorName: "C64C Case")
         ])
    ])
     

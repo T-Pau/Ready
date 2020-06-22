@@ -91,138 +91,7 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
     private var controllers = [GCController : MfiInputDevice]()
     
     private var keyPressTranslator: KeyPressTranslator?
-
-    struct Binding {
-        var key: Key
-        var shift: Bool
-        var control: Bool
-        var commodore: Bool
         
-        init(key: Key, shift: Bool = false, control: Bool = false, commodore: Bool = false) {
-            self.key = key
-            self.shift = shift
-            self.control = control
-            self.commodore = commodore
-        }
-    }
-
-    struct KeyBinding {
-        var input: String
-        var modifierFlags: UIKeyModifierFlags
-        var title: String?
-        var binding: Binding
-        
-        init(input: String, modifierFlags: UIKeyModifierFlags = [], title: String? = nil, binding: Binding? = nil) {
-            self.input = input
-            self.modifierFlags = modifierFlags
-            self.title = title
-            if let binding = binding {
-                self.binding = binding
-            }
-            else {
-                self.binding = Binding(key: .Char(input.first!))
-            }
-        }
-    }
-
-    let bindings: [KeyBinding] = [
-        KeyBinding(input: "1", modifierFlags: [.command], title: "F1", binding: Binding(key: .F1)),
-        KeyBinding(input: "2", modifierFlags: [.command], title: "F2", binding: Binding(key: .F1, shift: true)),
-        KeyBinding(input: "3", modifierFlags: [.command], title: "F3", binding: Binding(key: .F3)),
-        KeyBinding(input: "4", modifierFlags: [.command], title: "F4", binding: Binding(key: .F3, shift: true)),
-        KeyBinding(input: "5", modifierFlags: [.command], title: "F5", binding: Binding(key: .F5)),
-        KeyBinding(input: "6", modifierFlags: [.command], title: "F6", binding: Binding(key: .F5, shift: true)),
-        KeyBinding(input: "7", modifierFlags: [.command], title: "F7", binding: Binding(key: .F7)),
-        KeyBinding(input: "8", modifierFlags: [.command], title: "F8", binding: Binding(key: .F7, shift: true)),
-        
-        KeyBinding(input: "\t", title: "Run/Stop", binding: Binding(key: .RunStop)),
-        KeyBinding(input: "\t", modifierFlags: [.shift], binding: Binding(key: .RunStop, shift: true)),
-        KeyBinding(input: "\\", title: "Restore", binding: Binding(key: .Restore)),
-        KeyBinding(input: "`", title: "←", binding: Binding(key: .ArrowLeft)),
-        KeyBinding(input: "~", binding: Binding(key: .ArrowLeft, shift: true)),
-
-//        KeyBinding(input: "\u{f704}", binding: Binding(key: .F1)), // doesn't work
-//        KeyBinding(input: "7", modifierFlags: [.numericPad], binding: Binding(key: .F7)),
-
-        KeyBinding(input: "1"),
-        KeyBinding(input: "2"),
-        KeyBinding(input: "3"),
-        KeyBinding(input: "4"),
-        KeyBinding(input: "5"),
-        KeyBinding(input: "6"),
-        KeyBinding(input: "7"),
-        KeyBinding(input: "8"),
-        KeyBinding(input: "9"),
-        KeyBinding(input: "0"),
-        KeyBinding(input: "+"),
-        KeyBinding(input: "-"),
-        KeyBinding(input: "3", modifierFlags: [.alternate], title: "£", binding: Binding(key: .Char("£"))),
-        KeyBinding(input: "\u{8}", binding: Binding(key: .InsertDelete)),
-        
-        KeyBinding(input: "!", binding: Binding(key: .Char("1"), shift: true)),
-        KeyBinding(input: "\"", binding: Binding(key: .Char("2"), shift: true)),
-        KeyBinding(input: "#", binding: Binding(key: .Char("3"), shift: true)),
-        KeyBinding(input: "$", binding: Binding(key: .Char("4"), shift: true)),
-        KeyBinding(input: "%", binding: Binding(key: .Char("5"), shift: true)),
-        KeyBinding(input: "&", binding: Binding(key: .Char("6"), shift: true)),
-        KeyBinding(input: "'", binding: Binding(key: .Char("7"), shift: true)),
-        KeyBinding(input: "(", binding: Binding(key: .Char("8"), shift: true)),
-        KeyBinding(input: ")", binding: Binding(key: .Char("9"), shift: true)),
-
-        KeyBinding(input: "1", modifierFlags: [.control], binding: Binding(key: .Char("1"), control: true)),
-        KeyBinding(input: "2", modifierFlags: [.control], binding: Binding(key: .Char("2"), control: true)),
-        KeyBinding(input: "3", modifierFlags: [.control], binding: Binding(key: .Char("3"), control: true)),
-        KeyBinding(input: "4", modifierFlags: [.control], binding: Binding(key: .Char("4"), control: true)),
-        KeyBinding(input: "5", modifierFlags: [.control], binding: Binding(key: .Char("5"), control: true)),
-        KeyBinding(input: "6", modifierFlags: [.control], binding: Binding(key: .Char("6"), control: true)),
-        KeyBinding(input: "7", modifierFlags: [.control], binding: Binding(key: .Char("7"), control: true)),
-        KeyBinding(input: "8", modifierFlags: [.control], binding: Binding(key: .Char("8"), control: true)),
-        KeyBinding(input: "9", modifierFlags: [.control], binding: Binding(key: .Char("9"), control: true)),
-        KeyBinding(input: "0", modifierFlags: [.control], binding: Binding(key: .Char("0"), control: true)),
-
-        KeyBinding(input: "1", modifierFlags: [.alphaShift], binding: Binding(key: .Char("1"), commodore: true)),
-        KeyBinding(input: "2", modifierFlags: [.alphaShift], binding: Binding(key: .Char("2"), commodore: true)),
-        KeyBinding(input: "3", modifierFlags: [.alphaShift], binding: Binding(key: .Char("3"), commodore: true)),
-        KeyBinding(input: "4", modifierFlags: [.alphaShift], binding: Binding(key: .Char("4"), commodore: true)),
-        KeyBinding(input: "5", modifierFlags: [.alphaShift], binding: Binding(key: .Char("5"), commodore: true)),
-        KeyBinding(input: "6", modifierFlags: [.alphaShift], binding: Binding(key: .Char("6"), commodore: true)),
-        KeyBinding(input: "7", modifierFlags: [.alphaShift], binding: Binding(key: .Char("7"), commodore: true)),
-        KeyBinding(input: "8", modifierFlags: [.alphaShift], binding: Binding(key: .Char("8"), commodore: true)),
-
-        KeyBinding(input: "@"),
-        KeyBinding(input: "*"),
-        KeyBinding(input: "p", modifierFlags: [.alternate], title: "π", binding: Binding(key: .ArrowUp, shift: true)),
-        
-        KeyBinding(input: ":"),
-        KeyBinding(input: ";"),
-        KeyBinding(input: "="),
-        KeyBinding(input: "\r", binding: Binding(key: .Return)),
-
-        KeyBinding(input: "[", binding: Binding(key: .Char(":"), shift: true)),
-        KeyBinding(input: "]", binding: Binding(key: .Char(";"), shift: true)),
-
-        KeyBinding(input: ","),
-        KeyBinding(input: "."),
-        KeyBinding(input: "/"),
-        KeyBinding(input: UIKeyCommand.inputDownArrow, binding: Binding(key: .CursorUpDown)),
-        KeyBinding(input: UIKeyCommand.inputRightArrow, binding: Binding(key: .CursorLeftRight)),
-
-        KeyBinding(input: "<", binding: Binding(key: .Char(","), shift: true)),
-        KeyBinding(input: ">", binding: Binding(key: .Char("."), shift: true)),
-        KeyBinding(input: "?", binding: Binding(key: .Char("/"), shift: true)),
-        KeyBinding(input: UIKeyCommand.inputUpArrow, binding: Binding(key: .CursorUpDown, shift: true)),
-        KeyBinding(input: UIKeyCommand.inputLeftArrow, binding: Binding(key: .CursorLeftRight, shift: true)),
-        
-        KeyBinding(input: "", modifierFlags: [.alphaShift], title: "Commodore", binding: Binding(key: .Commodore)),
-        KeyBinding(input: "", modifierFlags: [.shift, .alphaShift], binding: Binding(key: .Commodore, shift: true)),
-        
-        KeyBinding(input: " ")
-    ]
-    
-    var boundKeyCommands = [UIKeyCommand : Binding]()
-    
-    var capsLockPressed = false
-    
     override func viewSafeAreaInsetsDidChange() {
         safeInsetHeight.constant = view.safeAreaInsets.bottom
     }
@@ -429,44 +298,6 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
             if machine.cartridgeImage?.type.hasFreeze ?? false {
                 _keyboardCommands.append(UIKeyCommand(title: "Freeze", action: #selector(freezeMachine(_:)), input: "z", modifierFlags: .command, discoverabilityTitle: "Freeze"))
             }
-
-#if false
-            if machine.specification.computer.keyboard != nil {
-                let capsLockAsCommodore = Defaults.standard.capsLockAsCommodore
-
-                var modifiers: [UIKeyModifierFlags] = [[], [.shift]]
-                
-                if capsLockAsCommodore {
-                    modifiers.append([.alphaShift])
-                }
-                for key in [ "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" ] {
-                    for modifier in modifiers {
-                        _keyboardCommands.append(UIKeyCommand(input: key, modifierFlags: modifier, action: #selector(handleKeyCommand(_:))))
-                    }
-                }
-                
-                
-                for keyBinding in bindings {
-                    if !capsLockAsCommodore && keyBinding.modifierFlags.contains(.alphaShift) {
-                        continue
-                    }
-                    
-                    let command: UIKeyCommand
-                    if let title = keyBinding.title {
-                        command = UIKeyCommand(input: keyBinding.input, modifierFlags: keyBinding.modifierFlags, action: #selector(handleKeyCommand(_:)), discoverabilityTitle: title)
-                    }
-                    else {
-                        command = UIKeyCommand(input: keyBinding.input, modifierFlags: keyBinding.modifierFlags, action: #selector(handleKeyCommand(_:)))
-                    }
-                    boundKeyCommands[command] = keyBinding.binding
-                    _keyboardCommands.append(command)
-                }
-                
-                if !capsLockAsCommodore {
-                    _keyboardCommands.append(UIKeyCommand(input: "", modifierFlags: [.alphaShift], action: #selector(handleCapsLock(_:))))
-                }
-            }
-#endif
         }
         return _keyboardCommands
     }
@@ -518,57 +349,7 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
     @IBAction func resetMachine(_ sender: Any) {
         emulator?.reset()
     }
-    
-    @objc func handleCapsLock(_ command: UIKeyCommand) {
-        capsLockPressed = !capsLockPressed
-    }
-    
-    @objc func handleKeyCommand(_ command: UIKeyCommand) {
-        // key commands repeat first after 401ms, then every 101ms
         
-        if let binding = bindingFor(command: command) {
-            emulator?.press(key: binding.key)
-            if (binding.control) {
-                emulator?.press(key: .Control)
-            }
-            if (binding.shift) {
-                emulator?.press(key: .ShiftLeft)
-            }
-            if (binding.commodore) {
-                emulator?.press(key: .Commodore)
-            }
-
-            Timer.scheduledTimer(withTimeInterval: 0.08, repeats: false) { timer in
-                self.emulator?.release(key: binding.key)
-                if (binding.control) {
-                    self.emulator?.release(key: .Control)
-                }
-                if (binding.shift) {
-                    self.emulator?.release(key: .ShiftLeft)
-                }
-                if (binding.commodore) {
-                    self.emulator?.release(key: .Commodore)
-                }
-            }
-        }
-    }
-    
-    func bindingFor(command: UIKeyCommand) -> Binding? {
-        if let binding = boundKeyCommands[command] {
-            return binding
-        }
-        
-        guard let input = command.input else { return nil }
-        
-        if input >= "a" && input <= "z" && input.count == 1 {
-            if let char = input.first {
-                return Binding(key: .Char(char), shift: capsLockPressed || command.modifierFlags.contains(.shift), control: command.modifierFlags.contains(.control), commodore: command.modifierFlags.contains(.alphaShift))
-            }
-        }
-        
-        return nil
-    }
-    
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -632,25 +413,10 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
     // MARK: - KeyboardViewDelegate
     
     func pressed(key: Key) {
-        if key == .ShiftLock {
-            let lockKey = keyboardView.keyboard?.lockIsShift ?? true ? Key.ShiftLeft : Key.Commodore
-            if keyboardView.isShiftLockPressed {
-                emulator?.release(key: lockKey)
-            }
-            else {
-                emulator?.press(key: lockKey)
-            }
-            keyboardView.isShiftLockPressed = !keyboardView.isShiftLockPressed
-        }
-        else {
-            emulator?.press(key: key)
-        }
+        emulator?.press(key: key)
     }
     
     func released(key: Key) {
-        if key == .ShiftLock {
-            return
-        }
         emulator?.release(key: key)
     }
     
@@ -828,111 +594,16 @@ extension EmulatorViewController {
 
 extension EmulatorViewController: KeyPressTranslatorDelegate {
     func preapareKeyPressTranslator() {
-        if machine.specification.computer.keyboard == nil {
-            keyPressTranslator = nil
+        if var keyboardSymbols = machine.specification.computer.keyboard?.keyboardSymbols {
+            // TODO: only for Commodore machines, better moved into Keyboard?
+            if Defaults.standard.capsLockAsCommodore {
+                keyboardSymbols.modifierMap[.keyboardCapsLock] = .Commodore
+            }
+            keyPressTranslator = KeyPressTranslator(keyboardSymbols: keyboardSymbols)
+            keyPressTranslator?.delegate = self
         }
         else {
-            // TODO: move elsewhere (allow different keyboards)
-            var modifierMap: [UIKeyboardHIDUsage: Key] = [
-                .keyboardLeftShift: .ShiftLeft,
-                .keyboardRightShift: .ShiftRight,
-                .keyboardLeftControl: .Control,
-                .keyboardRightControl: .Control,
-                UIKeyboardHIDUsage(rawValue: 669)!: .Commodore
-            ]
-            
-            if Defaults.standard.capsLockAsCommodore {
-                modifierMap[.keyboardCapsLock] = .ShiftLock
-            }
-            else {
-                modifierMap[.keyboardCapsLock] = .Commodore
-            }
-            
-            let symbolRemap = [
-                ModifiedSymbol(symbol: .char("1"), modifiers: .command): ModifiedSymbol(symbol: .key(.keyboardF1)),
-                ModifiedSymbol(symbol: .char("2"), modifiers: .command): ModifiedSymbol(symbol: .key(.keyboardF2)),
-                ModifiedSymbol(symbol: .char("3"), modifiers: .command): ModifiedSymbol(symbol: .key(.keyboardF3)),
-                ModifiedSymbol(symbol: .char("4"), modifiers: .command): ModifiedSymbol(symbol: .key(.keyboardF4)),
-                ModifiedSymbol(symbol: .char("5"), modifiers: .command): ModifiedSymbol(symbol: .key(.keyboardF5)),
-                ModifiedSymbol(symbol: .char("6"), modifiers: .command): ModifiedSymbol(symbol: .key(.keyboardF6)),
-                ModifiedSymbol(symbol: .char("7"), modifiers: .command): ModifiedSymbol(symbol: .key(.keyboardF7)),
-                ModifiedSymbol(symbol: .char("8"), modifiers: .command): ModifiedSymbol(symbol: .key(.keyboardF8)),
-                ModifiedSymbol(symbol: .key(.keyboardDeleteOrBackspace), modifiers: .command): ModifiedSymbol(symbol: .key(.keyboardHome)),
-                ModifiedSymbol(symbol: .key(.keyboardDeleteOrBackspace), modifiers: [.shift, .command]): ModifiedSymbol(symbol: .key(.keyboardHome), modifiers: .shift)
-            ]
-            
-            let keyMap: [Key: KeySymbols] = [
-                .ArrowLeft: KeySymbols(normal: .char("`"), shifted: .char("~")),
-                .Char("1"): KeySymbols(normal: .char("1"), shifted: .char("!")),
-                .Char("2"): KeySymbols(normal: .char("2"), shifted: .char("\"")),
-                .Char("3"): KeySymbols(normal: .char("3"), shifted: .char("#")),
-                .Char("4"): KeySymbols(normal: .char("4"), shifted: .char("$")),
-                .Char("5"): KeySymbols(normal: .char("5"), shifted: .char("%")),
-                .Char("6"): KeySymbols(normal: .char("6"), shifted: .char("&")),
-                .Char("7"): KeySymbols(normal: .char("7"), shifted: .char("'")),
-                .Char("8"): KeySymbols(normal: .char("8"), shifted: .char("(")),
-                .Char("9"): KeySymbols(normal: .char("9"), shifted: .char(")")),
-                .Char("0"): KeySymbols(normal: .char("0"), shifted: .char("0")),
-                .Char("+"): KeySymbols(normal: .char("+")),
-                .Char("-"): KeySymbols(normal: .char("-")),
-                .Char("£"): KeySymbols(normal: .char("£")),
-                .ClearHome: KeySymbols(both: .key(.keyboardHome)),
-                .InsertDelete: KeySymbols(both: .key(.keyboardDeleteOrBackspace)),
-                
-                .Char("q"): KeySymbols(normal: .char("q"), shifted: .char("Q")),
-                .Char("w"): KeySymbols(normal: .char("w"), shifted: .char("W")),
-                .Char("e"): KeySymbols(normal: .char("e"), shifted: .char("E")),
-                .Char("r"): KeySymbols(normal: .char("r"), shifted: .char("R")),
-                .Char("t"): KeySymbols(normal: .char("t"), shifted: .char("T")),
-                .Char("y"): KeySymbols(normal: .char("y"), shifted: .char("Y")),
-                .Char("u"): KeySymbols(normal: .char("u"), shifted: .char("U")),
-                .Char("i"): KeySymbols(normal: .char("i"), shifted: .char("I")),
-                .Char("o"): KeySymbols(normal: .char("o"), shifted: .char("O")),
-                .Char("p"): KeySymbols(normal: .char("p"), shifted: .char("P")),
-                .Char("@"): KeySymbols(normal: .char("@")),
-                .Char("*"): KeySymbols(normal: .char("*")),
-                .ArrowUp: KeySymbols(normal: .char("^"), shifted: .char("π")),
-                .Restore: KeySymbols(normal: .char("\\"), shifted: .char("|")),
-
-                .RunStop: KeySymbols(both: .key(.keyboardTab)),
-                .Char("a"): KeySymbols(normal: .char("a"), shifted: .char("A")),
-                .Char("s"): KeySymbols(normal: .char("s"), shifted: .char("S")),
-                .Char("d"): KeySymbols(normal: .char("d"), shifted: .char("D")),
-                .Char("f"): KeySymbols(normal: .char("f"), shifted: .char("F")),
-                .Char("g"): KeySymbols(normal: .char("g"), shifted: .char("G")),
-                .Char("h"): KeySymbols(normal: .char("h"), shifted: .char("H")),
-                .Char("j"): KeySymbols(normal: .char("j"), shifted: .char("J")),
-                .Char("k"): KeySymbols(normal: .char("k"), shifted: .char("K")),
-                .Char("l"): KeySymbols(normal: .char("l"), shifted: .char("L")),
-                .Char(":"): KeySymbols(normal: .char(":"), shifted: .char("[")),
-                .Char(";"): KeySymbols(normal: .char(";"), shifted: .char("]")),
-                .Char("="): KeySymbols(normal: .char("="), shifted: .char("=")),
-                .Return: KeySymbols(both: .key(.keyboardReturnOrEnter)),
-                
-                .Char("z"): KeySymbols(normal: .char("z"), shifted: .char("Z")),
-                .Char("x"): KeySymbols(normal: .char("x"), shifted: .char("X")),
-                .Char("c"): KeySymbols(normal: .char("c"), shifted: .char("C")),
-                .Char("v"): KeySymbols(normal: .char("v"), shifted: .char("V")),
-                .Char("b"): KeySymbols(normal: .char("b"), shifted: .char("B")),
-                .Char("n"): KeySymbols(normal: .char("n"), shifted: .char("N")),
-                .Char("m"): KeySymbols(normal: .char("m"), shifted: .char("M")),
-                .Char(","): KeySymbols(normal: .char(","), shifted: .char("<")),
-                .Char("."): KeySymbols(normal: .char("."), shifted: .char(">")),
-                .Char("/"): KeySymbols(normal: .char("/"), shifted: .char("?")),
-                .CursorLeftRight: KeySymbols(normal: .key(.keyboardRightArrow), shifted: .key(.keyboardLeftArrow)),
-                .CursorUpDown: KeySymbols(normal: .key(.keyboardDownArrow), shifted: .key(.keyboardUpArrow)),
-                
-                .Char(" "): KeySymbols(both: .char(" ")),
-                
-                .F1: KeySymbols(normal: .key(.keyboardF1), shifted: .key(.keyboardF2)),
-                .F3: KeySymbols(normal: .key(.keyboardF3), shifted: .key(.keyboardF4)),
-                .F5: KeySymbols(normal: .key(.keyboardF5), shifted: .key(.keyboardF6)),
-                .F7: KeySymbols(normal: .key(.keyboardF7), shifted: .key(.keyboardF8)),
-            ]
-            
-            keyPressTranslator = KeyPressTranslator(modifierMap: modifierMap, keyMap: keyMap, symbolRemap: symbolRemap)
-            keyPressTranslator?.delegate = self
-            
+            keyPressTranslator = nil
         }
     }
     

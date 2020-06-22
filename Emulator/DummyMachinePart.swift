@@ -31,8 +31,9 @@ public struct DummyMachinePart: MachinePart {
     public var icon: UIImage?
     public var smallIcon: UIImage?
     public var priority: Int { return MachinePartLowPriority }
+    public var connector: ConnectorType
 
-    public init(identifier: String, name: String, fullName: String? = nil, variantName: String? = nil, iconName: String? = nil) {
+    public init(identifier: String, name: String, fullName: String? = nil, variantName: String? = nil, iconName: String? = nil, connector: ConnectorType = .none) {
         self.identifier = identifier
         self.name = name
         self.fullName = fullName ?? name
@@ -44,6 +45,7 @@ public struct DummyMachinePart: MachinePart {
             self.icon = nil
         }
         self.smallIcon = icon
+        self.connector = connector
     }
     
     public init(identifier: String, fullName: String, annotateName: Bool, basePart: MachinePart) {
@@ -60,6 +62,7 @@ public struct DummyMachinePart: MachinePart {
             description += " (\(variantName))"
         }
         variantName = description
+        connector = basePart.connector
     }
         
     public static let none = DummyMachinePart(identifier: "none", name: "None")

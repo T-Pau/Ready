@@ -30,6 +30,7 @@ public enum Key : Equatable, Hashable {
     case ArrowUp
     case ClearHome
     case Commodore
+    case CommodoreLock
     case Control
     case CursorUpDown
     case CursorLeftRight
@@ -61,6 +62,7 @@ public enum Key : Equatable, Hashable {
              (.ArrowUp, .ArrowUp),
              (.ClearHome, .ClearHome),
              (.Commodore, .Commodore),
+             (.CommodoreLock, .CommodoreLock),
              (.Control, .Control),
              (.CursorUpDown, .CursorUpDown),
              (.CursorLeftRight, .CursorLeftRight),

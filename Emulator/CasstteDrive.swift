@@ -29,6 +29,7 @@ public struct CasstteDrive: MachinePart {
     public var fullName: String
     public var icon: UIImage?
     public var priority: Int
+    public var connector: ConnectorType { .commodoreTape }
     
     public var caseColor: UIColor?
     

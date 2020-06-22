@@ -80,13 +80,19 @@ public struct Controller: MachinePart {
             }
         }
         
-        public var isUserPortCompatible: Bool {
+        public var connector: ConnectorType {
             switch self {
             case .bbrtc, .coplinKeypad, .joystick, .mouseAmiga, .mouseCx22, .mouseNeos, .mouseSt, .none, .paperclip64, .rushwareKeypad, .sampler2bit, .sampler4bit:
-                return true
-            case .cx21Keypad, .cx85Keypad, .cardcoKeypad, .koalaPad, .lightgunL, .lightgunY, .lightpenDatel, .lightpenInkwell, .lightpenL, .lightpenU, .mouse1351, .mouseMicromys, .mouseSmart, .paddles, .script64Dongle, .snespad, .vizawrite64Dongle, .waasoftDongle:
-                return false
+                return .atariJoystick
+            case .cx21Keypad, .cx85Keypad, .cardcoKeypad, .koalaPad, .mouse1351, .mouseMicromys, .mouseSmart, .paddles, .script64Dongle, .snespad, .vizawrite64Dongle, .waasoftDongle:
+                return .atariJoystickAnalog
+            case  .lightgunL, .lightgunY, .lightpenDatel, .lightpenInkwell, .lightpenL, .lightpenU:
+                return .c64JoystickLightpen
             }
+        }
+        
+        public var isUserPortCompatible: Bool {
+            return connector == .atariJoystick
         }
         
         public var isPort2Compatible: Bool {
@@ -156,6 +162,7 @@ public struct Controller: MachinePart {
     public var icon: UIImage?
     public var portIcon: UIImage?
     public var priority: Int
+    public var connector: ConnectorType { return viceType.connector }
     
     public var viceType: ViceType
     public var inputType: InputType { return viceType.inputType }

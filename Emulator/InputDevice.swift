@@ -46,6 +46,7 @@ open class InputDevice: MachinePart {
     open var icon: UIImage?
     open var priority: Int
     open var playerIndex: Int?
+    open var connector: ConnectorType { .none }
     
     open var supportedModes: Set<Controller.InputType>
 

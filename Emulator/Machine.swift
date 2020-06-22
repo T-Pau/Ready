@@ -198,8 +198,6 @@ public class Machine {
     }
     
     public func mountDisks() {
-        let ports = specification.computer.ports
-        
         // TODO: use MachineSpecification.automount
         for disk in diskImages {
             var mountable = false
@@ -215,7 +213,7 @@ public class Machine {
             if !mountable {
                 guard var newDrive = DiskDrive.getDriveSupporting(image: disk) else { continue }
                 for (index, drive) in diskDrives.enumerated() {
-                    if ports.contains(Machine.driveKeys[index]) && specification.string(for: Machine.driveKeys[index]) == "auto" {
+                    if specification.computer.has(port: Machine.driveKeys[index]) && specification.string(for: Machine.driveKeys[index]) == "auto" {
                         if !drive.hasStatus {
                             newDrive.image = disk
                             diskDrives[index] = newDrive

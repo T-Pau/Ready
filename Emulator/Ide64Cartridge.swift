@@ -57,24 +57,12 @@ public struct Ide64Cartridge {
 }
 
 extension Ide64Cartridge: MachinePart {
-    public var identifier: String {
-        return "IDE64 \(version.name)"
-    }
-    public var name: String {
-        return "IDE64"
-    }
-    
-    public var variantName: String? {
-        return version.name
-    }
-    
-    public var icon: UIImage? {
-        return UIImage(named: identifier)
-    }
-    
-    public var priority: Int {
-        return MachinePartNormalPriority
-    }
+    public var identifier: String { "IDE64 \(version.name)" }
+    public var name: String { "IDE64" }
+    public var variantName: String? { version.name }
+    public var icon: UIImage? { UIImage(named: identifier) }
+    public var priority: Int { MachinePartNormalPriority }
+    public var connector: ConnectorType { .c64ExpansionPort }
 }
 
 extension Ide64Cartridge: Cartridge {

@@ -155,15 +155,22 @@ class MachinePartsViewController: UIViewController, SeguePreparer {
         for partInfo in partInfos {
             update(partInfo: partInfo)
         }
-        let ports = machineSpecification.computer.ports
-        driveViews[0].isHidden = !ports.contains(.diskDrive8)
-        driveViews[1].isHidden = !ports.contains(.diskDrive9)
-        driveViews[2].isHidden = !ports.contains(.diskDrive10)
-        driveViews[3].isHidden = !ports.contains(.diskDrive11)
-        cassetteView.isHidden = !ports.contains(.cassetteDrive)
-        userPortView.isHidden = !ports.contains(.userPort)
-        controlPortViews[1].isHidden = !ports.contains(.controlPort2)
-        expansionPortView.isHidden = !ports.contains(.expansionPort)
+        let computer = machineSpecification.computer
+        
+        let viewKeys: [MachineConfig.Key: MachinePartView] = [
+            .diskDrive8: driveViews[0],
+            .diskDrive9: driveViews[1],
+            .diskDrive10: driveViews[2],
+            .diskDrive11: driveViews[3],
+            .cassetteDrive: cassetteView,
+            .userPort: userPortView,
+            .controlPort2: controlPortViews[1],
+            .expansionPort: expansionPortView
+        ]
+        for pair in viewKeys {
+            pair.value.isHidden = !computer.has(port: pair.key)
+        }
+
         switch machineSpecification.userPortModule.getJoystickPorts(for: machineSpecification) {
         case 0:
             userPortJoystick1View.isHidden = true

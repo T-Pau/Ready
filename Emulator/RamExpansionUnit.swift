@@ -29,6 +29,7 @@ public struct RamExpansionUnit {
     public var fullName: String
     public var variantName: String?
     public var icon: UIImage?
+    public var connector: ConnectorType { .c64ExpansionPort }
     public var url: URL?
     
     public var size: Int

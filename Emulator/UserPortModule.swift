@@ -71,6 +71,8 @@ public struct UserPortModule: MachinePart {
     public var variantName: String?
     public var icon: UIImage?
     public var priority: Int
+
+    public var connector: ConnectorType { return .c64UserPort }
     
     public var moduleType: ModuleType
     

@@ -81,6 +81,7 @@ public struct DiskDrive: MachinePart {
     public var variantName: String?
     public var icon: UIImage?
     public var priority: Int
+    public var connector: ConnectorType { .commodoreIEC }
     
     public var viceType: ViceType
     public var supportedMediaTypes: Set<MediaType>

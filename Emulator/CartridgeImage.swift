@@ -217,4 +217,6 @@ extension CartridgeImage: MachinePart {
     public var priority: Int {
         return MachinePartNormalPriority
     }
+    
+    public var connector: ConnectorType { .c64ExpansionPort } // TODO
 }

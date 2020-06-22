@@ -24,89 +24,22 @@ extension KeyPressTranslatorDelegate {
     }
 }
 
-enum Symbol: Hashable {
-    case char(Character)
-    case key(UIKeyboardHIDUsage)
-}
-
-struct ModifiedSymbol: Hashable {
-    var symbol: Symbol
-    var modifierFlags: UIKeyModifierFlags
-    
-    init(symbol: Symbol, modifiers: UIKeyModifierFlags = []) {
-        self.symbol = symbol
-        self.modifierFlags = modifiers
-    }
-    
-    init(key: UIKey) {
-        if key.characters.count == 1, let char = key.characters.first, char >= " " {
-            symbol = .char(char)
-            modifierFlags = key.modifierFlags.subtracting([.shift, .alphaShift, .alternate])
-        }
-        else if key.charactersIgnoringModifiers.count == 1, let char = key.charactersIgnoringModifiers.first, char >= "a" && char <= "z" {
-            if key.modifierFlags.contains(.shift) || key.modifierFlags.contains(.alphaShift), let uppercaseChar = char.uppercased().first {
-                symbol = .char(uppercaseChar)
-            }
-            else {
-                symbol = .char(char)
-            }
-            modifierFlags = key.modifierFlags.subtracting([.shift, .alphaShift, .alternate])
-        }
-        else {
-            symbol = .key(key.keyCode)
-            modifierFlags = key.modifierFlags.subtracting(.alphaShift)
-        }
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(symbol)
-        hasher.combine(modifierFlags.rawValue)
-    }
-}
-
-enum MappedSymbol {
-    case key(Key, shift: Bool?)
-    case modifier(Key)
-    case command(ModifiedSymbol)
-}
-
-struct KeySymbols {
-    var normal: Symbol
-    var shifted: Symbol?
-    
-    init(normal: Symbol, shifted: Symbol? = nil) {
-        self.normal = normal
-        self.shifted = shifted
-    }
-    
-    init(both: Symbol) {
-        self.normal = both
-        self.shifted = both
-    }
-}
 
 class KeyPressTranslator {
     var delegate: KeyPressTranslatorDelegate?
     
-    var modifierMap: [UIKeyboardHIDUsage: Key]
-    var keyMap: [Key: KeySymbols]
-    var symbolRemap: [ModifiedSymbol: ModifiedSymbol]
-    var shiftKey: Key
+    var keyboardSymbols: KeyboardSymbols
     
-    var symbolToKey = [Symbol: Key]()
+    var symbolToKey = [KeyboardSymbols.Symbol: Key]()
 
     var pressedKeys = Set<Key>()
     var forcedShiftKeys = Set<Key>()
     
     let forcedShiftDelay = 1
     
-    init(modifierMap: [UIKeyboardHIDUsage: Key], keyMap: [Key: KeySymbols], symbolRemap: [ModifiedSymbol: ModifiedSymbol] = [:], shiftKey: Key? = nil) {
-        self.modifierMap = modifierMap
-        self.keyMap = keyMap
-        self.symbolRemap = symbolRemap
-        self.shiftKey = shiftKey ?? modifierMap[.keyboardRightShift] ?? Key.ShiftRight
-        
-        for entry in keyMap {
+    init(keyboardSymbols: KeyboardSymbols) {
+        self.keyboardSymbols = keyboardSymbols
+        for entry in keyboardSymbols.keyMap {
             symbolToKey[entry.value.normal] = entry.key
             if let shifted = entry.value.shifted {
                 symbolToKey[shifted] = entry.key
@@ -128,7 +61,7 @@ class KeyPressTranslator {
                 if key.isShift {
                     if !forcedShiftKeys.isEmpty {
                         forcedShiftKeys.removeAll()
-                        release(key: shiftKey)
+                        release(key: keyboardSymbols.shiftKey)
                     }
                     newPressedShiftKeys.insert(key)
                 }
@@ -157,7 +90,7 @@ class KeyPressTranslator {
                 forcedShiftKeys.formUnion(shiftedKeys)
             }
             else if newPressedShiftKeys.isEmpty && !isShiftPressed {
-                press(key: shiftKey)
+                press(key: keyboardSymbols.shiftKey)
                 forcedShiftKeys.formUnion(shiftedKeys)
                 delayed = true
             }
@@ -187,7 +120,7 @@ class KeyPressTranslator {
             
             switch mappedSymbol {
             case .modifier(let key):
-                if key == shiftKey {
+                if key == keyboardSymbols.shiftKey {
                     forcedShiftKeys.removeAll()
                 }
                 release(key: key)
@@ -207,27 +140,27 @@ class KeyPressTranslator {
         }
 
         if releaseForcedShift {
-            release(key: shiftKey)
+            release(key: keyboardSymbols.shiftKey)
         }
         
         return presses
     }
     
-    func map(press: UIPress) -> MappedSymbol? {
+    func map(press: UIPress) -> KeyboardSymbols.MappedSymbol? {
         guard let uikey = press.key else { return nil }
         
-        if let modifierKey = modifierMap[uikey.keyCode] {
+        if let modifierKey = keyboardSymbols.modifierMap[uikey.keyCode] {
             return .modifier(modifierKey)
         }
         
-        var modifiedSymbol = ModifiedSymbol(key: uikey)
-        modifiedSymbol = symbolRemap[modifiedSymbol] ?? modifiedSymbol
+        var modifiedSymbol = KeyboardSymbols.ModifiedSymbol(key: uikey)
+        modifiedSymbol = keyboardSymbols.symbolRemap[modifiedSymbol] ?? modifiedSymbol
         
         guard !modifiedSymbol.modifierFlags.contains(.command) else { return .command(modifiedSymbol) }
 
         let symbol = modifiedSymbol.symbol
         guard let key = symbolToKey[symbol] else { return nil }
-        guard let keySymbols = keyMap[key] else { return nil }
+        guard let keySymbols = keyboardSymbols.keyMap[key] else { return nil }
         
         var shift: Bool?
         if keySymbols.normal != keySymbols.shifted {

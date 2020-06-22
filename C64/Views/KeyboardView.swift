@@ -31,19 +31,29 @@ protocol KeyboardViewDelegate {
 
 class KeyboardView: UIView {
     var keyboardImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-    var shiftLockImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+    var toggleViews = [Key: UIImageView]()
 
     var delegate: KeyboardViewDelegate?
     
     var keyboard: Keyboard? {
         didSet {
-            updateLayout()
-        }
-    }
-    
-    var isShiftLockPressed = false { 
-        didSet {
-            shiftLockImageView.isHidden = !isShiftLockPressed
+            for view in toggleViews.values {
+                view.removeFromSuperview()
+            }
+            toggleViews.removeAll()
+            if let keyboard = keyboard {
+                for (key, imageName) in keyboard.toggleKeys {
+                    let view = UIImageView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+                    view.image = UIImage(named: imageName)
+                    view.isHidden = true
+                    setup(view: view)
+                    toggleViews[key] = view
+                }
+                keyboardImageView.image = UIImage(named: keyboard.imageName)
+            }
+            else {
+                keyboardImageView.image = nil
+            }
         }
     }
     
@@ -59,8 +69,6 @@ class KeyboardView: UIView {
     
     private func setup() {
         setup(view: keyboardImageView)
-        setup(view: shiftLockImageView)
-        shiftLockImageView.isHidden = true
     }
     
     private func setup(view: UIView) {
@@ -74,95 +82,6 @@ class KeyboardView: UIView {
             ])
     }
     
-    private struct Span {
-        var left: CGFloat
-        var right: CGFloat
-        var keys: [Key]
-        
-        func hit(_ point: CGPoint) -> Key? {
-            guard (point.x >= left && point.x < right) else { return nil }
-            let idx = Int((point.x - left) * CGFloat(keys.count) / (right - left))
-            return keys[idx]
-        }
-    }
-    private struct Row {
-        var top: CGFloat
-        var bottom: CGFloat
-        var spans: [Span]
-        
-        func hit(_ point: CGPoint) -> Key? {
-            guard (point.y >= top && point.y < bottom) else { return nil }
-            for span in spans {
-                if let key = span.hit(point) {
-                    return key
-                }
-            }
-            
-            return nil
-        }
-    }
-    private struct Layout {
-        var rows: [Row]
-        
-        func hit(_ point: CGPoint) -> Key? {
-            for row in rows {
-                if let key = row.hit(point) {
-                    return key
-                }
-            }
-            
-            return nil
-        }
-    }
-    
-    private var layout = Layout(rows: [])
-    
-    func updateLayout() {
-        guard let keyboard = keyboard else {
-            layout = Layout(rows: [])
-            return
-        }
-        keyboardImageView.image = UIImage(named: keyboard.imageName)
-        shiftLockImageView.image = UIImage(named: keyboard.imageName + " ShiftLock")
-        
-        layout = Layout(rows: [
-            Row(top: CGFloat(keyboard.rows[0]), bottom: CGFloat(keyboard.rows[1]), spans: [
-                Span(left: keyboard.topHalfLeft, right: keyboard.topHalfRight, keys: [
-                    .ArrowLeft, .Char("1"), .Char("2"), .Char("3"), .Char("4"), .Char("5"), .Char("6"), .Char("7"), .Char("8"), .Char("9"), .Char("0"), .Char("+"), .Char("-"), .Char("£"), .ClearHome, .InsertDelete
-                ]),
-                Span(left: CGFloat(keyboard.functionKeysLeft), right: CGFloat(keyboard.functionKeysRight), keys: [.F1])
-            ]),
-            Row(top: CGFloat(keyboard.rows[1]), bottom: CGFloat(keyboard.rows[2]), spans: [
-                Span(left: keyboard.topHalfLeft, right: keyboard.ctrlRight, keys: [.Control]),
-                Span(left: keyboard.ctrlRight, right: keyboard.restoreLeft, keys: [
-                    .Char("q"), .Char("w"), .Char("e"), .Char("r"), .Char("t"), .Char("y"), .Char("u"), .Char("i"), .Char("o"), .Char("p"), .Char("@"), .Char("*"), .ArrowUp
-                    ]),
-                Span(left: keyboard.restoreLeft, right: keyboard.topHalfRight, keys: [.Restore]),
-                Span(left: CGFloat(keyboard.functionKeysLeft), right: CGFloat(keyboard.functionKeysRight), keys: [.F3])
-            ]),
-            Row(top: CGFloat(keyboard.rows[2]), bottom: CGFloat(keyboard.rows[3]), spans: [
-                Span(left: keyboard.bottomHalfLeft, right: keyboard.returnLeft, keys: [
-                    .RunStop, .ShiftLock, .Char("a"), .Char("s"), .Char("d"), .Char("f"), .Char("g"), .Char("h"), .Char("j"), .Char("k"), .Char("l"), .Char(":"), .Char(";"), .Char("=")
-                    ]),
-                Span(left: keyboard.returnLeft, right: keyboard.bottomHalfRight, keys: [.Return]),
-                Span(left: CGFloat(keyboard.functionKeysLeft), right: CGFloat(keyboard.functionKeysRight), keys: [.F5])
-            ]),
-            Row(top: CGFloat(keyboard.rows[3]), bottom: CGFloat(keyboard.rows[4]), spans: [
-                Span(left: keyboard.bottomHalfLeft, right: keyboard.leftShiftLeft, keys: [.Commodore]),
-                Span(left: keyboard.leftShiftLeft, right: keyboard.leftShiftRight, keys: [.ShiftLeft]),
-                Span(left: keyboard.leftShiftRight, right: keyboard.rightShiftLeft, keys: [
-                    .Char("z"), .Char("x"), .Char("c"), .Char("v"), .Char("b"), .Char("n"), .Char("m"), .Char(","), .Char("."), .Char("/"),
-                    ]),
-                Span(left: keyboard.rightShiftLeft, right: keyboard.rightShiftRight, keys: [.ShiftRight]),
-                Span(left: keyboard.rightShiftRight, right: keyboard.bottomHalfRight, keys: [.CursorUpDown, .CursorLeftRight]),
-                Span(left: CGFloat(keyboard.functionKeysLeft), right: CGFloat(keyboard.functionKeysRight), keys: [.F7])
-                ]),
-            Row(top: CGFloat(keyboard.rows[4]), bottom: CGFloat(keyboard.rows[5]), spans: [
-                Span(left: CGFloat(keyboard.spaceLeft), right: CGFloat(keyboard.spaceRight), keys: [.Char(" ")])
-            ])
-        ])
-    }
-        
     private var keyTouches = [UITouch : Key]()
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -173,9 +92,21 @@ class KeyboardView: UIView {
             location.x *= (keyboardImageView.image?.size.width ?? 0) / frame.width
             location.y *= (keyboardImageView.image?.size.height ?? 0) / frame.height
             
-            if let key = layout.hit(location) {
+            if let key = keyboard?.hit(location) {
                 keyTouches[touch] = key
-                delegate?.pressed(key: key)
+                if let view = toggleViews[key] {
+                    if view.isHidden {
+                        view.isHidden = false
+                        delegate?.pressed(key: key)
+                    }
+                    else {
+                        view.isHidden = true
+                        delegate?.released(key: key)
+                    }
+                }
+                else {
+                    delegate?.pressed(key: key)
+                }
             }
             else {
                 unhandledTouches.insert(touch)
@@ -193,7 +124,9 @@ class KeyboardView: UIView {
         for touch in touches {
             if let key = keyTouches[touch] {
                 keyTouches.removeValue(forKey: touch)
-                delegate?.released(key: key)
+                if toggleViews[key] == nil {
+                    delegate?.released(key: key)
+                }
             }
             else {
                 unhandledTouches.insert(touch)
@@ -238,13 +171,4 @@ class KeyboardView: UIView {
     @IBAction func tapped(_ sender: Any) {
         print("keyboard tapped")
     }
-    
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
-
 }

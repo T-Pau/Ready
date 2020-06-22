@@ -1,6 +1,6 @@
 /*
- EmulatorDelegate.swift -- Delegate to Emulator Core
- Copyright (C) 2020 Dieter Baron
+ Port.swift -- Specification of a port on a device
+ Copyright (C) 2019 Dieter Baron
  
  This file is part of C64, a Commodore 64 emulator for iOS, based on VICE.
  The authors can be contacted at <c64@spiderlab.at>
@@ -19,24 +19,23 @@
  along with this program; if not, write to the Free Software
  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
  02111-1307  USA.
- */
+*/
 
 import Foundation
 
-// TODO: move elsewhere
-public enum DatasetteControlStatus: Int {
-    case stop = 0
-    case start = 1
-    case forward = 2
-    case rewind = 3
-    case record = 4
-    case reset = 5
-    case resetCounter = 6
-}
-
-
-public protocol EmulatorDelegate {
-    func updateDriveStatus(unit: Int, track: Double, led1Intensity: Double, led2Intensity: Double)
+public struct Port {
+    var name: String
+    var key: MachineConfig.Key
+    var connectorTypes: Set<ConnectorType>
+    var iconWidth: Int
+    var iconHeight: Int
     
-    func updateTapeStatus(controlStatus: DatasetteControlStatus, isMotorOn: Bool, counter: Double)
+    public init(name: String, key: MachineConfig.Key, connectorTypes: Set<ConnectorType>, iconWidth: Int = 1, iconHeight: Int = 1) {
+        self.name = name
+        self.key = key
+        self.connectorTypes = connectorTypes
+        self.iconWidth = iconWidth
+        self.iconHeight = iconHeight
+    }
 }
+

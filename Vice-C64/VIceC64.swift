@@ -1,3 +1,26 @@
+/*
+ ViceC64.swift -- C64 Specifics
+ Copyright (C) 2020 Dieter Baron
+ 
+ This file is part of C64, a Commodore 64 emulator for iOS, based on VICE.
+ The authors can be contacted at <c64@spiderlab.at>
+ 
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ 02111-1307  USA.
+ */
+
 import ViceX64sc
 
 typealias ViceThread = ViceThreadC64
@@ -39,7 +62,7 @@ struct KeyboardMatrix {
             return 3
         case .F1, .Char("z"), .Char("c"), .Char("b"), .Char("m"), .Char("."), .ShiftRight, .Char(" "):
             return 4
-        case .F3, .Char("s"), .Char("f"), .Char("h"), .Char("k"), .Char(":"), .Char("="), .Commodore:
+        case .F3, .Char("s"), .Char("f"), .Char("h"), .Char("k"), .Char(":"), .Char("="), .Commodore, .CommodoreLock:
             return 5
         case .F5, .Char("e"), .Char("t"), .Char("u"), .Char("o"), .Char("@"), .ArrowUp, .Char("q"):
             return 6
@@ -67,7 +90,7 @@ struct KeyboardMatrix {
             return 5
         case .Char("£"), .Char("*"), .Char(";"), .ClearHome, .ShiftRight, .Char("="), .ArrowUp, .Char("/"):
             return 6
-        case .Char("1"), .ArrowLeft, .Control, .Char("2"), .Char(" "), .Commodore, .Char("q"), .RunStop:
+        case .Char("1"), .ArrowLeft, .Control, .Char("2"), .Char(" "), .Commodore, .CommodoreLock, .Char("q"), .RunStop:
             return 7
             
         case .Char(_), .Restore:

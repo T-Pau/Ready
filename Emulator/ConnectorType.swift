@@ -1,6 +1,6 @@
 /*
- EmulatorDelegate.swift -- Delegate to Emulator Core
- Copyright (C) 2020 Dieter Baron
+ ConnectorType.swift -- Type of Connector
+ Copyright (C) 2019 Dieter Baron
  
  This file is part of C64, a Commodore 64 emulator for iOS, based on VICE.
  The authors can be contacted at <c64@spiderlab.at>
@@ -23,20 +23,23 @@
 
 import Foundation
 
-// TODO: move elsewhere
-public enum DatasetteControlStatus: Int {
-    case stop = 0
-    case start = 1
-    case forward = 2
-    case rewind = 3
-    case record = 4
-    case reset = 5
-    case resetCounter = 6
-}
+// This is a list of all connectors used by supported devices.
+// It is used to filter the list of devices that can be connected to a port.
 
-
-public protocol EmulatorDelegate {
-    func updateDriveStatus(unit: Int, track: Double, led1Intensity: Double, led2Intensity: Double)
-    
-    func updateTapeStatus(controlStatus: DatasetteControlStatus, isMotorOn: Bool, counter: Double)
+public enum ConnectorType {
+    case atariJoystick
+    case atariJoystickAnalog
+    case c64ExpansionPort
+    case c64JoystickLightpen
+    case c64UserPort
+    case computer // used for computers, which are the root of the device tree
+    case commodoreIEC
+    case commodoreTape
+    case plus4ExpansionPort
+    case plus4UserPort
+    case vic20ExpansionPort
+    case videoComponent
+    case videoRGBi
+        
+    case none // used for dummy parts
 }

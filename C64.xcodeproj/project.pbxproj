@@ -43,6 +43,9 @@
 		4B460E492274530500815E7F /* LightPenGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B460E482274530500815E7F /* LightPenGestureRecognizer.swift */; };
 		4B460E4E2279F46A00815E7F /* REU Document.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B460E4D2279F46A00815E7F /* REU Document.png */; };
 		4B467E36248B7A88007E631D /* KeyPressHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B467E35248B7A88007E631D /* KeyPressHandler.swift */; };
+		4B52816A249E0A320023F453 /* ConnectorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B528169249E0A320023F453 /* ConnectorType.swift */; };
+		4B52816C249E442D0023F453 /* Port.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B52816B249E442D0023F453 /* Port.swift */; };
+		4B671FDE24A08ABB00E39F01 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1638C2224672A50056A275 /* Keyboard.swift */; };
 		4B6800162499FDF700A76E57 /* libsounddrv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B6800152499FDD500A76E57 /* libsounddrv.a */; };
 		4B6800172499FE6800A76E57 /* lamelib.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAA5321D7AD7400C272C4 /* lamelib.c */; };
 		4B6800182499FE6800A76E57 /* soundahi.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAA4121D7AD7400C272C4 /* soundahi.c */; };
@@ -737,7 +740,6 @@
 		4B68FB6E24975EFD00A76E57 /* Ide64Cartridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3182C822820095006D86AC /* Ide64Cartridge.swift */; };
 		4B68FB6F24975FA900A76E57 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB22EB321EB46970075E694 /* Defaults.swift */; };
 		4B68FB702497749B00A76E57 /* Computer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9DBB6D22326E670032B280 /* Computer.swift */; };
-		4B68FB71249774B800A76E57 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1638C2224672A50056A275 /* Keyboard.swift */; };
 		4B68FB72249774D100A76E57 /* Chargen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B9BBA2253B60F002948B7 /* Chargen.swift */; };
 		4B68FB732497C2DD00A76E57 /* CwlMutex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1CCBAD223BDDDD0032B9F0 /* CwlMutex.swift */; };
 		4B68FB782497CE2100A76E57 /* vice_x64sc.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B68FB572496817200A76E57 /* vice_x64sc.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -1291,6 +1293,7 @@
 		4BB22EC921EE06E70075E694 /* LicenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB22EC821EE06E70075E694 /* LicenseViewController.swift */; };
 		4BB22ECC21EE60960075E694 /* CBM.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4BB22ECA21EE607C0075E694 /* CBM.ttf */; };
 		4BB22ECF21F1DD910075E694 /* MediaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB22ECE21F1DD910075E694 /* MediaTableViewCell.swift */; };
+		4BBA0E3824A09CAD00BA166B /* KeyboardSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBA0E3724A09CAD00BA166B /* KeyboardSymbols.swift */; };
 		4BBF86A621DA284A00EF99ED /* C64 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4BBF869E21DA265E00EF99ED /* C64 */; };
 		4BBF86A721DA284A00EF99ED /* DRIVES in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4BBF869F21DA265E00EF99ED /* DRIVES */; };
 		4BBF86A821DA284A00EF99ED /* PRINTER in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4BBF86A021DA265E00EF99ED /* PRINTER */; };
@@ -3107,6 +3110,8 @@
 		4B460E4F227A001700815E7F /* C64-7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "C64-7.xcdatamodel"; sourceTree = "<group>"; };
 		4B460E50227A064E00815E7F /* RamExpansionUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RamExpansionUnit.swift; sourceTree = "<group>"; };
 		4B467E35248B7A88007E631D /* KeyPressHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPressHandler.swift; sourceTree = "<group>"; };
+		4B528169249E0A320023F453 /* ConnectorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectorType.swift; sourceTree = "<group>"; };
+		4B52816B249E442D0023F453 /* Port.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Port.swift; sourceTree = "<group>"; };
 		4B6800152499FDD500A76E57 /* libsounddrv.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsounddrv.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B680033249A00A500A76E57 /* vice_c64.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = vice_c64.c; sourceTree = "<group>"; };
 		4B680035249A023100A76E57 /* vice_vic20.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vice_vic20.c; sourceTree = "<group>"; };
@@ -3329,6 +3334,7 @@
 		4BB22ECA21EE607C0075E694 /* CBM.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CBM.ttf; sourceTree = "<group>"; };
 		4BB22ECE21F1DD910075E694 /* MediaTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTableViewCell.swift; sourceTree = "<group>"; };
 		4BB22ED021F1E78A0075E694 /* CartridgeImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartridgeImage.swift; sourceTree = "<group>"; };
+		4BBA0E3724A09CAD00BA166B /* KeyboardSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardSymbols.swift; sourceTree = "<group>"; };
 		4BBF862E21D7AF4700EF99ED /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
 		4BBF863021D7B7B400EF99ED /* archdep.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = archdep.h; sourceTree = "<group>"; };
 		4BBF863221D7B80E00EF99ED /* p64config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = p64config.h; sourceTree = "<group>"; };
@@ -5672,6 +5678,7 @@
 				4B9DBB712233C9AB0032B280 /* CasstteDrive.swift */,
 				4B2B9BBA2253B60F002948B7 /* Chargen.swift */,
 				4B9DBB6D22326E670032B280 /* Computer.swift */,
+				4B528169249E0A320023F453 /* ConnectorType.swift */,
 				4B9DBB5B222922420032B280 /* Controller.swift */,
 				4BB22EB321EB46970075E694 /* Defaults.swift */,
 				4B841CF621F7358F009CAF4B /* DiskDrive.swift */,
@@ -5688,10 +5695,12 @@
 				4B68F8C12496719200A76E57 /* JoystickButtons.swift */,
 				4BC5BBDA21DF548000D44A10 /* Key.swift */,
 				4B1638C2224672A50056A275 /* Keyboard.swift */,
+				4BBA0E3724A09CAD00BA166B /* KeyboardSymbols.swift */,
 				4BB22EC221ECD40E0075E694 /* Machine.swift */,
 				4B9DBB69223247B10032B280 /* MachineConfig.swift */,
 				4B9DBB59222911CC0032B280 /* MachinePart.swift */,
 				4B9DBB67223147300032B280 /* MachineSpecification.swift */,
+				4B52816B249E442D0023F453 /* Port.swift */,
 				4B841D0421FCB96B009CAF4B /* ProgramFile.swift */,
 				4B460E50227A064E00815E7F /* RamExpansionUnit.swift */,
 				4BAE5BF321FDE0990098ADFF /* TapeImage.swift */,
@@ -7096,12 +7105,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B52816A249E0A320023F453 /* ConnectorType.swift in Sources */,
 				4B68FB622497525500A76E57 /* MachinePart.swift in Sources */,
 				4B68FB5D249751FB00A76E57 /* Controller.swift in Sources */,
 				4B68FB702497749B00A76E57 /* Computer.swift in Sources */,
 				4B68FB612497524B00A76E57 /* CasstteDrive.swift in Sources */,
 				4B68FB5E2497520300A76E57 /* CartridgeImage.swift in Sources */,
 				4B68FB632497525A00A76E57 /* MachineConfig.swift in Sources */,
+				4BBA0E3824A09CAD00BA166B /* KeyboardSymbols.swift in Sources */,
 				4B68FB732497C2DD00A76E57 /* CwlMutex.swift in Sources */,
 				4B68FB5B249751ED00A76E57 /* MachineSpecification.swift in Sources */,
 				4B68FB5424967E2700A76E57 /* DiskImage.swift in Sources */,
@@ -7116,9 +7127,10 @@
 				4B68FB5A249751DE00A76E57 /* Machine.swift in Sources */,
 				4B68FB5C249751F400A76E57 /* DiskDrive.swift in Sources */,
 				4B68FB6D24975EE400A76E57 /* DummyMachinePart.swift in Sources */,
-				4B68FB71249774B800A76E57 /* Keyboard.swift in Sources */,
 				4B68FB5F2497523C00A76E57 /* UserPortModule.swift in Sources */,
+				4B671FDE24A08ABB00E39F01 /* Keyboard.swift in Sources */,
 				4B68FB682497533000A76E57 /* ProgramFile.swift in Sources */,
+				4B52816C249E442D0023F453 /* Port.swift in Sources */,
 				4B68FB672497532200A76E57 /* TapeImage.swift in Sources */,
 				4B68FB69249753CB00A76E57 /* InputDevice.swift in Sources */,
 				4B68FB6E24975EFD00A76E57 /* Ide64Cartridge.swift in Sources */,
