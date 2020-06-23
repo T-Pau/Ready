@@ -423,6 +423,13 @@ extension MachineSpecification {
             return MachinePartList(sections: [])
         }
         
+        if let port = computer.port(for: key) {
+            partList = partList.filter({ $0.isCompatible(with: port )})
+            if partList.sections[0].title != nil {
+                partList.sections.insert(MachinePartSection(title: nil, parts: []), at: 0)
+            }
+        }
+        
         let defaultValue = string(for: key, skipFirstLayer: true)
         let defaultPart = DummyMachinePart(identifier: "default", fullName: "Default", annotateName: false, basePart: part(for: key, value: defaultValue, machine: machine))
         partList.insert(defaultPart, at: IndexPath(row: 0, section: 0))

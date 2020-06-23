@@ -31,6 +31,8 @@ void model_set(int model) {
     c64model_set(model);
 }
 
+int canvas_has_partial_updates = 0;
+
 /* taken from https://www.pepto.de/projects/colorvic/ */
 uint32_t palette[] = {
     0x000000FF,

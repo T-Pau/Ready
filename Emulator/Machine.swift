@@ -61,6 +61,11 @@ public class Machine {
         case MIDIEnable
         case MIDIMode
         case Mouse
+        case RAMBlock0
+        case RAMBlock1
+        case RAMBlock2
+        case RAMBlock3
+        case RAMBlock5
         case REU
         case REUfilename
         case REUImageWrite

@@ -33,6 +33,8 @@ void model_set(int model) {
 void cartridge_trigger_freeze(void) {
 }
 
+int canvas_has_partial_updates = 1;
+
 uint32_t palette[] = {
     0x000000ff,
     0xffffffff,

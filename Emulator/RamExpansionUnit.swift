@@ -29,12 +29,33 @@ public struct RamExpansionUnit {
     public var fullName: String
     public var variantName: String?
     public var icon: UIImage?
-    public var connector: ConnectorType { .c64ExpansionPort }
+    public var connector: ConnectorType
     public var url: URL?
     
     public var size: Int
     
     public static let ramExpansionUnits = [
+        3: RamExpansionUnit(identifier: "VIC-1211A",
+                            name: "VIC-1211A",
+                            fullName: "Commodore VIC-1211A",
+                            iconName: "Commodore VIC-111x",
+                            size: 3,
+                            connector: .vic20ExpansionPort),
+
+        8: RamExpansionUnit(identifier: "VIC-1110",
+                            name: "VIC-1110",
+                            fullName: "Commodore VIC-1110",
+                            iconName: "Commodore VIC-111x",
+                            size: 8,
+                            connector: .vic20ExpansionPort),
+
+        16: RamExpansionUnit(identifier: "VIC-1111",
+                             name: "VIC-1111",
+                             fullName: "Commodore VIC-1111",
+                             iconName: "Commodore VIC-111x",
+                             size: 16,
+                             connector: .vic20ExpansionPort),
+
         128: RamExpansionUnit(identifier: "1700",
                               name: "1700",
                               fullName: "Commodore 1700 REU",
@@ -78,7 +99,7 @@ public struct RamExpansionUnit {
                                 size: 16384)
     ]
 
-    public init(identifier: String, name: String, fullName: String? = nil, iconName: String?, size: Int) {
+    public init(identifier: String, name: String, fullName: String? = nil, iconName: String?, size: Int, connector: ConnectorType = .c64ExpansionPort) {
         self.identifier = identifier
         self.name = name
         self.fullName = fullName ?? name
@@ -93,6 +114,7 @@ public struct RamExpansionUnit {
         else {
             variantName = "\(size) kilobytes"
         }
+        self.connector = connector
     }
     
     public init?(size: Int) {
@@ -128,12 +150,35 @@ extension RamExpansionUnit: Cartridge {
     }
     
     public var resources: [Machine.ResourceName: Machine.ResourceValue] {
-        var resources: [Machine.ResourceName: Machine.ResourceValue] = [
-            .REU: .Bool(true),
-            .REUsize: .Int(Int32(size))
-        ]
-        if let fileName = url?.path {
-            resources[.REUfilename] = .String(fileName)
+        var resources = [Machine.ResourceName: Machine.ResourceValue]()
+            
+        switch connector {
+        case .c64ExpansionPort:
+            resources[.REU] = .Bool(true)
+            resources[.REUsize] = .Int(Int32(size))
+            if let fileName = url?.path {
+                resources[.REUfilename] = .String(fileName)
+            }
+
+        case .vic20ExpansionPort:
+            switch size {
+            case 3:
+                resources[.RAMBlock0] = .Bool(true)
+                
+            case 8:
+                resources[.RAMBlock1] = .Bool(true)
+
+            case 16:
+                resources[.RAMBlock1] = .Bool(true)
+                resources[.RAMBlock2] = .Bool(true)
+
+            default:
+                break
+            }
+            // TODO
+            
+        default:
+            break
         }
         
         return resources

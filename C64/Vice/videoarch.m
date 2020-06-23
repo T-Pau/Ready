@@ -135,6 +135,7 @@ video_canvas_t *video_canvas_create(video_canvas_t *canvas, unsigned int *width,
  *  \param[in] canvas The canvas to destroy.
  */
 void video_canvas_destroy(struct video_canvas_s *canvas) {
+    render_free(canvas->render);
 }
 
 
@@ -159,7 +160,7 @@ void video_canvas_refresh(struct video_canvas_s *canvas, unsigned int xs, unsign
     
     uint8_t *source = canvas->draw_buffer->draw_buffer + canvas->draw_buffer->draw_buffer_pitch * ys + xs;
 
-    if (xi == 0 && yi == 0 && w == full_width && h == full_height) {
+    if (canvas_has_partial_updates == 0) {
         image.data = source;
         image.row_size = canvas->draw_buffer->draw_buffer_pitch;
     }
@@ -170,6 +171,11 @@ void video_canvas_refresh(struct video_canvas_s *canvas, unsigned int xs, unsign
             canvas->bitmap_row_size = size->width;
         }
         
+        xi = MY_MIN(xi, size->width);
+        yi = MY_MIN(yi, size->height);
+        w = MY_MIN(w, size->width - xi);
+        h = MY_MIN(h, size->height - yi);
+        printf(" clipped to (%u, %u) (%ux%u)\n", xi, yi, w, h);
         uint8_t *destination = canvas->bitmap + yi * canvas->bitmap_row_size + xi;
         
         for (size_t y = 0; y < h; y++) {

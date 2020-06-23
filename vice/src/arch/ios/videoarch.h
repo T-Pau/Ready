@@ -64,4 +64,6 @@ typedef struct video_canvas_s {
     size_t bitmap_row_size;
 } video_canvas_t;
 
+extern int canvas_has_partial_updates;
+
 #endif /* VICE_VIDEOARCH_H */

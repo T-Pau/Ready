@@ -372,8 +372,8 @@ char *ui_get_file(const char *format, ...) {
  * \return  0 on success, -1 on failure
  */
 int ui_init(int *argc, char **argv) {
-    archdep_set_resources();
     [viceThread.delegate setupVice];
+    archdep_set_resources();
     return 0;
 }
 

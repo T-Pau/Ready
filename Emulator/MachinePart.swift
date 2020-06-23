@@ -49,8 +49,12 @@ extension MachinePart {
         return connector == .none || port.connectorTypes.contains(connector)
     }
     
-    public func has(port: MachineConfig.Key) -> Bool {
-        return ports.contains(where: { $0.key == port })
+    public func has(port key: MachineConfig.Key) -> Bool {
+        return port(for: key) != nil
+    }
+    
+    public func port(for key: MachineConfig.Key) -> Port? {
+        return ports.first(where: { $0.key == key })
     }
 }
 
