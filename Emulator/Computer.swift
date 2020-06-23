@@ -28,6 +28,15 @@ public struct Computer: MachinePart {
         case c64
         case vic
         
+        var dataDirectory: String {
+            switch self {
+            case .c64:
+                return "vice/C64"
+            case .vic:
+                return "vice/VIC20"
+            }
+        }
+        
         var ports: [Port] {
             switch self {
             case .c64:
@@ -142,10 +151,10 @@ public struct Computer: MachinePart {
     public var chargenName: String
     
     public var chargenUppercase: Chargen? {
-        return Chargen(named: chargenName, bank: 0)
+        return Chargen(named: chargenName, subdirectory: viceMachineModel.viceMachine.dataDirectory, bank: 0)
     }
     public var chargenLowercase: Chargen? {
-        return Chargen(named: chargenName, bank: 1)
+        return Chargen(named: chargenName, subdirectory: viceMachineModel.viceMachine.dataDirectory, bank: 1)
     }
 
     public init(identifier: String, name: String, fullName: String? = nil, variantName: String? = nil, iconName: String, priority: Int = MachinePartNormalPriority, viceMachineModel: ViceModel, keyboardName: String?, caseColorName: String, drive8: DiskDrive? = nil, missingPorts: Set<MachineConfig.Key> = [], chargenName: String = "chargen") {

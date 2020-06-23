@@ -48,13 +48,14 @@ public struct Chargen {
     
     private struct BuiltinKey: Hashable {
         var name: String
+        var subdirectory: String
         var bank: Int
     }
     
     private static var builtin = [BuiltinKey: Chargen?]()
     
-    private static func load(name: String, bank: Int) -> Chargen? {
-        guard let url = Bundle.main.url(forResource: name, withExtension: "", subdirectory: "vice/C64") else { return nil }
+    private static func load(name: String, subdirectory: String, bank: Int) -> Chargen? {
+        guard let url = Bundle.main.url(forResource: name, withExtension: "", subdirectory: subdirectory) else { return nil }
 
         do {
             return try Chargen(contentsOf: url, bank: bank)
@@ -64,15 +65,15 @@ public struct Chargen {
         }
     }
     
-    public init?(named name: String, bank: Int = 0) {
-        let key = BuiltinKey(name: name, bank: bank)
+    public init?(named name: String, subdirectory: String, bank: Int = 0) {
+        let key = BuiltinKey(name: name, subdirectory: subdirectory, bank: bank)
         let chargen: Chargen?
         
         if let cached = Chargen.builtin[key] {
             chargen = cached
         }
         else {
-            chargen = Chargen.load(name: name, bank: bank)
+            chargen = Chargen.load(name: name, subdirectory: subdirectory, bank: bank)
             Chargen.builtin[key] = chargen
         }
         
