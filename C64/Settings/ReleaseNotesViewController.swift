@@ -33,6 +33,9 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Release 1.5 build 8", year: 2020, month: 6, day: 25, changes: [
+            "Fix border show/hide animation on VIC-20."
+        ]),
         Release(name: "Release 1.4 Build 7", year: 2020, month: 6, day: 24, changes: [
             "Add VIC-1001."
         ]),

@@ -49,6 +49,13 @@
 #define MY_MIN(a, b) ((a) < (b) ? (a) : (b))
 #define MY_MAX(a, b) ((a) > (b) ? (a) : (b))
 
+static enum {
+    SCREEN_UPDATE_NEVER,
+    SCREEN_UPDATE_DONE,
+    SCREEN_UPDATE_NEEDED
+} screen_updated;
+static video_canvas_t *current_canvas;
+
 static int lightpen_x;
 static int lightpen_y;
 static int lightpen_buttons;
@@ -199,6 +206,7 @@ void video_canvas_refresh(struct video_canvas_s *canvas, unsigned int xs, unsign
         [viceThread updateBitmapWidth: current_size->width height: current_size->height];
     }
     viceThread.currentBorderMode = viceThread.newBorderMode;
+    screen_updated = SCREEN_UPDATE_DONE;
 }
 
 
@@ -246,6 +254,8 @@ void video_canvas_resize(struct video_canvas_s *canvas, char resize_canvas) {
     if ((canvas->render = render_new(size, viceThread.imageData.mutableBytes, palette, viceThread.currentBorderMode)) == NULL) {
         printf("can't create render\n");
     }
+    current_canvas = canvas;
+    screen_updated = SCREEN_UPDATE_NEVER;
 }
 
 
@@ -313,6 +323,11 @@ void vsyncarch_presync(void) {
     if (!viceThread.vsync) {
         return;
     }
+
+    if (canvas_has_partial_updates && screen_updated == SCREEN_UPDATE_NEEDED) {
+        video_canvas_refresh(current_canvas, 0, 0, 0, 0, 0, 0);
+    }
+    screen_updated = SCREEN_UPDATE_NEEDED;
     
     lightpen_update(0, lightpen_x, lightpen_y, lightpen_buttons);
     kbdbuf_flush();
