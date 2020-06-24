@@ -255,6 +255,8 @@ raster_t *vic_init(void)
 
     resources_touch("VICDoubleSize");
 
+    vic_store_reset();
+    
     return &vic.raster;
 }
 

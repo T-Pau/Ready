@@ -84,6 +84,7 @@ public struct Computer: MachinePart {
         case sx64Pal
         case sx64Ntsc
         case ultimax
+        case vic1001
         case vic20Pal
         case vic20Ntsc
 
@@ -91,7 +92,7 @@ public struct Computer: MachinePart {
             switch self {
             case .c64cNtsc, .c64cPal, .c64Japanese, .c64Gs, .c64Ntsc, .c64OldNtsc, .c64OldPal, .c64Pal, .c64PalN, .pet64Ntsc, .pet64Pal, .sx64Ntsc, .sx64Pal, .ultimax:
                 return .c64
-            case .vic20Pal, .vic20Ntsc:
+            case .vic1001, .vic20Pal, .vic20Ntsc:
                 return .vic
             }
         }
@@ -130,6 +131,8 @@ public struct Computer: MachinePart {
                 return 0
             case .vic20Ntsc:
                 return 1
+            case .vic1001:
+                return 3
             }
         }
     }
@@ -365,7 +368,7 @@ public struct Computer: MachinePart {
                      iconName: "Commodore 64 VIC-20", // TODO: own icon
                      viceMachineModel: .vic20Pal,
                      keyboardName: "VIC-20 Keyboard",
-                     caseColorName: "C64C Case"),
+                     caseColorName: "C64 Silver Case"),
             
             Computer(identifier: "VIC-20 NTSC",
                      name: "Commodore VIC-20 (NTSC)",
@@ -374,7 +377,15 @@ public struct Computer: MachinePart {
                      iconName: "Commodore 64 VIC-20", // TODO: own icon
                      viceMachineModel: .vic20Ntsc,
                      keyboardName: "VIC-20 Keyboard",
-                     caseColorName: "C64C Case")
+                     caseColorName: "C64 Silver Case"),
+            
+            Computer(identifier: "VIC-1001",
+                     name: "Commodore VIC-1001",
+                     variantName: "Japanese",
+                     iconName: "VIC-1001",
+                     viceMachineModel: .vic1001,
+                     keyboardName: "VIC-1001 Keyboard",
+                     caseColorName: "C64 Silver Case")
         ])
    ])
     

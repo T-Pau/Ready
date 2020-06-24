@@ -39,7 +39,8 @@ class LicensesViewController: UIViewController {
         Section(title: nil, rows: [
             "C64 Japanese Keyboard",
             "PET Style Keyboard",
-            "Ultimax Keyboard"
+            "Ultimax Keyboard",
+            "VIC-1001 Keyboard"
         ]),
         Section(title: nil, rows: [
             "CwlMutex",

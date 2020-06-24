@@ -51,6 +51,19 @@
 
 /* VIC access functions. */
 
+static int old_aux_color = -1;
+
+static int old_background_color = -1;
+static int old_border_color = -1;
+static int old_reverse = -1;
+
+void vic_store_reset(void) {
+    old_aux_color = -1;
+    old_background_color = -1;
+    old_border_color = -1;
+    old_reverse = -1;
+}
+
 void vic_store(uint16_t addr, uint8_t value)
 {
     addr &= 0xf;
@@ -105,7 +118,6 @@ void vic_store(uint16_t addr, uint8_t value)
                 changes of auxiliary color in cycle n is visible at pixel 4*(n-7)+1
             */
             {
-                static int old_aux_color = -1;
                 int new_aux_color = value >> 4;
 
                 if (new_aux_color != old_aux_color) {
@@ -140,9 +152,6 @@ void vic_store(uint16_t addr, uint8_t value)
                 4*(n-7)+1, changes of reverse mode at pixel 4*(n-7)+3.
             */
             {
-                static int old_background_color = -1;
-                static int old_border_color = -1;
-                static int old_reverse = -1;
                 int new_background_color, new_border_color, new_reverse;
 
                 new_background_color = value >> 4;

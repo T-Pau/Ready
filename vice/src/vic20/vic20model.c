@@ -41,6 +41,8 @@
 struct model_s {
     int video;   /* machine video timing */
     int ramblocks;
+    char *kernalname;
+    char *chargenname;
 };
 
 enum {
@@ -52,20 +54,23 @@ enum {
 };
 
 static struct model_s vic20models[] = {
-    { MACHINE_SYNC_PAL,  NO_EXTRA_RAM},
-    { MACHINE_SYNC_NTSC, NO_EXTRA_RAM},
-    { MACHINE_SYNC_NTSC, BLOCK_1 | BLOCK_2}, /* SuperVIC */
+    { MACHINE_SYNC_PAL,  NO_EXTRA_RAM, "kernal", "chargen" },
+    { MACHINE_SYNC_NTSC, NO_EXTRA_RAM, "kernal", "chargen" },
+    { MACHINE_SYNC_NTSC, BLOCK_1 | BLOCK_2, "kernal", "chargen" }, /* SuperVIC */
+    { MACHINE_SYNC_NTSC, NO_EXTRA_RAM, "kernal", "jpchrgen" }, /* jpkernal breaks keyboard in lowercase mode ®*/
 };
 
 /* ------------------------------------------------------------------------- */
 
-static int vic20model_get_temp(int video, int ramblocks)
+static int vic20model_get_temp(int video, int ramblocks, const char *kernal, const char *chargen)
 {
     int i;
 
     for (i = 0; i < VIC20MODEL_NUM; ++i) {
         if ((vic20models[i].video == video)
-            && (vic20models[i].ramblocks == ramblocks)) {
+            && (vic20models[i].ramblocks == ramblocks)
+            && strcmp(vic20models[i].kernalname, kernal) == 0
+            && strcmp(vic20models[i].chargenname, chargen) == 0) {
             return i;
         }
     }
@@ -76,13 +81,16 @@ static int vic20model_get_temp(int video, int ramblocks)
 int vic20model_get(void)
 {
     int video, ramblocks, block0, block1, block2, block3, block5;
+    const char *chargen, *kernal;
 
     if ((resources_get_int("MachineVideoStandard", &video) < 0)
         || (resources_get_int("RamBlock0", &block0) < 0)
         || (resources_get_int("RamBlock1", &block1) < 0)
         || (resources_get_int("RamBlock2", &block2) < 0)
         || (resources_get_int("RamBlock3", &block3) < 0)
-        || (resources_get_int("RamBlock5", &block5) < 0)) {
+        || (resources_get_int("RamBlock5", &block5) < 0)
+        || (resources_get_string("KernalName", &kernal) < 0)
+        || (resources_get_string("ChargenName", &chargen) < 0)) {
         return -1;
     }
     ramblocks = (block0 ? BLOCK_0 : 0);
@@ -90,11 +98,11 @@ int vic20model_get(void)
     ramblocks |= (block2 ? BLOCK_2 : 0);
     ramblocks |= (block3 ? BLOCK_3 : 0);
     ramblocks |= (block5 ? BLOCK_5 : 0);
-    return vic20model_get_temp(video, ramblocks);
+    return vic20model_get_temp(video, ramblocks, kernal, chargen);
 }
 
 #if 0
-static void vic20model_set_temp(int model, int *vic_model, int *ramblocks)
+static void vic20model_set_temp(int model, int *vic_model, int *ramblocks) /* kernal, chargen */
 {
     int old_model;
 
@@ -126,4 +134,6 @@ void vic20model_set(int model)
     resources_set_int("RamBlock2", blocks & BLOCK_2 ? 1 : 0);
     resources_set_int("RamBlock3", blocks & BLOCK_3 ? 1 : 0);
     resources_set_int("RamBlock5", blocks & BLOCK_5 ? 1 : 0);
+    resources_set_string("KernalName", vic20models[model].kernalname);
+    resources_set_string("ChargenName", vic20models[model].chargenname);
 }

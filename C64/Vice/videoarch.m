@@ -175,7 +175,6 @@ void video_canvas_refresh(struct video_canvas_s *canvas, unsigned int xs, unsign
         yi = MY_MIN(yi, size->height);
         w = MY_MIN(w, size->width - xi);
         h = MY_MIN(h, size->height - yi);
-        printf(" clipped to (%u, %u) (%ux%u)\n", xi, yi, w, h);
         uint8_t *destination = canvas->bitmap + yi * canvas->bitmap_row_size + xi;
         
         for (size_t y = 0; y < h; y++) {

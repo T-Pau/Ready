@@ -24,6 +24,69 @@
 import UIKit
 
 public struct Keyboard {
+    private struct Polygon {
+        var key: Key
+        
+        var vertices: [CGPoint]
+        var left: CGFloat
+        var right: CGFloat
+        var top: CGFloat
+        var bottom: CGFloat
+        
+        init(vertices: [CGPoint], key: Key) {
+            self.vertices = vertices
+            self.key = key
+
+            if let first = vertices.first {
+                left = first.x
+                right = first.x
+                top = first.y
+                bottom = first.y
+                
+                for point in vertices.dropFirst() {
+                    if point.x < left {
+                        left = point.x
+                    }
+                    if point.x > right {
+                        right = point.x
+                    }
+                    if point.y < top {
+                        top = point.y
+                    }
+                    if point.y < bottom {
+                        bottom = point.y
+                    }
+                }
+            }
+            else {
+                // empty bounding box for empty polygon
+                left = 1
+                right = -1
+                top = 1
+                bottom = -1
+            }
+        }
+
+        func hit(_ point: CGPoint) -> Key? {
+            guard point.x >= left && point.x <= right && point.y >= top && point.y <= bottom else { return nil }
+            guard var j = vertices.last else { return nil }
+
+            var inside = false
+            for i in vertices {
+                if (i.y > point.y) != (j.y > point.y) && (point.x < (j.x - i.x) * (point.y - i.y) / (j.y - i.y) + i.x) {
+                    inside = !inside
+                }
+                j = i
+            }
+            
+            if inside {
+                return key
+            }
+            else {
+                return nil
+            }
+        }
+    }
     private struct Span {
         var left: Int
         var right: Int
@@ -55,10 +118,21 @@ public struct Keyboard {
     
     private struct Layout {
         var rows: [Row]
+        var polygons: [Polygon]
+        
+        init(rows: [Row], polygons: [Polygon] = []) {
+            self.rows = rows
+            self.polygons = polygons
+        }
         
         func hit(_ point: CGPoint) -> Key? {
             for row in rows {
                 if let key = row.hit(point) {
+                    return key
+                }
+            }
+            for polygon in polygons {
+                if let key = polygon.hit(point) {
                     return key
                 }
             }
@@ -77,7 +151,7 @@ public struct Keyboard {
     
     private var layout: Layout
        
-    private init(c64ImageName: String, lockIsShift: Bool = true, rows: [Int], topHalfLeft: Int, topHalfRight: Int, bottomHalfLeft: Int, bottomHalfRight: Int, functionKeysLeft: Int, functionKeysRight: Int, spaceLeft: Int, spaceRight: Int, ctrlRight: Int, restoreLeft: Int, returnLeft: Int, leftShiftLeft: Int, leftShiftRight: Int, rightShiftLeft: Int, rightShiftRight: Int) {
+    private init(c64ImageName: String, lockIsShift: Bool = true, poundIsYen: Bool = false, rows: [Int], topHalfLeft: Int, topHalfRight: Int, bottomHalfLeft: Int, bottomHalfRight: Int, functionKeysLeft: Int, functionKeysRight: Int, spaceLeft: Int, spaceRight: Int, ctrlRight: Int, restoreLeft: Int, returnLeft: Int, leftShiftLeft: Int, leftShiftRight: Int, rightShiftLeft: Int, rightShiftRight: Int) {
         self.imageName = c64ImageName
         if lockIsShift {
             self.toggleKeys = [.ShiftLock: c64ImageName + " ShiftLock"]
@@ -102,7 +176,7 @@ public struct Keyboard {
             ]),
             Row(top: rows[2], bottom: rows[3], spans: [
                 Span(left: bottomHalfLeft, right: returnLeft, keys: [
-                    .RunStop, .ShiftLock, .Char("a"), .Char("s"), .Char("d"), .Char("f"), .Char("g"), .Char("h"), .Char("j"), .Char("k"), .Char("l"), .Char(":"), .Char(";"), .Char("=")
+                    .RunStop, lockIsShift ? .ShiftLock : .CommodoreLock, .Char("a"), .Char("s"), .Char("d"), .Char("f"), .Char("g"), .Char("h"), .Char("j"), .Char("k"), .Char("l"), .Char(":"), .Char(";"), .Char("=")
                 ]),
                 Span(left: returnLeft, right: bottomHalfRight, keys: [.Return]),
                 Span(left: functionKeysLeft, right: functionKeysRight, keys: [.F5])
@@ -122,6 +196,9 @@ public struct Keyboard {
             ])
         ])
         self.keyboardSymbols = KeyboardSymbols.c64
+        if poundIsYen {
+            keyboardSymbols.keyMap[.Char("£")] = KeyboardSymbols.KeySymbols(normal: .char("¥"))
+        }
     }
 
     private static var keyboards: [String: Keyboard] = [
@@ -144,6 +221,7 @@ public struct Keyboard {
                                  rightShiftRight: 2681),
         "C64 Keyboard Japanese": Keyboard(c64ImageName: "C64 Keyboard Japanese",
                                  lockIsShift: false,
+                                 poundIsYen: true,
                                  rows: [ 70, 263, 457, 650, 843, 1027 ],
                                  topHalfLeft: 97,
                                  topHalfRight: 3148,
@@ -245,6 +323,24 @@ public struct Keyboard {
                                   leftShiftRight: 580,
                                   rightShiftLeft: 2543,
                                   rightShiftRight: 2837),
+        "VIC-1001 Keyboard": Keyboard(c64ImageName: "VIC-1001 Keyboard",
+                                      poundIsYen: true,
+                                      rows: [ 73, 224, 370, 514, 668, 811 ],
+                                      topHalfLeft: 84,
+                                      topHalfRight: 2463,
+                                      bottomHalfLeft: 55,
+                                      bottomHalfRight: 2428,
+                                      functionKeysLeft: 2535,
+                                      functionKeysRight: 2785,
+                                      spaceLeft: 468,
+                                      spaceRight: 1800,
+                                      ctrlRight: 302,
+                                      restoreLeft: 2234,
+                                      returnLeft: 2123,
+                                      leftShiftLeft: 198,
+                                      leftShiftRight: 421,
+                                      rightShiftLeft: 1898,
+                                      rightShiftRight: 2120),
         "VIC-20 Keyboard": Keyboard(c64ImageName: "VIC-20 Keyboard",
                                  rows: [ 69, 257, 446, 635, 824, 1012 ],
                                  topHalfLeft: 100,
