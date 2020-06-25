@@ -251,7 +251,7 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
             imageView.layer.magnificationFilter = .nearest
         }
     
-        if machine.cartridgeImage?.type.hasFreeze ?? false != true {
+        if machine.cartridgeImage?.hasFreeze ?? false != true {
             navigationItem.rightBarButtonItems?.removeAll(where: { $0 == freezeButton })
         }
         if computer.keyboard == nil {
@@ -295,7 +295,7 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
                 UIKeyCommand(title: "Reset", action: #selector(resetMachine(_:)), input: "r", modifierFlags: .command, discoverabilityTitle: "Reset")
             ]
             
-            if machine.cartridgeImage?.type.hasFreeze ?? false {
+            if machine.cartridgeImage?.hasFreeze ?? false {
                 _keyboardCommands.append(UIKeyCommand(title: "Freeze", action: #selector(freezeMachine(_:)), input: "z", modifierFlags: .command, discoverabilityTitle: "Freeze"))
             }
         }

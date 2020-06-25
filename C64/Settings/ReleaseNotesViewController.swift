@@ -33,7 +33,8 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
-        Release(name: "Release 1.5 build 8", year: 2020, month: 6, day: 25, changes: [
+        Release(name: "Release 1.4 Build 8", year: 2020, month: 6, day: 26, changes: [
+            "Add support for VIC-20 cartridge images.",
             "Fix border show/hide animation on VIC-20."
         ]),
         Release(name: "Release 1.4 Build 7", year: 2020, month: 6, day: 24, changes: [

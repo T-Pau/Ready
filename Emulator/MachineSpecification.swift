@@ -143,6 +143,10 @@ extension MachineSpecification {
             }
         }
         
+        if let port = computer.port(for: .expansionPort) {
+            machineCartridges = machineCartridges.filter({ ($0 as! MachinePart).isCompatible(with: port) })
+        }
+        
         var isMainSlotFull = false
 
         if identifiers[0] == "auto" {
@@ -335,7 +339,12 @@ extension MachineSpecification {
                 iconName = "Automatic Disk Drive II"
                 
             case .expansionPort:
-                iconName = "Automatic Cartridge"
+                if let port = computer.port(for: .expansionPort), port.connectorTypes.contains(.vic20ExpansionPort) {
+                    iconName = "Automatic VIC-20 Cartridge"
+                }
+                else {
+                    iconName = "Automatic Cartridge"
+                }
                 
             default:
                 return DummyMachinePart.none

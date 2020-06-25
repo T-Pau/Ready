@@ -44,6 +44,11 @@ public class Machine {
         case Drive11IdleMethod
         case Drive11Type
         case DriveSoundEmulation
+        case GenericCartridgeFile2000
+        case GenericCartridgeFile4000
+        case GenericCartridgeFile6000
+        case GenericCartridgeFileA000
+        case GenericCartridgeFileB000
         case GMod2EEPROMImage
         case GMod2EEPROMRW
         case IDE64version
@@ -74,6 +79,23 @@ public class Machine {
         case UserportJoy
         case UserportJoyType
         case VICIIBorderMode
+        
+        public init?(vic20CartridgeAddress address: Int) {
+            switch address {
+            case 0x2000:
+                self = .GenericCartridgeFile2000
+            case 0x4000:
+                self = .GenericCartridgeFile4000
+            case 0x6000:
+                self = .GenericCartridgeFile6000
+            case 0xA000:
+                self = .GenericCartridgeFileA000
+            case 0xB000:
+                self = .GenericCartridgeFileB000
+            default:
+                return nil
+            }
+        }
         
         public init?(driveType unit: Int) {
             guard let resourceName = ResourceName(rawValue: "Drive\(unit)Type") else { return nil }

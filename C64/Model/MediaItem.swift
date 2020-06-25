@@ -55,12 +55,13 @@ extension CartridgeImage: MediaItem {
     }
     
     public var displaySubtitle: String? {
-        if isCrt {
+        switch format {
+        case .crt(_):
             return title
-        }
-        else {
-            if bytes.count % 1024 == 0 {
-                let size = bytes.count / 1024
+
+        default:
+            if romSize % 1024 == 0 {
+                let size = romSize / 1024
                 return "\(size) kilobyte"
             }
         }

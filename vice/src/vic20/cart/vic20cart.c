@@ -118,7 +118,7 @@ int try_cartridge_attach(int c)
 {
     cartres_flags ^= c;
     if (cartres_flags) {
-        return 0;
+        //return 0;
     }
 
     return cartridge_attach_from_resource(vic20cart_type, cartfile);

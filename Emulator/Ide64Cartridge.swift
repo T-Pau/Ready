@@ -74,7 +74,7 @@ extension Ide64Cartridge: Cartridge {
         return [
             .IDE64version: .Int(version.rawValue),
             .IDE64RTCSave: .Bool(true),
-            .CartridgeType: .Int(Int32(CartridgeImage.ViceType.ide64.rawValue)),
+            .CartridgeType: .Int(Int32(CartridgeImage.CrtType.ide64.rawValue)),
             .CartridgeFile: .String(Defaults.viceDataURL.appendingPathComponent("C64/" + version.romName).path)
         ]
     }

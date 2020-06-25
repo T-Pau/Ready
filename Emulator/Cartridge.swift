@@ -84,7 +84,7 @@ public struct OtherCartridge: Cartridge {
     }
 
     
-    public static let none = OtherCartridge(identifier: "none", name: "None", iconName: nil, cartridgeType: .none, resources: [:])
+    public static let none = OtherCartridge(identifier: "none", name: "None", iconName: nil, connector: .none, cartridgeType: .none, resources: [:])
 
     public static let expander = OtherCartridge(identifier: "Mini X-Pander", name: "X-Pander", fullName: "MIni X-Pander", iconName: "Mini X-Pander", cartridgeType: .expander, numberOfSlots: 2, resources: [:])
 

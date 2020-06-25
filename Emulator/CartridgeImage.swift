@@ -24,7 +24,23 @@
 import UIKit
 
 public struct CartridgeImage {
-    public enum ViceType: Int {
+    public enum Format {
+        case crt(type: CrtType)
+        case c64
+        case gmod2(eepromUrl: URL?)
+        case vic20(address: Int)
+        
+        var connectorType: ConnectorType {
+            switch self {
+            case .crt(_), .c64, .gmod2(_):
+                return .c64ExpansionPort
+            case .vic20(_):
+                return .vic20ExpansionPort
+            }
+        }
+    }
+    
+    public enum CrtType: Int {
         case generic
         case actionReplay5 = 1
         case kcsPower = 2
@@ -99,25 +115,29 @@ public struct CartridgeImage {
         }
     }
     public var bytes: Data
+    public var romSize: Int
     
-    public var isCrt: Bool
-    public var type: ViceType
+    public var format: Format
     public var title: String?
     public var url: URL?
+    
     public var eepromUrl: URL? {
-        didSet {
-            if eepromUrl == nil {
-                if isCrt {
-                    type = ViceType(rawValue: Int(bytes[0x16]) << 8 | Int(bytes[0x17])) ?? .generic
-                }
-                else {
-                    type = .generic
-                }
-            }
-            else {
-                // TODO: only allow if bin or already gmod2?
-                type = .gmod2
-            }
+        switch format {
+        case .gmod2(let eepromUrl):
+            return eepromUrl
+            
+        default:
+            return nil
+        }
+    }
+    
+    public var hasFreeze: Bool {
+        switch format {
+        case .crt(type: let type):
+            return type.hasFreeze
+            
+        default:
+            return false
         }
     }
     
@@ -128,8 +148,7 @@ public struct CartridgeImage {
         self.init(url: fileUrl)
 
         if let eeprom = eeprom {
-            type = .gmod2
-            eepromUrl = directory.appendingPathComponent(eeprom)
+            format = .gmod2(eepromUrl: directory.appendingPathComponent(eeprom))
         }
     }
 
@@ -140,25 +159,99 @@ public struct CartridgeImage {
     }
     
     public init?(bytes: Data) {
-        guard bytes.count >= 0x40 else { return nil } // too short for header
-        
-        if String(bytes: bytes[0...15], encoding: .ascii) == "C64 CARTRIDGE   " {
-            isCrt = true
+        romSize = bytes.count
+        title = nil
+                
+        if romSize > 0x40 && String(bytes: bytes[0...15], encoding: .ascii) == "C64 CARTRIDGE   " {
             title = String(bytes: bytes[0x20...0x3f], encoding: .ascii)
             if title?.isEmpty ?? false {
                 title = nil
             }
-            type = ViceType(rawValue: Int(bytes[0x16]) << 8 | Int(bytes[0x17])) ?? .generic
+            format = .crt(type: CrtType(rawValue: Int(bytes[0x16]) << 8 | Int(bytes[0x17])) ?? .generic)
+            // TODO: romSize is incorrect, but currently unused for crt
+        }
+        else if let vic20Format = CartridgeImage.matchVic20(bytes: bytes) {
+            if romSize % 0x1000 == 2 {
+                romSize -= 2 // Account for laod address, if present.
+            }
+            format = vic20Format
         }
         else {
-            isCrt = false
-            type = .generic
-            title = nil
+            // TODO: Check for C64 signature.
+            format = .c64
         }
         
         self.bytes = bytes
         url = nil
     }
+    
+    private struct Signature {
+        var address: Int
+        var bytes: [UInt8]
+        
+        func matches(rom: Data, loadAddress: Int, offset: Int) -> Bool {
+            let endAdress = loadAddress + rom.count - offset
+            if loadAddress > address || endAdress < address {
+                return false
+            }
+            
+            for i in 0 ..< bytes.count {
+                if rom[offset + address - loadAddress + i] != bytes[i] {
+                    return false
+                }
+            }
+            
+            return true
+        }
+    }
+    private static let vic20Signature = Signature(address: 0xa004, bytes: [0x41, 0x30, 0xc3, 0xc2, 0xcd])
+    private static let c64Signature = Signature(address: 0xa003, bytes: [0xc3, 0xc2, 0xcd, 0x38, 0x30])
+
+    private static func matchVic20(bytes: Data) -> Format? {
+        var loadAddress = 0xa000
+        var romSize = bytes.count
+        var offset = 0
+        
+        if romSize % 0x1000 == 2 {
+            loadAddress = Int(bytes[0]) | Int(bytes[1]) << 8
+            romSize -= 2
+            offset = 2
+        }
+        
+        var matches = false
+        
+        switch loadAddress {
+        case 0x2000, 0x4000, 0x6000:
+            if romSize == 0x4000 {
+                /* The second half of 16k cartridges is mapped at 0xa000. */
+                if vic20Signature.matches(rom: bytes, loadAddress: 0xa000, offset: offset + 0x2000) {
+                    matches = true
+                }
+            }
+            else {
+                /* This might be a cartrigde that doesn't auto boot; we ignore this for now. */
+            }
+        case 0xa000:
+            if romSize <= 0x2000 {
+                if vic20Signature.matches(rom: bytes, loadAddress: 0xa000, offset: offset) {
+                    matches = true
+                }
+            }
+            else {
+                /* There isn't room for 16k starting at 0xa000. */
+            }
+        default:
+            break
+        }
+        
+        if matches {
+            return .vic20(address: loadAddress)
+        }
+        else {
+            return nil
+        }
+    }
+
 }
 
 extension CartridgeImage: Cartridge {
@@ -172,18 +265,28 @@ extension CartridgeImage: Cartridge {
     
     public var resources: [Machine.ResourceName: Machine.ResourceValue] {
         guard let fileName = url?.path else { return [:] }
-        var resources: [Machine.ResourceName: Machine.ResourceValue] = [
-            .CartridgeFile: .String(fileName)
-        ]
-        
-        if let eepromUrl = eepromUrl {
-            resources[.CartridgeType] = .Int(Int32(ViceType.gmod2.rawValue))
-            resources[.GMod2EEPROMImage] = .String(eepromUrl.path)
-            resources[.GMod2EEPROMRW] = .Bool(true)
+        var resources = [Machine.ResourceName: Machine.ResourceValue]()
+
+        switch format {
+        case .c64, .crt(_):
+            resources[.CartridgeFile] = .String(fileName)
+            
+        case .gmod2(let eepromUrl):
+            resources[.CartridgeFile] = .String(fileName)
+            if let eepromUrl = eepromUrl {
+                resources[.CartridgeType] = .Int(Int32(CrtType.gmod2.rawValue))
+                resources[.GMod2EEPROMImage] = .String(eepromUrl.path)
+                resources[.GMod2EEPROMRW] = .Bool(true)
+            }
+            
+        case .vic20(let address):
+            if let resourceNane = Machine.ResourceName(vic20CartridgeAddress: address) {
+                resources[.CartridgeType] = .Int(1)
+                resources[resourceNane] = .String(fileName)
+            }
         }
         return resources
     }
-
 }
 
 extension CartridgeImage: MachinePart {
@@ -193,23 +296,35 @@ extension CartridgeImage: MachinePart {
     
     public var icon: UIImage? {
         let name: String
-        switch type {
-        case .actionReplay2, .actionReplay3, .actionReplay4, .actionReplay5:
-            name = "Action Replay"
-        case .atomicPower:
-            name = "Nordic Power"
-        case .easyFlash, .easyFlashXbank:
-            name = "Easy Flash Cartridge"
-        case .finalCartridge1, .finalCartridge3, .finalCartridgePlus:
-            name = "Final Cartridge III"
-        case .gmod2:
+        switch format {
+        case .crt(let type):
+            switch type {
+            case .actionReplay2, .actionReplay3, .actionReplay4, .actionReplay5:
+                name = "Action Replay"
+            case .atomicPower:
+                name = "Nordic Power"
+            case .easyFlash, .easyFlashXbank:
+                name = "Easy Flash Cartridge"
+            case .finalCartridge1, .finalCartridge3, .finalCartridgePlus:
+                name = "Final Cartridge III"
+            case .gmod2:
+                name = "GMod2 Cartridge"
+            case .magicFormel:
+                name = "Magic Formel"
+            case .pagefox:
+                name = "Scanntronics Pagefox"
+            default:
+                name = "Cartridge"
+            }
+            
+        case .c64:
+            name = "EPROM Cartridge"
+            
+        case .gmod2(_):
             name = "GMod2 Cartridge"
-        case .magicFormel:
-            name = "Magic Formel"
-        case .pagefox:
-            name = "Scanntronics Pagefox"
-        default:
-            name = isCrt ? "Cartridge" : "EPROM Cartridge"
+            
+        case .vic20(_):
+            name = "VIC-20 Cartridge"
         }
         return UIImage(named: name)
     }
@@ -218,5 +333,5 @@ extension CartridgeImage: MachinePart {
         return MachinePartNormalPriority
     }
     
-    public var connector: ConnectorType { .c64ExpansionPort } // TODO
+    public var connector: ConnectorType { format.connectorType }
 }
