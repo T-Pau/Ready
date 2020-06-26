@@ -32,16 +32,29 @@ public enum Key : Equatable, Hashable {
     case Commodore
     case CommodoreLock
     case Control
-    case CursorUpDown
+    case CursorDown
+    case CursorLeft
     case CursorLeftRight
+    case CursorRight
+    case CursorUp
+    case CursorUpDown
+    case Escape
     case F1
+    case F2
     case F3
+    case F4
     case F5
+    case F6
     case F7
+    case F8
+    case F9
+    case F10
+    case Help
     case InsertDelete
     case Restore
     case Return
     case RunStop
+    case Shift
     case ShiftLeft
     case ShiftLock
     case ShiftRight
@@ -49,7 +62,7 @@ public enum Key : Equatable, Hashable {
  
     public var isShift: Bool {
         switch self {
-        case .ShiftLeft, .ShiftLock, .ShiftRight:
+        case .Shift, .ShiftLeft, .ShiftLock, .ShiftRight:
             return true
         default:
             return false
@@ -64,16 +77,29 @@ public enum Key : Equatable, Hashable {
              (.Commodore, .Commodore),
              (.CommodoreLock, .CommodoreLock),
              (.Control, .Control),
-             (.CursorUpDown, .CursorUpDown),
+             (.CursorDown, .CursorDown),
+             (.CursorLeft, .CursorLeft),
              (.CursorLeftRight, .CursorLeftRight),
+             (.CursorRight, .CursorRight),
+             (.CursorUp, .CursorUp),
+             (.CursorUpDown, .CursorUpDown),
+             (.Escape, .Escape),
              (.F1, .F1),
+             (.F2, .F2),
              (.F3, .F3),
+             (.F4, .F4),
              (.F5, .F5),
+             (.F6, .F6),
              (.F7, .F7),
+             (.F8, .F8),
+             (.F9, .F9),
+             (.F10, .F10),
+             (.Help, .Help),
              (.InsertDelete, .InsertDelete),
              (.Restore, .Restore),
              (.Return, .Return),
              (.RunStop, .RunStop),
+             (.Shift, .Shift),
              (.ShiftLeft, .ShiftLeft),
              (.ShiftLock, .ShiftLock),
              (.ShiftRight, .ShiftRight):

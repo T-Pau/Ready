@@ -31,6 +31,8 @@
 
 #if VICE_C64
 #define ViceThread ViceThreadC64
+#elif VICE_PLUS4
+#define ViceThread ViceThreadPlus4
 #elif VICE_VIC20
 #define ViceThread ViceThreadVIC20
 #endif

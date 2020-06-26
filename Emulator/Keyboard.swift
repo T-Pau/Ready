@@ -200,6 +200,59 @@ public struct Keyboard {
             keyboardSymbols.keyMap[.Char("£")] = KeyboardSymbols.KeySymbols(normal: .char("¥"))
         }
     }
+    
+    private init(plus4ImageName: String, rows: [Int], functionLeft: Int, functionRight: Int, left: Int, right: Int, leftControlRight: Int, rightControlLeft: Int,returnLeft: Int, returnRight: Int, leftShiftLeft: Int, leftShiftRight: Int, rightShiftLeft: Int, rightShiftRight: Int, spaceLeft: Int, spaceRight: Int, cursorTop: CGFloat, cursorLeft: CGFloat, cursorRight: CGFloat, cursorBottom: CGFloat) {
+        self.imageName = plus4ImageName
+        self.toggleKeys = [.ShiftLock: imageName + " ShiftLock"]
+        
+        let cursorWidth = cursorRight - cursorLeft
+        let cursorHeight = cursorBottom - cursorTop
+
+        let cursorPoints = [
+            CGPoint(x: cursorLeft + cursorWidth * 0.5, y: cursorTop),
+            CGPoint(x: cursorLeft + cursorWidth * 0.25, y: cursorTop + cursorHeight * 0.25),
+            CGPoint(x: cursorLeft + cursorWidth * 0.75, y: cursorTop + cursorHeight * 0.25),
+            CGPoint(x: cursorLeft, y: cursorTop + cursorHeight * 8.5),
+            CGPoint(x: cursorLeft + cursorWidth * 0.5, y: cursorTop + cursorHeight * 8.5),
+            CGPoint(x: cursorRight, y: cursorTop + cursorHeight * 8.5),
+            CGPoint(x: cursorLeft + cursorWidth * 0.25, y: cursorTop + cursorHeight * 0.75),
+            CGPoint(x: cursorLeft + cursorWidth * 0.75, y: cursorTop + cursorHeight * 0.75),
+            CGPoint(x: cursorLeft + cursorWidth * 0.5, y: cursorBottom)
+        ]
+        
+        self.layout = Layout(rows: [
+            Row(top: rows[0], bottom: rows[1], spans: [
+                Span(left: functionLeft, right: functionRight, keys: [.F1, .F2, .F3, .Help])
+            ]),
+            Row(top: rows[1], bottom: rows[2], spans: [
+                Span(left: left, right: right, keys: [.Escape, .Char("1"), .Char("2"), .Char("3"), .Char("4"), .Char("5"), .Char("6"), .Char("7"), .Char("8"), .Char("9"), .Char("0"), .Char("+"), .Char("-"), .Char("="), .ClearHome, .InsertDelete])
+            ]),
+            Row(top: rows[2], bottom: rows[3], spans: [
+                Span(left: left, right: leftControlRight, keys: [.Control]),
+                Span(left: leftControlRight, right: rightControlLeft, keys: [.Char("q"), .Char("w"), .Char("e"), .Char("r"), .Char("t"), .Char("y"), .Char("u"), .Char("i"), .Char("o"), .Char("p"), .Char("@"), .Char("£"), .Char("*")]),
+                Span(left: rightControlLeft, right: right, keys: [.Control])
+            ]),
+            Row(top: rows[3], bottom: rows[4], spans: [
+                Span(left: left, right: returnLeft, keys: [.RunStop, .ShiftLock, .Char("a"), .Char("s"), .Char("d"), .Char("f"), .Char("g"), .Char("h"), .Char("j"), .Char("k"), .Char("l"), .Char(":"), .Char(";")]),
+                Span(left: returnLeft, right: returnRight, keys: [.Return])
+            ]),
+            Row(top: rows[4], bottom: rows[5], spans: [
+                Span(left: left, right: leftShiftLeft, keys: [.Commodore]),
+                Span(left: leftShiftLeft, right: leftShiftRight, keys: [.Shift]),
+                Span(left: leftShiftRight, right: rightShiftLeft, keys: [.Char("z"), .Char("x"), .Char("c"), .Char("v"), .Char("b"), .Char("n"), .Char("m"), .Char(","), .Char("."), .Char("/")]),
+                Span(left: rightShiftLeft, right: rightShiftRight, keys: [.Shift])
+            ]),
+            Row(top: rows[5], bottom: rows[6], spans: [
+                Span(left: spaceLeft, right: spaceRight, keys: [.Char(" ")])
+            ])
+        ], polygons: [
+            Polygon(vertices: [cursorPoints[0], cursorPoints[2], cursorPoints[4], cursorPoints[1]], key: .CursorUp),
+            Polygon(vertices: [cursorPoints[1], cursorPoints[4], cursorPoints[6], cursorPoints[3]], key: .CursorLeft),
+            Polygon(vertices: [cursorPoints[2], cursorPoints[5], cursorPoints[7], cursorPoints[4]], key: .CursorRight),
+            Polygon(vertices: [cursorPoints[4], cursorPoints[7], cursorPoints[8], cursorPoints[6]], key: .CursorDown)
+        ])
+        self.keyboardSymbols = KeyboardSymbols.plus4
+    }
 
     private static var keyboards: [String: Keyboard] = [
         "C64 Keyboard": Keyboard(c64ImageName: "C64 Keyboard",

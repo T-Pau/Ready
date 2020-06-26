@@ -69,7 +69,7 @@ struct KeyboardMatrix {
         case .CursorUpDown, .ShiftLeft, .ShiftLock, .Char("x"), .Char("v"), .Char("n"), .Char(","), .Char("/"), .RunStop:
             return 7
             
-        case .Char(_), .Restore:
+        default:
             return nil
         }
     }
@@ -93,7 +93,7 @@ struct KeyboardMatrix {
         case .Char("1"), .ArrowLeft, .Control, .Char("2"), .Char(" "), .Commodore, .CommodoreLock, .Char("q"), .RunStop:
             return 7
             
-        case .Char(_), .Restore:
+        default:
             return nil
         }
     }
