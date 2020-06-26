@@ -243,7 +243,7 @@ public struct Computer: MachinePart {
                      iconName: "Commodore 64 Silver",
                      viceMachineModel: .c64OldPal,
                      keyboardName: "PET Style Keyboard",
-                     caseColorName: "C64 Silver Case"),
+                     caseColorName: "VIC-20 Case"),
             
             Computer(identifier: "C64 Silver NTSC",
                      name: "Commodore 64 Silver (NTSC)",
@@ -252,7 +252,7 @@ public struct Computer: MachinePart {
                      iconName: "Commodore 64 Silver",
                      viceMachineModel: .c64OldNtsc,
                      keyboardName: "PET Style Keyboard",
-                     caseColorName: "C64 Silver Case"),
+                     caseColorName: "VIC-20 Case"),
         ]),
         MachinePartSection(title: "Commdore 64 C", parts: [
             Computer(identifier: "C64C PAL",
@@ -365,27 +365,64 @@ public struct Computer: MachinePart {
                      name: "Commodore VIC-20 (PAL)",
                      fullName: "Commodore VIC-20",
                      variantName: "PAL",
-                     iconName: "Commodore 64 VIC-20", // TODO: own icon
+                     iconName: "Commodore VIC-20",
                      viceMachineModel: .vic20Pal,
                      keyboardName: "VIC-20 Keyboard",
-                     caseColorName: "C64 Silver Case"),
+                     caseColorName: "VIC-20 Case"),
             
             Computer(identifier: "VIC-20 NTSC",
                      name: "Commodore VIC-20 (NTSC)",
                      fullName: "Commodore VIC-20",
                      variantName: "NTSC",
-                     iconName: "Commodore 64 VIC-20", // TODO: own icon
+                     iconName: "Commodore VIC-20",
                      viceMachineModel: .vic20Ntsc,
                      keyboardName: "VIC-20 Keyboard",
-                     caseColorName: "C64 Silver Case"),
+                     caseColorName: "VIC-20 Case"),
             
             Computer(identifier: "VIC-1001",
                      name: "Commodore VIC-1001",
                      variantName: "Japanese",
-                     iconName: "VIC-1001",
+                     iconName: "Commodore VIC-1001",
                      viceMachineModel: .vic1001,
                      keyboardName: "VIC-1001 Keyboard",
-                     caseColorName: "C64 Silver Case")
+                     caseColorName: "VIC-20 Case",
+                     chargenName: "jpchrgen"),
+            
+            Computer(identifier: "VIC-20 PET PAL",
+                     name: "Commodore VIC-20 (PET Style Keyboard, PAL)",
+                     fullName: "Commodore VIC-20",
+                     variantName: "PET Style Keyboard, PAL",
+                     iconName: "Commodore VIC-20",
+                     viceMachineModel: .vic20Pal,
+                     keyboardName: "PET Style Keyboard",
+                     caseColorName: "VIC-20 Case"),
+            
+            Computer(identifier: "VIC-20 PET NTSC",
+                     name: "Commodore VIC-20 (PET Style Keyboard, NTSC)",
+                     fullName: "Commodore VIC-20",
+                     variantName: "PET Style Keyboard, PAL",
+                     iconName: "Commodore VIC-20",
+                     viceMachineModel: .vic20Ntsc,
+                     keyboardName: "PET Style Keyboard",
+                     caseColorName: "VIC-20 Case"),
+
+            Computer(identifier: "VIC-20 C64 PAL",
+                     name: "Commodore VIC-20 (C64 Style Keyboard, PAL)",
+                     fullName: "Commodore VIC-20",
+                     variantName: "C64 Style Keyboard, PAL",
+                     iconName: "Commodore VIC-20 C64",
+                     viceMachineModel: .vic20Pal,
+                     keyboardName: "C64 Keyboard",
+                     caseColorName: "VIC-20 Case"),
+
+            Computer(identifier: "VIC-20 C64 NTSC",
+                     name: "Commodore VIC-20 (C64 Style Keyboard,  NTSC)",
+                     fullName: "Commodore VIC-20",
+                     variantName: "C64 Style Keyboard, NTSC",
+                     iconName: "Commodore VIC-20 C64",
+                     viceMachineModel: .vic20Ntsc,
+                     keyboardName: "C64 Keyboard",
+                     caseColorName: "VIC-20 Case")
         ])
    ])
     

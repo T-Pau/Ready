@@ -323,7 +323,7 @@ public struct Keyboard {
                                   leftShiftRight: 580,
                                   rightShiftLeft: 2543,
                                   rightShiftRight: 2837),
-        "VIC-1001 Keyboard": Keyboard(c64ImageName: "VIC-1001 Keyboard",
+        "VIC-1001 Keyboard": Keyboard(c64ImageName: "PET Style Keyboard Japanese",
                                       poundIsYen: true,
                                       rows: [ 73, 224, 370, 514, 668, 811 ],
                                       topHalfLeft: 84,
