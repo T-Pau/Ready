@@ -33,6 +33,9 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Release 1.4 Build 10", year: 2020, month: 6, day: 27, changes: [
+            "Map <- to Escape in addition to `"
+        ]),
         Release(name: "Release 1.4 Build 9", year: 2020, month: 6, day: 26, changes: [
             "Add more VIC-20 variants.",
             "Fix VIC-1001 software keyboard."
