@@ -43,14 +43,16 @@ public struct KeyboardSymbols {
                 symbol = .char(char)
                 modifierFlags = key.modifierFlags.subtracting([.shift, .alphaShift, .alternate])
             }
-            else if key.charactersIgnoringModifiers.count == 1, let char = key.charactersIgnoringModifiers.first, char >= "a" && char <= "z" {
-                if key.modifierFlags.contains(.shift) || key.modifierFlags.contains(.alphaShift), let uppercaseChar = char.uppercased().first {
-                    symbol = .char(uppercaseChar)
+            else if key.charactersIgnoringModifiers.count == 1, let char = key.charactersIgnoringModifiers.first, char >= " " {
+                symbol = .char(char)
+                modifierFlags = key.modifierFlags.subtracting([.shift, .alphaShift, .alternate])
+                if char >= "a" && char <= "z" {
+                    if key.modifierFlags.contains(.shift) || key.modifierFlags.contains(.alphaShift), let uppercaseChar = char.uppercased().first {
+                        symbol = .char(uppercaseChar)
+                    }
                 }
                 else {
-                    symbol = .char(char)
                 }
-                modifierFlags = key.modifierFlags.subtracting([.shift, .alphaShift, .alternate])
             }
             else {
                 symbol = .key(key.keyCode)
@@ -183,8 +185,12 @@ public struct KeyboardSymbols {
             ModifiedSymbol(symbol: .char("8"), modifiers: .command): ModifiedSymbol(symbol: .key(.keyboardF8)),
             ModifiedSymbol(symbol: .key(.keyboardDeleteOrBackspace), modifiers: .command): ModifiedSymbol(symbol: .key(.keyboardHome)),
             ModifiedSymbol(symbol: .key(.keyboardDeleteOrBackspace), modifiers: [.shift, .command]): ModifiedSymbol(symbol: .key(.keyboardHome), modifiers: .shift),
+            ModifiedSymbol(symbol: .key(.keyboardDeleteOrBackspace), modifiers: [.control, .command]): ModifiedSymbol(symbol: .key(.keyboardHome), modifiers: .control),
+            ModifiedSymbol(symbol: .key(.keyboardDeleteOrBackspace), modifiers: [.control, .shift, .command]): ModifiedSymbol(symbol: .key(.keyboardHome), modifiers: [.control, .shift]),
             ModifiedSymbol(symbol: .char("`")): ModifiedSymbol(symbol: .key(.keyboardEscape)),
-            ModifiedSymbol(symbol: .char("~")): ModifiedSymbol(symbol: .key(.keyboardEscape), modifiers: [.shift])
+            ModifiedSymbol(symbol: .char("~")): ModifiedSymbol(symbol: .key(.keyboardEscape), modifiers: [.shift]),
+            ModifiedSymbol(symbol: .char("`"), modifiers: .control): ModifiedSymbol(symbol: .key(.keyboardEscape), modifiers: .control),
+            ModifiedSymbol(symbol: .char("~"), modifiers: .control): ModifiedSymbol(symbol: .key(.keyboardEscape), modifiers: [.control, .shift])
         ])
     
     public static let plus4 = KeyboardSymbols(modifierMap: [
@@ -274,7 +280,11 @@ public struct KeyboardSymbols {
         ModifiedSymbol(symbol: .char("8"), modifiers: .command): ModifiedSymbol(symbol: .key(.keyboardF8)),
         ModifiedSymbol(symbol: .key(.keyboardDeleteOrBackspace), modifiers: .command): ModifiedSymbol(symbol: .key(.keyboardHome)),
         ModifiedSymbol(symbol: .key(.keyboardDeleteOrBackspace), modifiers: [.shift, .command]): ModifiedSymbol(symbol: .key(.keyboardHome), modifiers: .shift),
+        ModifiedSymbol(symbol: .key(.keyboardDeleteOrBackspace), modifiers: [.control, .command]): ModifiedSymbol(symbol: .key(.keyboardHome), modifiers: .control),
+        ModifiedSymbol(symbol: .key(.keyboardDeleteOrBackspace), modifiers: [.control, .shift, .command]): ModifiedSymbol(symbol: .key(.keyboardHome), modifiers: [.control, .shift]),
         ModifiedSymbol(symbol: .char("`")): ModifiedSymbol(symbol: .key(.keyboardEscape)),
-        ModifiedSymbol(symbol: .char("~")): ModifiedSymbol(symbol: .key(.keyboardEscape), modifiers: [.shift])
+        ModifiedSymbol(symbol: .char("~")): ModifiedSymbol(symbol: .key(.keyboardEscape), modifiers: [.shift]),
+        ModifiedSymbol(symbol: .char("`"), modifiers: .control): ModifiedSymbol(symbol: .key(.keyboardEscape), modifiers: .control),
+        ModifiedSymbol(symbol: .char("~"), modifiers: .control): ModifiedSymbol(symbol: .key(.keyboardEscape), modifiers: [.control, .shift])
     ])
 }
