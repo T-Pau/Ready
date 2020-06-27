@@ -150,14 +150,56 @@ public struct Keyboard {
     }
     
     private var layout: Layout
+    
+    private init(c16WithImageName imageName: String, rows: [Int], topHalfLeft: Int, topHalfRight: Int, bottomHalfLeft: Int, bottomHalfRight: Int, functionKeysLeft: Int, functionKeysRight: Int, spaceLeft: Int, spaceRight: Int, ctrlRight: Int, clearLeft: Int, returnLeft: Int, leftShiftLeft: Int, leftShiftRight: Int, rightShiftLeft: Int, rightShiftRight: Int) {
+        self.imageName = imageName
+        self.toggleKeys = [.ShiftLock: imageName + " ShiftLock"]
+        self.layout = Layout(rows: [
+            Row(top: rows[0], bottom: rows[1], spans: [
+                Span(left: topHalfLeft, right: topHalfRight, keys: [
+                    .Escape, .Char("1"), .Char("2"), .Char("3"), .Char("4"), .Char("5"), .Char("6"), .Char("7"), .Char("8"), .Char("9"), .Char("0"), .CursorLeft, .CursorRight, .CursorUp, .CursorDown, .InsertDelete
+                ]),
+                Span(left: functionKeysLeft, right: functionKeysRight, keys: [.F1])
+            ]),
+            Row(top: rows[1], bottom: rows[2], spans: [
+                Span(left: topHalfLeft, right: ctrlRight, keys: [.Control]),
+                Span(left: ctrlRight, right: clearLeft, keys: [
+                    .Char("q"), .Char("w"), .Char("e"), .Char("r"), .Char("t"), .Char("y"), .Char("u"), .Char("i"), .Char("o"), .Char("p"), .Char("@"), .Char("+"), .Char("-")
+                ]),
+                Span(left: clearLeft, right: topHalfRight, keys: [.ClearHome]),
+                Span(left: functionKeysLeft, right: functionKeysRight, keys: [.F2])
+            ]),
+            Row(top: rows[2], bottom: rows[3], spans: [
+                Span(left: bottomHalfLeft, right: returnLeft, keys: [
+                    .RunStop, .ShiftLock, .Char("a"), .Char("s"), .Char("d"), .Char("f"), .Char("g"), .Char("h"), .Char("j"), .Char("k"), .Char("l"), .Char(":"), .Char(";"), .Char("*")
+                ]),
+                Span(left: returnLeft, right: bottomHalfRight, keys: [.Return]),
+                Span(left: functionKeysLeft, right: functionKeysRight, keys: [.F3])
+            ]),
+            Row(top: rows[3], bottom: rows[4], spans: [
+                Span(left: bottomHalfLeft, right: leftShiftLeft, keys: [.Commodore]),
+                Span(left: leftShiftLeft, right: leftShiftRight, keys: [.ShiftLeft]),
+                Span(left: leftShiftRight, right: rightShiftLeft, keys: [
+                    .Char("z"), .Char("x"), .Char("c"), .Char("v"), .Char("b"), .Char("n"), .Char("m"), .Char(","), .Char("."), .Char("/"),
+                ]),
+                Span(left: rightShiftLeft, right: rightShiftRight, keys: [.ShiftRight]),
+                Span(left: rightShiftRight, right: bottomHalfRight, keys: [.Char("£"), .Char("=")]),
+                Span(left: functionKeysLeft, right: functionKeysRight, keys: [.Help])
+            ]),
+            Row(top: rows[4], bottom: rows[5], spans: [
+                Span(left: spaceLeft, right: spaceRight, keys: [.Char(" ")])
+            ])
+        ])
+        self.keyboardSymbols = KeyboardSymbols.plus4
+    }
        
-    private init(c64ImageName: String, lockIsShift: Bool = true, poundIsYen: Bool = false, rows: [Int], topHalfLeft: Int, topHalfRight: Int, bottomHalfLeft: Int, bottomHalfRight: Int, functionKeysLeft: Int, functionKeysRight: Int, spaceLeft: Int, spaceRight: Int, ctrlRight: Int, restoreLeft: Int, returnLeft: Int, leftShiftLeft: Int, leftShiftRight: Int, rightShiftLeft: Int, rightShiftRight: Int) {
-        self.imageName = c64ImageName
+    private init(c64WithImageName imageName: String, lockIsShift: Bool = true, poundIsYen: Bool = false, rows: [Int], topHalfLeft: Int, topHalfRight: Int, bottomHalfLeft: Int, bottomHalfRight: Int, functionKeysLeft: Int, functionKeysRight: Int, spaceLeft: Int, spaceRight: Int, ctrlRight: Int, restoreLeft: Int, returnLeft: Int, leftShiftLeft: Int, leftShiftRight: Int, rightShiftLeft: Int, rightShiftRight: Int) {
+        self.imageName = imageName
         if lockIsShift {
-            self.toggleKeys = [.ShiftLock: c64ImageName + " ShiftLock"]
+            self.toggleKeys = [.ShiftLock: imageName + " ShiftLock"]
         }
         else {
-            self.toggleKeys = [.CommodoreLock: c64ImageName + " ShiftLock"]
+            self.toggleKeys = [.CommodoreLock: imageName + " ShiftLock"]
         }
         self.layout = Layout(rows: [
             Row(top: rows[0], bottom: rows[1], spans: [
@@ -201,8 +243,8 @@ public struct Keyboard {
         }
     }
     
-    private init(plus4ImageName: String, rows: [Int], functionLeft: Int, functionRight: Int, left: Int, right: Int, leftControlRight: Int, rightControlLeft: Int,returnLeft: Int, returnRight: Int, leftShiftLeft: Int, leftShiftRight: Int, rightShiftLeft: Int, rightShiftRight: Int, spaceLeft: Int, spaceRight: Int, cursorTop: CGFloat, cursorLeft: CGFloat, cursorRight: CGFloat, cursorBottom: CGFloat) {
-        self.imageName = plus4ImageName
+    private init(plus4WithImageName imageName: String, rows: [Int], functionLeft: Int, functionRight: Int, left: Int, right: Int, leftControlRight: Int, rightControlLeft: Int,returnLeft: Int, returnRight: Int, leftShiftLeft: Int, leftShiftRight: Int, rightShiftLeft: Int, rightShiftRight: Int, spaceLeft: Int, spaceRight: Int, cursorTop: CGFloat, cursorLeft: CGFloat, cursorRight: CGFloat, cursorBottom: CGFloat) {
+        self.imageName = imageName
         self.toggleKeys = [.ShiftLock: imageName + " ShiftLock"]
         
         let cursorWidth = cursorRight - cursorLeft
@@ -255,7 +297,25 @@ public struct Keyboard {
     }
 
     private static var keyboards: [String: Keyboard] = [
-        "C64 Keyboard": Keyboard(c64ImageName: "C64 Keyboard",
+        "C16 Keybord": Keyboard(c16WithImageName: "C16 Keyboard",
+                                rows: [72, 262, 442, 618, 817, 981],
+                                topHalfLeft: 86,
+                                topHalfRight: 2965,
+                                bottomHalfLeft: 56,
+                                bottomHalfRight: 2919,
+                                functionKeysLeft: 3066,
+                                functionKeysRight: 3366,
+                                spaceLeft: 540,
+                                spaceRight: 2149,
+                                ctrlRight: 341,
+                                clearLeft: 2073,
+                                returnLeft: 2564,
+                                leftShiftLeft: 205,
+                                leftShiftRight: 480,
+                                rightShiftLeft: 2287,
+                                rightShiftRight: 2566),
+        
+        "C64 Keyboard": Keyboard(c64WithImageName: "C64 Keyboard",
                                  rows: [ 69, 257, 446, 635, 824, 1012 ],
                                  topHalfLeft: 100,
                                  topHalfRight: 3034,
@@ -272,7 +332,8 @@ public struct Keyboard {
                                  leftShiftRight: 559,
                                  rightShiftLeft: 2341,
                                  rightShiftRight: 2681),
-        "C64 Keyboard Japanese": Keyboard(c64ImageName: "C64 Keyboard Japanese",
+        
+        "C64 Keyboard Japanese": Keyboard(c64WithImageName: "C64 Keyboard Japanese",
                                  lockIsShift: false,
                                  poundIsYen: true,
                                  rows: [ 70, 263, 457, 650, 843, 1027 ],
@@ -291,7 +352,8 @@ public struct Keyboard {
                                  leftShiftRight: 524,
                                  rightShiftLeft: 2436,
                                  rightShiftRight: 2723),
-        "C64C Keyboard": Keyboard(c64ImageName: "C64C Keyboard",
+        
+        "C64C Keyboard": Keyboard(c64WithImageName: "C64C Keyboard",
                                   rows: [ 69, 257, 446, 635, 824, 1012 ],
                                   topHalfLeft: 100,
                                   topHalfRight: 3034,
@@ -308,7 +370,8 @@ public struct Keyboard {
                                   leftShiftRight: 559,
                                   rightShiftLeft: 2341,
                                   rightShiftRight: 2681),
-        "C64C New Keyboard": Keyboard(c64ImageName: "C64C New Keyboard",
+        
+        "C64C New Keyboard": Keyboard(c64WithImageName: "C64C New Keyboard",
                                   rows: [ 50, 233, 402, 571, 746, 917 ],
                                   topHalfLeft: 97,
                                   topHalfRight: 2853,
@@ -325,7 +388,8 @@ public struct Keyboard {
                                   leftShiftRight: 477,
                                   rightShiftLeft: 2215,
                                   rightShiftRight: 2476),
-        "Max Keyboard": Keyboard(c64ImageName: "Max Keyboard",
+        
+        "Max Keyboard": Keyboard(c64WithImageName: "Max Keyboard",
                                   rows: [ 32, 217, 400, 588, 780, 972 ],
                                   topHalfLeft: 39,
                                   topHalfRight: 3058,
@@ -342,7 +406,8 @@ public struct Keyboard {
                                   leftShiftRight: 517,
                                   rightShiftLeft: 2390,
                                   rightShiftRight: 2671),
-        "PET Style Keyboard": Keyboard(c64ImageName: "PET Style Keyboard",
+        
+        "PET Style Keyboard": Keyboard(c64WithImageName: "PET Style Keyboard",
                                  rows: [ 44, 194, 338, 485, 631, 772 ],
                                  topHalfLeft: 66,
                                  topHalfRight: 2388,
@@ -359,7 +424,29 @@ public struct Keyboard {
                                  leftShiftRight: 391,
                                  rightShiftLeft: 1853,
                                  rightShiftRight: 2071),
-        "SX64 Keyboard": Keyboard(c64ImageName: "SX64 Keyboard",
+        
+        "Plus/4": Keyboard(plus4WithImageName: "Plus 4 Keyboard",
+                           rows: [50, 231, 444, 656, 871, 1074, 1284],
+                           functionLeft: 283,
+                           functionRight: 1915,
+                           left: 79,
+                           right: 3430,
+                           leftControlRight: 385,
+                           rightControlLeft: 3130,
+                           returnLeft: 2800,
+                           returnRight: 3218,
+                           leftShiftLeft: 264,
+                           leftShiftRight: 578,
+                           rightShiftLeft: 2696,
+                           rightShiftRight: 3007,
+                           spaceLeft: 795,
+                           spaceRight: 2689,
+                           cursorTop: 900,
+                           cursorLeft:3032,
+                           cursorRight: 3429,
+                           cursorBottom: 1292),
+        
+        "SX64 Keyboard": Keyboard(c64WithImageName: "SX64 Keyboard",
                                   rows: [ 69, 269, 469, 669, 869, 1060 ],
                                   topHalfLeft: 90,
                                   topHalfRight: 3229,
@@ -376,7 +463,26 @@ public struct Keyboard {
                                   leftShiftRight: 580,
                                   rightShiftLeft: 2543,
                                   rightShiftRight: 2837),
-        "VIC-1001 Keyboard": Keyboard(c64ImageName: "PET Style Keyboard Japanese",
+        
+        "VIC-20 Keyboard": Keyboard(c64WithImageName: "VIC-20 Keyboard",
+                                 rows: [ 69, 257, 446, 635, 824, 1012 ],
+                                 topHalfLeft: 100,
+                                 topHalfRight: 3034,
+                                 bottomHalfLeft: 49,
+                                 bottomHalfRight: 2984,
+                                 functionKeysLeft: 3115,
+                                 functionKeysRight: 3415,
+                                 spaceLeft: 544,
+                                 spaceRight: 2207,
+                                 ctrlRight: 330,
+                                 restoreLeft: 2778,
+                                 returnLeft: 2681,
+                                 leftShiftLeft: 283,
+                                 leftShiftRight: 559,
+                                 rightShiftLeft: 2341,
+                                 rightShiftRight: 2681),
+        
+        "VIC-1001 Keyboard": Keyboard(c64WithImageName: "PET Style Keyboard Japanese",
                                       poundIsYen: true,
                                       rows: [ 73, 224, 370, 514, 668, 811 ],
                                       topHalfLeft: 84,
@@ -394,23 +500,7 @@ public struct Keyboard {
                                       leftShiftRight: 421,
                                       rightShiftLeft: 1898,
                                       rightShiftRight: 2120),
-        "VIC-20 Keyboard": Keyboard(c64ImageName: "VIC-20 Keyboard",
-                                 rows: [ 69, 257, 446, 635, 824, 1012 ],
-                                 topHalfLeft: 100,
-                                 topHalfRight: 3034,
-                                 bottomHalfLeft: 49,
-                                 bottomHalfRight: 2984,
-                                 functionKeysLeft: 3115,
-                                 functionKeysRight: 3415,
-                                 spaceLeft: 544,
-                                 spaceRight: 2207,
-                                 ctrlRight: 330,
-                                 restoreLeft: 2778,
-                                 returnLeft: 2681,
-                                 leftShiftLeft: 283,
-                                 leftShiftRight: 559,
-                                 rightShiftLeft: 2341,
-                                 rightShiftRight: 2681),
+        
     ]
     
     public static func keyboard(named name: String) -> Keyboard? {
