@@ -54,12 +54,12 @@
 		4B540EAA24A7805F00F6925B /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B540EA924A7805F00F6925B /* GridView.swift */; };
 		4B540EAC24A8972B00F6925B /* AppIconViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B540EAB24A8972B00F6925B /* AppIconViewController.swift */; };
 		4B540EAE24A89A4F00F6925B /* AppIconCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B540EAD24A89A4F00F6925B /* AppIconCell.swift */; };
-		4B540EB724A8A8CF00F6925B /* App Icon60x60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B540EB424A8A8CF00F6925B /* App Icon60x60@2x.png */; };
-		4B540EB824A8A8CF00F6925B /* App Icon VIC-2076x72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B540EB524A8A8CF00F6925B /* App Icon VIC-2076x72@2x.png */; };
-		4B540EB924A8A8CF00F6925B /* App Icon76x76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B540EB624A8A8CF00F6925B /* App Icon76x76@2x.png */; };
-		4B540EBB24A8AAFD00F6925B /* App Icon VIC-2060x60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B540EBA24A8AAFD00F6925B /* App Icon VIC-2060x60@2x.png */; };
-		4B540EBE24A8AB5900F6925B /* App Icon SX-6460x60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B540EBC24A8AB5900F6925B /* App Icon SX-6460x60@2x.png */; };
-		4B540EBF24A8AB5900F6925B /* App Icon SX-6476x76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B540EBD24A8AB5900F6925B /* App Icon SX-6476x76@2x.png */; };
+		4B540ECC24A8D84100F6925B /* Icon-SX64-83.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B540EC224A8D84000F6925B /* Icon-SX64-83.5.png */; };
+		4B540ECD24A8D84100F6925B /* Icon-VIC20-76.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B540EC324A8D84100F6925B /* Icon-VIC20-76.png */; };
+		4B540ECE24A8D84100F6925B /* Icon-VIC20-60.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B540EC424A8D84100F6925B /* Icon-VIC20-60.png */; };
+		4B540ECF24A8D84100F6925B /* Icon-SX64-60.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B540EC524A8D84100F6925B /* Icon-SX64-60.png */; };
+		4B540ED024A8D84100F6925B /* Icon-SX64-76.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B540EC624A8D84100F6925B /* Icon-SX64-76.png */; };
+		4B540ED324A8D84100F6925B /* Icon-VIC20-83.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B540EC924A8D84100F6925B /* Icon-VIC20-83.5.png */; };
 		4B671FDE24A08ABB00E39F01 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1638C2224672A50056A275 /* Keyboard.swift */; };
 		4B6800162499FDF700A76E57 /* libsounddrv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B6800152499FDD500A76E57 /* libsounddrv.a */; };
 		4B6800172499FE6800A76E57 /* lamelib.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAA5321D7AD7400C272C4 /* lamelib.c */; };
@@ -3143,12 +3143,12 @@
 		4B540EA924A7805F00F6925B /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
 		4B540EAB24A8972B00F6925B /* AppIconViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconViewController.swift; sourceTree = "<group>"; };
 		4B540EAD24A89A4F00F6925B /* AppIconCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconCell.swift; sourceTree = "<group>"; };
-		4B540EB424A8A8CF00F6925B /* App Icon60x60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App Icon60x60@2x.png"; sourceTree = "<group>"; };
-		4B540EB524A8A8CF00F6925B /* App Icon VIC-2076x72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App Icon VIC-2076x72@2x.png"; sourceTree = "<group>"; };
-		4B540EB624A8A8CF00F6925B /* App Icon76x76@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App Icon76x76@2x.png"; sourceTree = "<group>"; };
-		4B540EBA24A8AAFD00F6925B /* App Icon VIC-2060x60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App Icon VIC-2060x60@2x.png"; sourceTree = "<group>"; };
-		4B540EBC24A8AB5900F6925B /* App Icon SX-6460x60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App Icon SX-6460x60@2x.png"; sourceTree = "<group>"; };
-		4B540EBD24A8AB5900F6925B /* App Icon SX-6476x76@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App Icon SX-6476x76@2x.png"; sourceTree = "<group>"; };
+		4B540EC224A8D84000F6925B /* Icon-SX64-83.5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-SX64-83.5.png"; sourceTree = "<group>"; };
+		4B540EC324A8D84100F6925B /* Icon-VIC20-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-VIC20-76.png"; sourceTree = "<group>"; };
+		4B540EC424A8D84100F6925B /* Icon-VIC20-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-VIC20-60.png"; sourceTree = "<group>"; };
+		4B540EC524A8D84100F6925B /* Icon-SX64-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-SX64-60.png"; sourceTree = "<group>"; };
+		4B540EC624A8D84100F6925B /* Icon-SX64-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-SX64-76.png"; sourceTree = "<group>"; };
+		4B540EC924A8D84100F6925B /* Icon-VIC20-83.5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-VIC20-83.5.png"; sourceTree = "<group>"; };
 		4B6800152499FDD500A76E57 /* libsounddrv.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsounddrv.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B680033249A00A500A76E57 /* vice_c64.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = vice_c64.c; sourceTree = "<group>"; };
 		4B680035249A023100A76E57 /* vice_vic20.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vice_vic20.c; sourceTree = "<group>"; };
@@ -5735,12 +5735,12 @@
 		4B540EB124A8A66200F6925B /* App Icons */ = {
 			isa = PBXGroup;
 			children = (
-				4B540EBC24A8AB5900F6925B /* App Icon SX-6460x60@2x.png */,
-				4B540EBD24A8AB5900F6925B /* App Icon SX-6476x76@2x.png */,
-				4B540EBA24A8AAFD00F6925B /* App Icon VIC-2060x60@2x.png */,
-				4B540EB524A8A8CF00F6925B /* App Icon VIC-2076x72@2x.png */,
-				4B540EB424A8A8CF00F6925B /* App Icon60x60@2x.png */,
-				4B540EB624A8A8CF00F6925B /* App Icon76x76@2x.png */,
+				4B540EC524A8D84100F6925B /* Icon-SX64-60.png */,
+				4B540EC624A8D84100F6925B /* Icon-SX64-76.png */,
+				4B540EC224A8D84000F6925B /* Icon-SX64-83.5.png */,
+				4B540EC424A8D84100F6925B /* Icon-VIC20-60.png */,
+				4B540EC324A8D84100F6925B /* Icon-VIC20-76.png */,
+				4B540EC924A8D84100F6925B /* Icon-VIC20-83.5.png */,
 			);
 			path = "App Icons";
 			sourceTree = "<group>";
@@ -7089,25 +7089,25 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B540EBE24A8AB5900F6925B /* App Icon SX-6460x60@2x.png in Resources */,
+				4B540ECF24A8D84100F6925B /* Icon-SX64-60.png in Resources */,
 				4B3182C62281E320006D86AC /* Compact Flash Card.png in Resources */,
-				4B540EB824A8A8CF00F6925B /* App Icon VIC-2076x72@2x.png in Resources */,
 				4B79795021DBDBB70047FBE6 /* LaunchScreen.storyboard in Resources */,
-				4B540EB924A8A8CF00F6925B /* App Icon76x76@2x.png in Resources */,
+				4B540ECD24A8D84100F6925B /* Icon-VIC20-76.png in Resources */,
 				4B841CFA21F75C12009CAF4B /* Floppy35Document.png in Resources */,
-				4B540EBB24A8AAFD00F6925B /* App Icon VIC-2060x60@2x.png in Resources */,
+				4B540ED024A8D84100F6925B /* Icon-SX64-76.png in Resources */,
 				4B3182CE2282F36E006D86AC /* Compact Disc Document.png in Resources */,
 				4B460E4E2279F46A00815E7F /* REU Document.png in Resources */,
 				4B3182C72281E320006D86AC /* IDE Hard Disk.png in Resources */,
 				4BB22ECC21EE60960075E694 /* CBM.ttf in Resources */,
-				4B540EB724A8A8CF00F6925B /* App Icon60x60@2x.png in Resources */,
 				4BEBC6C821FE3880009DED63 /* TapeDocument.png in Resources */,
 				4B3F974C21D7ACC700C272C4 /* Main.storyboard in Resources */,
 				4B841CFC21F76AB3009CAF4B /* Floppy525Document.png in Resources */,
+				4B540ECE24A8D84100F6925B /* Icon-VIC20-60.png in Resources */,
 				4B1B2DB1227AE5410022B053 /* CartridgeDocument.png in Resources */,
 				4B3E4A56220EE8A000511F08 /* Licenses in Resources */,
-				4B540EBF24A8AB5900F6925B /* App Icon SX-6476x76@2x.png in Resources */,
+				4B540ECC24A8D84100F6925B /* Icon-SX64-83.5.png in Resources */,
 				4B9DBB78223904B00032B280 /* Assets.xcassets in Resources */,
+				4B540ED324A8D84100F6925B /* Icon-VIC20-83.5.png in Resources */,
 				4BAE5BF221FDD72E0098ADFF /* FileDocument.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -8911,10 +8911,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				INFOPLIST_FILE = "$(SRCROOT)/C64/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
@@ -8936,10 +8937,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				INFOPLIST_FILE = "$(SRCROOT)/C64/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;

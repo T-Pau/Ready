@@ -171,46 +171,19 @@
 			<dict>
 				<key>CFBundleIconFiles</key>
 				<array>
-					<string>App Icon SX-6460x60</string>
-					<string>App Icon SX-6476x76</string>
+					<string>Icon-SX64-60</string>
 				</array>
-				<key>UIPrerenderedIcon</key>
-				<false/>
 			</dict>
 			<key>App Icon VIC-20</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
 				<array>
-					<string>App Icon VIC-2060x60</string>
-					<string>App Icon VIC-2076x76</string>
+					<string>Icon-VIC20-60</string>
 				</array>
-				<key>UIPrerenderedIcon</key>
-				<false/>
 			</dict>
 		</dict>
-		<key>CFBundlePrimaryIcon</key>
-		<dict>
-			<key>CFBundleIconFiles</key>
-			<array>
-				<string>App Icon60x60</string>
-				<string>App Icon76x76</string>
-			</array>
-			<key>UIPrerenderedIcon</key>
-			<false/>
-		</dict>
-		<key>UINewsstandIcon</key>
-		<dict>
-			<key>CFBundleIconFiles</key>
-			<array>
-				<string></string>
-			</array>
-			<key>UINewsstandBindingEdge</key>
-			<string>UINewsstandBindingEdgeLeft</string>
-			<key>UINewsstandBindingType</key>
-			<string>UINewsstandBindingTypeMagazine</string>
-		</dict>
 	</dict>
-	<key>CFBundleIcons~iPad</key>
+	<key>CFBundleIcons~ipad</key>
 	<dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
@@ -218,43 +191,20 @@
 			<dict>
 				<key>CFBundleIconFiles</key>
 				<array>
-					<string>App Icon SX-6460x60</string>
-					<string>App Icon SX-6476x76</string>
+					<string>Icon-SX64-60</string>
+					<string>Icon-SX64-76</string>
+					<string>Icon-SX64-83.5</string>
 				</array>
-				<key>UIPrerenderedIcon</key>
-				<false/>
 			</dict>
 			<key>App Icon VIC-20</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
 				<array>
-					<string>App Icon VIC-2060x60</string>
-					<string>App Icon VIC-2076x76</string>
+					<string>Icon-VIC20-60</string>
+					<string>Icon-VIC20-76</string>
+					<string>Icon-VIC20-83.5</string>
 				</array>
-				<key>UIPrerenderedIcon</key>
-				<false/>
 			</dict>
-		</dict>
-		<key>CFBundlePrimaryIcon</key>
-		<dict>
-			<key>CFBundleIconFiles</key>
-			<array>
-				<string>App Icon60x60</string>
-				<string>App Icon76x76</string>
-			</array>
-			<key>UIPrerenderedIcon</key>
-			<false/>
-		</dict>
-		<key>UINewsstandIcon</key>
-		<dict>
-			<key>CFBundleIconFiles</key>
-			<array>
-				<string></string>
-			</array>
-			<key>UINewsstandBindingEdge</key>
-			<string>UINewsstandBindingEdgeLeft</string>
-			<key>UINewsstandBindingType</key>
-			<string>UINewsstandBindingTypeMagazine</string>
 		</dict>
 	</dict>
 	<key>CFBundleIdentifier</key>
