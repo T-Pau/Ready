@@ -26,12 +26,13 @@ import Emulator
 
 class SettingsViewController: UIViewController, SeguePreparer {
     enum SegueType: String {
-        case showGeneralSettings
-        case showMachineConfiguration
-        case showBiosSettings
         case showAbout
-        case showReleaseNotes
+        case showAppIcon
+        case showBiosSettings
+        case showGeneralSettings
         case showLicenses
+        case showMachineConfiguration
+        case showReleaseNotes
     }
     
     struct Row {
@@ -46,6 +47,7 @@ class SettingsViewController: UIViewController, SeguePreparer {
 
     let sections: [Section] = [
         Section(title: nil, rows: [
+            Row(name: "App Icon", segueIdentifier: .showAppIcon),
             Row(name: "General", segueIdentifier: .showGeneralSettings),
             Row(name: "Default Machine Configuration", segueIdentifier: .showMachineConfiguration),
             Row(name: "BIOS", segueIdentifier: .showBiosSettings)

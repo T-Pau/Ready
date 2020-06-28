@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4B3F974221D7ACC700C272C4"
-               BuildableName = "C64.app"
-               BlueprintName = "C64"
+               BuildableName = "Ready.app"
+               BlueprintName = "Ready"
                ReferencedContainer = "container:C64.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -31,8 +31,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4B3F974221D7ACC700C272C4"
-            BuildableName = "C64.app"
-            BlueprintName = "C64"
+            BuildableName = "Ready.app"
+            BlueprintName = "Ready"
             ReferencedContainer = "container:C64.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -85,8 +85,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4B3F974221D7ACC700C272C4"
-            BuildableName = "C64.app"
-            BlueprintName = "C64"
+            BuildableName = "Ready.app"
+            BlueprintName = "Ready"
             ReferencedContainer = "container:C64.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -102,8 +102,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4B3F974221D7ACC700C272C4"
-            BuildableName = "C64.app"
-            BlueprintName = "C64"
+            BuildableName = "Ready.app"
+            BlueprintName = "Ready"
             ReferencedContainer = "container:C64.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

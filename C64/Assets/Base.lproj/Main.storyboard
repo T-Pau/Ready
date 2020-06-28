@@ -11,7 +11,7 @@
         <!--Tab Bar View Controller-->
         <scene sceneID="Nde-W3-h3Z">
             <objects>
-                <tabBarController storyboardIdentifier="Main Section" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Nj7-39-MUg" customClass="TabBarViewController" customModule="C64" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="Main Section" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Nj7-39-MUg" customClass="TabBarViewController" customModule="Ready" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="96z-4T-yXN"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="EHZ-G5-5Vo">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
@@ -33,7 +33,7 @@
         <!--Favorites-->
         <scene sceneID="K33-jb-cuY">
             <objects>
-                <navigationController storyboardIdentifier="Favorites Navigation" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Jdo-Ys-Ynf" customClass="GameCollectionNavigationViewController" customModule="C64" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="Favorites Navigation" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Jdo-Ys-Ynf" customClass="GameCollectionNavigationViewController" customModule="Ready" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Favorites" image="Favorites" landscapeImage="Favorites Compact" id="3CZ-kO-Omx"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="IdX-eb-uN7">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="50"/>
@@ -53,7 +53,7 @@
         <!--Inbox-->
         <scene sceneID="lna-1z-xHe">
             <objects>
-                <navigationController storyboardIdentifier="Inbox Naviagation" useStoryboardIdentifierAsRestorationIdentifier="YES" id="WhC-uN-O5K" customClass="GameViewNavigationController" customModule="C64" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="Inbox Naviagation" useStoryboardIdentifierAsRestorationIdentifier="YES" id="WhC-uN-O5K" customClass="GameViewNavigationController" customModule="Ready" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Inbox" image="Inbox" landscapeImage="Inbox Compact" id="pS2-KZ-65V"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="v1F-z5-4FP">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="50"/>
@@ -73,7 +73,7 @@
         <!--Tools-->
         <scene sceneID="M1U-dz-i3S">
             <objects>
-                <navigationController storyboardIdentifier="Tools" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Un0-QW-bYb" customClass="GameViewNavigationController" customModule="C64" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="Tools" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Un0-QW-bYb" customClass="GameViewNavigationController" customModule="Ready" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Tools" image="Tools" landscapeImage="Tools Compact" id="r2Y-y8-3DG"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="IZH-JC-99a">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="50"/>
@@ -93,7 +93,7 @@
         <!--Deleted-->
         <scene sceneID="2qU-Ym-Bs7">
             <objects>
-                <navigationController storyboardIdentifier="Deleted Navigation" useStoryboardIdentifierAsRestorationIdentifier="YES" id="zyM-R7-OYq" customClass="GameCollectionNavigationViewController" customModule="C64" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="Deleted Navigation" useStoryboardIdentifierAsRestorationIdentifier="YES" id="zyM-R7-OYq" customClass="GameCollectionNavigationViewController" customModule="Ready" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Deleted" image="Deleted" landscapeImage="Deleted Compact" id="isE-fs-Ha3"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="LIP-Gs-Gcc">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="50"/>
@@ -130,7 +130,7 @@
         <!--Settings View-->
         <scene sceneID="hZi-N5-2ed">
             <objects>
-                <viewController title="Settings" id="ZUO-TJ-yV4" userLabel="Settings View" customClass="SettingsViewController" customModule="C64" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Settings" id="ZUO-TJ-yV4" userLabel="Settings View" customClass="SettingsViewController" customModule="Ready" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Aye-Yc-L4k">
                         <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -187,6 +187,7 @@
                         <segue destination="NNX-Ko-Zh2" kind="show" identifier="showReleaseNotes" id="jno-00-erS"/>
                         <segue destination="dcW-TG-4Cj" kind="show" identifier="showLicenses" id="wbR-Yl-eyT"/>
                         <segue destination="0Vj-1E-Sq0" kind="show" identifier="showMachineConfiguration" id="HEU-xw-QdH"/>
+                        <segue destination="JOi-xM-0oJ" kind="show" identifier="showAppIcon" id="yf1-KY-mPG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b9L-b3-raw" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -196,7 +197,7 @@
         <!--About-->
         <scene sceneID="QQm-Nd-7qd">
             <objects>
-                <viewController title="About" id="vYb-bR-SE1" customClass="AboutViewController" customModule="C64" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="About" id="vYb-bR-SE1" customClass="AboutViewController" customModule="Ready" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cge-s7-kLy">
                         <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -215,19 +216,19 @@
                                             <constraint firstAttribute="height" constant="200" id="bpJ-sb-c9M"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Commodore 64 Emulator" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e5e-ap-NPb">
-                                        <rect key="frame" x="60" y="300" width="420" height="43"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ready" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e5e-ap-NPb">
+                                        <rect key="frame" x="217" y="300" width="106" height="43"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="for iPad" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e2J-jt-Zwq">
-                                        <rect key="frame" x="230" y="359" width="80.5" height="29"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A Home Computer Emulator for iPad" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e2J-jt-Zwq">
+                                        <rect key="frame" x="78" y="359" width="384" height="29"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version 1.4" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nWU-vj-bJA">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version 1.5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nWU-vj-bJA">
                                         <rect key="frame" x="211" y="404" width="118" height="29"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
                                         <nil key="textColor"/>
@@ -251,15 +252,14 @@
                                             <constraint firstAttribute="width" secondItem="Nvt-ay-CBA" secondAttribute="height" multiplier="172:48" id="5ZK-mw-RaS"/>
                                         </constraints>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SpiderLab" translatesAutoresizingMaskIntoConstraints="NO" id="har-S2-hYe">
-                                        <rect key="frame" x="168.5" y="678" width="203" height="50"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="T'Pau" translatesAutoresizingMaskIntoConstraints="NO" id="har-S2-hYe">
+                                        <rect key="frame" x="-121.5" y="678" width="783" height="50"/>
                                         <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <accessibility key="accessibilityConfiguration" label="Spider Lab">
                                             <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
                                             <bool key="isElement" value="YES"/>
                                         </accessibility>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="har-S2-hYe" secondAttribute="height" multiplier="138:34" id="MAW-0L-8fM"/>
                                             <constraint firstAttribute="height" constant="50" id="prP-ha-wsT"/>
                                         </constraints>
                                     </imageView>
@@ -312,7 +312,7 @@
         <!--License-->
         <scene sceneID="YD5-pv-jD6">
             <objects>
-                <viewController storyboardIdentifier="License" id="TUA-ew-UF2" customClass="LicenseViewController" customModule="C64" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="License" id="TUA-ew-UF2" customClass="LicenseViewController" customModule="Ready" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4cR-8v-7BC">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -356,7 +356,7 @@
         <!--Release Notes-->
         <scene sceneID="58z-Us-zhd">
             <objects>
-                <viewController title="Release Notes" id="NNX-Ko-Zh2" customClass="ReleaseNotesViewController" customModule="C64" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Release Notes" id="NNX-Ko-Zh2" customClass="ReleaseNotesViewController" customModule="Ready" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hR1-OV-F1j">
                         <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -407,7 +407,7 @@
         <!--Library-->
         <scene sceneID="rSt-wa-nJy">
             <objects>
-                <viewController storyboardIdentifier="GameCollection" useStoryboardIdentifierAsRestorationIdentifier="YES" id="o0b-fD-ym6" customClass="GameCollectionViewController" customModule="C64" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GameCollection" useStoryboardIdentifierAsRestorationIdentifier="YES" id="o0b-fD-ym6" customClass="GameCollectionViewController" customModule="Ready" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pWO-If-FAy">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -442,7 +442,7 @@
                                             <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="10"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Game" id="fA9-mh-4yv" customClass="GameCollectionViewCell" customModule="C64" customModuleProvider="target">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Game" id="fA9-mh-4yv" customClass="GameCollectionViewCell" customModule="Ready" customModuleProvider="target">
                                                 <rect key="frame" x="10" y="60" width="320" height="300"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -499,7 +499,7 @@
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>
-                                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="Header" id="9hj-C4-bUo" customClass="GameHeaderCollectionViewCell" customModule="C64" customModuleProvider="target">
+                                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="Header" id="9hj-C4-bUo" customClass="GameHeaderCollectionViewCell" customModule="Ready" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="1024" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -591,7 +591,7 @@
         <!--Sort Table View Controller-->
         <scene sceneID="K1N-Ee-nXy">
             <objects>
-                <tableViewController id="khW-Og-0FG" customClass="SortTableViewController" customModule="C64" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="khW-Og-0FG" customClass="SortTableViewController" customModule="Ready" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="t87-Rw-ZVC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="680"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -614,7 +614,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Switch" rowHeight="44" id="0Y7-SE-gpg" customClass="SwitchTableViewCell" customModule="C64" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Switch" rowHeight="44" id="0Y7-SE-gpg" customClass="SwitchTableViewCell" customModule="Ready" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="99" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0Y7-SE-gpg" id="UBe-Lh-T2N">
@@ -648,7 +648,7 @@
                                     <outlet property="titleLabel" destination="Rr2-4n-KtZ" id="qNi-yh-1bM"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Button" textLabel="of6-ca-PCt" imageView="u54-4e-LK6" rowHeight="44" style="IBUITableViewCellStyleDefault" id="jSs-Ek-Qlp" customClass="SwitchTableViewCell" customModule="C64" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Button" textLabel="of6-ca-PCt" imageView="u54-4e-LK6" rowHeight="44" style="IBUITableViewCellStyleDefault" id="jSs-Ek-Qlp" customClass="SwitchTableViewCell" customModule="Ready" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="143" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jSs-Ek-Qlp" id="7np-xq-smo">
@@ -684,7 +684,7 @@
         <!--Machine Configuration-->
         <scene sceneID="3un-Nb-WjV">
             <objects>
-                <viewController id="0Vj-1E-Sq0" customClass="MachinePartsViewController" customModule="C64" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="0Vj-1E-Sq0" customClass="MachinePartsViewController" customModule="Ready" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hfP-oW-LmE">
                         <rect key="frame" x="0.0" y="0.0" width="571" height="976"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -954,7 +954,7 @@
         <!--Select Machine Part View Controller-->
         <scene sceneID="psg-d1-Ucz">
             <objects>
-                <viewController id="mj7-fK-GX4" customClass="SelectMachinePartViewController" customModule="C64" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="mj7-fK-GX4" customClass="SelectMachinePartViewController" customModule="Ready" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Rr6-Xm-XvI">
                         <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -966,7 +966,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="540" height="564"/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MachinePart" id="uNp-Ng-6KT" customClass="MachinePartTableViewCell" customModule="C64" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MachinePart" id="uNp-Ng-6KT" customClass="MachinePartTableViewCell" customModule="Ready" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="55.5" width="540" height="55"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uNp-Ng-6KT" id="1lS-Bb-DhQ">
@@ -1056,7 +1056,7 @@
         <!--Select Category-->
         <scene sceneID="G8Q-BA-eVJ">
             <objects>
-                <tableViewController title="Select Category" id="PxQ-D5-HcB" customClass="SelectCategoryTableViewController" customModule="C64" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Select Category" id="PxQ-D5-HcB" customClass="SelectCategoryTableViewController" customModule="Ready" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ILM-uM-jdA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="680"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1093,7 +1093,7 @@
         <!--Library-->
         <scene sceneID="GR0-8Z-Uqh">
             <objects>
-                <navigationController storyboardIdentifier="LIbrary Navigation" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aMd-eb-Usi" customClass="GameCollectionNavigationViewController" customModule="C64" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="LIbrary Navigation" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aMd-eb-Usi" customClass="GameCollectionNavigationViewController" customModule="Ready" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Library" image="Library" landscapeImage="Library Compact" id="ZaT-fE-gK9"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qPt-R1-aad">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="50"/>
@@ -1130,7 +1130,7 @@
         <!--Emulator-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="BYZ-38-t0r" customClass="EmulatorViewController" customModule="C64" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="BYZ-38-t0r" customClass="EmulatorViewController" customModule="Ready" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1145,7 +1145,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="973"/>
                                                 <gestureRecognizers/>
                                             </imageView>
-                                            <view opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SD9-Ec-zdE" customClass="VirtualControlsView" customModule="C64" customModuleProvider="target">
+                                            <view opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SD9-Ec-zdE" customClass="VirtualControlsView" customModule="Ready" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="74" width="1024" height="899"/>
                                             </view>
                                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TIh-sV-LcP">
@@ -1178,7 +1178,7 @@
                                                     <view opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LIz-fo-TeO" userLabel="Padding">
                                                         <rect key="frame" x="0.0" y="0.0" width="141" height="30"/>
                                                     </view>
-                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PRh-Td-Duu" customClass="SingularAdapterStatusView" customModule="C64" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PRh-Td-Duu" customClass="SingularAdapterStatusView" customModule="Ready" customModuleProvider="target">
                                                         <rect key="frame" x="157" y="0.0" width="79" height="30"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <gestureRecognizers/>
@@ -1303,7 +1303,7 @@
                                             <constraint firstItem="9NH-rt-nKV" firstAttribute="top" secondItem="ufs-jw-ysx" secondAttribute="top" constant="4" id="rSh-78-rqB"/>
                                         </constraints>
                                     </view>
-                                    <imageView multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="C64 Keyboard" translatesAutoresizingMaskIntoConstraints="NO" id="1D6-gZ-gDq" customClass="KeyboardView" customModule="C64" customModuleProvider="target">
+                                    <imageView multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="C64 Keyboard" translatesAutoresizingMaskIntoConstraints="NO" id="1D6-gZ-gDq" customClass="KeyboardView" customModule="Ready" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="1007" width="1024" height="309"/>
                                         <gestureRecognizers/>
                                         <constraints>
@@ -1451,13 +1451,13 @@
         <!--Input Mapping Table View Controller-->
         <scene sceneID="NmQ-fj-ugp">
             <objects>
-                <tableViewController id="XX9-xP-qA9" customClass="InputMappingTableViewController" customModule="C64" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="XX9-xP-qA9" customClass="InputMappingTableViewController" customModule="Ready" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="55" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="T1s-6Z-KcE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="680"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Mapping" id="uea-X9-Nu5" customClass="InputMappingTableViewCell" customModule="C64" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Mapping" id="uea-X9-Nu5" customClass="InputMappingTableViewCell" customModule="Ready" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="55"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uea-X9-Nu5" id="mFt-LI-udR">
@@ -1555,7 +1555,7 @@
         <!--Single Selection Table View Controller-->
         <scene sceneID="DK4-E8-CCs">
             <objects>
-                <tableViewController id="2tQ-mL-r7q" customClass="SingleSelectionTableViewController" customModule="C64" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="2tQ-mL-r7q" customClass="SingleSelectionTableViewController" customModule="Ready" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="8br-A7-30v">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="680"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1592,7 +1592,7 @@
         <!--Full Screen Image View Controller-->
         <scene sceneID="bdB-kY-Cwo">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="Yoo-fR-uOQ" customClass="FullScreenImageViewController" customModule="C64" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="Yoo-fR-uOQ" customClass="FullScreenImageViewController" customModule="Ready" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="an9-WW-fQA">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1635,7 +1635,7 @@
         <!--Select Disk View Controller-->
         <scene sceneID="zLj-EE-PVY">
             <objects>
-                <viewController id="7aK-GJ-pl9" customClass="SelectDiskViewController" customModule="C64" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="7aK-GJ-pl9" customClass="SelectDiskViewController" customModule="Ready" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6ye-Xj-JWr">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="680"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1675,7 +1675,7 @@
                                 <rect key="frame" x="0.0" y="135.5" width="375" height="544.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Disk" id="bJ7-iL-aj3" customClass="MediaTableViewCell" customModule="C64" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Disk" id="bJ7-iL-aj3" customClass="MediaTableViewCell" customModule="Ready" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="22.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bJ7-iL-aj3" id="suk-DH-bae">
@@ -1744,7 +1744,7 @@
         <!--Game View Controller-->
         <scene sceneID="lru-SS-psm">
             <objects>
-                <viewController storyboardIdentifier="Game" useStoryboardIdentifierAsRestorationIdentifier="YES" id="CGg-Ey-b7L" customClass="GameViewController" customModule="C64" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Game" useStoryboardIdentifierAsRestorationIdentifier="YES" id="CGg-Ey-b7L" customClass="GameViewController" customModule="Ready" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="P8v-TO-zPI">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1827,7 +1827,7 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="unknown" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MbN-Sh-kkn" customClass="SearchTextField" customModule="C64" customModuleProvider="target">
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="unknown" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MbN-Sh-kkn" customClass="SearchTextField" customModule="Ready" customModuleProvider="target">
                                                                 <rect key="frame" x="84" y="30" width="560" height="22"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
@@ -1974,7 +1974,7 @@
                                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         </collectionViewFlowLayout>
                                                         <cells>
-                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Screenshot" id="SnK-Ck-Gx1" customClass="ScreenshotCollectionViewCell" customModule="C64" customModuleProvider="target">
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Screenshot" id="SnK-Ck-Gx1" customClass="ScreenshotCollectionViewCell" customModule="Ready" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -2065,7 +2065,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="482" height="370"/>
                                                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                                 <prototypes>
-                                                                    <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" showsReorderControl="YES" indentationWidth="10" reuseIdentifier="Media" id="zMe-1G-sR0" customClass="MediaTableViewCell" customModule="C64" customModuleProvider="target">
+                                                                    <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" showsReorderControl="YES" indentationWidth="10" reuseIdentifier="Media" id="zMe-1G-sR0" customClass="MediaTableViewCell" customModule="Ready" customModuleProvider="target">
                                                                         <rect key="frame" x="0.0" y="55.5" width="482" height="59"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
                                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zMe-1G-sR0" id="3Kg-vR-803">
@@ -2144,7 +2144,7 @@
                                                                 <rect key="frame" x="0.0" y="53" width="482" height="317"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                                 <prototypes>
-                                                                    <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DirectoryLine" id="48J-SO-ggp" customClass="DiskDirectoryTableViewCell" customModule="C64" customModuleProvider="target">
+                                                                    <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DirectoryLine" id="48J-SO-ggp" customClass="DiskDirectoryTableViewCell" customModule="Ready" customModuleProvider="target">
                                                                         <rect key="frame" x="0.0" y="28" width="482" height="12"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
                                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="48J-SO-ggp" id="svI-PT-vxN">
@@ -2277,7 +2277,7 @@
         <!--General Settings View-->
         <scene sceneID="oKy-XA-Afb">
             <objects>
-                <viewController title="General" id="cZg-79-Nud" userLabel="General Settings View" customClass="GeneralSettingsViewController" customModule="C64" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="General" id="cZg-79-Nud" userLabel="General Settings View" customClass="GeneralSettingsViewController" customModule="Ready" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="de1-aL-LcJ">
                         <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2289,7 +2289,7 @@
                                     <constraint firstAttribute="width" priority="600" constant="600" id="L32-CN-uIY"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Button" rowHeight="44" id="OcQ-B6-qYm" userLabel="Button Cell" customClass="ButtonTableViewCell" customModule="C64" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Button" rowHeight="44" id="OcQ-B6-qYm" userLabel="Button Cell" customClass="ButtonTableViewCell" customModule="Ready" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="55.5" width="540" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OcQ-B6-qYm" id="CsF-TY-cVf">
@@ -2325,7 +2325,7 @@
                                             <outlet property="titleLabel" destination="bcs-54-5wp" id="mCF-cP-qhE"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Switch" rowHeight="44" id="INU-um-QVN" userLabel="Switch Cell" customClass="SwitchTableViewCell" customModule="C64" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Switch" rowHeight="44" id="INU-um-QVN" userLabel="Switch Cell" customClass="SwitchTableViewCell" customModule="Ready" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="99.5" width="540" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="INU-um-QVN" id="eF0-8k-YUF">
@@ -2360,7 +2360,7 @@
                                             <outlet property="titleLabel" destination="aLi-9s-HSM" id="D5m-a5-bCf"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Enum" textLabel="bRQ-bN-Gf2" detailTextLabel="IvP-xJ-F64" rowHeight="44" style="IBUITableViewCellStyleValue1" id="7Xd-SC-Wlc" userLabel="Switch Cell" customClass="SwitchTableViewCell" customModule="C64" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Enum" textLabel="bRQ-bN-Gf2" detailTextLabel="IvP-xJ-F64" rowHeight="44" style="IBUITableViewCellStyleValue1" id="7Xd-SC-Wlc" userLabel="Switch Cell" customClass="SwitchTableViewCell" customModule="Ready" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="143.5" width="540" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7Xd-SC-Wlc" id="xk7-Ca-6Lg">
@@ -2414,10 +2414,79 @@
             </objects>
             <point key="canvasLocation" x="-1705" y="2128"/>
         </scene>
+        <!--App Icon View Controller-->
+        <scene sceneID="pge-bw-pU3">
+            <objects>
+                <viewController id="JOi-xM-0oJ" customClass="AppIconViewController" customModule="Ready" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7O2-Up-yPd">
+                        <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lQ2-fV-whh">
+                                <rect key="frame" x="0.0" y="56" width="540" height="564"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AppIcon" id="efd-Gy-17r" userLabel="AppIconCell" customClass="AppIconCell" customModule="Ready" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="540" height="45.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="efd-Gy-17r" id="3F3-Gq-PIT">
+                                            <rect key="frame" x="0.0" y="0.0" width="540" height="45.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CMD FD" translatesAutoresizingMaskIntoConstraints="NO" id="Ryz-Tm-vsC">
+                                                    <rect key="frame" x="8" y="2.5" width="40.5" height="40.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="40" id="NN0-cj-LSh"/>
+                                                        <constraint firstAttribute="width" secondItem="Ryz-Tm-vsC" secondAttribute="height" id="iO7-R2-tyX"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tVm-CV-qcW">
+                                                    <rect key="frame" x="56.5" y="12.5" width="460.5" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="tVm-CV-qcW" firstAttribute="centerY" secondItem="3F3-Gq-PIT" secondAttribute="centerY" id="Jtp-3L-yOd"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="tVm-CV-qcW" secondAttribute="trailing" constant="8" id="R6K-Y0-eEH"/>
+                                                <constraint firstItem="Ryz-Tm-vsC" firstAttribute="centerY" secondItem="3F3-Gq-PIT" secondAttribute="centerY" id="VKr-fp-CBR"/>
+                                                <constraint firstItem="tVm-CV-qcW" firstAttribute="leading" secondItem="Ryz-Tm-vsC" secondAttribute="trailing" constant="8" id="X7T-bF-klP"/>
+                                                <constraint firstItem="Ryz-Tm-vsC" firstAttribute="leading" secondItem="3F3-Gq-PIT" secondAttribute="leading" constant="8" id="mnc-3S-R56"/>
+                                                <constraint firstItem="Ryz-Tm-vsC" firstAttribute="top" secondItem="3F3-Gq-PIT" secondAttribute="top" constant="2.5" id="z7P-6h-zcd"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="iconView" destination="Ryz-Tm-vsC" id="dCH-NX-LpY"/>
+                                            <outlet property="titleLabel" destination="tVm-CV-qcW" id="AHd-OX-RA8"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="JOi-xM-0oJ" id="5jX-CS-xV2"/>
+                                    <outlet property="delegate" destination="JOi-xM-0oJ" id="jhG-6m-QTv"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="eGB-b9-JWk" firstAttribute="trailing" secondItem="lQ2-fV-whh" secondAttribute="trailing" id="1gg-BF-uiU"/>
+                            <constraint firstItem="lQ2-fV-whh" firstAttribute="top" secondItem="eGB-b9-JWk" secondAttribute="top" id="Tg6-dR-a3O"/>
+                            <constraint firstItem="eGB-b9-JWk" firstAttribute="bottom" secondItem="lQ2-fV-whh" secondAttribute="bottom" id="a2a-tj-q5P"/>
+                            <constraint firstItem="lQ2-fV-whh" firstAttribute="leading" secondItem="eGB-b9-JWk" secondAttribute="leading" id="rE5-gV-6NK"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="eGB-b9-JWk"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="HKT-ZQ-Xhm"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rt3-RC-qFj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1063" y="2125"/>
+        </scene>
         <!--BIOS Settings View-->
         <scene sceneID="G3T-6d-FBD">
             <objects>
-                <viewController title="BIOS" id="T7j-gJ-LEq" userLabel="BIOS Settings View" customClass="BiosSettingsViewController" customModule="C64" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="BIOS" id="T7j-gJ-LEq" userLabel="BIOS Settings View" customClass="BiosSettingsViewController" customModule="Ready" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bSp-F3-9gu">
                         <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2429,7 +2498,7 @@
                                     <constraint firstAttribute="width" priority="600" constant="600" id="5u7-4R-Tc4"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Media" rowHeight="59" id="PTW-kS-6H4" userLabel="Media Cell" customClass="MediaTableViewCell" customModule="C64" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Media" rowHeight="59" id="PTW-kS-6H4" userLabel="Media Cell" customClass="MediaTableViewCell" customModule="Ready" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="55.5" width="540" height="59"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PTW-kS-6H4" id="mGv-DK-bXL">
@@ -2492,7 +2561,7 @@
         <!--Settings View-->
         <scene sceneID="GGt-kL-eYw">
             <objects>
-                <viewController title="Licenses" id="dcW-TG-4Cj" userLabel="Settings View" customClass="LicensesViewController" customModule="C64" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Licenses" id="dcW-TG-4Cj" userLabel="Settings View" customClass="LicensesViewController" customModule="Ready" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nx9-hP-hbG">
                         <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2554,7 +2623,7 @@
         <!--Settings View-->
         <scene sceneID="lLb-SV-7Dh">
             <objects>
-                <viewController storyboardIdentifier="EnumChooser" id="VmT-WX-HzL" userLabel="Settings View" customClass="EnumChooserViewController" customModule="C64" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EnumChooser" id="VmT-WX-HzL" userLabel="Settings View" customClass="EnumChooserViewController" customModule="Ready" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cYv-LL-gQ0">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2612,7 +2681,7 @@
         <!--Singular Adapter Status View Controller-->
         <scene sceneID="jyr-a4-6Or">
             <objects>
-                <viewController id="fzR-Yw-zc7" customClass="SingularAdapterStatusViewController" customModule="C64" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="fzR-Yw-zc7" customClass="SingularAdapterStatusViewController" customModule="Ready" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Z7d-EX-ou2">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="680"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2634,7 +2703,7 @@
                                 <rect key="frame" x="0.0" y="107" width="375" height="573"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Disk" textLabel="i6M-Lw-1bd" style="IBUITableViewCellStyleDefault" id="Y8T-oL-y7H" customClass="MediaTableViewCell" customModule="C64" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Disk" textLabel="i6M-Lw-1bd" style="IBUITableViewCellStyleDefault" id="Y8T-oL-y7H" customClass="MediaTableViewCell" customModule="Ready" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Y8T-oL-y7H" id="Gxj-EJ-WQZ">
@@ -2718,7 +2787,7 @@
         <image name="Reset" width="22" height="22"/>
         <image name="Screenshot" width="22" height="22"/>
         <image name="Settings" width="22" height="22"/>
-        <image name="SpiderLab" width="1380" height="340"/>
+        <image name="T'Pau" width="783" height="123"/>
         <image name="Tools" width="25" height="25"/>
         <image name="Tools Compact" width="18" height="18"/>
         <image name="Vice" width="1720" height="480"/>
