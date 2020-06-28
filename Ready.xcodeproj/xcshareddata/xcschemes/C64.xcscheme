@@ -17,7 +17,7 @@
                BlueprintIdentifier = "4B3F974221D7ACC700C272C4"
                BuildableName = "Ready.app"
                BlueprintName = "Ready"
-               ReferencedContainer = "container:C64.xcodeproj">
+               ReferencedContainer = "container:Ready.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,7 +33,7 @@
             BlueprintIdentifier = "4B3F974221D7ACC700C272C4"
             BuildableName = "Ready.app"
             BlueprintName = "Ready"
-            ReferencedContainer = "container:C64.xcodeproj">
+            ReferencedContainer = "container:Ready.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
@@ -44,7 +44,7 @@
                BlueprintIdentifier = "4B3F975921D7ACC800C272C4"
                BuildableName = "C64Tests.xctest"
                BlueprintName = "C64Tests"
-               ReferencedContainer = "container:C64.xcodeproj">
+               ReferencedContainer = "container:Ready.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -54,7 +54,7 @@
                BlueprintIdentifier = "4B3F976421D7ACC800C272C4"
                BuildableName = "C64UITests.xctest"
                BlueprintName = "C64UITests"
-               ReferencedContainer = "container:C64.xcodeproj">
+               ReferencedContainer = "container:Ready.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -64,7 +64,7 @@
                BlueprintIdentifier = "4B3F976421D7ACC800C272C4"
                BuildableName = "C64UITests.xctest"
                BlueprintName = "C64UITests"
-               ReferencedContainer = "container:C64.xcodeproj">
+               ReferencedContainer = "container:Ready.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -87,7 +87,7 @@
             BlueprintIdentifier = "4B3F974221D7ACC700C272C4"
             BuildableName = "Ready.app"
             BlueprintName = "Ready"
-            ReferencedContainer = "container:C64.xcodeproj">
+            ReferencedContainer = "container:Ready.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -104,7 +104,7 @@
             BlueprintIdentifier = "4B3F974221D7ACC700C272C4"
             BuildableName = "Ready.app"
             BlueprintName = "Ready"
-            ReferencedContainer = "container:C64.xcodeproj">
+            ReferencedContainer = "container:Ready.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

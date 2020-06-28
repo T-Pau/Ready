@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4BB22C0621E960B30075E694"
-               BuildableName = "libvice-x64sc.a"
-               BlueprintName = "vice-x64sc"
-               ReferencedContainer = "container:C64.xcodeproj">
+               BlueprintIdentifier = "4B68F8B02496407700A76E57"
+               BuildableName = "Emulator.framework"
+               BlueprintName = "Emulator"
+               ReferencedContainer = "container:Ready.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -50,10 +50,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4BB22C0621E960B30075E694"
-            BuildableName = "libvice-x64sc.a"
-            BlueprintName = "vice-x64sc"
-            ReferencedContainer = "container:C64.xcodeproj">
+            BlueprintIdentifier = "4B68F8B02496407700A76E57"
+            BuildableName = "Emulator.framework"
+            BlueprintName = "Emulator"
+            ReferencedContainer = "container:Ready.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>
