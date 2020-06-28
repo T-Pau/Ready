@@ -1,4 +1,4 @@
-## A Commodore 64 Emulator for iPad.
+## A Home Computer Emulator for iPad.
 ## Almost Like the Real Thing.
 
 ![Screenshot](screenshot.png)
