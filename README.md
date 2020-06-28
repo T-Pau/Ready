@@ -3,7 +3,7 @@
 
 ![Screenshot](screenshot.png)
 
-C64 is an open source emulator for the 8 bit home computers [Commodore 64](https://en.wikipedia.org/wiki/Commodore_64) and [Commodore VIC-20](https://en.wikipedia.org/wiki/Commodore_VIC-20). It is based on [Vice](http://vice-emu.sourceforge.net), which provices accurate emulation of many hardware variants and peripherals.
+Ready is an open source emulator for the 8 bit home computers [Commodore 64](https://en.wikipedia.org/wiki/Commodore_64) and [Commodore VIC-20](https://en.wikipedia.org/wiki/Commodore_VIC-20). It is based on [Vice](http://vice-emu.sourceforge.net), which provices accurate emulation of many hardware variants and peripherals.
 
 It requires at least iPadOS 13.5.
 
