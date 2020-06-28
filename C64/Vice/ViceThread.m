@@ -45,6 +45,7 @@
     if ((self = [super init]) == nil) {
         return nil;
     }
+    self.qualityOfService = NSQualityOfServiceUserInteractive;
     return self;
 }
 

@@ -1,9 +1,19 @@
 #  TODO
 
-## framework restructuring
+## Support for Multiple Computers
 
 - move Audio.m, ringbuffer.c to Emulator
 - split machine specific ui callbacks into their own files
+- render: More efficient partial updates (especially refresh only)
+- fix ``' plus other key on AZERTY keyboards.
+- rewrite machine configuration, embed in scroll view
+- hierarchical configuration
+- don't split meda in games by type, use single list
+
+## VIC-20
+
+- Lightpen support
+- VIC-1001 with jpkernal: keyboard strange in lower case mode
 
 ## other
 
@@ -17,7 +27,6 @@
 - documentation
 - disk select: sub views for game / tools (inbox?)
 - disk select: show currently selected (other drives too)
-- rewrite machine configuration view as collection view
 - turn off disk drives (via status bar)
 - tape status view left border too wide (led view too wide?)
 - sharing of whole game

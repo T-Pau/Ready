@@ -400,7 +400,7 @@ public struct Computer: MachinePart {
             Computer(identifier: "VIC-20 PET NTSC",
                      name: "Commodore VIC-20 (PET Style Keyboard, NTSC)",
                      fullName: "Commodore VIC-20",
-                     variantName: "PET Style Keyboard, PAL",
+                     variantName: "PET Style Keyboard, NTSC",
                      iconName: "Commodore VIC-20",
                      viceMachineModel: .vic20Ntsc,
                      keyboardName: "PET Style Keyboard",

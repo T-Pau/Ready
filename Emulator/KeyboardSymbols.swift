@@ -43,16 +43,16 @@ public struct KeyboardSymbols {
                 symbol = .char(char)
                 modifierFlags = key.modifierFlags.subtracting([.shift, .alphaShift, .alternate])
             }
-            else if key.charactersIgnoringModifiers.count == 1, let char = key.charactersIgnoringModifiers.first, char >= " " {
+            else if key.charactersIgnoringModifiers.count == 1, let char = key.charactersIgnoringModifiers.first, (char >= "a" && char <= "z") || char == "`" || char == "\"" {
                 symbol = .char(char)
                 modifierFlags = key.modifierFlags.subtracting([.shift, .alphaShift, .alternate])
-                if char >= "a" && char <= "z" {
-                    if key.modifierFlags.contains(.shift) || key.modifierFlags.contains(.alphaShift), let uppercaseChar = char.uppercased().first {
+                if char >= "a" && char <= "z" && (key.modifierFlags.contains(.shift) || key.modifierFlags.contains(.alphaShift)), let uppercaseChar = char.uppercased().first {
                         symbol = .char(uppercaseChar)
-                    }
                 }
-                else {
-                }
+            }
+            else if key.characters.count == 2, let char = key.characters.dropFirst().first, char >= " " {
+                symbol = .char(char)
+                modifierFlags = key.modifierFlags.subtracting([.shift, .alphaShift, .alternate])
             }
             else {
                 symbol = .key(key.keyCode)
@@ -219,7 +219,6 @@ public struct KeyboardSymbols {
         .Char("0"): KeySymbols(normal: .char("0"), shifted: .char("^")),
         .Char("+"): KeySymbols(normal: .char("+")),
         .Char("-"): KeySymbols(normal: .char("-")),
-        .Char("£"): KeySymbols(normal: .char("=")),
         .ClearHome: KeySymbols(both: .key(.keyboardHome)),
         .InsertDelete: KeySymbols(both: .key(.keyboardDeleteOrBackspace)),
         

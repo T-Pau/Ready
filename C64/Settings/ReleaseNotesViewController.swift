@@ -33,35 +33,8 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
-        Release(name: "Release 1.4 Build 10", year: 2020, month: 6, day: 27, changes: [
-            "Map <- to Escape in addition to `"
-        ]),
-        Release(name: "Release 1.4 Build 9", year: 2020, month: 6, day: 26, changes: [
-            "Add more VIC-20 variants.",
-            "Fix VIC-1001 software keyboard."
-        ]),
-        Release(name: "Release 1.4 Build 8", year: 2020, month: 6, day: 26, changes: [
-            "Add support for VIC-20 cartridge images.",
-            "Fix border show/hide animation on VIC-20."
-        ]),
-        Release(name: "Release 1.4 Build 7", year: 2020, month: 6, day: 24, changes: [
-            "Add VIC-1001."
-        ]),
-        Release(name: "Release 1.4 Build 6", year: 2020, month: 6, day: 23, changes: [
-            "Fix colors when restarting VIC-20."
-        ]),
-        Release(name: "Release 1.4 Build 5", year: 2020, month: 6, day: 23, changes: [
-            "Add first party VIC-20 RAM expansions.",
-            "Use correct font for directory listing for VIC-20."
-        ]),
-        Release(name: "Release 1.4 Build 4", year: 2020, month: 6, day: 19, changes: [
-            "Preliminary VIC-20 support (startup colors are wrong on subsequent runs)."
-        ]),
-        Release(name: "Release 1.4 Build 3", year: 2020, month: 6, day: 14, changes: [
-            "Use right shift key to force shfit.",
-            "When forcing shift on/off, delay other key presses by one frame."
-        ]),
-        Release(name: "Relase 1.4 Build 2", year: 2020, month: 6, day: 11, changes: [
+        Release(name: "Release 1.5", year: 2020, month: 6, day: 28, changes: [
+            "Add Commodore VIC-20 emulation.",
             "Use new keyboard API to support long key presses."
         ]),
         Release(name: "Release 1.4", year: 2020, month: 4, day: 25, changes: [

@@ -51,6 +51,7 @@
 		4B540EA624A6757B00F6925B /* VicePlus4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B540EA524A6757B00F6925B /* VicePlus4.swift */; };
 		4B540EA724A67C4900F6925B /* Emulator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68F8B12496407700A76E57 /* Emulator.framework */; };
 		4B540EA824A67CE900F6925B /* VicePlus4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B540E9724A674E100F6925B /* VicePlus4.framework */; };
+		4B540EAA24A7805F00F6925B /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B540EA924A7805F00F6925B /* GridView.swift */; };
 		4B671FDE24A08ABB00E39F01 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1638C2224672A50056A275 /* Keyboard.swift */; };
 		4B6800162499FDF700A76E57 /* libsounddrv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B6800152499FDD500A76E57 /* libsounddrv.a */; };
 		4B6800172499FE6800A76E57 /* lamelib.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAA5321D7AD7400C272C4 /* lamelib.c */; };
@@ -3131,6 +3132,7 @@
 		4B540E9A24A674E100F6925B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4B540EA324A6750B00F6925B /* vice_plus4.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vice_plus4.c; sourceTree = "<group>"; };
 		4B540EA524A6757B00F6925B /* VicePlus4.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VicePlus4.swift; sourceTree = "<group>"; };
+		4B540EA924A7805F00F6925B /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
 		4B6800152499FDD500A76E57 /* libsounddrv.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsounddrv.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B680033249A00A500A76E57 /* vice_c64.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = vice_c64.c; sourceTree = "<group>"; };
 		4B680035249A023100A76E57 /* vice_vic20.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vice_vic20.c; sourceTree = "<group>"; };
@@ -5899,6 +5901,7 @@
 				4B0E62C422086FE700C3681A /* DriveTrackView.swift */,
 				4B7609F321F47B900058FBCD /* Info.plist */,
 				4B0E62C62208714700C3681A /* LedView.swift */,
+				4B540EA924A7805F00F6925B /* GridView.swift */,
 				4B460E482274530500815E7F /* LightPenGestureRecognizer.swift */,
 				4B460E462274529200815E7F /* LightPenView.swift */,
 				4BD5B37B2221C425000C77B8 /* MachinePartView.swift */,
@@ -8068,6 +8071,7 @@
 				4B7609FD21F47BB90058FBCD /* DriveStatusView.swift in Sources */,
 				4B0E62C522086FE700C3681A /* DriveTrackView.swift in Sources */,
 				4BF57F012262543500909B2B /* PlaceholderView.swift in Sources */,
+				4B540EAA24A7805F00F6925B /* GridView.swift in Sources */,
 				4B841CFF21F8CEDF009CAF4B /* MediaView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -8871,7 +8875,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				INFOPLIST_FILE = "$(SRCROOT)/C64/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
@@ -8879,7 +8883,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = at.spiderlab.c64;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -8897,7 +8901,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				INFOPLIST_FILE = "$(SRCROOT)/C64/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
@@ -8905,7 +8909,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = at.spiderlab.c64;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
