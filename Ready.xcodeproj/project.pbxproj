@@ -167,6 +167,9 @@
 		4B54100A24A9E16000F6925B /* Icon-C16-76.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B54100724A9E16000F6925B /* Icon-C16-76.png */; };
 		4B54100B24A9E16000F6925B /* Icon-C16-60.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B54100824A9E16000F6925B /* Icon-C16-60.png */; };
 		4B54100C24A9E16000F6925B /* Icon-C16-83.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B54100924A9E16000F6925B /* Icon-C16-83.5.png */; };
+		4B54101024AA7FF000F6925B /* Icon-ZX48-83.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B54100D24AA7FEF00F6925B /* Icon-ZX48-83.5.png */; };
+		4B54101124AA7FF000F6925B /* Icon-ZX48-76.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B54100E24AA7FEF00F6925B /* Icon-ZX48-76.png */; };
+		4B54101224AA7FF000F6925B /* Icon-ZX48-60.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B54100F24AA7FF000F6925B /* Icon-ZX48-60.png */; };
 		4B671FDE24A08ABB00E39F01 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1638C2224672A50056A275 /* Keyboard.swift */; };
 		4B6800162499FDF700A76E57 /* libsounddrv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B6800152499FDD500A76E57 /* libsounddrv.a */; };
 		4B6800172499FE6800A76E57 /* lamelib.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAA5321D7AD7400C272C4 /* lamelib.c */; };
@@ -3364,6 +3367,9 @@
 		4B54100724A9E16000F6925B /* Icon-C16-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-C16-76.png"; sourceTree = "<group>"; };
 		4B54100824A9E16000F6925B /* Icon-C16-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-C16-60.png"; sourceTree = "<group>"; };
 		4B54100924A9E16000F6925B /* Icon-C16-83.5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-C16-83.5.png"; sourceTree = "<group>"; };
+		4B54100D24AA7FEF00F6925B /* Icon-ZX48-83.5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-ZX48-83.5.png"; sourceTree = "<group>"; };
+		4B54100E24AA7FEF00F6925B /* Icon-ZX48-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-ZX48-76.png"; sourceTree = "<group>"; };
+		4B54100F24AA7FF000F6925B /* Icon-ZX48-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-ZX48-60.png"; sourceTree = "<group>"; };
 		4B6800152499FDD500A76E57 /* libsounddrv.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsounddrv.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B680033249A00A500A76E57 /* vice_c64.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = vice_c64.c; sourceTree = "<group>"; };
 		4B680035249A023100A76E57 /* vice_vic20.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vice_vic20.c; sourceTree = "<group>"; };
@@ -6016,6 +6022,9 @@
 				4B540EC424A8D84100F6925B /* Icon-VIC20-60.png */,
 				4B540EC324A8D84100F6925B /* Icon-VIC20-76.png */,
 				4B540EC924A8D84100F6925B /* Icon-VIC20-83.5.png */,
+				4B54100F24AA7FF000F6925B /* Icon-ZX48-60.png */,
+				4B54100E24AA7FEF00F6925B /* Icon-ZX48-76.png */,
+				4B54100D24AA7FEF00F6925B /* Icon-ZX48-83.5.png */,
 			);
 			path = "App Icons";
 			sourceTree = "<group>";
@@ -7494,6 +7503,7 @@
 			files = (
 				4B540F1824A9B59F00F6925B /* C128 in Resources */,
 				4B540ECF24A8D84100F6925B /* Icon-SX64-60.png in Resources */,
+				4B54101024AA7FF000F6925B /* Icon-ZX48-83.5.png in Resources */,
 				4B3182C62281E320006D86AC /* Compact Flash Card.png in Resources */,
 				4B79795021DBDBB70047FBE6 /* LaunchScreen.storyboard in Resources */,
 				4B540ECD24A8D84100F6925B /* Icon-VIC20-76.png in Resources */,
@@ -7513,7 +7523,9 @@
 				4B1B2DB1227AE5410022B053 /* CartridgeDocument.png in Resources */,
 				4B54100A24A9E16000F6925B /* Icon-C16-76.png in Resources */,
 				4B3E4A56220EE8A000511F08 /* Licenses in Resources */,
+				4B54101224AA7FF000F6925B /* Icon-ZX48-60.png in Resources */,
 				4B540ECC24A8D84100F6925B /* Icon-SX64-83.5.png in Resources */,
+				4B54101124AA7FF000F6925B /* Icon-ZX48-76.png in Resources */,
 				4B9DBB78223904B00032B280 /* Assets.xcassets in Resources */,
 				4B540ED324A8D84100F6925B /* Icon-VIC20-83.5.png in Resources */,
 				4BAE5BF221FDD72E0098ADFF /* FileDocument.png in Resources */,

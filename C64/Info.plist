@@ -188,6 +188,13 @@
 					<string>Icon-VIC20-60</string>
 				</array>
 			</dict>
+			<key>App Icon ZX-48</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Icon-ZX48-60</string>
+				</array>
+			</dict>
 		</dict>
 	</dict>
 	<key>CFBundleIcons~ipad</key>
@@ -219,6 +226,15 @@
 					<string>Icon-VIC20-60</string>
 					<string>Icon-VIC20-76</string>
 					<string>Icon-VIC20-83.5</string>
+				</array>
+			</dict>
+			<key>App Icon ZX-48</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Icon-ZX48-60</string>
+					<string>Icon-ZX48-76</string>
+					<string>Icon-ZX48-83.5</string>
 				</array>
 			</dict>
 		</dict>
