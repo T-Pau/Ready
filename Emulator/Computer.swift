@@ -61,7 +61,7 @@ public struct Computer: MachinePart {
                     Port(name: "Screen", key: .screen, connectorTypes: [.videoComponent], iconWidth: 2, iconHeight: 2),
                     Port(name: "User Port", key: .userPort, connectorTypes: [.c64UserPort]),
                     Port(name: "Cassette", key: .cassetteDrive, connectorTypes: [.plus4Tape]),
-                    Port(name: "Cartridge", key: .expansionPort, connectorTypes: [.plus4ExpansionPort]),
+                    Port(name: "Memory Expansion", key: .expansionPort, connectorTypes: [.plus4ExpansionPort]),
                     Port(name: "Disk Drive 8", key: .diskDrive8, connectorTypes: [.commodoreIEC], iconWidth: 2), // TODO: 1551
                     Port(name: "Disk Drive 9", key: .diskDrive9, connectorTypes: [.commodoreIEC], iconWidth: 2),
                     Port(name: "Disk Drive 10", key: .diskDrive10, connectorTypes: [.commodoreIEC], iconWidth: 2),
