@@ -52,22 +52,22 @@ public struct Computer: MachinePart {
                     Port(name: "Disk Drive 9", key: .diskDrive9, connectorTypes: [.commodoreIEC], iconWidth: 2),
                     Port(name: "Disk Drive 10", key: .diskDrive10, connectorTypes: [.commodoreIEC], iconWidth: 2),
                     Port(name: "Disk Drive 11", key: .diskDrive11, connectorTypes: [.commodoreIEC], iconWidth: 2),
-                    Port(name: "Control Port 1", key: .controlPort1, connectorTypes: [.atariJoystick, .atariJoystickAnalog, .c64JoystickLightpen]),
-                    Port(name: "Control Port 2", key: .controlPort2, connectorTypes: [.atariJoystick, .atariJoystickAnalog])
+                    Port(name: "Control Port 1", key: .controlPort1, connectorTypes: [.atariJoystick, .atariJoystickAnalog, .c64JoystickLightpen], supportsHotSwap: true),
+                    Port(name: "Control Port 2", key: .controlPort2, connectorTypes: [.atariJoystick, .atariJoystickAnalog], supportsHotSwap: true)
                 ]
  
             case .plus4:
                 return [
                     Port(name: "Screen", key: .screen, connectorTypes: [.videoComponent], iconWidth: 2, iconHeight: 2),
                     Port(name: "User Port", key: .userPort, connectorTypes: [.c64UserPort]),
-                    Port(name: "Cassette", key: .cassetteDrive, connectorTypes: [.commodoreTape]), // TODO: black model
+                    Port(name: "Cassette", key: .cassetteDrive, connectorTypes: [.plus4Tape]),
                     Port(name: "Cartridge", key: .expansionPort, connectorTypes: [.plus4ExpansionPort]),
                     Port(name: "Disk Drive 8", key: .diskDrive8, connectorTypes: [.commodoreIEC], iconWidth: 2), // TODO: 1551
                     Port(name: "Disk Drive 9", key: .diskDrive9, connectorTypes: [.commodoreIEC], iconWidth: 2),
                     Port(name: "Disk Drive 10", key: .diskDrive10, connectorTypes: [.commodoreIEC], iconWidth: 2),
                     Port(name: "Disk Drive 11", key: .diskDrive11, connectorTypes: [.commodoreIEC], iconWidth: 2),
-                    Port(name: "Control Port 1", key: .controlPort1, connectorTypes: [.atariJoystick]),
-                    Port(name: "Control Port 2", key: .controlPort2, connectorTypes: [.atariJoystick])
+                    Port(name: "Joy 0", key: .controlPort1, connectorTypes: [.atariJoystick], supportsHotSwap: true),
+                    Port(name: "Joy 1", key: .controlPort2, connectorTypes: [.atariJoystick], supportsHotSwap: true)
                 ]
                 
             case .vic:
@@ -80,7 +80,7 @@ public struct Computer: MachinePart {
                     Port(name: "Disk Drive 9", key: .diskDrive9, connectorTypes: [.commodoreIEC], iconWidth: 2),
                     Port(name: "Disk Drive 10", key: .diskDrive10, connectorTypes: [.commodoreIEC], iconWidth: 2),
                     Port(name: "Disk Drive 11", key: .diskDrive11, connectorTypes: [.commodoreIEC], iconWidth: 2),
-                    Port(name: "Control Port", key: .controlPort1, connectorTypes: [.atariJoystick, .atariJoystickAnalog]) // TODO: lightpen?
+                    Port(name: "Control Port", key: .controlPort1, connectorTypes: [.atariJoystick, .atariJoystickAnalog], supportsHotSwap: true) // TODO: lightpen
                 ]
             }
         }

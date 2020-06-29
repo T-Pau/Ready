@@ -27,16 +27,18 @@ public struct CasstteDrive: MachinePart {
     public var identifier: String
     public var name: String
     public var fullName: String
+    public var variantName: String?
     public var icon: UIImage?
     public var priority: Int
-    public var connector: ConnectorType { .commodoreTape }
+    public var connector: ConnectorType
     
     public var caseColor: UIColor?
     
-    public init(identifier: String, name: String, fullName: String? = nil, iconName: String?, priority: Int = MachinePartNormalPriority, caseColorName: String?) {
+    public init(identifier: String, name: String, fullName: String? = nil, variantName: String? = nil, iconName: String?, priority: Int = MachinePartNormalPriority, connector: ConnectorType, caseColorName: String?) {
         self.identifier = identifier
         self.name = name
         self.fullName = fullName ?? name
+        self.variantName = variantName
         if let iconName = iconName {
             self.icon = UIImage(named: iconName)
         }
@@ -44,11 +46,12 @@ public struct CasstteDrive: MachinePart {
         if let caseColorName = caseColorName {
             self.caseColor = UIColor(named: caseColorName)
         }
+        self.connector = connector
     }
     
     public var hasStatus: Bool { return identifier != "none" }
     
-    public static let none = CasstteDrive(identifier: "none", name: "None", iconName: nil, priority: 0, caseColorName: nil)
+    public static let none = CasstteDrive(identifier: "none", name: "None", iconName: nil, priority: 0, connector: .none, caseColorName: nil)
     
     public static let drives = MachinePartList(sections: [
         MachinePartSection(title: nil, parts: [
@@ -56,7 +59,10 @@ public struct CasstteDrive: MachinePart {
         ]),
         
         MachinePartSection(title: "Datasette", parts: [
-            CasstteDrive(identifier: "1530", name: "1530", fullName: "Commodore 1530 C2N", iconName: "Commodore 1530 C2N", caseColorName: "1530 C2N Case")
+            CasstteDrive(identifier: "1530", name: "1530", fullName: "Commodore 1530 C2N", iconName: "Commodore 1530 C2N", connector: .commodoreTape, caseColorName: "1530 C2N Case"),
+
+            CasstteDrive(identifier: "1530 Plus/4", name: "1530", fullName: "Commodore 1530 C2N", variantName: "for C16, Plus/4", iconName: "Commodore 1530 C2N Black", connector: .plus4Tape, caseColorName: "C16 Case")
+
         ])
     ])
     
