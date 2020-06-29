@@ -105,6 +105,31 @@ void c64ui_shutdown(void) {
  *
  * \return  0 on success, -1 on failure
  */
+int plus4ui_init_early(void)
+{
+    return 0;
+}
+
+
+/** \brief  Initialize the UI
+ *
+ * \return  0 on success, -1 on failure
+ */
+int plus4ui_init(void) {
+    return 0;
+}
+
+
+/** \brief  Shut down the UI
+ */
+void plus4ui_shutdown(void) {
+}
+
+
+/** \brief  Pre-initialize the UI before the canvas window gets created
+ *
+ * \return  0 on success, -1 on failure
+ */
 int scpu64ui_init_early(void)
 {
     return 0;

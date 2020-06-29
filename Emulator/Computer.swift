@@ -26,12 +26,15 @@ import UIKit
 public struct Computer: MachinePart {
     public enum ComputerType {
         case c64
+        case plus4
         case vic
         
         var dataDirectory: String {
             switch self {
             case .c64:
                 return "vice/C64"
+            case .plus4:
+                return "vice/PLUS4"
             case .vic:
                 return "vice/VIC20"
             }
@@ -52,6 +55,20 @@ public struct Computer: MachinePart {
                     Port(name: "Control Port 1", key: .controlPort1, connectorTypes: [.atariJoystick, .atariJoystickAnalog, .c64JoystickLightpen]),
                     Port(name: "Control Port 2", key: .controlPort2, connectorTypes: [.atariJoystick, .atariJoystickAnalog])
                 ]
+ 
+            case .plus4:
+                return [
+                    Port(name: "Screen", key: .screen, connectorTypes: [.videoComponent], iconWidth: 2, iconHeight: 2),
+                    Port(name: "User Port", key: .userPort, connectorTypes: [.c64UserPort]),
+                    Port(name: "Cassette", key: .cassetteDrive, connectorTypes: [.commodoreTape]), // TODO: black model
+                    Port(name: "Cartridge", key: .expansionPort, connectorTypes: [.plus4ExpansionPort]),
+                    Port(name: "Disk Drive 8", key: .diskDrive8, connectorTypes: [.commodoreIEC], iconWidth: 2), // TODO: 1551
+                    Port(name: "Disk Drive 9", key: .diskDrive9, connectorTypes: [.commodoreIEC], iconWidth: 2),
+                    Port(name: "Disk Drive 10", key: .diskDrive10, connectorTypes: [.commodoreIEC], iconWidth: 2),
+                    Port(name: "Disk Drive 11", key: .diskDrive11, connectorTypes: [.commodoreIEC], iconWidth: 2),
+                    Port(name: "Control Port 1", key: .controlPort1, connectorTypes: [.atariJoystick]),
+                    Port(name: "Control Port 2", key: .controlPort2, connectorTypes: [.atariJoystick])
+                ]
                 
             case .vic:
                 return [
@@ -70,6 +87,8 @@ public struct Computer: MachinePart {
     }
     
     public enum ViceModel: String {
+        case c16Pal
+        case c16Ntsc
         case c64cNtsc
         case c64cPal
         case c64Japanese
@@ -79,11 +98,15 @@ public struct Computer: MachinePart {
         case c64OldPal
         case c64Pal
         case c64PalN
+        case c232Ntsc
         case pet64Ntsc
         case pet64Pal
+        case plus4Pal
+        case plus4Ntsc
         case sx64Pal
         case sx64Ntsc
         case ultimax
+        case v364Ntsc
         case vic1001
         case vic20Pal
         case vic20Ntsc
@@ -94,6 +117,8 @@ public struct Computer: MachinePart {
                 return .c64
             case .vic1001, .vic20Pal, .vic20Ntsc:
                 return .vic
+            case .c16Pal, .c16Ntsc, .c232Ntsc, .plus4Pal, .plus4Ntsc, .v364Ntsc:
+                return .plus4
             }
         }
         public var int32Value: Int32 {
@@ -133,6 +158,18 @@ public struct Computer: MachinePart {
                 return 1
             case .vic1001:
                 return 3
+            case .c16Pal:
+                return 0
+            case .c16Ntsc:
+                return 1
+            case .c232Ntsc:
+                return 5
+            case .plus4Pal:
+                return 2
+            case .plus4Ntsc:
+                return 3
+            case .v364Ntsc:
+                return 4
             }
         }
     }
@@ -190,7 +227,7 @@ public struct Computer: MachinePart {
                                  variantName: "PAL",
                                  iconName: "Commodore 64 Original",
                                  viceMachineModel: .c64Pal,
-                                 keyboardName: "C64 Keyboard",
+                                 keyboardName: "C64",
                                  caseColorName: "C64 Case")
     
     public static let computers = MachinePartList(sections: [
@@ -205,7 +242,7 @@ public struct Computer: MachinePart {
                      variantName: "NTSC",
                      iconName: "Commodore 64 Original",
                      viceMachineModel: .c64Ntsc,
-                     keyboardName: "C64 Keyboard",
+                     keyboardName: "C64",
                      caseColorName: "C64 Case"),
             
             Computer(identifier: "C64 Japanese",
@@ -214,7 +251,7 @@ public struct Computer: MachinePart {
                      variantName: "Japanese",
                      iconName: "Commodore 64 Original",
                      viceMachineModel: .c64Japanese,
-                     keyboardName: "C64 Keyboard Japanese",
+                     keyboardName: "C64 Japanese",
                      caseColorName: "C64 Case",
                      chargenName: "jpchrgen"),
             
@@ -224,7 +261,7 @@ public struct Computer: MachinePart {
                      variantName: "VIC-20 Style Keyboard, PAL",
                      iconName: "Commodore 64 VIC-20",
                      viceMachineModel: .c64Pal,
-                     keyboardName: "VIC-20 Keyboard",
+                     keyboardName: "VIC-20",
                      caseColorName: "C64 Case"),
             
             Computer(identifier: "C64 VIC20 NTSC",
@@ -233,7 +270,7 @@ public struct Computer: MachinePart {
                      variantName: "VIC-20 Style Keyboard, NTSC",
                      iconName: "Commodore 64 VIC-20",
                      viceMachineModel: .c64Ntsc,
-                     keyboardName: "VIC-20 Keyboard",
+                     keyboardName: "VIC-20",
                      caseColorName: "C64 Case"),
             
             Computer(identifier: "C64 Silver PAL",
@@ -242,7 +279,7 @@ public struct Computer: MachinePart {
                      variantName: "PAL",
                      iconName: "Commodore 64 Silver",
                      viceMachineModel: .c64OldPal,
-                     keyboardName: "PET Style Keyboard",
+                     keyboardName: "PET Style",
                      caseColorName: "VIC-20 Case"),
             
             Computer(identifier: "C64 Silver NTSC",
@@ -251,7 +288,7 @@ public struct Computer: MachinePart {
                      variantName: "NTSC",
                      iconName: "Commodore 64 Silver",
                      viceMachineModel: .c64OldNtsc,
-                     keyboardName: "PET Style Keyboard",
+                     keyboardName: "PET Style",
                      caseColorName: "VIC-20 Case"),
         ]),
         MachinePartSection(title: "Commdore 64 C", parts: [
@@ -261,7 +298,7 @@ public struct Computer: MachinePart {
                      variantName: "Old Keyboard, PAL",
                      iconName: "Commodore 64 C",
                      viceMachineModel: .c64Pal,
-                     keyboardName: "C64C Keyboard",
+                     keyboardName: "C64C",
                      caseColorName: "C64C Case"),
             
             Computer(identifier: "C64C NTSC",
@@ -270,7 +307,7 @@ public struct Computer: MachinePart {
                      variantName: "Old Keyboard, NTSC",
                      iconName: "Commodore 64 C",
                      viceMachineModel: .c64Ntsc,
-                     keyboardName: "C64C Keyboard",
+                     keyboardName: "C64C",
                      caseColorName: "C64C Case"),
             
             Computer(identifier: "C64C New PAL",
@@ -279,7 +316,7 @@ public struct Computer: MachinePart {
                      variantName: "New Keyboard, PAL",
                      iconName: "Commodore 64 C",
                      viceMachineModel: .c64cPal,
-                     keyboardName: "C64C New Keyboard",
+                     keyboardName: "C64C New",
                      caseColorName: "C64C Case"),
             
             Computer(identifier: "C64C New NTSC",
@@ -288,7 +325,7 @@ public struct Computer: MachinePart {
                      variantName: "New Keyboard, NTSC",
                      iconName: "Commodore 64 C",
                      viceMachineModel: .c64cNtsc,
-                     keyboardName: "C64C New Keyboard",
+                     keyboardName: "C64C New",
                      caseColorName: "C64C Case"),
             
             Computer(identifier: "C64 Drean",
@@ -296,7 +333,7 @@ public struct Computer: MachinePart {
                      fullName: "Commodore 64 Drean",
                      iconName: "Commodore 64 Drean",
                      viceMachineModel: .c64PalN,
-                     keyboardName: "C64C Keyboard",
+                     keyboardName: "C64C",
                      caseColorName: "C64C Case"),
         ]),
         
@@ -307,7 +344,7 @@ public struct Computer: MachinePart {
                      variantName: "PAL",
                      iconName: "Commodore SX64",
                      viceMachineModel: .sx64Pal,
-                     keyboardName: "SX64 Keyboard",
+                     keyboardName: "SX64",
                      caseColorName: "SX64 Case",
                      drive8: DiskDrive.sx64,
                      missingPorts: [ .cassetteDrive ]),
@@ -318,7 +355,7 @@ public struct Computer: MachinePart {
                      variantName: "NTSC",
                      iconName: "Commodore SX64",
                      viceMachineModel: .sx64Ntsc,
-                     keyboardName: "SX64 Keyboard",
+                     keyboardName: "SX64",
                      caseColorName: "SX64 Case",
                      drive8: DiskDrive.sx64,
                      missingPorts: [ .cassetteDrive ]),
@@ -329,7 +366,7 @@ public struct Computer: MachinePart {
                      variantName: "PAL",
                      iconName: "Commodore Educator 64",
                      viceMachineModel: .pet64Pal,
-                     keyboardName: "C64 Keyboard",
+                     keyboardName: "C64",
                      caseColorName: "Educator 64 Case"),
             
             Computer(identifier: "Educator 64 NTSC",
@@ -338,7 +375,7 @@ public struct Computer: MachinePart {
                      variantName: "NTSC",
                      iconName: "Commodore Educator 64",
                      viceMachineModel: .pet64Ntsc,
-                     keyboardName: "C64 Keyboard",
+                     keyboardName: "C64",
                      caseColorName: "Educator 64 Case"),
             
             Computer(identifier: "Max",
@@ -346,7 +383,7 @@ public struct Computer: MachinePart {
                      fullName: "Commodore Ultimax",
                      iconName: "Commodore Ultimax",
                      viceMachineModel: .ultimax,
-                     keyboardName: "Max Keyboard",
+                     keyboardName: "Max",
                      caseColorName: "Max Case",
                      missingPorts: [ .diskDrive8, .diskDrive9, .diskDrive10, .diskDrive11, .userPort ]),
             
@@ -360,6 +397,44 @@ public struct Computer: MachinePart {
                      missingPorts: [ .cassetteDrive, .diskDrive8, .diskDrive9, .diskDrive10, .diskDrive11, .userPort ])
             ]),
         
+        MachinePartSection(title: "Commodore 16, Plus/4", parts: [
+            Computer(identifier: "C16 PAL",
+                     name: "Commodore 16 (PAL)",
+                     fullName: "Commodore 16",
+                     variantName: "PAL",
+                     iconName: "Commodore C16",
+                     viceMachineModel: .c16Pal,
+                     keyboardName: "C16",
+                     caseColorName: "C16 Case"),
+            
+            Computer(identifier: "C16 NTSC",
+                     name: "Commodore 16 (NTSC)",
+                     fullName: "Commodore 16",
+                     variantName: "PAL",
+                     iconName: "Commodore C16",
+                     viceMachineModel: .c16Ntsc,
+                     keyboardName: "C16",
+                     caseColorName: "C16 Case"),
+            
+            Computer(identifier: "Plus/4 PAL",
+                     name: "Commodore Plus/4 (PAL)",
+                     fullName: "Commodore Plus/4",
+                     variantName: "PAL",
+                     iconName: "Commodore Plus 4",
+                     viceMachineModel: .plus4Pal,
+                     keyboardName: "Plus/4",
+                     caseColorName: "C16 Case"),
+
+            Computer(identifier: "Plus/4 NTSC",
+                     name: "Commodore Plus/4 (NTSC)",
+                     fullName: "Commodore Plus/4",
+                     variantName: "NTSC",
+                     iconName: "Commodore Plus 4",
+                     viceMachineModel: .plus4Ntsc,
+                     keyboardName: "Plus/4",
+                     caseColorName: "C16 Case")
+        ]),
+        
         MachinePartSection(title: "Commodore VIC-20", parts: [
             Computer(identifier: "VIC-20 PAL",
                      name: "Commodore VIC-20 (PAL)",
@@ -367,7 +442,7 @@ public struct Computer: MachinePart {
                      variantName: "PAL",
                      iconName: "Commodore VIC-20",
                      viceMachineModel: .vic20Pal,
-                     keyboardName: "VIC-20 Keyboard",
+                     keyboardName: "VIC-20",
                      caseColorName: "VIC-20 Case"),
             
             Computer(identifier: "VIC-20 NTSC",
@@ -376,7 +451,7 @@ public struct Computer: MachinePart {
                      variantName: "NTSC",
                      iconName: "Commodore VIC-20",
                      viceMachineModel: .vic20Ntsc,
-                     keyboardName: "VIC-20 Keyboard",
+                     keyboardName: "VIC-20",
                      caseColorName: "VIC-20 Case"),
             
             Computer(identifier: "VIC-1001",
@@ -384,7 +459,7 @@ public struct Computer: MachinePart {
                      variantName: "Japanese",
                      iconName: "Commodore VIC-1001",
                      viceMachineModel: .vic1001,
-                     keyboardName: "VIC-1001 Keyboard",
+                     keyboardName: "VIC-1001",
                      caseColorName: "VIC-20 Case",
                      chargenName: "jpchrgen"),
             
@@ -394,7 +469,7 @@ public struct Computer: MachinePart {
                      variantName: "PET Style Keyboard, PAL",
                      iconName: "Commodore VIC-20",
                      viceMachineModel: .vic20Pal,
-                     keyboardName: "PET Style Keyboard",
+                     keyboardName: "PET Style",
                      caseColorName: "VIC-20 Case"),
             
             Computer(identifier: "VIC-20 PET NTSC",
@@ -403,7 +478,7 @@ public struct Computer: MachinePart {
                      variantName: "PET Style Keyboard, NTSC",
                      iconName: "Commodore VIC-20",
                      viceMachineModel: .vic20Ntsc,
-                     keyboardName: "PET Style Keyboard",
+                     keyboardName: "PET Style",
                      caseColorName: "VIC-20 Case"),
 
             Computer(identifier: "VIC-20 C64 PAL",
@@ -412,7 +487,7 @@ public struct Computer: MachinePart {
                      variantName: "C64 Style Keyboard, PAL",
                      iconName: "Commodore VIC-20 C64",
                      viceMachineModel: .vic20Pal,
-                     keyboardName: "C64 Keyboard",
+                     keyboardName: "C64",
                      caseColorName: "VIC-20 Case"),
 
             Computer(identifier: "VIC-20 C64 NTSC",
@@ -421,7 +496,7 @@ public struct Computer: MachinePart {
                      variantName: "C64 Style Keyboard, NTSC",
                      iconName: "Commodore VIC-20 C64",
                      viceMachineModel: .vic20Ntsc,
-                     keyboardName: "C64 Keyboard",
+                     keyboardName: "C64",
                      caseColorName: "VIC-20 Case")
         ])
    ])

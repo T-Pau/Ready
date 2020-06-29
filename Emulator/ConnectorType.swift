@@ -36,7 +36,6 @@ public enum ConnectorType {
     case commodoreIEC
     case commodoreTape
     case plus4ExpansionPort
-    case plus4UserPort
     case vic20ExpansionPort
     case videoComponent
     case videoRGBi

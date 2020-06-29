@@ -33,6 +33,9 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Release 1.5 Build 4", year: 2020, month: 6, day: 29, changes: [
+            "Add C16, Plus/4 computers."
+        ]),
         Release(name: "Release 1.5 Build 2", year: 2020, month: 6, day: 28, changes: [
             "Rename to Ready.",
             "Add new app icons, one for each supported computer."

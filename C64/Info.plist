@@ -167,6 +167,13 @@
 	<dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
+			<key>App Icon C16</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Icon-C16-60</string>
+				</array>
+			</dict>
 			<key>App Icon SX-64</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
@@ -187,6 +194,15 @@
 	<dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
+			<key>App Icon C16</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Icon-C16-60</string>
+					<string>Icon-C16-76</string>
+					<string>Icon-C16-83.5</string>
+				</array>
+			</dict>
 			<key>App Icon SX-64</key>
 			<dict>
 				<key>CFBundleIconFiles</key>

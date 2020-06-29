@@ -1187,10 +1187,6 @@ void machine_specific_shutdown(void)
 
     sid_cmdline_options_shutdown();
 
-    serial_remove_traps();
-    sound_chip_deregister_all();
-    
-    sound_shutdown();
     if (!console_mode) {
         c64_mem_ui_shutdown();
     }

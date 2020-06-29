@@ -5,10 +5,9 @@
 - move Audio.m, ringbuffer.c to Emulator
 - split machine specific ui callbacks into their own files
 - render: More efficient partial updates (especially refresh only)
-- fix ``' plus other key on AZERTY keyboards.
 - rewrite machine configuration, embed in scroll view
 - hierarchical configuration
-- don't split meda in games by type, use single list
+- don't split media in games by type, use single list
 
 ## VIC-20
 
@@ -19,7 +18,7 @@
 
 - warn if media can't be used due to machine configuration
 - controller auto-mapping: input device priority per input type
-- fix dragging files out of C64
+- fix dragging files out of Ready
 - sharing
   - add share button
   - allow selecting media, images in all game views

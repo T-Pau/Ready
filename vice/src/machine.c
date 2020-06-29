@@ -59,6 +59,7 @@
 #include "resources.h"
 #include "romset.h"
 #include "screenshot.h"
+#include "serial.h"
 #include "sound.h"
 #include "sysfile.h"
 #include "tape.h"
@@ -292,6 +293,10 @@ void machine_shutdown(void)
 
     machine_specific_shutdown();
 
+    serial_remove_traps();
+    sound_chip_deregister_all();
+    sound_shutdown();
+    
     autostart_shutdown();
 #ifdef HAS_JOYSTICK
     joystick_close();

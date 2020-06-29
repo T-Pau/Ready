@@ -1077,10 +1077,6 @@ void machine_specific_shutdown(void)
     /* close the video chip(s) */
     vic_shutdown();
 
-    serial_remove_traps();
-    sound_chip_deregister_all();
-    sound_shutdown();
-
     if (!console_mode) {
         vic20ui_shutdown();
     }

@@ -1,5 +1,5 @@
 /*
- Vice_C64.h -- Public Framework Header
+ ViceC64.h -- Public Framework Header
  Copyright (C) 2020 Dieter Baron
  
  This file is part of C64, a Commodore 64 emulator for iOS, based on VICE.
@@ -23,12 +23,12 @@
 
 #import <Foundation/Foundation.h>
 
-//! Project version number for Vice_C64.
-FOUNDATION_EXPORT double Vice_C64VersionNumber;
+//! Project version number for ViceC64.
+FOUNDATION_EXPORT double ViceC64VersionNumber;
 
-//! Project version string for Vice_C64.
-FOUNDATION_EXPORT const unsigned char Vice_C64VersionString[];
+//! Project version string for ViceC64.
+FOUNDATION_EXPORT const unsigned char ViceC64VersionString[];
 
-// In this header, you should import all the public headers of your framework using statements like #import <Vice_C64/PublicHeader.h>
+// In this header, you should import all the public headers of your framework using statements like #import <ViceC64/PublicHeader.h>
 
 
