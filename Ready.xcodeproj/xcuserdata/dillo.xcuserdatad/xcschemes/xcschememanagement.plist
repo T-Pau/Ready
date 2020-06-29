@@ -29,10 +29,15 @@
 			<key>orderHint</key>
 			<integer>35</integer>
 		</dict>
+		<key>ViceC64.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>8</integer>
+		</dict>
 		<key>VicePlus4.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>47</integer>
+			<integer>20</integer>
 		</dict>
 		<key>ViceVIC20.xcscheme_^#shared#^_</key>
 		<dict>
@@ -42,7 +47,7 @@
 		<key>archdep.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>7</integer>
+			<integer>11</integer>
 		</dict>
 		<key>base copy.xcscheme_^#shared#^_</key>
 		<dict>
@@ -52,12 +57,12 @@
 		<key>base.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>34</integer>
+			<integer>24</integer>
 		</dict>
 		<key>c64commoncart.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>31</integer>
+			<integer>45</integer>
 		</dict>
 		<key>common.xcscheme_^#shared#^_</key>
 		<dict>
@@ -72,12 +77,12 @@
 		<key>core.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>19</integer>
+			<integer>17</integer>
 		</dict>
 		<key>diag.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>15</integer>
+			<integer>31</integer>
 		</dict>
 		<key>diskimage copy.xcscheme_^#shared#^_</key>
 		<dict>
@@ -87,22 +92,27 @@
 		<key>diskimage.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>33</integer>
+			<integer>14</integer>
 		</dict>
 		<key>drive.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>25</integer>
+			<integer>10</integer>
 		</dict>
 		<key>driveiec.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>18</integer>
+			<integer>25</integer>
 		</dict>
 		<key>driveiecieee.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>13</integer>
+			<integer>50</integer>
+		</dict>
+		<key>driveiecplus4exp.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>29</integer>
 		</dict>
 		<key>driveiee.xcscheme_^#shared#^_</key>
 		<dict>
@@ -112,7 +122,7 @@
 		<key>driveieee.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>44</integer>
+			<integer>27</integer>
 		</dict>
 		<key>driver.xcscheme_^#shared#^_</key>
 		<dict>
@@ -122,7 +132,7 @@
 		<key>drivetcbm.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>21</integer>
+			<integer>37</integer>
 		</dict>
 		<key>ffmpeg.xcscheme_^#shared#^_</key>
 		<dict>
@@ -137,7 +147,7 @@
 		<key>fileio.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>10</integer>
+			<integer>34</integer>
 		</dict>
 		<key>fsdevice copy.xcscheme_^#shared#^_</key>
 		<dict>
@@ -147,7 +157,7 @@
 		<key>fsdevice.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>41</integer>
+			<integer>15</integer>
 		</dict>
 		<key>gfxoutputdrv copy.xcscheme_^#shared#^_</key>
 		<dict>
@@ -157,12 +167,12 @@
 		<key>gfxoutputdrv.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>14</integer>
+			<integer>30</integer>
 		</dict>
 		<key>hvsc.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>16</integer>
+			<integer>32</integer>
 		</dict>
 		<key>hwsiddrv copy.xcscheme_^#shared#^_</key>
 		<dict>
@@ -172,17 +182,17 @@
 		<key>hwsiddrv.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>28</integer>
+			<integer>5</integer>
 		</dict>
 		<key>iecbus.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>29</integer>
+			<integer>12</integer>
 		</dict>
 		<key>imagecontents.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>30</integer>
+			<integer>22</integer>
 		</dict>
 		<key>iodrv copy.xcscheme_^#shared#^_</key>
 		<dict>
@@ -192,7 +202,7 @@
 		<key>iodrv.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>26</integer>
+			<integer>44</integer>
 		</dict>
 		<key>joyport copy.xcscheme_^#shared#^_</key>
 		<dict>
@@ -202,12 +212,12 @@
 		<key>joyport.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>38</integer>
+			<integer>7</integer>
 		</dict>
 		<key>mascuerade.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>22</integer>
+			<integer>28</integer>
 		</dict>
 		<key>midi copy.xcscheme_^#shared#^_</key>
 		<dict>
@@ -217,7 +227,7 @@
 		<key>midi.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>11</integer>
+			<integer>39</integer>
 		</dict>
 		<key>mididrv copy.xcscheme_^#shared#^_</key>
 		<dict>
@@ -227,27 +237,32 @@
 		<key>mididrv.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>20</integer>
+			<integer>43</integer>
 		</dict>
 		<key>monitor.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>36</integer>
+			<integer>42</integer>
 		</dict>
 		<key>p64.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>37</integer>
+			<integer>41</integer>
 		</dict>
 		<key>parallel.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>49</integer>
+			<integer>16</integer>
 		</dict>
 		<key>plus4 copy.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>51</integer>
+		</dict>
+		<key>plus4.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>48</integer>
 		</dict>
 		<key>printerdrv copy.xcscheme_^#shared#^_</key>
 		<dict>
@@ -257,17 +272,17 @@
 		<key>printerdrv.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>48</integer>
+			<integer>23</integer>
 		</dict>
 		<key>raster.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>5</integer>
+			<integer>9</integer>
 		</dict>
 		<key>resid.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>43</integer>
+			<integer>21</integer>
 		</dict>
 		<key>rs232drv copy.xcscheme_^#shared#^_</key>
 		<dict>
@@ -277,12 +292,12 @@
 		<key>rs232drv.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>39</integer>
+			<integer>38</integer>
 		</dict>
 		<key>rtc.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>6</integer>
+			<integer>49</integer>
 		</dict>
 		<key>samplerdrv copy.xcscheme_^#shared#^_</key>
 		<dict>
@@ -292,7 +307,7 @@
 		<key>samplerdrv.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>17</integer>
+			<integer>36</integer>
 		</dict>
 		<key>serial copy.xcscheme_^#shared#^_</key>
 		<dict>
@@ -302,12 +317,12 @@
 		<key>serial.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>27</integer>
+			<integer>6</integer>
 		</dict>
 		<key>sid.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>24</integer>
+			<integer>18</integer>
 		</dict>
 		<key>socketdrv copy.xcscheme_^#shared#^_</key>
 		<dict>
@@ -317,32 +332,32 @@
 		<key>socketdrv.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>46</integer>
+			<integer>35</integer>
 		</dict>
 		<key>sounddrv.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>23</integer>
+			<integer>46</integer>
 		</dict>
 		<key>tape.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>12</integer>
+			<integer>47</integer>
 		</dict>
 		<key>tapeport.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>42</integer>
+			<integer>13</integer>
 		</dict>
 		<key>userport.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>45</integer>
+			<integer>51</integer>
 		</dict>
 		<key>vdrive.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>40</integer>
+			<integer>26</integer>
 		</dict>
 		<key>vic20 copy.xcscheme_^#shared#^_</key>
 		<dict>
@@ -352,12 +367,12 @@
 		<key>vic20.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>8</integer>
+			<integer>40</integer>
 		</dict>
 		<key>vic20cart.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>32</integer>
+			<integer>33</integer>
 		</dict>
 		<key>vice-x64sc.xcscheme_^#shared#^_</key>
 		<dict>
@@ -377,7 +392,7 @@
 		<key>video.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>9</integer>
+			<integer>19</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
