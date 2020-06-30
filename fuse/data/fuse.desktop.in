@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Categories=Game;Emulator;GTK;
+Name=Fuse
+GenericName=Spectrum Emulator
+Comment=Emulator of the 1980s ZX Spectrum home computer and its various clones
+MimeType=@MIME_TYPES@
+Exec=fuse %f
+Icon=fuse
+Keywords=sinclair;zx;game;retro;

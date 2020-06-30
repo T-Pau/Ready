@@ -1,0 +1,49 @@
+/* pokemem.rc: Win32 interface to the poke memory
+   Copyright (c) 2011 Philip Kendall, Sergio Baldoví
+
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License along
+   with this program; if not, write to the Free Software Foundation, Inc.,
+   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+   Author contact information:
+
+   E-mail: philip-fuse@shadowmagic.org.uk
+
+*/
+
+#include "pokemem.h"
+
+IDD_POKEMEM DIALOGEX DISCARDABLE 6,6,314,171
+CAPTION "Fuse - Poke Memory"
+STYLE WS_POPUP | WS_CAPTION | WS_SYSMENU | DS_MODALFRAME
+FONT 8,"Ms Shell Dlg 2",400,0,1
+BEGIN
+  LTEXT "Bank:", IDC_PM_BANK, 7, 10, 30, 8
+  EDITTEXT IDC_PM_BANK_EDIT, 41, 7, 40, 14,
+    WS_CHILD | WS_TABSTOP | WS_VISIBLE | ES_NUMBER, WS_EX_CLIENTEDGE
+  LTEXT "Address:", IDC_PM_ADDRESS, 88, 10, 30, 8
+  EDITTEXT IDC_PM_ADDR_EDIT, 122, 7, 40, 14,
+    WS_CHILD | WS_TABSTOP | WS_VISIBLE | ES_NUMBER, WS_EX_CLIENTEDGE
+  LTEXT "Value:", IDC_PM_VALUE, 169, 10, 30, 8
+  EDITTEXT IDC_PM_VALUE_EDIT, 203, 7, 40, 14,
+    WS_CHILD | WS_TABSTOP | WS_VISIBLE | ES_NUMBER, WS_EX_CLIENTEDGE
+  PUSHBUTTON "&Add", IDC_PM_ADD, 257, 7, 50, 14
+
+  CTEXT "Choose active POKES:", IDC_PM_ACTIVE_POK, 7, 28, 300, 8
+  CONTROL "", IDC_PM_LIST, "SysListView32", WS_CHILD | WS_TABSTOP |
+    WS_VISIBLE | LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS,
+    7, 39, 300, 104, WS_EX_CLIENTEDGE
+
+  DEFPUSHBUTTON "&OK", IDOK, 183, 150, 60, 14
+  PUSHBUTTON "&Cancel", IDCANCEL, 247, 150, 60, 14
+END

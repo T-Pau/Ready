@@ -1,0 +1,121 @@
+Implementation notes for some of Fuse's systems
+===============================================
+
+Contents:
+
+1. The main emulation loop
+2. The display code
+2.1. Building an image of the Spectrum's screen
+
+1. The main emulation loop
+==========================
+
+The main emulation loop (the while loop in fuse.c:main) is essentially
+fairly simple: it just runs Z80 opcodes until something `interesting'
+happens, at which point it deals with the `interesting' thing.
+
+The question here is how do we know when something `interesting' has
+occurred: the simple answer is that something interesting occurs when
+the `tstates' global variable (which counts tstates since the last
+interrupt occurred) reaches `event_next_event'. It should be noted here
+that these events are purely a Fuse concept, and not related to any OS
+feature.
+
+Perhaps the most obvious type of event which can occur is an
+interrupt, which (on the 48K machine anyway) will occur 69888 tstates
+after the last interrupt. When each interrupt occurs, the code sets
+another interrupt to occur one frame later (the event_add() call in
+spectrum.c:spectrum_interrupt). `event_next_event' will then be set by
+the code in event.c.
+
+TZX playback is handled in much the same way: an event (of type
+EVENT_TYPE_EDGE) is scheduled to occur whenever the signal from the
+(emulated) tape changes. That event then toggles the input to the
+ULA's EAR bit, and schedules another event to occur whenever the next
+edge is due from the tape.
+
+RZX playback cannot be handled in the same way, as it is not known
+after how many tstates the interrupt will occur. In this case, the
+interrupt is forced when it is due to occur by scheduling an event
+from the main Z80 emulation loop (z80/z80_ops.c:z80_do_opcodes) and
+then breaking out of the loop.
+
+2. The display code
+===================
+
+There are two stages to producing the Spectrum's screen on the
+emulating machine's screen: firstly, building an image of the
+Spectrum's screen in memory, and then translating that image onto the
+emulating machine's screen.
+
+The first of these functions is accomplished by the code in display.c,
+whilst the second is fulfilled by each user interface separately,
+although generally in ui/<name>/<name>display.c.
+
+2.1. Building an image of the Spectrum's screen
+-----------------------------------------------
+
+The function of almost all the code in display.c is to build an image
+of the Spectrum's screen in the display.c:display_image array. For the
+`normal' (non-Timex) machines, this array has a size 320x240 and each
+pixel represents one pixel on the Spectrum's screen (including 32
+pixels of left and right border, and 24 pixels of top and bottom
+border). For the Timex machines, this array is sized 640x480 to
+accommodate the hires modes and each Spectrum pixel is represented by
+two vertically adjacent pixels in the array (as the hires modes double
+only the horizontal resolution, not the vertical resolution). In both
+cases, the values in this array are the Spectrum colours (0 to 15).
+
+Every time the screen memory is written to (and actually changed, as
+opposed to the data already there being written back again), three
+things occur:
+
+* Fuse works out if it needs to update the display. It does this by
+  looking at the region between the current position of the electron
+  beam and the position it was in the last time it updated the
+  display. If the write affects this 'critical' region, then the
+  display_image array is updated with any 'dirty' chunks (see below)
+  in the critical region.
+
+  Each run of dirty pixels is noted, and a list of rectangles of such
+  pixels is built up by display.c:add_rectangle() and
+  display.c:end_line(). At the end of the frame, each of these
+  rectangles is passed off to the user-interface specific rendering
+  code to be drawn onto the emulating machine's screen.
+
+* The new data is now written to RAM.
+
+* Fuse marks any pixels affected by the write as 'dirty' in the
+  display.c:display_is_dirty array. Each bit in each entry represents
+  an 8 (non-Timex) or 16 (Timex) pixel chunk of the screen plus border
+  which must be updated. The least significant bit represents the
+  left-most 8 (16) pixels, the second bit the next 8 (16) and so
+  on. (For the rest of this section, I'll take the doubling in pixel
+  numbers for Timex machines as read).
+
+  If the `data' area of memory is written to, one 8 pixel chunk is
+  marked as `dirty', whilst 64 pixels (in an 8x8 square) are marked as
+  dirty if the attributes area is written to. `FLASH'ing characters
+  will also cause 8x8 pixel chunks to be marked as dirty every 16
+  frames (display.c:display_dirty_flashing()).  The arrays
+  display_dirty_xtable and display_dirty_ytable store the address to
+  coordinate mappings for the data area of the Spectrum's screen,
+  whilst display_dirty_xtable2 and display_dirty_ytable2 serves the
+  same function for the attributes area.
+
+2.2. From display_image to the emulating machine's screen
+---------------------------------------------------------
+
+At the end of every frame, Fuse calls uidisplay_area repeatedly to get
+the user interface to update the emulating machine's screen.
+
+If a user interface is outputting the same number of pixels as in
+display_image (320x240 for non-Timex, 640x480 for Timex), this can be
+very simple, but user interfaces which implement scaling (either
+upwards, or downwards as is necessary for displaying the Timex modes
+in a 320x240 mode) may wish to make use of the 'scalers' defined in
+ui/scaler: a generalised set of routines for accomplishing this, as
+well as various smoothing options and the like (for example,
+scanlines). See `scalers.txt' for more information on these.
+
+(FIXME: write scalers.txt)

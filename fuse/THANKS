@@ -1,0 +1,103 @@
+Some thanks (in alphabetical order):
+
+* Stuart Brady: for the Scorpion emulation and HP-UX sound support
+  (see `AUTHORS')
+
+* Michael Bukin: for XWinAllegro, which was used by previous versions of
+  Fuse for the graphical display.
+  (http://web.archive.org/web/19990210094206/http://www.canvaslink.com/allegro/xwinallegro/)
+
+* Ian Collier: the source to his xz80
+  (http://web.archive.org/web/19990428010016/http://www.comlab.ox.ac.uk/oucl/users/ian.collier/Spectrum/index.html)
+  was very helpful for getting the z80 opcodes right; also the ZX Printer
+  emulation is based on xz80's.
+
+* Boris Donko: for various Z80 core fixes: missing memory contention
+  on LD (nnnn),A instruction, flags on SCF and FLAG_V on DEC, and
+  timing of INC SP.
+
+* John Elliott: for lib765, which provides Fuse's emulation of the +3's
+  FDC, and libdsk which provides support for more disk image formats:
+  see http://www.seasip.demon.co.uk/Unix/LibDsk/
+
+* Ivan Ruiz Etxabe: for helping test RZX competition mode recording.
+
+* Martin Garton: making the GTK+ user interface compatible with GTK+ 2.0,
+  although I then went and broke it in other ways.
+
+* Ian Greenway: for information about reading from unattached ports. If
+  you've got an Amiga, you may well like to check out Ian's Spectrum
+  Emulator, ASp: http://www.lasernet.plus.com/asp.html
+
+* Shawn Hargreaves: for Allegro (http://liballeg.org/)
+  (again, used by previous versions of Fuse for the graphical display)
+
+* Steven Harrison: for helping track down why the SDL sound routines
+  weren't working on IRIX.
+
+* Thomas Harte: for the much faster console display routines (Not present
+  in the current version).
+
+* Erik Kunze: for lots of helpful hints on how to program under Unix.
+
+* Garry Lancaster: for the simple 8-bit IDE, ZXATASP and ZXCF
+  emulations (see `AUTHORS')
+
+* Gerton Lunter: his wonderful z80
+  (http://www.worldofspectrum.org/pub/sinclair/emulators/pc/windows/z80-400.zip)
+  got me started on this emulation lark all those years ago...
+
+* Anders Holmberg: for reporting a bug in the z80 v1.45 load routines. Anders
+  has done what is basically a port of Fuse 0.4.0 to the PocketPC: see
+  http://pocketclive.emuunlim.com/
+
+* Russell Marks: for various bits of code (see `AUTHORS')
+
+* Fredrick Meunier: for TC2048 support and more (see `AUTHORS')
+
+* Catalin Mihaila: for writing an SDL user interface for Fuse. Not in
+  the code as this has already been done by Fred :-(
+
+* David Muriel: for helping test RZX competition mode recording.
+
+* Santiago Romero: for putting me on the track of a bug in Fuse's keyboard
+  emulation.
+
+* Mark Round: for reporting a bug with respect to Solaris sound detection.
+
+* Darren Salt: quite a few bits of code (see `AUTHORS')
+
+* Dmitry Sanarin: the author of Glukalka (http://www.sanarin.ru/glukalka/),
+  from which Fuse's TR-DOS emulation code was taken.
+
+* Steve Snake (via Mark Woodmass): for pointing out which memory pages
+  on the 128K machine are actually contended. Grab Steve's emulator, Klive,
+  from http://www.worldofspectrum.org/emulators.html#pcwin
+
+* Ludvig Strigeus and The ScummVM project wrote the original version of
+  the code which is used as the graphics scalers. For ScummVM, check out
+  http://www.scummvm.org/
+
+* Gergely Szasz: Interface 1/Microdrive emulation, the 'movie' code and the
+  ao sound driver (see `AUTHORS')
+
+* Miklos Szeredi: his `SpectEmu'
+  (http://web.archive.org/web/20100408033206/http://www.inf.bme.hu/~mszeredi/spectemu/)
+  gave the inspiration for an important rewrite of the Z80 core, and was
+  also _very_ useful whilst trying to track down some bugs.
+
+* Martijn van der Heide: for World of Spectrum
+  (http://www.worldofspectrum.org/) -- simply the best Speccy Web site out
+  there.
+
+* Witold Filipczyk: for TC2068 support and more (see `AUTHORS')
+
+* Mark Woodmass: for putting me on the track of (and finding the
+  solution to) bugs with regard to Fuse's R register emulation during
+  HALTs and interrupts and Fuse's mask for the memory control port on
+  the 128K/+2 machines. Mark's another one who's written an emulator:
+  see 'SPIN' at http://www.worldofspectrum.org/emulators.html#pcwin
+
+* Alexander Yurchenko: for the OpenBSD/Solaris sound code (see `AUTHORS')
+
+* Matan Ziv-Av: for various bits of code (see `AUTHORS')

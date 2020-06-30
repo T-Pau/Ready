@@ -1,0 +1,20 @@
+What you need to implement for Fuse's low-level sound routines
+==============================================================
+
+Fuse's sound routines require three functions to be implemented:
+
+* int sound_lowlevel_init( const char *device, int *freqptr, int *stereoptr )
+
+Initialise the sound card etc. If 'device' is non-null, use the device
+specified there, otherwise use a sensible default. '*freqptr' and
+'*stereoptr' give desired states for the output frequency and
+stereoness respectively, and should be set to the values actually
+obtained from the hardware.
+
+void sound_lowlevel_end( void );
+
+Close down the sound card etc.
+
+void sound_lowlevel_frame( libspectrum_signed_word *data, int len );
+
+Write the 'len' 16-bit items of sound data in 'data' to the sound hardware.

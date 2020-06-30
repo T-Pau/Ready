@@ -1,0 +1,284 @@
+# settings.dat: configuration options for Fuse
+# Copyright (c) 2002-2017 Philip Kendall
+
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+# Author contact information:
+
+# E-mail: philip-fuse@shadowmagic.org.uk
+
+# Format is
+
+# <name in settings_info structure>,
+# <type>,
+# <default value>,
+# <short option>,
+# <name on command line>, (defaults to <settings_info name> =~ s/_/-/g)
+# <name in config file>, (defaults to <command line> =~ s/-//g)
+
+emulation_speed, numeric, 100,, speed
+frame_rate, numeric, 1,, rate
+
+issue2, boolean, 0
+joy_prompt, boolean, 0,, joystick-prompt
+joy_kempston, boolean, 0,, kempston
+kempston_mouse, boolean, 0
+mouse_swap_buttons, boolean, 0
+tape_traps, boolean, 1,, traps, tapetraps
+fastload, boolean, 1
+auto_load, boolean, 1
+detect_loader, boolean, 1
+accelerate_loader, boolean, 1
+slt_traps, boolean, 1,, slt, slttraps
+double_screen, null, 0
+full_screen, boolean, 0
+writable_roms, boolean, 0
+autosave_settings, boolean, 0
+bw_tv, boolean, 0
+recreated_spectrum, boolean, 0
+rs232_handshake, boolean, 0
+rs232_tx, string, NULL
+rs232_rx, string, NULL
+raw_rs232, null, 0
+raw_s_net, boolean, 0
+snet, string, NULL
+confirm_actions, boolean, 1
+printer, boolean, 0
+statusbar, boolean, 1
+interface1, boolean, 0
+mdr_len, numeric, 180
+mdr_random_len, boolean, 1
+interface2, boolean, 1
+multiface1, boolean, 0
+multiface128, boolean, 0
+multiface3, boolean, 0
+multiface1_stealth, boolean, 0
+snapsasz80, null, 0
+opus, boolean, 0
+pal_tv2x, boolean, 0
+movie_compr, string, NULL
+movie_start, string, NULL
+movie_stop_after_rzx, boolean, 1
+plusd, boolean, 0
+didaktik80, boolean, 0
+disciple, boolean, 0
+beta128, boolean, 0
+beta128_48boot, boolean, 1
+z80_is_cmos, boolean, 0,, cmos-z80
+late_timings, boolean, 0
+unittests, boolean, 0
+fuller, boolean, 0
+melodik, boolean, 0
+speccyboot, boolean, 0
+specdrum, boolean, 0
+spectranet, boolean, 0
+spectranet_disable, boolean, 0
+usource, boolean, 0
+zxprinter, boolean, 1
+covox, boolean, 0
+phantom_typist_mode, string, "Auto"
+
+sound_device, string, NULL, 'd'
+sound, boolean, 1
+sound_load, boolean, 1,, loading-sound
+stereo_ay, string, NULL,, separation
+sound_force_8bit, boolean, 0
+sound_freq, numeric, 44100, 'f'
+speaker_type, string, NULL
+volume_ay, numeric, 100
+volume_beeper, numeric, 100
+volume_specdrum, numeric, 100
+volume_covox, numeric, 100
+
+joystick_1, string, NULL, 'j'
+joystick_1_output, numeric, 0
+joystick_1_fire_1, numeric, 4096
+joystick_1_fire_2, numeric, 4096
+joystick_1_fire_3, numeric, 4096
+joystick_1_fire_4, numeric, 4096
+joystick_1_fire_5, numeric, 4096
+joystick_1_fire_6, numeric, 4096
+joystick_1_fire_7, numeric, 4096
+joystick_1_fire_8, numeric, 4096
+joystick_1_fire_9, numeric, 4096
+joystick_1_fire_10, numeric, 4096
+joystick_1_fire_11, numeric, 4096
+joystick_1_fire_12, numeric, 4096
+joystick_1_fire_13, numeric, 4096
+joystick_1_fire_14, numeric, 4096
+joystick_1_fire_15, numeric, 4096
+joystick_2, string, NULL
+joystick_2_output, numeric, 0
+joystick_2_fire_1, numeric, 4096
+joystick_2_fire_2, numeric, 4096
+joystick_2_fire_3, numeric, 4096
+joystick_2_fire_4, numeric, 4096
+joystick_2_fire_5, numeric, 4096
+joystick_2_fire_6, numeric, 4096
+joystick_2_fire_7, numeric, 4096
+joystick_2_fire_8, numeric, 4096
+joystick_2_fire_9, numeric, 4096
+joystick_2_fire_10, numeric, 4096
+joystick_2_fire_11, numeric, 4096
+joystick_2_fire_12, numeric, 4096
+joystick_2_fire_13, numeric, 4096
+joystick_2_fire_14, numeric, 4096
+joystick_2_fire_15, numeric, 4096
+joystick_keyboard_output, numeric, 0
+joystick_keyboard_up, numeric, 113
+joystick_keyboard_down, numeric, 97
+joystick_keyboard_left, numeric, 111
+joystick_keyboard_right, numeric, 112
+joystick_keyboard_fire, numeric, 32
+
+keyboard_arrows_shifted, boolean, 1
+
+rzx_compression, boolean, 1,, compress-rzx
+competition_mode, boolean, 0
+competition_code, numeric, 0
+embed_snapshot, boolean, 1
+rzx_autosaves, boolean, 1
+
+snapshot, string, NULL, 's'
+tape_file, string, NULL, 't', tape, tapefile
+start_machine, string, "48", 'm', machine
+record_file, string, NULL, 'r', record, recordfile
+opusdisk_file, string, NULL,, opusdisk
+playback_file, string, NULL, 'p', playback, playbackfile
+plus3disk_file, string, NULL,, plus3disk
+plusddisk_file, string, NULL,, plusddisk
+didaktik80disk_file, string, NULL,, didaktik80disk
+discipledisk_file, string, NULL,, discipledisk
+betadisk_file, string, NULL,, betadisk
+dck_file, string, NULL,, dock
+if2_file, string, NULL,, if2cart
+
+mdr_file, string, NULL,, microdrive-file
+mdr_file2, string, NULL,, microdrive-2-file
+mdr_file3, string, NULL,, microdrive-3-file
+mdr_file4, string, NULL,, microdrive-4-file
+mdr_file5, string, NULL,, microdrive-5-file
+mdr_file6, string, NULL,, microdrive-6-file
+mdr_file7, string, NULL,, microdrive-7-file
+mdr_file8, string, NULL,, microdrive-8-file
+simpleide_active, boolean, 0,, simpleide
+simpleide_master_file, string, NULL,, simpleide-masterfile
+simpleide_slave_file, string, NULL,, simpleide-slavefile
+zxatasp_active, boolean, 0,, zxatasp
+zxatasp_upload, boolean, 0,, zxatasp-upload
+zxatasp_wp, boolean, 0,, zxatasp-write-protect
+zxatasp_master_file, string, NULL,, zxatasp-masterfile
+zxatasp_slave_file, string, NULL,, zxatasp-slavefile
+zxcf_active, boolean, 0,, zxcf
+zxcf_upload, boolean, 0,, zxcf-upload
+zxcf_pri_file, string, NULL,, zxcf-cffile
+divide_enabled, boolean, 0,, divide
+divide_wp, boolean, 0,, divide-write-protect
+divide_master_file, string, NULL,, divide-masterfile
+divide_slave_file, string, NULL,, divide-slavefile
+divmmc_enabled, boolean, 0,, divmmc
+divmmc_wp, boolean, 0,, divmmc-write-protect
+divmmc_file, string, NULL,, divmmc-file
+zxmmc_enabled, boolean, 0,, zxmmc
+zxmmc_file, string, NULL,, zxmmc-file
+
+printer_graphics_filename, string, "printout.pbm",, graphicsfile
+printer_text_filename, string, "printout.txt",, textfile
+
+aspect_hint, boolean, 1
+strict_aspect_hint, boolean, 0
+fb_mode, numeric, 320, 'v', fbmode
+svga_modes, string, NULL
+sdl_fullscreen_mode, string, NULL
+doublescan_mode, numeric, 1, 'D', doublescan-mode
+
+start_scaler_mode, string, "normal", 'g', graphics-filter
+
+speccyboot_tap, string, "tap0",
+
+rom_16, string, "48.rom",
+rom_48, string, "48.rom",
+rom_128_0, string, "128-0.rom",
+rom_128_1, string, "128-1.rom",
+rom_plus2_0, string, "plus2-0.rom",
+rom_plus2_1, string, "plus2-1.rom",
+rom_plus2a_0, string, "plus3-0.rom",
+rom_plus2a_1, string, "plus3-1.rom",
+rom_plus2a_2, string, "plus3-2.rom",
+rom_plus2a_3, string, "plus3-3.rom",
+rom_plus3_0, string, "plus3-0.rom",
+rom_plus3_1, string, "plus3-1.rom",
+rom_plus3_2, string, "plus3-2.rom",
+rom_plus3_3, string, "plus3-3.rom",
+rom_plus3e_0, string, "plus3e-0.rom",
+rom_plus3e_1, string, "plus3e-1.rom",
+rom_plus3e_2, string, "plus3e-2.rom",
+rom_plus3e_3, string, "plus3e-3.rom",
+rom_tc2048, string, "tc2048.rom",
+rom_tc2068_0, string, "tc2068-0.rom",
+rom_tc2068_1, string, "tc2068-1.rom",
+rom_ts2068_0, string, "tc2068-0.rom",
+rom_ts2068_1, string, "tc2068-1.rom",
+rom_pentagon_0, string, "128p-0.rom",
+rom_pentagon_1, string, "128p-1.rom",
+rom_pentagon_2, string, "trdos.rom",
+rom_pentagon512_0, string, "128p-0.rom",
+rom_pentagon512_1, string, "128p-1.rom",
+rom_pentagon512_2, string, "trdos.rom",
+rom_pentagon512_3, string, "gluck.rom",
+rom_pentagon1024_0, string, "128p-0.rom",
+rom_pentagon1024_1, string, "128p-1.rom",
+rom_pentagon1024_2, string, "trdos.rom",
+rom_pentagon1024_3, string, "gluck.rom",
+rom_scorpion_0, string, "256s-0.rom",
+rom_scorpion_1, string, "256s-1.rom",
+rom_scorpion_2, string, "256s-2.rom",
+rom_scorpion_3, string, "256s-3.rom",
+rom_spec_se_0, string, "se-0.rom",
+rom_spec_se_1, string, "se-1.rom",
+rom_interface_1, string, "if1-2.rom",,, rominterfacei
+rom_beta128, string, "trdos.rom",
+rom_plusd, string, "plusd.rom",
+rom_didaktik80, string, "didaktik80.rom",
+rom_disciple, string, "disciple.rom",
+rom_multiface1, string, "mf1.rom",
+rom_multiface128, string, "mf128.rom",
+rom_multiface3, string, "mf3.rom",
+rom_opus, string, "opus.rom",
+rom_speccyboot, string, "speccyboot-1.4.rom",
+rom_usource, string, "usource.rom",
+
+drive_plus3a_type, string, NULL
+drive_plus3b_type, string, NULL
+plus3_detect_speedlock, boolean, 1
+drive_beta128a_type, string, NULL
+drive_beta128b_type, string, NULL
+drive_beta128c_type, string, NULL
+drive_beta128d_type, string, NULL
+drive_plusd1_type, string, NULL
+drive_plusd2_type, string, NULL
+drive_didaktik80a_type, string, NULL
+drive_didaktik80b_type, string, NULL
+drive_disciple1_type, string, NULL
+drive_disciple2_type, string, NULL
+drive_opus1_type, string, NULL
+drive_opus2_type, string, NULL
+drive_40_max_track, numeric, 42
+drive_80_max_track, numeric, 84
+
+disk_try_merge, string, NULL
+disk_ask_merge, boolean, 1
+
+debugger_command, string, NULL

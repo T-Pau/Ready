@@ -1,0 +1,42 @@
+Uncrustify
+==========
+This program modifies .c or .h files, using a coding style similar to the
+rest of Fuse source. It is intended for use with new code.
+
+Copy uncrustify.cfg to $HOME/.uncrustify.cfg to set as default options,
+or use:
+
+    uncrustify -c uncrustify.cfg input.c
+
+Web Site:
+
+    http://uncrustify.sourceforge.net/
+
+Known issues
+------------
+The configuration allow extra spaces around operators for aligning purposes,
+that could bypass unwanted extra spaces. You can check this by enabling the
+strict rules and doing a side-by-side comparison with both outputs.  
+
+When using nl_if_brace to remove newlines between `if' and `{', a newline
+is added between `}' and `else', so nl_brace_else is set to `remove' as a
+workaround. It should be valid both `} else' and `} \n else' forms.
+
+
+GNU Indent
+==========
+This is another code beautifier available at:
+
+    https://www.gnu.org/software/indent/
+
+Use:
+    indent -br -ce -prs -npcs -nsaf -nsai -nsaw -nsob input.c -o output.c
+
+Known issues
+------------
+There isn't an option to remove a space after switch statement, but you can
+use this expression with sed: 's/switch (/switch(/g'
+
+There isn't an option to remove spaces between parentheses in a function call
+when there are no arguments, but you can use this expression with sed:
+'s/(  )/()/g'

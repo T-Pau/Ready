@@ -1,0 +1,120 @@
+Some brief instructions on adding another user interface to Fuse
+================================================================
+
+In order to add a new user interface (UI) to Fuse, you need to
+implement:
+
+* the functions listed in ui/ui.h
+* the functions listed in ui/uidisplay.h
+* some form of keyboard handling.
+
+In general, all functions returning `int' should return zero on
+success and non-zero on error unless otherwise specified.
+
+As of Fuse 0.4.1, the specific code for each user interface sits in
+its own directory under the ui/ directory.
+
+ui.h
+----
+
+* int ui_init( int *argc, char ***argv )
+
+Initialise all of the UI-specific bits except the display (keyboard, etc).
+`argc' and `argv' are pointers to `argc' and `argv' as supplied to
+`main()'.
+
+* int ui_event( void )
+
+`ui_event()' is called at the start of every emulated Spectrum frame,
+and is the opportunity for the UI actions to happen. Some of the
+current UIs, for example the GTK+ UI use this to do most of their
+processing such as reading the keyboard and the like, whilst others,
+for example the SVGAlib UI do much less here.
+
+* int ui_verror( ui_error_level severity, const char *format, va_list ap )
+
+This will be called whenever the emulator wishes to output an error
+message of some form to the user; `severity' specifies how severe the
+error is - possible values are in "ui/ui.h". Typical actions will
+include writing the message to stderr and/or some form of dialog box
+for the user to read.
+
+* int ui_end( void )
+
+`ui_end()' is called on emulator shutdown and should undo all the
+setup done in `ui_init()'.
+
+uidisplay.h
+-----------
+
+* int uidisplay_init( int width, int height )
+
+Initialise all of the display-specific bits for a display of (preferred)
+size `width' x `height' pixels; note that `width' and `height' refer
+to the entire canvas on which the screen and emulated border is to be
+drawn, not just the Spectrum's screen. This will be called each time
+a machine is selected by the user to set the appropriate canvas
+(typically 320x240 for Sinclair/Amstrad models, 640x480 for Timex
+models to allow for hires modes).
+
+* void uidisplay_area( int x, int y, int w, int h )
+
+This should copy the area of size `w' x `h' at pixel ( `x', `y' ) from
+the buffered copy of the Spectrum's screen (display.c:display_image)
+to the real display. Note that pixel ( 0, 0 ) is the top-left pixel of
+the emulated border, not that of the actual screen.
+
+* void uidisplay_frame_end( void )
+
+This is called at the end of every spectrum frame, giving the ui a
+chance to flush all the drawing done over the course of the frame.
+
+* int uidisplay_hotswap_gfx_mode( void )
+
+This is called when the user has changed the scaler in use by the
+emulator. The ui should change the window to a multiple of the
+size set in uidisplay_init as required by the requested scaler.
+A ui does not have to support all or any of the scalers.
+
+* void uidisplay_end( void )
+
+Just undo whatever was done by `uidisplay_init()'.
+
+* void uidisplay_init_scalers( void );
+
+This function should set the scalers supported for the particular
+machine and ui in question. For example the half size scaler only
+makes sense for Timex machines (as it drops even scanlines), and
+you may only want to enable it when a Timex machine has been
+enabled.
+Alternatively, if your emulator has a fixed display mode (say
+320x240), then you may want to only enable the scalers that will
+generate a 320x240 screen (i.e. Normal1x for Sinclair/Amstrad
+machines, and Half for Timex models).
+
+Keyboard handling
+-----------------
+
+There are two different sorts of keys which the UI has to handle:
+those which correspond to Spectrum keys, and those which control Fuse
+in some way.
+
+There are two functions to handle Spectrum-related keys (from `keyboard.h'):
+
+* void keyboard_press  ( keyboard_key_name key )
+* void keyboard_release( keyboard_key_name key )
+
+`keyboard_key_name' is an enum defined in `keyboard.h' which lists all
+the Spectrum keys; calling these functions will cause the emulated
+machine to believe that the corresponding Spectrum key has been
+pressed or released.
+
+If you're using widget code in your user interface, note that this
+contains its own keyboard handling code, so you should ignore any
+non-Spectrum keys if `widget_active' is true.
+
+There is a general keyboard to Spectrum keys mapping listed in
+`keysyms.dat', which is used to generate `keysyms.c' by
+`keysyms.pl'. If you can generate a mapping from whatever your UI's
+keyboard routines return to the Xlib keysyms used in `keysyms.dat',
+this is probably the easiest way to deal with the Spectrum-related keys.

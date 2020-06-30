@@ -1,0 +1,177 @@
+# keysyms.dat: data file for use by keysyms.pl to generate keysyms.c
+# Copyright (c) 2000-2001,2004 Philip Kendall, Matan Ziv-Av, Russell Marks
+
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+# Author contact information:
+
+# E-mail: philip-fuse@shadowmagic.org.uk
+
+# This file is a list of GDK GDK_ keysyms which should be mapped to
+# the Fuse input layer (INPUT_KEY) keysym with the same name.
+# keysyms.pl must do the appropriate work to convert things for other
+# user interfaces.
+
+Tab
+
+Return
+
+Escape
+
+space
+exclam
+quotedbl
+numbersign
+dollar
+percent
+ampersand
+apostrophe
+parenleft
+parenright
+asterisk
+plus
+comma
+minus
+period
+slash
+
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+
+colon
+semicolon
+less
+equal
+greater
+question
+at
+
+A
+B
+C
+D
+E
+F
+G
+H
+I
+J
+K
+L
+M
+N
+O
+P
+Q
+R
+S
+T
+U
+V
+W
+X
+Y
+Z
+
+bracketleft
+backslash
+bracketright
+asciicircum
+dead_circumflex
+underscore
+
+a
+b
+c
+d
+e
+f
+g
+h
+i
+j
+k
+l
+m
+n
+o
+p
+q
+r
+s
+t
+u
+v
+w
+x
+y
+z
+
+braceleft
+bar
+braceright
+asciitilde
+BackSpace
+
+KP_Enter
+
+Up
+Down
+Left
+Right
+
+Insert
+Delete
+Home
+End
+Page_Up
+Page_Down
+
+Caps_Lock
+
+F1
+F2
+F3
+F4
+F5
+F6
+F7
+F8
+F9
+F10
+F11
+F12
+
+Shift_L
+Shift_R
+Control_L
+Control_R
+Alt_L
+Alt_R
+Meta_L
+Meta_R
+Super_L
+Super_R
+Hyper_L
+Hyper_R
+Mode_switch

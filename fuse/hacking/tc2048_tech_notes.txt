@@ -1,0 +1,49 @@
+The lower 8 bits of Timex SCLD ports are fully decoded
+Timings appear close to 48K spectrum despite the higher clock speed
+Keyboard reads (port FE) are different to other spectrum models,  bits 5 & 7 are
+always reset
+Reading unattached ports gives 255. There are no floating ULA values.
+Joystick is returned for ports with bit 5 == 0
+Machine is silent during loading (eerie!)
+Colours are always bright in hires mode
+Border always matches hires colour in hires mode
+
+Short information about graphics modes of Timex.
+
+Modes are switched by port 255.
+They are:
+0 - standard Spectrum
+1 - the same in nature as 0, but using second display file
+2 - extended colours (data taken from first screen,
+    attributes 1x8 taken from second display.
+3 - similar to 2, but data is taken from second screen
+4 - hires mode, data in odd columns is taken from first screen
+in standard way, data in even columns is made from attributes data (8x8)
+5 - similar to 4, but data taken from second display
+6 - true hires mode, odd columns from first screen, even columns from
+    second screen.  I mean columns numbered from 1.
+7 - data taken only from second screen, columns are doubled
+
+Hires mode (4,5,6,7) are monochrome.  Ink, paper (border the same as paper)
+depends on bits 3,4,5 of data sent to port 255, eg.
+
+OUT 255,6  WHITE & BLACK
+OUT 255,14 YELLOW & BLUE
+OUT 255,22 CYAN & RED
+
+and so on.
+
+The problem of accurate Timex SCLD (ULA) emulation
+--------------------------------------------------
+
+The Timex machines produce displays that are almost, but not quite, the same as
+those produced by a 48K Spectrum. Aquaplane has a perfectly aligned border
+effect, Academy's menu border effect is out one border line on one side only.
+
+Running a contention test (based on contention from fusetest) shows that the
+contention pattern starts at 14320 with 6, then 5, 4, 3, 2, 1, 0, 0 in the same
+way as the Sinclair ULA.
+
+It seems that the display of the top left pixel is slightly out of sync with
+this and the first pixel is displayed at 14321 based on the output of other
+contention testing programs.

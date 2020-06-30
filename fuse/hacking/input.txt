@@ -1,0 +1,93 @@
+As of version 0.7.0, Fuse has a generalised 'input layer' designed to
+abstract out the vagaries of how each user interface handles user
+input and to help ensure consistency between the various user
+interfaces.
+
+When some input is received from the user, the user interface code
+should set up an input_event_t structure and then simply call
+input_event().
+
+input_event_t is defined as follows:
+
+typedef struct input_event_t {
+
+  input_event_type type;
+
+  union {
+
+    input_event_key_t key;
+    input_event_joystick_t joystick;
+
+  } types;
+
+} input_event_t;
+
+The 'type' member specifies what sort of input has occurred. The
+following event types are supported:
+
+* Key events
+
+  These receive event-specific data in 'types.key', which is defined
+  as
+
+typedef struct input_event_key_t {
+
+  input_key key;
+
+} input_event_key_t;
+
+  The 'input_key' type is defined in input.h and specifies which key
+  this event refers to.
+
+  Event types:
+
+  * INPUT_EVENT_KEYPRESS
+    The key specified in types.key.key has been pressed.
+
+  * INPUT_EVENT_KEYRELEASE
+    The key specified in types.key.key has been released.
+
+* Joystick events
+
+  These receive event-specific dat in 'types.joystick', which is
+  defined as
+
+typedef struct input_event_joystick_t {
+
+  int which;
+  input_joystick_button button;
+
+} input_event_joystick_t;
+
+  'which' specifies the joystick which produced this event. which == 0
+  refers to the joystick Fuse thinks of as 'Joystick 1' while which ==
+  1 refers to 'Joystick 2'. 'button' refers to the state of the
+  joystick, and can take one of the following values:
+
+  * INPUT_JOYSTICK_UP
+  * INPUT_JOYSTICK_DOWN
+  * INPUT_JOYSTICK_LEFT
+  * INPUT_JOYSTICK_RIGHT
+  * INPUT_JOYSTICK_FIRE_1
+  * INPUT_JOYSTICK_FIRE_2
+  * INPUT_JOYSTICK_FIRE_3
+  * INPUT_JOYSTICK_FIRE_4
+  * INPUT_JOYSTICK_FIRE_5
+  * INPUT_JOYSTICK_FIRE_6
+  * INPUT_JOYSTICK_FIRE_7
+  * INPUT_JOYSTICK_FIRE_8
+  * INPUT_JOYSTICK_FIRE_9
+  * INPUT_JOYSTICK_FIRE_10
+
+  The INPUT_JOYSTICK_FIRE_<n> constants are guaranteed to have
+  consecutive values.
+
+  Event types:
+
+  * INPUT_EVENT_JOYSTICK_PRESS
+    The joystick specified in types.joystick.which has entered the
+    state specified in types.joystick.button.
+
+  * INPUT_EVENT_JOYSTICK_RELEASE
+    The joystick specified in types.joystick.which has left the state
+    specified in types.joystick.button.

@@ -1,0 +1,171 @@
+CVS tags for Fuse
+
+| Release-0_3_1
+| Release-0_3_2pre1
+| Release-0_3_2pre2
+| Release-0_3_2pre3
+| Release-0_3_2
+| Release-0_3_2_1			Bugfix release from 0.3.2
+| Release-0_4_0pre1
+| Release-0_4_0pre2
+| Release-0_4_0pre3
+| Release-0_4_0pre4
+| Release-0_4_0pre5
+| Release-0_4_0pre6
+| Release-0_4_0
+| Release-0_4_1pre1
+|
++-\					Dave Ball's Sharp PDA port (dead?)
+| |  Release-0_4_1pre1-qtopia-branch
+|
+| Release-0_4_1pre2
+| Release-0_4_1pre3
+| Release-0_4_1pre4
+| Release-0_4_1
+| Release-0_4_2pre1
+| Release-0_4_2pre2
+| Release-0_4_2pre3
+|
++-\					Fred's TC2048 stuff
+| | Release-0_4_2pre3-tc2048-branch-1	Changes merged to trunk
+| |					at Release-0_4_2-merge-1
+| | Release-0_4_2pre3-tc2048-branch
+|
+| Release-0_4_2pre4
+| Release-0_4_2
+|
++-\					Experiment with recording all
+| |					port reads
+| | Release-0_4_2-rzx2-branch-1		Z80 core fixes; merged
+| |					to trunk at Release-0_4_2-merge-2
+| | Release-0_4_2-rzx2-branch-2		RZX2 working. Merged to trunk
+| |                    			at Release-0_5_0pre1-merge-1 
+| | Release-0_4_2-rzx2-branch
+|
+| Release-0_4_2-merge-1			Merged from
+|					Release-0_4_2pre3-tc2048-branch-1
+| Release-0_4_2-merge-2			Merged from
+| 					Release-0_4_2-rzx2-branch-1
+| Release-0_5_0pre1
+| Release-0_5_0pre1-merge-1		Merged from
+|                                       Release-0_4_2-rzx2-branch-2
+| Release-0_5_0pre2
+| Release-0_5_0-trunk
+|
++-\					Branch for the 0.5.0 release
+| | Release-0_5_0pre3
+| | Release-0_5_0
+| | Release-0_5_0-branch-1		Changes merged to trunk at
+| |                                     Release-0_5_0-merge-1
+| | Release-0_5_0-branch
+|
+| Release-0_5_0-merge-1			Merged from
+|                                       Release-0_5_0-branch-1
+| Release-0_5_1pre1
+|
++-\					Branch for digitial signatures
+| |
+| | Release-0_5_1pre1-crypto-branch-1	Sync with HEAD as of 2003/07/22
+| |					(post Release-0_6_1pre1-merge-1)
+| | Release-0_5_1pre1-crypto-branch-2	Merge to head at
+| |					Release-0_6_1pre1-merge-2
+| |
+| | Release-0_5_1pre1-crypto-branch
+|
+| Release-0_5_1pre2
+|
++-\					First bits of debugger
+| | Release-0_5_1pre2-debugger-branch-1 Merged to trunk at
+| |                                     Release-0_5_1-merge-1
+| | Release-0_5_1pre2-debugger-branch
+|
+| Release-0_5_1pre3
+| Release-0_5_1
+| Release-0_5_1-merge-1			Merged from
+|					Release-0_5_1pre2-debugger-branch-1
+| Release-0_5_2pre1
+| Release-0_5_2pre1-trunk
+|
++-\					Fred's UI scaling patches
+| | Release-0_5_2pre1-scaler-branch-1	Merged to trunk at
+| |					Release-0_5_2pre1-merge-1
+| | Release-0_5_2pre1-scaler-branch
+|
+| Release-0_5_2pre1-merge-1		Merged from
+|					Release-0_5_2pre1-scaler-branch-1
+| Release-0_5_2pre2
+| Release-0_6_0pre1
+| Release-0_6_0pre2
+| Release-0_6_0
+|
++-\					Bugfix branch for 0.6.0
+| | Release-0_6_0_1			Merged to trunk at
+| |					Release-0_6_1pre1-merge-1
+| | Release-0_6_0-bugfix-branch
+|
+| Release-0_6_1pre1
+| Release-0_6_1pre1-merge-1		Merged from
+|					Release-0_6_0_1
+| Release-0_6_1pre1-merge-2		Merged from
+|					Release-0_5_1pre1-crypto-branch-2
+|
++-\					Branch for the 0.6.1 release
+| | Release-0_6_1
+| | Release-0_6_1_1
+| |
+| | Release-0_6_1-branch
+|
+| Release-0_6_2-trunk
+|
++-\					Branch for the 0.6.2 release
+| | Release-0_6_2pre1
+| | Release-0_6_2
+| | Release-0_6_2_1			Merged to HEAD at Release-0_6_2-merge-1
+| |
+| | Release-0_6_2-branch
+|
+| Release-0_6_2-merge-1
+| Release-0_7_0pre1
+| Release-0_7_0
+| Release-0_7_0-trunk
+|
++-\					Branch for Fred's renderer changes
+| |
+| | Release-0_7_0-render-branch
+|
+| Release-0_7_0-trunk-1
+|
++-\					Branch for Disciple support
+| |
+| | Release-0_7_0-disciple-branch
+|
+| Release-0_8_0-trunk
+|
++-\
+| | Release-0_8_0-pre1
+| | Release-0_8_0-pre2
+| | Release-0_8_0
+| | Release-0_8_0_1			Merged to HEAD at Release-0_8_0-merge-1
+| |
+| | Release-0_8_0-branch
+|
+| Release-0_8_0-merge-1
+|
++-\					Branch for XVideo integration
+| |
+| | xvideo-2007-08-31
+|
++-\
+| | Release-0_9_0-pre1
+| | Release-0_9_0
+| |
+| | Release-0_9_0-branch
+|
++-\
+| | Release_0_10_0-pre1
+| | Release_0_10_0
+| | Release_0_10_0_1
+| |
+| | Release_0_10_0-branch
+|
+HEAD

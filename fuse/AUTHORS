@@ -1,0 +1,55 @@
+Fuse has been brought to you by:
+
+* Matan Ziv-Av: SVGAlib and framebuffer user interfaces, the glib
+  replacement code, some work on the sound code and the original
+  `widget' code.
+
+* Russell Marks: the generic and OSS-specific sound code, the man page,
+  the Kempston joystick emulation and lots of bug reports and fixes.
+
+* Ian Collier: the original ZX Printer emulation (for xz80).
+
+* John Elliott: for lib765, which provided Fuse's original emulation of the
+  +3's FDC, and libdsk which provided support for more disk image formats:
+  see http://www.seasip.info/Unix/LibDsk/index.html
+
+* Darren Salt: the original versions of the code for +3 emulation,
+  SLT support, MITSHM support (for the Xlib UI), TZX raw data blocks,
+  and RZX embedded snapshots and compression.
+
+* Alexander Yurchenko: the OpenBSD/Solaris-specific sound code.
+
+* Fredrick Meunier: for TC2048 support, the SDL user interface, the
+  graphics filters, Pentagon support, Spectrum SE support, Interface
+  II support and more.
+
+* Ludvig Strigeus and The ScummVM project: the original graphics filter code.
+
+* Dmitry Sanarin: the original TR-DOS emulation (for Glukalka).
+
+* Witold Filipczyk: TC2068 support and more.
+
+* Matthew Wescott: the AY logging code.
+
+* Marek Januszewski: Some patches making Fuse much closer to compiling under
+  Win32, and fixing up the GTK+ 2.0 interface.
+
+* Sergio Baldoví: improvements to the Win32 UI.
+
+* Stuart Brady: for the Scorpion, +D interface emulation and HP-UX sound
+  support.
+
+* Garry Lancaster: the simple 8-bit IDE, ZXATASP and ZXCF support.
+
+* Gergely Szasz: +3, +D, Opus, Didaktik 80 and Interface 1/Microdrive emulation,
+  the 'movie' code and the ALSA and ao sound drivers.
+
+* Bjoern Giesler: the original Wii port.
+
+* Shay Green: the Blip_Buffer band pass filter for beeper and AY output.
+
+* Michael D Wynne: the Opus Discovery emulation (for EightyOne).
+
+* Patrik Persson: the SpeccyBoot Ethernet emulation.
+
+* Philip Kendall: everything else.

@@ -1,0 +1,5620 @@
+.\" -*- nroff -*-
+.\"
+.\" fuse.1: Fuse man page
+.\" Copyright (c) 2001-2018 Russell Marks, Philip Kendall, Darren Salt,
+.\"                         Fredrick Meunier, Stuart Brady
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 2 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License along
+.\" with this program; if not, write to the Free Software Foundation, Inc.,
+.\" 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+.\"
+.\" Author contact information:
+.\"
+.\" E-mail: philip-fuse@shadowmagic.org.uk
+.\"
+.\"
+.TH fuse 1 "9th December, 2018" "Version 1.5.7" "Emulators"
+.\"
+.\"------------------------------------------------------------------
+.\"
+.SH NAME
+fuse \(em Sinclair ZX Spectrum emulator
+.\"
+.\"------------------------------------------------------------------
+.\"
+.SH SYNOPSIS
+.\" the trend for long-option-using programs is to give a largely
+.\" generic synopsis, so...
+.B fuse
+.RI [ options ]
+.P
+.\"
+.\"------------------------------------------------------------------
+.\"
+.SH DESCRIPTION
+Fuse is a Sinclair ZX\ Spectrum emulator. It supports several models
+(including the 128), with quite faithful emulation of the display and
+sound.
+.PP
+The emulator can load any of the formats supported by
+.IR libspectrum (3)
+\(em this includes Z80, SNA and SZX snapshots, and PZX, TAP and TZX
+virtual-tape files. Saving to SZX, Z80 and SNA snapshots and TZX and
+TAP tape files is supported. The SLT extension to the Z80 format is
+partly supported (enough for multi-load games); however, loading of
+the old DAT-file variant is not.
+.PP
+DSK, UDI, FDI, TD0, MGT, IMG, D40, D80, SAD, TRD, SCL and OPD
+disk images are supported when a disk interface is being emulated,
+including the integrated disk drives on +3, Pentagon or Scorpion
+machines as well as the +D, DISCiPLE, Opus Discovery, Beta\ 128 and
+Didaktik\ 80 interfaces. DCK cartridge images are supported when
+emulating a Timex\ 2068 variant. Interface\ 2 ROM cartridges are
+also supported.
+.PP
+Finally, there is also support for reading and writing the RZX input recording
+format.
+.PP
+See the
+.B "COMPRESSED FILES"
+section for details on reading files compressed with
+.IR bzip2 "(3),"
+.IR gzip "(3)"
+or
+.IR zip "(3)."
+.\"
+.\"------------------------------------------------------------------
+.\"
+.SH OPTIONS
+.\" dual short/long option listings here reflect the GNU approach,
+.\" as used in info files. It does mean using RS/RE, though,
+.\" so this is used for all options (for consistency).
+.\"
+.\" the options list is in alphabetical order by long option name (or
+.\" short option name if none).
+.\"
+.B \-\-accelerate\-loader
+.RS
+Specify whether Fuse should attempt to accelerate tape loaders by \(lqshort
+circuiting\(rq the loading loop. This will in general speed up loading, but
+may cause some loaders to fail. (Enabled by default, but you can use
+.RB ` \-\-no\-accelerate\-loader '
+to disable). The same as the Media Options dialog's
+.I "Accelerate loaders"
+option.
+.RE
+.PP
+.B \-\-aspect\-hint
+.RS
+Specify whether the GTK+ and Xlib user interfaces should `hint' to the
+window manager about the preferred aspect ratio for the graphics
+window, thus preventing resizing to non-square sizes which lead to
+Fuse not displaying correctly. This option has been observed to cause
+problems with some window managers when using the GTK+ UI which can
+prevent the window from being resized or moved at all. (Enabled by
+default, but you can use
+.RB ` \-\-no\-aspect\-hint '
+to disable). See also the
+.RB ` \-\-strict\-aspect\-hint '
+option.
+.RE
+.PP
+.B \-\-autosave\-settings
+.RS
+Specify whether Fuse's current settings should be automatically saved
+on exit. The same as the General Options dialog's
+.I "Auto-save settings"
+option.
+.RE
+.PP
+.B \-\-auto\-load
+.RS
+Specify whether tape and disk files should be automatically loaded
+when they are opened using the
+.I "File, Open..."
+menu option. In the case of TRD/SCL disk images, inserts also a boot
+loader file when none is available. (Enabled by default, but you can use
+.RB ` \-\-no\-auto\-load '
+to disable). Same as the Media Options dialog's
+.I "Auto-load media"
+option.
+.RE
+.PP
+.B \-\-beta128
+.RS
+Emulate a Beta\ 128 interface. Same as the Disk Peripherals Options dialog's
+.I "Beta\ 128 interface"
+option.
+.RE
+.PP
+.B \-\-beta128\-48boot
+.RS
+When a Beta\ 128 interface is used in 48K or TC2048 emulation the
+option additionally controls whether the machine boots directly into the TR-DOS
+system. Same as the Disk Peripherals Options dialog's
+.I "Beta\ 128 auto-boot in 48K machines"
+option.
+.RE
+.PP
+.B \-\-betadisk
+.I file
+.RS
+Insert the specified file into the emulated Beta disk interface's drive\ A:
+and select Pentagon mode on startup.
+.RE
+.PP
+.B \-\-bw\-tv
+.RS
+Specify whether the display should simulate a colour or black and
+white television. This option is effective under the GTK+, Win32, Xlib
+and SDL user interfaces: the others will always simulate a colour TV.
+The same as the General Options dialog's
+.I "Black and white TV"
+option.
+.RE
+.PP
+.B \-\-cmos-z80
+.RS
+This option specifies that Fuse should emulate a CMOS Z80, as opposed
+to an NMOS Z80. Same as the General Options dialog's
+.I "Z80 is CMOS"
+option.
+.RE
+.PP
+.B \-\-competition\-code
+.I code
+.RS
+Specify the code to be written to competition mode RZX files. The same
+as the RZX Options dialog's
+.I "Competition code"
+option.
+.RE
+.PP
+.B \-\-competition\-mode
+.RS
+Specify whether input recordings should be made in `competition mode'.
+The same as the RZX Options dialog's
+.I "Competition mode"
+option.
+.RE
+.PP
+.B \-\-compress\-rzx
+.RS
+Specify whether RZX files should be written out compressed. (Enabled
+by default, but you can use
+.RB ` \-\-no\-compress\-rzx '
+to disable). Same as the RZX Options dialog's
+.I "Compress RZX data"
+option.
+.RE
+.PP
+.B \-\-confirm\-actions
+.RS
+Specify whether `dangerous' actions (those which could cause data
+loss, for example resetting the Spectrum) require confirmation before
+occurring. (Enabled by default, but you can use
+.RB ` \-\-no\-confirm\-actions '
+to disable). This option is the same as the General Options dialog's
+.I "Confirm actions"
+option.
+.RE
+.PP
+.B \-\-covox
+.RS
+Emulate a Covox sound interface for Pentagon/Scorpion. Same as the
+General Peripherals Options dialog's
+.I "Covox"
+option.
+.RE
+.PP
+.B \-\-debugger\-command
+.I string
+.RS
+Specify a debugger command to be run before emulator startup. This can
+be used to set breakpoints or the like. Currently, this is the only
+method to input multi-line debugger commands. (See the
+.B "MONITOR/DEBUGGER"
+section for more information).
+.RE
+.PP
+.B \-\-detect\-loader
+.RS
+Specify whether Fuse should attempt to detect when the tape is being
+accessed and start and stop the virtual tape playing
+automatically. (Enabled by default, but you can use
+.RB ` \-\-no\-detect\-loader '
+to disable). Same as the Media Options dialog's
+.I "Detect loaders"
+option.
+.RE
+.PP
+.B \-\-disciple
+.RS
+Emulate a DISCiPLE interface. Same as the Disk Peripherals Options dialog's
+.I "DISCiPLE interface"
+option.
+.RE
+.PP
+.B \-\-discipledisk
+.I file
+.RS
+Insert the specified file into the emulated DISCiPLE's drive\ 1.
+.RE
+.PP
+.B \-\-didaktik80
+.RS
+Emulate a Didaktik 80 (or Didaktik 40) disk interface. Same as the
+Disk Peripherals Options dialog's
+.I "Didaktik 80 interface"
+option.
+.RE
+.PP
+.B \-\-didaktik80disk
+.I file
+.RS
+Insert the specified file into the emulated Didaktik\ 80
+(or Didaktik\ 40)'s drive\ A.
+.RE
+.PP
+.B \-\-disk\-ask\-merge
+.RS
+Prompt the user to confirm whether Fuse should try to merge the `B' side of a
+disk image from a separate file when opening a new single-sided disk image.
+.RE
+.PP
+.B \-\-disk\-try\-merge
+.I mode
+.RS
+Select whether Fuse should try to merge a separate file for the `B' side of a
+disk image separate file when opening a new disk image. Most double sided disk
+images are dumped as two single sided disk images e.g.
+`Golden Axe \- Side\ A.dsk' and `Golden Axe \- Side\ B.dsk'. So, if we want to
+play Golden Axe, first we have to insert the first disk image and when the game
+asks to insert side\ B, we have to find and open the second disk image, instead
+of just `flip'-ing the disk inside the drive. If enabled, Fuse will try to open
+the second image too and create a double sided disk image (merging the two one
+sided disk images) and insert this merged virtual disk into the disk drive. The
+function detects whether the file is one side of a double-sided image if the
+filename matches a pattern like [Ss]ide[ _][abAB12][ _.] in the file name of a
+disk that is being opened. If found, Fuse will try to open the other side of
+the disk too substituting the appropriate characters in the filename e.g.
+1\(->2, a\(->b, A\(->B. If successful then it will merge the two images and
+now we have a double sided disk in drive. This means that if we open
+`Golden Axe \- Side\ A.dsk', then Fuse will try to open `Golden Axe \- Side
+B.dsk' too. Now, we can just `flip' the disk if Golden Axe asks for `Side\ B'.
+The available options are
+.IR Never ,
+.I "With single-sided drives"
+and
+.IR Always .
+.RE
+.PP
+.B \-\-divide
+.RS
+Emulate the DivIDE interface. The same as the Disk Peripherals Options
+dialog's
+.I "DivIDE interface"
+option.
+.RE
+.PP
+.B \-\-divide\-masterfile
+.I file
+.br
+.B \-\-divide\-slavefile
+.I file
+.RS
+Specify an IDE image to be loaded into the DivIDE's emulated master
+and slave drives respectively.
+.RE
+.PP
+.B \-\-divide\-write\-protect
+.RS
+Specify that the emulated DivIDE's write protect jumper should be
+considered set. The same as the Disk Peripherals Options dialog's
+.I "DivIDE write protect"
+option.
+.RE
+.PP
+.B \-\-divmmc
+.RS
+Emulate the DivMMC interface. The same as the Disk Peripherals Options
+dialog's
+.I "DivMMC interface"
+option.
+.RE
+.PP
+.B \-\-divmmc\-file
+.I file
+.RS
+Specify an HDF image to be loaded into the DivMMC's emulated memory card.
+.RE
+.PP
+.B \-\-divmmc\-write\-protect
+.RS
+Specify that the emulated DivMMC's write protect jumper that protects
+EEPROM should be considered set. The same as the Disk Peripherals Options
+dialog's
+.I "DivMMC write protect"
+option.
+.RE
+.PP
+.B \-\-dock
+.I file
+.RS
+Insert the specified file into the emulated Timex\ 2068 variant dock;
+also select the TC2068 on startup if available.
+.RE
+.PP
+.B \-D
+.I mode
+.br
+.B \-\-doublescan\-mode
+.I mode
+.RS
+Specify whether to use doublescan modes in the FB UI.
+Available values for
+.I mode
+are 0, 1 and 2. 0 means `never doublescan' (use 640\(mu480 at either 72\ Hz or
+60\ Hz), whereas 1 and 2 both mean `try to use doublescan' and will fall back
+on the 640\(mu480 modes. 1 selects 72\ Hz modes (the same size and shape as
+your typical 640\(mu480), and 2 selects 60\ Hz modes (overscan).
+.PP
+If your monitor displays a blank screen when using 1 or 2, press F10 then
+try a different option or say `\-\-fbmode 640'.
+.RE
+.PP
+.B \-\-drive\-plus3a\-type
+.I type
+.br
+.B \-\-drive\-plus3b\-type
+.I type
+.br
+.B \-\-drive\-beta128a\-type
+.I type
+.br
+.B \-\-drive\-beta128b\-type
+.I type
+.br
+.B \-\-drive\-beta128c\-type
+.I type
+.br
+.B \-\-drive\-beta128d\-type
+.I type
+.br
+.B \-\-drive\-plusd1\-type
+.I type
+.br
+.B \-\-drive\-plusd2\-type
+.I type
+.br
+.B \-\-drive\-didaktik80a\-type
+.I type
+.br
+.B \-\-drive\-didaktik80b\-type
+.I type
+.br
+.B \-\-drive\-disciple1\-type
+.I type
+.br
+.B \-\-drive\-disciple2\-type
+.I type
+.br
+.B \-\-drive\-opus1\-type
+.I type
+.br
+.B \-\-drive\-opus2\-type
+.I type
+.RS
+Specify a disk drive type to emulate with the associated interface. 
+The available options are
+.IR "Disabled" ,
+.IR "Single\-sided 40 track" ,
+.IR "Double\-sided 40 track" ,
+.IR "Single\-sided 80 track" " and"
+.IR "Double\-sided 80 track" .
+See the Disk Options dialog for more information.  The
+.I Disabled
+option is not supported for Drive 1 or Drive A of any interface.
+.RE
+.PP
+.B \-\-drive\-40\-max\-track
+.I count
+.br
+.B \-\-drive\-80\-max\-track
+.I count
+.RS
+Specify the maximum number of tracks for 40 and 80 track physical drives
+respectively.
+.RE
+.PP
+.B \-\-embed\-snapshot
+.RS
+Specify whether a snapshot should be embedded in an RZX file when
+recording is started from an existing snapshot. (Enabled by default,
+but you can use
+.RB ` \-\-no\-embed\-snapshot '
+to disable). Same as the RZX Options dialog's
+.I "Always embed snapshot"
+option.
+.RE
+.PP
+.B \-\-fastload
+.RS
+Specify whether Fuse should run at the fastest possible speed when the
+virtual tape is playing. (Enabled by default, but you can use
+.RB ` \-\-no\-fastload '
+to disable). The same as the Media Options dialog's
+.I "Fastloading"
+option.
+.RE
+.PP
+.B \-v
+.I mode
+.br
+.B \-\-fbmode
+.I mode
+.RS
+Specify which mode to use for the FB UI. Available values for
+.I mode
+are `320' (which corresponds to a 320\(mu240\(mu256 mode), the default and
+`640' (a 640\(mu480\(mu256 mode).
+.RE
+.PP
+.B \-\-fuller
+.RS
+Emulate a Fuller Box interface. Same as the General Peripherals Options dialog's
+.I "Fuller Box"
+option.
+.RE
+.PP
+.B \-\-full\-screen
+.RS
+Specify whether Fuse should run in full screen mode.
+This option is effective only under the SDL UI.
+.RE
+.PP
+.B \-g
+.I filter
+.br
+.B \-\-graphics\-filter
+.I mode
+.RS
+Specify which graphics filter to use if available. The default is
+.IR normal ,
+which uses no filtering. The available options are
+.IR 2x ,
+.IR 2xsai ,
+.IR 3x ,
+.IR advmame2x ,
+.IR advmame3x ,
+.IR dotmatrix ,
+.IR half ,
+.IR halfskip ,
+.IR hq2x ,
+.IR hq3x ,
+.IR normal ,
+.IR super2xsai ,
+.IR supereagle ,
+.IR timex15x ,
+.IR timextv ,
+.IR tv2x ,
+.IR paltv ,
+.IR paltv2x ,
+and
+.IR paltv3x .
+See the
+.B "GRAPHICS FILTERS"
+section for more details.
+.RE
+.PP
+.B \-\-graphicsfile
+.I file
+.RS
+Set the filename used for graphical output from the emulated
+ZX\ Printer. See the
+.B "PRINTER EMULATION"
+section for more details.
+.RE
+.PP
+.B \-h
+.br
+.B \-\-help
+.RS
+Give brief usage help, listing available options.
+.RE
+.PP
+.B \-\-if2cart
+.I file
+.RS
+Insert the specified file into the emulated Interface\ 2.
+.RE
+.PP
+.B \-\-interface1
+.RS
+Emulate a Sinclair Interface\ 1. Same as the General Peripherals Options dialog's
+.I "Interface\ 1"
+option.
+.RE
+.PP
+.B \-\-interface2
+.RS
+Emulate a Sinclair Interface\ 2. (Enabled by default, but you can use
+.RB ` \-\-no\-interface2 '
+to disable). Same as the General Peripherals Options dialog's
+.I "Interface\ 2"
+option.
+.RE
+.PP
+.B \-\-issue2
+.RS
+Emulate an issue\ 2 keyboard. Same as the General Options dialog's
+.I "Issue\ 2 keyboard"
+option.
+.RE
+.PP
+.B \-j
+.I device
+.br
+.B \-\-joystick\-1
+.I device
+.RS
+Read from
+.I device
+to emulate the first joystick. Fuse will use either
+.RI ` /dev/input/js0 '
+or
+.RI ` /dev/js0 '
+by default.
+.RE
+.PP
+.B \-\-joystick\-2
+.I device
+.RS
+As for
+.B \-\-joystick\-1
+but for the second joystick; the default here is either
+.RI ` /dev/input/js1 '
+or
+.RI ` /dev/js1 "'."
+.RE
+.PP
+.B \-\-joystick\-1\-output
+.I type
+.br
+.B \-\-joystick\-2\-output
+.I type
+.br
+.B \-\-joystick\-keyboard\-output
+.I type
+.RS
+Select which joystick interface to attach for the first two real
+joysticks and the keyboard joystick. The default is
+.IR 0 ,
+which is no output. The available options are
+.I 1
+(cursor),
+.I 2
+(kempston),
+.I 3
+(Sinclair\ 1),
+.I 4
+(Sinclair\ 2),
+.I 5
+(Timex\ 1),
+.I 6
+(Timex\ 2),
+and
+.I 7
+(Fuller). Same as the Joysticks Options dialog's
+.I "Joystick type"
+option.
+.RE
+.PP
+.B \-\-joystick\-1\-fire\-1
+.I code
+.br
+.B \-\-joystick\-1\-fire\-2
+.I code
+.br
+.B \-\-joystick\-1\-fire\-3
+.I code
+.br
+.B \-\-joystick\-1\-fire\-4
+.I code
+.br
+.B \-\-joystick\-1\-fire\-5
+.I code
+.br
+.B \-\-joystick\-1\-fire\-6
+.I code
+.br
+.B \-\-joystick\-1\-fire\-7
+.I code
+.br
+.B \-\-joystick\-1\-fire\-8
+.I code
+.br
+.B \-\-joystick\-1\-fire\-9
+.I code
+.br
+.B \-\-joystick\-1\-fire\-10
+.I code
+.br
+.B \-\-joystick\-1\-fire\-11
+.I code
+.br
+.B \-\-joystick\-1\-fire\-12
+.I code
+.br
+.B \-\-joystick\-1\-fire\-13
+.I code
+.br
+.B \-\-joystick\-1\-fire\-14
+.I code
+.br
+.B \-\-joystick\-1\-fire\-15
+.I code
+.br
+.B \-\-joystick\-2\-fire\-1
+.I code
+.br
+.B \-\-joystick\-2\-fire\-2
+.I code
+.br
+.B \-\-joystick\-2\-fire\-3
+.I code
+.br
+.B \-\-joystick\-2\-fire\-4
+.I code
+.br
+.B \-\-joystick\-2\-fire\-5
+.I code
+.br
+.B \-\-joystick\-2\-fire\-6
+.I code
+.br
+.B \-\-joystick\-2\-fire\-7
+.I code
+.br
+.B \-\-joystick\-2\-fire\-8
+.I code
+.br
+.B \-\-joystick\-2\-fire\-9
+.I code
+.br
+.B \-\-joystick\-2\-fire\-10
+.I code
+.br
+.B \-\-joystick\-2\-fire\-11
+.I code
+.br
+.B \-\-joystick\-2\-fire\-12
+.I code
+.br
+.B \-\-joystick\-2\-fire\-13
+.I code
+.br
+.B \-\-joystick\-2\-fire\-14
+.I code
+.br
+.B \-\-joystick\-2\-fire\-15
+.I code
+.RS
+Select which Fuse key code should be triggered by the applicable
+real joystick button press. The codes are the Fuse keyboard codes
+corresponding to the keys. The default value is
+.I 4096
+which corresponds to the virtual joystick fire button. Same as the
+Joysticks Options dialog's
+.I "Joystick fire"
+options.
+.RE
+.PP
+.B \-\-joystick\-keyboard\-up
+.I code
+.br
+.B \-\-joystick\-keyboard\-down
+.I code
+.br
+.B \-\-joystick\-keyboard\-left
+.I code
+.br
+.B \-\-joystick\-keyboard\-right
+.I code
+.br
+.B \-\-joystick\-keyboard\-fire
+.I code
+.RS
+Select which Fuse key code should correspond with each direction and
+fire for the keyboard virtual joystick. The same as the Keyboard
+Joysticks Options dialog's
+.IR "Button for UP" ,
+.IR "Button for DOWN" ,
+.IR "Button for LEFT" ,
+.I "Button for RIGHT"
+and
+.I "Button for FIRE"
+options respectively.
+.RE
+.PP
+.B \-\-joystick\-prompt
+.RS
+If this option is specified, then Fuse will prompt you which form of
+joystick emulation you wish to use when loading a snapshot. No prompt
+will be issued if the configuration in the snapshot matches what you
+are currently using. The same as the General Options dialog's
+.I "Snap joystick prompt"
+option.
+.RE
+.PP
+.B \-\-kempston
+.RS
+Emulate a Kempston joystick. Same as the General Peripherals Options dialog's
+.I "Kempston joystick"
+option.
+.RE
+.PP
+.B \-\-kempston\-mouse
+.RS
+Emulate a Kempston mouse. Same as the General Peripherals Options dialog's
+.I "Kempston mouse"
+option.
+.RE
+.PP
+.B \-\-keyboard\-arrows\-shifted
+.RS
+Treat the keyboard arrow keys as shifted like the ZX Spectrum+ keyboard's
+arrow keys or as unshifted like a cursor joystick that maps to the 5, 6, 7
+and 8 keys. (Enabled by default, but you can use
+.RB ` \-\-no\-keyboard\-arrows\-shifted '
+to disable). Same as the General Peripherals Options dialog's
+.I "Use shift with arrow keys"
+option.
+.RE
+.PP
+.B \-\-late\-timings
+.RS
+It has been observed that some real Spectrums run such that the screen
+is rendered one tstate later than on other real hardware. This option
+specifies that Fuse should emulate such a machine. Same as the General
+Options dialog's
+.I "Late timings"
+option.
+.RE
+.PP
+.B \-\-loading\-sound
+.RS
+Specify whether the sound made while tapes are loading should be
+emulated. (Enabled by default, but you can use
+.RB ` \-\-no\-loading\-sound '
+to disable). Same as the Sound Options dialog's
+.I "Loading sound"
+option.
+.RE
+.PP
+.B \-m
+.I type
+.br
+.B \-\-machine
+.I type
+.RS
+Specify machine type to emulate initially. The default is
+.IR 48 ,
+a 48K\ Spectrum. The available options are
+.IR 16 ,
+.IR 48 ,
+.IR 48_ntsc ,
+.IR 128 ,
+.IR plus2 ,
+.IR plus2a ,
+.IR plus3 ,
+.IR 2048 ,
+.IR 2068 ,
+.IR ts2068 ,
+.IR pentagon ,
+.IR pentagon512 ,
+.IR pentagon1024 ,
+.I scorpion
+and
+.IR se .
+.RE
+.PP
+.B \-\-melodik
+.RS
+Emulate a Melodik AY\ interface for 16/48k\ Spectrums. Same as the
+General Peripherals Options dialog's
+.I "Melodik"
+option.
+.RE
+.PP
+.B \-\-mdr\-len
+.I length
+.RS
+This option controls the number of blocks in a new Microdrive cartridge.
+Same as the Media Options dialog's
+.I "MDR cartridge len"
+option.
+.RE
+.PP
+.B \-\-mdr\-random\-len
+.RS
+If this option is set, Fuse will use a random Microdrive cartridge
+length. Same as the Media Options dialog's
+.I "Random length MDR cartridge"
+option.
+.RE
+.PP
+.B \-\-microdrive\-file
+.I file
+.br
+.B \-\-microdrive\-2\-file
+.I file
+.br
+.B \-\-microdrive\-3\-file
+.I file
+.br
+.B \-\-microdrive\-4\-file
+.I file
+.br
+.B \-\-microdrive\-5\-file
+.I file
+.br
+.B \-\-microdrive\-6\-file
+.I file
+.br
+.B \-\-microdrive\-7\-file
+.I file
+.br
+.B \-\-microdrive\-8\-file
+.I file
+.RS
+Specify Interface\ 1 Microdrive cartridge files to open.
+.RE
+.PP
+.B \-\-mouse\-swap\-buttons
+.RS
+Swap the left and right mouse buttons when emulating the Kempston mouse. The
+same as the General Peripherals dialog's
+.I "Swap mouse buttons"
+option.
+.RE
+.PP
+.B \-\-movie\-compr
+.I level
+.RS
+This option sets the compression level used when creating movies. Same as the
+Movie Options dialog's
+.I "Movie compression"
+option. The available options are
+.IR None ,
+.IR Lossless ,
+and
+.I High
+(lossy). The default option is
+.IR Lossless .
+See also the
+.B "MOVIE RECORDING"
+section.
+.RE
+.PP
+.B \-\-movie\-start
+.I filename
+.RS
+With this command line option, Fuse will start movie recording as soon as the
+emulator is started. See also the
+.B "MOVIE RECORDING"
+section.
+.RE
+.PP
+.B \-\-movie\-stop\-after\-rzx
+.RS
+With this command line option, Fuse will stop movie recording when RZX playback
+or RZX recording ends. Same as the Movie Options dialog's
+.I "Stop recording after RZX ends"
+option. (Enabled by default, but you can use
+.RB ` \-\-no\-movie\-stop\-after\-rzx '
+to disable).
+See also the
+.B "MOVIE RECORDING"
+section.
+.RE
+.PP
+.B \-\-multiface1
+.RS
+Emulate a Romantic Robot Multiface One interface. Same as the General
+Peripherals Options dialog's
+.I "Multiface One"
+option.
+.RE
+.PP
+.B \-\-multiface128
+.RS
+Emulate a Romantic Robot Multiface\ 128 interface. Same as the General
+Peripherals Options dialog's
+.I "Multiface\ 128"
+option.
+.RE
+.PP
+.B \-\-multiface3
+.RS
+Emulate a Romantic Robot Multiface\ 3 interface. Same as the General
+Peripherals Options dialog's
+.I "Multiface\ 3"
+option.
+.RE
+.PP
+.B \-\-multiface1-stealth
+.RS
+Set Multiface One stealth/invisible mode. Same as the General Peripherals
+Options dialog's
+.I "Stealth Multiface One"
+option.
+.RE
+.PP
+.B \-\-opus
+.RS
+Emulate an Opus Discovery interface. Same as the Disk Peripherals Options
+dialog's
+.I "Opus Discovery interface"
+option.
+.RE
+.PP
+.B \-\-opusdisk
+.I file
+.RS
+Insert the specified file into the emulated Opus Discovery's drive\ 1.
+.RE
+.PP
+.B \-\-pal\-tv2x
+.RS
+Specify whether the PAL\ TV\ 2x and PAL\ TV\ 3x scalers should also produce
+scanlines along the lines of the TV\ 2x and Timex\ TV scalers.
+The same as the General Options dialog's
+.I "PAL-TV use TV2x effect"
+option.
+.RE
+.PP
+.B \-\-phantom\-typist\-mode
+.I mode
+.RS
+Specify the keystroke sequence that the "phantom typist" should use when
+starting a program loading. The available options are
+.IR "Auto" ,
+.IR "Keyword" ,
+.IR "Keystroke" ,
+.IR "Menu" ,
+.IR "Plus 2A" " and"
+.IR "Plus 3" .
+The same as the Media Options dialog's
+.I "Phantom typist mode"
+option.
+.RE
+.PP
+.B \-p
+.I file
+.br
+.B \-\-playback
+.I file
+.RS
+Specify an RZX file to begin playback from.
+.RE
+.PP
+.B \-\-plus3disk
+.I file
+.RS
+Insert the specified file into the emulated +3's A:\ drive; also select
+the +3 on startup if available.
+.RE
+.PP
+.B \-\-plus3\-detect\-speedlock
+.RS
+Specify whether the +3 drives try to detect Speedlock protected disks,
+and emulate `weak' sectors.
+If the disk image file (EDSK or UDI) contains weak sector data, than
+Speedlock detection is automatically omitted.
+See also the
+.B "WEAK DISK DATA"
+section.
+Same as the Disk Options dialog's
+.I "+3 Detect Speedlock"
+option.
+.RE
+.PP
+.B \-\-plusd
+.RS
+Emulate a +D interface. Same as the Disk Peripherals Options dialog's
+.I "+D interface"
+option.
+.RE
+.PP
+.B \-\-plusddisk
+.I file
+.RS
+Insert the specified file into the emulated +D's drive\ 1.
+.RE
+.PP
+.B \-\-printer
+.RS
+Specify whether the emulation should include a printer. Same as the
+General Peripherals Options dialog's
+.I "Emulate printers"
+option.
+.RE
+.PP
+.B \-\-rate
+.I frame
+.RS
+Specify the frame rate, the ratio of spectrum frame updates to real
+frame updates. Same as the General Options dialog's
+.I "Frame rate"
+option.
+.RE
+.PP
+.B \-r
+.I file
+.br
+.B \-\-record
+.I file
+.RS
+Specify an RZX file to begin recording to.
+.RE
+.PP
+.B \-\-recreated\-spectrum
+.RS
+Enable the use of a Recreated ZX Spectrum in `Layer A' (game) mode. This is a
+Bluetooth keyboard that can be paired to the device where Fuse is running. The
+same as the General Options dialog's
+.I "Recreated ZX Spectrum"
+option.
+.RE
+.PP
+.B \-\-rom\-16
+.I file
+.br
+.B \-\-rom\-48
+.I file
+.br
+.B \-\-rom\-128\-0
+.I file
+.br
+.B \-\-rom\-128\-1
+.I file
+.br
+.B \-\-rom\-plus2\-0
+.I file
+.br
+.B \-\-rom\-plus2\-1
+.I file
+.br
+.B \-\-rom\-plus2a\-0
+.I file
+.br
+.B \-\-rom\-plus2a\-1
+.I file
+.br
+.B \-\-rom\-plus2a\-2
+.I file
+.br
+.B \-\-rom\-plus2a\-3
+.I file
+.br
+.B \-\-rom\-plus3\-0
+.I file
+.br
+.B \-\-rom\-plus3\-1
+.I file
+.br
+.B \-\-rom\-plus3\-2
+.I file
+.br
+.B \-\-rom\-plus3\-3
+.I file
+.br
+.B \-\-rom\-plus3e\-0
+.I file
+.br
+.B \-\-rom\-plus3e\-1
+.I file
+.br
+.B \-\-rom\-plus3e\-2
+.I file
+.br
+.B \-\-rom\-plus3e\-3
+.I file
+.br
+.B \-\-rom\-tc2048
+.I file
+.br
+.B \-\-rom\-tc2068\-0
+.I file
+.br
+.B \-\-rom\-tc2068\-1
+.I file
+.br
+.B \-\-rom\-ts2068\-0
+.I file
+.br
+.B \-\-rom\-ts2068\-1
+.I file
+.br
+.B \-\-rom\-pentagon\-0
+.I file
+.br
+.B \-\-rom\-pentagon\-1
+.I file
+.br
+.B \-\-rom\-pentagon\-2
+.I file
+.br
+.B \-\-rom\-pentagon512\-0
+.I file
+.br
+.B \-\-rom\-pentagon512\-1
+.I file
+.br
+.B \-\-rom\-pentagon512\-2
+.I file
+.br
+.B \-\-rom\-pentagon512\-3
+.I file
+.br
+.B \-\-rom\-pentagon1024\-0
+.I file
+.br
+.B \-\-rom\-pentagon1024\-1
+.I file
+.br
+.B \-\-rom\-pentagon1024\-2
+.I file
+.br
+.B \-\-rom\-pentagon1024\-3
+.I file
+.br
+.B \-\-rom\-scorpion\-0
+.I file
+.br
+.B \-\-rom\-scorpion\-1
+.I file
+.br
+.B \-\-rom\-scorpion\-2
+.I file
+.br
+.B \-\-rom\-scorpion\-3
+.I file
+.br
+.B \-\-rom\-spec\-se\-0
+.I file
+.br
+.B \-\-rom\-spec\-se\-1
+.I file
+.RS
+Specify the file to be used for ROM(s) used for each machine. The
+options respectively refer to
+the 16K\ Spectrum
+.RI ( 48.rom ),
+48K\ Spectrum
+.RI ( 48.rom ),
+the two ROMs for the 128K\ Spectrum
+.RI ( 128\-0.rom " and " 128\-1.rom ),
+the two ROMs for the +2
+.RI ( plus2\-0.rom " and " plus2\-1.rom ),
+the four ROMs for the +2A
+.RI ( plus3\-0.rom ", " plus3\-1.rom ", " plus3\-2.rom " and " plus3\-3.rom ),
+the four ROMs for the +3
+.RI ( plus3\-0.rom ", " plus3\-1.rom ", " plus3\-2.rom " and " plus3\-3.rom ),
+the four enhanced ROMs for the +3e
+.RI ( plus3e\-0.rom ", " plus3e\-1.rom ", " plus3e\-2.rom " and " plus3e\-3.rom ),
+the TC2048 ROM
+.RI ( tc2048.rom ),
+the two ROMs for the TC2068
+.RI ( tc2068\-0.rom " and " tc2068\-1.rom ),
+the two ROMs for the TS2068
+.RI ( tc2068\-0.rom " and " tc2068\-1.rom ),
+the two main ROMs and the TR-DOS ROM for the Pentagon\ 128K
+.RI ( 128p\-0.rom ", " 128p\-1.rom " and " trdos.rom ),
+the two main ROMs, the TR-DOS ROM and a reset service ROM for the
+Pentagon\ 512K and 1024K
+.RI ( 128p\-0.rom ", " 128p\-1.rom ", " trdos.rom " and " gluck.rom ),
+the four ROMs for the Scorpion 256
+.RI ( 256s\-0.rom ", " 256s\-1.rom ", " 256s\-2.rom " and " 256s\-3.rom ),
+and the two ROMs for the Spectrum SE
+.RI ( se\-0.rom " and " se\-1.rom ).
+.PP
+The names in brackets denote the defaults. Note that not all these ROMs
+are supplied with Fuse \(em you must supply your own copies of those which
+are not.
+.RE
+.PP
+.B \-\-rom\-interface\-1
+.I file
+.br
+.B \-\-rom\-beta128
+.I file
+.br
+.B \-\-rom\-plusd
+.I file
+.br
+.B \-\-rom\-didaktik80
+.I file
+.br
+.B \-\-rom\-disciple
+.I file
+.br
+.B \-\-rom\-multiface1
+.I file
+.br
+.B \-\-rom\-multiface128
+.I file
+.br
+.B \-\-rom\-multiface3
+.I file
+.br
+.B \-\-rom\-opus
+.I file
+.br
+.B \-\-rom\-speccyboot
+.I file
+.br
+.B \-\-rom\-usource
+.I file
+.RS
+Specify the file to be used for ROM(s) used for each peripheral. The
+options respectively refer to
+the Interface\ 1 ROM
+.RI ( if1\-2.rom ),
+the TR-DOS ROM for Beta\ 128 emulation with the 48K, TC2048, 128K or +2
+.RI ( trdos.rom ),
+the +D ROM
+.RI ( plusd.rom ),
+the Didaktik\ 80 ROM
+.RI ( didaktik80.rom ),
+the DISCiPLE ROM
+.RI ( disciple.rom ),
+the Multiface\ One ROM
+.RI ( mf1.rom ),
+the Multiface\ 128 ROM
+.RI ( mf128.rom ),
+the Multiface\ 3 ROM
+.RI ( mf3.rom ),
+the Opus Discovery ROM
+.RI ( opus.rom ),
+the SpeccyBoot ROM
+.RI ( speccyboot\-1.4.rom ),
+and the \(mcSource ROM
+.RI ( usource.rom ).
+.PP
+The names in brackets denote the defaults. Note that not all these ROMs
+are supplied with Fuse \(em you must supply your own copies of those which
+are not.
+.RE
+.PP
+.B \-\-no\-rs232\-handshake
+.RS
+This option makes Fuse's Interface\ 1 emulation assume that the RS-232
+line other end is live when you connect the communication channels.
+See also the
+.RB ` \-\-rs232\-rx '
+and
+.RB ` \-\-rs232\-tx '
+options.
+.RE
+.PP
+.B \-\-rs232\-rx
+.br
+.B \-\-rs232\-tx
+.RS
+Specify the communication channels (FIFO or file) to be used for
+Interface\ 1 RS-232 emulation as RxD and TxD wire. See also the
+.RB ` \-\-rs232\-handshake '
+options.
+.RE
+.PP
+.B \-\-rzx\-autosaves
+.RS
+Specify that, while recording an RZX file, Fuse should automatically add
+a snapshot to the recording stream every 5\ seconds. (Default to on, but
+you can use
+.RB ` \-\-no\-rzx\-autosaves '
+to disable). Same as the RZX Options dialog's
+.I "Create autosaves"
+option;
+see there for more details.
+.RE
+.PP
+.B \-\-sdl\-fullscreen\-mode
+.I mode
+.RS
+Select a screen resolution for full screen mode. Available values for
+.IR mode " are listed in a table, when Fuse is called with"
+.B \-\-sdl\-fullscreen\-mode
+.IR list " command line option."
+This option is effective only under the SDL UI.
+.RE
+.PP
+.B \-\-separation
+.I type
+.RS
+Give stereo separation of the 128's AY sound channels. Same as the
+General Options dialog's
+.I "AY stereo separation"
+option. The available options are
+.IR None ,
+.IR ACB ,
+and
+.IR ABC .
+The default option is
+.IR None .
+.RE
+.PP
+.B \-\-simpleide
+.RS
+Specify whether Fuse will emulate the simple 8-bit IDE interface
+as used by the Spectrum\ +3e. Same as the Disk Peripherals
+Options dialog's
+.I "Simple 8-bit IDE"
+option.
+.RE
+.PP
+.B \-\-simpleide\-masterfile
+.I file
+.RS
+Specify a HDF file to connect to the emulated Simple 8-bit IDE
+interface's master channel.
+.RE
+.PP
+.B \-\-simpleide\-slavefile
+.I file
+.RS
+Specify a HDF file to connect to the emulated Simple 8-bit IDE
+interface's slave channel.
+.RE
+.PP
+.B \-\-slt
+.RS
+Support the SLT trap instruction. (Enabled by default, but you can use
+.RB ` \-\-no\-slt '
+to disable). Same as the Media Options dialog's
+.I "Use .slt traps"
+option.
+.RE
+.PP
+.B \-s
+.I file
+.br
+.B \-\-snapshot
+.I file
+.RS
+Specify a snapshot file to load. The file can be in any snapshot
+format supported by
+.IR libspectrum "(3)."
+.RE
+.PP
+.B \-\-sound
+.RS
+Specify whether Fuse should produce sound. (Enabled by default, but
+you can use
+.RB ` \-\-no\-sound '
+to disable). Same as the Sound Options dialog's
+.I "Sound enabled"
+option.
+.RE
+.PP
+.B \-d
+.I device
+.br
+.B \-\-sound\-device
+.I device
+.RS
+Specify the sound output device to use and any options to give that
+device. If you are not using the SDL UI or using
+.I libao
+or
+.I "libasound (ALSA)"
+for sound output,
+then the
+.I "device"
+parameter just specifies the device to be used for sound output.
+.PP
+If you are using the SDL UI, the
+.I "device"
+parameter allows you to specify the
+audio driver to be used (e.g. dsp, alsa, dma, esd and arts).
+.PP
+If you are using
+.I libao
+for sound output, the
+.I "device"
+parameter allows you to specify the device used for sound output
+(either `live' to a speaker or to a file) and the parameters to be
+used for that device. In general, the
+.I "device"
+parameter has the form
+.IR driver[:param[=value][,param[=value][,...]] .
+.I "driver"
+selects the libao driver to be used, either one of the `live' drivers
+.RI ( aixs ", " alsa ", " alsa09 ", " arts ", " esd ", " irix ,
+.IR macosx ", " nas ", " oss " or " sun )
+or a file driver
+.RI ( au ", " raw ", " wav " or " null ).
+The available parameter and value pairs for each device are:
+.IP \[bu]
+.IR aixs :
+AIX audio system
+.RS
+.IP \[bu]
+.RI dev= device
+.br
+.RI ` device '
+gives the AIX sound device.
+.RE
+.IP \[bu]
+.IR alsa :
+Advanced Linux Sound Architecture version 0.5.x
+.RS
+.IP \[bu]
+.RI card= num
+.br
+.RI ` num '
+gives the ALSA card number.
+.IP \[bu]
+.RI dev= num
+.br
+.RI ` num '
+gives the ALSA device number.
+.IP \[bu]
+.RI buf_size= num
+.br
+.RI ` num '
+gives the ALSA buffer size in bytes.
+.RE
+.IP \[bu]
+.IR alsa09 :
+Advanced Linux Sound Architecture version 0.9+
+.RS
+.IP \[bu]
+.RI dev= string
+.br
+.RI ` string '
+specifies the ALSA device e.g. hw:1.2
+.IP \[bu]
+.RI buffer_time= num
+.br
+.RI ` num '
+gives the ALSA buffer time in microseconds.
+.IP \[bu]
+.RI period_time= num
+.br
+.RI ` num '
+gives the ALSA period time in microseconds.
+.IP \[bu]
+.RI use_mmap= yes|y|true|t|1
+.br
+specifies that libao use memory mapped transfer.
+.RE
+.IP \[bu]
+.IR arts :
+aRts soundserver: no parameters.
+.IP \[bu]
+.IR esd :
+Enlightened Sound Daemon.
+.RS
+.IP \[bu]
+.RI host= string
+.br
+.RI ` string '
+gives the ESD host specification.
+.RE
+.IP \[bu]
+.IR irix :
+IRIX Audio Library: no parameters.
+.IP \[bu]
+.IR macosx :
+MacOS X CoreAudio: no parameters.
+.IP \[bu]
+.IR nas :
+Network Audio System.
+.RS
+.IP \[bu]
+.RI host= string
+.br
+.RI ` string '
+gives the NAS host specification.
+.IP \[bu]
+.RI buf_size= num
+.br
+.RI ` num '
+gives the buffer size on the server.
+.RE
+.IP \[bu]
+.IR oss :
+Open Sound System.
+.RS
+.IP \[bu]
+.RI dsp= string
+.br
+.RI ` string '
+gives the OSS device to be used e.g. /dev/sound/dsp1
+.RE
+.IP \[bu]
+.IR sun :
+SUN audio system.
+.RS
+.IP \[bu]
+.RI dev= string
+.br
+.RI ` string '
+gives the audio device to be used.
+.RE
+.IP \[bu]
+.IR au :
+SUN Sparc audio file: no parameters.
+.IP \[bu]
+.IR raw :
+raw file.
+.RS
+.IP \[bu]
+.RI byteorder= string
+.br
+.RI ` string '
+can be any of
+.I native
+(host native byteorder),
+.I big
+(big endian) or
+.I little
+(little endian).
+.RE
+.IP \[bu]
+.IR wav :
+Microsoft audio file: no parameters.
+.IP \[bu]
+.IR null :
+null output: no parameters.
+.IP \[bu]
+.IR debug :
+for debugging libao.
+.PP
+Finally, each of the file output types
+.RI ( au ", " raw " and " wav )
+have an extra option
+.RI `file= filename '
+where
+.RI ` filename '
+gives the file output will be directed to. This defaults to
+.RI ` fuse\-sound.ao '
+if it is not specified.
+.PP
+Some examples of use:
+.PP
+.B "fuse \-d alsa09:dev=hw:1"
+.PP
+causes Fuse to use ALSA\ 0.9+ output with the second (#1) sound card.
+.PP
+.B "fuse \-d raw:byteorder=little,file=enigma.raw"
+.PP
+causes Fuse to save little endian words to
+.RI ` enigma.raw "'."
+.PP
+See the `DEVICE' section of
+.I ogg123(1)
+for up to date information of devices and options (except for the
+`file' option which is provided by Fuse itself).
+.PP
+If you are using
+.IR libasound " or " ALSA
+for sound output, the
+.I "device"
+parameter allows you to specify the device used for sound output
+and some parameters to be used for that device. In general, the
+.I "device"
+parameter has the form
+.br
+.IR devstr " or"
+.br
+.IR param[=value][,param[=value][,...][,devstr] .
+.IP \[bu]
+.IR "devstr" :
+selects the ALSA device used, it can be any complex or simple ALSA
+device name. e.g.:
+.IR default " or " hw:0 " or " tee:plughw:0,\(aq/tmp/out.raw\(aq,raw .
+See the alsa-lib pcm api reference at
+.I http://www.alsa\-project.org/alsa\-doc/alsa\-lib/pcm.html
+for further explanation.
+.br
+.IP \[bu]
+.IR param " and " values :
+.RS
+.IP \[bu]
+.IR buffer=nnnn :
+set the ALSA buffer in frames, smaller value cause smaller sound delay but may
+more buffer underrun (pops and clicks), larger value cause longer delay
+but fewer underrun. By default Fuse determine the buffer size based on the
+actual sound frequency.
+.PP
+.RS
+If you use some special plugin for your pcm device (e.g.: dmix) or your
+card not support some needed parameter (e.g. cannot play other only 48\ kHz
+stereo sound like some AC97 sound card) may cause Fuse unable to set the
+needed buffer size, appropriate sound frequency, channels and so on, therefore
+you cannot get optimal result or not hear the sound at all. In this case try
+the
+.IR plughw:# ", (where # mean your card number counted from 0)"
+for ALSA device.
+.RE
+.br
+.IP \[bu]
+.IR verbose " :
+if given, fuse report ALSA buffer underruns to
+.IR stderr .
+.br
+.RE
+.PP
+Some examples of use:
+.PP
+.B "fuse \-d verbose,buffer=2000"
+.PP
+causes Fuse to use the default ALSA device with 2000 frame length buffer and
+report ALSA buffer underruns on
+.IR stderr .
+.PP
+.B "fuse \-d tee:plughw:0,\(aq/tmp/aufwm.raw\(aq,raw"
+.PP
+causes Fuse to use the first card and parallel save the raw audio samples
+into
+.IR /tmp/aufwm.raw " file."
+.br
+.RE
+.PP
+.B \-\-sound\-force\-8bit
+.RS
+Force the use of 8-bit sound, even if 16-bit is possible. Same as the
+Sound Options dialog's
+.I "Force 8-bit"
+option.
+.RE
+.PP
+.B \-f
+.I frequency
+.br
+.B \-\-sound\-freq
+.I frequency
+.RS
+Specify what frequency Fuse should use for the sound
+device, the default is 44.1\ kHz, but some devices only
+support a single frequency or a limited range (e.g.
+48\ kHz or up to 22\ kHz).
+.RE
+.PP
+.B \-\-speaker\-type
+.I type
+.RS
+Select the output speaker emulation, type can be TV speaker, Beeper
+or Unfiltered. Same as the Sound Options dialog's
+.I "Speaker type"
+option.
+.RE
+.PP
+.B \-\-speccyboot
+.RS
+Emulate a SpeccyBoot Ethernet interface. Same as the General Peripherals Options dialog's
+.I "SpeccyBoot"
+option. See the SpeccyBoot web page at
+.I http://patrikpersson.github.io/speccyboot/
+for full details on the SpeccyBoot.
+.RE
+.PP
+.B \-\-speccyboot\-tap
+.I device
+.RS
+Specify the TAP device to use for SpeccyBoot emulation.
+.RE
+.PP
+.B \-\-specdrum
+.RS
+Emulate a SpecDrum interface. Same as the General Peripherals Options dialog's
+.I "SpecDrum"
+option. See the World of Spectrum Infoseek web page at
+.I http://www.worldofspectrum.org/infoseekid.cgi?id=1000062
+for manuals, software and more.
+.RE
+.PP
+.B \-\-spectranet
+.RS
+Specify whether Fuse will emulate the Spectranet Ethernet interface.
+Same as the General Peripherals Options dialog's
+.I "Spectranet"
+option. See the
+.B "SPECTRANET EMULATION"
+section for more details.
+.RE
+.PP
+.B \-\-spectranet\-disable
+.RS
+This option controls the state of the Spectranet automatic page-in jumper
+(J2). Same as the General Peripherals Options dialog's
+.I "Spectranet disable"
+option. See the
+.B "SPECTRANET EMULATION"
+section for more details.
+.RE
+.PP
+.B \-\-speed
+.I percentage
+.RS
+Specify the speed (as a percentage of real Spectrum speed) at which
+emulation should attempt to proceed. Same as the General Options
+dialog's
+.I "Emulation speed"
+option.
+.RE
+.PP
+.B \-\-statusbar
+.RS
+For the GTK+ and Win32 UI, enables the statusbar beneath the display. For the
+Xlib and SDL UI, enables the status icons showing whether the disk and tape are
+being accessed. Same as the General Options dialog's
+.I "Show statusbar"
+option.
+.RE
+.PP
+.B \-\-strict\-aspect\-hint
+.RS
+For the GTK+ UI, use stricter limits for the aspect ratio limits set
+by the
+.RB ` \-\-aspect\-hint '
+option. This can cause some window managers (for example,
+.IR metacity (1))
+to not allow the window to be resized and moved, but is necessary to
+prevent others (for example,
+.IR fvwm (1))
+from being able resize the window away from square.
+.RE
+.PP
+.B \-\-svga\-modes
+.I mode1,mode2,mode3
+.RS
+Specify which SVGA mode to use for the SVGAlib UI at different screen
+sizes. Available values for
+.IR mode1 ", " mode2 " and " mode3
+are listed in a table, when Fuse called with
+.B \-\-svga\-modes
+.I list
+command line option.
+When user select a not available mode for a size, Fuse just ignore
+and try to find the best mode for it. e.g. with
+.B "\-\-svga\-modes 0,0,12"
+Fuse use the specified 1024\(mu768\(mu256 SVGA mode for triple size filters,
+but select SVGA modes automatically for normal or double size filters.
+The above mode number is just an example, and mode numbers and their
+meanings may vary graphics card by graphics card.
+.RE
+.PP
+.B \-t
+.I file
+.br
+.B \-\-tape
+.I file
+.RS
+Specify a virtual tape file to use. It must be in PZX, TAP or TZX format.
+.RE
+.PP
+.B \-\-textfile
+.I file
+.RS
+Set the filename used for text output from the emulated printers. See
+the
+.B "PRINTER EMULATION"
+section below for more details.
+.RE
+.PP
+.B \-\-traps
+.RS
+Support traps for ROM tape loading/saving. (Enabled by default, but
+you can use
+.RB ` \-\-no\-traps '
+to disable). Same as the Media Options dialog's
+.I "Use tape traps"
+option.
+.RE
+.PP
+.B \-\-unittests
+.RS
+This option runs a testing framework that automatically checks portions
+of code, comparing actual results with expected ones. It is meant to detect
+broken code before a release. There is not graphical mode, the program
+just ends with exit code 0 if all tests are good or prints error
+messages to stdout and ends with exit code greater than 0 if there are
+failed tests.
+.RE
+.PP
+.B \-\-usource
+.RS
+Emulate a \(mcSource interface. Same as the General Peripherals Options dialog's
+.I "\(mcSource"
+option.
+.RE
+.PP
+.B \-V
+.br
+.B \-\-version
+.RS
+Show which version of Fuse is being used.
+.RE
+.PP
+.B \-\-volume\-ay
+.I volume
+.RS
+Sets the relative volume of the AY-3-8912 chip from a range of
+0\(en100%. Same as the Sound Options dialog's
+.I "AY volume"
+option.
+.RE
+.PP
+.B \-\-volume\-beeper
+.I volume
+.RS
+Sets the relative volume of the beeper from a range of 0\(en100%.
+Same as the Sound Options dialog's
+.I "Beeper volume"
+option.
+.RE
+.PP
+.B \-\-volume\-covox
+.I volume
+.RS
+Sets the relative volume of the Covox from a range of 0\(en100%.
+Same as the Sound Options dialog's
+.I "Covox volume"
+option.
+.RE
+.PP
+.B \-\-volume\-specdrum
+.I volume
+.RS
+Sets the relative volume of the SpecDrum from a range of 0\(en100%.
+Same as the Sound Options dialog's
+.I "SpecDrum volume"
+option.
+.RE
+.PP
+.B \-\-writable\-roms
+.RS
+Allow Spectrum programs to overwrite the ROM(s). The same as the
+General Options dialog's
+.I "Allow writes to ROM"
+option.
+.RE
+.PP
+.B \-\-zxatasp
+.RS
+Specify whether Fuse emulate the ZXATASP interface. Same as the
+Disk Peripherals Options dialog's
+.I "ZXATASP interface"
+option.
+.RE
+.PP
+.B \-\-zxatasp\-upload
+.RS
+Specify the state of the ZXATASP upload jumper. Same as the
+Disk Peripherals Options dialog's
+.I "ZXATASP upload"
+option.
+.RE
+.PP
+.B \-\-zxatasp\-write\-protect
+.RS
+Specify the state of the ZXATASP write protect jumper. Same as the
+Disk Peripherals Options dialog's
+.I "ZXATASP write protect"
+option.
+.RE
+.PP
+.B \-\-zxatasp\-masterfile
+.I file
+.RS
+Specify a HDF file to connect to the emulated ZXATASP interface's
+master channel.
+.RE
+.PP
+.B \-\-zxatasp\-slavefile
+.I file
+.RS
+Specify a HDF file to connect to the emulated ZXATASP interface's
+slave channel.
+.RE
+.PP
+.B \-\-zxcf
+.RS
+Specify whether Fuse emulate the ZXCF interface. Same as the
+Disk Peripherals Options dialog's
+.I "ZXCF interface"
+option.
+.RE
+.PP
+.B \-\-zxcf\-upload
+.RS
+Specify the state of the ZXCF upload jumper. Same as the Disk Peripherals
+Options dialog's
+.I "ZXCF upload"
+option.
+.RE
+.PP
+.B \-\-zxcf\-cffile
+.I file
+.RS
+Specify a HDF file to connect to the emulated ZXCF interface.
+.RE
+.PP
+.B \-\-zxmmc
+.RS
+Emulate the ZXMMC interface. The same as the Disk Peripherals Options
+dialog's
+.I "ZXMMC interface"
+option.
+.RE
+.PP
+.B \-\-zxmmc\-file
+.I file
+.RS
+Specify an HDF image to be loaded into the ZXMMC's emulated memory card.
+.RE
+.PP
+.B \-\-zxprinter
+.RS
+Emulate the ZX Printer. Same as the General Peripherals Options dialog's
+.I "ZX Printer"
+option.
+.RE
+.PP
+All long options which control on/off settings can be disabled using
+.RB ` \-\-no\-foo '
+(for an option
+.RB ` \-\-foo ').
+For example, the opposite of
+.RB ` \-\-issue2 '
+is
+.RB ` \-\-no\-issue2 '.
+These options can also be modified while the emulator is running,
+using the options dialogs \(em see the documentation for the
+.I Options
+menu in the
+.B "MENUS AND KEYS"
+section for details.
+.\"
+.\"------------------------------------------------------------------
+.\"
+.SH "THE VARIOUS FRONT-ENDS"
+Fuse supports various front-ends, or UIs (user interfaces). The usual
+one is GTK+-based, but there are also SDL, Win32, Xlib, SVGAlib and
+framebuffer ones.
+.PP
+The important difference to note is that GTK+ and Win32 versions uses
+`native' dialog boxes etc. (behaving like a fairly normal GUI-based
+program) while the others use an alternative, Fuse-specific `widget
+UI'. This latter front-end is easily spotted by the way it uses the
+main Fuse window/screen for menus and dialogs, and uses the Spectrum's
+own font.
+.\"
+.\"------------------------------------------------------------------
+.\"
+.SH "MENUS AND KEYS"
+Since many of the keys available are devoted to emulation of the
+Spectrum's keyboard, the primary way of controlling Fuse itself
+(rather than the emulated machine) is via the menus. There are also
+function key shortcuts for some menu options.
+.PP
+In the GTK+ and Win32 version, the menu bar is always visible at the top
+of the Fuse window. You can click on a menu name to pop it up. Alternatively,
+you can press
+.I F1
+to display a pop-up version of the menu bar, which you can then
+navigate with the cursor keys or mouse.
+.PP
+In the widget UI pressing
+.I F1
+is the only way to get the main menu; and unlike the GTK+ version, the
+emulator pauses while the menus are being navigated. The menus show
+which key to press for each menu option in brackets. Pressing
+.I Esc
+exits a menu, and pressing
+.I Enter
+exits the menu system entirely (as well as `confirming' any current
+dialog).
+.PP
+Here's what the menu options do, along with the function key mappings
+for those items which have them:
+.PP
+.\" function keys are listed first, by analogy with short options
+.\" being listed the same way.
+.\"
+.I F3
+.br
+.I "File, Open..."
+.RS
+Open a Spectrum file. Snapshots will be loaded into memory; tape
+images will be inserted into the emulated tape deck, and if the
+.I "Auto-load media"
+option is set will being loading. Opening a disk image or a Timex dock
+image will cause the appropriate machine type (+3, Pentagon or TC2068)
+to be selected with the image inserted, and disks will automatically
+load if the
+.I "Auto-load media"
+option is set. See the
+.B "FILE SELECTION"
+section below for details on how to choose the file. Note that this
+behaviour is different from previous versions of Fuse, when this
+option would open only snapshots.
+.RE
+.PP
+.I F2
+.br
+.I "File, Save Snapshot..."
+.RS
+Save a snapshot (machine state, memory contents, etc.) to file. You
+can select the filename to be saved to. If it has a .szx, .z80 or .sna
+extension, the snapshot will be saved in that format. Otherwise, it
+will be saved as a .szx file.
+.RE
+.PP
+.I "File, Recording, Record..."
+.RS
+Start recording input to an RZX file, initialised from the current
+emulation state. You will be prompted for a filename to use.
+.RE
+.PP
+.I "File, Recording, Record from snapshot..."
+.RS
+Start recording input to an RZX file, initialised from a snapshot. You
+will first be asked for the snapshot to use and then the file to save
+the recording to.
+.RE
+.PP
+.I "File, Recording, Continue recording..."
+.RS
+Continue recording input into an existing RZX file from the last recorded
+state. Finalised recordings cannot be resumed. You will be prompted for
+the recording to continue.
+.RE
+.PP
+.I Insert
+.br
+.I "File, Recording, Insert snapshot"
+.RS
+Inserts a snapshot of the current state into the RZX file. This can
+be used at a later point to roll back to the inserted state by using
+one of the commands below.
+.RE
+.PP
+.I Delete
+.br
+.I "File, Recording, Rollback"
+.RS
+Rolls back the recording to the point at which the previous snapshot
+was inserted. Recording will continue from that point.
+.RE
+.PP
+.I "File, Recording, Rollback to..."
+.RS
+Roll back the recording to any snapshot which has been inserted into
+the recording.
+.RE
+.PP
+.I "File, Recording, Play..."
+.RS
+Playback recorded input from an RZX file. This lets you replay
+keypresses recorded previously. RZX files generally contain a snapshot
+with the Spectrum's state at the start of the recording; if the
+selected RZX file doesn't, you'll be prompted for a snapshot to load
+as well.
+.RE
+.PP
+.I "File, Recording, Stop"
+.RS
+Stop any currently-recording/playing RZX file.
+.RE
+.PP
+.I "File, Recording, Finalise..."
+.RS
+Compact a RZX file. Any interspersed snapshot will be removed and the
+recording cannot be continued. All action replays submitted to the RZX
+Archive should be finalised.
+.RE
+.PP
+.I "File, AY Logging, Record..."
+.RS
+Start recording the bytes output via the AY-3-8912 sound chip to a PSG
+file. You will be prompted for a filename to save the recording to.
+.RE
+.PP
+.I "File, AY Logging, Stop"
+.RS
+Stop any current AY logging.
+.RE
+.PP
+.I "File, Screenshot, Open SCR Screenshot..."
+.RS
+Load an SCR screenshot (essentially just a binary dump of the
+Spectrum's video memory) onto the current screen. Fuse supports
+screenshots saved in the Timex hi-colour and hi-res modes as well as
+`normal' Spectrum screens, and will make a simple conversion if a
+hi-colour or hi-res screenshot is loaded onto a non-Timex machine.
+.RE
+.PP
+.I "File, Screenshot, Save Screen as SCR..."
+.RS
+Save a copy of whatever's currently displayed on the Spectrum's screen
+as an SCR file. You will be prompted for a filename to save the
+screenshot to.
+.RE
+.PP
+.I "File, Screenshot, Open MLT Screenshot..."
+.RS
+Load an MLT screenshot onto the current screen. The MLT format is similar
+to the SCR format but additionally supports capturing images that use
+techniques to display more than two colours in each Spectrum attribute
+square. Fuse will only load the bitmap version of an image on a Sinclair
+machine but on a Timex clone it can show the full colour detail captured
+in the image by using the hi-colour mode.
+.RE
+.PP
+.I "File, Screenshot, Save Screen as MLT..."
+.RS
+Save a copy of whatever's currently displayed on the Spectrum's screen
+as an MLT file. You will be prompted for a filename to save the
+screenshot to.
+.RE
+.PP
+.I "File, Screenshot, Save Screen as PNG..."
+.RS
+Save the current screen as a PNG file. You will be prompted for a
+filename to save the screenshot to.
+.RE
+.PP
+.I "File, Scalable Vector Graphics, Start capture in line mode..."
+.RS
+Start trapping the video output functions present in ROM to copy the
+picture to SVG files, thus creating vectorized scalable picture; it is
+expected to be fully operational in BASIC only, but few machine code
+programs could work, if they use the ROM addresses to output text or
+graphics. The initial picture size is 256\(mu176, but it is increased
+everytime a `scroll' happens. On every CLS a new file will be created,
+with an increasing sequence number. CIRCLEs will be described as a
+sequence of lines, so the original `imprecisions' will be still visible.
+The text output will be fully understood and decoded: normal ASCII
+characters will be converted into COURIER scalable fonts, UDG graphics
+into dot matrix areas, GRAPHICS blocky characters into small squares.
+A slightly transparent output permits to show a bit of the overlapped
+text and graphics elements. Lower portion of the screen (normally bound
+to stream #0 and #1) won't be captured.
+.RE
+.PP
+.I "File, Scalable Vector Graphics, Start capture in dot mode..."
+.RS
+As above, but line capture is disabled. A line will be rendered as a
+sequence of dots.
+.RE
+.PP
+.I "File, Scalable Vector Graphics, Stop capture"
+.RS
+Stop the SVG capture function.
+.RE
+.PP
+.I "File, Movie, Record..."
+.RS
+Fuse can record movie (video and audio) into a file with special format 
+which can be converted later to a common video file format with the
+.IR fmfconv (1)
+utility.
+You will be prompted for a filename to save video. Please see
+.B "MOVIE RECORDING"
+section.
+.RE
+.PP
+.I "File, Movie, Record from RZX..."
+.RS
+Start movie recording and RZX playback at the same time. You will be
+prompted for a filename to play from and a filename to save video.
+.RE
+.PP
+.I "File, Movie, Pause"
+.RS
+Pause movie recording which is currently in progress.
+.RE
+.PP
+.I "File, Movie, Continue"
+.RS
+Resume movie recording which has been previously paused.
+.RE
+.PP
+.I "File, Movie, Stop"
+.RS
+Stop movie recording which is currently in progress.
+.RE
+.PP
+.I "File, Load Binary Data..."
+.RS
+Load binary data from a file into the Spectrum's memory. After
+selecting the file to load data from, you can choose where to load the
+data and how much data to load.
+.RE
+.PP
+.I "File, Save Binary Data..."
+.RS
+Save an arbitrary chunk of the Spectrum's memory to a file. Select the
+file you wish to save to, followed by the location and length of data
+you wish to save.
+.RE
+.PP
+.I F10
+.br
+.I "File, Exit"
+.RS
+Exit the emulator. A confirmation dialog will appear checking you
+actually want to do this.
+.RE
+.PP
+.I F4
+.br
+.I "Options, General..."
+.RS
+Display the General Options dialog, letting you configure Fuse. (With
+the widget UI, the keys shown in brackets toggle the options,
+.I Enter
+confirms any changes, and
+.I Esc
+aborts). Note that any changed settings only apply to the
+currently-running Fuse.
+.PP
+The options available are:
+.PP
+.I "Emulation speed"
+.RS
+Set how fast Fuse will attempt to emulate the Spectrum, as a
+percentage of the speed at which the real machine runs. If your
+machine isn't fast enough to keep up with the requested speed, Fuse
+will just run as fast as it can. Note that if the emulation speed is
+faster than 500%, no sound output will be produced.
+.RE
+.PP
+.I "Frame rate"
+.RS
+Specify the frame rate, the ratio of spectrum frame updates to real
+frame updates. This is useful if your machine is having trouble keeping
+up with the spectrum screen updates.
+.RE
+.PP
+.I "Issue\ 2 keyboard"
+.RS
+Early versions of the Spectrum used a different value for unused bits
+on the keyboard input ports, and a few games depended on the old value
+of these bits. Enabling this option switches to the old value, to let
+you run them.
+.RE
+.PP
+.I "Recreated ZX Spectrum"
+.RS
+Enable the use of a Recreated ZX Spectrum in `Layer A' (game) mode. This
+is a Bluetooth keyboard that can be paired to the device where Fuse is
+running.
+.RE
+.PP
+.I "Use shift with arrow keys"
+.RS
+Treat the keyboard arrow keys as shifted like the ZX Spectrum+ keyboard's
+arrow keys or as unshifted like a cursor joystick that maps to the 5, 6, 7
+and 8 keys.
+.RE
+.PP
+.I "Allow writes to ROM"
+.RS
+If this option is selected, Fuse will happily allow programs to
+overwrite what would normally be ROM. This probably isn't very useful
+in most circumstances, especially as the 48K\ ROM overwrites parts of
+itself.
+.RE
+.PP
+.I "Late timings"
+.RS
+If selected, Fuse will cause all screen-related timings (for example,
+when the screen is rendered and when memory contention occurs) to be
+one tstate later than \(lqnormal\(rq, an effect which is present on some real
+hardware.
+.RE
+.PP
+.I "Z80 is CMOS"
+.RS
+If selected, Fuse will emulate a CMOS Z80, as opposed to an NMOS Z80.
+The undocumented `OUT (C),0' instruction will be replaced with
+`OUT (C),255' and emulation of a minor timing bug in the NMOS Z80's
+`LD A,I' and `LD A,R' instructions will be disabled.
+.RE
+.PP
+.I "RS-232 handshake"
+.RS
+If you turn this option off, Fuse assumes the RS-232 line other end is
+live when you connect the communication channels.
+See also the
+.RB ` \-\-rs232\-rx "' and `" \-\-rs232\-tx '
+options.
+.RE
+.PP
+.I "Black and white TV"
+.RS
+This option allows you to choose whether to simulate a colour or black
+and white television. This is effective only under the GTK+, Win32, Xlib and
+SDL user interfaces: the others will always simulate a colour TV.
+.RE
+.PP
+.I "PAL-TV use TV2x effect"
+.RS
+This option allows you to choose whether the PAL\ TV\ 2x and higher scalers
+also reproduce scanlines in the same way as the TV\ 2x, TV\ 3x and Timex\ TV
+scalers.
+.RE
+.PP
+.I "Show statusbar"
+.RS
+For the GTK+ and Win32 UI, enables the statusbar beneath the display. For the
+SDL UI, enables the status icons showing whether the disk and tape are
+being accessed. This option has no effect for the other user
+interfaces.
+.RE
+.PP
+.I "Snap joystick prompt"
+.RS
+If set, Fuse will prompt you which physical joystick or keyboard you want
+to connect to the joystick interface enabled in the snapshot unless it
+already matches your current configuration.
+.RE
+.PP
+.I "Confirm actions"
+.RS
+Specify whether `dangerous' actions (those which could cause data
+loss, for example resetting the Spectrum) require confirmation before
+occurring.
+.RE
+.PP
+.I "Auto-save settings"
+.RS
+If this option is selected, Fuse will automatically write its
+currently selected options to its configuration file on exit (either
+in xml format if
+.I libxml2
+was available when Fuse was compiled or plain text). If this option 
+is off, you'll have to manually use
+.I "Options, Save"
+afterwards to ensure that this setting gets written to Fuse's
+configuration file. Note that if you turn this option on, loading a
+snapshot could enable peripherals that would be written permanently 
+to the configuration file.
+.RE
+.RE
+.PP
+.I "Options, Media..."
+.RS
+Display the Media Options dialog, letting you configure Fuse's tape
+and Microdrive options. (With the widget UI, the keys shown in brackets
+toggle the options,
+.I Enter
+confirms any changes, and
+.I Esc
+aborts). Note that any changed settings only apply to the
+currently-running Fuse.
+.PP
+.I "Auto-load media"
+.RS
+On many occasions when you open a tape or disk file, it's because it's
+got a program in you want to load and run. If this option is selected,
+this will automatically happen for you when you open one of these
+files using the
+.I "File, Open..."
+menu option \(em you must then use the
+.I Media
+menu to use
+tapes or disks for saving data to, or for loading data into an already
+running program.
+.RE
+.PP
+.I "Detect loaders"
+.RS
+If this option is enabled, Fuse will attempt to detect when a loading
+routine is in progress, and then automatically start the virtual tape
+to load the program in. This is done by using a heuristic to identify
+a loading routine, so is by no means infallible, but works in most
+cases.
+.RE
+.PP
+.I "Phantom typist mode"
+.RS
+Specify the keystroke sequence that the "phantom typist" should use when
+starting a program loading. Available options are
+.RS
+.PP
+.I Auto
+.PP
+.I Keyword
+.PP
+.I Keystroke
+.PP
+.I Menu
+.PP
+.I Plus 2A
+.PP
+.I Plus 3
+.RE
+.PP
+The first four of these correspond to automatic detection based on machine
+model, keyword based entry, keystroke based entry, and selection from a 128K
+style menu.
+.I Plus 2A
+and
+.I Plus 3
+also correspond to selection from a 128K style menu, but have special handling
+for games which need to be loaded with `LOAD ""CODE'. The most likely use for
+this option will be use
+.I Keystroke
+if you have changed the default 48K ROM for one with keystroke entry.
+.RE
+.PP
+.I "Fastloading"
+.RS
+If this option is enabled, then Fuse will run at the fastest possible
+speed when the virtual tape is playing, thus dramatically reducing the
+time it takes to load programs. You may wish to disable this option if
+you wish to stop the tape at a specific point.
+.RE
+.PP
+.I "Use tape traps"
+.RS
+Ordinarily, Fuse intercepts calls to the ROM tape-loading routine in
+order to load from tape files more quickly when possible. But this can
+(rarely) interfere with TZX loading; disabling this option avoids the
+problem at the cost of slower (i.e. always real-time) tape-loading.
+When tape-loading traps are disabled, you need to start tape playback
+manually, by pressing
+.I F8
+or choosing the
+.I "Media, Tape, Play"
+menu item. Fuse also uses tape traps to intercept the tape-saving
+routine in the ROM to save tape files quickly, tapes can also be saved
+using the
+.I "Media, Tape, Record Start"
+menu item.
+.RE
+.PP
+.I "Accelerate loaders"
+.RS
+If this option is enabled, then Fuse will attempt to accelerate tape
+loaders by \(lqshort circuiting\(rq the loading loop. This will in
+general speed up loading, but may cause some loaders to fail.
+.RE
+.PP
+.I "Use .slt traps"
+.RS
+The multi-load aspect of SLT files requires a trap instruction to be
+supported. This instruction is not generally used except for this
+trap, but since it's not inconceivable that a program could be wanting
+to use the real instruction instead, you can choose whether to support
+the trap or not.
+.RE
+.PP
+.I "MDR cartridge len"
+.RS
+This option controls the number of blocks in a new Microdrive cartridge.
+If the value smaller than 10 or greater than 254 Fuse assumes 10 or 254.
+Average real capacity is around 180 blocks (90 Kb).
+.RE
+.PP
+.I "Random length MDR cartridge"
+.RS
+If this option is enabled, Fuse will use a random Microdrive cartridge
+length (around 180 blocks) instead of the length specified in the
+.I "MDR cartridge len"
+option.
+.RE
+.RE
+.PP
+.I "Options, Sound..."
+.RS
+Display the Sound Options dialog, letting you configure Fuse's sound
+output. (With the widget UI, the keys shown in brackets toggle the
+options,
+.I Enter
+confirms any changes, and
+.I Esc
+aborts). Note that any changed settings only apply to the
+currently-running Fuse.
+.PP
+.I "Sound enabled"
+.RS
+Specify whether sound output should be enabled at all. When this
+option is disabled, Fuse will not make any sound.
+.RE
+.PP
+.I "Loading sound"
+.RS
+Normally, Fuse emulates tape-loading noise when loading from PZXs, TAPs
+or TZXs in real-time, albeit at a deliberately lower volume than on a
+real Spectrum. You can disable this option to eliminate the loading
+noise entirely.
+.RE
+.PP
+.I "AY stereo separation"
+.RS
+By default, the sound output is mono, since this is all you got from
+an unmodified Spectrum. But enabling this option gives you so-called
+ACB stereo (for sound from the 128 and other clone's AY-3-8912 sound
+chip).
+.RE
+.PP
+.I "Force 8-bit"
+.RS
+Force the use of 8-bit sound even if 16-bit (the default) is
+available. Note that (when the option is enabled) if 8-bit sound isn't
+available then there will be no sound at all, so it's best not to use
+this option unless you have a specific need for it.
+.RE
+.PP
+.I "Speaker type"
+.RS
+This option allows the emulation of the sound output system to be
+modified. Different choices of speaker limit the bass and treble
+response that can be produced from the machine. Choose between a
+\(lqTV\(rq type speaker and a small \(lqBeeper\(rq type speaker that
+significantly limits bass and treble response. Choose \(lqUnfiltered\(rq
+to get unmodified (but less accurate) sound output.
+.RE
+.PP
+.I "AY volume"
+.RS
+Sets the relative volume of the AY-3-8912 chip from a range of 0\(en100%.
+.RE
+.PP
+.I "Beeper volume"
+.RS
+Sets the relative volume of the beeper from a range of 0\(en100%.
+.RE
+.PP
+.I "Covox volume"
+.RS
+Sets the relative volume of the Covox from a range of 0\(en100%.
+.RE
+.PP
+.I "SpecDrum volume"
+.RS
+Sets the relative volume of the SpecDrum from a range of 0\(en100%.
+.RE
+.RE
+.PP
+.I "Options, Peripherals, General..."
+.RS
+Display the General Peripherals Options dialog, letting you configure the
+peripherals which Fuse will consider to be attached to the emulated
+machine. (With the widget UI, the keys shown in brackets toggle the
+options,
+.I Enter
+confirms any changes, and
+.I Esc
+aborts). Note that any changed settings only apply to the
+currently-running Fuse. Also note that any changes that enable and disable
+peripherals may result in a hard reset of the emulated machine.
+.PP
+.I "Kempston joystick"
+.RS
+If this option is selected, Fuse will emulate a Kempston joystick
+interface (probably the most widely supported type on the Spectrum).
+Note that this option is basically equivalent to plugging the
+interface itself into a Spectrum, not to connecting a joystick; this
+affects how the Spectrum responds to a read of input port\ 31. To use a
+Kempston joystick in a game, this option must be enabled, and you must
+also select a Kempston joystick the
+.I "Options, Joysticks"
+menu.
+.RE
+.PP
+.I "Kempston mouse"
+.RS
+If this option is selected, Fuse will emulate a Kempston mouse interface.
+.PP
+If you're using Fuse full-screen, your mouse is automatically used as if
+attached to the Kempston interface. Otherwise, you'll need to click on the
+Spectrum display in order to tell Fuse to grab the pointer (and make it
+invisible); to tell Fuse to release it, click the middle button (or wheel) or
+press Escape.
+.PP
+With the framebuffer UI, Fuse prefers to use GPM; if this is not available,
+it will fall back to built-in PS/2 mouse support. In this mode, it tries
+\fI/dev/input/mice\fR, \fI/dev/mouse\fR then \fI/dev/psaux\fR, stopping when
+it successfully opens one. The first of these is preferred since (at least on
+Linux, with a 2.6-series kernel) any type of mouse can be used and any
+connected mouse may be used.
+.RE
+.PP
+.I "Swap mouse buttons"
+.RS
+If this option is enabled, the left and right mouse buttons will be swapped
+when emulating a Kempston mouse.
+.RE
+.PP
+.I "Fuller Box"
+.RS
+If this option is selected, Fuse will emulate a Fuller Box AY sound and
+joystick interface. This emulation is only available for the 16k, 48k and
+TC2048 machines.
+.RE
+.PP
+.I "Melodik"
+.RS
+If this option is selected, Fuse will emulate a Melodik AY sound interface.
+These interfaces and many similar ones were produced to make the 48K\ Spectrum
+compatible with the same AY music as the 128K\ Spectrum. This emulation is only
+available for the 16k, 48k and TC2048 machines.
+.RE
+.PP
+.I "Interface\ 1"
+.RS
+If this option is selected, Fuse will emulate the simple Sinclair
+Interface\ 1, and allow Microdrive cartridges to be
+connected and disconnected via the
+.I "Media, Interface\ 1, Microdrive"
+menus. It also enables support for the Interface\ 1 RS-232 interface.
+.RE
+.PP
+.I "Interface\ 2"
+.RS
+If this option is selected, Fuse will emulate a cartridge port as
+found on the Interface\ 2. Cartridges can then be inserted and removed
+via the
+.I "Media, Cartridge, Interface\ 2"
+menu. Note that the Pentagon, Scorpion, Interface\ 2, ZXATASP and ZXCF
+all use the same hardware mechanism for accessing some of their
+extended features, so only one of these should be selected at once or
+unpredictable behaviour will occur.
+.RE
+.PP
+.I "Multiface One"
+.RS
+If this option is selected, Fuse will emulate the Romantic Robot Multiface\ One.
+Available for 16K, 48K and Timex TC2048 machines.
+.RE
+.PP
+.I "Multiface\ 128"
+.RS
+If this option is selected, Fuse will emulate the Romantic Robot
+Multiface\ 128. Available for 16K, 48K, Timex TC2048, 128K, +2 and SE machines.
+.RE
+.PP
+.I "Multiface\ 3"
+.RS
+If this option is selected, Fuse will emulate the Romantic Robot
+Multiface\ 3. Available for +2A, +3 and +3e machines.
+.RE
+.PP
+.I "Stealth Multiface One"
+.RS
+This option controls the `invisible' or `stealth' mode of Multiface One,
+as the physical switch on the side of the interface.
+.RE
+.PP
+.I "Emulate printers"
+.RS
+If this option is selected, Fuse will emulate a printer. See the
+.B "PRINTER EMULATION"
+section for more details.
+.RE
+.PP
+.I "ZX Printer"
+.RS
+If this option is selected, Fuse will emulate the ZX Printer. See the
+.B "PRINTER EMULATION"
+section for more details.
+.RE
+.PP
+.I "SpeccyBoot interface"
+.RS
+If this option is selected, Fuse will emulate a SpeccyBoot interface which
+allows booting a ZX\ Spectrum over an Ethernet network. See the SpeccyBoot
+web page at
+.I http://patrikpersson.github.io/speccyboot/
+for more details.
+.RE
+.PP
+.I "SpecDrum interface"
+.RS
+If this option is selected, Fuse will emulate a Cheetah SpecDrum sound
+interface.  See the World of Spectrum Infoseek web page at
+.I http://www.worldofspectrum.org/infoseekid.cgi?id=1000062
+for manuals, software and more. This emulation is only available for
+the 48k, 128k and TC2048 machines.
+.RE
+.PP
+.I "Spectranet"
+.RS
+If this option is selected, Fuse will emulate the Spectranet interface,
+which provides an Ethernet interface for the Spectrum. See the
+.B "SPECTRANET EMULATION"
+section for more details.
+.RE
+.PP
+.I "Spectranet disable"
+.RS
+This option controls the state of the Spectranet automatic page-in jumper
+(J2). See the
+.B "SPECTRANET EMULATION"
+section for more details.
+.RE
+.PP
+.I "\(mcSource"
+.RS
+If this option is selected, Fuse will emulate a Currah \(mcSource interface.
+See the World of Spectrum Infoseek web page at
+.I http://www.worldofspectrum.org/infoseekid.cgi?id=1000080
+for the manual.
+.RE
+.PP
+.I "Covox interface"
+.RS
+If this option is selected, Fuse will emulate a Covox digital sound
+interface. This emulation is only available for the Pentagon, Pentagon 512k,
+Pentagon 1024k and Scorpion machines. The Pentagon variants use port 0xfb and
+the Scorpion version uses port 0xdd.
+.RE
+.RE
+.PP
+.I "Options, Peripherals, Disk..."
+.RS
+Display the Disk Peripherals Options dialog, letting you configure the
+disk interface peripherals which Fuse will consider to be attached to
+the emulated machine. (With the widget UI, the keys shown in brackets
+toggle the options,
+.I Enter
+confirms any changes, and
+.I Esc
+aborts). Note that any changed settings only apply to the
+currently-running Fuse. Also note that any changes that enable and disable
+peripherals may result in a hard reset of the emulated machine.
+.PP
+.I "Simple 8-bit IDE"
+.RS
+If this option is selected, Fuse will emulate the simple 8-bit IDE
+interface as used by the Spectrum\ +3e, and allow hard disks to be
+connected and disconnected via the
+.I "Media, IDE, Simple 8-bit"
+menu.
+.RE
+.PP
+.I "ZXATASP interface"
+.RS
+If this option is selected, Fuse will emulate the ZXATASP interface,
+which provides both additional RAM and an IDE interface. See the
+.B "ZXATASP AND ZXCF"
+section for more details.
+.RE
+.PP
+.I "ZXATASP upload"
+.RS
+This option controls the state of the ZXATASP upload jumper. See the
+.B "ZXATASP AND ZXCF"
+section for more details.
+.RE
+.PP
+.I "ZXATASP write protect"
+.RS
+This option controls the state of the ZXATASP write protect
+jumper. See the
+.B "ZXATASP AND ZXCF"
+section for more details.
+.RE
+.PP
+.I "ZXCF interface"
+.RS
+If this option is selected, Fuse will emulate the ZXCF interface,
+which provides both additional RAM and a CompactFlash interface. See
+the
+.B "ZXATASP AND ZXCF"
+section for more details.
+.RE
+.PP
+.I "ZXCF upload"
+.RS
+This option controls the state of the ZXCF upload jumper. See the
+.B "ZXATASP AND ZXCF"
+section for more details.
+.RE
+.PP
+.I "ZXMMC interface"
+.RS
+If this option is selected, Fuse will emulate the ZXMMC interface.
+Available for +2A, +3 and +3e machines.
+.RE
+.PP
+.I "DivIDE interface"
+.RS
+If this option is selected, Fuse will emulate the DivIDE
+interface. See the
+.B "DIVIDE"
+section for more details.
+.RE
+.PP
+.I "DivIDE write protect"
+.RS
+This option controls the state of the DivIDE write protection
+jumper. See the
+.B "DIVIDE"
+section for more details.
+.RE
+.PP
+.I "DivMMC interface"
+.RS
+If this option is selected, Fuse will emulate the DivMMC
+interface. See the
+.B "DIVMMC"
+section for more details.
+.RE
+.PP
+.I "DivMMC write protect"
+.RS
+This option controls the state of the DivMMC write protection
+jumper that prevents flashing the EEPROM chip. See the
+.B "DIVMMC"
+section for more details.
+.RE
+.PP
+.I "+D interface"
+.RS
+If this option is selected, Fuse will emulate the +D interface.  See the
+.B "+D EMULATION"
+section for more details.
+.RE
+.PP
+.I "Didaktik 80 interface"
+.RS
+If this option is selected, Fuse will emulate the Didaktik\ 80
+(or Didaktik\ 40) interface.  See the
+.B "DIDAKTIK\ 80 EMULATION"
+section for more details.
+.RE
+.PP
+.I "DISCiPLE interface"
+.RS
+If this option is selected, Fuse will emulate the DISCiPLE interface.  See the
+.B "DISCIPLE EMULATION"
+section for more details.
+.RE
+.PP
+.I "Beta\ 128 interface"
+.RS
+If this option is selected, Fuse will emulate the Beta\ 128 interface.
+See the
+.B "BETA\ 128 EMULATION"
+section for more details. Beta\ 128 emulation is enabled for the
+Pentagon and Scorpion machines regardless of this option.
+.RE
+.PP
+.I "Beta\ 128 auto-boot in 48K\ machines"
+.RS
+If this option is selected, then when a Beta\ 128 interface is used in 48K
+or TC2048 emulation, the machine will boot directly into the TR-DOS system.
+.RE
+.PP
+.I "Opus Discovery interface"
+.RS
+If this option is selected, Fuse will emulate the Opus Discovery interface.
+See the
+.B "OPUS DISCOVERY EMULATION"
+section for more details.
+.RE
+.RE
+.PP
+.I "Options, RZX..."
+.RS
+Display the RZX Options dialog, letting you configure how Fuse's deals
+with RZX input recordings. (With the widget UI, the keys shown in
+brackets toggle the options,
+.I Enter
+confirms any changes, and
+.I Esc
+aborts). Note that any changed settings only apply to the
+currently-running Fuse.
+.PP
+.I "Create autosaves"
+.RS
+If this option is selected, Fuse will add a snapshot into the recording
+stream every 5\ seconds while creating an RZX file, thus enabling the
+rollback facilities to be used without having to explicitly add
+snapshots into the stream. Older snapshots will be pruned from the
+stream to keep the file size and number of snapshots down: each snapshot
+up to 15\ seconds will be kept, then one snapshot every 15\ seconds until
+one minute, then one snapshot every minute until 5\ minutes, and then one
+snapshot every 5\ minutes. Note that this \(lqpruning\(rq applies only to
+automatically inserted snapshots: snapshots manually inserted into the
+stream will never be pruned.
+.RE
+.PP
+.I "Compress RZX data"
+.RS
+If this option is selected, and
+.I zlib
+was available when Fuse was compiled, any RZX files written by Fuse
+will be compressed. This is generally a good thing as it makes the
+files significantly smaller, and you probably want to turn it off only
+if you're debugging the RZX files or there's some other program which
+doesn't support compressed RZX files.
+.RE
+.PP
+.I "Competition mode"
+.RS
+Any input recordings which are started when this option is selected
+will be made in `competition mode'. In essence, this means that Fuse
+will act just like a real Spectrum would: you can't load snapshots,
+pause the emulation in any way, change the speed or anything that you
+couldn't do on the real machine. If any of these things are attempted,
+or if the emulated Fuse is running more than 5% faster or slower than
+normal Spectrum speed, then the recording will immediately be stopped.
+.PP
+If
+.I libgcrypt
+was available when Fuse was compiled, then recordings made with
+competition mode active will be digitally signed, in theory to
+`certify' that it was made with the above restrictions in place.
+\fBHowever, this procedure is not secure (and cannot be made so), so
+the presence of any signature on an RZX file should not be taken as
+providing proof that it was made with competition mode active.\fR
+This feature is included in Fuse solely as it was one of the
+requirements for Fuse to be used in an on-line tournament.
+.RE
+.PP
+.I "Competition code"
+.RS
+The numeric code entered here will be written into any RZX files made
+in competition mode. This is another feature for on-line tournaments
+which can be used to `prove' that the recording was made after a
+specific code was released. If you're not playing in such a
+tournament, you can safely ignore this option.
+.RE
+.PP
+.I "Always embed snapshot"
+.RS
+Specify whether a snapshot should be embedded in an RZX file when
+recording is started from an existing snapshot.
+.RE
+.RE
+.PP
+.I "Options, Movie..."
+.RS
+Display the Movie Options dialog, letting you configure how Fuse's deals
+with movie recordings.
+.PP
+.I "Movie compression"
+.RS
+This option set the compression level to None, Lossless or High. (See the
+.B "MOVIE RECORDING"
+section for more information).
+.RE
+.PP
+.I "Stop recording after RZX ends"
+.RS
+If this option is selected, Fuse will stop any movie recording after a RZX 
+playback is finished.
+.RE
+.RE
+.PP
+.I "Options, Joysticks"
+.RS
+Fuse can emulate many of the common types of joystick which were
+available for the Spectrum. The input for these emulated joysticks can
+be taken from real joysticks attached to the emulating machine
+(configured via the
+.I "Options, Joysticks, Joystick\ 1..."
+and
+.I "Options, Joysticks, Joystick\ 2..."
+options), or from the
+.IR q ,
+.IR a ,
+.IR o ,
+.IR p ,
+and
+.I Space
+keys on the emulating machines keyboard, configured via the
+.I "Options, Joysticks, Keyboard..."
+option. Note that when using the keyboard to emulate a joystick, the
+.IR q ,
+.IR a ,
+.IR o ,
+.IR p ,
+and
+.I Space
+keys will not have their normal effect (to avoid problems with games
+which do things like use
+.I p
+for pause when using a joystick).
+.PP
+Each of the joysticks (including the `fake' keyboard joystick) can be
+configured to emulate any one of the following joystick types:
+.RS
+.PP
+.I None
+.RS
+No joystick: any input will simply be ignored.
+.RE
+.PP
+.I Cursor
+.RS
+A cursor joystick, equivalent to pressing
+.IR 5 " (left),"
+.IR 6 " (down),"
+.IR 7 " (up),"
+.IR 8 " (right),"
+and
+.IR 0 " (fire)."
+.RE
+.PP
+.I Kempston
+.RS
+A Kempston joystick, read from input port\ 31. Note that the
+.I "Options, Peripherals, General, Kempston interface"
+option must also be set for the input to be recognised.
+.RE
+.PP
+.I "Sinclair\ 1"
+.br
+.I "Sinclair\ 2"
+.RS
+The `left' and `right' Sinclair joysticks, equivalent to pressing
+.IR 1 " (left),"
+.IR 2 " (right),"
+.IR 3 " (down),"
+.IR 4 " (up),"
+and
+.IR 5 " (fire),"
+or
+.IR 6 " (left),"
+.IR 7 " (right),"
+.IR 8 " (down),"
+.IR 9 " (up),"
+and
+.IR 0 " (fire)"
+respectively.
+.RE
+.PP
+.I "Timex 1"
+.br
+.I "Timex\ 2"
+.RS
+The `left' and `right' joysticks as attached to the Timex\ 2068 variant's
+built-in joystick interface.
+.RE
+.RE
+.PP
+For the real joysticks, it is also possible to configure what effect
+each button on the joystick will have: this can be
+.IR "Joystick Fire" ,
+equivalent to pressing the emulated joystick's fire button,
+.IR "Nothing" ,
+meaning to have no effect, or any Spectrum key, meaning that pressing
+that button will be equivalent to pressing that Spectrum key.
+.RE
+.PP
+.I "Options, Select ROMs, Machine ROMs"
+.RS
+An individual dialog is available for each Spectrum variant emulated
+by Fuse which allows selection of the ROM(s) used by that
+machine. Simply select the ROM you wish to use, and then reset the
+Spectrum for the change to take effect.
+.RE
+.PP
+.I "Options, Select ROMs, Peripheral ROMs"
+.RS
+The same as the Machine ROMs menu, but an individual dialog is available
+for peripherals that need a ROM. Simply select the ROM you wish to use,
+and then reset the Spectrum for the change to take effect.
+.RE
+.PP
+.I "Options, Filter..."
+.RS
+Select the graphics filter currently in use. See the
+.B "GRAPHICS FILTERS"
+section for more details.
+.RE
+.PP
+.I F11
+.br
+.I "Options, Full Screen"
+.RS
+Switch Fuse between full screen and windowed mode.
+This menu is only available under the SDL UI.
+.RE
+.PP
+.I "Options, Disk Options..."
+.RS
+When emulating disk drives, Fuse allows the specification of the 
+physical drive units attached to the emulated interface. Each drive 
+can be set to be one of the following types:
+.RS
+.PP
+.I Disabled
+.PP
+.I Single\-sided 40 track
+.PP
+.I Double\-sided 40 track
+.PP
+.I Single\-sided 80 track
+.PP
+.I Double\-sided 80 track
+.RE
+.PP
+The
+.I Disabled
+option is not supported for Drive 1 or Drive A of any interface.
+.PP
+The available options that can be set are:
+.PP
+.I "+3 Drive A"
+.RS
+Defaults to a single-sided 40 track drive.
+.RE
+.PP
+.I "+3 Drive B"
+.RS
+Defaults to a double-sided 80 track drive.
+.RE
+.PP
+.I "+3 Detect Speedlock"
+.RS
+Specify whether the +3 drives try to detect Speedlock protected disks,
+and emulate `weak' sectors.
+If the disk image file (EDSK or UDI) contains weak sector data, than
+Speedlock detection is automatically omitted.
+See also the
+.B "WEAK DISK DATA"
+section.
+.RE
+.PP
+.I "Beta 128 Drive A"
+.RS
+Defaults to a double-sided 80 track drive.
+.RE
+.PP
+.I "Beta 128 Drive B"
+.RS
+Defaults to a double-sided 80 track drive.
+.RE
+.PP
+.I "Beta 128 Drive C"
+.RS
+Defaults to a double-sided 80 track drive.
+.RE
+.PP
+.I "Beta 128 Drive D"
+.RS
+Defaults to a double-sided 80 track drive.
+.RE
+.PP
+.I "+D Drive 1"
+.RS
+Defaults to a double-sided 80 track drive.
+.RE
+.PP
+.I "+D Drive 2"
+.RS
+Defaults to a double-sided 80 track drive.
+.RE
+.PP
+.I "Didaktik 80 Drive A"
+.RS
+Defaults to a double-sided 80 track drive.
+.RE
+.PP
+.I "Didaktik 80 Drive B"
+.RS
+Defaults to a double-sided 80 track drive.
+.RE
+.PP
+.I "DISCiPLE Drive 1"
+.RS
+Defaults to a double-sided 80 track drive.
+.RE
+.PP
+.I "DISCiPLE Drive 2"
+.RS
+Defaults to a double-sided 80 track drive.
+.RE
+.PP
+.I "Opus Drive 1"
+.RS
+Defaults to a single-sided 40 track drive.
+.RE
+.PP
+.I "Opus Drive 2"
+.RS
+Defaults to a single-sided 40 track drive.
+.RE
+.PP
+.I "Try merge 'B' side of disks"
+.RS
+This option prompts the user to confirm whether Fuse should try to merge the 
+`B' side of a disk image from a separate file when opening a new single-sided 
+disk image.
+.RE
+.PP
+.I "Confirm merge disk sides"
+.RS
+Select whether Fuse should try to merge a separate file for the `B' side of a
+disk image separate file when opening a new disk image. Most double sided disk
+images are dumped as two single sided disk images e.g.
+`Golden Axe \- Side\ A.dsk' and `Golden Axe \- Side\ B.dsk'. So, if we want to
+play Golden Axe, first we have to insert the first disk image and when the game
+asks to insert side\ B, we have to find and open the second disk image, instead
+of just `flip'-ing the disk inside the drive. If enabled, Fuse will try to open
+the second image too and create a double sided disk image (merging the two one
+sided disk images) and insert this merged virtual disk into the disk drive. The
+function detects whether the file is one side of a double-sided image if the
+filename matches a pattern like [Ss]ide[ _][abAB12][ _.] in the file name of a
+disk that is being opened. If found, Fuse will try to open the other side of
+the disk too substituting the appropriate characters in the filename e.g.
+1\(->2, a\(->b, A\(->B. If successful then it will merge the two images and
+now we have a double sided disk in drive. This means that if we open
+`Golden Axe \- Side\ A.dsk', then Fuse will try to open `Golden Axe \- Side
+B.dsk' too. Now, we can just `flip' the disk if Golden Axe asks for `Side\ B'.
+The available options are
+.IR Never ,
+.I "With single-sided drives"
+and
+.IR Always .
+.RE
+.PP
+.I "Options, Save"
+.RS
+This will cause Fuse's current options to be written to
+.I .fuserc
+in your home directory (Unix-like systems), or
+.I fuse.cfg
+in your %USERPROFILE% folder (Windows), from which they will be
+picked up again when Fuse is restarted. The best way to update
+this file is by using this option, but it's a simple XML file if
+.I libxml2
+was available when Fuse was compiled (otherwise, plain text), and
+shouldn't be too hard to edit by hand if you really want to.
+.RE
+.PP
+.I Pause
+.br
+.I "Machine, Pause"
+.RS
+Pause or unpause emulation. This option is available only under the
+GTK+ and Win32 UIs; to pause the other user interfaces, simply press F1 to bring
+up the main menu.
+.RE
+.PP
+.I F5
+.br
+.I "Machine, Reset"
+.RS
+Reset the emulated Spectrum.
+.RE
+.PP
+.I "Machine, Hard reset"
+.RS
+Reset the emulated Spectrum. A hard reset is equivalent to turning the
+Spectrum's power off, and then turning it back on.
+.RE
+.PP
+.I F9
+.br
+.I "Machine, Select..."
+.RS
+Choose a type of Spectrum to emulate. An brief overview of the
+Sinclair, Amstrad and Timex can be found at
+.I "http://www.nvg.ntnu.no/sinclair/computers/zxspectrum/zxspectrum.htm"
+while more technical information can be found at
+.IR "http://www.worldofspectrum.org/faq/reference/reference.htm" ,
+and
+.IR "http://www.worldofspectrum.org/faq/reference/tmxreference.htm" .
+.PP
+.I "Spectrum\ 16K"
+.br
+.I "Spectrum\ 48K"
+.RS
+The original machines as released by Sinclair in 1982 with 16 or 48K
+of RAM respectively.
+.RE
+.PP
+.I "Spectrum\ 48K (NTSC)"
+.RS
+The NTSC 48K machine released in limited numbers in parts of South
+America.
+.RE
+.PP
+.I "Spectrum\ 128K"
+.RS
+The 128K machine as released by Sinclair in 1985\ (Spain) or 1986\ (UK).
+.RE
+.PP
+.I "Spectrum\ +2"
+.RS
+The first machine released by Amstrad, in 1986. From an emulation
+point of view, the +2 is virtually identical to the 128K.
+.RE
+.PP
+.I "Spectrum\ +2A"
+.br
+.I "Spectrum\ +3"
+.RS
+The two machines released by Amstrad in 1988. Technically very similar
+to each other, except that the +3 features a 3\(sd disk drive while the
++2A does not.
+.RE
+.PP
+.I "Spectrum\ +3e"
+.RS
+A +3 with modified ROMs allowing access to IDE hard disks via the
+simple 8-bit interface, as activated from the
+.I "Options, Peripherals, Disk..."
+dialog. See
+.I "http://www.worldofspectrum.org/zxplus3e/"
+for more details.
+.RE
+.PP
+.I "Timex TC2048"
+.br
+.I "Timex TC2068"
+.RS
+The variants of the Spectrum as released by Timex in Portugal.
+.RE
+.PP
+.I "Timex TS2068"
+.RS
+The variant of the Spectrum released by Timex in North America.
+.RE
+.PP
+.I "Pentagon\ 128K"
+.RS
+Russian clone of the Spectrum. There were many different machines
+called Pentagon from 1989 to 2006, this machine corresponds to a
+1991 era Pentagon\ 128K with the optional AY sound chip and the
+integrated Beta\ 128 disk interface, and is the version of the
+machine most often emulated. More technical details can be found
+at
+.IR "http://www.worldofspectrum.org/rusfaq/index.html" ,
+.RE
+.PP
+.I "Pentagon\ 512K"
+.br
+.I "Pentagon\ 1024K"
+.RS
+Newer versions of the Pentagon Russian Spectrum clones which
+incorporate more memory and the \(lqMr Gluk Reset Service\(rq ROM
+offering a more powerful firmware.
+.RE
+.PP
+.I "Scorpion\ ZS\ 256"
+.RS
+Another Russian clone of the Spectrum. Some details can be found
+at
+.IR "http://www.worldofspectrum.org/rusfaq/index.html" .
+Like all the Russian clones, they have built in 3.5\(sd disk drives,
+accessed via the Beta\ 128 disk interface and TR-DOS (the Technology
+Research Disk Operating System). The most important distinction from
+the Pentagon\ 128k and similar machines is the display timing details.
+.RE
+.PP
+.I "Spectrum SE"
+.RS
+A recent variant designed by Andrew Owen and Jarek Adamski, which is
+possibly best thought of as a cross between the 128K machine and the
+Timex variants, allowing 272K of RAM to be accessed. Some more details
+are available at
+.IR "http://www.worldofspectrum.org/faq/reference/sereference.htm" 
+and documentation of the extended BASIC is available at 
+.IR "https://github.com/cheveron/sebasic4/wiki" .
+The bug tracker for the BASIC is at 
+.IR "https://github.com/cheveron/sebasic4/issues?state=open" .
+.RE
+.RE
+.PP
+.I "Machine, Debugger..."
+.RS
+Start the monitor/debugger. See the
+.B "MONITOR/DEBUGGER"
+section for more information.
+.RE
+.PP
+.I "Machine, Poke Finder..."
+.RS
+Start the `poke finder'. See the
+.B "POKE FINDER"
+section for more information.
+.RE
+.PP
+.I "Machine, Poke Memory..."
+.RS
+Allow one to use multiface POKEs for things such as infinite lives. See the
+.B "POKE MEMORY"
+section for more information.
+.RE
+.PP
+.I "Machine, Memory Browser..."
+.RS
+Start the memory browser. It should be fairly obvious what this does;
+perhaps the only thing worth noting is that emulation is paused until
+you close the window.
+.RE
+.PP
+.I "Machine, NMI"
+.RS
+Sends a non-maskable interrupt to the emulated Spectrum. Due to a typo
+in the standard 48K ROM, this will cause a reset, but modified ROMs are
+available which make use of this feature. When the +D (or DISCiPLE) is
+emulated, this is used to access the +D (or DISCiPLE)'s screenshot and
+snapshot features (see the
+.B "+D EMULATION"
+and
+.B "DISCIPLE EMULATION"
+sections below).  For the DISCiPLE, Caps Shift must be held down whilst
+pressing the NMI button.  For some UIs, this may be tricky, or even
+impossible to do.  Note that GDOS on the DISCiPLE contains a bug which
+causes corruption of saved snapshots, and a failure to return from the
+NMI menu correctly.  This bug is not present in G+DOS on the +D.
+.RE
+.PP
+.I "Machine, Multiface Red Button"
+.RS
+Presses the Multiface One/128/3 red button to active the interface.
+.RE
+.PP
+.I "Machine, Didaktik SNAP"
+.RS
+Presses the Didaktik 80 (or Didaktik 40)'s `SNAP' button.
+.RE
+.PP
+.I F7
+.br
+.I "Media, Tape, Open..."
+.RS
+Choose a PZX, TAP or TZX virtual-tape file to load from. See the
+.B "FILE SELECTION"
+section below for details on how to choose the file. If
+.I "Auto-load media"
+is set in the Media Options dialog (as it is by default),
+you may use the
+.I "File, Open..."
+menu option instead, and the tape will begin loading automatically.
+Otherwise, you have to start the load in the emulated machine
+(with LOAD "" or the 128's Tape Loader option, though you may need
+to reset first).
+.PP
+To
+.I guarantee
+that TZX files will load properly, you should select the file, make
+sure tape-loading traps are disabled in the Media Options dialog,
+then press
+.I F8
+(or do
+.IR "Media, Tape, Play" ).
+That said, most TZXs will work with tape-loading traps enabled (often
+quickly loading partway, then loading the rest real-time), so you
+might want to try it that way first.
+.RE
+.PP
+.I F8
+.br
+.I "Media, Tape, Play"
+.RS
+Start playing the PZX, TAP or TZX file, if required. (Choosing the option
+(or pressing
+.IR F8 )
+again pauses playback, and a further press resumes). To explain \(em if
+tape-loading traps have been disabled (in the Media Options dialog),
+starting the loading process in the emulated machine isn't enough. You
+also have to `press play', so to speak :\-), and this is how you do
+that. You may also need to `press play' like this in certain other
+circumstances, e.g. TZXs containing multi-load games may have a
+stop-the-tape request (which Fuse obeys).
+.RE
+.PP
+.I "Media, Tape, Browse"
+.RS
+Browse through the current tape. A brief display of each of the data
+blocks on the current tape will appear, from which you can select
+which block Fuse will play next. With the GTK+ UI, emulation will
+continue while the browser is displayed; double-clicking on a block
+will select it. In the other UIs, emulation is paused and you can use
+the cursor keys and press
+.I Enter
+to select it. If you decide you don't want to change block, just press
+.IR Escape .
+.RE
+.PP
+.I "Media, Tape, Rewind"
+.RS
+Rewind the current virtual tape, so it can be read again from the
+beginning.
+.RE
+.PP
+.I "Media, Tape, Clear"
+.RS
+Clear the current virtual tape. This is particularly useful when you
+want a `clean slate' to add newly-saved files to, before doing
+.I "Media, Tape, Write..."
+(or
+.IR F6 ).
+.RE
+.PP
+.I F6
+.br
+.I "Media, Tape, Write..."
+.RS
+Write the current virtual-tape contents to a TZX file. You will be
+prompted for a filename. The virtual-tape contents are the contents of
+the previously-loaded tape (if any has been loaded since you last did
+a
+.IR "Media, Tape, Clear" ),
+followed by anything you've saved from the emulated machine since.
+These newly-saved files are
+.I not
+written to any tape file until you choose this option!
+.RE
+.PP
+.I "Media, Tape, Record Start"
+.RS
+Starts directly recording the output from the emulated Spectrum to the
+current virtual-tape. This is useful when you want to record using a
+non-standard ROM or from a custom save routine. Most tape operations
+are disabled during recording. Stop recording with the
+.I "Media, Tape, Write..."
+menu option.
+.RE
+.PP
+.I "Media, Tape, Record Stop"
+.RS
+Stops the direct recording and places the new recording into the
+virtual-tape.
+.RE
+.PP
+.I "Media, Interface\ 1"
+.RS
+Virtual Microdrive images are accessible only when the Interface\ 1 is
+active from the
+.I "Options, Peripherals, General..."
+dialog. Note that any changes to the Microdrive image will not be
+written to the file on disk until the appropriate save option is used.
+.RE
+.PP
+.I "Media, Interface\ 1, Microdrive\ 1, Insert New"
+.RS
+Insert a new (unformatted) Microdrive cartridge into emulated
+Microdrive\ 1.
+.RE
+.PP
+.I "Media, Interface\ 1, Microdrive\ 1, Insert..."
+.RS
+Insert an existing Microdrive cartridge image into emulated Microdrive
+1. You will be prompted for a filename.
+.RE
+.PP
+.I "Media, Interface\ 1, Microdrive\ 1, Eject"
+.RS
+Eject the Microdrive image in Microdrive\ 1. If the image has been
+modified, you will be asked as to whether you want any changes saved.
+.RE
+.PP
+.I "Media, Interface\ 1, Microdrive\ 1, Save"
+.RS
+Save the Microdrive image in Microdrive\ 1.
+.RE
+.PP
+.I "Media, Interface\ 1, Microdrive\ 1, Save as..."
+.RS
+Write the Microdrive image in Microdrive\ 1 to a file. You will be
+prompted for a filename.
+.RE
+.PP
+.I "Media, Interface\ 1, Microdrive\ 1, Write protect, Enable"
+.RS
+Enable the write protect tab for the image in Microdrive\ 1.
+.RE
+.PP
+.I "Media, Interface\ 1, Microdrive\ 1, Write protect, Disable"
+.RS
+Disable the write protect tab for the image in Microdrive\ 1.
+.RE
+.PP
+.I "Media, Interface\ 1, Microdrive\ 2, ..."
+.br
+.I "Media, Interface\ 1, Microdrive\ 3, ..."
+.br
+.I "Media, Interface\ 1, Microdrive\ 4, ..."
+.br
+.I "Media, Interface\ 1, Microdrive\ 5, ..."
+.br
+.I "Media, Interface\ 1, Microdrive\ 6, ..."
+.br
+.I "Media, Interface\ 1, Microdrive\ 7, ..."
+.br
+.I "Media, Interface\ 1, Microdrive\ 8, ..."
+.RS
+Equivalent options for the other emulated Microdrives.
+.RE
+.PP
+.I "Media, Interface\ 1, RS232, Plug RxD"
+.br
+.I "Media, Interface\ 1, RS232, Unplug RxD"
+.br
+.I "Media, Interface\ 1, RS232, Plug TxD"
+.br
+.I "Media, Interface\ 1, RS232, Unplug TxD"
+.RS
+Connect or disconnect a communication channels (FIFO or file) to use
+as the RS-232 TxD or RxD wire.
+.RE
+.PP
+.I "Media, Disk"
+.RS
+Virtual floppy disk images are accessible when emulating a +3, +3e,
+Pentagon or Scorpion, or when the Beta\ 128, Opus Discovery, +D, Didaktik or
+DISCiPLE interface options are enabled and a machine compatible with
+the chosen interface is selected. (See
+.BR "THE .DSK FORMAT" ,
+.BR "BETA\ 128 EMULATION" ,
+.BR "OPUS DISCOVERY EMULATION" ,
+.BR "+D EMULATION" ,
+.B "DIDAKTIK\ 80 EMULATION"
+and
+.B "DISCIPLE EMULATION"
+sections below for notes on the file formats supported).
+.PP
+Once again, any changes made to a disk image will not affect the file
+which was `inserted' into the drive. If you do want to keep any
+changes, use the appropriate `eject and write' option before exiting
+Fuse.
+.RE
+.PP
+.I "Media, Disk, +3, Drive\ A:, Insert..."
+.RS
+Insert a disk-image file to read/write in the +3's emulated drive
+A:.
+.RE
+.PP
+.I "Media, Disk, +3, Drive\ A:, Eject"
+.RS
+Eject the disk image currently in the +3's emulated drive\ A: \(em or
+from the emulated machine's perspective, eject it. Note that any
+changes made to the image will not be saved.
+.RE
+.PP
+.I "Media, Disk, +3, Drive\ A:, Save"
+.RS
+Save the disk image currently in the +3's drive\ A:.
+.RE
+.PP
+.I "Media, Disk, +3, Drive\ A:, Save as..."
+.RS
+Save the current state of the disk image currently in the +3's
+drive\ A: to a file. You will be prompted for a filename.
+.RE
+.PP
+.I "Media, Disk, +3, Drive\ B:, Insert..."
+.RS
+As above, but for the +3's drive\ B:. Fuse emulates drive\ B: as a
+second 3\(sd drive.
+.RE
+.PP
+.I "Media, Disk, +3, Drive\ B:, Eject"
+.RS
+As above, but for drive\ B:.
+.RE
+.PP
+.I "Media, Disk, +3, Drive\ B:, Save"
+.RS
+As above, but for drive\ B:.
+.RE
+.PP
+.I "Media, Disk, +3, Drive\ B:, Save as..."
+.RS
+As above, but for drive\ B:.
+.RE
+.PP
+.I "Media, Disk, Beta, Drive\ A:, Insert New"
+.RS
+Insert a new (unformatted) disk into the emulated Beta drive\ A:.
+.RE
+.PP
+.I "Media, Disk, Beta, Drive\ A:, Insert..."
+.br
+.I "Media, Disk, Beta, Drive\ A:, Eject"
+.br
+.I "Media, Disk, Beta, Drive\ A:, Save"
+.br
+.I "Media, Disk, Beta, Drive\ A:, Save as..."
+.RS
+As above, but for the emulated Beta disk drive\ A:.
+.RE
+.PP
+.I "Media, Disk, Beta, Drive\ A:, Write protect, Enable"
+.RS
+Enable the write protect tab for the image in Beta drive\ A:.
+.RE
+.PP
+.I "Media, Disk, Beta, Drive\ A:, Write protect, Disable"
+.RS
+Disable the write protect tab for the image in Beta drive\ A:.
+.RE
+.PP
+.I "Media, Disk, Beta, Drive\ B:, ..."
+.br
+.I "Media, Disk, Beta, Drive\ C:, ..."
+.br
+.I "Media, Disk, Beta, Drive\ D:, ..."
+.RS
+As above, but for the remaining emulated Beta disk interface drives.
+.RE
+.PP
+.I "Media, Disk, Opus, Drive\ 1, Insert New"
+.br
+.I "Media, Disk, Opus, Drive\ 1, Insert..."
+.br
+.I "Media, Disk, Opus, Drive\ 1, Eject"
+.br
+.I "Media, Disk, Opus, Drive\ 1, Save"
+.br
+.I "Media, Disk, Opus, Drive\ 1, Save as..."
+.br
+.I "Media, Disk, Opus, Drive\ 1, Write protect, Enable"
+.br
+.I "Media, Disk, Opus, Drive\ 1, Write protect, Disable"
+.br
+.I "Media, Disk, Opus, Drive\ 2, ..."
+.RS
+As above, but for the emulated Opus Discovery drives.
+.RE
+.PP
+.I "Media, Disk, +D, Drive\ 1, Insert New"
+.br
+.I "Media, Disk, +D, Drive\ 1, Insert..."
+.br
+.I "Media, Disk, +D, Drive\ 1, Eject"
+.br
+.I "Media, Disk, +D, Drive\ 1, Save"
+.br
+.I "Media, Disk, +D, Drive\ 1, Save as..."
+.br
+.I "Media, Disk, +D, Drive\ 1, Write protect, Enable"
+.br
+.I "Media, Disk, +D, Drive\ 1, Write protect, Disable"
+.br
+.I "Media, Disk, +D, Drive\ 2, ..."
+.RS
+As above, but for the emulated +D drives.
+.RE
+.PP
+.I "Media, Disk, Didaktik 80, Drive\ A, Insert New"
+.br
+.I "Media, Disk, Didaktik 80, Drive\ A, Insert..."
+.br
+.I "Media, Disk, Didaktik 80, Drive\ A, Eject"
+.br
+.I "Media, Disk, Didaktik 80, Drive\ A, Save"
+.br
+.I "Media, Disk, Didaktik 80, Drive\ A, Save as..."
+.br
+.I "Media, Disk, Didaktik 80, Drive\ A, Write protect, Enable"
+.br
+.I "Media, Disk, Didaktik 80, Drive\ A, Write protect, Disable"
+.br
+.I "Media, Disk, Didaktik 80, Drive\ B, ..."
+.RS
+As above, but for the emulated Didaktik 80 drives.
+.RE
+.PP
+.I "Media, Disk, DISCiPLE, Drive\ 1, Insert New"
+.br
+.I "Media, Disk, DISCiPLE, Drive\ 1, Insert..."
+.br
+.I "Media, Disk, DISCiPLE, Drive\ 1, Eject"
+.br
+.I "Media, Disk, DISCiPLE, Drive\ 1, Save"
+.br
+.I "Media, Disk, DISCiPLE, Drive\ 1, Save as..."
+.br
+.I "Media, Disk, DISCiPLE, Drive\ 1, Write protect, Enable"
+.br
+.I "Media, Disk, DISCiPLE, Drive\ 1, Write protect, Disable"
+.br
+.I "Media, Disk, DISCiPLE, Drive\ 2, ..."
+.RS
+As above, but for the emulated DISCiPLE drives.
+.RE
+.PP
+.I "Media, Cartridge, Timex Dock, Insert..."
+.RS
+Insert a cartridge into the Timex\ 2068 dock. This will cause the
+emulated machine to be changed to the TC2068 (if it wasn't already
+a 2068 variant) and reset.
+.RE
+.PP
+.I "Media, Cartridge, Timex Dock, Eject"
+.RS
+Remove the cartridge from the Timex\ 2068 dock. This will cause the
+emulated machine to be reset.
+.RE
+.PP
+.I "Media, Cartridge, Interface\ 2, Insert..."
+.RS
+Insert a cartridge into the Interface\ 2 cartridge slot. This will
+cause the emulated machine to be reset and the cartridge loaded.
+.RE
+.PP
+.I "Media, Cartridge, Interface\ 2, Eject..."
+.RS
+Remove the cartridge from the Interface\ 2 cartridge slot. This will
+cause the emulated machine to be reset.
+.RE
+.PP
+.I "Media, IDE, Simple 8-bit, Master, Insert..."
+.RS
+Connect an IDE hard disk to the simple 8-bit interface's master channel.
+.RE
+.PP
+.I "Media, IDE, Simple 8-bit, Master, Commit"
+.RS
+Cause any writes which have been done to virtual hard disk attached to
+the simple 8-bit interface's master channel to be committed to the
+real disk, such that they survive the virtual disk being ejected.
+.RE
+.PP
+.I "Media, IDE, Simple 8-bit, Master, Eject"
+.RS
+Eject the virtual hard disk from the simple 8-bit interface's master
+channel. Note that any writes to the virtual hard disk will be lost
+unless the
+.I "Media, IDE, Simple 8-bit, Master, Commit"
+option is used before the disk is ejected.
+.RE
+.PP
+.I "Media, IDE, Simple 8-bit, Slave, Insert..."
+.br
+.I "Media, IDE, Simple 8-bit, Slave, Commit"
+.br
+.I "Media, IDE, Simple 8-bit, Slave, Eject"
+.RS
+The same as the
+.I "Media, IDE, Simple 8-bit, Master"
+entries above, but for the simple 8-bit interface's slave channel.
+.RE
+.PP
+.I "Media, IDE, ZXATASP, Master, Insert..."
+.br
+.I "Media, IDE, ZXATASP, Master, Commit"
+.br
+.I "Media, IDE, ZXATASP, Master, Eject"
+.br
+.I "Media, IDE, ZXATASP, Slave, Insert..."
+.br
+.I "Media, IDE, ZXATASP, Slave, Commit"
+.br
+.I "Media, IDE, ZXATASP, Slave, Eject"
+.RS
+The same as the
+.I "Media, IDE, Simple 8-bit, Master"
+entries above, but for the two channels of the ZXATASP interface.
+.RE
+.PP
+.I "Media, IDE, ZXCF CompactFlash, Insert..."
+.br
+.I "Media, IDE, ZXCF CompactFlash, Commit"
+.br
+.I "Media, IDE, ZXCF CompactFlash, Eject"
+.RS
+The same as the
+.I "Media, IDE, Simple 8-bit, Master"
+entries above, but for the ZXCF interface's CompactFlash slot.
+.RE
+.PP
+.I "Media, IDE, ZXMMC, Insert..."
+.br
+.I "Media, IDE, ZXMMC, Commit"
+.br
+.I "Media, IDE, ZXMMC, Eject"
+.RS
+The same as the
+.I "Media, IDE, Simple 8-bit"
+entries above, but for the memory card slot of the ZXMMC interface.
+.RE
+.PP
+.I "Media, IDE, DivIDE, Master, Insert..."
+.br
+.I "Media, IDE, DivIDE, Master, Commit"
+.br
+.I "Media, IDE, DivIDE, Master, Eject"
+.br
+.I "Media, IDE, DivIDE, Slave, Insert..."
+.br
+.I "Media, IDE, DivIDE, Slave, Commit"
+.br
+.I "Media, IDE, DivIDE, Slave, Eject"
+.RS
+The same as the
+.I "Media, IDE, Simple 8-bit"
+entries above, but for the two channels of the DivIDE interface.
+.RE
+.PP
+.I "Media, IDE, DivMMC, Insert..."
+.br
+.I "Media, IDE, DivMMC, Commit"
+.br
+.I "Media, IDE, DivMMC, Eject"
+.RS
+The same as the
+.I "Media, IDE, Simple 8-bit"
+entries above, but for the memory card slot of the DivMMC interface.
+.RE
+.PP
+.I "Help, Keyboard picture..."
+.RS
+Display a diagram showing the Spectrum keyboard, and the various
+keywords that can be generated with each key from (48K) BASIC. Under
+the GTK+ and Win32 UIs, this will appear in a separate window and emulation
+continues. With the other UIs, the picture remains onscreen (and the
+emulator paused) until you press
+.I Esc
+or
+.IR Enter .
+.RE
+.PP
+.\"
+.\"------------------------------------------------------------------
+.\"
+.SH "KEY MAPPINGS"
+When emulating the Spectrum, keys
+.I F1
+to
+.I F10
+are used as shortcuts for various menu items, as described above. The
+alphanumeric keys (along with
+.I Enter
+and
+.IR Space )
+are mapped as-is to the Spectrum keys. The other key mappings are:
+.TP
+.I Shift
+emulated as Caps Shift
+.TP
+.IR Control ", " Alt ", and " Meta
+emulated as Symbol Shift (most other modifiers are also mapped to
+this)
+.TP
+.I Backspace
+emulated as Caps\(en0 (Delete)
+.TP
+.I Esc
+emulated as Caps\(en1 (Edit)
+.TP
+.I "Caps Lock"
+emulated as Caps\(en2
+.TP
+.I "Cursor keys"
+emulated as Caps\(en5/6/7/8 (as appropriate)
+.TP
+.I Tab
+emulated as Caps Shift\(enSymbol Shift (Extended Mode)
+.PP
+Some further punctuation keys are supported, if they exist on your
+keyboard \(em
+.RI ` , ',
+.RI ` . ',
+.RI ` / ',
+.RI ` ; ',
+.RI ` \(aq ',
+.RI ` # ',
+.RI ` \- ',
+and
+.RI ` = '.
+These are mapped to the appropriate symbol-shifted keys on the
+Spectrum.
+.PP
+A list of keys applicable when using the file selection dialogs is
+given in the
+.B "FILE SELECTION"
+section below.
+.\"
+.\"------------------------------------------------------------------
+.\"
+.SH "DISPLAY SIZE"
+Some of Fuse's UIs allow resizing of the emulated Spectrum's display.
+For the window-based ones (GTK+, Win32 and Xlib), you can resize the window
+by, well, resizing it. :\-) Exactly how this works depends on your
+window manager; you may have to make the window over twice the width
+and height of the original size before it actually scales up. Fuse
+attempts to keep the window `square', but with some window managers
+this can mean the window will never resize at all. If you experience
+this problem, the
+.RB ` \-\-no\-aspect\-hint '
+option may help.
+.PP
+If you're using the SDL UI under X11 or GTK+, the window will
+automatically resize to be the correct size for the graphics filter
+selected.
+.\"
+.\"------------------------------------------------------------------
+.\"
+.SH "GRAPHICS FILTERS"
+Fuse has the ability to apply essentially arbitrary filters between
+building its image of the Spectrum's screen, and displaying it on the
+emulating machine's monitor. These filters can be used to do various
+forms of smoothing, emulation of TV scanlines and various other
+possibilities. Support for graphics filters varies between the
+different user interfaces, but there are two general classes: the GTK+,
+Win32, Xlib, SVGAlib and SDL user interfaces (and the saving of .png
+screenshots) support `interpolating' filters which use a palette larger
+than the Spectrum's 16\ colours, while the framebuffer user interface
+currently does not support filters at all.
+.PP
+A further complication arises due to the fact that the Timex machines
+have their high-resolution video mode with twice the horizontal
+resolution. To deal with this, Fuse treats these machines as having a
+`normal' display size which is twice the size of a normal Spectrum's
+screen, leading to a different set of filters being available for
+these machines. Note that any of the double or triple-sizing filters
+are available for Timex machines only when using the SDL, Win32 or GTK+
+user interfaces.
+.PP
+The available filters, along with their short name used to select them
+from the command line, are:
+.PP
+.IR "Timex half (smoothed) " ( half )
+.br
+.IR "Timex half (skipping) " ( halfskip )
+.RS
+Two Timex-machine specific filters which scale the screen down to half
+normal (Timex) size; that is, the same size as a normal Spectrum
+screen. The difference between these two filters is in how they handle
+the high-resolution mode: the `smoothed' version is an interpolating
+filter which averages pairs of adjacent pixels, while the `skipping'
+version is a non-interpolating filter which simply drops every other
+pixel.
+.RE
+.PP
+.IR "Normal " ( normal )
+.RS
+The simplest filter: just display one pixel for every pixel on the
+Spectrum's screen.
+.RE
+.PP
+.IR "Double size " ( 2x )
+.RS
+Scale the displayed screen up to double size.
+.RE
+.PP
+.IR "Triple size " ( 3x )
+.RS
+Scale the displayed screen up to triple size. Available only with the
+GTK+, Win32, Xlib and SDL user interfaces or when saving screenshots of
+non-Timex machines.
+.RE
+.PP
+.IR "2xSaI " ( 2xsai )
+.br
+.IR "Super 2xSaI " ( super2xsai )
+.br
+.IR "SuperEagle " ( supereagle )
+.RS
+Three interpolating filters which apply successively more
+smoothing. All three double the size of the displayed screen.
+.RE
+.PP
+.IR "AdvMAME2x " ( advmame2x )
+.RS
+A double-sizing, non-interpolating filter which attempts to smooth
+diagonal lines.
+.RE
+.PP
+.IR "AdvMAME3x " ( advmame3x )
+.RS
+Very similar to
+.IR AdvMAME2x ,
+except that it triples the size of the displayed screen. Available
+only with the GTK+, Win32, Xlib and SDL user interfaces or when saving
+screenshots of non-Timex machines.
+.RE
+.PP
+.IR "TV\ 2x " ( tv2x )
+.br
+.IR "TV\ 3x " ( tv3x )
+.br
+.IR "Timex\ TV " ( timextv )
+.RS
+Three filters which attempt to emulate the effect of television
+scanlines. The first is a double-sizing filter for non-Timex
+machines, the second is a similar triple-sizing filter, while the last
+is a single-sizing filter for Timex machines (note that this means TV\ 2X
+and Timex\ TV produce the same size output).
+.RE
+.PP
+.IR "PAL\ TV " ( paltv )
+.br
+.IR "PAL\ TV\ 2x " ( paltv2x )
+.br
+.IR "PAL\ TV\ 3x " ( paltv3x )
+.RS
+Three filters which attempt to emulate the effect of the PAL TV system
+which layers a lower-resolution colour image over the top of a
+higher-resolution black-and-white image. The filters can also optionally
+add scanlines like the other TV series scalers.
+.RE
+.PP
+.IR "Dot matrix " ( dotmatrix )
+.RS
+A double-sizing filter which emulates the effect of a dot-matrix
+display.
+.RE
+.PP
+.IR "Timex\ 1.5x " ( timex15x )
+.RS
+An interpolating Timex-specific filter which scales the Timex screen
+up to 1.5\(mu its usual size (which is therefore 3\(mu the size of a
+`normal' Spectrum screen). Available only for the GTK+, Win32 and SDL
+user interfaces or when saving screenshots.
+.RE
+.PP
+.IR "HQ\ 2x " ( hq2x )
+.br
+.IR "HQ\ 3x " ( hq3x )
+.RS
+Two filters which do high quality (but slow) antialiasing. Doubles and
+triples the size of the displayed screen respectively.
+.\"
+.\"------------------------------------------------------------------
+.\"
+.SH "THE EMULATED SPECTRUM"
+The emulated Spectrum is, by default, an unmodified 48K\ Spectrum with
+a tape player and ZX\ Printer attached. Oh, and apparently some magical
+snapshot load/save machine which is probably best glossed over for the
+sake of the analogy. :\-)
+.PP
+To emulate different kinds of Spectrum, select the
+.I "Machine, Select..."
+menu option, or press
+.IR F9 .
+.PP
+The Spectrum emulation is paused when any dialogs appear. In the
+widget UI, it's also paused when menus or the keyboard picture are
+displayed.
+.\"
+.\"------------------------------------------------------------------
+.\"
+.SH "PRINTER EMULATION"
+The various models of Spectrum supported a range of ways to connect
+printers, three of which are supported by Fuse. Different printers are
+made available for the different models:
+.PP
+.TP
+.IR 16 ", " 48 ", " TC2048 ", " TC2068 ", " TS2068
+ZX\ Printer
+.TP
+.IR 128 / +2 / Pentagon
+Serial printer (text-only)
+.TP
+.IR +2A ", " +3
+Parallel printer (text-only)
+.PP
+If Opus Discovery, +D or DISCiPLE emulation is in use and printer
+emulation is enabled, text-only emulation of the disk interface's
+parallel printer interface is provided.
+.PP
+Any printout is appended to one (or both) of two files, depending on
+the printer \(em these default to
+.I printout.txt
+for text output, and
+.I printout.pbm
+for graphics (PBM images are supported by most image viewers and
+converters). These names can be changed with the
+.B \-\-textfile
+and
+.B \-\-graphicsfile
+options from the command line or configuration file. While the
+ZX\ Printer can
+.I only
+output graphically, simulated text output is generated at the same
+time using a crude sort of OCR based on the current character set (a
+bit like using SCREEN$). There is currently no support for graphics
+when using the serial/parallel output, though any escape codes used
+will be `printed' faithfully. (!)
+.PP
+By the way, it's not a good idea to modify the
+.I printout.pbm
+file outside of Fuse if you want to continue appending to it. The
+header needs to have a certain layout for Fuse to be able to continue
+appending to it correctly, and the file will be overwritten if it
+can't be appended to.
+.\"
+.\"------------------------------------------------------------------
+.\"
+.SH "ZXATASP AND ZXCF"
+The ZXATASP and ZXCF interfaces are two peripherals designed by Sami
+Vehmaa which significantly extend the capabilities of the
+Spectrum. More details on both are available from Sami's homepage,
+.IR "http://user.tninet.se/~vjz762w/" ,
+but a brief overview is given here.
+.PP
+The real ZXATASP comes with either 128K or 512K of RAM and the ability
+to connect an IDE hard disks and a CompactFlash card, while the ZXCF
+comes with 128K, 512K or 1024K of RAM and the ability to connect a
+CompactFlash card. From an emulation point of view, the two interfaces
+are actually very similar as a CompactFlash card is logically just an
+IDE hard disk. Currently, Fuse's emulation is fixed at having 512K of
+RAM in the ZXATASP and 1024K in the ZXCF.
+.PP
+To activate the ZXATASP, simply select the
+.I "ZXATASP interface"
+option from the
+.I "Options, Peripherals, Disk..."
+dialog. The state of the upload and write protect jumpers is then
+controlled by the
+.I "ZXATASP upload"
+and
+.I "ZXATASP write protect"
+options. Similarly, the ZXCF is controlled by the
+.I "ZXCF interface"
+and
+.I "ZXCF upload"
+options (the ZXCF write protect is software controlled).
+.PP
+If you're using either the ZXATASP or ZXCF, you almost certainly want
+to investigate ResiDOS, the operating system designed for use with the
+ZXATASP and ZXCF. ResiDOS provides facilities for using the extra RAM,
+accessing the mass storage devices and a task manager allowing
+virtually instant switching between programs on the Spectrum. See
+.I "http://www.worldofspectrum.org/residos/"
+for more details.
+.\"
+.\"------------------------------------------------------------------
+.\"
+.SH "DIVIDE"
+The DivIDE is another IDE interface for the Spectrum, of which full
+details can be found at
+.IR "http://web.archive.org/web/20150302052256/http://baze.au.com/divide/" .
+The interface can be activated via the
+.I "DivIDE interface"
+option from the
+.I "Options, Peripherals, Disk..."
+dialog, and the state of its write protect jumper controlled via the
+.IR "DivIDE write protect option" .
+If you're going to be using the DivIDE, you'll probably want one of
+the firmwares available from the DivIDE homepage.
+.\"
+.\"------------------------------------------------------------------
+.\"
+.SH "DIVMMC"
+The DivMMC is a MMC interface for the Spectrum. Originally designed by
+Alessandro Dorigatti for the V6Z80P+ FPGA board as the fusion of DivIDE
+and ZXMMC+ interfaces, later assembled as an interface for real spectrums
+by Mario Prato. Currently there are variants with different RAM size,
+one/two memory cards slots, optional kempston jostick, etc.
+.PP
+The interface can be activated via the
+.I "DivMMC interface"
+option from the
+.I "Options, Peripherals, Disk..."
+dialog, and the state of its EEPROM write protect jumper controlled via the
+.IR "DivMMC write protect option" .
+If you're going to be using the DivMMC, you'll need to load the ESXDOS
+firmware at
+.IR "http://www.esxdos.org/
+or use the ZX Spectrum +3e ROMs by Garry Lancaster.
+.PP
+You'll also need a HDF image to store the contents of the memory card.
+There are several tools to create and manipulate this file format, e.g.,
+hdfmonkey at
+.IR "https://github.com/gasman/hdfmonkey" .
+.\"
+.\"------------------------------------------------------------------
+.\"
+.SH "SPECTRANET EMULATION"
+The Spectranet is an Ethernet network interface for the ZX\ Spectrum
+by Dylan Thomas. The interface can be activated via the
+.I Spectranet
+option on the Peripherals preferences dialog, and the state of its
+automatic page-in (disable) jumper controlled via the
+.I "Spectranet disable"
+option. If you're going to be using the Spectranet, you'll
+probably want one of the firmwares available from the Spectranet
+homepage
+.RI ( http://spectrum.alioth.net/doc/index.php )
+which is also where you can find more information on using the interface.
+.PP
+Installing the Spectranet firmware on Fuse is slightly more
+complicated than on a real machine, mostly because Fuse's emulation
+doesn't support DHCP. These instructions are correct as of 2012-01-26
+\(em if you're using a later firmware than this, things may have changed
+slightly.
+.PP
+The first thing you will need to do is to obtain a copy of the
+Spectranet installer as a .tap file (or similar). The installer is
+also available at the Spectranet site above.
+
+Once you have a copy of the installer, start Fuse and tick the
+.I "Spectranet"
+option from the
+.I "Options, Peripherals, General..."
+dialog, and the state of its write protect jumper controlled via the
+.I "Spectranet disable"
+option. Once that's done, open the installer file (use the
+.I "Media, Tape, Open..."
+command rather than
+.I "File, Open..."
+to prevent autoloading) and enter the following commands from BASIC:
+.PP
+CLEAR 26999
+.br
+LOAD "" CODE
+.br
+RANDOMIZE USR 27000
+.PP
+The screen should turn blue and you'll see around 20 lines of message
+appearing as the firmware is installed, starting with \(lqErasing sector
+0\(rq and finishing with \(lqRestoring page B\(rq, and you'll get the familiar
+0\ OK,\ 0:\ 1 at the bottom of the screen.
+.PP
+Now untick the
+.I "Spectranet disable"
+option from the
+.I "Options, Peripherals, General..."
+dialog and reset the Spectrum. You should see a very brief blue status
+screen, before the regular copyright screen appears with some
+Spectranet information at the top \(em there should be four status lines,
+starting with \(lqAlioth Spectranet\(rq and ending with the Spectranet's IP
+address (which will be 255.255.255.255 at this stage).
+.PP
+Now trigger an NMI (the Machine / NMI menu option)
+and you should get a white on blue Spectranet NMI menu with five
+options.
+.PP
+Select [A] Configure network settings \(em this should lead you to
+another menu, which will scroll of the top of the screen; don't worry
+about this for now.
+.PP
+You'll now need to set various options:
+.PP
+[A] Enable/disable DHCP \(em select N
+.br
+[B] Change IP address \(em enter the IP address of the machine you are
+running Fuse on.
+.br
+[C] Change netmask \(em enter the appropriate netmask for the IP address
+you selected above. If that doesn't mean anything to you, try
+255.255.255.0
+.br
+[D] Change default gateway \(em enter the appropriate gateway address.
+If you don't know any better, enter the IP address of your router.
+.br
+[E] Change primary DNS \(em enter the address of your DNS server. If you
+don't know any better, use Google's public DNS server, 8.8.8.8.
+.PP
+There is no need to change options [F] or [G], but do select:
+.PP
+[H] Change hostname \(em enter a hostname for the Spectranet-enabled
+machine. It doesn't really matter what you enter here \(em it's mostly
+useful just to replace the junk default name so you can see what you've
+entered for the other settings.
+.PP
+Your screen should now look something like this:
+.PP
+.TS
+l s
+l l.
+Current configuration
+=
+Use DHCP	: No
+IP address	: 192.168.000.002
+Netmask	: 255.255.255.000
+Default gateway	: 192.168.000.001
+Primary DNS	: 192.168.000.001
+Secondary DNS	: 255.255.255.255
+Hardware address	: FF:FF:FF:FF:FF:FF
+Hostname	: fuse
+.T&
+l s.
+<menu options>
+.TE
+.PP
+If everything looks correct, select [I] Save changes and exit (you'll
+see a brief \(lqSaving configuration...\(rq message) followed by [E] Exit,
+at which point you'll be returned to BASIC.
+.PP
+Now type the following commands:
+.PP
+%cfgnew
+.br
+%cfgcommit
+.PP
+Which will show the standard 0 OK, 0:1 at the bottom of the screen. 
+.PP
+Reset the Spectrum again
+and you'll see the same four line status display, but this time with
+your IP address on the last line.
+.PP
+Congratulations! You have now installed the Spectranet firmware. To
+save having to go through all that every time you start Fuse, save a .szx
+snapshot at this point, and load that in every time you want to
+use the Spectranet.
+.\"
+.\"------------------------------------------------------------------
+.\"
+.SH "FILE SELECTION"
+The way you select a file (whether snapshot or tape file) depends on
+which UI you're using. So firstly, here's how to use the GTK+ file
+selector.
+.PP
+The selector shows the directories and files in the current directory
+in two separate subwindows. If either list is too big to fit in the
+window, you can use the scrollbar to see the rest (by dragging the
+slider, for example), or you can use
+.I Shift\(enTab
+(to move the keyboard focus to a subwindow) and use the cursor keys.
+To change directory, double-click it.
+.PP
+To choose a file to load you can either double-click it, or click it
+then click
+.IR Ok .
+Or click
+.I Cancel
+to abort.
+.PP
+If you're using the keyboard, probably the easiest way to use the
+selector is to just ignore it and type in the name. This isn't as
+irksome as it sounds, since the filename input box has filename
+completion \(em type part of a directory or file name, then press
+.IR Tab .
+It should complete it. If it was a directory, it moves to that
+directory; if the completion was ambiguous, it completes as much as
+possible, and narrows the filenames shown to those which match. You
+should press
+.I Enter
+when you've finished typing the filename, or
+.I Esc
+to abort.
+.PP
+Now, if you're using the widget UI \(em the one using the Spectrum font \(em
+the selector works a bit differently. The files and directories are
+all listed in a single two-column-wide window (the directories are
+shown at the top, ending in `/') \(em the names may be truncated onscreen
+if they're too long to fit.
+.PP
+To move the cursor, you can either use the cursor keys, or the
+Spectrum equivalents
+.\" too many to portably risk using IR...
+\fI5\fR/\fI6\fR/\fI7\fR/\fI8\fR, or (similarly)
+\fIh\fR/\fIj\fR/\fIk\fR/\fIl\fR. For faster movement, the
+.IR "Page Up" ,
+.IR "Page Down" ,
+.IR Home ,
+and
+.I End
+keys are supported and do what you'd expect. To select a file or
+directory, press
+.IR Enter .
+To abort, press
+.IR Esc .
+.PP
+With both selectors, do bear in mind that
+.I all
+files are shown, whether Fuse would be able to load them or not.
+.\"
+.\"------------------------------------------------------------------
+.\"
+.SH MONITOR/DEBUGGER
+.PP
+Firstly, note that the vast majority of this section applies only if
+you're using the GTK+ user interface; if you're using one of the
+widget user interfaces, you'll get a very basic monitor which shows
+the current values of the registers and allows you to single step
+through execution or continue.
+.PP
+If you are using the GTK+ user interface, Fuse features a moderately
+powerful, completely transparent monitor/debugger, which can be
+activated via the
+.I "Machine, Debugger..."
+menu option. A debugger window will appear, showing the current state
+of the emulated machine: the top-left `pane' shows the current state
+of the Z80 and the last bytes written to any emulated peripherals. The
+bottom-left pane lists any active breakpoints. Moving right, the next
+pane shows where the Spectrum's 64K memory map (the
+.RI ` W? '
+and
+.RI ` C? '
+indicate whether each displayed chunk is writable or contended respectively).
+Fuse tracks the memory mapping of the overall address space in 2KB chunks but 
+will summarise the mapped pages where they are part of the same page of the 
+underlying memory source (e.g. 8KB page sizes in the Spectrum 128K and 4KB 
+pages in the Timex clones' DOCK and EXROM banks).
+.PP
+The next pane to the right has a disassembly, which by default starts 
+at the current program counter, although this can be modified either by the
+`disassemble' command (see below) or by dragging the scrollbar next to
+it. The next pane shows the current stack, and the final pane any
+`events' which are due to occur and could affect emulation. Any of
+these panes can be removed by use of the
+.I View
+menu. Below the displays are an entry box for debugger commands, and
+five buttons for controlling the debugger:
+.PP
+.I Evaluate
+.RS
+Evaluate the command currently in the entry box.
+.RE
+.PP
+.I "Single Step"
+.RS
+Run precisely one Z80 opcode and then stop emulation again.
+.RE
+.PP
+.I Continue
+.RS
+Restart emulation, but leave the debugger window open. Note that the
+debugger window will not be updated while emulation is running.
+.RE
+.PP
+.I Break
+.RS
+Stop emulation and return to the debugger.
+.RE
+.PP
+.I Close
+.RS
+Close the debugger window and restart emulation.
+.RE
+.PP
+Double-clicking on an entry in the stack pane will cause emulation to
+run until the program counter reaches the value stored at that
+address, while double-clicking on an entry in the `events' pane will
+cause emulation to run until that time is reached.
+.PP
+The main power of the debugger is via the commands entered into the
+entry box, which are similar in nature (but definitely not identical
+to or as powerful as) to those in
+.IR gdb (1).
+In general, the debugger is case-insensitive, and numbers will be
+interpreted as decimal, unless prefixed by either
+.RI ` 0x '
+or
+.RI ` $ '
+when they will be interpreted as hex. Each command can be abbreviated
+to the portion not in curly braces.
+.PP
+ba{se}
+.I number
+.RS
+Change the debugger window to displaying output in base
+.IR number .
+Available values are 10 (decimal) or 16 (hex).
+.RE
+.PP
+br{eakpoint}
+.RI [ address "] [if " condition ]
+.RS
+Set a breakpoint to stop emulation and return to the debugger whenever
+an opcode is executed at
+.I address
+and
+.I condition
+evaluates true. If
+.I address
+is omitted, it defaults to the current value of PC.
+.RE
+.PP
+br{eakpoint} p{ort} (re{ad}|w{rite})
+.IR port " [if " condition ]
+.RS
+Set a breakpoint to trigger whenever IO port
+.I port
+is read from or written to and
+.I condition
+evaluates true.
+.RE
+.PP
+br{eakpoint} (re{ad}|w{rite})
+.RI [ address "] [if " condition ]
+.RS
+Set a breakpoint to trigger whenever memory location
+.I address
+is read from (other than via an opcode fetch) or written to and
+.I condition
+evaluates true.
+.I Address
+again defaults to the current value of PC if omitted.
+.RE
+.PP
+br{eakpoint} ti{me}
+.IR time " [if " condition ]
+.RS
+Set a breakpoint to occur
+.I time
+tstates after the start of the every frame, assuming
+.I condition
+evaluates true (if one is given).
+.RE
+.PP
+br{eakpoint} ev{ent}
+.IR area : detail " [if " condition ]
+.RS
+Set a breakpoint to occur when the event specified by
+.IR area : detail
+occurs and
+.I condition
+evaluates to true. The events which can be caught are:
+.PP
+beta128:page
+.br
+beta128:unpage
+.RS
+The Beta\ 128 interface is paged into or out of memory respectively.
+.RE
+.br
+didaktik80:page
+.br
+didaktik80:unpage
+.RS
+The Didaktik\ 80 interface is paged into or out of memory respectively.
+.RE
+.br
+disciple:page
+.br
+disciple:unpage
+.RS
+The DISCiPLE interface is paged into or out of memory respectively.
+.RE
+.br
+divide:page
+.br
+divide:unpage
+.RS
+The DivIDE interface is paged into or out of memory respectively.
+.RE
+.br
+divmmc:page
+.br
+divmmc:unpage
+.RS
+The DivIDE interface is paged into or out of memory respectively.
+.RE
+.br
+if1:page
+.br
+if1:unpage
+.RS
+The Interface\ 1 shadow ROM is paged into or out of memory.
+.RE
+.br
+multiface:page
+.br
+multiface:unpage
+.RS
+The Multiface One/128/3 is paged into or out of memory respectively.
+.RE
+.br
+opus:page
+.br
+opus:unpage
+.RS
+The Opus Discovery is paged into or out of memory respectively.
+.RE
+.br
+plusd:page
+.br
+plusd:unpage
+.RS
+The +D interface is paged into or out of memory respectively.
+.RE
+.br
+rzx:end
+.RS
+An RZX recording finishes playing.
+.RE
+.br
+speccyboot:page
+.br
+speccyboot:unpage
+.RS
+The SpeccyBoot interface is paged into or out of memory.
+.RE
+.br
+spectranet:page
+.br
+spectranet:unpage
+.RS
+The Spectranet interface is paged into or out of memory.
+.RE
+.br
+tape:play
+.br
+tape:stop
+.RS
+The emulated tape starts or stops playing.
+.RE
+.br
+zxatasp:page
+.br
+zxatasp:unpage
+.RS
+The ZXATASP interface is paged into or out of memory.
+.RE
+.br
+zxcf:page
+.br
+zxcf:unpage
+.RS
+The ZXCF interface is paged into or out of memory.
+.RE
+.PP
+In all cases, the event can be specified as
+.IR area :*
+to catch all events from that area.
+.RE
+.PP
+cl{ear}
+.RI [ address ]
+.RS
+Remove all breakpoints at
+.I address
+or the current value of PC if
+.I address
+is omitted. Port read/write breakpoints are unaffected.
+.RE
+.PP
+com{mmands}
+.I "id <newline>"
+.br
+.I "<debugger command> <newline>"
+.br
+.I "<debugger command> <newline>"
+.br
+.I ...
+.br
+end
+.RS
+Set things such that the specified debugger commands will be
+automatically executed when breakpoint
+.I id
+is triggered. There is currently no user interface for entering
+multi-line debugger commands, so the only way to specify this command is
+on the command-line via the
+.B \-\-debugger\-command
+option.
+.RE
+.PP
+cond{ition}
+.IR "id " [ condition ]
+.RS
+Set breakpoint
+.I id
+to trigger only when
+.I condition
+is true, or unconditionally if
+.I condition
+is omitted.
+.RE
+.PP
+co{ntinue}
+.RS
+Equivalent to the
+.I Continue
+button.
+.RE
+.PP
+del{ete}
+.RI [ id ]
+.RS
+Remove breakpoint
+.IR id ,
+or all breakpoints if
+.I id
+is omitted.
+.RE
+.PP
+di{sassemble}
+.I address
+.RS
+Set the centre panel disassembly to begin at
+.IR address .
+.RE
+.PP
+ex{it}
+.RI [ expression ]
+.RS
+Exit the emulator immediately, using the exit code resulting from the
+evaluation of
+.IR expression ,
+or 0 if
+.I expression
+is omitted.
+.RE
+.PP
+fi{nish}
+.RS
+Exit from the current CALL or equivalent. This isn't infallible: it
+works by setting a temporary breakpoint at the current contents of the
+stack pointer, so will not function correctly if the code returns to
+some other point or plays with its stack in other ways. Also, setting
+this breakpoint doesn't disable other breakpoints, which may trigger
+before this one. In that case, the temporary breakpoint remains, and
+the `continue' command can be used to return to it.
+.RE
+.PP
+i{gnore}
+.I "id count"
+.RS
+Do not trigger the next
+.I count
+times that breakpoint
+.I id
+would have triggered.
+.RE
+.PP
+n{ext}
+.RS
+Step to the opcode following the current one. As with the `finish'
+command, this works by setting a temporary breakpoint at the next
+opcode, so is not infallible.
+.RE
+.PP
+o{ut}
+.I "port value"
+.RS
+Write
+.I value
+to IO port
+.IR port .
+.RE
+.PP
+pr{int}
+.I expression
+.RS
+Print the value of
+.I expression
+to standard output.
+.RE
+.PP
+se{t}
+.I "address value"
+.RS
+Poke
+.I value
+into memory at
+.IR address .
+.RE
+.PP
+se{t}
+.RI $ variable
+.I value
+.RS
+Set the value of the debugger variable
+.I variable
+to
+.IR value .
+.RE
+.PP
+se{t}
+.IR area : detail
+.I value
+.RS
+Set the value of the system variable
+.IR area : detail
+to
+.IR value .
+The available system variables are listed below.
+.RE
+.PP
+s{tep}
+.RS
+Equivalent to the
+.I "Single Step"
+button.
+.RE
+.PP
+t{breakpoint}
+.RI [ options ]
+.RS
+This is the same as the `breakpoint' command in its various forms,
+except that the breakpoint is temporary: it will trigger once and
+once only, and then be removed.
+.RE
+.PP
+Addresses can be specified in one of two forms: either an absolute
+addresses, specified by an integer in the range 0x0000 to 0xFFFF or as
+a
+.RI ` source : page : offset '
+combination, which refers to a location
+.I offset
+bytes into memory bank
+.IR page ,
+independent of where that bank is currently paged into memory. RAM
+and ROM pages are indicated, respectively, by
+.RI ` RAM '
+and
+.RI ` ROM '
+sources (e.g. offset 0x1234 in ROM\ 1 is specified as
+.RI ` ROM:1:0x1234 "')."
+Other available sources are:
+.RI ` Betadisk "',"
+.RI ` "Didaktik 80 RAM" "',"
+.RI ` "Didaktik 80 ROM" "',"
+.RI ` "DISCiPLE RAM" "',"
+.RI ` "DISCiPLE ROM" "',"
+.RI ` "DivIDE EPROM" "',"
+.RI ` "DivIDE RAM" "',"
+.RI ` "DivMMC EPROM" "',"
+.RI ` "DivMMC RAM" "',"
+.RI ` If1 "',"
+.RI ` If2 "',"
+.RI ` "Multiface RAM" "',"
+.RI ` "Multiface ROM" "',"
+.RI ` "Opus RAM" "',"
+.RI ` "Opus ROM" "',"
+.RI ` "PlusD RAM" "',"
+.RI ` "PlusD ROM" "',"
+.RI ` SpeccyBoot "',"
+.RI ` Spectranet "',"
+.RI ` "Timex Dock" "',"
+.RI ` "Timex EXROM" "',"
+.RI ` uSource "',"
+.RI ` ZXATASP '
+and
+.RI ` ZXCF "'."
+Please, note that spaces in memory sources should be escaped, e.g.,
+`break Didaktik\\\ 80\\\ ROM:0:0x1234'.
+The 48K machines are treated as having a permanent
+mapping of page\ 5 at 0x4000, page\ 2 at 0x8000 and page\ 0 at 0xC000;
+the 16K\ Spectrum is treated as having page\ 5 at 0x4000 and no page at
+0x8000 and 0xC000.
+.PP
+Anywhere the debugger is expecting a numeric value, except where it
+expects a breakpoint id, you can instead use a numeric expression,
+which uses a restricted version of C's syntax; exactly the same syntax
+is used for conditional breakpoints, with `0' being false and any
+other value being true. In numeric expressions, you can use integer
+constants (all calculations are done in integers), system variables,
+debugger variables, parentheses, the standard four numeric operations
+(`+', `\-', `*' and `/'), the (non-)equality operators `==' and `!=',
+the comparison operators `>', `<', `>=' and `<=', bitwise and (`&'), or
+(`|') and exclusive or (`^') and logical and (`&&') and or (`||').
+Square brackets (`[' and `]') can be used to dereference a value; for
+example `[0x4000]' will give the value of the first byte of the screen.
+.PP
+System variables are specified via an
+.RI ` area : detail '
+syntax. The available system variables are:
+.PP
+ay:current
+.RS
+The current AY-3-8912 register.
+.RE
+divmmc:control
+.RS
+The last byte written to DivMMC control port.
+.RE
+spectrum:frames
+.RS
+The frame count since reset. Note that this variable can only be read, not
+written to.
+.RE
+tape:microphone
+.RS
+The current level of the tape input connected to the `EAR' port. Note that
+this variable can only be read, not written to.
+.RE
+ula:last
+.RS
+The last byte written to the ULA. Note that this variable can only
+be read, not written to.
+.RE
+ula:mem1ffd
+.RS
+The last byte written to memory control port used by the ZX Spectrum +2A/3;
+normally addressed at 0x1ffd, hence the name.
+.RE
+ula:mem7ffd
+.RS
+The last byte written to primary memory control port used by the ZX Spectrum
+128 and later; normally addressed at 0x7ffd, hence the name.
+.RE
+ula:tstates
+.RS
+The number of tstates since the last interrupt.
+.RE
+z80:
+.I register name
+.RS
+The value of the specified register. Both 8-bit registers and 16-bit
+register pairs are supported. The MEMPTR / WZ hidden register is also
+supported. The (presumable) Q hidden register is also supported.
+.RE
+z80:im
+.RS
+The current interrupt mode of the Z80.
+.RE
+z80:iff1
+.br
+z80:iff2
+.RS
+1 if the specified interrupt flip-flop is currently set, or 0 if it is
+not set.
+.RE
+.\"
+.\"------------------------------------------------------------------
+.\"
+.SH THE POKE FINDER
+.PP
+The `poke finder' is a tool which is designed to make the task of
+finding (infinite lives etc.) pokes for games a bit easier: it is
+similar to the `Lifeguard' utility which was available for use with the
+Multiface. It works by maintaining a list of locations in which the
+current number of lives (etc.) may be stored, and having the ability to
+remove from that list any locations which don't contain a specified value.
+.PP
+The poke finder dialog contains an entry box for specifying the value
+to be searched for, a count of the current number of possible
+locations and, if there are less than 20 possible locations, a list of
+the possible locations (in `page:offset' format). The five buttons
+act as follows:
+.PP
+.I Incremented
+.RS
+Remove from the list of possible locations all addresses which have
+not been incremented since the last search.
+.RE
+.PP
+.I Decremented
+.RS
+Remove from the list of possible locations all addresses which have
+not been decremented since the last search.
+.RE
+.PP
+.I Search
+.RS
+Remove from the list of possible locations all addresses which do not
+contain the value specified in the `Search for' field.
+.RE
+.PP
+.I Reset
+.RS
+Reset the poke finder so that all locations are considered possible.
+.RE
+.PP
+.I Close
+.RS
+Close the dialog. Note that this does not reset the current state of
+the poke finder.
+.RE
+.PP
+Double-clicking on an entry in the list of possible locations will
+cause a breakpoint to be set to trigger whenever that location is
+written to.
+.PP
+An example of how to use this may make things a bit clearer. We'll use
+the 128K version of Gryzor. Load the game, define keys to suit and
+start playing. Immediately pause the game and bring up the poke finder
+dialog. We note that we currently have 6\ lives, so enter `6' into the
+`Search for' field and click `Search'. This reduces the number of
+possible locations to around 931 (you may get a slightly different
+number depending on exactly when you paused the game). Play along a
+bit and then (deliberately) lose a life. Pause the game again. As we
+now have 5\ lives, replace the `6' in the `Search for' field with a `5'
+and click `Search' again. This then reduces the list of possible
+locations to just one: page\ 2, offset 0x00BC. This is the only
+location in memory which stored `6' when we had 6\ lives and `5' when
+we had 5\ lives, so its pretty likely that this is where the lives
+count is stored. Double-clicking on the `2:0x00BC' entry in the dialog
+will set the appropriate breakpoint (you may wish to open the debugger
+at this point to confirm this). Play along a bit more. When you next
+lose a life, emulation is stopped with PC at 0x91CD. Scrolling up a
+few addresses in the debugger's disassembly pane shows a value was
+loaded from 0x80BC (our hypothetical lives counter), decremented and
+then stored again to 0x80BC, which looks very much like the code to
+reduce the number of lives. We can now use the debugger to replace the
+decrement with a NOP (`set 0x91c9 0'), and playing the game some more
+after this reveals that this has worked and we now have infinite
+lives.
+.\"
+.\"------------------------------------------------------------------
+.\"
+.SH THE POKE MEMORY
+.PP
+Fuse supports multiface POKEs, allowing to modify specific memory addresses
+in order to cheat (infinite lives, infinite ammo, etc.).
+.PP
+The `poke memory' dialog contains a list of recently loaded POKEs and some
+entry boxes for adding custom POKEs:
+.PP
+.I Bank
+.RS
+Sets the 128K memory bank (values `0' to `7') or the current memory mapping
+(value `8' or blank).
+.RE
+.PP
+.I Address
+.RS
+Memory address to modify. Values in range 16384 to 65535 for 48K memory mode
+or 0 to 65535 for 128K memory banks. GTK+ UI also accepts hex addresses.
+.RE
+.PP
+.I Value
+.RS
+New value for the former address, in range 0 to 255. Value 256 means \(lqPrompt
+to the user later\(rq.
+.RE
+.PP
+It is possible to load POKEs from an external file using the
+.I "File, Open..."
+menu option or the drag-and-drop functionality in the GTK+ and Win32 UIs.
+After loading a snapshot or tape, Fuse will try to automatically locate a
+POK file with the same file name. This means that if we open `GAME.TAP',
+then Fuse will try to open `GAME.POK' and `POKES/GAME.POK'. See
+.IR "http://www.worldofspectrum.org/POKformat.txt"
+for more details about this file format.
+.PP
+POKEs loaded in the list can be activated or deactivated as the user wants
+and will remain in memory until a machine reset.
+.\"
+.\"------------------------------------------------------------------
+.\"
+.SH THE .DSK FORMAT
+.PP
+In general, disk images for the +3\ Spectrum are thought of as being in
+DSK format. However, this is actually a slight oversimplification;
+there are in fact
+.I two
+similar, but not identical, DSK formats. (The difference can be seen
+by doing
+.RB ` "head \-1"
+.IR dskfile ':
+one format will start `MV \- CPCEMU' and the other will start
+`EXTENDED').
+.PP
+Fuse supports both the `CPCEMU' and `EXTENDED' formats.
+.\"
+.\"------------------------------------------------------------------
+.\"
+.SH BETA\ 128 EMULATION
+.PP
+Fuse supports Betadisk emulation in its Pentagon and Scorpion
+emulation, and also under 48K, TC2048, 128K and +2 (but not +2A)
+emulation if the
+.I "Beta\ 128 interface"
+option from the
+.I "Options, Peripherals, Disk..."
+dialog is enabled. When that option is used in 48K or TC2048 emulation the
+.I "Beta\ 128 auto-boot in 48K machines"
+option additionally controls whether the machine boots directly into the TR-DOS
+system. See the
+.B "DISK FILE FORMATS"
+section for more details on supported disk file formats.
+.\"
+.\"------------------------------------------------------------------
+.\"
+.SH OPUS DISCOVERY EMULATION
+.PP
+By default, Fuse emulates the Opus Discovery interface with the optional 2k RAM
+expansion and a second 40\ track single sided disk drive.
+See the
+.B "DISK FILE FORMATS"
+section for more details on supported disk file formats. The Opus
+Discovery's printer port is also emulated for output only. (See the
+.B "PRINTER EMULATION"
+section for more details.) The Opus Discovery may only be
+used with 16K, 48K, 128K, TC2048 and +2 (not +2A) emulation.  To access disks,
+use the same syntax as Interface\ 1 and Microdrives.
+.\"
+.\"------------------------------------------------------------------
+.\"
+.SH +D EMULATION
+.PP
+Fuse supports emulating the +D disk and printer interface. See the
+.B "DISK FILE FORMATS"
+section for more details on supported disk file formats. The +D's
+printer port is emulated. (See the
+.B "PRINTER EMULATION"
+section for more details.) The +D may only be
+used with 48K, 128K and +2 (not +2A) emulation.  To access disks, you will first
+need to load G+DOS, by inserting a disk containing the DOS file (+SYS) and
+entering \(lqRUN\(rq.  Once DOS is loaded, you can load to/from +D disks
+by prefixing filenames with
+.RI `d n '
+where
+.RI ` n '
+is the number of the drive in use.  For example,
+.RI ` "LOAD d1\(dqmyfile\(dq" '
+would load the file named `myfile' from the emulated drive\ 1.
+Microdrive syntax may also be used.
+.PP
+To save a snapshot, choose the
+.I "Machine, NMI"
+menu option, and then
+press `4' to save a 48K snapshot, or `5' to save a 128K snapshot.
+When saving a 128K snapshot, you must then press Y or N to indicate
+whether the screen changed while saving the snapshot, to finish
+saving.  You can also choose `3' to save a screenshot to disk.
+Holding Caps Shift together with any of these options will cause
+the +D to save to the `other' drive to the one used last.
+.PP
+Options `1' and `2' allow screenshots to be printed (in monochrome,
+in normal and large formats respectively) if printer emulation is
+enabled.  For saving and loading of snapshots, and saving of
+screenshots to disk, G+DOS must be loaded first, but printing of
+screenshots can be performed without loading G+DOS.
+.PP
+Finally, `X' will return from the NMI menu.
+.\"
+.\"------------------------------------------------------------------
+.\"
+.SH DIDAKTIK 80 EMULATION
+.PP
+Fuse supports Didaktik 80 (and Didaktik 40) emulation.  It emulates
+the original version of the Didaktik\ 80, running MDOS\ 1 and with a
+WD2797 floppy controller.  See the
+.B "DISK FILE FORMATS"
+section for more details on supported disk file formats.
+The Didaktik\ 80 may only be used with 16K, 48K and TC2048 emulation.
+To press the Didaktik\ 80's `SNAP' button, choose the
+.I "Machine, Didaktik SNAP"
+menu option.
+.\"
+.\"------------------------------------------------------------------
+.\"
+.SH DISCIPLE EMULATION
+.PP
+Fuse supports emulating the DISCiPLE disk and printer interface, although
+it does not currently support emulation of the Sinclair Network, or
+support emulation of a DISCiPLE attached to a 128K machine. See the
+.B "DISK FILE FORMATS"
+section for more details on supported disk file formats, which are the
+same as for +D emulation as described above. The DISCiPLE's
+printer port is emulated. (See the
+.B "PRINTER EMULATION"
+section for more details.) The DISCiPLE may only be
+used with 48K emulation at present.  To access disks, you will first
+need to load GDOS, by inserting a disk containing the DOS file (SYS) and
+entering \(lqRUN\(rq.  Once DOS is loaded, you can load to/from DISCiPLE disks
+by prefixing filenames with
+.RI `d n '
+where
+.RI ` n '
+is the number of the drive in use.  For example,
+.RI ` "LOAD d1\(dqmyfile\(dq" '
+would load the file named `myfile' from the emulated drive\ 1.
+Microdrive syntax may also be used.
+.PP
+Snapshots can be saved in a similar manner to that of the +D as described
+above, but note that GDOS on the DISCiPLE contains a bug which causes
+corruption as soon as the NMI button is pressed, affecting saving of
+snapshots, and also loading of snapshots that were originally saved with
+a +D or SAM Coup\('e.  This will cause corruption even when a screenshot
+is printed, or if the menu is never even entered in the first place (due
+to Caps Shift not being pressed down, as is required for the DISCiPLE),
+provided that GDOS is loaded.  This bug is not present in G+DOS on the +D.
+(Note: this was caused by saving/restoring the AF register twice in the
+NMI handler, where both AF and the AF\(aq shadow register should have
+been saved/restored.)
+.PP
+The NMI button works slightly differently on the DISCiPLE than on the +D.
+Caps Shift must be held down whilst pressing the NMI button, and there
+is no `X' option to exit the menu.  Also, printing of screenshots requires
+GDOS to be loaded.  Depending on the UI that you're using, holding down
+Caps Shift whilst choosing the
+.I "Machine, NMI"
+menu option may be slightly tricky, or even impossible.  For the GTK+ UI,
+ensure that the Shift key is held before entering on the
+.I Machine
+menu.  For the widget UI, it does not seem possible to perform this
+action.
+.\"
+.\"------------------------------------------------------------------
+.\"
+.SH DISK FILE FORMATS
+.PP
+Fuse supports several disk image formats in its +D, Didaktik, DISCiPLE and
+Beta\ 128 emulation.
+.PP
+For reading:
+.PP
+.I .UDI
+.RS
+Ultra Disk Image; for specification please see
+.I http://faqwiki.zxnet.co.uk/wiki/UDI_format
+or
+.I http://zxmak.chat.ru/docs.htm
+.PP
+This is the only image format which can store all the relevant information
+of the recorded data on a magnetic disk, so it can be used for any
+.I "non standard"
+disk format. Fuse can read all extended track types too (mixed FM/MFM, or
+tracks with `WEAK' data or even compressed tracks too).
+.RE
+.PP
+.I .FDI
+.RS
+UKV Spectrum Debugger disk image format.
+.RE
+.PP
+.I .MGT
+.I .IMG
+.RS
+DISCiPLE/+D file formats.
+.RE
+.PP
+.I .SAD
+.RS
+For compatibility with SAM Coup\('e disk images using these formats.
+Note that SAM Coup\('e `.DSK' images share the same format as `.MGT'.
+.RE
+.PP
+.I .D80
+.I .D40
+.RS
+Didaktik 80 and Didaktik 40 file formats.
+.RE
+.PP
+.I .TRD
+.RS
+TR-DOS disk image. TRD and SCL sectors are loaded interleaved, therefore
+you might experience problems with TR\-DOS ROMs that use the turbo
+format (sequential sectors); for detailed information please see
+.I http://web.archive.org/web/20070808150548/http://www.ramsoft.bbk.org/tech/tr\-info.zip
+.RE
+.PP
+.I .SCL
+.RS
+A simple archive format for TR-DOS disk files. For specification please see
+.I http://www.zx-modules.de/fileformats/sclformat.html
+.RE
+.PP
+.I .TD0
+.RS
+Teledisk image format; Fuse supports only files which do not use the
+\(lqAdvanced Compression\(rq option. Detailed description found in
+.I http://www.classiccmp.org/dunfield/img54306/td0notes.txt
+and
+.I https://web.archive.org/web/20130116072335/http://www.fpns.net/willy/wteledsk.htm
+.RE
+.PP
+.I .DSK
+.RS
+CPC disk image format; Fuse supports the plain old and the new
+extended CPC format too. Further information please see the
+.B "THE .DSK FORMAT"
+section and the CPCEMU manual section 7.7.1
+.I http://www.cpc\-emu.org/linux/cpcemu_e.txt
+or the
+.I http://www.cpctech.org.uk/docs/extdsk.html
+.RE
+.PP
+.I .OPD
+.I .OPU
+.RS
+Opus Discovery file formats.
+.RE
+.PP
+Fuse supports most of the above formats for writing:
+.I ".UDI .FDI .MGT .IMG .SAD .D80 .D40 .TRD .SCL .OPD .OPU .DSK"
+(only the old CPC format).
+.PP
+You can save disk images with any output
+format, just select the appropriate extension. (e.g.
+.RI ` elite3.udi '
+to save as an UDI file). If the appropriate libraries were available
+when
+.IR libspectrum (3)
+was compiled, than Fuse will try to create UDI images with compressed
+tracks to save disk space.
+There is a
+.I .LOG
+`image' format for debugging purpose. This is a plain text file that
+contains three dumps of the loaded disk image at different details.
+Not all image formats can store all disk images.
+You cannot save a disk image with an inappropriate format
+that loses some information (e.g. variable track length or
+sector length).
+.\"
+.\"------------------------------------------------------------------
+.\"
+.SH WEAK DISK DATA
+.PP
+Some copy protections have what is described as `weak/random' data.
+Each time the sector is read one or more bytes will change,
+the value may be random between consecutive reads of the same sector.
+Two disk image formats (Extended DSK and UDI) can store this type
+of data.
+Fuse can read and use weak sector data from EDSK and UDI files when
+present, and can save back weak sector data to UDI image format.
+.\"
+.\"------------------------------------------------------------------
+.\"
+.SH MOVIE RECORDING
+.PP
+Fuse can save movies with sound in a specific file format (FMF).
+This recording is very fast, and has a moderate size, but you need to use
+the
+.IR fmfconv (1)
+program in 
+.IR fuse\-utils (1)
+to convert into regular video and/or audio
+files.
+The
+.B \-\-movie\-compr
+option allows you to set the compression level to None, Lossless or High. If
+.IR zlib (3)
+is not available, only None is valid. The default when Zlib is available
+is Lossless.
+Recording a movie may slow down emulation, if you experience performance
+problems, you can try to set compression to None.
+.PP
+Fuse records every displayed frame, so by default the recorded file has about
+50 video frame per second. A standard video has about 24\(en30/s framerate, so
+if you set
+.I "Options/General/Frame rate 1:n"
+or the equivalent
+.B \-\-rate
+command line option to 2 than recording frame rate reduces about 25/s. The
+exact frame rate depends on the Z80 clock frequency which varies depending on
+the specific emulated machine.
+.PP
+Note: You can see all of the \(lqgfx\(rq effects only if the Fuse frame rate
+option is set to 1, but in most cases you can safely use 2. Also, movie
+recording stops if the emulated machine is changed.
+.PP
+The recorded sound sampling rate and the channel number is equal with the
+Fuse generated sound sampling rate (44100\ Hz by default) and channel
+number (mono by default). The common sampling frequencies in
+standard video files are 44100\ Hz and 48000\ Hz. If you use
+.B \-\-sound\-freq
+command line option you can change the frequency.
+.PP
+You can record stereo sound if you use
+.I "AY stereo separation"
+or the equivalent
+.B \-\-separation
+command line switch.
+.PP
+You can use
+.IR fmfconv (1)
+to convert recorded movie file into a standard video file.
+.PP
+.B Examples
+.PP
+.B "fuse \-\-movie\-start output.fmf \-\-rate 2 \-\-sound\-freq 44100"
+.B "\-\-separation ACB"
+.PP
+start video recording about 25/s video frame rate and 44100\ Hz sampling
+frequency stereo sound default compression level.
+.\"
+.\"------------------------------------------------------------------
+.\"
+.SH COMPRESSED FILES
+.PP
+Assuming the appropriate libraries were available when
+.IR libspectrum (3)
+was compiled, snapshots, tape images, dock cartridges and input
+recording files (RZX) can be read from files compressed with
+.IR bzip2 "(3),"
+.IR gzip (3)
+or
+.IR zip (3)
+just as if they were uncompressed. In the zip case, only the first
+supported file found inside the archive is loaded.
+There is currently no support for reading compressed +3, DISCiPLE/+D
+or Beta disk images.
+.\"
+.\"------------------------------------------------------------------
+.\"
+.SH BUGS
+Selecting a startup filter doesn't work properly with user interfaces
+other than SDL, Win32 and GTK+.
+.PP
+Changing virtual consoles when using SVGAlib for joystick support
+causes Fuse to exit. If this is a problem, compile Fuse with the
+.RB ` \-\-disable\-ui\-joystick '
+option.
+.PP
+The poke finder can't search outside `normal' RAM.
+.PP
+The libao file output devices not work properly with the GTK+ UI.
+No error reporting, but the created file does not contain any sound data.
+If you use a `weak' machine alsa09 makes a lot of clicks and pops and
+will output
+.RI ` "ALSA: underrun, at least 0ms." '
+error messages.
+.\"
+.\"------------------------------------------------------------------
+.\"
+.SH FILES
+.I "~/.fuserc"
+.\"
+.\"------------------------------------------------------------------
+.\"
+.SH SEE ALSO
+.IR bzip2 "(3),"
+.IR fmfconv "(1),"
+.IR fuse\-utils "(1),"
+.IR gzip "(3),"
+.IR libspectrum "(3),"
+.IR ogg123 "(1),"
+.IR xspect "(1),"
+.IR xzx "(1),"
+.IR zip "(3)."
+.PP
+The comp.sys.sinclair Spectrum FAQ, at
+.br
+.IR "http://www.worldofspectrum.org/faq/index.html" .
+.\"
+.\"------------------------------------------------------------------
+.\"
+.\" `AUTHOR' here is deliberate; avoiding the plural IMHO makes it
+.\" clear that Phil is the main author.
+.\"
+.SH AUTHOR
+Philip Kendall (philip\-fuse@shadowmagic.org.uk).
+.PP
+Matan Ziv-Av wrote the SVGAlib and framebuffer UIs, the glib
+replacement code, and did some work on the OSS-specific sound code and
+the original widget UI code.
+.PP
+Russell Marks wrote the sound emulation and OSS-specific sound code,
+the joystick emulation, some of the printer code, and the original
+version of this man page.
+.PP
+John Elliott's lib765 and libdsk libraries were used for the original
++3 disk and disk image support.
+.PP
+Ian Collier wrote the ZX\ Printer emulation (for xz80).
+.PP
+Darren Salt wrote the original versions of the code for +3 emulation,
+SLT support, MITSHM support (for the Xlib UI), TZX raw data blocks,
+RZX embedded snapshots and compression, the Kempston mouse emulation
+and made many improvements to the widget code.
+.PP
+Alexander Yurchenko wrote the OpenBSD/Solaris-specific sound code.
+.PP
+Fredrick Meunier wrote the TC2048, TS2068, Pentagon and Spectrum SE
+support, the CoreAudio sound code, as well as maintaining the OS X
+port and importing the graphics filter code.
+.PP
+Ludvig Strigeus and The ScummVM project wrote the original graphics
+filter code.
+.PP
+Dmitry Sanarin wrote the original Beta disk interface emulation
+(for Glukalka).
+.PP
+Witold Filipczyk wrote the TC2068 support.
+.PP
+Matthew Westcott wrote the AY logging code and the DivIDE emulation.
+.PP
+Marek Januszewski wrote various bits of code to make Fuse work under
+Win32, including the DirectDraw user interface.
+.PP
+Sergio Baldov\('i made many improvements to the Win32 UI.
+.PP
+Stuart Brady wrote the DISCiPLE and +D emulation, Scorpion emulation
+and the HP-UX sound code.
+.PP
+Garry Lancaster wrote the 8-bit IDE, ZXATASP and ZXCF interface
+emulations.
+.PP
+Gergely Szasz wrote the Interface\ 1, Microdrive emulation and
+Didaktik\ 80 emulation, the PAL TV scalers, the TV\ 3x scaler,
+the movie logging code, the ALSA and libao sound code, the
+\(mcPD765 disk controller used in the +3 and made many
+improvements to the widget code.
+.PP
+Michael D Wynne wrote the original Opus disk interface emulation
+(for EightyOne).
+.PP
+Patrik Persson wrote the SpeccyBoot emulation.

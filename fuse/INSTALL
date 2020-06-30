@@ -1,0 +1,163 @@
+Building Fuse
+-------------
+
+To compile Fuse (see below for instructions for other ports):
+
+$ ./configure
+
+There are now some options you can give to configure; `configure
+--help' will list them all, but the most important are:
+
+--with-fb		Use the framebuffer interface, rather than GTK+.
+--with-sdl		Use the SDL interface, rather than GTK+.
+--with-svgalib		Use the SVGAlib interface.
+--without-gtk		Use the plain Xlib interface.
+
+If glib is installed on your system, Fuse will use this for a couple
+of things; however, it isn't necessary as libspectrum provides
+replacements for all the routines used by Fuse.
+
+Another useful option is `--with-local-prefix=DIRECTORY' which allows
+you to specify that you have some of the libraries needed by Fuse in
+`<DIRECTORY>/lib' and the necessary header files in
+`<DIRECTORY>/include'. If you specify the `--prefix' option to tell
+Fuse to install itself somewhere other than in /usr/local, that
+directory will automatically be searched as well.
+
+Then just:
+
+$ make
+
+and then
+
+$ make install
+
+if you want to place Fuse into the main directories on your system
+(under /usr/local by default, although you can change this with the
+--prefix argument to 'configure'). You'll probably need to be root to
+do this bit.
+
+Once you've got Fuse configured and built, read the man page :-)
+
+Note that if you're using version of Fuse from Git rather than
+one of the released tarballs, you'll need to run `autogen.sh' before
+running 'configure' for the first time.
+
+Building the OS X version of Fuse
+---------------------------------
+
+The native Cocoa port by Fredrick Meunier <fredm@spamcop.net> comes as
+a set of Xcode projects for libgcrypt, libspectrum and Fuse itself.
+
+Building the Wii version of Fuse
+--------------------------------
+
+You'll need to have the standard Wii homebrew toolchain installed; see
+eg <http://wiibrew.org/wiki/DevkitPro> for some information on setting
+this up.
+
+After that, make sure the dev tools are in your path (export
+PATH=$PATH:$DEVKITPPC/bin) and that a Wii version of libspectrum has been
+built and installed.
+
+Then, use this configure line:
+
+./configure --target=powerpc-gekko --host=powerpc-gekko \
+	    --with-wii \
+	    --without-libxml2 --without-libiconv --without-gpm --without-x \
+	    CFLAGS="-g -I$DEVKITPPC/include -I$DEVKITPRO/libogc/include -DGEKKO" \
+	    LDFLAGS="-g -mrvl -mcpu=750 -meabi -mhard-float \
+                     -Wl,-Map,fuse.elf.map -L$DEVKITPPC/lib \
+                     -L$DEVKITPRO/libogc/lib/wii" \
+            LIBS="-lfat -lwiiuse -lbte -logc -lm"
+
+Finally, to build, use this line:
+
+EXEEXT=".elf" make -e
+
+This should build fuse.elf, which you can run on your Wii via the usual
+methods.
+
+Building the Win32 version of Fuse
+----------------------------------
+
+You'll need to have the Mingw-w64 toolchain <http://mingw-w64.org/>, e.g., on
+Debian: `apt-get install mingw-w64'
+
+On Windows, besides the former toolchain, you'll need an environment that
+includes a collection of Unix tools, like MSYS2 <https://msys2.github.io/> or
+Cygwin <http://cygwin.com>.
+
+The next examples build libspectrum and Fuse without any external library for
+the sake of clarity, but all these libraries successfully compile with a MinGW
+environment - in case of problems with compiling any of the libs please refer to
+the lib's homepage for help.
+
+1) On Linux, first build libspectrum:
+
+./configure --host=i686-w64-mingw32 --without-libaudiofile --without-zlib \
+            --without-libgcrypt --without-bzip2 --with-fake-glib --prefix=`pwd`
+make install
+
+This should install libspectrum into the same source directory.
+
+Then, compile Fuse:
+
+PKG_CONFIG_LIBDIR=`pwd`/../libspectrum/lib/pkgconfig \
+./configure --host=i686-w64-mingw32 --prefix=`pwd` --with-win32 \
+            --without-libxml2 --without-zlib --without-png --without-pthread
+make
+
+You have to use the real path of libspectrum with `PKG_CONFIG_LIBDIR'.
+This should build `fuse.exe' without any external lib, but you can run it on
+Windows or Linux (with Wine).
+
+You need libwinpthread-1.dll in the same directory as `fuse.exe', most
+likely it is located in /usr/i686-w64-mingw32/lib/
+
+2) On Windows, using MSYS2 + Mingw-w64 toolchain, first build libspectrum:
+
+./configure --with-fake-glib --without-libaudiofile --without-libgcrypt \
+            --without-zlib --without-bzip2 --prefix=/usr/local
+make install
+
+Then, build Fuse:
+
+PKG_CONFIG_PATH=/usr/local/lib/pkgconfig \
+./configure --with-win32 --without-libxml2 --without-zlib --without-png \
+            --prefix=/usr/local
+make
+
+3) On Windows, using Cygwin + Mingw-w64 toolchain, first build libspectrum:
+
+./configure --build=i686-pc-cygwin --host=i686-w64-mingw32 --with-fake-glib \
+            --without-libaudiofile --without-libgcrypt --without-zlib \
+            --without-bzip2 --prefix=/usr/local/i686-w64-mingw32
+make install
+
+Then, build Fuse:
+
+PKG_CONFIG_LIBDIR=/usr/local/i686-w64-mingw32/lib/pkgconfig \
+./configure --build=i686-pc-cygwin --host=i686-w64-mingw32 --without-libxml2 \
+            --without-zlib --without-png --with-win32 \
+            --prefix=/usr/local/i686-w64-mingw32
+make
+
+Note: you need `libspectrum-8.dll' and the `roms' directory and the `lib'
+  directory to `fuse' run perfectly. You may copy this file and directories
+  into that directory where `fuse.exe' exists. On Windows you may need to
+  copy all files from `lib/uncompressed' into `lib'. Alternatively, you could
+  run this rule:
+
+  make install-win32 DESTDIR=/path/to/Fuse
+
+  If you are planning to distribute Windows binaries with third parties on a
+  regular basis, maybe you will find the next rules quite useful:
+
+  make dist-win32-zip
+  make dist-win32-7z
+  make dist-win32-exe
+
+  Additional tools are required for the former rules: Info-Zip, p7zip and NSIS,
+  respectively. That will make a temporary subdirectory (fuse-VERSION-win32)
+  in the build directory and then will create a package.

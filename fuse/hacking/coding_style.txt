@@ -1,0 +1,38 @@
+Coding style for Fuse
+
+In general, please stick to the following guidelines when writing code
+for Fuse. There are plenty of places which don't follow this style
+exactly, and certain source files which ignore it completely. If
+you're modifying these bits, don't reformat the existing code, and use
+your judgement as to whether patches should match the existing style
+or use this `official' style; new source files should always follow
+these guidelines.
+
+* Indents are two spaces
+
+* Variable names should be all_lowercase_and_separated_with_underscores,
+  except for #define and enum constants which should be
+  IN_UPPERCASE_AND_SEPARATED_WITH_UNDERSCORES.
+
+* There should be a space after the opening parenthesis of function
+  calls (unless there are no arguments), after operators (apart from
+  increments and decrements) and before the closing parenthesis of
+  function calls. Array subscripts should also have spaces around them
+  unless they're very short (eg `array[i]' ). Don't be afraid to add
+  extra spaces to line things up vertically where this helps
+  readability.
+
+* Despite the above, don't be afraid to leave out spaces around
+  operators if it helps group a complex expression more clearly.
+
+* Opening braces should be on the same line as their control construct
+  (except for function definitions), and closing braces should be on a
+  line of their own, except that cuddled elses ( ie `} else {' ) are
+  OK.
+
+* Function return types should be on a separate line to the name,
+  which should start in column 1 (this isn't used very much at all
+  yet, but I'd like to encourage it).
+
+* No C++ style `//' comments. Yes, I know most compilers now support
+  these in C, but some don't.

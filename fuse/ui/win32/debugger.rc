@@ -1,0 +1,132 @@
+/* debugger.rc: the Win32 debugger
+   Copyright (c) 2004 Marek Januszewski
+   Copyright (c) 2015 Stuart Brady
+
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License along
+   with this program; if not, write to the Free Software Foundation, Inc.,
+   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+   Author contact information:
+
+   E-mail: philip-fuse@shadowmagic.org.uk
+
+*/
+
+#include "debugger.h"
+		
+IDD_DBG DIALOGEX DISCARDABLE 6, 5, 555, 279
+CAPTION "Fuse - Debugger"
+FONT 8,"MS Sans Serif"
+MENU IDM_MENU
+STYLE WS_POPUP | WS_CAPTION | WS_VISIBLE | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+BEGIN
+  CONTROL	"", IDC_DBG_LV_PC, "SysListView32", \
+                WS_CHILD | WS_VISIBLE | LVS_REPORT | \
+                LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_NOSCROLL, \
+                238, 3, 133, 240, WS_EX_CLIENTEDGE
+  SCROLLBAR     IDC_DBG_SB_PC, 370, 3, 12, 240, WS_CHILD | SBS_VERT
+  CONTROL	"", IDC_DBG_LV_STACK, "SysListView32",
+                WS_CHILD | WS_VISIBLE | LVS_REPORT | \
+                LVS_SINGLESEL | LVS_SHOWSELALWAYS, \
+                384, 3, 86, 240, WS_EX_CLIENTEDGE
+  CONTROL	"", IDC_DBG_LV_EVENTS, "SysListView32", \
+                WS_CHILD | WS_VISIBLE | LVS_REPORT | \
+                LVS_SINGLESEL | LVS_SHOWSELALWAYS, \
+                472, 3, 81, 240, WS_EX_CLIENTEDGE
+  CONTROL	"", IDC_DBG_LV_BPS, "SysListView32",
+                WS_CHILD | WS_VISIBLE | LVS_REPORT | \
+                LVS_SINGLESEL | LVS_SHOWSELALWAYS, \
+                2, 147, 234, 96, WS_EX_CLIENTEDGE
+  EDITTEXT	IDC_DBG_ED_EVAL, 2, 245, 513, 14, \
+                WS_CHILD | WS_VISIBLE, WS_EX_CLIENTEDGE
+
+  DEFPUSHBUTTON "&Evaluate", IDC_DBG_BTN_EVAL, 517, 245, 36, 14
+  PUSHBUTTON    "&Single Step", IDC_DBG_BTN_STEP, 323, 260, 56, 14
+  PUSHBUTTON    "&Continue", IDC_DBG_BTN_CONT, 381, 260, 56, 14
+  PUSHBUTTON    "&Break", IDC_DBG_BTN_BREAK, 439, 260, 56, 14
+  PUSHBUTTON    "&Close", IDCLOSE, 497, 260, 56, 14
+
+  GROUPBOX	"Memory Map", IDC_DBG_GRP_MEMMAP, 114, 3, 122, 142
+
+  CTEXT		"0x0038", IDC_DBG_MAP11, 120, 27, 24, 9
+  CTEXT		"RAM 0", IDC_DBG_MAP12, 148, 27, 55, 9
+  CTEXT		"Y", IDC_DBG_MAP13, 206, 27, 11, 9
+  CTEXT		"N", IDC_DBG_MAP14, 219, 27, 11, 9
+  CTEXT		"0x0038", IDC_DBG_MAP21, 120, 40, 24, 9
+  CTEXT		"RAM 0", IDC_DBG_MAP22, 148, 40, 55, 9
+  CTEXT		"Y", IDC_DBG_MAP23, 206, 40, 11, 9
+  CTEXT		"N", IDC_DBG_MAP24, 219, 40, 11, 9
+  CTEXT		"0x0038", IDC_DBG_MAP31, 120, 53, 24, 9
+  CTEXT		"RAM 2", IDC_DBG_MAP32, 148, 53, 55, 9
+  CTEXT		"Y", IDC_DBG_MAP33, 206, 53, 11, 9
+  CTEXT		"N", IDC_DBG_MAP34, 219, 53, 11, 9
+  CTEXT		"0x0038", IDC_DBG_MAP41, 120, 66, 24, 9
+  CTEXT		"RAM 2", IDC_DBG_MAP42, 148, 66, 55, 9
+  CTEXT		"Y", IDC_DBG_MAP43, 206, 66, 11, 9
+  CTEXT		"N", IDC_DBG_MAP44, 219, 66, 11, 9
+  CTEXT		"0x0038", IDC_DBG_MAP51, 120, 79, 24, 9
+  CTEXT		"RAM 5", IDC_DBG_MAP52, 148, 79, 55, 9
+  CTEXT		"Y", IDC_DBG_MAP53, 206, 79, 11, 9
+  CTEXT		"Y", IDC_DBG_MAP54, 219, 79, 11, 9
+  CTEXT		"0x0038", IDC_DBG_MAP61, 120, 92, 24, 9
+  CTEXT		"RAM 5", IDC_DBG_MAP62, 148, 92, 55, 9
+  CTEXT		"Y", IDC_DBG_MAP63, 206, 92, 11, 9
+  CTEXT		"Y", IDC_DBG_MAP64, 219, 92, 11, 9
+  CTEXT		"0x0038", IDC_DBG_MAP71, 120, 105, 24, 9
+  CTEXT		"RAM 0", IDC_DBG_MAP72, 148, 105, 55, 9
+  CTEXT		"N", IDC_DBG_MAP73, 206, 105, 11, 9
+  CTEXT		"N", IDC_DBG_MAP74, 219, 105, 11, 9
+  CTEXT		"0x0000", IDC_DBG_MAP81, 120, 118, 24, 9
+  CTEXT		"RAM 0", IDC_DBG_MAP82, 148, 118, 55, 9
+  CTEXT		"N", IDC_DBG_MAP83, 206, 118, 11, 9
+  CTEXT		"N", IDC_DBG_MAP84, 219, 118, 11, 9
+
+  CTEXT		"Address", IDC_DBG_TEXT_ADDRESS, 118, 14, 28, 9
+  CTEXT		"Source", IDC_DBG_TEXT_SOURCE, 148, 14, 55, 9
+  CTEXT		"W?", IDC_DBG_TEXT_WRITABLE, 206, 14, 11, 9
+  CTEXT		"C?", IDC_DBG_TEXT_CONTENDED, 219, 14, 11, 9
+
+  RTEXT		"PC", IDC_DBG_REG_PC, 2, 5, 52, 9
+  RTEXT		"SP", IDC_DBG_REG_SP, 58, 5, 52, 9
+  RTEXT		"AF", IDC_DBG_REG_AF, 2, 14, 52, 9
+  RTEXT		"AF'", IDC_DBG_REG_AF_, 58, 14, 52, 9
+  RTEXT		"BC", IDC_DBG_REG_BC, 2, 23, 52, 9
+  RTEXT		"BC'", IDC_DBG_REG_BC_, 58, 23, 52, 9
+  RTEXT		"DE", IDC_DBG_REG_DE, 2, 32, 52, 9
+  RTEXT		"DE'", IDC_DBG_REG_DE_, 58, 32, 52, 9
+  RTEXT		"HL", IDC_DBG_REG_HL, 2, 41, 52, 9
+  RTEXT		"HL'", IDC_DBG_REG_HL_, 58, 41, 52, 9
+  RTEXT		"IX", IDC_DBG_REG_IX, 2, 50, 52, 9
+  RTEXT		"IY", IDC_DBG_REG_IY, 58, 50, 52, 9
+  RTEXT		"I", IDC_DBG_REG_I, 2, 59, 52, 9
+  RTEXT		"R", IDC_DBG_REG_R, 58, 59, 52, 9
+  LTEXT		"T-states", IDC_DBG_REG_T_STATES, 2, 77, 68, 9
+  LTEXT		"Halted", IDC_DBG_REG_HALTED, 2, 86, 52, 9
+  EDITTEXT	IDC_DBG_REG_IM, 68, 68, 42, 27, NOT WS_BORDER | ES_RIGHT | ES_MULTILINE | ES_READONLY
+  EDITTEXT	IDC_DBG_REG_FLAGS, 2, 95, 52, 18, NOT WS_BORDER | ES_RIGHT | ES_MULTILINE | ES_READONLY
+  EDITTEXT	IDC_DBG_REG_ULA, 58, 95, 52, 48, NOT WS_BORDER | ES_RIGHT | ES_MULTILINE | ES_READONLY
+END
+
+IDM_MENU MENU
+BEGIN
+  POPUP "&View"
+  BEGIN
+    MENUITEM "&Registers", IDM_DBG_REG
+    MENUITEM "&Memory Map", IDM_DBG_MEMMAP
+    MENUITEM "&Breakpoints", IDM_DBG_BPS
+    MENUITEM "&Disassembly", IDM_DBG_DIS
+    MENUITEM "&Stack", IDM_DBG_STACK
+    MENUITEM "&Events", IDM_DBG_EVENTS
+  END
+END

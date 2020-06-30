@@ -1,0 +1,86 @@
+/* windres.rc: resources for Windows
+   Copyright (c) 2007-2009 Stuart Brady, Marek Januszewski
+
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License along
+   with this program; if not, write to the Free Software Foundation, Inc.,
+   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+   Author contact information:
+
+   E-mail: philip-fuse@shadowmagic.org.uk
+
+*/
+
+#include <config.h>
+
+#include <windows.h>
+
+win32_icon ICON "data/win32/winfuse.ico"
+
+#ifdef UI_WIN32
+
+#include "ui/win32/about.rc"            /* reserved ids: 1800 - 1899 */
+#include "ui/win32/binary.rc"           /* reserved ids: 1300 - 1399 */
+#include "ui/win32/browse.rc"           /* reserved ids: 1400 - 1499 */
+#include "ui/win32/debugger.rc"         /* reserved ids: 2000 - 2099 */
+#include "ui/win32/memorybrowser.rc"    /* reserved ids: 4000 - 4099 */
+#include "ui/win32/menu_data.rc"        /* reserved ids: 100  - 899  */
+#include "ui/win32/options.rc"          /* reserved ids: 3000 - 3099 */
+#include "ui/win32/picture.rc"          /* reserved ids: 1200 - 1299 */
+#include "ui/win32/pokefinder.rc"       /* reserved ids: 1500 - 1599 */
+#include "ui/win32/pokemem.rc"          /* reserved ids: 1900 - 1999 */
+#include "ui/win32/rollback.rc"         /* reserved ids: 1600 - 1699 */
+#include "ui/win32/roms.rc"             /* reserved ids: 1100 - 1199 */
+#include "ui/win32/select_template.rc"  /* reserved ids: 1000 - 1099 */
+#include "ui/win32/statusbar.rc"        /* reserved ids: 900         */
+#include "ui/win32/win32joystick.rc"    /* reserved ids: 1700 - 1799 */
+
+#endif
+
+/* VERSIONINFO specs: http://msdn.microsoft.com/en-us/library/aa381058%28VS.85%29.aspx */
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION    	FUSE_RC_VERSION
+PRODUCTVERSION 	FUSE_RC_VERSION
+FILEFLAGSMASK  	VS_FFI_FILEFLAGSMASK
+FILEFLAGS      	0x0L
+FILEOS         	VOS__WINDOWS32
+FILETYPE       	VFT_APP
+FILESUBTYPE    	VFT2_UNKNOWN
+BEGIN
+  BLOCK "StringFileInfo"
+  BEGIN
+    BLOCK "040904B0"
+    BEGIN
+      VALUE "CompanyName",      "\0"
+      VALUE "FileDescription",  "Fuse\0"
+      VALUE "FileVersion",      VERSION##"\0"
+      VALUE "InternalName",     "Fuse\0"
+      VALUE "LegalCopyright",   FUSE_COPYRIGHT##"\0"
+      VALUE "License",          "Fuse is licensed under the GNU General Public License, version 2 or later\0"
+      VALUE "OriginalFilename", "fuse.exe\0"
+      VALUE "ProductName",      "Fuse - the Free Unix Spectrum Emulator\0"
+      VALUE "ProductVersion",   VERSION##"\0"
+    END
+ END
+
+  BLOCK "VarFileInfo"
+  BEGIN
+    VALUE "Translation", 0x409, 1252
+  END
+END
+
+/* Reference a manifest for visual styles. It must happen at the end.
+   Visual Studio generates the manifest automatically */
+#ifdef __GNUC__
+CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST "data/win32/fuse.manifest"
+#endif

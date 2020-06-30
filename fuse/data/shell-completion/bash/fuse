@@ -1,0 +1,282 @@
+# fuse: bash completion for fuse-emulator
+
+# Copyright (c) 2015 Sergio Baldoví
+
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+# Author contact information:
+
+# E-mail: Sergio Baldoví <serbalgi@gmail.com>
+
+_fuse_disk_merge()
+{
+    local IFS=$'\n'
+    COMPREPLY=( $( IFS='|' compgen -W 'Never|With single-sided drives|Always' -- "$cur" ) )
+}
+
+_fuse_drive_type()
+{
+    local IFS=$'\n'
+    COMPREPLY=( $( IFS='|' compgen -W 'Single-sided 40 track|Double-sided 40 track|Single-sided 80 track|Double-sided 80 track' -- "$cur" ) )
+}
+
+_fuse_phantom_typist()
+{
+    local IFS=$'\n'
+    COMPREPLY=( $( IFS='|' compgen -W 'Auto|Keyword|Keystroke|Menu|Plus 2A|Plus 3' -- "$cur" ) )
+}
+
+_fuse_speaker_type()
+{
+    local IFS=$'\n'
+    COMPREPLY=( $( IFS='|' compgen -W 'TV speaker|Beeper|Unfiltered' -- "$cur" ) )
+}
+
+_fuse()
+{
+    local cur prev words cword
+
+    _init_completion || return
+
+    COMPREPLY=()
+    _get_comp_words_by_ref cur prev
+
+    case $prev in
+        --betadisk|--discipledisk|--didaktik80disk|--opusdisk| \
+        --plus3disk|--plusddisk)
+            _filedir '@(d40|D40|d80|D80|dsk|DSK|img|IMG|fdi|FDI|mgt|MGT|opd|OPD|opu|OPU|sad|SAD|scl|SCL|td0|TD0|trd|TRD|udi|UDI)'
+            return 0
+            ;;
+        --disk-try-merge)
+            _fuse_disk_merge
+            return 0
+            ;;
+        --drive-plus3[ab]-type|--drive-beta128[abcd]-type| \
+        --drive-didaktik80[ab]-type|--drive-plusd[12]-type| \
+        --drive-disciple[12]-type|--drive-opus[12]-type)
+            _fuse_drive_type
+            return 0
+            ;;
+        --divide-masterfile|--divide-slavefile|--divmmc-file| \
+        --simpleide-masterfile|--simpleide-slavefile| \
+        --zxatasp-masterfile|--zxatasp-slavefile|--zxcf-cffile|--zxmmc-file)
+            _filedir '@(hdf|HDF)'
+            return 0
+            ;;
+        --dock)
+            _filedir '@(dck|DCK)'
+            return 0
+            ;;
+        --doublescan-mode|-D)
+            COMPREPLY=( $( compgen -W '0 1 2' -- "$cur" ) )
+            return 0
+            ;;
+        --fbmode|-v)
+            COMPREPLY=( $( compgen -W '320 640' -- "$cur" ) )
+            return 0
+            ;;
+        --graphics-filter|-g)
+            COMPREPLY=( $( compgen -W '2x 2xsai 3x advmame2x
+                advmame3x dotmatrix half halfskip hq2x hq3x normal
+                super2xsai supereagle timex15x timextv tv2x paltv
+                paltv2x paltv3x' -- "$cur" ) )
+            return 0
+            ;;
+        --graphicsfile)
+            _filedir '@(pbm)'
+            return 0
+            ;;
+        --help|-h|--version|-V)
+            return 0
+            ;;
+        --if2cart)
+            _filedir '@(rom|ROM)'
+            return 0
+            ;;
+        --machine|-m)
+            COMPREPLY=( $( compgen -W '16 48 48_ntsc 128 plus2 plus2a
+                plus3 2048 2068 ts2068 pentagon pentagon512 pentagon1024
+                scorpion se' -- "$cur" ) )
+            return 0
+            ;;
+        --microdrive-file|--microdrive-[2-8]-file)
+            _filedir '@(mdr|MDR)'
+            return 0
+            ;;
+        --movie-compr)
+            COMPREPLY=( $( compgen -W 'None Lossless High' -- "$cur" ) )
+            return 0
+            ;;
+        --movie-start)
+            _filedir '@(fmf|FMF)'
+            return 0
+            ;;
+        --phantom-typist-mode)
+            _fuse_phantom_typist
+            return 0
+            ;;
+        --playback|-p|--record|-r)
+            _filedir '@(rzx|RZX)'
+            return 0
+            ;;
+        --rom-16|--rom-48|--rom-128-[0-1]|--rom-plus2-[0-1]| \
+        --rom-plus2a-[0-3]|--rom-plus3-[0-3]|--rom-plus3e-[0-3]| \
+        --rom-tc2048|--rom-tc2068-[0-1]|--rom-ts2068-[0-1]| \
+        --rom-pentagon-[0-2]|--rom-pentagon512-[0-3]| \
+        --rom-pentagon1024-[0-3]|--rom-scorpion-[0-3]|--rom-spec-se-[0-1]| \
+        --rom-beta128|--rom-didaktik80|--rom-disciple|--rom-interface-1| \
+        --rom-multiface1|--rom-multiface128|--rom-multiface3| \
+        --rom-opus|--rom-plusd|--rom-speccyboot|--rom-usource)
+            _filedir '@(rom|ROM)'
+            return 0
+            ;;
+        --separation)
+            COMPREPLY=( $( compgen -W 'None ACB ABC' -- "$cur" ) )
+            return 0
+            ;;
+        --snapshot|-s)
+            _filedir '@(slt|SLT|sna?(pshot)|SNA?(PSHOT)|?(mgt)snp|?(MGT)SNP|sp|SP|szx|SZX|z80|Z80|zxs|ZXS)'
+            return 0
+            ;;
+        --speaker-type)
+            _fuse_speaker_type
+            return 0
+            ;;
+        --tape|-t)
+            _filedir '@(csw|CSW|ltp|LTP|pzx|PZX|spc|SPC|sta|STA|tap|TAP|tzx|TZX|wav|WAV)'
+            return 0
+            ;;
+        --textfile)
+            _filedir '@(txt)'
+            return 0
+            ;;
+        --competition-code|--debugger-command| \
+        --drive-40-max-track|--drive-80-max-track|--joystick-[12]|-j| \
+        --joystick-[12]-fire-[1-9]|--joystick-[12]-fire-1[0-5]| \
+        --joystick-[12]-output|--joystick-keyboard-down| \
+        --joystick-keyboard-fire|--joystick-keyboard-left| \
+        --joystick-keyboard-output|--joystick-keyboard-right| \
+        --joystick-keyboard-up|--mdr-len|--rate| \
+        --sdl-fullscreen-mode|--snet|--sound-device|-d| \
+        --sound-freq|-f|--speccyboot-tap|--speed|--svga-modes|--volume-ay| \
+        --volume-beeper|--volume-covox|--volume-specdrum)
+            # argument required but no completions available
+            return 0
+            ;;
+    esac
+
+    if [[ "$cur" == -* ]]; then
+        COMPREPLY=( $( compgen -W '--accelerate-loader --aspect-hint
+            --auto-load --autosave-settings --beta128 --beta128-48boot
+            --betadisk --bw-tv --cmos-z80 --competition-code
+            --competition-mode --compress-rzx --confirm-actions --covox
+            --debugger-command --detect-loader --didaktik80
+            --didaktik80disk --disciple --discipledisk --disk-ask-merge
+            --disk-try-merge --divide --divide-masterfile
+            --divide-slavefile --divide-write-protect --divmmc --divmmc-file
+            --divmmc-write-protect --dock
+            --doublescan-mode --drive-40-max-track
+            --drive-80-max-track --drive-beta128a-type
+            --drive-beta128b-type --drive-beta128c-type
+            --drive-beta128d-type --drive-didaktik80a-type
+            --drive-didaktik80b-type --drive-disciple1-type
+            --drive-disciple2-type --drive-opus1-type --drive-opus2-type
+            --drive-plus3a-type --drive-plus3b-type --drive-plusd1-type
+            --drive-plusd2-type --embed-snapshot --fastload --fbmode
+            --fuller --full-screen --graphicsfile --graphics-filter
+            --help --if2cart --interface1 --interface2 --issue2
+            --joystick-1 --joystick-1-fire-1 --joystick-1-fire-2
+            --joystick-1-fire-3 --joystick-1-fire-4 --joystick-1-fire-5
+            --joystick-1-fire-6 --joystick-1-fire-7 --joystick-1-fire-8
+            --joystick-1-fire-9 --joystick-1-fire-10
+            --joystick-1-fire-11 --joystick-1-fire-12
+            --joystick-1-fire-13 --joystick-1-fire-14
+            --joystick-1-fire-15 --joystick-1-output
+            --joystick-2 --joystick-2-fire-1 --joystick-2-fire-2
+            --joystick-2-fire-3 --joystick-2-fire-4 --joystick-2-fire-5
+            --joystick-2-fire-6 --joystick-2-fire-7 --joystick-2-fire-8
+            --joystick-2-fire-9 --joystick-2-fire-10
+            --joystick-2-fire-11 --joystick-2-fire-12
+            --joystick-2-fire-13 --joystick-2-fire-14
+            --joystick-2-fire-15 --joystick-2-output
+            --joystick-keyboard-down --joystick-keyboard-fire
+            --joystick-keyboard-left --joystick-keyboard-output
+            --joystick-keyboard-right --joystick-keyboard-up
+            --joystick-prompt --kempston --kempston-mouse
+            --keyboard-arrows-shifted --late-timings
+            --loading-sound --machine --mdr-len --mdr-random-len --melodik
+            --microdrive-file --microdrive-2-file --microdrive-3-file
+            --microdrive-4-file --microdrive-5-file --microdrive-6-file
+            --microdrive-7-file --microdrive-8-file --mouse-swap-buttons
+            --movie-compr --movie-start --movie-stop-after-rzx
+            --multiface1 --multiface128 --multiface3 --multiface1-stealth
+            --no-accelerate-loader --no-aspect-hint --no-auto-load
+            --no-autosave-settings --no-beta128 --no-beta128-48boot
+            --no-bw-tv --no-cmos-z80 --no-competition-mode
+            --no-compress-rzx --no-confirm-actions --no-covox
+            --no-detect-loader
+            --no-didaktik80 --no-disciple --no-disk-ask-merge
+            --no-divide --no-divide-write-protect --no-divmmc
+            --no-divmmc-write-protect --no-embed-snapshot
+            --no-fastload --no-fuller --no-full-screen --no-interface1
+            --no-interface2 --no-issue2 --no-joystick-prompt
+            --no-kempston --no-kempston-mouse --no-keyboard-arrows-shifted
+            --no-late-timings --no-loading-sound --no-mdr-random-len
+            --no-melodik --no-mouse-swap-buttons --no-movie-stop-after-rzx
+            --no-multiface1 --no-multiface128 --no-multiface3
+            --no-multiface1-stealth --no-opus --no-pal-tv2x
+            --no-plus3-detect-speedlock --no-plusd --no-printer
+            --no-raw-s-net --no-recreated-spectrum --no-rs232-handshake
+            --no-rzx-autosaves --no-simpleide --no-slt --no-sound
+            --no-sound-force-8bit --no-speccyboot --no-specdrum
+            --no-spectranet --no-spectranet-disable --no-statusbar
+            --no-strict-aspect-hint --no-traps --no-unittests --no-usource
+            --no-writable-roms --no-zxatasp --no-zxatasp-upload
+            --no-zxatasp-write-protect --no-zxcf --no-zxcf-upload --no-zxmmc
+            --no-zxprinter --opus --opusdisk --pal-tv2x --phantom-typist-mode
+            --playback --plus3-detect-speedlock --plus3disk --plusd --plusddisk
+            --printer --rate --raw-s-net --record --recreated-spectrum
+            --rom-128-0 --rom-128-1
+            --rom-16 --rom-48 --rom-beta128 --rom-didaktik80 --rom-disciple
+            --rom-interface-1 --rom-multiface1 --rom-multiface128
+            --rom-multiface3 --rom-opus
+            --rom-pentagon-0 --rom-pentagon-1 --rom-pentagon-2
+            --rom-pentagon512-0 --rom-pentagon512-1 --rom-pentagon512-2
+            --rom-pentagon512-3 --rom-pentagon1024-0 --rom-pentagon1024-1
+            --rom-pentagon1024-2 --rom-pentagon1024-3
+            --rom-plus2-0 --rom-plus2-1 --rom-plus2a-0 --rom-plus2a-1
+            --rom-plus2a-2 --rom-plus2a-3 --rom-plus3-0 --rom-plus3-1
+            --rom-plus3-2 --rom-plus3-3 --rom-plus3e-0 --rom-plus3e-1
+            --rom-plus3e-2 --rom-plus3e-3 --rom-plusd --rom-scorpion-0
+            --rom-scorpion-1 --rom-scorpion-2 --rom-scorpion-3
+            --rom-speccyboot --rom-spec-se-0 --rom-spec-se-1
+            --rom-tc2048 --rom-tc2068-0 --rom-tc2068-1 --rom-ts2068-0
+            --rom-ts2068-1 --rom-usource --rs232-handshake --rs232-rx
+            --rs232-tx --rzx-autosaves --sdl-fullscreen-mode --separation
+            --simpleide --simpleide-masterfile --simpleide-slavefile --slt
+            --snapshot --snet --sound --sound-device --sound-force-8bit
+            --sound-freq --speaker-type --speccyboot --speccyboot-tap
+            --specdrum --spectranet --spectranet-disable --speed
+            --statusbar --strict-aspect-hint --svga-modes --tape
+            --textfile --traps --unittests --usource --version --volume-ay
+            --volume-beeper --volume-covox --volume-specdrum --writable-roms
+            --zxatasp --zxatasp-masterfile --zxatasp-slavefile --zxatasp-upload
+            --zxatasp-write-protect --zxcf --zxcf-cffile --zxcf-upload
+            --zxmmc --zxmmc-file --zxprinter' -- "$cur" ) )
+    else
+        _filedir '@(csw|CSW|ltp|LTP|pzx|PZX|spc|SPC|sta|STA|tap|TAP|tzx|TZX|wav|WAV|slt|SLT|sna?(pshot)|SNA?(PSHOT)|?(mgt)snp|?(MGT)SNP|sp|SP|szx|SZX|z80|Z80|zxs|ZXS|d40|D40|d80|D80|dsk|DSK|img|IMG|fdi|FDI|mgt|MGT|opd|OPD|opu|OPU|sad|SAD|scl|SCL|td0|TD0|trd|TRD|udi|UDI|rzx|RZX|dck|DCK|hdf|HDF|mdr|MDR)'
+    fi
+} &&
+complete -F _fuse -o filenames fuse

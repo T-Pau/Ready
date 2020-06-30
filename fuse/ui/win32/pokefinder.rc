@@ -1,0 +1,46 @@
+/* res_pokefinder.rc: Win32 interface to the poke finder
+   Copyright (c) 2004 Marek Januszwski
+
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License along
+   with this program; if not, write to the Free Software Foundation, Inc.,
+   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+   Author contact information:
+
+   E-mail: philip-fuse@shadowmagic.org.uk
+
+*/
+
+#include "pokefinder.h"
+
+IDD_POKEFINDER DIALOGEX DISCARDABLE 6,6,330,49
+CAPTION "Fuse - Poke Finder"
+STYLE WS_POPUP | WS_CAPTION | WS_VISIBLE | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+FONT 8,"Ms Shell Dlg 2",400,0,1
+BEGIN
+  CTEXT "Search for:", IDC_PF_SEARCH_FOR, 20, 10, 38, 8
+  EDITTEXT IDC_PF_EDIT, 70, 7, 80, 14,
+    WS_CHILD | WS_TABSTOP | WS_VISIBLE, WS_EX_CLIENTEDGE
+
+  CTEXT "Possible locations: 6", IDC_PF_LOCATIONS, 173, 10, 150, 8
+  CONTROL "", IDC_PF_LIST, "SysListView32",
+    WS_CHILD | WS_TABSTOP | LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS,
+    173, 25, 150, 39, WS_EX_CLIENTEDGE
+
+  PUSHBUTTON "&Incremented", IDC_PF_INC, 7, 28, 60, 14
+  PUSHBUTTON "&Decremented", IDC_PF_DEC, 71, 28, 60, 14
+  DEFPUSHBUTTON "&Search", IDC_PF_SEARCH, 135, 28, 60, 14
+  PUSHBUTTON "&Reset", IDC_PF_RESET, 199, 28, 60, 14
+  PUSHBUTTON "&Close", IDCLOSE, 263, 28, 60, 14
+END

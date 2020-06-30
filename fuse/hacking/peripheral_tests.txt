@@ -1,0 +1,94 @@
+Some peripheral smoke tests:
+
+Beta Disk
+
+* Start fuse as ./fuse --beta128 --betadisk lib/tests/success.udi
+* At the A> prompt, enter LOAD "success"
+* You should see "Congraturation! You sucsess!"
+
++D
+
+* Acquire the +D system tape from
+  http://www.worldofspectrum.org/pub/sinclair/utils/PlusDSystemTape.tzx.zip
+* Uncompress PlusDSystemTape.tzx.zip
+* Uncompress lib/tests/success.mgt.bz2
+* Start fuse as
+  ./fuse --plusd --plusddisk lib/tests/success.mgt PlusDSystemTape.tzx
+* Hit enter
+* Hit <Break>
+* Enter NEW
+* Enter LOAD d1"Success"
+* You should see "Congraturation! You sucsess!"
+
+Didaktik 80
+
+* Start fuse as ./fuse --didaktik80 --didaktik80disk lib/tests/success.d80
+* Enter LOAD *"success"
+* You should see "Congraturation! You sucsess!"
+
+DISCiPLE
+
+* Acquire the DISCiPLE system tape from
+  http://www.worldofspectrum.org/pub/sinclair/utils/DISCiPLESystemTapeV3d.tzx.zip
+* Uncompress DISCiPLESystemTapeV3d.tzx.zip
+* Uncompress lib/tests/success.mgt.bz2
+* Place a DISCiPLE ROM image in the 'roms' directory.
+* Start fuse as
+  ./fuse --disciple --discipledisk lib/tests/success.mgt GDOS\ 3d.tzx
+* Hit enter
+* Hit <Break>
+* Enter NEW
+* Enter LOAD d1"Success"
+* You should see "Congraturation! You sucsess!"
+
+DivIDE
+
+* Acquire the FATware installer from
+  http://web.archive.org/web/20150302052256/http://baze.au.com/divide/
+* Uncompress lib/tests/fatware-success.hdf.bz2
+* Start fuse as
+  ./fuse --divide --divide-masterfile fatware-success.hdf FATware-0-12.tap
+* Follow prompts; the "JP2 (E) jumper" is the DivIDE write protect option.
+* When rebooting, you should see "0 Created by hdfmonkey  LBA"
+* Fire an NMI; you should see a file selector with "SUCCESS.TAP" highlighted
+* Press Enter and then LOAD ""
+* You should see "Program: success",
+  followed by "Congraturation! You sucsess!"
+
+Interface 1
+
+* Start fuse as ./fuse --interface1 --microdrive-file lib/tests/success.mdr
+* Enter LOAD *"m";1;"Success"
+* You should see "Congraturation! You sucsess!"
+
+Opus
+
+* Start fuse as ./fuse --opus --opusdisk lib/tests/success.opd
+* Enter LOAD *"m";1;"success"
+* You should see "Congraturation! You sucsess!"
+
+ZXATASP
+
+* Acquire the ResiDOS ZXATASP installer from
+  http://www.worldofspectrum.org/residos/downloads.html
+* Uncompress lib/tests/idedos-success.hdf.bz2
+* Start fuse as
+  ./fuse --zxatasp --zxatasp-upload --zxatasp-masterfile idedos-success.hdf ResiDOS-ZXATASP-2.25.tap
+* Follow prompts until the Spectrum resets. You should see
+  "Unit 0: IDEDOS-formatted", "Logical units: 0", "Mapped drives: A" and
+  "Default: 0A"
+* Enter LOAD %"success"
+* You should see "Congraturation! You sucsess!"
+
+ZXCF
+
+* Acquire the ResiDOS ZXCF installer from
+  http://www.worldofspectrum.org/residos/downloads.html
+* Uncompress lib/tests/idedos-success.hdf.bz2
+* Start fuse as
+  ./fuse --zxcf --zxcf-upload --zxcf-cffile idedos-success.hdf ResiDOS-ZXCF-2.25.tap
+* Follow prompts until the Spectrum resets. You should see
+  "Unit 0: IDEDOS-formatted", "Logical units: 0", "Mapped drives: A" and
+  "Default: 0A"
+* Enter LOAD %"success"
+* You should see "Congraturation! You sucsess!"

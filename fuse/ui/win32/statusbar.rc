@@ -1,0 +1,33 @@
+/* statusbar.rc: icons for the status bar
+   Copyright (c) 2004 Marek Januszewski
+
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License along
+   with this program; if not, write to the Free Software Foundation, Inc.,
+   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+   Author contact information:
+
+   E-mail: philip-fuse@shadowmagic.org.uk
+
+*/
+
+win32bmp_disk_active    BITMAP "ui/win32/icons/disk_active.bmp"
+win32bmp_disk_inactive  BITMAP "ui/win32/icons/disk_inactive.bmp"
+win32bmp_mdr_active     BITMAP "ui/win32/icons/mdr_active.bmp"
+win32bmp_mdr_inactive   BITMAP "ui/win32/icons/mdr_inactive.bmp"
+win32bmp_pause_active   BITMAP "ui/win32/icons/pause_active.bmp"
+win32bmp_pause_inactive BITMAP "ui/win32/icons/pause_inactive.bmp"
+win32bmp_tape_active    BITMAP "ui/win32/icons/tape_active.bmp"
+win32bmp_tape_inactive  BITMAP "ui/win32/icons/tape_inactive.bmp"
+win32bmp_mouse_active   BITMAP "ui/win32/icons/mouse_active.bmp"
+win32bmp_mouse_inactive BITMAP "ui/win32/icons/mouse_inactive.bmp"

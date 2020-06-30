@@ -1,0 +1,22 @@
+Porting Fuse
+============
+
+Sorry, at the moment this isn't a helpful guide as to what you need to do
+to port Fuse to a new platform.
+
+Unfortunately, various people have failed to read and understand the GNU
+General Public License (see 'COPYING') before porting Fuse, so this is a
+very brief guide to what you can and can't do with Fuse's code:
+
+* If you release a binary of Fuse, you *must* release *all* the source
+  code you used to create it at the same time. "Soon" or "when I've
+  tidied up the code" is NOT acceptable.
+
+* If you use any code which you haven't written yourself, it must be
+  available under a licence compatible with the GPL. As an example, this
+  means you may *not* use any code which "may not be used for commercial
+  purposes". Any code which is licenced under the GPL (v2), the modified
+  BSD license or which is truly in the public domain is OK.
+
+Note that above is not an exhaustive list of what you can and cannot
+do with Fuse's code. For the full details, see the GPL.

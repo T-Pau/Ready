@@ -1,0 +1,134 @@
+general
+General Options
+Entry, (E)mulation speed, emulation_speed, INPUT_KEY_e, 5, %
+Entry, F(r)ame rate (1:n), frame_rate, INPUT_KEY_r, 1, frames
+Checkbox, Issue (2) keyboard, issue2, INPUT_KEY_2
+Checkbox, Recrea(t)ed ZX Spectrum, recreated_spectrum, INPUT_KEY_t
+Checkbox, Use shift with (a)rrow keys, keyboard_arrows_shifted, INPUT_KEY_a
+Checkbox, Allow (w)rites to ROM, writable_roms, INPUT_KEY_w
+Checkbox, Late t(i)mings, late_timings, INPUT_KEY_i
+Checkbox, (Z)80 is CMOS, z80_is_cmos, INPUT_KEY_z
+Checkbox, RS-232 (h)andshake, rs232_handshake, INPUT_KEY_h
+#ifdef BUILD_WITH_SNET
+Checkbox, Raw Sinclair(N)ET, raw_s_net, INPUT_KEY_n
+#endif
+Checkbox, Black and white T(V), bw_tv, INPUT_KEY_v
+Checkbox, (P)AL-TV use TV2x effect, pal_tv2x, INPUT_KEY_p
+#ifdef UI_SDL
+Checkbox, Full (s)creen, full_screen, INPUT_KEY_s
+#endif
+Checkbox, Show status(b)ar, statusbar, INPUT_KEY_b
+Checkbox, Snap (j)oystick prompt, joy_prompt, INPUT_KEY_j
+Checkbox, (C)onfirm actions, confirm_actions, INPUT_KEY_c
+Checkbox, A(u)to-save settings, autosave_settings, INPUT_KEY_u
+
+media
+Media Options
+Checkbox, (A)uto-load media, auto_load, INPUT_KEY_a
+Combo, (P)hantom typist mode, phantom_typist_mode, INPUT_KEY_p, *Auto|Keyword|Keystroke|Menu|Plus 2A|Plus 3
+Checkbox, (D)etect loaders, detect_loader, INPUT_KEY_d
+Checkbox, (F)astloading, fastload, INPUT_KEY_f
+Checkbox, Use (t)ape traps, tape_traps, INPUT_KEY_t
+Checkbox, Accelerate l(o)aders, accelerate_loader, INPUT_KEY_o
+Checkbox, Use .s(l)t traps, slt_traps, INPUT_KEY_l
+Entry, (M)DR cartridge len, mdr_len, INPUT_KEY_m, 3, blocks
+Checkbox, Random len(g)th MDR cartridge, mdr_random_len, INPUT_KEY_g
+
+peripherals_general
+General Peripheral Options
+Checkbox, (K)empston joystick, joy_kempston, INPUT_KEY_k
+Checkbox, Kempston (m)ouse, kempston_mouse, INPUT_KEY_m
+Checkbox, (S)wap mouse buttons, mouse_swap_buttons, INPUT_KEY_s
+Checkbox, (F)uller Box, fuller, INPUT_KEY_f
+Checkbox, M(e)lodik, melodik, INPUT_KEY_e
+Checkbox, (I)nterface 1, interface1, INPUT_KEY_i
+Checkbox, In(t)erface 2, interface2, INPUT_KEY_t
+Checkbox, Mu(l)tiface One, multiface1, INPUT_KEY_l
+Checkbox, Multiface 12(8), multiface128, INPUT_KEY_8
+Checkbox, Multiface (3), multiface3, INPUT_KEY_3
+Checkbox, Stealt(h) Multiface One, multiface1_stealth, INPUT_KEY_h
+Checkbox, Emulate (p)rinters, printer, INPUT_KEY_p
+Checkbox, (Z)X Printer, zxprinter, INPUT_KEY_z
+#ifdef BUILD_SPECCYBOOT
+Checkbox, Speccy(B)oot interface, speccyboot, INPUT_KEY_b
+#endif
+Checkbox, Spec(D)rum interface, specdrum, INPUT_KEY_d
+#ifdef BUILD_SPECTRANET
+Checkbox, Spectra(n)et, spectranet, INPUT_KEY_n
+Checkbox, Spe(c)tranet disable, spectranet_disable, INPUT_KEY_c
+#endif
+Checkbox, uSo(u)rce, usource, INPUT_KEY_u
+Checkbox, C(o)vox interface, covox, INPUT_KEY_o
+Postcheck, periph_postcheck
+Posthook, periph_posthook
+
+peripherals_disk
+Disk Peripheral Options
+Checkbox, Simple (8)-bit IDE, simpleide_active, INPUT_KEY_8
+Checkbox, (Z)XATASP interface, zxatasp_active, INPUT_KEY_z
+Checkbox, ZXATASP up(l)oad, zxatasp_upload, INPUT_KEY_l
+Checkbox, Z(X)ATASP write protect, zxatasp_wp, INPUT_KEY_x
+Checkbox, ZX(C)F interface, zxcf_active, INPUT_KEY_c
+Checkbox, ZXCF (u)pload, zxcf_upload, INPUT_KEY_u
+Checkbox, Div(I)DE interface, divide_enabled, INPUT_KEY_i
+Checkbox, DivIDE (w)rite protect, divide_wp, INPUT_KEY_w
+Checkbox, Div(M)MC interface, divmmc_enabled, INPUT_KEY_m
+Checkbox, DivMMC w(r)ite protect, divmmc_wp, INPUT_KEY_r
+Checkbox, +(D) interface, plusd, INPUT_KEY_d
+Checkbox, Dida(k)tik 80 interface, didaktik80, INPUT_KEY_k
+Checkbox, DISCi(P)LE interf(a)ce, disciple, INPUT_KEY_p
+Checkbox, (B)eta 128 interface, beta128, INPUT_KEY_b
+Checkbox, Beta 128 (a)uto-boot in 48K machines, beta128_48boot, INPUT_KEY_a
+Checkbox, (O)pus Discovery interface, opus, INPUT_KEY_o
+Checkbox, ZXMMC i(n)terface, zxmmc_enabled, INPUT_KEY_n
+Postcheck, periph_postcheck
+Posthook, periph_posthook
+
+rzx
+RZX Options
+Checkbox, Create (a)utosaves, rzx_autosaves, INPUT_KEY_a
+Checkbox, (C)ompress RZX data, rzx_compression, INPUT_KEY_c
+Checkbox, C(o)mpetition mode, competition_mode, INPUT_KEY_o
+Entry, Co(m)petition code, competition_code, INPUT_KEY_m, 8,
+Checkbox, Always (e)mbed snapshot, embed_snapshot, INPUT_KEY_e
+
+sound
+Sound Options
+Checkbox, (S)ound enabled, sound, INPUT_KEY_s
+Checkbox, (L)oading sound, sound_load, INPUT_KEY_l
+Combo, (A)Y stereo separation, stereo_ay, INPUT_KEY_a, *None|ACB|ABC
+Checkbox, (F)orce 8-bit, sound_force_8bit, INPUT_KEY_f
+Combo, Speaker (t)ype, speaker_type, INPUT_KEY_t, *TV speaker|Beeper|Unfiltered
+Entry, A(Y) volume, volume_ay, INPUT_KEY_y, 3, %
+Entry, B(e)eper volume, volume_beeper, INPUT_KEY_e, 3, %
+Entry, Spec(D)rum volume, volume_specdrum, INPUT_KEY_d, 3, %
+Entry, (C)ovox volume, volume_covox, INPUT_KEY_c, 3, %
+
+diskoptions
+Drives Setup
+Combo, +(3) Drive A, drive_plus3a_type, INPUT_KEY_3, *Single-sided 40 track|Double-sided 40 track|Single-sided 80 track|Double-sided 80 track
+Combo, +3 Driv(e) B, drive_plus3b_type, INPUT_KEY_e, Disabled|Single-sided 40 track|Double-sided 40 track|Single-sided 80 track|*Double-sided 80 track
+Checkbox, +3 Detect (S)peedlock, plus3_detect_speedlock, INPUT_KEY_s
+Combo, Beta 128 Drive (A), drive_beta128a_type, INPUT_KEY_a, Single-sided 40 track|Double-sided 40 track|Single-sided 80 track|*Double-sided 80 track
+Combo, Beta 128 Drive (B), drive_beta128b_type, INPUT_KEY_b, Disabled|Single-sided 40 track|Double-sided 40 track|Single-sided 80 track|*Double-sided 80 track
+Combo, Beta 128 Drive (C), drive_beta128c_type, INPUT_KEY_c, Disabled|Single-sided 40 track|Double-sided 40 track|Single-sided 80 track|*Double-sided 80 track
+Combo, Beta 128 Drive (D), drive_beta128d_type, INPUT_KEY_d, Disabled|Single-sided 40 track|Double-sided 40 track|Single-sided 80 track|*Double-sided 80 track
+Combo, +D Drive (1), drive_plusd1_type, INPUT_KEY_1, Single-sided 40 track|Double-sided 40 track|Single-sided 80 track|*Double-sided 80 track
+Combo, +D Drive (2), drive_plusd2_type, INPUT_KEY_2, Disabled|Single-sided 40 track|Double-sided 40 track|Single-sided 80 track|*Double-sided 80 track
+Combo, Didaktik (8)0 Drive A, drive_didaktik80a_type, INPUT_KEY_8, Single-sided 40 track|Double-sided 40 track|Single-sided 80 track|*Double-sided 80 track
+Combo, Dida(k)tik 80 Drive B, drive_didaktik80b_type, INPUT_KEY_k, Disabled|Single-sided 40 track|Double-sided 40 track|Single-sided 80 track|*Double-sided 80 track
+Combo, DI(S)CiPLE Drive 1, drive_disciple1_type, INPUT_KEY_s, Single-sided 40 track|Double-sided 40 track|Single-sided 80 track|*Double-sided 80 track
+Combo, DISCiP(L)E Drive 2, drive_disciple2_type, INPUT_KEY_l, Disabled|Single-sided 40 track|Double-sided 40 track|Single-sided 80 track|*Double-sided 80 track
+Combo, (O)pus Drive 1, drive_opus1_type, INPUT_KEY_o, *Single-sided 40 track|Double-sided 40 track|Single-sided 80 track|Double-sided 80 track
+Combo, O(p)us Drive 2, drive_opus2_type, INPUT_KEY_p, Disabled|*Single-sided 40 track|Double-sided 40 track|Single-sided 80 track|Double-sided 80 track
+Combo, (T)ry merge 'B' side of disks, disk_try_merge, INPUT_KEY_t, Never|*With single-sided drives|Always
+Checkbox, Con(f)irm merge disk sides, disk_ask_merge, INPUT_KEY_f
+
+movie
+Movie Options
+#ifdef HAVE_ZLIB_H
+Combo, Movie (c)ompression, movie_compr, INPUT_KEY_c, None|*Lossless|High
+#else
+Combo, Movie (c)ompression, movie_compr, INPUT_KEY_c, *None
+#endif
+Checkbox, (S)top recording after RZX ends, movie_stop_after_rzx, INPUT_KEY_S

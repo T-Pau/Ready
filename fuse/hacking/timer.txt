@@ -1,0 +1,16 @@
+What you need to implement for Fuse's timing routines
+=====================================================
+
+If you're using SDL as the user interface, Fuse will use SDL's timing routines
+and no further implementation is required.
+
+If you're not using SDL, two routines are required:
+
+* double compat_timer_get_time( void )
+
+Return the number of seconds since an arbitrary epoch, or a value < 0 if
+the time could not be determined.
+
+* void compat_timer_sleep( int ms )
+
+Cause Fuse to go to sleep for the given number of milliseconds.
