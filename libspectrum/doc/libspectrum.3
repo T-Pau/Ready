@@ -1,0 +1,90 @@
+.\" -*- nroff -*-
+.\"
+.\" libspectrum.3: libspectrum summary
+.\" Copyright (c) 2004-2018 Philip Kendall
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 2 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License along
+.\" with this program; if not, write to the Free Software Foundation, Inc.,
+.\" 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+.\"
+.\" Author contact information:
+.\"
+.\" E-mail: philip-fuse@shadowmagic.org.uk
+.\"
+.\"
+.TH libspectrum 3 "1st July, 2018" "Version 1.4.4" "Emulators"
+.\"
+.\"------------------------------------------------------------------
+.\"
+.SH NAME
+libspectrum \(em Sinclair ZX Spectrum support library
+.\"
+.\"------------------------------------------------------------------
+.\"
+.SH DESCRIPTION
+.I libspectrum
+is a library for reading and writing some of the file formats used by
+emulators of the Sinclair ZX Spectrum. It also contains routines
+providing information about the various Spectrum clones which were
+available.
+.PP
+The file formats currently supported by
+.I libspectrum
+are:
+.IP \(bu 2
+Snapshots: .z80, .szx, .sna (all read/write), .zxs, .sp., .snp and +D
+snapshots (read only).
+.IP \(bu 2
+Tape images: .tzx, .tap, .spc, .sta, .ltp (read/write) and .pzx, Warajevo .tap,
+Z80Em and CSW version 1 (read only).
+.IP \(bu 2
+Input recordings: .rzx (read/write).
+.IP \(bu 2
+Disk images: .dsk (both plain and extended), .d40, .d80, .fdi, .img, .mgt,
+\[char46]opd, .sad, .scl, .td0, .trd and .udi (identification only).
+.IP \(bu 2
+Timex cartridges: .dck (read only).
+.IP \(bu 2
+IDE hard disk images: .hdf (read/write).
+.IP \(bu 2
+Microdrive cartridge images: .mdr (read/write).
+.PP
+Additionally, any files compressed with
+.IR bzip2 "(3),"
+.IR gzip "(3)"
+or
+.IR zip "(3)"
+can be read and will be transparently decompressed.
+.PP
+Full documentation for
+.I libspectrum
+is provided in
+.RI ` libspectrum.txt '.
+.\"
+.\"------------------------------------------------------------------
+.\"
+.SH SEE ALSO
+.IR bzip2 "(3),"
+.IR fuse "(1),"
+.IR fuse\-utils "(1),"
+.IR gzip "(3),"
+.IR zip "(3)."
+.PP
+The comp.sys.sinclair Spectrum FAQ, at
+.br
+.IR "http://www.worldofspectrum.org/faq/index.html" .
+.\"
+.\"------------------------------------------------------------------
+.\"
+.SH AUTHOR
+Philip Kendall (philip\-fuse@shadowmagic.org.uk)

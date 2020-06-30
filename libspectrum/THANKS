@@ -1,0 +1,7 @@
+See also `AUTHORS'
+
+* Alberto Garcia: for reporting a bug in the .slt routines.
+
+* Russell Marks: for many bug fixes and the like.
+
+* Simon Owen: for some Win32 and C++ compatibility fixes.

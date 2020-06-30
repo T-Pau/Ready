@@ -73,7 +73,7 @@ int ui_debugger_activate( void );
 int ui_debugger_deactivate( int interruptable );
 int ui_debugger_update( void );
 int ui_debugger_disassemble( libspectrum_word address );
-void ui_breakpoints_updated();
+void ui_breakpoints_updated( void );
 
 /* Reset anything in the UI which needs to be reset on machine selection */
 int ui_widgets_reset( void );

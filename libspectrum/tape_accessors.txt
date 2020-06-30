@@ -1,0 +1,200 @@
+# tape_accessors.txt: simple accessors for libspectrum_tape_block
+# Copyright (c) 2003 Philip Kendall
+
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+# Author contact information:
+
+# E-mail: philip-fuse@shadowmagic.org.uk
+
+# FILE FORMAT
+#
+# Each stanza defines one function. First line is overall information
+# about the function:
+#
+# return_type		name			indexed	default
+#
+# will create a function
+#
+# 'return_type' libspectrum_tape_block_'name'( libspectrum_tape_block *block )
+#
+# After that, each indented line specifies which values to return for
+# each block type:
+#
+#	block type	member_name
+#
+# will cause the function to return block->types.'type'.'member_name'
+# if passed a 'type' block. 'member_name' defaults to 'name' if not
+# specified.
+#
+# If 'indexed' is non-zero, the function will take an extra
+# parameter 'index' of type size_t and will return
+# block->types.'type'.'member_name'[ index ] instead.
+#
+# If the block is not of the types listed, 'default' will be returned,
+# and an error reported via 'libspectrum_print_error()'.
+#
+# If 'pointer' is present and non-zero, the function will return a pointer
+# to the given member, rather than the member itself.
+
+libspectrum_dword	bit_length		0	-1
+	raw_data
+
+libspectrum_dword	bit0_length		0	-1
+	pure_data
+	turbo
+
+libspectrum_dword	bit1_length		0	-1
+	pure_data
+	turbo
+
+size_t			bits_in_last_byte	0	-1
+	data_block
+	pure_data
+	raw_data
+	turbo
+
+size_t			bits_per_data_symbol	0	-1
+	generalised_data
+
+size_t			count			0	-1
+	pure_tone	pulses
+	pulses
+	loop_start
+	select
+	archive_info
+	hardware
+	pulse_sequence
+	data_block
+
+libspectrum_byte*	data			0	NULL
+	custom
+	data_block
+	generalised_data
+	pure_data
+	raw_data
+	rle_pulse
+	rom
+	turbo
+
+size_t			data_length		0	-1
+       custom		length
+       data_block	length
+       pure_data	length
+       raw_data		length
+       rle_pulse	length
+       rom		length
+       turbo		length
+
+libspectrum_tape_generalised_data_symbol_table*	data_table	0	NULL	1
+	generalised_data
+
+int			ids			1	-1
+	archive_info
+	hardware
+
+int			offset			0	0
+	jump
+
+int			offsets			1	0
+	select
+
+libspectrum_dword	pause			0	-1
+	generalised_data
+	message		time
+	pause		length
+	pure_data
+	raw_data
+	rom
+	turbo
+
+libspectrum_dword	pause_tstates		0	-1
+	generalised_data
+	message         time_tstates
+	pause           length_tstates
+	pure_data
+	raw_data
+	rom
+	turbo
+
+libspectrum_dword	pilot_length		0	-1
+	turbo
+
+size_t			pilot_pulses		0	-1
+	turbo
+
+libspectrum_word	pilot_repeats		1	-1
+	generalised_data
+
+libspectrum_byte	pilot_symbols		1	-1
+	generalised_data
+
+libspectrum_tape_generalised_data_symbol_table*	pilot_table	0	NULL	1
+	generalised_data
+
+libspectrum_dword	pulse_length		0	-1
+	pure_tone	length
+
+libspectrum_dword	scale			0	-1
+	rle_pulse
+
+libspectrum_dword	pulse_lengths		1	-1
+	pulses		lengths
+	pulse_sequence	lengths
+
+size_t			pulse_repeats		1	-1
+	pulse_sequence
+
+libspectrum_dword	sync1_length		0	-1
+	turbo
+
+libspectrum_dword	sync2_length		0	-1
+	turbo
+
+libspectrum_dword	tail_length		0	-1
+ 	data_block
+
+char*	text			0	NULL
+	group_start	name
+	comment
+	message
+	custom		description
+
+char*	texts			1	NULL
+	archive_info	strings
+	select		descriptions
+
+int			types			1	-1
+	hardware
+
+int			values			1	-1
+	hardware
+
+int			level			0	-1
+	pause
+	data_block      initial_level
+	set_signal_level
+
+libspectrum_byte	bit0_pulse_count	0	-1
+	data_block
+
+libspectrum_byte	bit1_pulse_count	0	-1
+	data_block
+
+libspectrum_word	bit0_pulses		1	-1
+	data_block
+
+libspectrum_word	bit1_pulses		1	-1
+	data_block

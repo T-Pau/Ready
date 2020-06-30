@@ -1,0 +1,127 @@
+<QPG:Generation>
+   <QPG:Options>
+      <QPG:User unattended="yes" verbosity="0" listfiles="yes"/>
+      <QPG:Defaults type="qnx_package"/>
+      <QPG:Source></QPG:Source>
+      <QPG:Release date="today" number="+"/>
+      <QPG:Build></QPG:Build>
+      <QPG:FileSorting strip="yes"/>
+      <QPG:Package targets="standart"/>
+      <QPG:Repository generate="yes"/>
+      <QPG:FinalDir></QPG:FinalDir>
+      <QPG:Cleanup></QPG:Cleanup>
+   </QPG:Options>
+
+   <QPG:Responsible>
+      <QPG:Company>QNX.ORG.RU Community</QPG:Company>
+      <QPG:Department></QPG:Department>
+      <QPG:Group></QPG:Group>
+      <QPG:Team>QNX.ORG.RU Team</QPG:Team>
+      <QPG:Employee>Mike Gorchak</QPG:Employee>
+      <QPG:EmailAddress>mike@malva.ua</QPG:EmailAddress>
+   </QPG:Responsible>
+
+   <QPG:Values>
+      <QPG:Files>
+         <QPG:Add file="./COPYING" install="LicenseUrl/" handling="repdata"/>
+         <QPG:Add permissions="0755" file="./.libs/libspectrum.so.2" install="/opt/lib/"/>
+         <QPG:Add filetype="symlink" file="libspectrum.so" install="/opt/lib/" linkto="libspectrum.so.2"/>
+         <QPG:Add permissions="0644" file="./.libs/libspectrum.a" install="/opt/lib/"/>
+         <QPG:Add permissions="0644" file="./.libs/libspectrum.lai" install="/opt/lib/libspectrum.la"/>
+         <QPG:Add permissions="0644" file="./libspectrum.h" install="/opt/include/"/>
+         <QPG:Add permissions="0644" file="./AUTHORS" install="/usr/doc/libspectrum/"/>
+         <QPG:Add permissions="0644" file="./COPYING" install="/usr/doc/libspectrum/"/>
+         <QPG:Add permissions="0644" file="./ChangeLog" install="/usr/doc/libspectrum/"/>
+         <QPG:Add permissions="0644" file="./README" install="/usr/doc/libspectrum/"/>
+         <QPG:Add permissions="0644" file="./THANKS" install="/usr/doc/libspectrum/"/>
+         <QPG:Add permissions="0644" file="./doc/libspectrum.txt" install="/usr/doc/libspectrum/"/>
+      </QPG:Files>
+      <QPG:PackageFilter>
+         <QPM:PackageManifest>
+
+            <QPM:PackageDescription>
+               <QPM:PackageType>Library</QPM:PackageType>
+               <QPM:PackageName>libspectrum</QPM:PackageName>
+               <QPM:PackageReleaseNumber>1</QPM:PackageReleaseNumber>
+               <QPM:PackageRepository>http://qnx.org.ru/repository</QPM:PackageRepository>
+               <QPM:FileVersion>2.0</QPM:FileVersion>
+            </QPM:PackageDescription>
+
+            <QPM:ProductDescription>
+               <QPM:ProductName>libspectrum</QPM:ProductName>
+               <QPM:ProductIdentifier>libspectrum</QPM:ProductIdentifier>
+               <QPM:ProductEmail>philip-fuse@shadowmagic.org.uk</QPM:ProductEmail>
+               <QPM:VendorName>public</QPM:VendorName>
+               <QPM:VendorInstallName>public</QPM:VendorInstallName>
+               <QPM:VendorURL>http://fuse-emulator.sourceforge.net/libspectrum.php</QPM:VendorURL>
+               <QPM:VendorEmbedURL/>
+               <QPM:VendorEmail>philip-fuse@shadowmagic.org.uk</QPM:VendorEmail>
+               <QPM:AuthorName>Philip Kendall</QPM:AuthorName>
+               <QPM:AuthorURL>http://fuse-emulator.sourceforge.net/libspectrum.php</QPM:AuthorURL>
+               <QPM:AuthorEmbedURL/>
+               <QPM:AuthorEmail>philip-fuse@shadowmagic.org.uk</QPM:AuthorEmail>
+               <QPM:ProductIconSmall/>
+               <QPM:ProductIconLarge/>
+               <QPM:ProductDescriptionShort>libspectrum is a library which is designed to make the input and output of ZX Spectrum emulator files slightly easier than it would be otherwise.</QPM:ProductDescriptionShort>
+               <QPM:ProductDescriptionLong>libspectrum is a library which is designed to make the input and output of ZX Spectrum emulator files slightly easier than it would be otherwise. Currently supported are: .z80, .szx, .sna, .zxs, .sp, .snp, .tzx, .tap, .rzx, .dck.</QPM:ProductDescriptionLong>
+               <QPM:ProductDescriptionURL>http://fuse-emulator.sourceforge.net/libspectrum.php</QPM:ProductDescriptionURL>
+               <QPM:ProductDescriptionEmbedURL/>
+            </QPM:ProductDescription>
+
+            <QPM:ReleaseDescription>
+               <QPM:ReleaseVersion>@VERSION@</QPM:ReleaseVersion>
+               <QPM:ReleaseUrgency>High</QPM:ReleaseUrgency>
+               <QPM:ReleaseStability>Stable</QPM:ReleaseStability>
+               <QPM:ReleaseNoteMinor/>
+               <QPM:ReleaseNoteMajor/>
+               <QPM:ReleaseBuild>1</QPM:ReleaseBuild>
+               <QPM:CountryExclude/>
+               <QPM:ReleaseCopyright>GNU General Public License</QPM:ReleaseCopyright>
+            </QPM:ReleaseDescription>
+
+            <QPM:ContentDescription>
+               <QPM:ContentTopic xmlmultiple="true">Software Development/Libraries and Extensions/C Libraries</QPM:ContentTopic>
+               <QPM:ContentKeyword>ZX, spectrum, speccy, emulator, TAP, RZX, TZX, Z80, SNA</QPM:ContentKeyword>
+               <QPM:TargetOS>qnx6</QPM:TargetOS>
+               <QPM:HostOS>none</QPM:HostOS>
+               <QPM:DisplayEnvironment xmlmultiple="true">Console</QPM:DisplayEnvironment>
+               <QPM:TargetAudience xmlmultiple="true">Developer</QPM:TargetAudience>
+            </QPM:ContentDescription>
+            <QPM:LicenseUrl>repdata://LicenseUrl/COPYING</QPM:LicenseUrl>
+         </QPM:PackageManifest>
+      </QPG:PackageFilter>
+
+      <QPG:PackageFilter proc="none" target="none">
+         <QPM:PackageManifest>
+            <QPM:ProductInstallationDependencies>
+               <QPM:ProductRequirements></QPM:ProductRequirements>
+            </QPM:ProductInstallationDependencies>
+         </QPM:PackageManifest>
+      </QPG:PackageFilter>
+
+      <QPG:PackageFilter proc="x86" target="none">
+         <QPM:PackageManifest>
+            <QPM:ProductInstallationDependencies>
+               <QPM:ProductRequirements></QPM:ProductRequirements>
+            </QPM:ProductInstallationDependencies>
+         </QPM:PackageManifest>
+      </QPG:PackageFilter>
+
+      <QPG:PackageFilter proc="none" target="x86">
+         <QPM:PackageManifest>
+            <QPM:ProductInstallationDependencies>
+               <QPM:ProductRequirements></QPM:ProductRequirements>
+            </QPM:ProductInstallationDependencies>
+         </QPM:PackageManifest>
+      </QPG:PackageFilter>
+
+      <QPG:PackageFilter proc="x86" target="x86">
+         <QPM:PackageManifest>
+            <QPM:ProductInstallationDependencies>
+               <QPM:ProductRequirements></QPM:ProductRequirements>
+            </QPM:ProductInstallationDependencies>
+         </QPM:PackageManifest>
+      </QPG:PackageFilter>
+
+   </QPG:Values>
+</QPG:Generation>

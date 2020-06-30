@@ -1,0 +1,60 @@
+/* windres.rc: resources for Windows
+   Copyright (c) 2007-2009 Stuart Brady, Marek Januszewski
+
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License along
+   with this program; if not, write to the Free Software Foundation, Inc.,
+   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+   Author contact information:
+
+   E-mail: philip-fuse@shadowmagic.org.uk
+
+*/
+
+#include "config.h"
+
+#include <windows.h>
+
+
+/* VERSIONINFO specs: http://msdn.microsoft.com/en-us/library/aa381058%28VS.85%29.aspx */
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION    	LIBSPECTRUM_RC_VERSION
+PRODUCTVERSION 	LIBSPECTRUM_RC_VERSION
+FILEFLAGSMASK  	VS_FFI_FILEFLAGSMASK
+FILEFLAGS      	0x0L
+FILEOS         	VOS__WINDOWS32
+FILETYPE       	VFT_DLL
+FILESUBTYPE    	VFT2_UNKNOWN
+BEGIN
+  BLOCK "StringFileInfo"
+  BEGIN
+    BLOCK "040904B0"
+    BEGIN
+      VALUE "CompanyName",      "\0"
+      VALUE "FileDescription",  "libspectrum\0"
+      VALUE "FileVersion",      VERSION##"\0"
+      VALUE "InternalName",     "libspectrum\0"
+      VALUE "LegalCopyright",   LIBSPECTRUM_COPYRIGHT##"; see the file 'AUTHORS' for more details.\0"
+      VALUE "License",          "libspectrum is licensed under the GNU General Public License\0"
+      VALUE "OriginalFilename", "libspectrum.dll\0"
+      VALUE "ProductName",      "libspectrum - emulator support library\0"
+      VALUE "ProductVersion",   VERSION##"\0"
+    END
+ END
+
+  BLOCK "VarFileInfo"
+  BEGIN
+    VALUE "Translation", 0x409, 1252
+  END
+END
+

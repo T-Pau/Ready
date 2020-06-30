@@ -31,10 +31,8 @@ public struct Computer: MachinePart {
         
         var dataDirectory: String {
             switch self {
-            case .c64:
+            case .c64, .plus4: // TODO: Plus4 actually uses two directories
                 return "vice/C64"
-            case .plus4:
-                return "vice/PLUS4"
             case .vic:
                 return "vice/VIC20"
             }

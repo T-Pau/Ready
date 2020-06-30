@@ -40,7 +40,7 @@
 #ifdef ANDROID_COMPILE
 #  include <config.android.h>
 #else
-#  include <config.h> /* Automagically created by the `configure' script.  */
+#  include "config.h" /* Automagically created by the `configure' script.  */
 #endif
 
 /* ------------------------------------------------------------------------- */
