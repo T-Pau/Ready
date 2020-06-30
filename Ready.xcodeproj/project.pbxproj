@@ -4237,7 +4237,7 @@
 				4BA81FB321E4713700D036DE /* vice */,
 				4B3F975D21D7ACC800C272C4 /* C64Tests */,
 				4B68F8B22496407700A76E57 /* Emulator */,
-				4B68FB3F24967CCD00A76E57 /* Vice-C64 */,
+				4B68FB3F24967CCD00A76E57 /* ViceC64 */,
 				4B68FB822498DC0600A76E57 /* ViceVIC20 */,
 				4B540E9824A674E100F6925B /* VicePlus4 */,
 				4B3F974421D7ACC700C272C4 /* Products */,
@@ -6158,7 +6158,7 @@
 			path = Emulator;
 			sourceTree = "<group>";
 		};
-		4B68FB3F24967CCD00A76E57 /* Vice-C64 */ = {
+		4B68FB3F24967CCD00A76E57 /* ViceC64 */ = {
 			isa = PBXGroup;
 			children = (
 				4B68FB562496808F00A76E57 /* module.modulemap */,
@@ -6169,7 +6169,7 @@
 				4B680039249A173500A76E57 /* VIceC64.swift */,
 				4B68FB4124967CCD00A76E57 /* Info.plist */,
 			);
-			path = "Vice-C64";
+			path = ViceC64;
 			sourceTree = "<group>";
 		};
 		4B68FB822498DC0600A76E57 /* ViceVIC20 */ = {
