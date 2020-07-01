@@ -9,7 +9,7 @@
 import UIKit
 import Emulator
 
-//import FuseC
+import FuseC
 
 @objc public class Fuse: NSObject {
     public var machine = Machine()

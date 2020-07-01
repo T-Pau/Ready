@@ -91,6 +91,24 @@
 		4B27F66124ACFF0A00BFD1EF /* specplus3.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B54118524AB363A00F6925B /* specplus3.c */; };
 		4B27F66224ACFF0A00BFD1EF /* specplus3e.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B54118924AB363A00F6925B /* specplus3e.c */; };
 		4B27F66324ACFF0A00BFD1EF /* ts2068.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B54118624AB363A00F6925B /* ts2068.c */; };
+		4B27F66624AD00B300BFD1EF /* options.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B54106924AB363900F6925B /* options.c */; };
+		4B27F66724AD01CF00BFD1EF /* display.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B5410E824AB363900F6925B /* display.c */; };
+		4B27F66824AD024100BFD1EF /* native.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B54115B24AB363A00F6925B /* native.c */; };
+		4B27F66924AD030900BFD1EF /* breakpoint.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B5411D124AB363A00F6925B /* breakpoint.c */; };
+		4B27F66A24AD035700BFD1EF /* command.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B5411C924AB363A00F6925B /* command.c */; };
+		4B27F66B24AD035700BFD1EF /* commandl.l in Sources */ = {isa = PBXBuildFile; fileRef = 4B5411CD24AB363A00F6925B /* commandl.l */; };
+		4B27F66C24AD035700BFD1EF /* commandy.y in Sources */ = {isa = PBXBuildFile; fileRef = 4B5411D224AB363A00F6925B /* commandy.y */; };
+		4B27F66D24AD035700BFD1EF /* disassemble.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B5411C624AB363A00F6925B /* disassemble.c */; };
+		4B27F66E24AD035700BFD1EF /* event.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B5411CE24AB363A00F6925B /* event.c */; };
+		4B27F66F24AD035700BFD1EF /* expression.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B5411C424AB363A00F6925B /* expression.c */; };
+		4B27F67024AD035700BFD1EF /* system_variable.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B5411D024AB363A00F6925B /* system_variable.c */; };
+		4B27F67124AD035700BFD1EF /* variable.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B5411D424AB363A00F6925B /* variable.c */; };
+		4B27F67324AD03B700BFD1EF /* iossound.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B27F67224AD03B700BFD1EF /* iossound.c */; };
+		4B27F67424AD04CF00BFD1EF /* movie.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B54124224AB363A00F6925B /* movie.c */; };
+		4B27F67524AD051800BFD1EF /* startup_manager.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B54124424AB363A00F6925B /* startup_manager.c */; };
+		4B27F67624AD058000BFD1EF /* unittests.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B54116224AB363A00F6925B /* unittests.c */; };
+		4B27F67724AD05D000BFD1EF /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B5414A524ABA96600F6925B /* zip.c */; };
+		4B27F67824AD063E00BFD1EF /* scaler.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B54106424AB363900F6925B /* scaler.c */; };
 		4B2B9BB2224E7ABC002948B7 /* MediaTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B9BB1224E7ABC002948B7 /* MediaTableHeaderView.swift */; };
 		4B2B9BB4224F84F9002948B7 /* GameViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B9BB3224F84F9002948B7 /* GameViewItem.swift */; };
 		4B2B9BB622533F7F002948B7 /* TableViewUpdates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B9BB522533F7F002948B7 /* TableViewUpdates.swift */; };
@@ -1744,6 +1762,7 @@
 		4B1CCBB122427A660032B9F0 /* StateEncodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateEncodable.swift; sourceTree = "<group>"; };
 		4B27F60424ACE8C700BFD1EF /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
 		4B27F65024ACF81E00BFD1EF /* ui-ios.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "ui-ios.c"; sourceTree = "<group>"; };
+		4B27F67224AD03B700BFD1EF /* iossound.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iossound.c; sourceTree = "<group>"; };
 		4B2B9BB1224E7ABC002948B7 /* MediaTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTableHeaderView.swift; sourceTree = "<group>"; };
 		4B2B9BB3224F84F9002948B7 /* GameViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewItem.swift; sourceTree = "<group>"; };
 		4B2B9BB522533F7F002948B7 /* TableViewUpdates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewUpdates.swift; sourceTree = "<group>"; };
@@ -7751,6 +7770,7 @@
 				4B54127624AB363A00F6925B /* sfifo.c */,
 				4B54126F24AB363A00F6925B /* sfifo.h */,
 				4B54127924AB363A00F6925B /* sunsound.c */,
+				4B27F67224AD03B700BFD1EF /* iossound.c */,
 				4B54127A24AB363A00F6925B /* wiisound.c */,
 				4B54127124AB363A00F6925B /* win32sound.c */,
 			);
@@ -9714,13 +9734,16 @@
 				4B27F64B24ACF08100BFD1EF /* z80.c in Sources */,
 				4B27F62F24ACEEFE00BFD1EF /* spectranet.c in Sources */,
 				4B27F64024ACEF6300BFD1EF /* ide.c in Sources */,
+				4B27F66D24AD035700BFD1EF /* disassemble.c in Sources */,
 				4B27F64724ACF01100BFD1EF /* blipbuffer.c in Sources */,
 				4B5412B224AB393D00F6925B /* phantom_typist.c in Sources */,
 				4B5412A824AB393D00F6925B /* fuse.c in Sources */,
 				4B27F63024ACEEFE00BFD1EF /* ula.c in Sources */,
+				4B27F66724AD01CF00BFD1EF /* display.c in Sources */,
 				4B5412AA24AB393D00F6925B /* keyboard.c in Sources */,
 				4B27F64924ACF08100BFD1EF /* z80_debugger_variables.c in Sources */,
 				4B5412BD24AB393D00F6925B /* svg.c in Sources */,
+				4B27F67424AD04CF00BFD1EF /* movie.c in Sources */,
 				4B27F62C24ACEEFE00BFD1EF /* scld.c in Sources */,
 				4B27F62424ACEEFE00BFD1EF /* fuller.c in Sources */,
 				4B27F65924ACFED500BFD1EF /* pentagon1024.c in Sources */,
@@ -9733,11 +9756,13 @@
 				4B27F65624ACFEC300BFD1EF /* machines_periph.c in Sources */,
 				4B27F60824ACEA8100BFD1EF /* file.c in Sources */,
 				4B27F63D24ACEF6300BFD1EF /* divide.c in Sources */,
+				4B27F67824AD063E00BFD1EF /* scaler.c in Sources */,
 				4B5412BE24AB393D00F6925B /* tape.c in Sources */,
 				4B27F60F24ACEAB300BFD1EF /* dir.c in Sources */,
 				4B27F62A24ACEEFE00BFD1EF /* multiface.c in Sources */,
 				4B27F64A24ACF08100BFD1EF /* z80_ops.c in Sources */,
 				4B27F62B24ACEEFE00BFD1EF /* printer.c in Sources */,
+				4B27F66B24AD035700BFD1EF /* commandl.l in Sources */,
 				4B27F64524ACEFCE00BFD1EF /* pokefinder.c in Sources */,
 				4B27F62E24ACEEFE00BFD1EF /* specdrum.c in Sources */,
 				4B27F63224ACEF3800BFD1EF /* beta.c in Sources */,
@@ -9754,8 +9779,10 @@
 				4B5412BB24AB393D00F6925B /* sound.c in Sources */,
 				4B5412A924AB393D00F6925B /* input.c in Sources */,
 				4B27F66324ACFF0A00BFD1EF /* ts2068.c in Sources */,
+				4B27F67524AD051800BFD1EF /* startup_manager.c in Sources */,
 				4B27F62724ACEEFE00BFD1EF /* joystick.c in Sources */,
 				4B5412B324AB393D00F6925B /* profile.c in Sources */,
+				4B27F66924AD030900BFD1EF /* breakpoint.c in Sources */,
 				4B5412C024AB393D00F6925B /* uidisplay.c in Sources */,
 				4B27F65424ACFEAB00BFD1EF /* spec48.c in Sources */,
 				4B27F63E24ACEF6300BFD1EF /* divmmc.c in Sources */,
@@ -9764,13 +9791,16 @@
 				4B5412B124AB393D00F6925B /* periph.c in Sources */,
 				4B27F62624ACEEFE00BFD1EF /* if2.c in Sources */,
 				4B27F65324ACFEA300BFD1EF /* tc2068.c in Sources */,
+				4B27F67124AD035700BFD1EF /* variable.c in Sources */,
 				4B27F63824ACEF3800BFD1EF /* opus.c in Sources */,
 				4B27F62124ACEEFE00BFD1EF /* ay.c in Sources */,
 				4B27F64324ACEF6300BFD1EF /* zxcf.c in Sources */,
 				4B5412B424AB393D00F6925B /* psg.c in Sources */,
+				4B27F67624AD058000BFD1EF /* unittests.c in Sources */,
 				4B27F60C24ACEAB300BFD1EF /* relative_paths.c in Sources */,
 				4B27F62224ACEEFE00BFD1EF /* covox.c in Sources */,
 				4B27F65A24ACFEDA00BFD1EF /* scorpion.c in Sources */,
+				4B27F66624AD00B300BFD1EF /* options.c in Sources */,
 				4B5412C124AB393D00F6925B /* uimedia.c in Sources */,
 				4B5412B724AB393D00F6925B /* screenshot.c in Sources */,
 				4B27F63524ACEF3800BFD1EF /* disciple.c in Sources */,
@@ -9780,14 +9810,20 @@
 				4B27F65E24ACFF0A00BFD1EF /* spec128.c in Sources */,
 				4B5412AF24AB393D00F6925B /* menu.c in Sources */,
 				4B27F64124ACEF6300BFD1EF /* simpleide.c in Sources */,
+				4B27F66C24AD035700BFD1EF /* commandy.y in Sources */,
 				4B27F66224ACFF0A00BFD1EF /* specplus3e.c in Sources */,
+				4B27F67324AD03B700BFD1EF /* iossound.c in Sources */,
+				4B27F66E24AD035700BFD1EF /* event.c in Sources */,
 				4B27F65F24ACFF0A00BFD1EF /* specplus2.c in Sources */,
 				4B5412B624AB393D00F6925B /* rzx.c in Sources */,
 				4B27F63624ACEF3800BFD1EF /* disk.c in Sources */,
+				4B27F67024AD035700BFD1EF /* system_variable.c in Sources */,
 				4B5412BA24AB393D00F6925B /* snapshot.c in Sources */,
+				4B27F66824AD024100BFD1EF /* native.c in Sources */,
 				4B5412B924AB393D00F6925B /* slt.c in Sources */,
 				4B5412BF24AB393D00F6925B /* ui.c in Sources */,
 				4B27F64824ACF03E00BFD1EF /* timer.c in Sources */,
+				4B27F66A24AD035700BFD1EF /* command.c in Sources */,
 				4B27F64224ACEF6300BFD1EF /* zxatasp.c in Sources */,
 				4B27F63924ACEF3800BFD1EF /* plusd.c in Sources */,
 				4B27F62324ACEEFE00BFD1EF /* dck.c in Sources */,
@@ -9804,6 +9840,7 @@
 				4B5412B824AB393D00F6925B /* settings.c in Sources */,
 				4B27F63124ACEEFE00BFD1EF /* usource.c in Sources */,
 				4B5412C224AB393D00F6925B /* utils.c in Sources */,
+				4B27F66F24AD035700BFD1EF /* expression.c in Sources */,
 				4B5412AC24AB393D00F6925B /* machine.c in Sources */,
 				4B27F63A24ACEF3800BFD1EF /* trdos.c in Sources */,
 				4B5412AB24AB393D00F6925B /* loader.c in Sources */,
@@ -10034,6 +10071,7 @@
 				4B54152E24ACE83E00F6925B /* microdrive.c in Sources */,
 				4B54152F24ACE83E00F6925B /* mmc.c in Sources */,
 				4B54153024ACE83E00F6925B /* plusd.c in Sources */,
+				4B27F67724AD05D000BFD1EF /* zip.c in Sources */,
 				4B54153124ACE83E00F6925B /* pzx_read.c in Sources */,
 				4B54153224ACE83E00F6925B /* rzx.c in Sources */,
 				4B27F64C24ACF10100BFD1EF /* garray.c in Sources */,

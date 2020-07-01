@@ -8,7 +8,7 @@
 
 #import "FuseThread.h"
 
-//#include "fuse.h"
+#include "fuse.h"
 
 @implementation FuseThread
 
@@ -25,9 +25,9 @@
     argv[0] = "fuse";
     argv[1] = NULL;
     
-//    fuse_datadir = [[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"fuse"] cStringUsingEncoding:NSUTF8StringEncoding];
+    fuse_datadir = [[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"fuse"] cStringUsingEncoding:NSUTF8StringEncoding];
 
-//    fuse_main(1, (char **)argv);
+    fuse_main(1, (char **)argv);
 }
 
 @end
