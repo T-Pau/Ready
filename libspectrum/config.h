@@ -14,10 +14,10 @@
 #define HAVE_INTTYPES_H 1
 
 /* Define to 1 if you have the `bz2' library (-lbz2). */
-#define HAVE_LIBBZ2 1
+/* #undef HAVE_LIBBZ2 */
 
 /* Defined if we've got audiofile */
-#define HAVE_LIB_AUDIOFILE 1
+/* #undef HAVE_LIB_AUDIOFILE */
 
 /* Defined if we've got GLib */
 /* #undef HAVE_LIB_GLIB */

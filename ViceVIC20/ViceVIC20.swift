@@ -23,6 +23,8 @@
 
 import ViceX64sc
 
+import Emulator
+
 typealias ViceThread = ViceThreadVIC20
 
 /*

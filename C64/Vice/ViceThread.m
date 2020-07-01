@@ -73,7 +73,7 @@
     free(bundle_directory);
 }
 
-- (void)updateBitmapWidth: (unsigned int)width height: (unsigned int)height {
+- (void)updateBitmapWidth: (size_t)width height: (size_t)height {
     UIImage *image;
     
     @autoreleasepool {

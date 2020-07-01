@@ -21,6 +21,8 @@
  02111-1307  USA.
  */
 
+import Emulator
+
 import ViceX64sc
 
 typealias ViceThread = ViceThreadPlus4

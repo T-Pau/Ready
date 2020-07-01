@@ -112,6 +112,8 @@
 /* What name were we called under? */
 const char *fuse_progname;
 
+const char *fuse_datadir;
+
 /* A flag to say when we want to exit the emulator */
 int fuse_exiting;
 
@@ -168,7 +170,7 @@ static int do_start_files( start_files_t *start_files );
 
 static int fuse_end(void);
 
-#ifdef UI_WIN32
+#if 1
 int fuse_main(int argc, char **argv)
 #else
 int main(int argc, char **argv)

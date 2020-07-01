@@ -9,6 +9,8 @@
 import UIKit
 import Emulator
 
+//import FuseC
+
 @objc public class Fuse: NSObject {
     public var machine = Machine()
     public var delegate: EmulatorDelegate?

@@ -1,0 +1,4 @@
+module FuseC [system][extern_c] {
+   // header "../fuse/fuse.h"
+    export *
+}

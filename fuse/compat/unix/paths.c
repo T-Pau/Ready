@@ -101,7 +101,7 @@ compat_get_next_path( path_context *ctx )
   case 2:
 
 #ifndef ROMSDIR
-    path2 = FUSEDATADIR;
+    path2 = fuse_datadir;
 #else				/* #ifndef ROMSDIR */
     path2 = ctx->type == UTILS_AUXILIARY_ROM ? ROMSDIR : FUSEDATADIR;
 #endif				/* #ifndef ROMSDIR */

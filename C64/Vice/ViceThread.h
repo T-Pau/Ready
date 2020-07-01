@@ -26,8 +26,7 @@
 
 #import <UIKit/UIKit.h>
 @import GameController;
-#import "Emulator/Emulator.h"
-#import <Emulator/Emulator-Swift.h>
+//@import Emulator;
 
 #if VICE_C64
 #define ViceThread ViceThreadC64
@@ -77,7 +76,7 @@
 
 - (void)main;
 
-- (void)updateBitmapWidth: (unsigned int)width height: (unsigned int)height;
+- (void)updateBitmapWidth: (size_t)width height: (size_t)height;
 - (BOOL)vsync;
 
 // called on the main thread

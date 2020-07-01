@@ -178,14 +178,14 @@ void video_canvas_refresh(struct video_canvas_s *canvas, unsigned int xs, unsign
             canvas->bitmap_row_size = size->width;
         }
         
-        xi = MY_MIN(xi, size->width);
-        yi = MY_MIN(yi, size->height);
-        w = MY_MIN(w, size->width - xi);
-        h = MY_MIN(h, size->height - yi);
-        uint8_t *destination = canvas->bitmap + yi * canvas->bitmap_row_size + xi;
+        size_t x_offset = MY_MIN(size->width, xi);
+        size_t y_offset = MY_MIN(size->height, yi);
+        size_t width = MY_MIN(size->width - x_offset, w);
+        size_t height = MY_MIN(size->height - y_offset, h);
+        uint8_t *destination = canvas->bitmap + y_offset * canvas->bitmap_row_size + x_offset;
         
-        for (size_t y = 0; y < h; y++) {
-            memcpy(destination, source, w);
+        for (size_t y = 0; y < height; y++) {
+            memcpy(destination, source, width);
             source += canvas->draw_buffer->draw_buffer_pitch;
             destination += canvas->bitmap_row_size;
         }
