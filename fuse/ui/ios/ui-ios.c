@@ -24,6 +24,7 @@
 
 #include <config.h>
 
+#include "fuse.h"
 #include "keyboard.h"
 #include "ui/ui.h"
 
@@ -39,6 +40,7 @@ menu_get_scaler( scaler_available_fn selector )
     /* No scaler selected */
     return SCALER_NUM;
 }
+
 
 int
 menu_select_roms_with_title( const char *title, size_t start, size_t count,
@@ -180,7 +182,7 @@ ui_query( const char *message )
 int
 ui_statusbar_update( ui_statusbar_item item, ui_statusbar_state state )
 {
-    /* No error */
+    /* TODO: implement */
     return 0;
 }
 
@@ -204,57 +206,4 @@ ui_widgets_reset( void )
 {
     /* No error */
     return 0;
-}
-
-void
-uidisplay_area( int x, int y, int w, int h )
-{
-    /* Do nothing */
-}
-
-int
-uidisplay_end( void )
-{
-    /* No error */
-    return 0;
-}
-
-void
-uidisplay_frame_end( void )
-{
-    /* Do nothing */
-}
-
-int
-uidisplay_hotswap_gfx_mode( void )
-{
-    /* No error */
-    return 0;
-}
-
-int
-uidisplay_init( int width, int height )
-{
-    /* No error */
-    return 0;
-}
-
-void
-uidisplay_plot16( int x, int y, libspectrum_word data,
-                 libspectrum_byte ink, libspectrum_byte paper )
-{
-    /* Do nothing */
-}
-
-void
-uidisplay_plot8( int x, int y, libspectrum_byte data,
-                libspectrum_byte ink, libspectrum_byte paper )
-{
-    /* Do nothing */
-}
-
-void
-uidisplay_putpixel( int x, int y, int colour )
-{
-    /* Do nothing */
 }

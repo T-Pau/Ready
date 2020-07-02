@@ -73,14 +73,13 @@ static void expand_dotmatrix( int *x, int *y, int *w, int *h,
 /* Information on each of the available scalers. Make sure this array stays
    in the same order as scaler.h:scaler_type */
 static const struct scaler_info available_scalers[] = {
-#if 0
   { "Timex Half (smoothed)", "half", SCALER_FLAGS_NONE,	       0.5,
     scaler_Half_16,       scaler_Half_32,       NULL                },
   { "Timex Half (skipping)", "halfskip", SCALER_FLAGS_NONE,    0.5,
     scaler_HalfSkip_16,   scaler_HalfSkip_32,   NULL                },
-  { "Normal",	       "normal",     SCALER_FLAGS_NONE,	       1.0, 
+  { "Normal",	       "normal",     SCALER_FLAGS_NONE,	       1.0,
     scaler_Normal1x_16,   scaler_Normal1x_32,   NULL                },
-  { "Double size",     "2x",	     SCALER_FLAGS_NONE,	       2.0, 
+  { "Double size",     "2x",	     SCALER_FLAGS_NONE,	       2.0,
     scaler_Normal2x_16,   scaler_Normal2x_32,   NULL                },
   { "Triple size",     "3x",	     SCALER_FLAGS_NONE,	       3.0, 
     scaler_Normal3x_16,   scaler_Normal3x_32,   NULL		    },
@@ -114,7 +113,6 @@ static const struct scaler_info available_scalers[] = {
     scaler_HQ2x_16,       scaler_HQ2x_32,       expand_1            },
   { "HQ 3x",           "hq3x",      SCALER_FLAGS_EXPAND,       3.0,
     scaler_HQ3x_16,       scaler_HQ3x_32,       expand_1            },
-#endif
 };
 
 scaler_type current_scaler = SCALER_NUM;

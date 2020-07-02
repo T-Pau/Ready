@@ -44,4 +44,7 @@ const render_size_t *render_get_current_size(const render_t *render);
 render_t *render_new(render_size_t size, void *data, const uint32_t *palette, render_border_mode_t border_mode);
 void render_set_palette(render_t *render, const uint32_t *palette);
 
+void render_image_free(render_image_t *image);
+render_image_t *render_image_new(size_t width, size_t height);
+
 #endif /* HAD_RENDER_H */

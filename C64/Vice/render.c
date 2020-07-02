@@ -276,3 +276,34 @@ static int get_border_color(const render_image_t *image, const uint32_t *palette
     }
     return palette[border_color];
 }
+
+
+void render_image_free(render_image_t *image) {
+    if (image) {
+        free(image->data);
+        free(image);
+    }
+}
+
+render_image_t *render_image_new(size_t width, size_t height) {
+    render_image_t *image;
+    
+    if ((image = malloc(sizeof(*image))) == NULL) {
+        return NULL;
+    }
+    if ((image->data = calloc(width * height, 1)) == NULL) {
+        free(image);
+        return NULL;
+    }
+    
+    image->row_size = width;
+    image->size.width = width;
+    image->size.height = height;
+    image->row_size = width;
+    image->screen.origin.x = 0;
+    image->screen.origin.y = 0;
+    image->screen.size.width = width;
+    image->screen.size.height = height;
+
+    return image;
+}

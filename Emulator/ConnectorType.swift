@@ -29,6 +29,7 @@ import Foundation
 public enum ConnectorType {
     case atariJoystick
     case atariJoystickAnalog
+    case audioJackTape
     case c64ExpansionPort
     case c64JoystickLightpen
     case c64UserPort
@@ -37,6 +38,7 @@ public enum ConnectorType {
     case commodoreTape
     case plus4Tape
     case plus4ExpansionPort
+    case spectrumExpansionPort
     case vic20ExpansionPort
     case videoComponent
     case videoRGBi

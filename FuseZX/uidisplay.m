@@ -1,0 +1,106 @@
+/* uidisplay-ios.c: Display Routines for Integration with Ready
+ Copyright (C) 2020 Dieter Baron
+ 
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License along
+ with this program; if not, write to the Free Software Foundation, Inc.,
+ 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
+
+#include "fuse.h"
+#include "ui/ui.h"
+
+#import <CoreImage/CoreImage.h>
+#import "FuseThread.h"
+#include "render.h"
+
+static render_image_t *screen;
+static render_t *renderer;
+
+static uint32_t palette[] = {
+    0x000000FF,
+    0x000000FF,
+    0x0000D7FF,
+    0x0000FFFF,
+    0xD70000FF,
+    0xFF0000FF,
+    0xD700D7FF,
+    0xFF00FFFF,
+    0x00D700FF,
+    0x00FF00FF,
+    0x00D7D7FF,
+    0x00FFFFFF,
+    0xD7D700FF,
+    0xFFFF00FF,
+    0xD7D7D7FF,
+    0xFFFFFFFF
+};
+
+void uidisplay_area(int x, int y, int w, int h) {
+    // area for optimization when render supports partial updates
+}
+
+int uidisplay_end(void) {
+    render_image_free(screen);
+    render_free(renderer);
+    return 0;
+}
+
+void uidisplay_frame_end(void) {
+    render(renderer, screen, BORDER_MODE_SHOW);
+    [fuseThread updateBitmapWidth: screen->size.width height: screen->size.height];
+}
+
+int uidisplay_hotswap_gfx_mode(void) {
+    return 0;
+}
+
+int uidisplay_init(int width, int height) {
+    if ((screen = render_image_new(width, height)) == NULL) {
+        fuse_exiting = 1;
+        return 0;
+    }
+    
+    fuseThread.bytesPerRow = width;
+    fuseThread.imageData = [NSMutableData dataWithLength:render_data_size(screen->size)];
+
+    // TODO: fill in real border
+    
+    renderer = render_new(screen->size, fuseThread.imageData.mutableBytes, palette, BORDER_MODE_SHOW);
+    
+    return 0;
+}
+
+
+void uidisplay_plot8(int x, int y, libspectrum_byte data, libspectrum_byte ink, libspectrum_byte paper) {
+    uint8_t *dest = screen->data + y * screen->row_size + x;
+    
+    for (uint8_t mask = 0x80; mask != 0; mask >>= 1) {
+        *dest = data & mask ? ink : paper;
+        dest += 1;
+    }
+}
+
+
+void uidisplay_plot16(int x, int y, libspectrum_word data, libspectrum_byte ink, libspectrum_byte paper) {
+    uint8_t *dest = screen->data + y * screen->row_size + x;
+    
+    for (uint16_t mask = 0x8000; mask != 0; mask >>= 1) {
+        *dest = data & mask ? ink : paper;
+        dest += 1;
+    }
+}
+
+
+void uidisplay_putpixel(int x, int y, int colour) {
+    screen->data[y * screen->row_size + x] = colour;
+}

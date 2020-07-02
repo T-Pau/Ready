@@ -27,12 +27,15 @@ public struct Computer: MachinePart {
     public enum ComputerType {
         case c64
         case plus4
+        case spectrum
         case vic
         
         var dataDirectory: String {
             switch self {
             case .c64, .plus4: // TODO: Plus4 actually uses two directories
                 return "vice/C64"
+            case .spectrum:
+                return "fuse"
             case .vic:
                 return "vice/VIC20"
             }
@@ -68,6 +71,13 @@ public struct Computer: MachinePart {
                     Port(name: "Joy 1", key: .controlPort2, connectorTypes: [.atariJoystick], supportsHotSwap: true)
                 ]
                 
+            case .spectrum:
+                return [
+                    Port(name: "Screen", key: .screen, connectorTypes: [.videoComponent], iconWidth: 2, iconHeight: 2),
+                    Port(name: "Mic/Ear", key: .cassetteDrive, connectorTypes: [.audioJackTape]),
+                    Port(name: "Expansion", key: .expansionPort, connectorTypes: [.spectrumExpansionPort]),
+                ]
+
             case .vic:
                 return [
                     Port(name: "Screen", key: .screen, connectorTypes: [.videoComponent], iconWidth: 2, iconHeight: 2),
@@ -108,6 +118,8 @@ public struct Computer: MachinePart {
         case vic1001
         case vic20Pal
         case vic20Ntsc
+        case zxSpectrum16k
+        case zxSpectrum48k
 
         public var viceMachine: ComputerType {
             switch self {
@@ -117,10 +129,13 @@ public struct Computer: MachinePart {
                 return .vic
             case .c16Pal, .c16Ntsc, .c232Ntsc, .plus4Pal, .plus4Ntsc, .v364Ntsc:
                 return .plus4
+            case .zxSpectrum16k, .zxSpectrum48k:
+                return .spectrum
             }
         }
         public var int32Value: Int32 {
             switch self {
+            // ViceC64
             case .c64Pal:
                 return 0
             case .c64cPal:
@@ -150,12 +165,15 @@ public struct Computer: MachinePart {
             case .ultimax:
                 return 13
                 
+            // ViceVIC20
             case .vic20Pal:
                 return 0
             case .vic20Ntsc:
                 return 1
             case .vic1001:
                 return 3
+                
+            // VicePlus4
             case .c16Pal:
                 return 0
             case .c16Ntsc:
@@ -168,7 +186,11 @@ public struct Computer: MachinePart {
                 return 3
             case .v364Ntsc:
                 return 4
+                
+            default:
+                return -1
             }
+            
         }
     }
     
@@ -496,7 +518,12 @@ public struct Computer: MachinePart {
                      viceMachineModel: .vic20Ntsc,
                      keyboardName: "C64",
                      caseColorName: "VIC-20 Case")
-        ])
+        ]),
+/*
+        MachinePartSection(title: "Sinclair ZX Spectrum", parts: [
+            Computer(identifier: "ZX 48k", name: "Sinclair ZX Spectrum 48k", iconName: "Sinclair ZX Spectrum 48k", viceMachineModel: .zxSpectrum48k, keyboardName: "", caseColorName: "")
+        ]),
+*/
    ])
     
     static private var byIdentifier = [String: Computer]()

@@ -26,8 +26,9 @@
 
 #include <limits.h>
 
-#include <libspectrum.h>
+#include "libspectrum.h"
 
+#include "config.h"
 #include "compat.h"
 
 extern const char *fuse_datadir;

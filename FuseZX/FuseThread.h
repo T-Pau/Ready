@@ -23,6 +23,10 @@
 
 - (void)main;
 
+- (void)updateBitmapWidth: (size_t)width height: (size_t)height;
+
 @end
+
+extern FuseThread * _Nullable fuseThread;
 
 #endif /* HAD_FUSE_THREAD_H */

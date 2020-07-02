@@ -385,7 +385,7 @@ static int fuse_init(int argc, char **argv)
 
   start_scaler = utils_safe_strdup( settings_current.start_scaler_mode );
 
-  fuse_show_copyright();
+  // fuse_show_copyright();
 
   if( run_startup_manager( &argc, &argv ) ) return 1;
 

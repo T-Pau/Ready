@@ -28,6 +28,7 @@ import MobileCoreServices
 
 import C64UIComponents
 import Emulator
+import FuseZX
 import ViceC64
 import VicePlus4
 import ViceVIC20
@@ -157,6 +158,8 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
             emulator = ViceC64.Vice()
         case .plus4:
             emulator = VicePlus4.Vice()
+        case .spectrum:
+            emulator = FuseZX.Fuse()
         case .vic:
             emulator = ViceVIC20.Vice()
         }

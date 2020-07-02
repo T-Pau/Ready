@@ -112,6 +112,6 @@
     rev_keyarr[column] &= ~(1 << row);
 }
 
-ViceThread *viceThread;
-
 @end
+
+ViceThread *viceThread;

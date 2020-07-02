@@ -1150,6 +1150,32 @@
 		4B841CFD21F8CE78009CAF4B /* ShareableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB22EA821EA27570075E694 /* ShareableImageView.swift */; };
 		4B841CFF21F8CEDF009CAF4B /* MediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B841CFE21F8CEDF009CAF4B /* MediaView.swift */; };
 		4B841D0321FCAADA009CAF4B /* MediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B841D0221FCAADA009CAF4B /* MediaItem.swift */; };
+		4B94397124ADDF9700FD0237 /* uidisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B94396F24ADD6E900FD0237 /* uidisplay.m */; };
+		4B94397224ADE29300FD0237 /* render.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B680041249B3F7F00A76E57 /* render.c */; };
+		4B94397424ADECF300FD0237 /* 128-1.rom in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B54113F24AB363900F6925B /* 128-1.rom */; };
+		4B94397524ADECF300FD0237 /* 128-0.rom in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B54114024AB363900F6925B /* 128-0.rom */; };
+		4B94397624ADECF300FD0237 /* disciple.rom in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B54114124AB363900F6925B /* disciple.rom */; };
+		4B94397724ADECF300FD0237 /* se-1.rom in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B54114224AB363A00F6925B /* se-1.rom */; };
+		4B94397824ADECF300FD0237 /* se-0.rom in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B54114324AB363A00F6925B /* se-0.rom */; };
+		4B94397924ADECF300FD0237 /* plus3e-1.rom in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B54114524AB363A00F6925B /* plus3e-1.rom */; };
+		4B94397A24ADECF300FD0237 /* tc2068-1.rom in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B54114624AB363A00F6925B /* tc2068-1.rom */; };
+		4B94397B24ADECF300FD0237 /* tc2068-0.rom in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B54114724AB363A00F6925B /* tc2068-0.rom */; };
+		4B94397C24ADECF300FD0237 /* plus3e-0.rom in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B54114824AB363A00F6925B /* plus3e-0.rom */; };
+		4B94397D24ADECF300FD0237 /* plus3e-2.rom in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B54114924AB363A00F6925B /* plus3e-2.rom */; };
+		4B94397E24ADECF300FD0237 /* plus3e-3.rom in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B54114A24AB363A00F6925B /* plus3e-3.rom */; };
+		4B94397F24ADECF300FD0237 /* Makefile.am in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B54114B24AB363A00F6925B /* Makefile.am */; };
+		4B94398024ADECF300FD0237 /* plus2-0.rom in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B54114C24AB363A00F6925B /* plus2-0.rom */; };
+		4B94398124ADECF300FD0237 /* plus2-1.rom in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B54114D24AB363A00F6925B /* plus2-1.rom */; };
+		4B94398224ADECF300FD0237 /* plus3-0.rom in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B54114E24AB363A00F6925B /* plus3-0.rom */; };
+		4B94398324ADECF300FD0237 /* speccyboot-1.4.rom in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B54114F24AB363A00F6925B /* speccyboot-1.4.rom */; };
+		4B94398424ADECF300FD0237 /* plus3-1.rom in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B54115024AB363A00F6925B /* plus3-1.rom */; };
+		4B94398524ADECF300FD0237 /* plus3-3.rom in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B54115124AB363A00F6925B /* plus3-3.rom */; };
+		4B94398624ADECF300FD0237 /* tc2048.rom in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B54115224AB363A00F6925B /* tc2048.rom */; };
+		4B94398724ADECF300FD0237 /* plus3-2.rom in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B54115324AB363A00F6925B /* plus3-2.rom */; };
+		4B94398824ADECF300FD0237 /* 48.rom in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B54115424AB363A00F6925B /* 48.rom */; };
+		4B94398924ADECF300FD0237 /* plusd.rom in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B54115524AB363A00F6925B /* plusd.rom */; };
+		4B94398C24ADEF0900FD0237 /* scalers16.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B94398B24ADEF0900FD0237 /* scalers16.c */; };
+		4B94398E24ADEF2700FD0237 /* scalers32.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B94398D24ADEF2700FD0237 /* scalers32.c */; };
 		4B9DBB60222A8B9A0032B280 /* MachinePartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9DBB5F222A8B9A0032B280 /* MachinePartTableViewCell.swift */; };
 		4B9DBB62222A8BE60032B280 /* SelectMachinePartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9DBB61222A8BE60032B280 /* SelectMachinePartViewController.swift */; };
 		4B9DBB642231431B0032B280 /* MfiInputDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9DBB632231431B0032B280 /* MfiInputDevice.swift */; };
@@ -1711,6 +1737,37 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4B94397324ADECD300FD0237 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = fuse;
+			dstSubfolderSpec = 7;
+			files = (
+				4B94397424ADECF300FD0237 /* 128-1.rom in CopyFiles */,
+				4B94397524ADECF300FD0237 /* 128-0.rom in CopyFiles */,
+				4B94397624ADECF300FD0237 /* disciple.rom in CopyFiles */,
+				4B94397724ADECF300FD0237 /* se-1.rom in CopyFiles */,
+				4B94397824ADECF300FD0237 /* se-0.rom in CopyFiles */,
+				4B94397924ADECF300FD0237 /* plus3e-1.rom in CopyFiles */,
+				4B94397A24ADECF300FD0237 /* tc2068-1.rom in CopyFiles */,
+				4B94397B24ADECF300FD0237 /* tc2068-0.rom in CopyFiles */,
+				4B94397C24ADECF300FD0237 /* plus3e-0.rom in CopyFiles */,
+				4B94397D24ADECF300FD0237 /* plus3e-2.rom in CopyFiles */,
+				4B94397E24ADECF300FD0237 /* plus3e-3.rom in CopyFiles */,
+				4B94397F24ADECF300FD0237 /* Makefile.am in CopyFiles */,
+				4B94398024ADECF300FD0237 /* plus2-0.rom in CopyFiles */,
+				4B94398124ADECF300FD0237 /* plus2-1.rom in CopyFiles */,
+				4B94398224ADECF300FD0237 /* plus3-0.rom in CopyFiles */,
+				4B94398324ADECF300FD0237 /* speccyboot-1.4.rom in CopyFiles */,
+				4B94398424ADECF300FD0237 /* plus3-1.rom in CopyFiles */,
+				4B94398524ADECF300FD0237 /* plus3-3.rom in CopyFiles */,
+				4B94398624ADECF300FD0237 /* tc2048.rom in CopyFiles */,
+				4B94398724ADECF300FD0237 /* plus3-2.rom in CopyFiles */,
+				4B94398824ADECF300FD0237 /* 48.rom in CopyFiles */,
+				4B94398924ADECF300FD0237 /* plusd.rom in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4093,6 +4150,9 @@
 		4B841CFE21F8CEDF009CAF4B /* MediaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaView.swift; sourceTree = "<group>"; };
 		4B841D0221FCAADA009CAF4B /* MediaItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaItem.swift; sourceTree = "<group>"; };
 		4B841D0421FCB96B009CAF4B /* ProgramFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramFile.swift; sourceTree = "<group>"; };
+		4B94396F24ADD6E900FD0237 /* uidisplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = uidisplay.m; sourceTree = "<group>"; };
+		4B94398B24ADEF0900FD0237 /* scalers16.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = scalers16.c; sourceTree = "<group>"; };
+		4B94398D24ADEF2700FD0237 /* scalers32.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scalers32.c; sourceTree = "<group>"; };
 		4B9DBB59222911CC0032B280 /* MachinePart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachinePart.swift; sourceTree = "<group>"; };
 		4B9DBB5B222922420032B280 /* Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controller.swift; sourceTree = "<group>"; };
 		4B9DBB5D22292B8E0032B280 /* InputDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputDevice.swift; sourceTree = "<group>"; };
@@ -6784,8 +6844,8 @@
 		4B54101324AB363900F6925B /* fuse */ = {
 			isa = PBXGroup;
 			children = (
-				4B54111A24AB363900F6925B /* AUTHORS */,
 				4B54127C24AB363B00F6925B /* aclocal.m4 */,
+				4B54111A24AB363900F6925B /* AUTHORS */,
 				4B54124724AB363A00F6925B /* bitmap.h */,
 				4B54111824AB363900F6925B /* ChangeLog */,
 				4B5410EC24AB363900F6925B /* compat */,
@@ -7020,6 +7080,8 @@
 				4B54106024AB363900F6925B /* scaler_hq3x.c */,
 				4B54106124AB363900F6925B /* scaler_internals.h */,
 				4B54106224AB363900F6925B /* scalers.c */,
+				4B94398B24ADEF0900FD0237 /* scalers16.c */,
+				4B94398D24ADEF2700FD0237 /* scalers32.c */,
 				4B54106324AB363900F6925B /* scaler_hq2x.c */,
 				4B54106424AB363900F6925B /* scaler.c */,
 			);
@@ -7780,12 +7842,13 @@
 		4B5412C924AB519900F6925B /* FuseZX */ = {
 			isa = PBXGroup;
 			children = (
-				4B54151824ACA74500F6925B /* module.modulemap */,
+				4B5412D624AB52CA00F6925B /* Fuse.swift */,
+				4B54151B24ACA8E900F6925B /* FuseThread.h */,
+				4B54151924ACA8AE00F6925B /* FuseThread.m */,
 				4B5412CA24AB519900F6925B /* FuseZX.h */,
 				4B5412CB24AB519900F6925B /* Info.plist */,
-				4B5412D624AB52CA00F6925B /* Fuse.swift */,
-				4B54151924ACA8AE00F6925B /* FuseThread.m */,
-				4B54151B24ACA8E900F6925B /* FuseThread.h */,
+				4B54151824ACA74500F6925B /* module.modulemap */,
+				4B94396F24ADD6E900FD0237 /* uidisplay.m */,
 			);
 			path = FuseZX;
 			sourceTree = "<group>";
@@ -8359,6 +8422,7 @@
 				4B3F974121D7ACC700C272C4 /* Resources */,
 				4BBF86A521DA282000EF99ED /* CopyFiles */,
 				4BB22EF121F20A9A0075E694 /* Embed Frameworks */,
+				4B94397324ADECD300FD0237 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -9800,6 +9864,8 @@
 				4B27F60C24ACEAB300BFD1EF /* relative_paths.c in Sources */,
 				4B27F62224ACEEFE00BFD1EF /* covox.c in Sources */,
 				4B27F65A24ACFEDA00BFD1EF /* scorpion.c in Sources */,
+				4B94398C24ADEF0900FD0237 /* scalers16.c in Sources */,
+				4B94398E24ADEF2700FD0237 /* scalers32.c in Sources */,
 				4B27F66624AD00B300BFD1EF /* options.c in Sources */,
 				4B5412C124AB393D00F6925B /* uimedia.c in Sources */,
 				4B5412B724AB393D00F6925B /* screenshot.c in Sources */,
@@ -9853,7 +9919,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B54151A24ACA8AE00F6925B /* FuseThread.m in Sources */,
+				4B94397224ADE29300FD0237 /* render.c in Sources */,
 				4B5412D724AB52CA00F6925B /* Fuse.swift in Sources */,
+				4B94397124ADDF9700FD0237 /* uidisplay.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -11176,7 +11244,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
-				HEADER_SEARCH_PATHS = C64/Vice;
+				HEADER_SEARCH_PATHS = (
+					C64/Vice,
+					libspectrum,
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/C64/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -11203,7 +11274,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
-				HEADER_SEARCH_PATHS = C64/Vice;
+				HEADER_SEARCH_PATHS = (
+					C64/Vice,
+					libspectrum,
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/C64/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -11471,10 +11545,10 @@
 				HEADER_SEARCH_PATHS = (
 					libspectrum,
 					fuse,
+					C64/Vice,
 				);
 				INFOPLIST_FILE = FuseZX/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -11513,10 +11587,10 @@
 				HEADER_SEARCH_PATHS = (
 					libspectrum,
 					fuse,
+					C64/Vice,
 				);
 				INFOPLIST_FILE = FuseZX/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

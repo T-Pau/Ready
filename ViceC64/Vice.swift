@@ -1,5 +1,5 @@
 /*
- Vice.swift -- High Level Interface to Vice
+ Vice.swift -- High Level Interface to vice
  Copyright (C) 2019 Dieter Baron
  
  This file is part of C64, a Commodore 64 emulator for iOS, based on VICE.
