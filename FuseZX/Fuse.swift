@@ -26,6 +26,15 @@ import Emulator
 
 import FuseC
 
+struct FuseEvent: Event {
+    enum EventType {
+        case press(key: Key)
+        case release(key: Key)
+    }
+    var event: EventType
+    var delay: Int = 0
+}
+
 @objc public class Fuse: NSObject {
     public var machine = Machine()
     public var delegate: EmulatorDelegate?
@@ -38,17 +47,127 @@ import FuseC
     public override init() {
         fuseThread = FuseThread()
         super.init()
-        //fuseThread?.delegate = self
+        fuseThread?.delegate = self
+    }
+    
+    private var eventQueue = EventQueue<FuseEvent>()
+    
+    func fuseValue(for key: Key) -> keyboard_key_name? {
+        switch key {
+        case .Char(" "):
+            return KEYBOARD_space
+        case .Char("0"):
+            return KEYBOARD_0
+        case .Char("1"):
+            return KEYBOARD_1
+        case .Char("2"):
+            return KEYBOARD_2
+        case .Char("3"):
+            return KEYBOARD_3
+        case .Char("4"):
+            return KEYBOARD_4
+        case .Char("5"):
+            return KEYBOARD_5
+        case .Char("6"):
+            return KEYBOARD_6
+        case .Char("7"):
+            return KEYBOARD_7
+        case .Char("8"):
+            return KEYBOARD_8
+        case .Char("9"):
+            return KEYBOARD_9
+        case .Char("a"):
+            return KEYBOARD_a
+        case .Char("b"):
+            return KEYBOARD_b
+        case .Char("c"):
+            return KEYBOARD_c
+        case .Char("d"):
+            return KEYBOARD_d
+        case .Char("e"):
+            return KEYBOARD_e
+        case .Char("f"):
+            return KEYBOARD_f
+        case .Char("g"):
+            return KEYBOARD_g
+        case .Char("h"):
+            return KEYBOARD_h
+        case .Char("i"):
+            return KEYBOARD_i
+        case .Char("j"):
+            return KEYBOARD_j
+        case .Char("k"):
+            return KEYBOARD_k
+        case .Char("l"):
+            return KEYBOARD_l
+        case .Char("m"):
+            return KEYBOARD_m
+        case .Char("n"):
+            return KEYBOARD_n
+        case .Char("o"):
+            return KEYBOARD_o
+        case .Char("p"):
+            return KEYBOARD_p
+        case .Char("q"):
+            return KEYBOARD_q
+        case .Char("r"):
+            return KEYBOARD_r
+        case .Char("s"):
+            return KEYBOARD_s
+        case .Char("t"):
+            return KEYBOARD_t
+        case .Char("u"):
+            return KEYBOARD_u
+        case .Char("v"):
+            return KEYBOARD_v
+        case .Char("w"):
+            return KEYBOARD_w
+        case .Char("x"):
+            return KEYBOARD_x
+        case .Char("y"):
+            return KEYBOARD_y
+        case .Char("z"):
+            return KEYBOARD_z
+        case .Return:
+            return KEYBOARD_Enter
+        case .Shift:
+            return KEYBOARD_Caps
+        case .SymbolShift:
+            return KEYBOARD_Symbol
+
+        default:
+            return nil
+        }
+    }
+}
+
+extension Fuse: FuseThreadDelegate {
+    public func handleEvents() -> Bool {
+        eventQueue.process() { event in
+            switch event.event {
+            case .press(let key):
+                if let keyName = fuseValue(for: key) {
+                    keyboard_press(keyName)
+                }
+                
+            case .release(let key):
+                if let keyName = fuseValue(for: key) {
+                    keyboard_release(keyName)
+                }
+            }
+        }
+        
+        return true
     }
 }
 
 extension Fuse: Emulator {
     public func release(key: Key, delayed: Int) {
-        // TODO: implement
+        eventQueue.send(event: FuseEvent(event: .release(key: key), delay: delayed))
     }
     
     public func press(key: Key, delayed: Int) {
-        // TODO: implement
+        eventQueue.send(event: FuseEvent(event: .press(key: key), delay: delayed))
     }
     
     public func freeze() {

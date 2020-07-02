@@ -164,6 +164,7 @@ class MachinePartsViewController: UIViewController, SeguePreparer {
             .diskDrive11: driveViews[3],
             .cassetteDrive: cassetteView,
             .userPort: userPortView,
+            .controlPort1: controlPortViews[0],
             .controlPort2: controlPortViews[1],
             .expansionPort: expansionPortView
         ]

@@ -192,12 +192,16 @@ extension MachineSpecification {
     }
     
     public var controllers: [Controller] {
+        var controllers = [Controller]()
+        
+        if computer.has(port: .controlPort1) {
+            controllers.append(controller1)
+        }
         if computer.has(port: .controlPort2) {
-            return [ controller1, controller2 ]
+            controllers.append(controller2)
         }
-        else {
-            return [ controller1 ]
-        }
+
+        return controllers
     }
     
     public var controller1: Controller {

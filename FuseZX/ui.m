@@ -28,7 +28,7 @@
 #include "keyboard.h"
 #include "ui/ui.h"
 
-#include "../uijoystick.c"
+#include "FuseThread.h"
 
 keysyms_map_t keysyms_map[] = {
     { 0, 0 } /* End marker */
@@ -113,7 +113,7 @@ ui_error_specific( ui_error_level severity, const char *message )
 int
 ui_event( void )
 {
-    /* No error */
+    [fuseThread.delegate handleEvents];
     return 0;
 }
 

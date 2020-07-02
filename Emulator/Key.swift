@@ -58,6 +58,7 @@ public enum Key : Equatable, Hashable {
     case ShiftLeft
     case ShiftLock
     case ShiftRight
+    case SymbolShift
     
  
     public var isShift: Bool {
@@ -102,7 +103,8 @@ public enum Key : Equatable, Hashable {
              (.Shift, .Shift),
              (.ShiftLeft, .ShiftLeft),
              (.ShiftLock, .ShiftLock),
-             (.ShiftRight, .ShiftRight):
+             (.ShiftRight, .ShiftRight),
+             (.SymbolShift, .SymbolShift):
             return true
         case (.Char(let l), .Char(let r)):
             return l == r

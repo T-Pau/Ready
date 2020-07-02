@@ -296,8 +296,23 @@ public struct Keyboard {
         self.keyboardSymbols = KeyboardSymbols.plus4
     }
     
-    init(zxSpectrumWithImageName imageName: String) {
-        self.layout = Layout(rows: []) // TODO: add layout
+    init(zxSpectrumWithImageName imageName: String, rows: [Int], left: [Int], right: [Int], capsRight: Int, spaceLeft: Int) {
+        self.layout = Layout(rows: [
+            Row(top: rows[0], bottom: rows[1], spans: [
+                Span(left: left[0], right: right[0], keys: [.Char("1"), .Char("2"), .Char("3"), .Char("4"), .Char("5"), .Char("6"), .Char("7"), .Char("8"), .Char("9"), .Char("0")])
+            ]),
+            Row(top: rows[1], bottom: rows[2], spans: [
+                Span(left: left[1], right: right[1], keys: [.Char("q"), .Char("w"), .Char("e"), .Char("r"), .Char("t"), .Char("y"), .Char("u"), .Char("i"), .Char("o"), .Char("p")])
+            ]),
+            Row(top: rows[2], bottom: rows[3], spans: [
+                Span(left: left[2], right: right[2], keys: [.Char("a"), .Char("s"), .Char("d"), .Char("f"), .Char("g"), .Char("h"), .Char("j"), .Char("k"), .Char("l"), .Return])
+            ]),
+            Row(top: rows[3], bottom: rows[4], spans: [
+                Span(left: left[0], right: capsRight, keys: [.Shift]),
+                Span(left: capsRight, right: spaceLeft, keys: [.Char("z"), .Char("x"), .Char("c"), .Char("v"), .Char("b"), .Char("n"), .Char("m"), .SymbolShift]),
+                Span(left: spaceLeft, right: right[2], keys: [.Char(" ")])
+            ])
+        ])
         self.imageName = imageName
         self.keyboardSymbols = KeyboardSymbols.zxSpectrum 
     }
@@ -507,7 +522,12 @@ public struct Keyboard {
                              rightShiftLeft: 1898,
                              rightShiftRight: 2120),
         
-        "ZX Spectrum": Keyboard(zxSpectrumWithImageName: "ZX Spectrum Keyboard")
+        "ZX Spectrum": Keyboard(zxSpectrumWithImageName: "ZX Spectrum Keyboard",
+                                rows: [138, 466, 807, 1146, 1473],
+                                left: [35, 205, 288],
+                                right: [3422, 3588, 3648],
+                                capsRight: 453,
+                                spaceLeft: 3155)
     ]
     
     public static func keyboard(named name: String) -> Keyboard? {

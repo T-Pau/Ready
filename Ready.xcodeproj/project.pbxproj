@@ -73,7 +73,6 @@
 		4B27F64C24ACF10100BFD1EF /* garray.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B5414DE24ABA96600F6925B /* garray.c */; };
 		4B27F64D24ACF10100BFD1EF /* ghash.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B5414E024ABA96700F6925B /* ghash.c */; };
 		4B27F64E24ACF17800BFD1EF /* debugger.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B5411C824AB363A00F6925B /* debugger.c */; };
-		4B27F65124ACF81E00BFD1EF /* ui-ios.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B27F65024ACF81E00BFD1EF /* ui-ios.c */; };
 		4B27F65324ACFEA300BFD1EF /* tc2068.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B54119424AB363A00F6925B /* tc2068.c */; };
 		4B27F65424ACFEAB00BFD1EF /* spec48.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B54118124AB363A00F6925B /* spec48.c */; };
 		4B27F65524ACFEB500BFD1EF /* tc2048.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B54118324AB363A00F6925B /* tc2048.c */; };
@@ -1145,6 +1144,8 @@
 		4B79795621DCDFEB0047FBE6 /* GameCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B79795521DCDFEB0047FBE6 /* GameCollectionViewCell.swift */; };
 		4B79795821DCE1210047FBE6 /* GameCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B79795721DCE1210047FBE6 /* GameCollectionViewController.swift */; };
 		4B7A7C82226891A000775010 /* Gmod2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7A7C81226891A000775010 /* Gmod2.swift */; };
+		4B81F29E24AE8F6E0090B21A /* ui.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B27F65024ACF81E00BFD1EF /* ui.m */; };
+		4B81F29F24AE904B0090B21A /* uijoystick.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B5410A124AB363900F6925B /* uijoystick.c */; };
 		4B841CFA21F75C12009CAF4B /* Floppy35Document.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B841CF921F75C12009CAF4B /* Floppy35Document.png */; };
 		4B841CFC21F76AB3009CAF4B /* Floppy525Document.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B841CFB21F76AB3009CAF4B /* Floppy525Document.png */; };
 		4B841CFD21F8CE78009CAF4B /* ShareableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB22EA821EA27570075E694 /* ShareableImageView.swift */; };
@@ -1176,6 +1177,7 @@
 		4B94398924ADECF300FD0237 /* plusd.rom in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B54115524AB363A00F6925B /* plusd.rom */; };
 		4B94398C24ADEF0900FD0237 /* scalers16.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B94398B24ADEF0900FD0237 /* scalers16.c */; };
 		4B94398E24ADEF2700FD0237 /* scalers32.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B94398D24ADEF2700FD0237 /* scalers32.c */; };
+		4B94399224AE834000FD0237 /* EventQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B94399024AE833100FD0237 /* EventQueue.swift */; };
 		4B9DBB60222A8B9A0032B280 /* MachinePartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9DBB5F222A8B9A0032B280 /* MachinePartTableViewCell.swift */; };
 		4B9DBB62222A8BE60032B280 /* SelectMachinePartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9DBB61222A8BE60032B280 /* SelectMachinePartViewController.swift */; };
 		4B9DBB642231431B0032B280 /* MfiInputDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9DBB632231431B0032B280 /* MfiInputDevice.swift */; };
@@ -1818,7 +1820,7 @@
 		4B1CCBAF223FF3990032B9F0 /* GameCollectionNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCollectionNavigationViewController.swift; sourceTree = "<group>"; };
 		4B1CCBB122427A660032B9F0 /* StateEncodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateEncodable.swift; sourceTree = "<group>"; };
 		4B27F60424ACE8C700BFD1EF /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
-		4B27F65024ACF81E00BFD1EF /* ui-ios.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "ui-ios.c"; sourceTree = "<group>"; };
+		4B27F65024ACF81E00BFD1EF /* ui.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ui.m; sourceTree = "<group>"; };
 		4B27F67224AD03B700BFD1EF /* iossound.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iossound.c; sourceTree = "<group>"; };
 		4B2B9BB1224E7ABC002948B7 /* MediaTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTableHeaderView.swift; sourceTree = "<group>"; };
 		4B2B9BB3224F84F9002948B7 /* GameViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewItem.swift; sourceTree = "<group>"; };
@@ -4153,6 +4155,7 @@
 		4B94396F24ADD6E900FD0237 /* uidisplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = uidisplay.m; sourceTree = "<group>"; };
 		4B94398B24ADEF0900FD0237 /* scalers16.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = scalers16.c; sourceTree = "<group>"; };
 		4B94398D24ADEF2700FD0237 /* scalers32.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scalers32.c; sourceTree = "<group>"; };
+		4B94399024AE833100FD0237 /* EventQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventQueue.swift; sourceTree = "<group>"; };
 		4B9DBB59222911CC0032B280 /* MachinePart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachinePart.swift; sourceTree = "<group>"; };
 		4B9DBB5B222922420032B280 /* Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controller.swift; sourceTree = "<group>"; };
 		4B9DBB5D22292B8E0032B280 /* InputDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputDevice.swift; sourceTree = "<group>"; };
@@ -4820,7 +4823,6 @@
 		4B27F64F24ACF7F400BFD1EF /* ios */ = {
 			isa = PBXGroup;
 			children = (
-				4B27F65024ACF81E00BFD1EF /* ui-ios.c */,
 			);
 			path = ios;
 			sourceTree = "<group>";
@@ -6969,9 +6971,9 @@
 		4B54101E24AB363900F6925B /* ui */ = {
 			isa = PBXGroup;
 			children = (
-				4B27F64F24ACF7F400BFD1EF /* ios */,
 				4B54104824AB363900F6925B /* fb */,
 				4B54108324AB363900F6925B /* gtk */,
+				4B27F64F24ACF7F400BFD1EF /* ios */,
 				4B54105324AB363900F6925B /* Makefile.am */,
 				4B54106524AB363900F6925B /* null */,
 				4B54106B24AB363900F6925B /* options.dat */,
@@ -7490,20 +7492,20 @@
 		4B5411A624AB363A00F6925B /* hacking */ = {
 			isa = PBXGroup;
 			children = (
-				4B5411A724AB363A00F6925B /* uncrustify.cfg */,
-				4B5411A824AB363A00F6925B /* sound.txt */,
-				4B5411A924AB363A00F6925B /* coding_style.txt */,
-				4B5411AA24AB363A00F6925B /* tc2048_tech_notes.txt */,
-				4B5411AB24AB363A00F6925B /* peripheral_tests.txt */,
-				4B5411AC24AB363A00F6925B /* implementation_notes.txt */,
-				4B5411AD24AB363A00F6925B /* spectranet.txt */,
-				4B5411AE24AB363A00F6925B /* Makefile.am */,
-				4B5411AF24AB363A00F6925B /* input.txt */,
-				4B5411B024AB363A00F6925B /* ui.txt */,
 				4B5411B124AB363A00F6925B /* code_beautifiers.txt */,
-				4B5411B224AB363A00F6925B /* valgrind.supp */,
-				4B5411B324AB363A00F6925B /* timer.txt */,
+				4B5411A924AB363A00F6925B /* coding_style.txt */,
 				4B5411B424AB363A00F6925B /* cvs-tags */,
+				4B5411AC24AB363A00F6925B /* implementation_notes.txt */,
+				4B5411AF24AB363A00F6925B /* input.txt */,
+				4B5411AE24AB363A00F6925B /* Makefile.am */,
+				4B5411AB24AB363A00F6925B /* peripheral_tests.txt */,
+				4B5411A824AB363A00F6925B /* sound.txt */,
+				4B5411AD24AB363A00F6925B /* spectranet.txt */,
+				4B5411AA24AB363A00F6925B /* tc2048_tech_notes.txt */,
+				4B5411B324AB363A00F6925B /* timer.txt */,
+				4B5411B024AB363A00F6925B /* ui.txt */,
+				4B5411A724AB363A00F6925B /* uncrustify.cfg */,
+				4B5411B224AB363A00F6925B /* valgrind.supp */,
 			);
 			path = hacking;
 			sourceTree = "<group>";
@@ -7848,6 +7850,7 @@
 				4B5412CA24AB519900F6925B /* FuseZX.h */,
 				4B5412CB24AB519900F6925B /* Info.plist */,
 				4B54151824ACA74500F6925B /* module.modulemap */,
+				4B27F65024ACF81E00BFD1EF /* ui.m */,
 				4B94396F24ADD6E900FD0237 /* uidisplay.m */,
 			);
 			path = FuseZX;
@@ -8056,6 +8059,7 @@
 				4B68F8B32496407700A76E57 /* Emulator.h */,
 				4B68F8BE24966ECF00A76E57 /* Emulator.swift */,
 				4B68F8AA24963F1B00A76E57 /* EmulatorDelegate.swift */,
+				4B94399024AE833100FD0237 /* EventQueue.swift */,
 				4B3182C822820095006D86AC /* Ide64Cartridge.swift */,
 				4B3182CB228209BB006D86AC /* IdeDiskImage.swift */,
 				4B68F8B42496407700A76E57 /* Info.plist */,
@@ -9456,6 +9460,9 @@
 					4B540E9624A674E100F6925B = {
 						CreatedOnToolsVersion = 11.5;
 					};
+					4B54128224AB367700F6925B = {
+						LastSwiftMigration = 1150;
+					};
 					4B5412C724AB519900F6925B = {
 						CreatedOnToolsVersion = 11.5;
 						LastSwiftMigration = 1150;
@@ -9834,7 +9841,6 @@
 				4B27F62924ACEEFE00BFD1EF /* melodik.c in Sources */,
 				4B27F60D24ACEAB300BFD1EF /* osname.c in Sources */,
 				4B5412AE24AB393D00F6925B /* mempool.c in Sources */,
-				4B27F65124ACF81E00BFD1EF /* ui-ios.c in Sources */,
 				4B5412BC24AB393D00F6925B /* spectrum.c in Sources */,
 				4B27F62524ACEEFE00BFD1EF /* if1.c in Sources */,
 				4B27F66024ACFF0A00BFD1EF /* specplus2a.c in Sources */,
@@ -9867,6 +9873,7 @@
 				4B94398C24ADEF0900FD0237 /* scalers16.c in Sources */,
 				4B94398E24ADEF2700FD0237 /* scalers32.c in Sources */,
 				4B27F66624AD00B300BFD1EF /* options.c in Sources */,
+				4B81F29F24AE904B0090B21A /* uijoystick.c in Sources */,
 				4B5412C124AB393D00F6925B /* uimedia.c in Sources */,
 				4B5412B724AB393D00F6925B /* screenshot.c in Sources */,
 				4B27F63524ACEF3800BFD1EF /* disciple.c in Sources */,
@@ -9919,6 +9926,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B54151A24ACA8AE00F6925B /* FuseThread.m in Sources */,
+				4B81F29E24AE8F6E0090B21A /* ui.m in Sources */,
 				4B94397224ADE29300FD0237 /* render.c in Sources */,
 				4B5412D724AB52CA00F6925B /* Fuse.swift in Sources */,
 				4B94397124ADDF9700FD0237 /* uidisplay.m in Sources */,
@@ -10192,6 +10200,7 @@
 				4B68FB64249752FA00A76E57 /* InputMapping.swift in Sources */,
 				4B68FB72249774D100A76E57 /* Chargen.swift in Sources */,
 				4B68F8C024966FEE00A76E57 /* Key.swift in Sources */,
+				4B94399224AE834000FD0237 /* EventQueue.swift in Sources */,
 				4B68F8C22496719200A76E57 /* JoystickButtons.swift in Sources */,
 				4B68FB5A249751DE00A76E57 /* Machine.swift in Sources */,
 				4B68FB5C249751F400A76E57 /* DiskDrive.swift in Sources */,
@@ -11492,14 +11501,21 @@
 		4B5412A024AB367700F6925B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
 					fuse,
 					libspectrum,
 				);
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -11507,14 +11523,21 @@
 		4B5412A124AB367700F6925B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
 					fuse,
 					libspectrum,
 				);
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
