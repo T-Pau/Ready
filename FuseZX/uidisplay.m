@@ -28,20 +28,20 @@ static render_t *renderer;
 
 static uint32_t palette[] = {
     0x000000FF,
-    0x000000FF,
     0x0000D7FF,
-    0x0000FFFF,
     0xD70000FF,
-    0xFF0000FF,
     0xD700D7FF,
-    0xFF00FFFF,
     0x00D700FF,
-    0x00FF00FF,
     0x00D7D7FF,
-    0x00FFFFFF,
     0xD7D700FF,
-    0xFFFF00FF,
     0xD7D7D7FF,
+    0x000000FF,
+    0x0000FFFF,
+    0xFF0000FF,
+    0xFF00FFFF,
+    0x00FF00FF,
+    0x00FFFFFF,
+    0xFFFF00FF,
     0xFFFFFFFF
 };
 
@@ -69,20 +69,31 @@ int uidisplay_init(int width, int height) {
         fuse_exiting = 1;
         return 0;
     }
+
+    // TODO: handle doubled resolution for Timex machines (640x480)
+
+    screen->screen.origin.x = 32;
+    screen->screen.origin.y = 24;
+    screen->screen.size.width = width - 64;
+    screen->screen.size.height = height - 48;
     
-    fuseThread.bytesPerRow = width;
+    fuseThread.bytesPerRow = width * 4;
     fuseThread.imageData = [NSMutableData dataWithLength:render_data_size(screen->size)];
 
-    // TODO: fill in real border
+    if ((renderer = render_new(screen->size, fuseThread.imageData.mutableBytes, palette, BORDER_MODE_SHOW)) == NULL) {
+        render_image_free(screen);
+        fuse_exiting = 1;
+        return 0;
+    }
     
-    renderer = render_new(screen->size, fuseThread.imageData.mutableBytes, palette, BORDER_MODE_SHOW);
+    display_ui_initialised = 1;
     
     return 0;
 }
 
 
 void uidisplay_plot8(int x, int y, libspectrum_byte data, libspectrum_byte ink, libspectrum_byte paper) {
-    uint8_t *dest = screen->data + y * screen->row_size + x;
+    uint8_t *dest = screen->data + y * screen->row_size + x * 8;
     
     for (uint8_t mask = 0x80; mask != 0; mask >>= 1) {
         *dest = data & mask ? ink : paper;
@@ -92,7 +103,8 @@ void uidisplay_plot8(int x, int y, libspectrum_byte data, libspectrum_byte ink, 
 
 
 void uidisplay_plot16(int x, int y, libspectrum_word data, libspectrum_byte ink, libspectrum_byte paper) {
-    uint8_t *dest = screen->data + y * screen->row_size + x;
+    printf("put 16 pixels at (%d, %d)\n", x, y);
+    uint8_t *dest = screen->data + y * screen->row_size + x * 16;
     
     for (uint16_t mask = 0x8000; mask != 0; mask >>= 1) {
         *dest = data & mask ? ink : paper;

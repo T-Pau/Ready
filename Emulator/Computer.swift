@@ -120,6 +120,7 @@ public struct Computer: MachinePart {
         case vic20Ntsc
         case zxSpectrum16k
         case zxSpectrum48k
+        case zxSpectrum48kNtsc
 
         public var viceMachine: ComputerType {
             switch self {
@@ -129,7 +130,7 @@ public struct Computer: MachinePart {
                 return .vic
             case .c16Pal, .c16Ntsc, .c232Ntsc, .plus4Pal, .plus4Ntsc, .v364Ntsc:
                 return .plus4
-            case .zxSpectrum16k, .zxSpectrum48k:
+            case .zxSpectrum16k, .zxSpectrum48k, .zxSpectrum48kNtsc:
                 return .spectrum
             }
         }
@@ -511,7 +512,7 @@ public struct Computer: MachinePart {
                      caseColorName: "VIC-20 Case"),
 
             Computer(identifier: "VIC-20 C64 NTSC",
-                     name: "Commodore VIC-20 (C64 Style Keyboard,  NTSC)",
+                     name: "Commodore VIC-20 (C64 Style Keyboard, NTSC)",
                      fullName: "Commodore VIC-20",
                      variantName: "C64 Style Keyboard, NTSC",
                      iconName: "Commodore VIC-20 C64",
@@ -519,12 +520,36 @@ public struct Computer: MachinePart {
                      keyboardName: "C64",
                      caseColorName: "VIC-20 Case")
         ]),
-/*
-        MachinePartSection(title: "Sinclair ZX Spectrum", parts: [
-            Computer(identifier: "ZX 48k", name: "Sinclair ZX Spectrum 48k", iconName: "Sinclair ZX Spectrum 48k", viceMachineModel: .zxSpectrum48k, keyboardName: "", caseColorName: "")
-        ]),
-*/
-   ])
+        
+/*        MachinePartSection(title: "Sinclair ZX Spectrum", parts: [
+            Computer(identifier: "ZX 16k",
+                     name: "Sinclair ZX Spectrum (16k, PAL)",
+                     fullName: "Sinclair ZX Spectrum",
+                     variantName: "16k, PAL",
+                     iconName: "Sinclair ZX Spectrum",
+                     viceMachineModel: .zxSpectrum16k,
+                     keyboardName: "ZX Spectrum",
+                     caseColorName: "ZX Case"),
+            
+            Computer(identifier: "ZX 48k",
+                     name: "Sinclair ZX Spectrum (48k, PAL)",
+                     fullName: "Sinclair ZX Spectrum",
+                     variantName: "48k, PAL",
+                     iconName: "Sinclair ZX Spectrum",
+                     viceMachineModel: .zxSpectrum48k,
+                     keyboardName: "ZX Spectrum",
+                     caseColorName: "ZX Case"),
+
+            Computer(identifier: "ZX 48k NTSC",
+                     name: "Sinclair ZX Spectrum (48k, NTSC)",
+                     fullName: "Sinclair ZX Spectrum",
+                     variantName: "48k, NTSC",
+                     iconName: "Sinclair ZX Spectrum",
+                     viceMachineModel: .zxSpectrum48kNtsc,
+                     keyboardName: "ZX Spectrum",
+                     caseColorName: "ZX Case")
+        ]), */
+])
     
     static private var byIdentifier = [String: Computer]()
     

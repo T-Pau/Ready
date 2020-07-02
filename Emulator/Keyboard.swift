@@ -142,7 +142,7 @@ public struct Keyboard {
     }
 
     public var imageName: String
-    public var toggleKeys: [Key: String]
+    public var toggleKeys = [Key: String]()
     public var keyboardSymbols: KeyboardSymbols
     
     public func hit(_ point: CGPoint) -> Key? {
@@ -294,6 +294,12 @@ public struct Keyboard {
             Polygon(vertices: [cursorPoints[4], cursorPoints[7], cursorPoints[8], cursorPoints[6]], key: .CursorDown)
         ])
         self.keyboardSymbols = KeyboardSymbols.plus4
+    }
+    
+    init(zxSpectrumWithImageName imageName: String) {
+        self.layout = Layout(rows: []) // TODO: add layout
+        self.imageName = imageName
+        self.keyboardSymbols = KeyboardSymbols.zxSpectrum 
     }
 
     private static var keyboards: [String: Keyboard] = [
@@ -499,7 +505,9 @@ public struct Keyboard {
                              leftShiftLeft: 198,
                              leftShiftRight: 421,
                              rightShiftLeft: 1898,
-                             rightShiftRight: 2120)
+                             rightShiftRight: 2120),
+        
+        "ZX Spectrum": Keyboard(zxSpectrumWithImageName: "ZX Spectrum Keyboard")
     ]
     
     public static func keyboard(named name: String) -> Keyboard? {

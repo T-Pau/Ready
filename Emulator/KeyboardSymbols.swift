@@ -287,4 +287,6 @@ public struct KeyboardSymbols {
             ModifiedSymbol(symbol: .char("`"), modifiers: .control): ModifiedSymbol(symbol: .key(.keyboardEscape), modifiers: .control),
             ModifiedSymbol(symbol: .char("~"), modifiers: .control): ModifiedSymbol(symbol: .key(.keyboardEscape), modifiers: [.control, .shift])
     ])
+    
+    static var zxSpectrum = KeyboardSymbols(modifierMap: [:], keyMap: [:]) // TODO
 }
