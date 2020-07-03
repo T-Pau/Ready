@@ -435,6 +435,8 @@ machine_end( void )
   }
 
   libspectrum_free( machine_types );
+  machine_types = NULL;
+  machine_count = 0;
 }
 
 void

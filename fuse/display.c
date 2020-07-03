@@ -124,13 +124,12 @@ static void display_get_attr( int x, int y,
 
 static int border_changes_last = 0;
 static struct border_change_t *border_changes = NULL;
+static int border_changes_size = 0;
 
 static struct border_change_t *
 alloc_change(void)
 {
-  static int border_changes_size = 0;
-
-  if( border_changes_size == border_changes_last ) {
+   if( border_changes_size == border_changes_last ) {
     border_changes_size += 10;
     border_changes = libspectrum_renew( struct border_change_t,
                                         border_changes, border_changes_size );
@@ -195,6 +194,8 @@ display_init( int *argc, char ***argv )
     libspectrum_free( border_changes );
   }
   border_changes = NULL;
+  border_changes_size = 0;
+
   error = add_border_sentinel(); if( error ) return error;
   display_last_border = scld_last_dec.name.hires ?
                             display_hires_border : display_lores_border;

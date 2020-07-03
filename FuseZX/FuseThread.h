@@ -10,6 +10,7 @@
 #define HAD_FUSE_THREAD_H
 
 @import UIKit;
+@import Emulator;
 
 @protocol FuseThreadDelegate
 @required
@@ -26,17 +27,11 @@
 //- (void)updateStatusBar;
 @end
 
-@interface FuseThread : NSThread
-@property UIImageView * _Nullable imageView;
+@interface FuseThread : EmulatorThread
 
-@property NSMutableData * _Nullable imageData;
-@property size_t bytesPerRow;
-
-@property (weak) id _Nullable delegate;
+@property NSArray *args;
 
 - (void)main;
-
-- (void)updateBitmapWidth: (size_t)width height: (size_t)height;
 
 @end
 

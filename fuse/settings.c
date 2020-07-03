@@ -5788,6 +5788,7 @@ settings_free( settings_info *settings )
   if( settings->zxmmc_file ) libspectrum_free( settings->zxmmc_file );
 #line 802"./settings.pl"
 
+  memset(settings, 0, sizeof(*settings));
   return 0;
 }
 

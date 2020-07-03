@@ -23,36 +23,53 @@
 
 import Foundation
 
-public protocol Event {
-    var delay: Int { get set }
+public enum Event {
+    case attach(unit: Int, image: DiskImage?)
+    case freeze
+    case joystick(port: Int, buttons: JoystickButtons)
+    case key(_ key: Key, pressed: Bool)
+    case mouseButton(button: Int, pressed: Bool)
+    case playPause(_ running: Bool)
+    case quit
+    case reset
+    case setResource(key: Machine.ResourceName, value: Machine.ResourceValue)
 }
 
-public struct EventQueue<T: Event> {
-    private var queue = [T]()
-    private var mutex = PThreadMutex()
-    
-    public init() {
+
+struct EventQueue {
+    private struct QueueEntry {
+        var event: Event
+        var delay: Int
     }
 
-    public mutating func send(event: T) {
+    private var queue = [QueueEntry]()
+    private var mutex = PThreadMutex()
+    
+    mutating func send(event: Event, delay: Int) {
         mutex.sync {
-            queue.append(event)
+            queue.append(QueueEntry(event: event, delay: delay))
         }
     }
-    public mutating func process(handler: ((T) -> Void)) {
+    
+    mutating func process(handler: ((Event) -> Bool)) -> Bool {
+        var continuePorcessing = true
+
         mutex.sync {
-            var delayed = [T]()
-            for event in queue {
-                if event.delay > 0 {
-                    var newEvent = event
-                    newEvent.delay -= 1
-                    delayed.append(newEvent)
+            var delayed = [QueueEntry]()
+            
+            for entry in queue {
+                if entry.delay > 0 {
+                    delayed.append(QueueEntry(event: entry.event, delay: entry.delay - 1))
                 }
                 else {
-                    handler(event)
+                    if (!handler(entry.event)) {
+                        continuePorcessing = false
+                    }
                 }
             }
             queue = delayed
         }
+        
+        return continuePorcessing
     }
 }

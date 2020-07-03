@@ -122,7 +122,9 @@ BOOL audioStart(void) {
         ok = NO;
     }
     
-    ok = [[AVAudioSession sharedInstance] setActive:YES error:&error];
+    if (ok) {
+        ok = [[AVAudioSession sharedInstance] setActive:YES error:&error];
+    }
     if(!ok) {
         if(debuglog) {
             NSLog(@"setActive %@", error);
@@ -150,7 +152,9 @@ BOOL audioStop(void) {
         ok = NO;
     }
     
-    ok = [[AVAudioSession sharedInstance] setActive:NO error:&error];
+    if (ok) {
+        ok = [[AVAudioSession sharedInstance] setActive:NO error:&error];
+    }
     if(!ok) {
         if(debuglog) {
             NSLog(@"setActive %@", error);

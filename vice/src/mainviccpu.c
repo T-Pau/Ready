@@ -282,6 +282,7 @@ void maincpu_init(void)
 void maincpu_shutdown(void)
 {
     interrupt_cpu_status_destroy(maincpu_int_status);
+    maincpu_int_status = NULL;
 }
 
 static void cpu_reset(void)

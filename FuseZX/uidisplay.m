@@ -77,8 +77,7 @@ int uidisplay_init(int width, int height) {
     screen->screen.size.width = width - 64;
     screen->screen.size.height = height - 48;
     
-    fuseThread.bytesPerRow = width * 4;
-    fuseThread.imageData = [NSMutableData dataWithLength:render_data_size(screen->size)];
+    [fuseThread initBitmapWidth: width height: height];
 
     if ((renderer = render_new(screen->size, fuseThread.imageData.mutableBytes, palette, BORDER_MODE_SHOW)) == NULL) {
         render_image_free(screen);

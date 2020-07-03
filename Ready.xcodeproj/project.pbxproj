@@ -1146,6 +1146,8 @@
 		4B7A7C82226891A000775010 /* Gmod2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7A7C81226891A000775010 /* Gmod2.swift */; };
 		4B81F29E24AE8F6E0090B21A /* ui.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B27F65024ACF81E00BFD1EF /* ui.m */; };
 		4B81F29F24AE904B0090B21A /* uijoystick.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B5410A124AB363900F6925B /* uijoystick.c */; };
+		4B81F2A524AF12B50090B21A /* EmulatorThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B81F2A424AF12B50090B21A /* EmulatorThread.m */; };
+		4B81F2A724AF17360090B21A /* EmulatorThread.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B81F2A624AF12E30090B21A /* EmulatorThread.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B841CFA21F75C12009CAF4B /* Floppy35Document.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B841CF921F75C12009CAF4B /* Floppy35Document.png */; };
 		4B841CFC21F76AB3009CAF4B /* Floppy525Document.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B841CFB21F76AB3009CAF4B /* Floppy525Document.png */; };
 		4B841CFD21F8CE78009CAF4B /* ShareableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB22EA821EA27570075E694 /* ShareableImageView.swift */; };
@@ -3453,7 +3455,7 @@
 		4B5410E524AB363900F6925B /* browse.rc */ = {isa = PBXFileReference; lastKnownFileType = text; path = browse.rc; sourceTree = "<group>"; };
 		4B5410E624AB363900F6925B /* confirm.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = confirm.c; sourceTree = "<group>"; };
 		4B5410E724AB363900F6925B /* utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
-		4B5410E824AB363900F6925B /* display.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = display.c; sourceTree = "<group>"; };
+		4B5410E824AB363900F6925B /* display.c */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = display.c; sourceTree = "<group>"; };
 		4B5410E924AB363900F6925B /* input.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = input.h; sourceTree = "<group>"; };
 		4B5410EA24AB363900F6925B /* install-sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "install-sh"; sourceTree = "<group>"; };
 		4B5410EB24AB363900F6925B /* configure.ac */ = {isa = PBXFileReference; lastKnownFileType = text; path = configure.ac; sourceTree = "<group>"; };
@@ -3615,7 +3617,7 @@
 		4B54119624AB363A00F6925B /* event.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = event.c; sourceTree = "<group>"; };
 		4B54119724AB363A00F6925B /* keyboard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = keyboard.h; sourceTree = "<group>"; };
 		4B54119824AB363A00F6925B /* memory_pages.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = memory_pages.h; sourceTree = "<group>"; };
-		4B54119924AB363A00F6925B /* machine.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = machine.c; sourceTree = "<group>"; };
+		4B54119924AB363A00F6925B /* machine.c */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.c.c; path = machine.c; sourceTree = "<group>"; };
 		4B54119A24AB363A00F6925B /* screenshot.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = screenshot.c; sourceTree = "<group>"; };
 		4B54119B24AB363A00F6925B /* menu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = menu.h; sourceTree = "<group>"; };
 		4B54119D24AB363A00F6925B /* pokemem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pokemem.h; sourceTree = "<group>"; };
@@ -4146,6 +4148,8 @@
 		4B79795521DCDFEB0047FBE6 /* GameCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCollectionViewCell.swift; sourceTree = "<group>"; };
 		4B79795721DCE1210047FBE6 /* GameCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCollectionViewController.swift; sourceTree = "<group>"; };
 		4B7A7C81226891A000775010 /* Gmod2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gmod2.swift; sourceTree = "<group>"; };
+		4B81F2A424AF12B50090B21A /* EmulatorThread.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmulatorThread.m; sourceTree = "<group>"; };
+		4B81F2A624AF12E30090B21A /* EmulatorThread.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmulatorThread.h; sourceTree = "<group>"; };
 		4B841CF621F7358F009CAF4B /* DiskDrive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskDrive.swift; sourceTree = "<group>"; };
 		4B841CF921F75C12009CAF4B /* Floppy35Document.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Floppy35Document.png; sourceTree = "<group>"; };
 		4B841CFB21F76AB3009CAF4B /* Floppy525Document.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Floppy525Document.png; sourceTree = "<group>"; };
@@ -8059,6 +8063,8 @@
 				4B68F8B32496407700A76E57 /* Emulator.h */,
 				4B68F8BE24966ECF00A76E57 /* Emulator.swift */,
 				4B68F8AA24963F1B00A76E57 /* EmulatorDelegate.swift */,
+				4B81F2A624AF12E30090B21A /* EmulatorThread.h */,
+				4B81F2A424AF12B50090B21A /* EmulatorThread.m */,
 				4B94399024AE833100FD0237 /* EventQueue.swift */,
 				4B3182C822820095006D86AC /* Ide64Cartridge.swift */,
 				4B3182CB228209BB006D86AC /* IdeDiskImage.swift */,
@@ -8384,6 +8390,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B68F8B52496407700A76E57 /* Emulator.h in Headers */,
+				4B81F2A724AF17360090B21A /* EmulatorThread.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9469,6 +9476,7 @@
 					};
 					4B68F8B02496407700A76E57 = {
 						CreatedOnToolsVersion = 11.5;
+						LastSwiftMigration = 1150;
 					};
 					4B68FB3D24967CCD00A76E57 = {
 						CreatedOnToolsVersion = 11.5;
@@ -10187,6 +10195,7 @@
 				4B68FB5D249751FB00A76E57 /* Controller.swift in Sources */,
 				4B68FB702497749B00A76E57 /* Computer.swift in Sources */,
 				4B68FB612497524B00A76E57 /* CasstteDrive.swift in Sources */,
+				4B81F2A524AF12B50090B21A /* EmulatorThread.m in Sources */,
 				4B68FB5E2497520300A76E57 /* CartridgeImage.swift in Sources */,
 				4B68FB632497525A00A76E57 /* MachineConfig.swift in Sources */,
 				4BBA0E3824A09CAD00BA166B /* KeyboardSymbols.swift in Sources */,
@@ -11251,7 +11260,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
 					C64/Vice,
@@ -11281,7 +11290,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
 					C64/Vice,
@@ -11965,6 +11974,7 @@
 		4B68F8BB2496407700A76E57 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -11997,6 +12007,7 @@
 		4B68F8BC2496407700A76E57 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

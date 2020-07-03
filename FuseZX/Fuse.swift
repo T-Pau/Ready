@@ -26,31 +26,28 @@ import Emulator
 
 import FuseC
 
-struct FuseEvent: Event {
-    enum EventType {
-        case press(key: Key)
-        case release(key: Key)
-    }
-    var event: EventType
-    var delay: Int = 0
-}
-
-@objc public class Fuse: NSObject {
-    public var machine = Machine()
-    public var delegate: EmulatorDelegate?
-    public var imageView: UIImageView? {
-        didSet {
-            fuseThread?.imageView = imageView
-        }
-    }
-    
+@objc public class Fuse: Emulator {
     public override init() {
         fuseThread = FuseThread()
         super.init()
         fuseThread?.delegate = self
     }
     
-    private var eventQueue = EventQueue<FuseEvent>()
+    func fuseName(for model: Computer.ViceModel) -> String? {
+        switch model {
+        case .zxSpectrum16k:
+            return "16"
+            
+        case .zxSpectrum48k:
+            return "48"
+            
+        case .zxSpectrum48kNtsc:
+            return "48_ntsc"
+            
+        default:
+            return nil
+        }
+    }
     
     func fuseValue(for key: Key) -> keyboard_key_name? {
         switch key {
@@ -139,95 +136,33 @@ struct FuseEvent: Event {
             return nil
         }
     }
-}
-
-extension Fuse: FuseThreadDelegate {
-    public func handleEvents() -> Bool {
-        eventQueue.process() { event in
-            switch event.event {
-            case .press(let key):
-                if let keyName = fuseValue(for: key) {
+    
+    override public func handle(event: Event) -> Bool {
+        switch event {
+        case .key(let key, let pressed):
+            if let keyName = fuseValue(for: key) {
+                if pressed {
                     keyboard_press(keyName)
                 }
-                
-            case .release(let key):
-                if let keyName = fuseValue(for: key) {
+                else {
                     keyboard_release(keyName)
                 }
             }
+            
+        case .quit:
+            fuse_exiting = 1;
+            
+        default:
+            break
         }
         
         return true
     }
-}
-
-extension Fuse: Emulator {
-    public func release(key: Key, delayed: Int) {
-        eventQueue.send(event: FuseEvent(event: .release(key: key), delay: delayed))
-    }
     
-    public func press(key: Key, delayed: Int) {
-        eventQueue.send(event: FuseEvent(event: .press(key: key), delay: delayed))
-    }
-    
-    public func freeze() {
-        // TODO: implement
-    }
-    
-    public func quit() {
-        // TODO: send event
-        fuse_exiting = 1;
-    }
-    
-    public func reset() {
-        // TODO: implement
-    }
-    
-    public func start() {
+    override public func start() {
+        guard let modelName = fuseName(for: machine.specification.computer.viceMachineModel) else { return } // TODO: close view
+        fuseThread?.args = ["fuse", "--no-sound", "--machine", modelName]
         fuseThread?.start()
     }
-    
-    public func attach(drive: Int, image: DiskImage?) {
-        // TODO: implement
-    }
-    
-    public func joystick(_ index: Int, buttons: JoystickButtons) {
-        // TODO: implement
-    }
-    
-    public func mouse(moved distance: CGPoint) {
-        // TODO: implement
-    }
-    
-    public func mouse(setX x: Int32) {
-        // TODO: implement
-    }
-    
-    public func mouse(setY y: Int32) {
-        // TODO: implement
-    }
-    
-    public func mouse(pressed button: Int) {
-        // TODO: implement
-    }
-    
-    public func mouse(release button: Int) {
-        // TODO: implement
-    }
-    
-    public func lightPen(moved position: CGPoint?, size: CGSize, button1: Bool, button2: Bool, isKoalaPad: Bool) {
-        // TODO: implement
-    }
-    
-    public func setResource(name: Machine.ResourceName, value: Machine.ResourceValue) {
-        // TODO: implement
-    }
-    
-    public func setResourceNow(name: Machine.ResourceName, value: Machine.ResourceValue) {
-        // TODO: implement
-    }
-    
-    public func set(borderMode: MachineConfig.BorderMode) {
-        // TODO: implement
-    }
 }
+

@@ -27,20 +27,6 @@ import Emulator
 
 import ViceX64sc
 
-enum ViceEvent {
-    case attach(unit: Int, image: DiskImage?)
-    case freeze
-    case joystick(port: Int, buttons: JoystickButtons)
-    case mouseButton(button: Int, pressed: Bool)
-    case playPause(_ running: Bool)
-    case quit
-    case reset
-    case key(_ key: Key, pressed: Bool, delayed: Int = 0)
-    case restore(pressed: Bool)
-    case setResource(key: Machine.ResourceName, value: Machine.ResourceValue)
-}
-
-
 extension JoystickButtons {
     var value: Int {
         var value = 0
@@ -72,16 +58,13 @@ extension JoystickButtons {
 
 
 
-@objc public class Vice: NSObject, Emulator {
-    public var machine = Machine()
-    public var imageView: UIImageView? {
+@objc public class Vice: Emulator {
+    override public var imageView: UIImageView? {
         didSet {
             viceThread?.imageView = imageView
         }
     }
-    
-    public var delegate: EmulatorDelegate?
-    
+        
     public var joysticks = [JoystickButtons](repeating: JoystickButtons(), count: 10)
     
     private var tempFile: URL?
@@ -131,7 +114,7 @@ extension JoystickButtons {
     
     private var autostartPrgName: [UInt8]?
     
-    public func start() {
+    public override func start() {
         machine.resources[.AutostartPrgMode] = .Int(AUTOSTART_PRG_MODE_INJECT);
         //machineSpecification.resources[.VICIIBorderMode] = .Int(VICII_TALL_BORDERS)
         machine.resources[.Mouse] = .Bool(true)
@@ -214,59 +197,12 @@ extension JoystickButtons {
         viceThread?.start()
     }
     
-    private var eventMutex = PThreadMutex()
-    private var eventQueue = [ViceEvent]()
-    
-    private func send(event: ViceEvent) {
-        eventMutex.sync {
-            eventQueue.append(event)
-        }
-    }
-    
-    public func attach(drive: Int, image: DiskImage?) {
+    public override func attach(drive: Int, image: DiskImage?) {
         machine.diskDrives[drive - 8].image = image
         send(event: .attach(unit: drive, image: image))
     }
-    
-    public func freeze() {
-        send(event: .freeze)
-    }
-
-    public func press(key: Key, delayed: Int = 0) {
-        if key == .Restore {
-            send(event: .restore(pressed: true))
-        }
-        else if let row = KeyboardMatrix.row(for: key), let column = KeyboardMatrix.column(for: key) {
-            if (keyboard[row][column] == 0) {
-                send(event: .key(key, pressed: true, delayed: delayed))
-            }
-            keyboard[row][column] += 1
-        }
-    }
-    
-    public func quit() {
-        send(event: .quit)
-    }
-
-    public func release(key: Key, delayed: Int = 0) {
-        if key == .Restore {
-            send(event: .restore(pressed: false))
-        }
-        else if let row = KeyboardMatrix.row(for: key), let column = KeyboardMatrix.column(for: key) {
-            if (keyboard[row][column] > 0) {
-                keyboard[row][column] -= 1
-                if (keyboard[row][column] == 0) {
-                    send(event: .key(key, pressed: false, delayed: delayed))
-                }
-            }
-        }
-    }
-
-    public func reset() {
-        send(event: .reset)
-    }
-    
-    public func joystick(_ index: Int, buttons: JoystickButtons) {
+        
+    public override func joystick(_ index: Int, buttons: JoystickButtons) {
         guard index > 0 else { return }
         guard buttons != joysticks[index] else { return }
         
@@ -274,32 +210,32 @@ extension JoystickButtons {
         send(event: .joystick(port: index, buttons: buttons))
     }
     
-    public func mouse(moved distance: CGPoint) {
+    public override func mouse(moved distance: CGPoint) {
         guard let viceThread = viceThread else { return }
         viceThread.mouseX = (viceThread.mouseX + Int32(distance.x)) & 0xffff
         viceThread.mouseY = (viceThread.mouseY - Int32(distance.y)) & 0xffff
         viceThread.mouseTimestamp = vsyncarch_gettime();
     }
     
-    public func mouse(setX x: Int32) {
+    public override func mouse(setX x: Int32) {
         guard let viceThread = viceThread else { return }
         viceThread.mouseX = x
     }
 
-    public func mouse(setY y: Int32) {
+    public override func mouse(setY y: Int32) {
         guard let viceThread = viceThread else { return }
         viceThread.mouseY = y
     }
 
-    public func mouse(pressed button: Int) {
+    public override func mouse(pressed button: Int) {
         send(event: .mouseButton(button: button, pressed: true))
     }
     
-    public func mouse(release button: Int) {
+    public override func mouse(release button: Int) {
         send(event: .mouseButton(button: button, pressed: false))
     }
     
-    public func lightPen(moved position: CGPoint?, size: CGSize, button1: Bool, button2: Bool, isKoalaPad: Bool) {
+    public override func lightPen(moved position: CGPoint?, size: CGSize, button1: Bool, button2: Bool, isKoalaPad: Bool) {
         if let position = position {
             update_light_pen(Int32(position.x), Int32(position.y), Int32(size.width), Int32(size.height), button1 ? 1 : 0, button2 ? 1 : 0, isKoalaPad ? 1 : 0)
         }
@@ -308,11 +244,11 @@ extension JoystickButtons {
         }
     }
 
-    public func setResource(name: Machine.ResourceName, value: Machine.ResourceValue) {
+    public override func setResource(name: Machine.ResourceName, value: Machine.ResourceValue) {
         send(event: .setResource(key: name, value: value))
     }
     
-    public func setResourceNow(name: Machine.ResourceName, value: Machine.ResourceValue) {
+    public override func setResourceNow(name: Machine.ResourceName, value: Machine.ResourceValue) {
         // print("setting resource: \(name) = \(value)")
         switch value {
         case .Bool(let value):
@@ -324,9 +260,65 @@ extension JoystickButtons {
         }
     }
     
-    public func set(borderMode: MachineConfig.BorderMode) {
+    public override func set(borderMode: MachineConfig.BorderMode) {
         viceThread?.newBorderMode = borderMode.cValue
     }
+    
+    public func handleEvent(event: Event) -> Bool {
+        switch event {
+        case .attach(let unit, let image):
+            if let url = image?.url {
+                file_system_attach_disk(UInt32(unit), url.path)
+            }
+            else {
+                // TODO: detach image
+            }
+            
+        case .freeze:
+            cartridge_trigger_freeze()
+            
+        case .joystick(let port, let buttons):
+            joystick_set_value_absolute(UInt32(port), UInt8(buttons.value))
+            
+        case .key(let key, pressed: let pressed):
+            if key == .Restore {
+                if pressed {
+                    keyboard_restore_pressed()
+                }
+                else {
+                    keyboard_restore_released()
+                }
+            }
+            else if let row = KeyboardMatrix.row(for: key), let column = KeyboardMatrix.column(for: key){
+                if pressed {
+                    viceThread?.pressKey(row: Int32(row), column: Int32(column))
+                }
+                else {
+                    viceThread?.releaseKey(row: Int32(row), column: Int32(column))
+                }
+            }
+            
+        case .mouseButton(let button, let pressed):
+            mouse_button_press(Int32(button), pressed ? 1 : 0)
+            
+        case .playPause(_):
+            // TODO: implemement
+            break
+            
+        case .quit:
+            maincpu_running = 0
+            return false
+            
+        case .reset:
+            machine_trigger_reset(UInt32(MACHINE_RESET_MODE_SOFT))
+            
+        case .setResource(let key, let value):
+            setResourceNow(name: key, value: value)
+        }
+        
+        return true
+    }
+
 }
 
 // These are called on the Vice thread
@@ -360,72 +352,6 @@ extension Vice: ViceThreadDelegate {
         return machine.directoryURL?.path ?? ""
     }
     
-    @objc public func handleEvents() -> Bool {
-        return eventMutex.sync {
-            var continueProcessing = true
-            
-            var delayedEvents = [ViceEvent]()
-            
-            for event in eventQueue {
-                switch event {
-                case .attach(let unit, let image):
-                    if let url = image?.url {
-                        file_system_attach_disk(UInt32(unit), url.path)
-                    }
-                    else {
-                        // TODO: detach image
-                    }
-                    
-                case .freeze:
-                    cartridge_trigger_freeze()
-                    
-                case .joystick(let port, let buttons):
-                    joystick_set_value_absolute(UInt32(port), UInt8(buttons.value))
-                    
-                case .key(let key, pressed: let pressed, delayed: let delayed):
-                    if delayed > 0{
-                        delayedEvents.append(.key(key, pressed: pressed, delayed: delayed - 1))
-                    }
-                    else if let row = KeyboardMatrix.row(for: key), let column = KeyboardMatrix.column(for: key){
-                        if pressed {
-                            viceThread?.pressKey(row: Int32(row), column: Int32(column))
-                        }
-                        else {
-                            viceThread?.releaseKey(row: Int32(row), column: Int32(column))
-                        }
-                    }
-                    
-                case .mouseButton(let button, let pressed):
-                    mouse_button_press(Int32(button), pressed ? 1 : 0)
-                    
-                case .playPause(_):
-                    // TODO: implemement
-                    break
-                    
-                case .quit:
-                    maincpu_running = 0
-                    continueProcessing = false
-                    
-                case .reset:
-                    machine_trigger_reset(UInt32(MACHINE_RESET_MODE_SOFT))
-                    
-                case .restore(let pressed):
-                    if pressed {
-                        keyboard_restore_pressed()
-                    }
-                    else {
-                        keyboard_restore_released()
-                    }
-                case .setResource(let key, let value):
-                    setResourceNow(name: key, value: value)
-                }
-            }
-            eventQueue = delayedEvents
-            
-            return continueProcessing
-        }
-    }
-
     
     @objc public func setupVice() {
         model_set(machine.specification.computer.viceMachineModel.int32Value)

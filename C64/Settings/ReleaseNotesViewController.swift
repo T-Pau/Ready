@@ -33,6 +33,9 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Release 1.5 build 5", year: 2020, month: 7, day: 3, changes: [
+            "Add preliminary ZX Spectrum 16k, 48k support (no sound, no tape deck, hardware keyboard mapping incomplete)."
+        ]),
         Release(name: "Release 1.5 Build 4", year: 2020, month: 6, day: 29, changes: [
             "Add C16, Plus/4 computers."
         ]),

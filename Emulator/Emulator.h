@@ -31,5 +31,6 @@ FOUNDATION_EXPORT const unsigned char EmulatorInterfaceVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <EmulatorInterface/PublicHeader.h>
 
+#import <Emulator/EmulatorThread.h>
 
 //#import <EmulatorInterface/EmulatorInterface-Swift.h>

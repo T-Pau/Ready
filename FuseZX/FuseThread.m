@@ -12,38 +12,19 @@
 
 @implementation FuseThread
 
-- (id)init {
-    if ((self = [super init]) == nil) {
-        return nil;
-    }
-    self.qualityOfService = NSQualityOfServiceUserInteractive;
-    return self;
-}
-
 - (void)main {
     const char *argv[256];
-    int argc = 0;
-    argv[argc++] = "fuse";
-    argv[argc++] = "--no-sound";
+
+    int argc = (int)self.args.count;
+    
+    for (int i = 0; i < self.args.count; i++) {
+        argv[i] = [self.args[i] cStringUsingEncoding:NSUTF8StringEncoding];
+    }
     argv[argc] = NULL;
     
     fuse_datadir = [[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"fuse"] cStringUsingEncoding:NSUTF8StringEncoding];
 
     fuse_main(argc, (char **)argv);
-}
-
-- (void)updateBitmapWidth: (size_t)width height: (size_t)height {
-    UIImage *image;
-    
-    @autoreleasepool {
-        CIImage *ciImage = [CIImage imageWithBitmapData:_imageData bytesPerRow:_bytesPerRow size:CGSizeMake((CGFloat)width, (CGFloat)height) format:kCIFormatABGR8 colorSpace:CGColorSpaceCreateWithName(kCGColorSpaceSRGB)];
-        
-        image = [UIImage imageWithCIImage:ciImage];
-    }
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.imageView.image = image;
-    });
 }
 
 

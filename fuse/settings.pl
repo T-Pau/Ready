@@ -800,6 +800,7 @@ foreach my $name ( sort keys %options ) {
 
 print hashline( __LINE__ ), << 'CODE';
 
+  memset(settings, 0, sizeof(*settings));
   return 0;
 }
 

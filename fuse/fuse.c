@@ -186,6 +186,9 @@ int main(int argc, char **argv)
   fatInitDefault();
 #endif				/* #ifdef GEKKO */
   
+  fuse_exiting = 0;
+  optind = 0;
+    
   if(fuse_init(argc,argv)) {
     fprintf(stderr,"%s: error initialising -- giving up!\n", fuse_progname);
     return 1;

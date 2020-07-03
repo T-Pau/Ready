@@ -521,7 +521,7 @@ public struct Computer: MachinePart {
                      caseColorName: "VIC-20 Case")
         ]),
         
-/*        MachinePartSection(title: "Sinclair ZX Spectrum", parts: [
+        MachinePartSection(title: "Sinclair ZX Spectrum", parts: [
             Computer(identifier: "ZX 16k",
                      name: "Sinclair ZX Spectrum (16k, PAL)",
                      fullName: "Sinclair ZX Spectrum",
@@ -548,7 +548,7 @@ public struct Computer: MachinePart {
                      viceMachineModel: .zxSpectrum48kNtsc,
                      keyboardName: "ZX Spectrum",
                      caseColorName: "ZX Case")
-        ]), */
+        ]),
 ])
     
     static private var byIdentifier = [String: Computer]()

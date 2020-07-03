@@ -24,58 +24,122 @@
 import Foundation
 import UIKit
 
-public protocol Emulator: class {
-    var machine: Machine { get set }
-    var imageView: UIImageView? { get set }
-    var delegate: EmulatorDelegate? { get set }
 
-    // trigger cartridge freeze function
-    func freeze()
+@objc open class Emulator: NSObject {
+    public var machine = Machine()
+    open var imageView: UIImageView?
+    public var delegate: EmulatorDelegate?
     
-    // press key, delayed by given number of frames
-    func press(key: Key, delayed: Int)
+    private var eventQueue = EventQueue()
     
-    // quit emulation
-    func quit()
-    
-    // release key, delayed by given number of frames
-    func release(key: Key, delayed: Int)
+    private var pressedKeys = [Key:Int]()
 
-    // reset machine
-    func reset()
-    
-    func start()
-    
-    func attach(drive: Int, image: DiskImage?)
-
-    func joystick(_ index: Int, buttons: JoystickButtons)
-    
-    func mouse(moved distance: CGPoint)
-    
-    func mouse(setX x: Int32)
-
-    func mouse(setY y: Int32)
-
-    func mouse(pressed button: Int)
-
-    func mouse(release button: Int)
-
-    func lightPen(moved position: CGPoint?, size: CGSize, button1: Bool, button2: Bool, isKoalaPad: Bool)
-
-    func setResource(name: Machine.ResourceName, value: Machine.ResourceValue)
-
-    func setResourceNow(name: Machine.ResourceName, value: Machine.ResourceValue)
-
-    func set(borderMode: MachineConfig.BorderMode)
-}
-
-
-public extension Emulator {
-    func press(key: Key) {
-        press(key: key, delayed: 0)
+    // Call this function once per frame on emulator thread to process pending events. handle(event:) is called for each event.
+    @objc public func handleEvents() -> Bool {
+        return eventQueue.process(handler: handle)
+    }
+        
+    // Override this in implementation. It is called on the emulator thread.
+    open func handle(event: Event) -> Bool {
+        return true
     }
     
-    func release(key: Key) {
-        release(key: key, delayed: 0)
+    // trigger cartridge freeze function
+    open func freeze() {
+        send(event: .freeze)
+    }
+    
+    // press key, delayed by given number of frames
+    open func press(key: Key, delayed: Int = 0) {
+        if let count = pressedKeys[key] {
+            pressedKeys[key] = count + 1
+        }
+        else {
+            pressedKeys[key] = 1
+            send(event: .key(key, pressed: true), delay: delayed)
+        }
+    }
+    
+    // quit emulation
+    open func quit() {
+        send(event: .quit)
+    }
+    
+    // release key, delayed by given number of frames
+    open func release(key: Key, delayed: Int = 0) {
+        if let count = pressedKeys[key] {
+            if count > 1 {
+                pressedKeys[key] = count + 1
+            }
+            else {
+                pressedKeys[key] = nil
+                send(event: .key(key, pressed: false), delay: delayed)
+            }
+        }
+    }
+
+    // reset machine
+    open func reset() {
+        send(event: .reset)
+    }
+    
+    open func start() {
+        
+    }
+    
+    open func attach(drive: Int, image: DiskImage?) {
+        
+    }
+
+    open func joystick(_ index: Int, buttons: JoystickButtons) {
+        
+    }
+    
+    open func mouse(moved distance: CGPoint) {
+    
+    }
+    
+    open func mouse(setX x: Int32) {
+        
+    }
+
+    open func mouse(setY y: Int32) {
+        
+    }
+
+    open func mouse(pressed button: Int) {
+        send(event: .mouseButton(button: button, pressed: true))
+    }
+
+    open func mouse(release button: Int) {
+        send(event: .mouseButton(button: button, pressed: false))
+    }
+
+    open func lightPen(moved position: CGPoint?, size: CGSize, button1: Bool, button2: Bool, isKoalaPad: Bool) {
+        
+    }
+
+    open func setResource(name: Machine.ResourceName, value: Machine.ResourceValue) {
+        
+    }
+
+    open func setResourceNow(name: Machine.ResourceName, value: Machine.ResourceValue) {
+        
+    }
+
+    open func set(borderMode: MachineConfig.BorderMode) {
+        
+    }
+    
+    public func send(event: Event, delay: Int = 0) {
+        eventQueue.send(event: event, delay: delay)
+    }
+}
+
+extension Emulator: EmulatorThreadDelegate {
+    @objc public func update(_ image: UIImage?) {
+        DispatchQueue.main.async {
+            self.imageView?.image = image
+        }
     }
 }

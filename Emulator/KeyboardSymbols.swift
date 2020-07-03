@@ -288,5 +288,52 @@ public struct KeyboardSymbols {
             ModifiedSymbol(symbol: .char("~"), modifiers: .control): ModifiedSymbol(symbol: .key(.keyboardEscape), modifiers: [.control, .shift])
     ])
     
-    static var zxSpectrum = KeyboardSymbols(modifierMap: [:], keyMap: [:]) // TODO
+    static var zxSpectrum = KeyboardSymbols(modifierMap: [
+        .keyboardLeftShift: .Shift,
+        .keyboardRightShift: .Shift,
+        .keyboardLeftControl: .SymbolShift,
+        .keyboardRightControl: .SymbolShift
+    ], keyMap: [
+        .Char("1"): KeySymbols(normal: .char("1"), shifted: nil),
+        .Char("2"): KeySymbols(normal: .char("2"), shifted: nil),
+        .Char("3"): KeySymbols(normal: .char("3"), shifted: nil),
+        .Char("4"): KeySymbols(normal: .char("4"), shifted: nil),
+        .Char("5"): KeySymbols(normal: .char("5"), shifted: .key(.keyboardLeftArrow)),
+        .Char("6"): KeySymbols(normal: .char("6"), shifted: .key(.keyboardDownArrow)),
+        .Char("7"): KeySymbols(normal: .char("7"), shifted: .key(.keyboardUpArrow)),
+        .Char("8"): KeySymbols(normal: .char("8"), shifted: .key(.keyboardRightArrow)),
+        .Char("9"): KeySymbols(normal: .char("9"), shifted: nil),
+        .Char("0"): KeySymbols(normal: .char("0"), shifted: .key(.keyboardDeleteOrBackspace)),
+        
+        .Char("q"): KeySymbols(normal: .char("q"), shifted: .char("Q")),
+        .Char("w"): KeySymbols(normal: .char("w"), shifted: .char("W")),
+        .Char("e"): KeySymbols(normal: .char("e"), shifted: .char("E")),
+        .Char("r"): KeySymbols(normal: .char("r"), shifted: .char("R")),
+        .Char("t"): KeySymbols(normal: .char("t"), shifted: .char("T")),
+        .Char("y"): KeySymbols(normal: .char("y"), shifted: .char("Y")),
+        .Char("u"): KeySymbols(normal: .char("u"), shifted: .char("U")),
+        .Char("i"): KeySymbols(normal: .char("i"), shifted: .char("I")),
+        .Char("o"): KeySymbols(normal: .char("o"), shifted: .char("O")),
+        .Char("p"): KeySymbols(normal: .char("p"), shifted: .char("P")),
+        
+        .Char("a"): KeySymbols(normal: .char("a"), shifted: .char("A")),
+        .Char("s"): KeySymbols(normal: .char("s"), shifted: .char("S")),
+        .Char("d"): KeySymbols(normal: .char("d"), shifted: .char("D")),
+        .Char("f"): KeySymbols(normal: .char("f"), shifted: .char("F")),
+        .Char("g"): KeySymbols(normal: .char("g"), shifted: .char("G")),
+        .Char("h"): KeySymbols(normal: .char("h"), shifted: .char("H")),
+        .Char("j"): KeySymbols(normal: .char("j"), shifted: .char("J")),
+        .Char("k"): KeySymbols(normal: .char("k"), shifted: .char("K")),
+        .Char("l"): KeySymbols(normal: .char("l"), shifted: .char("L")),
+        .Return: KeySymbols(both: .key(.keyboardReturnOrEnter)),
+        
+        .Char("z"): KeySymbols(normal: .char("z"), shifted: .char("Z")),
+        .Char("x"): KeySymbols(normal: .char("x"), shifted: .char("X")),
+        .Char("c"): KeySymbols(normal: .char("c"), shifted: .char("C")),
+        .Char("v"): KeySymbols(normal: .char("v"), shifted: .char("V")),
+        .Char("b"): KeySymbols(normal: .char("b"), shifted: .char("B")),
+        .Char("n"): KeySymbols(normal: .char("n"), shifted: .char("N")),
+        .Char("m"): KeySymbols(normal: .char("m"), shifted: .char("M")),
+        .Char(" "): KeySymbols(normal: .char(" "), shifted: .key(.keyboardTab))
+    ])
 }
