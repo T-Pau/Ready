@@ -113,7 +113,7 @@ public struct SpectrumTapImage: TapeImage {
         for byte in bytes[2 ..< 21] {
             checksum ^= byte
         }
-        guard bytes[21] == checksum else { return nil }
+        guard checksum == 0 else { return nil }
         
         self.name = String(bytes: bytes[4 ..< 14], encoding: .ascii)?.trimmingCharacters(in: .whitespaces)
         self.bytes = bytes

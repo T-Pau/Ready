@@ -117,6 +117,8 @@ extension T64Image: MediaItem { }
 
 extension TapImage: MediaItem { }
 
+extension SpectrumTapImage: MediaItem { }
+
 extension ProgramFile: MediaItem {
     public var displayTitle: String? {
         return url?.lastPathComponent
