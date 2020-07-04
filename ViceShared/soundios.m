@@ -25,7 +25,7 @@
 
 #include <pthread.h>
 
-#include "../Audio.h"
+#include "../../C64/Vice/Audio.h"
 #include "ringbuffer.h"
 
 #include "vice.h"
@@ -78,14 +78,14 @@ static OSStatus audio_render_callback(void *userData, AudioUnitRenderActionFlags
 
 static int ios_init(const char *param, int *speed, int *fragsize, int *fragnr, int *channels) {
     sample_size = sizeof(int16_t) * *channels;
-    size_t buffer_size = *fragnr * *fragsize;
+    UInt32 buffer_size = *fragnr * *fragsize;
     ringbuffer = ringbuffer_new(buffer_size * sample_size);
     
-    printf("INIT: sample rate: %d, buffer size: %zu bytes, duration: %f\n", *speed, *fragnr * *fragsize * *channels * sizeof(int16_t), (double)buffer_size / *speed / 2);
+//    printf("INIT: sample rate: %d, buffer size: %zu bytes, duration: %f\n", *speed, *fragnr * *fragsize * *channels * sizeof(int16_t), (double)buffer_size / *speed / 2);
 
     pthread_mutex_init(&ringbuffer_mutex, NULL);
     dispatch_sync(dispatch_get_main_queue(), ^{
-        audioSetup(audio_render_callback, (Float64)*speed, *channels, (Float64)buffer_size / *speed / 2); // TODO: propagate error
+        audioSetup(audio_render_callback, (Float64)*speed, *channels, buffer_size / 2); // TODO: propagate error
     });
     
     return 0;

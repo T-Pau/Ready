@@ -371,7 +371,7 @@ sound_end( void )
     delete_Blip_Buffer( &left_buf );
     delete_Blip_Buffer( &right_buf );
 
-    if( settings_current.sound ) 
+    //if( settings_current.sound ) /* On shutdown, we're called after settings_current is reset.
       sound_lowlevel_end();
     libspectrum_free( samples );
     sound_enabled = 0;

@@ -102,7 +102,6 @@
 		4B27F66F24AD035700BFD1EF /* expression.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B5411C424AB363A00F6925B /* expression.c */; };
 		4B27F67024AD035700BFD1EF /* system_variable.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B5411D024AB363A00F6925B /* system_variable.c */; };
 		4B27F67124AD035700BFD1EF /* variable.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B5411D424AB363A00F6925B /* variable.c */; };
-		4B27F67324AD03B700BFD1EF /* iossound.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B27F67224AD03B700BFD1EF /* iossound.c */; };
 		4B27F67424AD04CF00BFD1EF /* movie.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B54124224AB363A00F6925B /* movie.c */; };
 		4B27F67524AD051800BFD1EF /* startup_manager.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B54124424AB363A00F6925B /* startup_manager.c */; };
 		4B27F67624AD058000BFD1EF /* unittests.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B54116224AB363A00F6925B /* unittests.c */; };
@@ -1148,6 +1147,9 @@
 		4B81F29F24AE904B0090B21A /* uijoystick.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B5410A124AB363900F6925B /* uijoystick.c */; };
 		4B81F2A524AF12B50090B21A /* EmulatorThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B81F2A424AF12B50090B21A /* EmulatorThread.m */; };
 		4B81F2A724AF17360090B21A /* EmulatorThread.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B81F2A624AF12E30090B21A /* EmulatorThread.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4B81F2AB24B069680090B21A /* sound.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B81F2AA24B069680090B21A /* sound.m */; };
+		4B81F2AC24B070340090B21A /* Audio.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF86B521DBA50900EF99ED /* Audio.m */; };
+		4B81F2AD24B070470090B21A /* sfifo.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B54127624AB363A00F6925B /* sfifo.c */; };
 		4B841CFA21F75C12009CAF4B /* Floppy35Document.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B841CF921F75C12009CAF4B /* Floppy35Document.png */; };
 		4B841CFC21F76AB3009CAF4B /* Floppy525Document.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B841CFB21F76AB3009CAF4B /* Floppy525Document.png */; };
 		4B841CFD21F8CE78009CAF4B /* ShareableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB22EA821EA27570075E694 /* ShareableImageView.swift */; };
@@ -1823,7 +1825,6 @@
 		4B1CCBB122427A660032B9F0 /* StateEncodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateEncodable.swift; sourceTree = "<group>"; };
 		4B27F60424ACE8C700BFD1EF /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
 		4B27F65024ACF81E00BFD1EF /* ui.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ui.m; sourceTree = "<group>"; };
-		4B27F67224AD03B700BFD1EF /* iossound.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iossound.c; sourceTree = "<group>"; };
 		4B2B9BB1224E7ABC002948B7 /* MediaTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTableHeaderView.swift; sourceTree = "<group>"; };
 		4B2B9BB3224F84F9002948B7 /* GameViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewItem.swift; sourceTree = "<group>"; };
 		4B2B9BB522533F7F002948B7 /* TableViewUpdates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewUpdates.swift; sourceTree = "<group>"; };
@@ -4150,6 +4151,7 @@
 		4B7A7C81226891A000775010 /* Gmod2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gmod2.swift; sourceTree = "<group>"; };
 		4B81F2A424AF12B50090B21A /* EmulatorThread.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmulatorThread.m; sourceTree = "<group>"; };
 		4B81F2A624AF12E30090B21A /* EmulatorThread.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmulatorThread.h; sourceTree = "<group>"; };
+		4B81F2AA24B069680090B21A /* sound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = sound.m; path = FuseZX/sound.m; sourceTree = SOURCE_ROOT; };
 		4B841CF621F7358F009CAF4B /* DiskDrive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskDrive.swift; sourceTree = "<group>"; };
 		4B841CF921F75C12009CAF4B /* Floppy35Document.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Floppy35Document.png; sourceTree = "<group>"; };
 		4B841CFB21F76AB3009CAF4B /* Floppy525Document.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Floppy525Document.png; sourceTree = "<group>"; };
@@ -4200,7 +4202,6 @@
 		4BB22EBE21EBB6320075E694 /* SortTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortTableViewController.swift; sourceTree = "<group>"; };
 		4BB22EC021EBCF0B0075E694 /* GameHeaderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHeaderCollectionViewCell.swift; sourceTree = "<group>"; };
 		4BB22EC221ECD40E0075E694 /* Machine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Machine.swift; sourceTree = "<group>"; };
-		4BB22EC521ECE3C00075E694 /* ViceThreadC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViceThreadC.h; sourceTree = "<group>"; };
 		4BB22EC621EDED470075E694 /* ReleaseNotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseNotesViewController.swift; sourceTree = "<group>"; };
 		4BB22EC821EE06E70075E694 /* LicenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseViewController.swift; sourceTree = "<group>"; };
 		4BB22ECA21EE607C0075E694 /* CBM.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CBM.ttf; sourceTree = "<group>"; };
@@ -4851,18 +4852,10 @@
 		4B3E4A602212B37F00511F08 /* Vice */ = {
 			isa = PBXGroup;
 			children = (
-				4BBF864221D8D07700EF99ED /* archdep.m */,
-				4BB22E4421E9682E0075E694 /* dummy.cpp */,
-				4BBF864C21D8D85200EF99ED /* joy.m */,
-				4BBF864421D8D1A800EF99ED /* mousedrv.m */,
+				4BBF86B721DBA70F00EF99ED /* Audio.h */,
+				4BBF86B521DBA50900EF99ED /* Audio.m */,
 				4B680041249B3F7F00A76E57 /* render.c */,
 				4B680040249B3F7F00A76E57 /* render.h */,
-				4BBF86B121DB9C5500EF99ED /* soundios.m */,
-				4BBF864821D8D38E00EF99ED /* ui.m */,
-				4BBF866521D962BD00EF99ED /* ViceThread.h */,
-				4BBF866321D9629600EF99ED /* ViceThread.m */,
-				4BB22EC521ECE3C00075E694 /* ViceThreadC.h */,
-				4BBF864A21D8D67A00EF99ED /* videoarch.m */,
 			);
 			path = Vice;
 			sourceTree = "<group>";
@@ -4957,6 +4950,7 @@
 				4BA81FB321E4713700D036DE /* vice */,
 				4B3F975D21D7ACC800C272C4 /* C64Tests */,
 				4B68F8B22496407700A76E57 /* Emulator */,
+				4B81F2A924B0664B0090B21A /* ViceShared */,
 				4B68FB3F24967CCD00A76E57 /* ViceC64 */,
 				4B68FB822498DC0600A76E57 /* ViceVIC20 */,
 				4B540E9824A674E100F6925B /* VicePlus4 */,
@@ -5038,8 +5032,6 @@
 				4BD164F0229C4B4900B25212 /* C64.entitlements */,
 				4B3F974621D7ACC700C272C4 /* AppDelegate.swift */,
 				4B3E4A612212B3D200511F08 /* Assets */,
-				4BBF86B721DBA70F00EF99ED /* Audio.h */,
-				4BBF86B521DBA50900EF99ED /* Audio.m */,
 				4B69AFDF21E8B15900D90C42 /* CoreData */,
 				4BEBC6D92205A237009DED63 /* DebugLog.swift */,
 				4B3F975521D7ACC700C272C4 /* Info.plist */,
@@ -7838,7 +7830,6 @@
 				4B54127624AB363A00F6925B /* sfifo.c */,
 				4B54126F24AB363A00F6925B /* sfifo.h */,
 				4B54127924AB363A00F6925B /* sunsound.c */,
-				4B27F67224AD03B700BFD1EF /* iossound.c */,
 				4B54127A24AB363A00F6925B /* wiisound.c */,
 				4B54127124AB363A00F6925B /* win32sound.c */,
 			);
@@ -7853,6 +7844,7 @@
 				4B54151924ACA8AE00F6925B /* FuseThread.m */,
 				4B5412CA24AB519900F6925B /* FuseZX.h */,
 				4B5412CB24AB519900F6925B /* Info.plist */,
+				4B81F2AA24B069680090B21A /* sound.m */,
 				4B54151824ACA74500F6925B /* module.modulemap */,
 				4B27F65024ACF81E00BFD1EF /* ui.m */,
 				4B94396F24ADD6E900FD0237 /* uidisplay.m */,
@@ -8091,13 +8083,10 @@
 		4B68FB3F24967CCD00A76E57 /* ViceC64 */ = {
 			isa = PBXGroup;
 			children = (
-				4B68FB562496808F00A76E57 /* module.modulemap */,
-				4B68FB572496817200A76E57 /* vice_x64sc.h */,
+				4B68FB4124967CCD00A76E57 /* Info.plist */,
 				4B680033249A00A500A76E57 /* vice_c64.c */,
-				4B697C7221E38EDA0091BFCC /* Vice.swift */,
 				4B68FB4024967CCD00A76E57 /* Vice_C64.h */,
 				4B680039249A173500A76E57 /* VIceC64.swift */,
-				4B68FB4124967CCD00A76E57 /* Info.plist */,
 			);
 			path = ViceC64;
 			sourceTree = "<group>";
@@ -8105,9 +8094,9 @@
 		4B68FB822498DC0600A76E57 /* ViceVIC20 */ = {
 			isa = PBXGroup;
 			children = (
-				4B68FB832498DC0600A76E57 /* ViceVIC20.h */,
-				4B680035249A023100A76E57 /* vice_vic20.c */,
 				4B68FB842498DC0600A76E57 /* Info.plist */,
+				4B680035249A023100A76E57 /* vice_vic20.c */,
+				4B68FB832498DC0600A76E57 /* ViceVIC20.h */,
 				4B68003B249A17F100A76E57 /* ViceVIC20.swift */,
 			);
 			path = ViceVIC20;
@@ -8256,6 +8245,25 @@
 				4B0E62CC220997F000C3681A /* TapeStatusView.swift */,
 			);
 			path = C64UIComponents;
+			sourceTree = "<group>";
+		};
+		4B81F2A924B0664B0090B21A /* ViceShared */ = {
+			isa = PBXGroup;
+			children = (
+				4BBF864221D8D07700EF99ED /* archdep.m */,
+				4BB22E4421E9682E0075E694 /* dummy.cpp */,
+				4BBF864C21D8D85200EF99ED /* joy.m */,
+				4B68FB562496808F00A76E57 /* module.modulemap */,
+				4BBF864421D8D1A800EF99ED /* mousedrv.m */,
+				4BBF86B121DB9C5500EF99ED /* soundios.m */,
+				4BBF864821D8D38E00EF99ED /* ui.m */,
+				4B68FB572496817200A76E57 /* vice_x64sc.h */,
+				4B697C7221E38EDA0091BFCC /* Vice.swift */,
+				4BBF866521D962BD00EF99ED /* ViceThread.h */,
+				4BBF866321D9629600EF99ED /* ViceThread.m */,
+				4BBF864A21D8D67A00EF99ED /* videoarch.m */,
+			);
+			path = ViceShared;
 			sourceTree = "<group>";
 		};
 		4B841CF821F75BAC009CAF4B /* Document Icons */ = {
@@ -9893,7 +9901,6 @@
 				4B27F64124ACEF6300BFD1EF /* simpleide.c in Sources */,
 				4B27F66C24AD035700BFD1EF /* commandy.y in Sources */,
 				4B27F66224ACFF0A00BFD1EF /* specplus3e.c in Sources */,
-				4B27F67324AD03B700BFD1EF /* iossound.c in Sources */,
 				4B27F66E24AD035700BFD1EF /* event.c in Sources */,
 				4B27F65F24ACFF0A00BFD1EF /* specplus2.c in Sources */,
 				4B5412B624AB393D00F6925B /* rzx.c in Sources */,
@@ -9918,6 +9925,7 @@
 				4B27F63724ACEF3800BFD1EF /* fdd.c in Sources */,
 				4B27F65C24ACFEE900BFD1EF /* spec16.c in Sources */,
 				4B27F64624ACEFCE00BFD1EF /* pokemem.c in Sources */,
+				4B81F2AD24B070470090B21A /* sfifo.c in Sources */,
 				4B5412B824AB393D00F6925B /* settings.c in Sources */,
 				4B27F63124ACEEFE00BFD1EF /* usource.c in Sources */,
 				4B5412C224AB393D00F6925B /* utils.c in Sources */,
@@ -9934,8 +9942,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B54151A24ACA8AE00F6925B /* FuseThread.m in Sources */,
+				4B81F2AB24B069680090B21A /* sound.m in Sources */,
 				4B81F29E24AE8F6E0090B21A /* ui.m in Sources */,
 				4B94397224ADE29300FD0237 /* render.c in Sources */,
+				4B81F2AC24B070340090B21A /* Audio.m in Sources */,
 				4B5412D724AB52CA00F6925B /* Fuse.swift in Sources */,
 				4B94397124ADDF9700FD0237 /* uidisplay.m in Sources */,
 			);
@@ -11351,7 +11361,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = at.tpau.VicePlus4;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = "${SRCROOT}/ViceC64/**";
+				SWIFT_INCLUDE_PATHS = "${SRCROOT}/ViceShared/**";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -11399,7 +11409,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = at.tpau.VicePlus4;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = "${SRCROOT}/ViceC64/**";
+				SWIFT_INCLUDE_PATHS = "${SRCROOT}/ViceShared/**";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -12069,7 +12079,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = at.tpau.ViceC64;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = "${SRCROOT}/ViceC64/**";
+				SWIFT_INCLUDE_PATHS = "${SRCROOT}/ViceShared/**";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -12113,7 +12123,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = at.tpau.ViceC64;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = "${SRCROOT}/ViceC64/**";
+				SWIFT_INCLUDE_PATHS = "${SRCROOT}/ViceShared/**";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -12156,7 +12166,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = at.tpau.ViceVIC20;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = "${SRCROOT}/ViceC64/**";
+				SWIFT_INCLUDE_PATHS = "${SRCROOT}/ViceShared/**";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -12199,7 +12209,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = at.tpau.ViceVIC20;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = "${SRCROOT}/ViceC64/**";
+				SWIFT_INCLUDE_PATHS = "${SRCROOT}/ViceShared/**";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";

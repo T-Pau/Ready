@@ -51,6 +51,9 @@ extension TapeImage {
         if let image = TapImage(bytes: bytes) {
             return image
         }
+        if let image = SpectrumTapImage(bytes: bytes) {
+            return image
+        }
         return nil
     }
 
@@ -93,6 +96,26 @@ public struct TapImage: TapeImage {
         guard bytes.count > 14 else { return nil } // too short for header
         guard String(bytes: bytes[0..<0xc], encoding: .ascii) == "C64-TAPE-RAW" else { return nil }
 
+        self.bytes = bytes
+    }
+}
+
+public struct SpectrumTapImage: TapeImage {
+    public var bytes: Data
+    public var url: URL?
+    public var name: String?
+    
+    public init?(bytes: Data) {
+        guard bytes.count > 21 else { return nil } // too short for header
+        guard bytes[0] == 19 && bytes[1] == 0 && bytes[2] == 0 else { return nil } // expect header block
+        
+        var checksum: UInt8 = 0
+        for byte in bytes[2 ..< 21] {
+            checksum ^= byte
+        }
+        guard bytes[21] == checksum else { return nil }
+        
+        self.name = String(bytes: bytes[4 ..< 14], encoding: .ascii)?.trimmingCharacters(in: .whitespaces)
         self.bytes = bytes
     }
 }

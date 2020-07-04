@@ -1,5 +1,5 @@
 /*
- Audio.h -- CoreAudio glue code
+ joy.m -- Joystick driver
  Copyright (C) 2019 Dieter Baron
  
  This file is part of C64, a Commodore 64 emulator for iOS, based on VICE.
@@ -21,17 +21,37 @@
  02111-1307  USA.
 */
 
-#ifndef Audio_h
-#define Audio_h
+#include "joy.h"
 
-#import <AVFoundation/AVFoundation.h>
+#import "../../ViceShared/ViceThread.h"
 
-typedef OSStatus(*audio_render_callback_t)(void *userData, AudioUnitRenderActionFlags *actionFlags, const AudioTimeStamp *audioTimeStamp, UInt32 busNumber, UInt32 numFrames, AudioBufferList *buffers);
+#include "joystick.h"
+#include "joyport.h"
+#include "resources.h"
 
-BOOL audioSetup(audio_render_callback_t renderCallback, Float64 sampleRate, UInt32 channels, double preferredBufferDurationInSeconds);
+int joy_arch_cmdline_options_init(void) {
+    return 0;
+}
 
-BOOL audioStart(void);
-BOOL audioStop(void);
-void audioClose(void);
 
-#endif /* AduioSetup_h */
+/* query for available joysticks and set them up */
+int joy_arch_init(void) {
+    return 0;
+}
+
+
+int joy_arch_resources_init(void) {
+    resources_set_int("JoyDevice2", 1);
+    
+    return 0;
+}
+
+
+int joy_arch_set_device(int port, int new_dev) {
+    return 0;
+}
+
+
+/* close the device */
+void joystick_close(void) {
+}

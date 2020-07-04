@@ -36,7 +36,6 @@
 #include "sid.h"
 
 #import "ViceThread.h"
-#import "ViceThreadC.h"
 
 char *bundle_directory;
 

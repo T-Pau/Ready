@@ -37,7 +37,7 @@
 #include "Audio.h"
 #include "resources.h"
 
-#import "ViceThreadC.h"
+#import "ViceThread.h"
 
 @implementation ViceThread
 

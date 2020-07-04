@@ -161,7 +161,7 @@ import FuseC
     
     override public func start() {
         guard let modelName = fuseName(for: machine.specification.computer.viceMachineModel) else { return } // TODO: close view
-        fuseThread?.args = ["fuse", "--no-sound", "--machine", modelName]
+        fuseThread?.args = ["fuse", "--machine", modelName]
         fuseThread?.start()
     }
 }

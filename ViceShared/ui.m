@@ -24,7 +24,6 @@
 #include "uiapi.h"
 #include "archdep.h"
 #import "ViceThread.h"
-#import "ViceThreadC.h"
 
 /** \brief  Pre-initialize the UI before the canvas window gets created
  *

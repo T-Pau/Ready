@@ -1,5 +1,5 @@
 /*
- ViceThreadC.h -- Vice Emulator Thread, C Definitions
+ Audio.h -- CoreAudio glue code
  Copyright (C) 2019 Dieter Baron
  
  This file is part of C64, a Commodore 64 emulator for iOS, based on VICE.
@@ -21,9 +21,17 @@
  02111-1307  USA.
 */
 
-#ifndef ViceThreadC_h
-#define ViceThreadC_h
+#ifndef Audio_h
+#define Audio_h
 
-#import "ViceThread.h"
+#import <AVFoundation/AVFoundation.h>
 
-#endif /* ViceThreadC_h */
+typedef OSStatus(*audio_render_callback_t)(void *userData, AudioUnitRenderActionFlags *actionFlags, const AudioTimeStamp *audioTimeStamp, UInt32 busNumber, UInt32 numFrames, AudioBufferList *buffers);
+
+BOOL audioSetup(audio_render_callback_t renderCallback, Float64 sampleRate, UInt32 channels, UInt32 samplesPerBuffer);
+
+BOOL audioStart(void);
+BOOL audioStop(void);
+void audioClose(void);
+
+#endif /* AduioSetup_h */

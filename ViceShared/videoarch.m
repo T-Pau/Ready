@@ -43,7 +43,6 @@
 
 #import <CoreImage/CoreImage.h>
 #import "ViceThread.h"
-#import "ViceThreadC.h"
 #include "render.h"
 
 #define MY_MIN(a, b) ((a) < (b) ? (a) : (b))

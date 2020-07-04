@@ -33,7 +33,7 @@ void printOSStatus(char *name, OSStatus status) {
     }
 }
 
-BOOL audioSetup(audio_render_callback_t renderCallback, Float64 sampleRate, UInt32 channels, double preferredBufferDurationInSeconds) {
+BOOL audioSetup(audio_render_callback_t renderCallback, Float64 sampleRate, UInt32 channels, UInt32 samplesPerBuffer) {
     printf("audioSetup\n");
 
     // init audio session
@@ -47,7 +47,7 @@ BOOL audioSetup(audio_render_callback_t renderCallback, Float64 sampleRate, UInt
         }
         return NO;
     }
-    success = [[AVAudioSession sharedInstance] setPreferredIOBufferDuration:preferredBufferDurationInSeconds error:&error];
+    success = [[AVAudioSession sharedInstance] setPreferredIOBufferDuration:samplesPerBuffer / sampleRate error:&error];
     if(!success) {
         if(debuglog) {
             NSLog(@"setPreferredIOBufferDuration %@", error);

@@ -23,7 +23,7 @@
 
 #include "mousedrv.h"
 
-#include "ViceThreadC.h"
+#include "ViceThread.h"
 
 static mouse_func_t *mouse_funcs;
 
