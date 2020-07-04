@@ -218,7 +218,7 @@ public struct Computer: MachinePart {
         return Chargen(named: chargenName, subdirectory: viceMachineModel.viceMachine.dataDirectory, bank: 1)
     }
 
-    public init(identifier: String, name: String, fullName: String? = nil, variantName: String? = nil, iconName: String, priority: Int = MachinePartNormalPriority, viceMachineModel: ViceModel, keyboardName: String?, caseColorName: String, drive8: DiskDrive? = nil, missingPorts: Set<MachineConfig.Key> = [], chargenName: String = "chargen") {
+    public init(identifier: String, name: String, fullName: String? = nil, variantName: String? = nil, iconName: String, priority: Int = MachinePartNormalPriority, viceMachineModel: ViceModel, keyboardName: String?, caseColorName: String, drive8: DiskDrive? = nil, missingPorts: Set<MachineConfigOld.Key> = [], chargenName: String = "chargen") {
         self.identifier = identifier
         self.name = name
         self.fullName = fullName ?? name

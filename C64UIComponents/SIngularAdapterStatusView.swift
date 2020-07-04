@@ -26,7 +26,7 @@ import C64UIComponents
 import Emulator
 
 @IBDesignable class SingularAdapterStatusView: StatusView {
-    public var mode = MachineConfig.SingularAdapterMode.cga {
+    public var mode = MachineConfigOld.SingularAdapterMode.cga {
         didSet {
             let onIndex: Int?
             switch mode {

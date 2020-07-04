@@ -34,14 +34,14 @@ class SingularAdapterStatusViewController: UIViewController {
     var singularAdapter: UserPortModule?
     var selectedRow: Int?
     
-    var selectedValue: MachineConfig.SingularAdapterMode? {
+    var selectedValue: MachineConfigOld.SingularAdapterMode? {
         get {
             guard let row = selectedRow else { return nil }
-            return MachineConfig.SingularAdapterMode.allCases[row]
+            return MachineConfigOld.SingularAdapterMode.allCases[row]
         }
         set {
             if let value = newValue {
-                selectedRow = MachineConfig.SingularAdapterMode.allCases.firstIndex(of: value)
+                selectedRow = MachineConfigOld.SingularAdapterMode.allCases.firstIndex(of: value)
             }
             else {
                 selectedRow = nil
@@ -49,7 +49,7 @@ class SingularAdapterStatusViewController: UIViewController {
         }
     }
     
-    var changeCallback: ((_: MachineConfig.SingularAdapterMode) -> ())?
+    var changeCallback: ((_: MachineConfigOld.SingularAdapterMode) -> ())?
     
     private var rowHeight = CGFloat(44) // TODO: don't hardcode
     
@@ -60,7 +60,7 @@ class SingularAdapterStatusViewController: UIViewController {
         
         titleLabel.text = singularAdapter?.fullName
 
-        let height = rowHeight * CGFloat(MachineConfig.SingularAdapterMode.allCases.count) + tableView.frame.minY
+        let height = rowHeight * CGFloat(MachineConfigOld.SingularAdapterMode.allCases.count) + tableView.frame.minY
         
         preferredContentSize = CGSize(width: 400, height: min(height, 600.0))
 
@@ -69,13 +69,13 @@ class SingularAdapterStatusViewController: UIViewController {
 
 extension SingularAdapterStatusViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return MachineConfig.SingularAdapterMode.allCases.count
+        return MachineConfigOld.SingularAdapterMode.allCases.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Disk", for: indexPath)
 
-        let value = MachineConfig.SingularAdapterMode.allCases[indexPath.row]
+        let value = MachineConfigOld.SingularAdapterMode.allCases[indexPath.row]
         cell.textLabel?.text = value.description
         cell.accessoryType = selectedValue == value ? .checkmark : .none
         

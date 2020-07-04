@@ -31,6 +31,10 @@
 
 @property NSArray *args;
 
+@property int currentBorderMode;
+@property int newBorderMode;
+
+
 - (void)main;
 
 @end

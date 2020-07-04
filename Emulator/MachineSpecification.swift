@@ -24,36 +24,36 @@
 import Foundation
 
 public struct MachineSpecification {
-    public var layers: [MachineConfig]
+    public var layers: [MachineConfigOld]
     
-    public init(layers: [MachineConfig]) {
+    public init(layers: [MachineConfigOld]) {
         self.layers = layers
-        self.layers.append(MachineConfig.defaultConfig)
+        self.layers.append(MachineConfigOld.defaultConfig)
     }
     
     public func save() throws {
         try layers[0].save()
     }
     
-    public mutating func append(layer: MachineConfig) {
+    public mutating func append(layer: MachineConfigOld) {
         layers.insert(layer, at: 0)
     }
     
-    public func appending(layer: MachineConfig) -> MachineSpecification {
+    public func appending(layer: MachineConfigOld) -> MachineSpecification {
         var newSecification = self
         newSecification.append(layer: layer)
         return newSecification
     }
     
-    public func topLayerIdentifier(for key: MachineConfig.Key) -> String {
+    public func topLayerIdentifier(for key: MachineConfigOld.Key) -> String {
         return layers[0].string(for: key) ?? "default"
     }
     
-    public func identifier(for key: MachineConfig.Key) -> String {
+    public func identifier(for key: MachineConfigOld.Key) -> String {
         return string(for: key) ?? "none"
     }
     
-    func value(for key: MachineConfig.Key, skipFirstLayer: Bool = false) -> MachineConfig.Value? {
+    func value(for key: MachineConfigOld.Key, skipFirstLayer: Bool = false) -> MachineConfigOld.Value? {
         let relevantLayers = skipFirstLayer ? layers.dropFirst() : ArraySlice(layers)
         
         for layer in relevantLayers {
@@ -65,7 +65,7 @@ public struct MachineSpecification {
         return nil
     }
     
-    func string(for key: MachineConfig.Key, skipFirstLayer: Bool = false) -> String? {
+    func string(for key: MachineConfigOld.Key, skipFirstLayer: Bool = false) -> String? {
         if let value = value(for: key, skipFirstLayer: skipFirstLayer) {
             switch value {
             case .string(let string):
@@ -77,7 +77,7 @@ public struct MachineSpecification {
         return nil
     }
     
-    func integer(for key: MachineConfig.Key, skipFirstLayer: Bool = false) -> Int? {
+    func integer(for key: MachineConfigOld.Key, skipFirstLayer: Bool = false) -> Int? {
         if let value = value(for: key, skipFirstLayer: skipFirstLayer) {
             switch value {
             case .integer(let integer):
@@ -89,34 +89,34 @@ public struct MachineSpecification {
         return nil
     }
     
-    public mutating func set(string: String?, for key: MachineConfig.Key) {
+    public mutating func set(string: String?, for key: MachineConfigOld.Key) {
         layers[0].set(string: string, for: key)
     }
     
-    public func isDefault(key: MachineConfig.Key) -> Bool {
+    public func isDefault(key: MachineConfigOld.Key) -> Bool {
         return !layers[0].hasValue(for: key)
     }
     
-    public func differences(to specification: MachineSpecification) -> Set<MachineConfig.Key> {
+    public func differences(to specification: MachineSpecification) -> Set<MachineConfigOld.Key> {
         return layers[0].differences(to: specification.layers[0])
     }
 }
 
 extension MachineSpecification {
-    public var borderMode: MachineConfig.BorderMode {
+    public var borderMode: MachineConfigOld.BorderMode {
         get {
             guard let value = string(for: .borderMode) else { return .auto }
-            return MachineConfig.BorderMode(rawValue: value) ?? .auto
+            return MachineConfigOld.BorderMode(rawValue: value) ?? .auto
         }
         set {
             set(string: newValue.rawValue, for: .borderMode)
         }
     }
     
-    public var singularAdapterMode: MachineConfig.SingularAdapterMode {
+    public var singularAdapterMode: MachineConfigOld.SingularAdapterMode {
         get {
             guard let value = string(for: .singularAdapterMode) else { return .cga }
-            return MachineConfig.SingularAdapterMode(rawValue: value) ?? .cga
+            return MachineConfigOld.SingularAdapterMode(rawValue: value) ?? .cga
         }
         set {
             set(string: newValue.rawValue, for: .singularAdapterMode)
@@ -127,7 +127,7 @@ extension MachineSpecification {
     public func cartridges(for machine: Machine?) -> [Cartridge] {
         var cartridges = [Cartridge](repeating: OtherCartridge.none, count: 3)
         
-        let identifiers = MachineConfig.cartridgeKeys.map({ identifier(for: $0) })
+        let identifiers = MachineConfigOld.cartridgeKeys.map({ identifier(for: $0) })
         let specifiedCartridges = identifiers.map({ OtherCartridge.cartridge(identifier: $0) })
         var machineCartridges = [Cartridge]()
 
@@ -214,7 +214,7 @@ extension MachineSpecification {
     }
 
     public var diskDrives: [DiskDrive] {
-        var keys = MachineConfig.diskDriveKeys
+        var keys = MachineConfigOld.diskDriveKeys
         var drives = [DiskDrive]()
         if let drive8 = computer.drive8 {
             drives.append(drive8)
@@ -277,7 +277,7 @@ extension MachineSpecification {
             if !mountable {
                 guard let newDrive = DiskDrive.getDriveSupporting(image: image) else { continue }
                 for index in drives.indices {
-                    if computer.has(port: MachineConfig.diskDriveKeys[index]) && string(for: MachineConfig.diskDriveKeys[index]) == "auto" {
+                    if computer.has(port: MachineConfigOld.diskDriveKeys[index]) && string(for: MachineConfigOld.diskDriveKeys[index]) == "auto" {
                         if !drives[index].hasStatus {
                             drives[index] = newDrive
                             mountedImages[index] = image
@@ -297,7 +297,7 @@ extension MachineSpecification {
 }
 
 extension MachineSpecification {
-    private func autoPart(for key: MachineConfig.Key, machine: Machine?) -> MachinePart {
+    private func autoPart(for key: MachineConfigOld.Key, machine: Machine?) -> MachinePart {
         if let machine = machine {
             var part: MachinePart = DummyMachinePart.none
             var annotateName = true
@@ -358,7 +358,7 @@ extension MachineSpecification {
         }
     }
     
-    public func part(for key: MachineConfig.Key, value: String?, machine: Machine?) -> MachinePart {
+    public func part(for key: MachineConfigOld.Key, value: String?, machine: Machine?) -> MachinePart {
         guard let value = value else { return DummyMachinePart.none }
         if value == "none" {
             return DummyMachinePart.none
@@ -395,11 +395,11 @@ extension MachineSpecification {
         }
     }
 
-    public func part(for key: MachineConfig.Key, machine: Machine?) -> MachinePart {
+    public func part(for key: MachineConfigOld.Key, machine: Machine?) -> MachinePart {
         return part(for: key, value: string(for: key), machine: machine)
     }
     
-    public func partList(for key: MachineConfig.Key, machine: Machine?) -> MachinePartList {
+    public func partList(for key: MachineConfigOld.Key, machine: Machine?) -> MachinePartList {
         var partList: MachinePartList
         
         switch key {

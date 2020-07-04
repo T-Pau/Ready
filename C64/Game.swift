@@ -576,8 +576,8 @@ extension Game {
 }
 
 extension Game {
-    var machineConfig: MachineConfig {
-        return MachineConfig(contentsOf: directoryURL.appendingPathComponent("Machine Configuration.json"))
+    var machineConfig: MachineConfigOld {
+        return MachineConfigOld(contentsOf: directoryURL.appendingPathComponent("Machine Configuration.json"))
     }
     
     var machineSpecification: MachineSpecification {

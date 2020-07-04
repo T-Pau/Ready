@@ -365,11 +365,11 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
         case .borderMode:
             guard let destination = segue.destination as? SingleSelectionTableViewController else { return }
             // TODO: add row to revert to default
-            destination.items = MachineConfig.BorderMode.allCases
+            destination.items = MachineConfigOld.BorderMode.allCases
             destination.dismissOnSelection = true
-            destination.selectedRow = MachineConfig.BorderMode.allCases.firstIndex(where: { $0 == machine.specification.borderMode })
+            destination.selectedRow = MachineConfigOld.BorderMode.allCases.firstIndex(where: { $0 == machine.specification.borderMode })
             destination.selected = { value in
-                guard let mode = value as? MachineConfig.BorderMode else { return }
+                guard let mode = value as? MachineConfigOld.BorderMode else { return }
                 self.machine.change(borderMode: mode)
             }
 

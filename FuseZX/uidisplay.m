@@ -56,8 +56,9 @@ int uidisplay_end(void) {
 }
 
 void uidisplay_frame_end(void) {
-    render(renderer, screen, BORDER_MODE_SHOW);
-    [fuseThread updateBitmapWidth: screen->size.width height: screen->size.height];
+    const render_size_t *current_size = render(renderer, screen, fuseThread.newBorderMode);
+    [fuseThread updateBitmapWidth: current_size->width height: current_size->height];
+    fuseThread.currentBorderMode = fuseThread.newBorderMode;
 }
 
 int uidisplay_hotswap_gfx_mode(void) {
@@ -79,7 +80,7 @@ int uidisplay_init(int width, int height) {
     
     [fuseThread initBitmapWidth: width height: height];
 
-    if ((renderer = render_new(screen->size, fuseThread.imageData.mutableBytes, palette, BORDER_MODE_SHOW)) == NULL) {
+    if ((renderer = render_new(screen->size, fuseThread.imageData.mutableBytes, palette, fuseThread.currentBorderMode)) == NULL) {
         render_image_free(screen);
         fuse_exiting = 1;
         return 0;

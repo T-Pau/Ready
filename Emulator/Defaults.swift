@@ -148,13 +148,13 @@ public class Defaults {
         }
     }
     
-    public var machineConfig: MachineConfig {
-        var config = MachineConfig(contentsOf: Defaults.applicationSupportURL.appendingPathComponent("Default Machine Configuration.json"))
+    public var machineConfig: MachineConfigOld {
+        var config = MachineConfigOld(contentsOf: Defaults.applicationSupportURL.appendingPathComponent("Default Machine Configuration.json"))
         
         // migrate Border Mode from Defaults to default MachineConfig
         if !config.hasValue(for: .borderMode) {
             if let value = intValue(for: .BorderMode),
-                let borderMode = MachineConfig.BorderMode(int: value)
+                let borderMode = MachineConfigOld.BorderMode(int: value)
             {
                 config[.borderMode] = .string(borderMode.rawValue)
                 do {

@@ -149,9 +149,9 @@ public class Machine {
         return controllers.contains(where: { $0.inputType == .mouse })
     }
     
-    private static let controllerKeys: [MachineConfig.Key] = [ .controlPort1, .controlPort2 ]
+    private static let controllerKeys: [MachineConfigOld.Key] = [ .controlPort1, .controlPort2 ]
 
-    private static let driveKeys: [MachineConfig.Key] = [ .diskDrive8, .diskDrive9, .diskDrive10, .diskDrive11 ]
+    private static let driveKeys: [MachineConfigOld.Key] = [ .diskDrive8, .diskDrive9, .diskDrive10, .diskDrive11 ]
 
     public convenience init() {
         self.init(specification: Defaults.standard.machineSpecification)
@@ -174,7 +174,7 @@ public class Machine {
         update(controllers: specification.userPortControllers, isUserPort: true)
     }
     
-    public func change(borderMode: MachineConfig.BorderMode) {
+    public func change(borderMode: MachineConfigOld.BorderMode) {
         guard borderMode != specification.borderMode else { return }
         vice?.set(borderMode: borderMode)
         specification.borderMode = borderMode

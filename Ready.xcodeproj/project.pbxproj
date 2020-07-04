@@ -608,7 +608,7 @@
 		4B68FB602497524B00A76E57 /* Cartridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B460E4B227991F900815E7F /* Cartridge.swift */; };
 		4B68FB612497524B00A76E57 /* CasstteDrive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9DBB712233C9AB0032B280 /* CasstteDrive.swift */; };
 		4B68FB622497525500A76E57 /* MachinePart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9DBB59222911CC0032B280 /* MachinePart.swift */; };
-		4B68FB632497525A00A76E57 /* MachineConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9DBB69223247B10032B280 /* MachineConfig.swift */; };
+		4B68FB632497525A00A76E57 /* MachineConfigOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9DBB69223247B10032B280 /* MachineConfigOld.swift */; };
 		4B68FB64249752FA00A76E57 /* InputMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1CCBA8223A8C340032B9F0 /* InputMapping.swift */; };
 		4B68FB652497530300A76E57 /* RamExpansionUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B460E50227A064E00815E7F /* RamExpansionUnit.swift */; };
 		4B68FB662497531C00A76E57 /* IdeDiskImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3182CB228209BB006D86AC /* IdeDiskImage.swift */; };
@@ -1230,6 +1230,7 @@
 		4BF9A34C220856120012DC9C /* SelectDiskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF9A34B220856120012DC9C /* SelectDiskViewController.swift */; };
 		4BFB7B47225739C400F8C39F /* Inbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFB7B46225739C400F8C39F /* Inbox.swift */; };
 		4BFB7B49225746D200F8C39F /* GameViewNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFB7B48225746D200F8C39F /* GameViewNavigationController.swift */; };
+		4BFDBBF924B0D7B0005CABEE /* MachineConfigStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFDBBF824B0D7B0005CABEE /* MachineConfigStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -4170,7 +4171,7 @@
 		4B9DBB632231431B0032B280 /* MfiInputDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MfiInputDevice.swift; sourceTree = "<group>"; };
 		4B9DBB65223143540032B280 /* TouchInputDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchInputDevice.swift; sourceTree = "<group>"; };
 		4B9DBB67223147300032B280 /* MachineSpecification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineSpecification.swift; sourceTree = "<group>"; };
-		4B9DBB69223247B10032B280 /* MachineConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineConfig.swift; sourceTree = "<group>"; };
+		4B9DBB69223247B10032B280 /* MachineConfigOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineConfigOld.swift; sourceTree = "<group>"; };
 		4B9DBB6B2232555F0032B280 /* DummyMachinePart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyMachinePart.swift; sourceTree = "<group>"; };
 		4B9DBB6D22326E670032B280 /* Computer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Computer.swift; sourceTree = "<group>"; };
 		4B9DBB6F2232DE6E0032B280 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
@@ -4265,6 +4266,7 @@
 		4BF9A34B220856120012DC9C /* SelectDiskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDiskViewController.swift; sourceTree = "<group>"; };
 		4BFB7B46225739C400F8C39F /* Inbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inbox.swift; sourceTree = "<group>"; };
 		4BFB7B48225746D200F8C39F /* GameViewNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewNavigationController.swift; sourceTree = "<group>"; };
+		4BFDBBF824B0D7B0005CABEE /* MachineConfigStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineConfigStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -8068,7 +8070,8 @@
 				4B1638C2224672A50056A275 /* Keyboard.swift */,
 				4BBA0E3724A09CAD00BA166B /* KeyboardSymbols.swift */,
 				4BB22EC221ECD40E0075E694 /* Machine.swift */,
-				4B9DBB69223247B10032B280 /* MachineConfig.swift */,
+				4B9DBB69223247B10032B280 /* MachineConfigOld.swift */,
+				4BFDBBF824B0D7B0005CABEE /* MachineConfigStore.swift */,
 				4B9DBB59222911CC0032B280 /* MachinePart.swift */,
 				4B9DBB67223147300032B280 /* MachineSpecification.swift */,
 				4B52816B249E442D0023F453 /* Port.swift */,
@@ -10207,7 +10210,7 @@
 				4B68FB612497524B00A76E57 /* CasstteDrive.swift in Sources */,
 				4B81F2A524AF12B50090B21A /* EmulatorThread.m in Sources */,
 				4B68FB5E2497520300A76E57 /* CartridgeImage.swift in Sources */,
-				4B68FB632497525A00A76E57 /* MachineConfig.swift in Sources */,
+				4B68FB632497525A00A76E57 /* MachineConfigOld.swift in Sources */,
 				4BBA0E3824A09CAD00BA166B /* KeyboardSymbols.swift in Sources */,
 				4B68FB732497C2DD00A76E57 /* CwlMutex.swift in Sources */,
 				4B68FB5B249751ED00A76E57 /* MachineSpecification.swift in Sources */,
@@ -10217,6 +10220,7 @@
 				4B68FB6F24975FA900A76E57 /* Defaults.swift in Sources */,
 				4B68FB652497530300A76E57 /* RamExpansionUnit.swift in Sources */,
 				4B68FB64249752FA00A76E57 /* InputMapping.swift in Sources */,
+				4BFDBBF924B0D7B0005CABEE /* MachineConfigStore.swift in Sources */,
 				4B68FB72249774D100A76E57 /* Chargen.swift in Sources */,
 				4B68F8C024966FEE00A76E57 /* Key.swift in Sources */,
 				4B94399224AE834000FD0237 /* EventQueue.swift in Sources */,

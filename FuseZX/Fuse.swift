@@ -161,13 +161,22 @@ import FuseC
     
     override public func start() {
         guard let modelName = fuseName(for: machine.specification.computer.viceMachineModel) else { return } // TODO: close view
-        var args = ["fuse", "--machine", modelName]
+        var args = [
+            "fuse",
+            "--no-interface2", "--no-zxprinter",
+//            "--no-traps", "--no-fastload", "--no-accelerate-loader",
+            "--machine", modelName
+        ]
         if let tapeImage = machine.tapeImages.first, let url = tapeImage.url {
             args.append("--tape")
             args.append(url.path)
         }
         fuseThread?.args = args
         fuseThread?.start()
+    }
+    
+    public override func set(borderMode: MachineConfigOld.BorderMode) {
+        fuseThread?.newBorderMode = borderMode.cValue
     }
 }
 

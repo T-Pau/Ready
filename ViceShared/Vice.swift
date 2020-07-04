@@ -260,7 +260,7 @@ extension JoystickButtons {
         }
     }
     
-    public override func set(borderMode: MachineConfig.BorderMode) {
+    public override func set(borderMode: MachineConfigOld.BorderMode) {
         viceThread?.newBorderMode = borderMode.cValue
     }
     

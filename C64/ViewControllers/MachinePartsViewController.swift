@@ -50,7 +50,7 @@ class MachinePartsViewController: UIViewController, SeguePreparer {
     
     private struct PartInfo {
         var view: MachinePartView!
-        var key: MachineConfig.Key
+        var key: MachineConfigOld.Key
         var iconWidth: CGFloat
         var editableWhenRunning: Bool
     }
@@ -157,7 +157,7 @@ class MachinePartsViewController: UIViewController, SeguePreparer {
         }
         let computer = machineSpecification.computer
         
-        let viewKeys: [MachineConfig.Key: MachinePartView] = [
+        let viewKeys: [MachineConfigOld.Key: MachinePartView] = [
             .diskDrive8: driveViews[0],
             .diskDrive9: driveViews[1],
             .diskDrive10: driveViews[2],
@@ -228,7 +228,7 @@ extension MachinePartView {
 }
 
 extension MachinePartsViewController {
-    private func partInfo(for key: MachineConfig.Key) -> PartInfo? {
+    private func partInfo(for key: MachineConfigOld.Key) -> PartInfo? {
         return partInfos.first(where: { $0.key == key })
     }
     

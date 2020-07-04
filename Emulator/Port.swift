@@ -25,13 +25,13 @@ import Foundation
 
 public struct Port {
     var name: String
-    var key: MachineConfig.Key
+    var key: MachineConfigOld.Key
     var connectorTypes: Set<ConnectorType>
     var supportsHotSwap: Bool
     var iconWidth: Int
     var iconHeight: Int
     
-    public init(name: String, key: MachineConfig.Key, connectorTypes: Set<ConnectorType>, supportsHotSwap: Bool = false, iconWidth: Int = 1, iconHeight: Int = 1) {
+    public init(name: String, key: MachineConfigOld.Key, connectorTypes: Set<ConnectorType>, supportsHotSwap: Bool = false, iconWidth: Int = 1, iconHeight: Int = 1) {
         self.name = name
         self.key = key
         self.connectorTypes = connectorTypes

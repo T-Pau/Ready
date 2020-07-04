@@ -53,7 +53,7 @@ class GeneralSettingsViewController: UIViewController {
     
     struct BorderMode: Equatable, CustomStringConvertible {
         var name: String { return value.label }
-        var value: MachineConfig.BorderMode
+        var value: MachineConfigOld.BorderMode
         
         var description: String {
             return name

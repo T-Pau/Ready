@@ -23,7 +23,7 @@
 
 import UIKit
 
-extension MachineConfig.SingularAdapterMode {
+extension MachineConfigOld.SingularAdapterMode {
     public var viceJoystickType: UserPortModule.ViceJoystickType? {
         switch self {
         case .cga:

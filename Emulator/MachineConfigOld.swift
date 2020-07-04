@@ -23,7 +23,7 @@
 
 import Foundation
 
-public struct MachineConfig: ExpressibleByDictionaryLiteral {
+public struct MachineConfigOld: ExpressibleByDictionaryLiteral {
     public enum Key: String, CaseIterable, CodingKey {
         case borderMode
         case cassetteDrive
@@ -233,7 +233,7 @@ public struct MachineConfig: ExpressibleByDictionaryLiteral {
     public static let cartridgeKeys: [Key] = [ .expansionPort, .expansionPort1, .expansionPort2 ]
     public static let diskDriveKeys: [Key] = [ .diskDrive8, .diskDrive9, .diskDrive10, .diskDrive11 ]
     
-    public static let defaultConfig: MachineConfig = [
+    public static let defaultConfig: MachineConfigOld = [
         .borderMode: .string("auto"),
         .cassetteDrive: .string("auto"),
         .computer: .string("C64 PAL"),
@@ -328,7 +328,7 @@ public struct MachineConfig: ExpressibleByDictionaryLiteral {
         }
     }
     
-    public func differences(to config: MachineConfig) -> Set<Key> {
+    public func differences(to config: MachineConfigOld) -> Set<Key> {
         var diffs = Set<Key>()
         
         for key in Key.allCases {

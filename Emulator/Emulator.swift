@@ -127,7 +127,7 @@ import UIKit
         
     }
 
-    open func set(borderMode: MachineConfig.BorderMode) {
+    open func set(borderMode: MachineConfigOld.BorderMode) {
         
     }
     
