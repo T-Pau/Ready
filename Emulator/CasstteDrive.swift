@@ -61,7 +61,9 @@ public struct CasstteDrive: MachinePart {
         MachinePartSection(title: "Datasette", parts: [
             CasstteDrive(identifier: "1530", name: "1530", fullName: "Commodore 1530 C2N", iconName: "Commodore 1530 C2N", connector: .commodoreTape, caseColorName: "1530 C2N Case"),
 
-            CasstteDrive(identifier: "1530 Plus/4", name: "1530", fullName: "Commodore 1530 C2N", variantName: "for C16, Plus/4", iconName: "Commodore 1530 C2N Black", connector: .plus4Tape, caseColorName: "C16 Case")
+            CasstteDrive(identifier: "1530 Plus/4", name: "1530", fullName: "Commodore 1530 C2N", variantName: "for C16, Plus/4", iconName: "Commodore 1530 C2N Black", connector: .plus4Tape, caseColorName: "C16 Case"),
+            
+            CasstteDrive(identifier: "Tape Recorder", name: "Recorder", fullName: "Tape Recorder", iconName: "Tape Recorder", connector: .audioJackTape, caseColorName: "Tape Recorder Case")
 
         ])
     ])

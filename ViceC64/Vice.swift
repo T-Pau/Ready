@@ -264,7 +264,7 @@ extension JoystickButtons {
         viceThread?.newBorderMode = borderMode.cValue
     }
     
-    public func handleEvent(event: Event) -> Bool {
+    override public func handle(event: Event) -> Bool {
         switch event {
         case .attach(let unit, let image):
             if let url = image?.url {
