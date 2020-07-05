@@ -244,11 +244,11 @@ extension JoystickButtons {
         }
     }
 
-    public override func setResource(name: Machine.ResourceName, value: Machine.ResourceValue) {
+    public override func setResource(name: MachineOld.ResourceName, value: MachineOld.ResourceValue) {
         send(event: .setResource(key: name, value: value))
     }
     
-    public override func setResourceNow(name: Machine.ResourceName, value: Machine.ResourceValue) {
+    public override func setResourceNow(name: MachineOld.ResourceName, value: MachineOld.ResourceValue) {
         // print("setting resource: \(name) = \(value)")
         switch value {
         case .Bool(let value):

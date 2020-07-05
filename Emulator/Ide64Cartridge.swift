@@ -70,7 +70,7 @@ extension Ide64Cartridge: Cartridge {
         return .main
     }
     
-    public var resources: [Machine.ResourceName: Machine.ResourceValue] {
+    public var resources: [MachineOld.ResourceName: MachineOld.ResourceValue] {
         return [
             .IDE64version: .Int(version.rawValue),
             .IDE64RTCSave: .Bool(true),

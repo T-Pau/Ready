@@ -26,7 +26,7 @@ import UIKit
 
 
 @objc open class Emulator: NSObject {
-    public var machine = Machine()
+    public var machine = MachineOld()
     open var imageView: UIImageView?
     public var delegate: EmulatorDelegate?
     
@@ -119,11 +119,11 @@ import UIKit
         
     }
 
-    open func setResource(name: Machine.ResourceName, value: Machine.ResourceValue) {
+    open func setResource(name: MachineOld.ResourceName, value: MachineOld.ResourceValue) {
         
     }
 
-    open func setResourceNow(name: Machine.ResourceName, value: Machine.ResourceValue) {
+    open func setResourceNow(name: MachineOld.ResourceName, value: MachineOld.ResourceValue) {
         
     }
 

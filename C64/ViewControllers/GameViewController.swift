@@ -113,7 +113,7 @@ class GameViewController: UIViewController, UITextFieldDelegate, ShareableImageV
         }
     }
     
-    private var machine = Machine()
+    private var machine = MachineOld()
     var screenshots = [UIImage]()
     var media = GameViewItemMedia(sections: [])
     
@@ -326,7 +326,7 @@ class GameViewController: UIViewController, UITextFieldDelegate, ShareableImageV
         case .machineParts:
             guard let navigationController = segue.destination as? UINavigationController, let destination = navigationController.topViewController as? MachinePartsViewController, let game = gameViewItem as? Game else { return }
             destination.machineSpecification = game.machineSpecification
-            destination.machine = Machine(game: game)
+            destination.machine = MachineOld(game: game)
             destination.changeHandler = { machineSpecification in
                 do {
                     try machineSpecification.save()

@@ -32,13 +32,13 @@ public enum CartridgeType {
 
 public protocol Cartridge {
     var identifier: String { get }
-    var resources: [Machine.ResourceName: Machine.ResourceValue] { get }
+    var resources: [MachineOld.ResourceName: MachineOld.ResourceValue] { get }
     var numberOfSlots: Int { get }
     var cartridgeType: CartridgeType { get }
 }
 
 extension Cartridge {
-    public var resources: [Machine.ResourceName: Machine.ResourceValue] {
+    public var resources: [MachineOld.ResourceName: MachineOld.ResourceValue] {
         return [:]
     }
     public var numberOfSlots: Int {
@@ -64,11 +64,11 @@ public struct OtherCartridge: Cartridge {
     public var connector: ConnectorType
 
 
-    public var resources: [Machine.ResourceName: Machine.ResourceValue]
+    public var resources: [MachineOld.ResourceName: MachineOld.ResourceValue]
     public var numberOfSlots: Int
     public var cartridgeType: CartridgeType
     
-    public init(identifier: String, name: String, fullName: String? = nil, variantName: String? = nil, iconName: String?, priority: Int = MachinePartNormalPriority, connector: ConnectorType = .c64ExpansionPort, cartridgeType: CartridgeType, numberOfSlots: Int = 0, resources: [Machine.ResourceName: Machine.ResourceValue]) {
+    public init(identifier: String, name: String, fullName: String? = nil, variantName: String? = nil, iconName: String?, priority: Int = MachinePartNormalPriority, connector: ConnectorType = .c64ExpansionPort, cartridgeType: CartridgeType, numberOfSlots: Int = 0, resources: [MachineOld.ResourceName: MachineOld.ResourceValue]) {
         self.identifier = identifier
         self.name = name
         self.fullName = fullName ?? name

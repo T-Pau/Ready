@@ -534,7 +534,7 @@ protocol GameViewItem {
     func addScreenshot(url: URL)
     func loadScreenshots(completion: @escaping (_: [UIImage]) -> Void)
 
-    var machine: Machine { get }
+    var machine: MachineOld { get }
 
     func addMedia(mediaItem: MediaItem, at: Int, sectionType: GameViewItemMedia.SectionType)
     func moveMedia(from sourceRow: Int, to destinationRow: Int, sectionType: GameViewItemMedia.SectionType)

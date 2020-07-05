@@ -263,9 +263,9 @@ extension CartridgeImage: Cartridge {
         return url?.lastPathComponent ?? "<unknown>"
     }
     
-    public var resources: [Machine.ResourceName: Machine.ResourceValue] {
+    public var resources: [MachineOld.ResourceName: MachineOld.ResourceValue] {
         guard let fileName = url?.path else { return [:] }
-        var resources = [Machine.ResourceName: Machine.ResourceValue]()
+        var resources = [MachineOld.ResourceName: MachineOld.ResourceValue]()
 
         switch format {
         case .c64, .crt(_):
@@ -280,7 +280,7 @@ extension CartridgeImage: Cartridge {
             }
             
         case .vic20(let address):
-            if let resourceNane = Machine.ResourceName(vic20CartridgeAddress: address) {
+            if let resourceNane = MachineOld.ResourceName(vic20CartridgeAddress: address) {
                 resources[.CartridgeType] = .Int(1)
                 resources[resourceNane] = .String(fileName)
             }

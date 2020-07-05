@@ -587,7 +587,7 @@ extension Game {
 
 // MARK: - Machine
 
-extension Machine {
+extension MachineOld {
     convenience init(game: Game) {
         self.init(specification: game.machineSpecification)
         
@@ -615,8 +615,8 @@ extension Game: GameViewItem {
         return name
     }
     
-    var machine: Machine {
-        return Machine(game: self)
+    var machine: MachineOld {
+        return MachineOld(game: self)
     }
     
     var media: GameViewItemMedia {

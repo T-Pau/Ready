@@ -149,8 +149,8 @@ extension RamExpansionUnit: Cartridge {
         return .io
     }
     
-    public var resources: [Machine.ResourceName: Machine.ResourceValue] {
-        var resources = [Machine.ResourceName: Machine.ResourceValue]()
+    public var resources: [MachineOld.ResourceName: MachineOld.ResourceValue] {
+        var resources = [MachineOld.ResourceName: MachineOld.ResourceValue]()
             
         switch connector {
         case .c64ExpansionPort:

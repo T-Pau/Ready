@@ -171,8 +171,8 @@ extension Inbox: GameViewItem {
         ])
     }
     
-    var machine: Machine {
-        let machine = Machine(specification: Defaults.standard.machineSpecification.appending(layer: MachineConfigOld()))
+    var machine: MachineOld {
+        let machine = MachineOld(specification: Defaults.standard.machineSpecification.appending(layer: MachineConfigOld()))
 
         machine.diskImages = items.filter({ $0.media.mediaType == .disk }).map({ $0.media }) as! [DiskImage]
         machine.tapeImages = items.filter({ $0.media.mediaType == .tape }).map({ $0.media }) as! [TapeImage]

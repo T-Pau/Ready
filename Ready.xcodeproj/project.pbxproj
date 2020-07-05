@@ -112,6 +112,9 @@
 		4B2B9BB622533F7F002948B7 /* TableViewUpdates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B9BB522533F7F002948B7 /* TableViewUpdates.swift */; };
 		4B2CE99F227D8E8800F782AC /* PaddleGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2CE99E227D8E8800F782AC /* PaddleGestureRecognizer.swift */; };
 		4B2CE9A1227D912100F782AC /* PaddleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2CE9A0227D912100F782AC /* PaddleView.swift */; };
+		4B2FA1A324B1AD32002A11BA /* MachineConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2FA1A224B1AD32002A11BA /* MachineConfig.swift */; };
+		4B2FA1A524B1B66B002A11BA /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2FA1A424B1B66B002A11BA /* Device.swift */; };
+		4B2FA1A724B1B792002A11BA /* MachinePartRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2FA1A624B1B792002A11BA /* MachinePartRegister.swift */; };
 		4B3182C62281E320006D86AC /* Compact Flash Card.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B3182C42281E320006D86AC /* Compact Flash Card.png */; };
 		4B3182C72281E320006D86AC /* IDE Hard Disk.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B3182C52281E320006D86AC /* IDE Hard Disk.png */; };
 		4B3182CE2282F36E006D86AC /* Compact Disc Document.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B3182CD2282F36D006D86AC /* Compact Disc Document.png */; };
@@ -599,7 +602,7 @@
 		4B68FB5424967E2700A76E57 /* DiskImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAAD2AA21E76B4700709807 /* DiskImage.swift */; };
 		4B68FB582496830000A76E57 /* Emulator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68F8B12496407700A76E57 /* Emulator.framework */; };
 		4B68FB592497517E00A76E57 /* C64UIComponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7609F021F47B900058FBCD /* C64UIComponents.framework */; };
-		4B68FB5A249751DE00A76E57 /* Machine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB22EC221ECD40E0075E694 /* Machine.swift */; };
+		4B68FB5A249751DE00A76E57 /* MachineOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB22EC221ECD40E0075E694 /* MachineOld.swift */; };
 		4B68FB5B249751ED00A76E57 /* MachineSpecification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9DBB67223147300032B280 /* MachineSpecification.swift */; };
 		4B68FB5C249751F400A76E57 /* DiskDrive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B841CF621F7358F009CAF4B /* DiskDrive.swift */; };
 		4B68FB5D249751FB00A76E57 /* Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9DBB5B222922420032B280 /* Controller.swift */; };
@@ -1834,6 +1837,9 @@
 		4B2B9BBA2253B60F002948B7 /* Chargen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chargen.swift; sourceTree = "<group>"; };
 		4B2CE99E227D8E8800F782AC /* PaddleGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaddleGestureRecognizer.swift; sourceTree = "<group>"; };
 		4B2CE9A0227D912100F782AC /* PaddleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaddleView.swift; sourceTree = "<group>"; };
+		4B2FA1A224B1AD32002A11BA /* MachineConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineConfig.swift; sourceTree = "<group>"; };
+		4B2FA1A424B1B66B002A11BA /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		4B2FA1A624B1B792002A11BA /* MachinePartRegister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachinePartRegister.swift; sourceTree = "<group>"; };
 		4B3182C42281E320006D86AC /* Compact Flash Card.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Compact Flash Card.png"; sourceTree = "<group>"; };
 		4B3182C52281E320006D86AC /* IDE Hard Disk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IDE Hard Disk.png"; sourceTree = "<group>"; };
 		4B3182C822820095006D86AC /* Ide64Cartridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ide64Cartridge.swift; sourceTree = "<group>"; };
@@ -4202,7 +4208,7 @@
 		4BB22EBC21EB75AD0075E694 /* SeguePreparer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeguePreparer.swift; sourceTree = "<group>"; };
 		4BB22EBE21EBB6320075E694 /* SortTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortTableViewController.swift; sourceTree = "<group>"; };
 		4BB22EC021EBCF0B0075E694 /* GameHeaderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHeaderCollectionViewCell.swift; sourceTree = "<group>"; };
-		4BB22EC221ECD40E0075E694 /* Machine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Machine.swift; sourceTree = "<group>"; };
+		4BB22EC221ECD40E0075E694 /* MachineOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineOld.swift; sourceTree = "<group>"; };
 		4BB22EC621EDED470075E694 /* ReleaseNotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseNotesViewController.swift; sourceTree = "<group>"; };
 		4BB22EC821EE06E70075E694 /* LicenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseViewController.swift; sourceTree = "<group>"; };
 		4BB22ECA21EE607C0075E694 /* CBM.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CBM.ttf; sourceTree = "<group>"; };
@@ -8065,13 +8071,16 @@
 				4B68F8B42496407700A76E57 /* Info.plist */,
 				4B9DBB5D22292B8E0032B280 /* InputDevice.swift */,
 				4B1CCBA8223A8C340032B9F0 /* InputMapping.swift */,
+				4B2FA1A424B1B66B002A11BA /* Device.swift */,
 				4B68F8C12496719200A76E57 /* JoystickButtons.swift */,
 				4BC5BBDA21DF548000D44A10 /* Key.swift */,
 				4B1638C2224672A50056A275 /* Keyboard.swift */,
 				4BBA0E3724A09CAD00BA166B /* KeyboardSymbols.swift */,
-				4BB22EC221ECD40E0075E694 /* Machine.swift */,
+				4BB22EC221ECD40E0075E694 /* MachineOld.swift */,
 				4B9DBB69223247B10032B280 /* MachineConfigOld.swift */,
 				4BFDBBF824B0D7B0005CABEE /* MachineConfigStore.swift */,
+				4B2FA1A624B1B792002A11BA /* MachinePartRegister.swift */,
+				4B2FA1A224B1AD32002A11BA /* MachineConfig.swift */,
 				4B9DBB59222911CC0032B280 /* MachinePart.swift */,
 				4B9DBB67223147300032B280 /* MachineSpecification.swift */,
 				4B52816B249E442D0023F453 /* Port.swift */,
@@ -10206,7 +10215,9 @@
 				4B52816A249E0A320023F453 /* ConnectorType.swift in Sources */,
 				4B68FB622497525500A76E57 /* MachinePart.swift in Sources */,
 				4B68FB5D249751FB00A76E57 /* Controller.swift in Sources */,
+				4B2FA1A524B1B66B002A11BA /* Device.swift in Sources */,
 				4B68FB702497749B00A76E57 /* Computer.swift in Sources */,
+				4B2FA1A724B1B792002A11BA /* MachinePartRegister.swift in Sources */,
 				4B68FB612497524B00A76E57 /* CasstteDrive.swift in Sources */,
 				4B81F2A524AF12B50090B21A /* EmulatorThread.m in Sources */,
 				4B68FB5E2497520300A76E57 /* CartridgeImage.swift in Sources */,
@@ -10225,8 +10236,9 @@
 				4B68F8C024966FEE00A76E57 /* Key.swift in Sources */,
 				4B94399224AE834000FD0237 /* EventQueue.swift in Sources */,
 				4B68F8C22496719200A76E57 /* JoystickButtons.swift in Sources */,
-				4B68FB5A249751DE00A76E57 /* Machine.swift in Sources */,
+				4B68FB5A249751DE00A76E57 /* MachineOld.swift in Sources */,
 				4B68FB5C249751F400A76E57 /* DiskDrive.swift in Sources */,
+				4B2FA1A324B1AD32002A11BA /* MachineConfig.swift in Sources */,
 				4B68FB6D24975EE400A76E57 /* DummyMachinePart.swift in Sources */,
 				4B68FB5F2497523C00A76E57 /* UserPortModule.swift in Sources */,
 				4B671FDE24A08ABB00E39F01 /* Keyboard.swift in Sources */,

@@ -56,6 +56,11 @@ extension MachinePart {
     public func port(for key: MachineConfigOld.Key) -> Port? {
         return ports.first(where: { $0.key == key })
     }
+    
+    public func portNew(for key: MachineConfig.Key) -> Port? {
+        // TODO: use function above on switch from MachineConfigOld.Key to MachineConfig.Key
+        return nil
+    }
 }
 
 public struct MachinePartSection {

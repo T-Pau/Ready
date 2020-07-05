@@ -151,8 +151,8 @@ extension Tools: GameViewItem {
         ])
     }
     
-    var machine: Machine {
-        let machine = Machine(specification: Defaults.standard.machineSpecification.appending(layer: MachineConfigOld()))
+    var machine: MachineOld {
+        let machine = MachineOld(specification: Defaults.standard.machineSpecification.appending(layer: MachineConfigOld()))
 
         if !cartridges.isEmpty {
             machine.cartridgeImage = cartridges[0]

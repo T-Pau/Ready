@@ -32,7 +32,7 @@ public enum Event {
     case playPause(_ running: Bool)
     case quit
     case reset
-    case setResource(key: Machine.ResourceName, value: Machine.ResourceValue)
+    case setResource(key: MachineOld.ResourceName, value: MachineOld.ResourceValue)
 }
 
 

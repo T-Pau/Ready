@@ -43,7 +43,7 @@ class MachinePartsViewController: UIViewController, SeguePreparer {
     @IBOutlet weak var userPortJoystick2View: MachinePartView!
     
     var machineSpecification = MachineSpecification(layers: [])
-    var machine: Machine?
+    var machine: MachineOld?
     var isMachineRunning = false
     
     var changeHandler: ((MachineSpecification) -> ())?

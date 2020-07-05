@@ -124,7 +124,7 @@ extension MachineSpecification {
 
     }
     
-    public func cartridges(for machine: Machine?) -> [Cartridge] {
+    public func cartridges(for machine: MachineOld?) -> [Cartridge] {
         var cartridges = [Cartridge](repeating: OtherCartridge.none, count: 3)
         
         let identifiers = MachineConfigOld.cartridgeKeys.map({ identifier(for: $0) })
@@ -297,7 +297,7 @@ extension MachineSpecification {
 }
 
 extension MachineSpecification {
-    private func autoPart(for key: MachineConfigOld.Key, machine: Machine?) -> MachinePart {
+    private func autoPart(for key: MachineConfigOld.Key, machine: MachineOld?) -> MachinePart {
         if let machine = machine {
             var part: MachinePart = DummyMachinePart.none
             var annotateName = true
@@ -358,7 +358,7 @@ extension MachineSpecification {
         }
     }
     
-    public func part(for key: MachineConfigOld.Key, value: String?, machine: Machine?) -> MachinePart {
+    public func part(for key: MachineConfigOld.Key, value: String?, machine: MachineOld?) -> MachinePart {
         guard let value = value else { return DummyMachinePart.none }
         if value == "none" {
             return DummyMachinePart.none
@@ -395,11 +395,11 @@ extension MachineSpecification {
         }
     }
 
-    public func part(for key: MachineConfigOld.Key, machine: Machine?) -> MachinePart {
+    public func part(for key: MachineConfigOld.Key, machine: MachineOld?) -> MachinePart {
         return part(for: key, value: string(for: key), machine: machine)
     }
     
-    public func partList(for key: MachineConfigOld.Key, machine: Machine?) -> MachinePartList {
+    public func partList(for key: MachineConfigOld.Key, machine: MachineOld?) -> MachinePartList {
         var partList: MachinePartList
         
         switch key {

@@ -24,7 +24,7 @@
 import Foundation
 import C64UIComponents
 
-public class Machine {
+public class MachineOld {
     public enum ResourceName: String {
         case AutostartPrgMode
         case CartridgeFile
@@ -240,7 +240,7 @@ public class Machine {
             if !mountable {
                 guard var newDrive = DiskDrive.getDriveSupporting(image: disk) else { continue }
                 for (index, drive) in diskDrives.enumerated() {
-                    if specification.computer.has(port: Machine.driveKeys[index]) && specification.string(for: Machine.driveKeys[index]) == "auto" {
+                    if specification.computer.has(port: MachineOld.driveKeys[index]) && specification.string(for: MachineOld.driveKeys[index]) == "auto" {
                         if !drive.hasStatus {
                             newDrive.image = disk
                             diskDrives[index] = newDrive
@@ -265,7 +265,7 @@ public class Machine {
     }
 }
 
-extension Machine {
+extension MachineOld {
     public func update(specification newSpecification: MachineSpecification) {
         let oldSpecification = specification
         specification = newSpecification
@@ -360,7 +360,7 @@ extension Machine {
     
     private func updateVice(controller: Controller?, port: Int, isUserPort: Bool) {
         let vicePort = port + (isUserPort ? 2 : 0)
-        guard let key = Machine.ResourceName(joyDevice: vicePort) else { return }
+        guard let key = MachineOld.ResourceName(joyDevice: vicePort) else { return }
         setResource(name: key, value: .Int((controller?.viceType ?? .none).rawValue))
     }
     
@@ -384,7 +384,7 @@ extension Machine {
     }
 }
 
-extension Machine: InputDeviceDelegate {
+extension MachineOld: InputDeviceDelegate {
     public func inputDevice(_ device: InputDevice, joystickChanged buttons: JoystickButtons) {
         guard let port = port(for: device) else { return }
         vice?.joystick(port.vicePort, buttons: buttons)

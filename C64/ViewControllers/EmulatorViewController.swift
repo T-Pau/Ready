@@ -88,7 +88,7 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
     var selectedMedia: MediaItem?
     var emulator: Emulator?
     var running = false
-    var machine = Machine()
+    var machine = MachineOld()
     
     private var controllers = [GCController : MfiInputDevice]()
     
@@ -145,7 +145,7 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
             }
         }
         else {
-            machine = Machine()
+            machine = MachineOld()
         }
         
         if toolsMode {
