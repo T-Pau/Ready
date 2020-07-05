@@ -272,7 +272,7 @@ public class Game: NSManagedObject {
                             ramExpansionFile = name
                         }
                         
-                    case "t64", "tap":
+                    case "t64", "tap", "tzx":
                         if tapeFile == nil {
                             tapeFile = name
                         }

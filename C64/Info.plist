@@ -75,6 +75,7 @@
 			<array>
 				<string>at.spiderlab.c64.t64</string>
 				<string>at.spiderlab.c64.tap</string>
+				<string>at.spiderlab.c64.tzx</string>
 			</array>
 		</dict>
 		<dict>
@@ -612,6 +613,26 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<string>d71</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>at.spiderlab.c64.disk</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>ZX Spectrum Tape Image</string>
+			<key>UTTypeIconFiles</key>
+			<array>
+				<string>TapeDocument.png</string>
+			</array>
+			<key>UTTypeIdentifier</key>
+			<string>at.spiderlab.c64.tzx</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<string>tzx</string>
 			</dict>
 		</dict>
 	</array>

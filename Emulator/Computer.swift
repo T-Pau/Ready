@@ -431,7 +431,7 @@ public struct Computer: MachinePart {
             Computer(identifier: "C16 NTSC",
                      name: "Commodore 16 (NTSC)",
                      fullName: "Commodore 16",
-                     variantName: "PAL",
+                     variantName: "NTSC",
                      iconName: "Commodore C16",
                      viceMachineModel: .c16Ntsc,
                      keyboardName: "C16",

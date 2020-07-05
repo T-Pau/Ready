@@ -45,7 +45,7 @@ struct C64FileType {
             case .programFile:
                 return ["at.spiderlab.c64.p00", "at.spiderlab.c64.prg", "org.sidmusic.prg"]
             case .tape:
-                return ["at.spiderlab.c64.t64", "at.spiderlab.c64.tap", "org.sidmusic.tap"]
+                return ["at.spiderlab.c64.t64", "at.spiderlab.c64.tap", "at.spiderlab.c64.tzx", "org.sidmusic.tap"]
             }
         }
     }
@@ -77,7 +77,8 @@ struct C64FileType {
         "prg": .programFile,
         "reu": .ramExpansionUnit,
         "t64": .tape,
-        "tap": .tape
+        "tap": .tape,
+        "tzx": .tape
     ]
     
     private static var _typeIdentifiers = Set<String>()

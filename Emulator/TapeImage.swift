@@ -54,6 +54,9 @@ extension TapeImage {
         if let image = SpectrumTapImage(bytes: bytes) {
             return image
         }
+        if let image = SpectrumTZXImage(bytes: bytes) {
+            return image
+        }
         return nil
     }
 
@@ -116,6 +119,19 @@ public struct SpectrumTapImage: TapeImage {
         guard checksum == 0 else { return nil }
         
         self.name = String(bytes: bytes[4 ..< 14], encoding: .ascii)?.trimmingCharacters(in: .whitespaces)
+        self.bytes = bytes
+    }
+}
+
+public struct SpectrumTZXImage: TapeImage {
+    public var bytes: Data
+    public var url: URL?
+    public var name: String?
+    
+    public init?(bytes: Data) {
+        guard bytes.count > 8 else { return nil } // too short for header
+        guard String(bytes: bytes[0..<7], encoding: .ascii) == "ZXTape!" && bytes[7] == 26 else { return nil }
+        
         self.bytes = bytes
     }
 }

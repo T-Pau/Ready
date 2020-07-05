@@ -119,6 +119,8 @@ extension TapImage: MediaItem { }
 
 extension SpectrumTapImage: MediaItem { }
 
+extension SpectrumTZXImage: MediaItem { }
+
 extension ProgramFile: MediaItem {
     public var displayTitle: String? {
         return url?.lastPathComponent
