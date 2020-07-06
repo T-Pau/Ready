@@ -33,6 +33,10 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Release 1.5 build 7", year: 2020, month: 7, day: 5, changes: [
+            "Add ZX Spectrum+, ZX Spectrum 128k.",
+            "Add sound and tape support to ZX Spectrum."
+        ]),
         Release(name: "Release 1.5 build 6", year: 2020, month: 7, day: 3, changes: [
             "Fix communicating with vice emulator bug introduced in previous build.",
             "Add Tape Recorder icon."

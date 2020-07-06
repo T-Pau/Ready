@@ -1192,6 +1192,7 @@
 		4B9DBB702232DE6E0032B280 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9DBB6F2232DE6E0032B280 /* AboutViewController.swift */; };
 		4B9DBB78223904B00032B280 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B9DBB77223904B00032B280 /* Assets.xcassets */; };
 		4BA0AE7D22957B1600E54C96 /* PillButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA0AE7C22957B1600E54C96 /* PillButton.swift */; };
+		4BA1E9B924B314C100D935D3 /* MultiSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA1E9B824B314C100D935D3 /* MultiSet.swift */; };
 		4BACE33922172AB600FC3403 /* MouseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BACE337221708F200FC3403 /* MouseView.swift */; };
 		4BACE33B2218582000FC3403 /* MouseGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BACE33A2218582000FC3403 /* MouseGestureRecognizer.swift */; };
 		4BAE5BF221FDD72E0098ADFF /* FileDocument.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BAE5BF121FDD72E0098ADFF /* FileDocument.png */; };
@@ -4185,6 +4186,7 @@
 		4B9DBB732233CAA00032B280 /* UserPortModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPortModule.swift; sourceTree = "<group>"; };
 		4B9DBB77223904B00032B280 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4BA0AE7C22957B1600E54C96 /* PillButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillButton.swift; sourceTree = "<group>"; };
+		4BA1E9B824B314C100D935D3 /* MultiSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSet.swift; sourceTree = "<group>"; };
 		4BAAD2AA21E76B4700709807 /* DiskImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskImage.swift; sourceTree = "<group>"; };
 		4BACE337221708F200FC3403 /* MouseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseView.swift; sourceTree = "<group>"; };
 		4BACE33A2218582000FC3403 /* MouseGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseGestureRecognizer.swift; sourceTree = "<group>"; };
@@ -8057,6 +8059,7 @@
 				4B528169249E0A320023F453 /* ConnectorType.swift */,
 				4B9DBB5B222922420032B280 /* Controller.swift */,
 				4BB22EB321EB46970075E694 /* Defaults.swift */,
+				4B2FA1A424B1B66B002A11BA /* Device.swift */,
 				4B841CF621F7358F009CAF4B /* DiskDrive.swift */,
 				4BAAD2AA21E76B4700709807 /* DiskImage.swift */,
 				4B9DBB6B2232555F0032B280 /* DummyMachinePart.swift */,
@@ -8071,18 +8074,18 @@
 				4B68F8B42496407700A76E57 /* Info.plist */,
 				4B9DBB5D22292B8E0032B280 /* InputDevice.swift */,
 				4B1CCBA8223A8C340032B9F0 /* InputMapping.swift */,
-				4B2FA1A424B1B66B002A11BA /* Device.swift */,
 				4B68F8C12496719200A76E57 /* JoystickButtons.swift */,
 				4BC5BBDA21DF548000D44A10 /* Key.swift */,
 				4B1638C2224672A50056A275 /* Keyboard.swift */,
 				4BBA0E3724A09CAD00BA166B /* KeyboardSymbols.swift */,
-				4BB22EC221ECD40E0075E694 /* MachineOld.swift */,
+				4B2FA1A224B1AD32002A11BA /* MachineConfig.swift */,
 				4B9DBB69223247B10032B280 /* MachineConfigOld.swift */,
 				4BFDBBF824B0D7B0005CABEE /* MachineConfigStore.swift */,
-				4B2FA1A624B1B792002A11BA /* MachinePartRegister.swift */,
-				4B2FA1A224B1AD32002A11BA /* MachineConfig.swift */,
+				4BB22EC221ECD40E0075E694 /* MachineOld.swift */,
 				4B9DBB59222911CC0032B280 /* MachinePart.swift */,
+				4B2FA1A624B1B792002A11BA /* MachinePartRegister.swift */,
 				4B9DBB67223147300032B280 /* MachineSpecification.swift */,
+				4BA1E9B824B314C100D935D3 /* MultiSet.swift */,
 				4B52816B249E442D0023F453 /* Port.swift */,
 				4B841D0421FCB96B009CAF4B /* ProgramFile.swift */,
 				4B460E50227A064E00815E7F /* RamExpansionUnit.swift */,
@@ -10214,6 +10217,7 @@
 			files = (
 				4B52816A249E0A320023F453 /* ConnectorType.swift in Sources */,
 				4B68FB622497525500A76E57 /* MachinePart.swift in Sources */,
+				4BA1E9B924B314C100D935D3 /* MultiSet.swift in Sources */,
 				4B68FB5D249751FB00A76E57 /* Controller.swift in Sources */,
 				4B2FA1A524B1B66B002A11BA /* Device.swift in Sources */,
 				4B68FB702497749B00A76E57 /* Computer.swift in Sources */,
@@ -11286,7 +11290,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
 					C64/Vice,
@@ -11316,7 +11320,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
 					C64/Vice,

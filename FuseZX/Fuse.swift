@@ -33,6 +33,8 @@ import FuseC
         fuseThread?.delegate = self
     }
     
+    private var pressedKeys = Multiset<Key>()
+    
     func fuseName(for model: Computer.ViceModel) -> String? {
         switch model {
         case .zxSpectrum16k:
@@ -44,93 +46,129 @@ import FuseC
         case .zxSpectrum48kNtsc:
             return "48_ntsc"
             
+        case .zxSpectrum128k:
+            return "128"
+            
         default:
             return nil
         }
     }
     
-    func fuseValue(for key: Key) -> keyboard_key_name? {
+    func fuseKeys(for key: Key) -> [keyboard_key_name]? {
         switch key {
         case .Char(" "):
-            return KEYBOARD_space
+            return [KEYBOARD_space]
         case .Char("0"):
-            return KEYBOARD_0
+            return [KEYBOARD_0]
         case .Char("1"):
-            return KEYBOARD_1
+            return [KEYBOARD_1]
         case .Char("2"):
-            return KEYBOARD_2
+            return [KEYBOARD_2]
         case .Char("3"):
-            return KEYBOARD_3
+            return [KEYBOARD_3]
         case .Char("4"):
-            return KEYBOARD_4
+            return [KEYBOARD_4]
         case .Char("5"):
-            return KEYBOARD_5
+            return [KEYBOARD_5]
         case .Char("6"):
-            return KEYBOARD_6
+            return [KEYBOARD_6]
         case .Char("7"):
-            return KEYBOARD_7
+            return [KEYBOARD_7]
         case .Char("8"):
-            return KEYBOARD_8
+            return [KEYBOARD_8]
         case .Char("9"):
-            return KEYBOARD_9
+            return [KEYBOARD_9]
         case .Char("a"):
-            return KEYBOARD_a
+            return [KEYBOARD_a]
         case .Char("b"):
-            return KEYBOARD_b
+            return [KEYBOARD_b]
         case .Char("c"):
-            return KEYBOARD_c
+            return [KEYBOARD_c]
         case .Char("d"):
-            return KEYBOARD_d
+            return [KEYBOARD_d]
         case .Char("e"):
-            return KEYBOARD_e
+            return [KEYBOARD_e]
         case .Char("f"):
-            return KEYBOARD_f
+            return [KEYBOARD_f]
         case .Char("g"):
-            return KEYBOARD_g
+            return [KEYBOARD_g]
         case .Char("h"):
-            return KEYBOARD_h
+            return [KEYBOARD_h]
         case .Char("i"):
-            return KEYBOARD_i
+            return [KEYBOARD_i]
         case .Char("j"):
-            return KEYBOARD_j
+            return [KEYBOARD_j]
         case .Char("k"):
-            return KEYBOARD_k
+            return [KEYBOARD_k]
         case .Char("l"):
-            return KEYBOARD_l
+            return [KEYBOARD_l]
         case .Char("m"):
-            return KEYBOARD_m
+            return [KEYBOARD_m]
         case .Char("n"):
-            return KEYBOARD_n
+            return [KEYBOARD_n]
         case .Char("o"):
-            return KEYBOARD_o
+            return [KEYBOARD_o]
         case .Char("p"):
-            return KEYBOARD_p
+            return [KEYBOARD_p]
         case .Char("q"):
-            return KEYBOARD_q
+            return [KEYBOARD_q]
         case .Char("r"):
-            return KEYBOARD_r
+            return [KEYBOARD_r]
         case .Char("s"):
-            return KEYBOARD_s
+            return [KEYBOARD_s]
         case .Char("t"):
-            return KEYBOARD_t
+            return [KEYBOARD_t]
         case .Char("u"):
-            return KEYBOARD_u
+            return [KEYBOARD_u]
         case .Char("v"):
-            return KEYBOARD_v
+            return [KEYBOARD_v]
         case .Char("w"):
-            return KEYBOARD_w
+            return [KEYBOARD_w]
         case .Char("x"):
-            return KEYBOARD_x
+            return [KEYBOARD_x]
         case .Char("y"):
-            return KEYBOARD_y
+            return [KEYBOARD_y]
         case .Char("z"):
-            return KEYBOARD_z
+            return [KEYBOARD_z]
         case .Return:
-            return KEYBOARD_Enter
+            return [KEYBOARD_Enter]
         case .Shift:
-            return KEYBOARD_Caps
+            return [KEYBOARD_Caps]
         case .SymbolShift:
-            return KEYBOARD_Symbol
+            return [KEYBOARD_Symbol]
+
+        case .Char("."):
+            return [KEYBOARD_Symbol, KEYBOARD_m]
+        case .Char(";"):
+            return [KEYBOARD_Symbol, KEYBOARD_o]
+        case .Char(","):
+            return [KEYBOARD_Symbol, KEYBOARD_n]
+        case .Char("\""):
+            return [KEYBOARD_Symbol, KEYBOARD_p]
+        case .Break:
+            return [KEYBOARD_Caps, KEYBOARD_space]
+        case .CursorLeft:
+            return [KEYBOARD_Caps, KEYBOARD_5]
+        case .CursorDown:
+            return [KEYBOARD_Caps, KEYBOARD_6]
+        case .CursorUp:
+            return [KEYBOARD_Caps, KEYBOARD_7]
+        case .CursorRight:
+            return [KEYBOARD_Caps, KEYBOARD_8]
+        case .Delete:
+            return [KEYBOARD_Caps, KEYBOARD_0]
+        case .Edit:
+            return [KEYBOARD_Caps, KEYBOARD_1]
+        case .ExtendedMode:
+            return [KEYBOARD_Caps, KEYBOARD_Symbol]
+        case .Graphics:
+            return [KEYBOARD_Caps, KEYBOARD_9]
+        case .InverseVideo:
+            return [KEYBOARD_Caps, KEYBOARD_4]
+        case .ShiftLock:
+            return [KEYBOARD_Caps, KEYBOARD_2]
+        case .TrueVideo:
+            return [KEYBOARD_Caps, KEYBOARD_3]
 
         default:
             return nil
@@ -140,12 +178,22 @@ import FuseC
     override public func handle(event: Event) -> Bool {
         switch event {
         case .key(let key, let pressed):
-            if let keyName = fuseValue(for: key) {
+            if let keyNames = fuseKeys(for: key) {
                 if pressed {
-                    keyboard_press(keyName)
+                    pressedKeys.add(key)
+                    if pressedKeys.count(for: key) == 1 {
+                        for keyName in keyNames {
+                            keyboard_press(keyName)
+                        }
+                    }
                 }
                 else {
-                    keyboard_release(keyName)
+                    pressedKeys.remove(key)
+                    if pressedKeys.count(for: key) == 0 {
+                        for keyName in keyNames {
+                            keyboard_release(keyName)
+                        }
+                    }
                 }
             }
             

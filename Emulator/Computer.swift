@@ -121,6 +121,7 @@ public struct Computer: MachinePart {
         case zxSpectrum16k
         case zxSpectrum48k
         case zxSpectrum48kNtsc
+        case zxSpectrum128k
 
         public var viceMachine: ComputerType {
             switch self {
@@ -130,7 +131,7 @@ public struct Computer: MachinePart {
                 return .vic
             case .c16Pal, .c16Ntsc, .c232Ntsc, .plus4Pal, .plus4Ntsc, .v364Ntsc:
                 return .plus4
-            case .zxSpectrum16k, .zxSpectrum48k, .zxSpectrum48kNtsc:
+            case .zxSpectrum16k, .zxSpectrum48k, .zxSpectrum48kNtsc, .zxSpectrum128k:
                 return .spectrum
             }
         }
@@ -547,7 +548,25 @@ public struct Computer: MachinePart {
                      iconName: "Sinclair ZX Spectrum",
                      viceMachineModel: .zxSpectrum48kNtsc,
                      keyboardName: "ZX Spectrum",
-                     caseColorName: "ZX Case")
+                     caseColorName: "ZX Case"),
+            
+            Computer(identifier: "ZX+",
+                     name: "Sinclair ZX Spectrum+ (PAL)",
+                     fullName: "Sinclair ZX Spectrum+",
+                     variantName: "PAL",
+                     iconName: "Sinclair ZX Spectrum Plus",
+                     viceMachineModel: .zxSpectrum48k,
+                     keyboardName: "ZX Spectrum+",
+                     caseColorName: "ZX Plus Case"),
+
+            Computer(identifier: "ZX 128k",
+                     name: "Sinclair ZX 128k (PAL)",
+                     fullName: "Sinclair ZX 128k",
+                     variantName: "PAL",
+                     iconName: "Sinclair ZX Spectrum 128k",
+                     viceMachineModel: .zxSpectrum128k,
+                     keyboardName: "ZX Spectrum+",
+                     caseColorName: "ZX Plus Case"),
         ]),
 ])
     

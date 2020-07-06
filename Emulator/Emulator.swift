@@ -32,7 +32,7 @@ import UIKit
     
     private var eventQueue = EventQueue()
     
-    private var pressedKeys = [Key:Int]()
+    private var pressedKeys = Multiset<Key>()
 
     // Call this function once per frame on emulator thread to process pending events. handle(event:) is called for each event.
     @objc public func handleEvents() -> Bool {
@@ -51,11 +51,8 @@ import UIKit
     
     // press key, delayed by given number of frames
     open func press(key: Key, delayed: Int = 0) {
-        if let count = pressedKeys[key] {
-            pressedKeys[key] = count + 1
-        }
-        else {
-            pressedKeys[key] = 1
+        pressedKeys.add(key)
+        if pressedKeys.count(for: key) == 1 {
             send(event: .key(key, pressed: true), delay: delayed)
         }
     }
@@ -67,14 +64,9 @@ import UIKit
     
     // release key, delayed by given number of frames
     open func release(key: Key, delayed: Int = 0) {
-        if let count = pressedKeys[key] {
-            if count > 1 {
-                pressedKeys[key] = count + 1
-            }
-            else {
-                pressedKeys[key] = nil
-                send(event: .key(key, pressed: false), delay: delayed)
-            }
+        pressedKeys.remove(key)
+        if pressedKeys.count(for: key) == 0 {
+            send(event: .key(key, pressed: false), delay: delayed)
         }
     }
 

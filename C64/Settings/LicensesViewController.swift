@@ -31,23 +31,28 @@ class LicensesViewController: UIViewController {
     }
     
     let sections = [
-        Section(title: nil, rows: [
+        Section(title: "Application and Emulators", rows: [
             "Ready",
             "Fuse",
             "Vice",
             "GNU General Public License"
         ]),
-        Section(title: nil, rows: [
-            "C64 Japanese Keyboard",
-            "PET Style Keyboard",
-            "Ultimax Keyboard",
-            "VIC-1001 Keyboard"
+        Section(title: "Keyboard Images", rows: [
+            "Japanese C64",
+            "PET",
+            "Ultimax",
+            "VIC-1001",
+            "ZX Spectrum+"
         ]),
-        Section(title: nil, rows: [
+        Section(title: "3rd Party Software", rows: [
             "CwlMutex",
             "IDEDOS",
+            "Multiset",
             "ringbuffer",
             "SearchTextField",
+        ]),
+        Section(title: nil, rows: [
+            "Sepcial Thanks"
         ])
     ]
     

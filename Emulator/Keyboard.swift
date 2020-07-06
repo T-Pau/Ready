@@ -316,6 +316,37 @@ public struct Keyboard {
         self.imageName = imageName
         self.keyboardSymbols = KeyboardSymbols.zxSpectrum 
     }
+    
+    init(zxSpectrumPlusWithImageName imageName: String, rows: [Int], left: Int, right: Int, breakLeft: Int, deleteRight: Int, editRight: Int, returnLeft: Int, leftCapsShiftRight: Int, rightCapsShiftLeft: Int, spaceLeft: Int, spaceRight: Int) {
+        self.layout = Layout(rows: [
+            Row(top: rows[0], bottom: rows[1], spans: [
+                Span(left: left, right: breakLeft, keys: [.TrueVideo, .InverseVideo, .Char("1"), .Char("2"), .Char("3"), .Char("4"), .Char("5"), .Char("6"), .Char("7"), .Char("8"), .Char("9"), .Char("0")]),
+                Span(left: breakLeft, right: right, keys: [.Break])
+            ]),
+            Row(top: rows[1], bottom: rows[2], spans: [
+                Span(left: left, right: deleteRight, keys: [.Delete]),
+                Span(left: deleteRight, right: right, keys: [.Graphics, .Char("q"), .Char("w"), .Char("e"), .Char("r"), .Char("t"), .Char("y"), .Char("u"), .Char("i"), .Char("o"), .Char("p"), .Return])
+            ]),
+            Row(top: rows[2], bottom: rows[3], spans: [
+                Span(left: left, right: deleteRight, keys: [.ExtendedMode]),
+                Span(left: deleteRight, right: editRight, keys: [.Edit]),
+                Span(left: editRight, right: returnLeft, keys: [.Char("a"), .Char("s"), .Char("d"), .Char("f"), .Char("g"), .Char("h"), .Char("j"), .Char("k"), .Char("l")]),
+                Span(left: returnLeft, right: right, keys: [.Return])
+            ]),
+            Row(top: rows[3], bottom: rows[4], spans: [
+                Span(left: left, right: leftCapsShiftRight, keys: [.Shift]),
+                Span(left: leftCapsShiftRight, right: rightCapsShiftLeft, keys: [.ShiftLock, .Char("z"), .Char("x"), .Char("c"), .Char("v"), .Char("b"), .Char("n"), .Char("m"), .Char(".")]),
+                Span(left: rightCapsShiftLeft, right: right, keys: [.Shift])
+            ]),
+            Row(top: rows[4], bottom: rows[5], spans: [
+                Span(left: left, right: spaceLeft, keys: [.SymbolShift, .Char(";"), .Char("\""), .CursorLeft, .CursorRight]),
+                Span(left: spaceLeft, right: spaceRight, keys: [.Char(" ")]),
+                Span(left: spaceRight, right: right, keys: [.CursorUp, .CursorDown, .Char(","), .SymbolShift])
+            ])
+        ])
+        self.imageName = imageName
+        self.keyboardSymbols = KeyboardSymbols.zxSpectrum
+    }
 
     private static var keyboards: [String: Keyboard] = [
         "C16": Keyboard(c16WithImageName: "C16 Keyboard",
@@ -527,7 +558,20 @@ public struct Keyboard {
                                 left: [35, 205, 288],
                                 right: [3422, 3588, 3648],
                                 capsRight: 453,
-                                spaceLeft: 3155)
+                                spaceLeft: 3155),
+        
+        "ZX Spectrum+": Keyboard(zxSpectrumPlusWithImageName: "ZX Spectrum Plus Keyboard",
+                                 rows: [52, 200, 342, 480, 622, 768],
+                                 left: 54,
+                                 right: 1968,
+                                 breakLeft: 1755,
+                                 deleteRight: 273,
+                                 editRight: 452,
+                                 returnLeft: 1720,
+                                 leftCapsShiftRight: 380,
+                                 rightCapsShiftLeft: 1649,
+                                 spaceLeft: 768,
+                                 spaceRight: 1404)
     ]
     
     public static func keyboard(named name: String) -> Keyboard? {

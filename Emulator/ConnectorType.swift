@@ -36,6 +36,7 @@ public enum ConnectorType {
     case computer // used for computers, which are the root of the device tree
     case commodoreIEC
     case commodoreTape
+    case kempstonMouse
     case plus4Tape
     case plus4ExpansionPort
     case spectrumExpansionPort
