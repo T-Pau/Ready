@@ -372,7 +372,8 @@ extension MachineOld {
             break
             
         case .joystick, .lightGun, .lightPen, .mouse:
-            inputPorts.append(InputPort(port: port, isUserPort: isUserPort, controller: controller))
+            let priorityPort = specification.computer.viceMachineModel.viceMachine == .spectrum ? 1 : 2
+            inputPorts.append(InputPort(port: port, isUserPort: isUserPort, controller: controller, priority: port == priorityPort))
         case .paddle:
             if !isUserPort {
                 inputPorts.append(InputPort(port: port, isUserPort: false, subPort: 1, controller: controller))

@@ -42,7 +42,8 @@ class LicensesViewController: UIViewController {
             "PET",
             "Ultimax",
             "VIC-1001",
-            "ZX Spectrum+"
+            "ZX Spectrum+",
+            "ZX Spectrum +2"
         ]),
         Section(title: "3rd Party Software", rows: [
             "CwlMutex",
@@ -52,7 +53,7 @@ class LicensesViewController: UIViewController {
             "SearchTextField",
         ]),
         Section(title: nil, rows: [
-            "Sepcial Thanks"
+            "Special Thanks"
         ])
     ]
     

@@ -26,7 +26,7 @@ import Foundation
 public enum Event {
     case attach(unit: Int, image: DiskImage?)
     case freeze
-    case joystick(port: Int, buttons: JoystickButtons)
+    case joystick(port: Int, buttons: JoystickButtons, oldButtons: JoystickButtons)
     case key(_ key: Key, pressed: Bool)
     case mouseButton(button: Int, pressed: Bool)
     case playPause(_ running: Bool)

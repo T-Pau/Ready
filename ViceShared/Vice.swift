@@ -64,9 +64,7 @@ extension JoystickButtons {
             viceThread?.imageView = imageView
         }
     }
-        
-    public var joysticks = [JoystickButtons](repeating: JoystickButtons(), count: 10)
-    
+            
     private var tempFile: URL?
     
     public struct DriveInfo : Equatable {
@@ -201,15 +199,7 @@ extension JoystickButtons {
         machine.diskDrives[drive - 8].image = image
         send(event: .attach(unit: drive, image: image))
     }
-        
-    public override func joystick(_ index: Int, buttons: JoystickButtons) {
-        guard index > 0 else { return }
-        guard buttons != joysticks[index] else { return }
-        
-        joysticks[index] = buttons
-        send(event: .joystick(port: index, buttons: buttons))
-    }
-    
+
     public override func mouse(moved distance: CGPoint) {
         guard let viceThread = viceThread else { return }
         viceThread.mouseX = (viceThread.mouseX + Int32(distance.x)) & 0xffff
@@ -277,7 +267,7 @@ extension JoystickButtons {
         case .freeze:
             cartridge_trigger_freeze()
             
-        case .joystick(let port, let buttons):
+        case .joystick(let port, let buttons, _):
             joystick_set_value_absolute(UInt32(port), UInt8(buttons.value))
             
         case .key(let key, pressed: let pressed):

@@ -33,22 +33,10 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
-        Release(name: "Release 1.5 build 7", year: 2020, month: 7, day: 5, changes: [
-            "Add ZX Spectrum+, ZX Spectrum 128k.",
-            "Add sound and tape support to ZX Spectrum."
-        ]),
-        Release(name: "Release 1.5 build 6", year: 2020, month: 7, day: 3, changes: [
-            "Fix communicating with vice emulator bug introduced in previous build.",
-            "Add Tape Recorder icon."
-        ]),
-        Release(name: "Release 1.5 build 5", year: 2020, month: 7, day: 3, changes: [
-            "Add preliminary ZX Spectrum 16k, 48k support (no sound, no tape deck, hardware keyboard mapping incomplete)."
-        ]),
-        Release(name: "Release 1.5 Build 4", year: 2020, month: 6, day: 29, changes: [
-            "Add C16, Plus/4 computers."
-        ]),
-        Release(name: "Release 1.5 Build 2", year: 2020, month: 6, day: 28, changes: [
+        Release(name: "Release 1.6", year: 2020, month: 7, day: 8, changes: [
             "Rename to Ready.",
+            "Added Commodore 16 and Plus/4 emulation.",
+            "Added ZX Spectrum emulation. Supported Models are 16k, 48k, Specturm+, 128k, +2.",
             "Add new app icons, one for each supported computer."
         ]),
         Release(name: "Release 1.5", year: 2020, month: 6, day: 28, changes: [

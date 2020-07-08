@@ -33,6 +33,7 @@ import UIKit
     private var eventQueue = EventQueue()
     
     private var pressedKeys = Multiset<Key>()
+    private var joystickState = [JoystickButtons](repeating: JoystickButtons(), count: 10)
 
     // Call this function once per frame on emulator thread to process pending events. handle(event:) is called for each event.
     @objc public func handleEvents() -> Bool {
@@ -84,7 +85,11 @@ import UIKit
     }
 
     open func joystick(_ index: Int, buttons: JoystickButtons) {
+        guard index > 0 && index <= joystickState.count else { return }
+        guard buttons != joystickState[index] else { return }
         
+        send(event: .joystick(port: index, buttons: buttons, oldButtons: joystickState[index]))
+        joystickState[index] = buttons
     }
     
     open func mouse(moved distance: CGPoint) {

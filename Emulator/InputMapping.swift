@@ -40,7 +40,7 @@ public struct InputPort: Hashable {
         return controller.inputType
     }
 
-    public init(port: Int, isUserPort: Bool, subPort: Int? = nil, controller: Controller) {
+    public init(port: Int, isUserPort: Bool, subPort: Int? = nil, controller: Controller, priority: Bool = false) {
         if isUserPort {
             name = "Userport \(port)"
             fullName = "Userport Joystick \(port)"
@@ -55,17 +55,17 @@ public struct InputPort: Hashable {
         playerIndex = vicePort
         self.controller = controller
         if isUserPort {
-            priority = MachinePartLowPriority - port
+            self.priority = MachinePartLowPriority - port
         }
         else {
             if controller.inputType == .mouse || controller.inputType == .lightGun || controller.inputType == .lightPen {
-                priority = MachinePartHighPriority + 10
+                self.priority = MachinePartHighPriority + 10
             }
-            else if port == 2 {
-                priority = MachinePartHighPriority
+            else if priority {
+                self.priority = MachinePartHighPriority
             }
             else {
-                priority = MachinePartNormalPriority - port
+                self.priority = MachinePartNormalPriority - port
             }
         }
         orderNumber = Double(vicePort)

@@ -317,7 +317,7 @@ public struct Keyboard {
         self.keyboardSymbols = KeyboardSymbols.zxSpectrum 
     }
     
-    init(zxSpectrumPlusWithImageName imageName: String, rows: [Int], left: Int, right: Int, breakLeft: Int, deleteRight: Int, editRight: Int, returnLeft: Int, leftCapsShiftRight: Int, rightCapsShiftLeft: Int, spaceLeft: Int, spaceRight: Int) {
+    init(zxSpectrumPlusWithImageName imageName: String, rows: [Int], left: Int, right: Int, breakLeft: Int, deleteRight: Int, extendedRight: Int, editRight: Int, returnLeft: Int, leftCapsShiftRight: Int, rightCapsShiftLeft: Int, spaceLeft: Int, spaceRight: Int) {
         self.layout = Layout(rows: [
             Row(top: rows[0], bottom: rows[1], spans: [
                 Span(left: left, right: breakLeft, keys: [.TrueVideo, .InverseVideo, .Char("1"), .Char("2"), .Char("3"), .Char("4"), .Char("5"), .Char("6"), .Char("7"), .Char("8"), .Char("9"), .Char("0")]),
@@ -329,7 +329,7 @@ public struct Keyboard {
             ]),
             Row(top: rows[2], bottom: rows[3], spans: [
                 Span(left: left, right: deleteRight, keys: [.ExtendedMode]),
-                Span(left: deleteRight, right: editRight, keys: [.Edit]),
+                Span(left: extendedRight, right: editRight, keys: [.Edit]),
                 Span(left: editRight, right: returnLeft, keys: [.Char("a"), .Char("s"), .Char("d"), .Char("f"), .Char("g"), .Char("h"), .Char("j"), .Char("k"), .Char("l")]),
                 Span(left: returnLeft, right: right, keys: [.Return])
             ]),
@@ -566,12 +566,27 @@ public struct Keyboard {
                                  right: 1968,
                                  breakLeft: 1755,
                                  deleteRight: 273,
+                                 extendedRight: 273,
                                  editRight: 452,
                                  returnLeft: 1720,
                                  leftCapsShiftRight: 380,
                                  rightCapsShiftLeft: 1649,
                                  spaceLeft: 768,
-                                 spaceRight: 1404)
+                                 spaceRight: 1404),
+        
+        "ZX Spectrum +2": Keyboard(zxSpectrumPlusWithImageName: "ZX Spectrum +2 Keyboard",
+                                   rows: [53, 162, 275, 390, 505, 624],
+                                   left: 47,
+                                   right: 1583,
+                                   breakLeft: 1390,
+                                   deleteRight: 216,
+                                   extendedRight: 241,
+                                   editRight: 350,
+                                   returnLeft: 1364,
+                                   leftCapsShiftRight: 296,
+                                   rightCapsShiftLeft: 1309,
+                                   spaceLeft: 602,
+                                   spaceRight: 1116)
     ]
     
     public static func keyboard(named name: String) -> Keyboard? {

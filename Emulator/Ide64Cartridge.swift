@@ -54,6 +54,14 @@ public struct Ide64Cartridge {
     public var version: Version
     
     public static var standard = Ide64Cartridge(version: .version4_1)
+
+    /*
+    public var ports = [
+        Port(name: "CF Card", key: .driveDrive, connectorTypes: [.media(.compactFlashIde64)]),
+        Port(name: "Master", key: .driveDrive2, connectorTypes: [.media(.harddiskIdeIde64), .ide])
+        Port(name: "Slave", key: .driveDrive3, connectorTypes: [.media(.harddiskIdeIde64)], .ide])
+    ]
+     */
 }
 
 extension Ide64Cartridge: MachinePart {

@@ -1185,6 +1185,9 @@
 		4B94398C24ADEF0900FD0237 /* scalers16.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B94398B24ADEF0900FD0237 /* scalers16.c */; };
 		4B94398E24ADEF2700FD0237 /* scalers32.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B94398D24ADEF2700FD0237 /* scalers32.c */; };
 		4B94399224AE834000FD0237 /* EventQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B94399024AE833100FD0237 /* EventQueue.swift */; };
+		4B9ABB1724B5F5B900678531 /* Icon-ZX128-83.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B9ABB1424B5F5B800678531 /* Icon-ZX128-83.5.png */; };
+		4B9ABB1824B5F5B900678531 /* Icon-ZX128-60.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B9ABB1524B5F5B900678531 /* Icon-ZX128-60.png */; };
+		4B9ABB1924B5F5B900678531 /* Icon-ZX128-76.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B9ABB1624B5F5B900678531 /* Icon-ZX128-76.png */; };
 		4B9DBB60222A8B9A0032B280 /* MachinePartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9DBB5F222A8B9A0032B280 /* MachinePartTableViewCell.swift */; };
 		4B9DBB62222A8BE60032B280 /* SelectMachinePartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9DBB61222A8BE60032B280 /* SelectMachinePartViewController.swift */; };
 		4B9DBB642231431B0032B280 /* MfiInputDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9DBB632231431B0032B280 /* MfiInputDevice.swift */; };
@@ -1193,6 +1196,12 @@
 		4B9DBB78223904B00032B280 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B9DBB77223904B00032B280 /* Assets.xcassets */; };
 		4BA0AE7D22957B1600E54C96 /* PillButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA0AE7C22957B1600E54C96 /* PillButton.swift */; };
 		4BA1E9B924B314C100D935D3 /* MultiSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA1E9B824B314C100D935D3 /* MultiSet.swift */; };
+		4BA1E9BB24B49A4F00D935D3 /* Machine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA1E9BA24B49A4F00D935D3 /* Machine.swift */; };
+		4BA1E9C524B49EDE00D935D3 /* RetroMedia.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BA1E9C324B49EDE00D935D3 /* RetroMedia.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4BA1E9C824B49EDE00D935D3 /* RetroMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BA1E9C124B49EDE00D935D3 /* RetroMedia.framework */; };
+		4BA1E9C924B49EDE00D935D3 /* RetroMedia.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4BA1E9C124B49EDE00D935D3 /* RetroMedia.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4BA1E9CE24B49F0A00D935D3 /* MediaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA1E9CD24B49F0A00D935D3 /* MediaType.swift */; };
+		4BA1E9CF24B4A0F400D935D3 /* RetroMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BA1E9C124B49EDE00D935D3 /* RetroMedia.framework */; };
 		4BACE33922172AB600FC3403 /* MouseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BACE337221708F200FC3403 /* MouseView.swift */; };
 		4BACE33B2218582000FC3403 /* MouseGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BACE33A2218582000FC3403 /* MouseGestureRecognizer.swift */; };
 		4BAE5BF221FDD72E0098ADFF /* FileDocument.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BAE5BF121FDD72E0098ADFF /* FileDocument.png */; };
@@ -1279,6 +1288,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 4B7609EF21F47B900058FBCD;
 			remoteInfo = C64UIComponents;
+		};
+		4BA1E9C624B49EDE00D935D3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B3F973B21D7ACC700C272C4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4BA1E9C024B49EDE00D935D3;
+			remoteInfo = RetroMedia;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -1792,6 +1808,7 @@
 				4B68F8B92496407700A76E57 /* Emulator.framework in Embed Frameworks */,
 				4B5412D024AB519900F6925B /* FuseZX.framework in Embed Frameworks */,
 				4B68FB4624967CCD00A76E57 /* ViceC64.framework in Embed Frameworks */,
+				4BA1E9C924B49EDE00D935D3 /* RetroMedia.framework in Embed Frameworks */,
 				4B540E9F24A674E100F6925B /* VicePlus4.framework in Embed Frameworks */,
 				4B68FB892498DC0600A76E57 /* ViceVIC20.framework in Embed Frameworks */,
 			);
@@ -4170,6 +4187,9 @@
 		4B94398B24ADEF0900FD0237 /* scalers16.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = scalers16.c; sourceTree = "<group>"; };
 		4B94398D24ADEF2700FD0237 /* scalers32.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scalers32.c; sourceTree = "<group>"; };
 		4B94399024AE833100FD0237 /* EventQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventQueue.swift; sourceTree = "<group>"; };
+		4B9ABB1424B5F5B800678531 /* Icon-ZX128-83.5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-ZX128-83.5.png"; sourceTree = "<group>"; };
+		4B9ABB1524B5F5B900678531 /* Icon-ZX128-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-ZX128-60.png"; sourceTree = "<group>"; };
+		4B9ABB1624B5F5B900678531 /* Icon-ZX128-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-ZX128-76.png"; sourceTree = "<group>"; };
 		4B9DBB59222911CC0032B280 /* MachinePart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachinePart.swift; sourceTree = "<group>"; };
 		4B9DBB5B222922420032B280 /* Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controller.swift; sourceTree = "<group>"; };
 		4B9DBB5D22292B8E0032B280 /* InputDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputDevice.swift; sourceTree = "<group>"; };
@@ -4187,6 +4207,11 @@
 		4B9DBB77223904B00032B280 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4BA0AE7C22957B1600E54C96 /* PillButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillButton.swift; sourceTree = "<group>"; };
 		4BA1E9B824B314C100D935D3 /* MultiSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSet.swift; sourceTree = "<group>"; };
+		4BA1E9BA24B49A4F00D935D3 /* Machine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Machine.swift; sourceTree = "<group>"; };
+		4BA1E9C124B49EDE00D935D3 /* RetroMedia.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RetroMedia.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4BA1E9C324B49EDE00D935D3 /* RetroMedia.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RetroMedia.h; sourceTree = "<group>"; };
+		4BA1E9C424B49EDE00D935D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4BA1E9CD24B49F0A00D935D3 /* MediaType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaType.swift; sourceTree = "<group>"; };
 		4BAAD2AA21E76B4700709807 /* DiskImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskImage.swift; sourceTree = "<group>"; };
 		4BACE337221708F200FC3403 /* MouseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseView.swift; sourceTree = "<group>"; };
 		4BACE33A2218582000FC3403 /* MouseGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseGestureRecognizer.swift; sourceTree = "<group>"; };
@@ -4286,6 +4311,7 @@
 				4B68FB882498DC0600A76E57 /* ViceVIC20.framework in Frameworks */,
 				4B7609F721F47B900058FBCD /* C64UIComponents.framework in Frameworks */,
 				4B68FB4524967CCD00A76E57 /* ViceC64.framework in Frameworks */,
+				4BA1E9C824B49EDE00D935D3 /* RetroMedia.framework in Frameworks */,
 				4B5412CF24AB519900F6925B /* FuseZX.framework in Frameworks */,
 				4B68F8B82496407700A76E57 /* Emulator.framework in Frameworks */,
 				4BBF86B021DB9AB400EF99ED /* CoreAudio.framework in Frameworks */,
@@ -4423,6 +4449,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BA1E9CF24B4A0F400D935D3 /* RetroMedia.framework in Frameworks */,
 				4B68FB592497517E00A76E57 /* C64UIComponents.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4832,6 +4859,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4BA1E9BE24B49EDE00D935D3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -4959,6 +4993,7 @@
 				4B54145F24ABA96600F6925B /* libspectrum */,
 				4BA81FB321E4713700D036DE /* vice */,
 				4B3F975D21D7ACC800C272C4 /* C64Tests */,
+				4BA1E9C224B49EDE00D935D3 /* RetroMedia */,
 				4B68F8B22496407700A76E57 /* Emulator */,
 				4B81F2A924B0664B0090B21A /* ViceShared */,
 				4B68FB3F24967CCD00A76E57 /* ViceC64 */,
@@ -5032,6 +5067,7 @@
 				4B54143424ABA59100F6925B /* libvice-driveiecc64exp.a */,
 				4B54144A24ABA66F00F6925B /* libvice-viciisc.a */,
 				4B54151324ABABC600F6925B /* libfuse-libspectrum.a */,
+				4BA1E9C124B49EDE00D935D3 /* RetroMedia.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -6755,6 +6791,9 @@
 				4B54100F24AA7FF000F6925B /* Icon-ZX48-60.png */,
 				4B54100E24AA7FEF00F6925B /* Icon-ZX48-76.png */,
 				4B54100D24AA7FEF00F6925B /* Icon-ZX48-83.5.png */,
+				4B9ABB1524B5F5B900678531 /* Icon-ZX128-60.png */,
+				4B9ABB1624B5F5B900678531 /* Icon-ZX128-76.png */,
+				4B9ABB1424B5F5B800678531 /* Icon-ZX128-83.5.png */,
 			);
 			path = "App Icons";
 			sourceTree = "<group>";
@@ -8065,6 +8104,7 @@
 				4B9DBB6B2232555F0032B280 /* DummyMachinePart.swift */,
 				4B68F8B32496407700A76E57 /* Emulator.h */,
 				4B68F8BE24966ECF00A76E57 /* Emulator.swift */,
+				4BA1E9BA24B49A4F00D935D3 /* Machine.swift */,
 				4B68F8AA24963F1B00A76E57 /* EmulatorDelegate.swift */,
 				4B81F2A624AF12E30090B21A /* EmulatorThread.h */,
 				4B81F2A424AF12B50090B21A /* EmulatorThread.m */,
@@ -8297,6 +8337,16 @@
 			path = "Document Icons";
 			sourceTree = "<group>";
 		};
+		4BA1E9C224B49EDE00D935D3 /* RetroMedia */ = {
+			isa = PBXGroup;
+			children = (
+				4BA1E9C324B49EDE00D935D3 /* RetroMedia.h */,
+				4BA1E9C424B49EDE00D935D3 /* Info.plist */,
+				4BA1E9CD24B49F0A00D935D3 /* MediaType.swift */,
+			);
+			path = RetroMedia;
+			sourceTree = "<group>";
+		};
 		4BA81FB321E4713700D036DE /* vice */ = {
 			isa = PBXGroup;
 			children = (
@@ -8444,6 +8494,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4BA1E9BC24B49EDE00D935D3 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4BA1E9C524B49EDE00D935D3 /* RetroMedia.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -8467,6 +8525,7 @@
 				4B68FB4424967CCD00A76E57 /* PBXTargetDependency */,
 				4B68FB872498DC0600A76E57 /* PBXTargetDependency */,
 				4B540E9D24A674E100F6925B /* PBXTargetDependency */,
+				4BA1E9C724B49EDE00D935D3 /* PBXTargetDependency */,
 			);
 			name = Ready;
 			productName = C64;
@@ -9465,6 +9524,24 @@
 			productReference = 4B7609F021F47B900058FBCD /* C64UIComponents.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		4BA1E9C024B49EDE00D935D3 /* RetroMedia */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4BA1E9CA24B49EDE00D935D3 /* Build configuration list for PBXNativeTarget "RetroMedia" */;
+			buildPhases = (
+				4BA1E9BC24B49EDE00D935D3 /* Headers */,
+				4BA1E9BD24B49EDE00D935D3 /* Sources */,
+				4BA1E9BE24B49EDE00D935D3 /* Frameworks */,
+				4BA1E9BF24B49EDE00D935D3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RetroMedia;
+			productName = RetroMedia;
+			productReference = 4BA1E9C124B49EDE00D935D3 /* RetroMedia.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -9514,6 +9591,10 @@
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1020;
 					};
+					4BA1E9C024B49EDE00D935D3 = {
+						CreatedOnToolsVersion = 11.5;
+						LastSwiftMigration = 1150;
+					};
 				};
 			};
 			buildConfigurationList = 4B3F973E21D7ACC700C272C4 /* Build configuration list for PBXProject "Ready" */;
@@ -9532,6 +9613,7 @@
 				4B3F974221D7ACC700C272C4 /* Ready */,
 				4B7609EF21F47B900058FBCD /* C64UIComponents */,
 				4B68F8B02496407700A76E57 /* Emulator */,
+				4BA1E9C024B49EDE00D935D3 /* RetroMedia */,
 				4B5412C724AB519900F6925B /* FuseZX */,
 				4B68FB3D24967CCD00A76E57 /* ViceC64 */,
 				4B540E9624A674E100F6925B /* VicePlus4 */,
@@ -9605,6 +9687,7 @@
 				4B540ECD24A8D84100F6925B /* Icon-VIC20-76.png in Resources */,
 				4B841CFA21F75C12009CAF4B /* Floppy35Document.png in Resources */,
 				4B540ED024A8D84100F6925B /* Icon-SX64-76.png in Resources */,
+				4B9ABB1824B5F5B900678531 /* Icon-ZX128-60.png in Resources */,
 				4B3182CE2282F36E006D86AC /* Compact Disc Document.png in Resources */,
 				4B460E4E2279F46A00815E7F /* REU Document.png in Resources */,
 				4B3182C72281E320006D86AC /* IDE Hard Disk.png in Resources */,
@@ -9624,7 +9707,9 @@
 				4B54101124AA7FF000F6925B /* Icon-ZX48-76.png in Resources */,
 				4B9DBB78223904B00032B280 /* Assets.xcassets in Resources */,
 				4B540ED324A8D84100F6925B /* Icon-VIC20-83.5.png in Resources */,
+				4B9ABB1724B5F5B900678531 /* Icon-ZX128-83.5.png in Resources */,
 				4BAE5BF221FDD72E0098ADFF /* FileDocument.png in Resources */,
+				4B9ABB1924B5F5B900678531 /* Icon-ZX128-76.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9665,6 +9750,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		4B7609EE21F47B900058FBCD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4BA1E9BF24B49EDE00D935D3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -10223,6 +10315,7 @@
 				4B68FB702497749B00A76E57 /* Computer.swift in Sources */,
 				4B2FA1A724B1B792002A11BA /* MachinePartRegister.swift in Sources */,
 				4B68FB612497524B00A76E57 /* CasstteDrive.swift in Sources */,
+				4BA1E9BB24B49A4F00D935D3 /* Machine.swift in Sources */,
 				4B81F2A524AF12B50090B21A /* EmulatorThread.m in Sources */,
 				4B68FB5E2497520300A76E57 /* CartridgeImage.swift in Sources */,
 				4B68FB632497525A00A76E57 /* MachineConfigOld.swift in Sources */,
@@ -11101,6 +11194,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4BA1E9BD24B49EDE00D935D3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4BA1E9CE24B49F0A00D935D3 /* MediaType.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -11133,6 +11234,11 @@
 			isa = PBXTargetDependency;
 			target = 4B7609EF21F47B900058FBCD /* C64UIComponents */;
 			targetProxy = 4B7609F521F47B900058FBCD /* PBXContainerItemProxy */;
+		};
+		4BA1E9C724B49EDE00D935D3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4BA1E9C024B49EDE00D935D3 /* RetroMedia */;
+			targetProxy = 4BA1E9C624B49EDE00D935D3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -11290,7 +11396,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
 					C64/Vice,
@@ -11302,7 +11408,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = at.spiderlab.c64;
 				PRODUCT_NAME = Ready;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -11320,7 +11426,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
 					C64/Vice,
@@ -11332,7 +11438,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = at.spiderlab.c64;
 				PRODUCT_NAME = Ready;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -13976,6 +14082,82 @@
 			};
 			name = Release;
 		};
+		4BA1E9CB24B49EDE00D935D3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = F27CVJNWXK;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = RetroMedia/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = at.tpau.RetroMedia;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		4BA1E9CC24B49EDE00D935D3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = F27CVJNWXK;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = RetroMedia/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = at.tpau.RetroMedia;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -14515,6 +14697,15 @@
 			buildConfigurations = (
 				4B7609FA21F47B900058FBCD /* Debug */,
 				4B7609FB21F47B900058FBCD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4BA1E9CA24B49EDE00D935D3 /* Build configuration list for PBXNativeTarget "RetroMedia" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4BA1E9CB24B49EDE00D935D3 /* Debug */,
+				4BA1E9CC24B49EDE00D935D3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

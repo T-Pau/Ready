@@ -16,6 +16,7 @@
 
 ## other
 
+- multiple tape images
 - warn if media can't be used due to machine configuration
 - controller auto-mapping: input device priority per input type
 - fix dragging files out of Ready
@@ -84,7 +85,6 @@
 
 ## maybe
 
-- multiple tape images
 
 ## cleanup
 

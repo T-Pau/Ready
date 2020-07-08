@@ -3,7 +3,14 @@
 
 ![Screenshot](screenshot.png)
 
-Ready is an open source emulator for the 8 bit home computers [Commodore 64](https://en.wikipedia.org/wiki/Commodore_64) and [Commodore VIC-20](https://en.wikipedia.org/wiki/Commodore_VIC-20). It is based on [Vice](http://vice-emu.sourceforge.net), which provices accurate emulation of many hardware variants and peripherals.
+Ready is an open source emulator for the following 8 bit home computers:
+
+- [Commodore 64](https://en.wikipedia.org/wiki/Commodore_64)
+- [Commodore VIC-20](https://en.wikipedia.org/wiki/Commodore_VIC-20)
+- [Commodore 16, Plus/4](https://en.wikipedia.org/wiki/Commodore_Plus/4)
+- [Sinclair ZX Spectrum](https://en.wikipedia.org/wiki/ZX_Spectrum) (16k, 48k, Spectrum+, 128k, +2)
+
+It is based on [Vice](http://vice-emu.sourceforge.net) and [fuse](http://fuse-emulator.sourceforge.net/), which provide accurate emulation of many hardware variants and peripherals.
 
 It requires at least iPadOS 13.5.
 
@@ -34,6 +41,6 @@ The authors can be contacted at c64@spiderlab.at.
 
 Since emulators where users can add their own programs are not allowed in the App Store, you will have to install it yourself. You will need [Xcode](https://developer.apple.com/xcode/) and a [developer certificate](https://developer.apple.com/account/).
 
-You can build it from source yourself. C64 has no external dependencies. 
+You can build it from source yourself. Ready has no external dependencies. 
 
 Or you can use [iOS App Signer](https://dantheman827.github.io/ios-app-signer/) to install a pre-built binary release (`.ipa` file).

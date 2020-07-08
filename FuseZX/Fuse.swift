@@ -1,6 +1,6 @@
 /*
  FuseZX.swift -- High Level Interface to fuse
- Copyright (C) 2019 Dieter Baron
+ Copyright (C) 2020 Dieter Baron
  
  This file is part of C64, a Commodore 64 emulator for iOS, based on VICE.
  The authors can be contacted at <c64@spiderlab.at>
@@ -26,14 +26,16 @@ import Emulator
 
 import FuseC
 
+extension keyboard_key_name: Hashable { }
+
 @objc public class Fuse: Emulator {
     public override init() {
         fuseThread = FuseThread()
         super.init()
         fuseThread?.delegate = self
     }
-    
-    private var pressedKeys = Multiset<Key>()
+        
+    private var pressedKeys = Multiset<keyboard_key_name>()
     
     func fuseName(for model: Computer.ViceModel) -> String? {
         switch model {
@@ -49,8 +51,20 @@ import FuseC
         case .zxSpectrum128k:
             return "128"
             
+        case .zxSpectrumPlus2:
+            return "plus2"
         default:
             return nil
+        }
+    }
+    
+    func builtinControllerPorts(for model: Computer.ViceModel) -> [joystick_type_t] {
+        switch model {
+        case .zxSpectrumPlus2:
+            return [JOYSTICK_TYPE_SINCLAIR_1, JOYSTICK_TYPE_SINCLAIR_2]
+            
+        default:
+            return []
         }
     }
     
@@ -177,20 +191,36 @@ import FuseC
     
     override public func handle(event: Event) -> Bool {
         switch event {
+        case let .joystick(port: port, buttons: buttons, oldButtons: oldButtons):
+            if buttons.left != oldButtons.left {
+                joystick_press(Int32(port) - 1, JOYSTICK_BUTTON_LEFT, buttons.left ? 1 : 0)
+            }
+            if buttons.right != oldButtons.right {
+                joystick_press(Int32(port) - 1, JOYSTICK_BUTTON_RIGHT, buttons.right ? 1 : 0)
+            }
+            if buttons.up != oldButtons.up {
+                joystick_press(Int32(port) - 1, JOYSTICK_BUTTON_UP, buttons.up ? 1 : 0)
+            }
+            if buttons.down != oldButtons.down {
+                joystick_press(Int32(port) - 1, JOYSTICK_BUTTON_DOWN, buttons.down ? 1 : 0)
+            }
+            if buttons.fire != oldButtons.fire {
+                joystick_press(Int32(port) - 1, JOYSTICK_BUTTON_FIRE, buttons.fire ? 1 : 0)
+            }
         case .key(let key, let pressed):
             if let keyNames = fuseKeys(for: key) {
                 if pressed {
-                    pressedKeys.add(key)
-                    if pressedKeys.count(for: key) == 1 {
-                        for keyName in keyNames {
+                    for keyName in keyNames {
+                        pressedKeys.add(keyName)
+                        if pressedKeys.count(for: keyName) == 1 {
                             keyboard_press(keyName)
                         }
                     }
                 }
                 else {
-                    pressedKeys.remove(key)
-                    if pressedKeys.count(for: key) == 0 {
-                        for keyName in keyNames {
+                    for keyName in keyNames {
+                        pressedKeys.remove(keyName)
+                        if pressedKeys.count(for: keyName) == 0 {
                             keyboard_release(keyName)
                         }
                     }
@@ -208,7 +238,8 @@ import FuseC
     }
     
     override public func start() {
-        guard let modelName = fuseName(for: machine.specification.computer.viceMachineModel) else { return } // TODO: close view
+        let model = machine.specification.computer.viceMachineModel
+        guard let modelName = fuseName(for: model) else { return } // TODO: close view
         var args = [
             "fuse",
             "--no-interface2", "--no-zxprinter",
@@ -218,6 +249,10 @@ import FuseC
         if let tapeImage = machine.tapeImages.first, let url = tapeImage.url {
             args.append("--tape")
             args.append(url.path)
+        }
+        for (index, type) in builtinControllerPorts(for: model).enumerated() {
+            args.append("--joystick-\(index + 1)-output")
+            args.append("\(type.rawValue)")
         }
         fuseThread?.args = args
         fuseThread?.start()

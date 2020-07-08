@@ -22,11 +22,12 @@
  */
 
 import Foundation
+import RetroMedia
 
 // This is a list of all connectors used by supported devices.
 // It is used to filter the list of devices that can be connected to a port.
 
-public enum ConnectorType {
+public enum ConnectorType: Hashable {
     case atariJoystick
     case atariJoystickAnalog
     case audioJackTape
@@ -34,10 +35,12 @@ public enum ConnectorType {
     case c64JoystickLightpen
     case c64UserPort
     case computer // used for computers, which are the root of the device tree
+    case commodoreCassette
     case commodoreIEC
-    case commodoreTape
+    case commodoreTapePort
+    case ide
     case kempstonMouse
-    case plus4Tape
+    case plus4TapePort
     case plus4ExpansionPort
     case spectrumExpansionPort
     case vic20ExpansionPort
@@ -45,4 +48,6 @@ public enum ConnectorType {
     case videoRGBi
         
     case none // used for dummy parts
+    
+    case media(_ type: MediaType)
 }

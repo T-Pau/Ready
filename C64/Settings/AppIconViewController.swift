@@ -40,9 +40,10 @@ class AppIconViewController: UIViewController {
         Section(title: nil, rows: [
             Row(name: "Commodore 64", iconName: "App Icon C64", defaultIcon: true),
             Row(name: "Commodore SX-64", iconName: "App Icon SX-64"),
-            Row(name: "Commodore C16, Plus/4", iconName: "App Icon C16"),
+            Row(name: "Commodore 16, Plus/4", iconName: "App Icon C16"),
             Row(name: "Commodore VIC-20", iconName: "App Icon VIC-20"),
-            Row(name: "Sinclair ZX Spectrum 16k, 48k", iconName: "App Icon ZX-48")
+            Row(name: "Sinclair ZX Spectrum 16k, 48k", iconName: "App Icon ZX-48"),
+            Row(name: "Sinclair ZX Spectrum 128k, +2", iconName: "App Icon ZX-128")
         ])
     ]
     

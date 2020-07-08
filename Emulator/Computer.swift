@@ -45,10 +45,10 @@ public struct Computer: MachinePart {
             switch self {
             case .c64:
                 return [
-                    Port(name: "Screen", key: .screen, connectorTypes: [.videoComponent], iconWidth: 2, iconHeight: 2),
+                    Port(name: "Screen", key: .screen, connectorTypes: [.videoComponent], supportsHotSwap: true, iconWidth: 2, iconHeight: 2),
                     Port(name: "User Port", key: .userPort, connectorTypes: [.c64UserPort]),
-                    Port(name: "Cassette", key: .cassetteDrive, connectorTypes: [.commodoreTape]),
-                    Port(name: "Cartridge", key: .expansionPort, connectorTypes: [.c64ExpansionPort]),
+                    Port(name: "Cassette", key: .cassetteDrive, connectorTypes: [.commodoreTapePort]),
+                    Port(name: "Cartridge", key: .expansionPort, connectorTypes: [.c64ExpansionPort, .media(.cartridgeCommodore64)]),
                     Port(name: "Disk Drive 8", key: .diskDrive8, connectorTypes: [.commodoreIEC], iconWidth: 2),
                     Port(name: "Disk Drive 9", key: .diskDrive9, connectorTypes: [.commodoreIEC], iconWidth: 2),
                     Port(name: "Disk Drive 10", key: .diskDrive10, connectorTypes: [.commodoreIEC], iconWidth: 2),
@@ -59,10 +59,10 @@ public struct Computer: MachinePart {
  
             case .plus4:
                 return [
-                    Port(name: "Screen", key: .screen, connectorTypes: [.videoComponent], iconWidth: 2, iconHeight: 2),
+                    Port(name: "Screen", key: .screen, connectorTypes: [.videoComponent], supportsHotSwap: true, iconWidth: 2, iconHeight: 2),
                     Port(name: "User Port", key: .userPort, connectorTypes: [.c64UserPort]),
-                    Port(name: "Cassette", key: .cassetteDrive, connectorTypes: [.plus4Tape]),
-                    Port(name: "Memory Expansion", key: .expansionPort, connectorTypes: [.plus4ExpansionPort]),
+                    Port(name: "Cassette", key: .cassetteDrive, connectorTypes: [.plus4TapePort]),
+                    Port(name: "Memory Expansion", key: .expansionPort, connectorTypes: [.plus4ExpansionPort, .media(.cartridgeCommodorePlus4)]),
                     Port(name: "Disk Drive 8", key: .diskDrive8, connectorTypes: [.commodoreIEC], iconWidth: 2), // TODO: 1551
                     Port(name: "Disk Drive 9", key: .diskDrive9, connectorTypes: [.commodoreIEC], iconWidth: 2),
                     Port(name: "Disk Drive 10", key: .diskDrive10, connectorTypes: [.commodoreIEC], iconWidth: 2),
@@ -73,17 +73,17 @@ public struct Computer: MachinePart {
                 
             case .spectrum:
                 return [
-                    Port(name: "Screen", key: .screen, connectorTypes: [.videoComponent], iconWidth: 2, iconHeight: 2),
+                    Port(name: "Screen", key: .screen, connectorTypes: [.videoComponent], supportsHotSwap: true, iconWidth: 2, iconHeight: 2),
                     Port(name: "Mic/Ear", key: .cassetteDrive, connectorTypes: [.audioJackTape]),
                     Port(name: "Expansion", key: .expansionPort, connectorTypes: [.spectrumExpansionPort]),
                 ]
 
             case .vic:
                 return [
-                    Port(name: "Screen", key: .screen, connectorTypes: [.videoComponent], iconWidth: 2, iconHeight: 2),
+                    Port(name: "Screen", key: .screen, connectorTypes: [.videoComponent], supportsHotSwap: true, iconWidth: 2, iconHeight: 2),
                     Port(name: "User Port", key: .userPort, connectorTypes: [.c64UserPort]),
-                    Port(name: "Cassette", key: .cassetteDrive, connectorTypes: [.commodoreTape]),
-                    Port(name: "Cartridge", key: .expansionPort, connectorTypes: [.vic20ExpansionPort]),
+                    Port(name: "Cassette", key: .cassetteDrive, connectorTypes: [.commodoreTapePort]),
+                    Port(name: "Cartridge", key: .expansionPort, connectorTypes: [.vic20ExpansionPort, .media(.cartridgeCommodoreVIC20)]),
                     Port(name: "Disk Drive 8", key: .diskDrive8, connectorTypes: [.commodoreIEC], iconWidth: 2),
                     Port(name: "Disk Drive 9", key: .diskDrive9, connectorTypes: [.commodoreIEC], iconWidth: 2),
                     Port(name: "Disk Drive 10", key: .diskDrive10, connectorTypes: [.commodoreIEC], iconWidth: 2),
@@ -122,6 +122,7 @@ public struct Computer: MachinePart {
         case zxSpectrum48k
         case zxSpectrum48kNtsc
         case zxSpectrum128k
+        case zxSpectrumPlus2
 
         public var viceMachine: ComputerType {
             switch self {
@@ -131,7 +132,7 @@ public struct Computer: MachinePart {
                 return .vic
             case .c16Pal, .c16Ntsc, .c232Ntsc, .plus4Pal, .plus4Ntsc, .v364Ntsc:
                 return .plus4
-            case .zxSpectrum16k, .zxSpectrum48k, .zxSpectrum48kNtsc, .zxSpectrum128k:
+            case .zxSpectrum16k, .zxSpectrum48k, .zxSpectrum48kNtsc, .zxSpectrum128k, .zxSpectrumPlus2:
                 return .spectrum
             }
         }
@@ -219,7 +220,7 @@ public struct Computer: MachinePart {
         return Chargen(named: chargenName, subdirectory: viceMachineModel.viceMachine.dataDirectory, bank: 1)
     }
 
-    public init(identifier: String, name: String, fullName: String? = nil, variantName: String? = nil, iconName: String, priority: Int = MachinePartNormalPriority, viceMachineModel: ViceModel, keyboardName: String?, caseColorName: String, drive8: DiskDrive? = nil, missingPorts: Set<MachineConfigOld.Key> = [], chargenName: String = "chargen") {
+    public init(identifier: String, name: String, fullName: String? = nil, variantName: String? = nil, iconName: String, priority: Int = MachinePartNormalPriority, viceMachineModel: ViceModel, keyboardName: String?, caseColorName: String, drive8: DiskDrive? = nil, missingPorts: Set<MachineConfigOld.Key> = [], additionalPorts: [Port]? = nil, chargenName: String = "chargen") {
         self.identifier = identifier
         self.name = name
         self.fullName = fullName ?? name
@@ -239,6 +240,9 @@ public struct Computer: MachinePart {
         }
         for port in missingPorts {
             ports.removeAll(where: { $0.key == port })
+        }
+        if let additionalPorts = additionalPorts {
+            ports.append(contentsOf: additionalPorts)
         }
         self.chargenName = chargenName
     }
@@ -560,13 +564,29 @@ public struct Computer: MachinePart {
                      caseColorName: "ZX Plus Case"),
 
             Computer(identifier: "ZX 128k",
-                     name: "Sinclair ZX 128k (PAL)",
-                     fullName: "Sinclair ZX 128k",
+                     name: "Sinclair ZX Spectrum 128k (PAL)",
+                     fullName: "Sinclair ZX Spectrum 128k",
                      variantName: "PAL",
                      iconName: "Sinclair ZX Spectrum 128k",
                      viceMachineModel: .zxSpectrum128k,
                      keyboardName: "ZX Spectrum+",
                      caseColorName: "ZX Plus Case"),
+
+            Computer(identifier: "ZX +2",
+                     name: "Sinclair ZX Spectrum +2 (PAL)",
+                     fullName: "Sinclair ZX Spectrum +2",
+                     variantName: "PAL",
+                     iconName: "Sinclair ZX Spectrum +2",
+                     viceMachineModel: .zxSpectrumPlus2,
+                     keyboardName: "ZX Spectrum +2",
+                     caseColorName: "ZX +2 Case",
+                     missingPorts: [.cassetteDrive],
+                     additionalPorts: [
+//                        Port(name: "Cassete", key: .cassette, connectorTypes: [.media(.cassetteSpectrum)], supportsHotSwap: true),
+                        Port(name: "Joystick 1", key: .controlPort1, connectorTypes: [.atariJoystick], supportsHotSwap: true),
+                        Port(name: "Joystick 2", key: .controlPort2, connectorTypes: [.atariJoystick], supportsHotSwap: true),
+            ]),
+
         ]),
 ])
     
