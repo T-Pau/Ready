@@ -4190,6 +4190,7 @@
 		4B9ABB1424B5F5B800678531 /* Icon-ZX128-83.5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-ZX128-83.5.png"; sourceTree = "<group>"; };
 		4B9ABB1524B5F5B900678531 /* Icon-ZX128-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-ZX128-60.png"; sourceTree = "<group>"; };
 		4B9ABB1624B5F5B900678531 /* Icon-ZX128-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-ZX128-76.png"; sourceTree = "<group>"; };
+		4B9ABB1A24B6232900678531 /* NEWS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = NEWS.md; sourceTree = "<group>"; };
 		4B9DBB59222911CC0032B280 /* MachinePart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachinePart.swift; sourceTree = "<group>"; };
 		4B9DBB5B222922420032B280 /* Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controller.swift; sourceTree = "<group>"; };
 		4B9DBB5D22292B8E0032B280 /* InputDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputDevice.swift; sourceTree = "<group>"; };
@@ -4977,6 +4978,7 @@
 		4B3F973A21D7ACC700C272C4 = {
 			isa = PBXGroup;
 			children = (
+				4B9ABB1A24B6232900678531 /* NEWS.md */,
 				4B460E1E2269F70100815E7F /* README.md */,
 				4BBF869C21DA20CA00EF99ED /* TODO.md */,
 				4B7560F72441BF72004B170F /* THANKS.md */,

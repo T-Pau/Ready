@@ -35,8 +35,8 @@ class ReleaseNotesViewController: UIViewController {
     var releases = [
         Release(name: "Release 1.6", year: 2020, month: 7, day: 8, changes: [
             "Rename to Ready.",
-            "Added Commodore 16 and Plus/4 emulation.",
-            "Added ZX Spectrum emulation. Supported Models are 16k, 48k, Specturm+, 128k, +2.",
+            "Add Commodore 16 and Plus/4 emulation.",
+            "Add ZX Spectrum emulation. Supported models are 16k, 48k, Specturm+, 128k, +2.",
             "Add new app icons, one for each supported computer."
         ]),
         Release(name: "Release 1.5", year: 2020, month: 6, day: 28, changes: [
