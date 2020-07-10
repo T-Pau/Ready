@@ -28,6 +28,7 @@ import MobileCoreServices
 
 import C64UIComponents
 import Emulator
+import Atari800
 import FuseZX
 import ViceC64
 import VicePlus4
@@ -153,7 +154,9 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
             machine.autostart = false
         }
         
-        switch machine.specification.computer.viceMachineModel.viceMachine {
+        switch machine.specification.computer.model.type {
+        case .atari8Bit:
+            emulator = Atari800()
         case .c64:
             emulator = ViceC64.Vice()
         case .plus4:
@@ -225,7 +228,7 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
 
         if !toolsMode && machine.tapeImages.isEmpty && Defaults.standard.enableJiffyDOS {
             if let romC64 = Defaults.standard.biosJiffyDosC64 {
-                if machine.specification.computer.viceMachineModel.viceMachine == .c64 {
+                if machine.specification.computer.model.type == .c64 {
                     machine.resources[.KernalName] = .String(biosURL.appendingPathComponent(romC64).path)
                 }
                 if let rom1541 = Defaults.standard.biosJiffyDos1541 {

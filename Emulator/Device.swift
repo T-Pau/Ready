@@ -27,13 +27,25 @@ public class Device {
     public var part: MachinePart
     public var config: MachineConfig.Node
     
-    public init?(config: MachineConfig.Node, compatibleWith port: Port? = nil) {
-        self.config = config
+    public var devices: [MachineConfig.Key: Device]
+    
+    public convenience init?(config: MachineConfig.Node, compatibleWith port: Port? = nil) {
         guard let potentialPart = MachinePartRegister.default.part(for: config) else { return nil }
         if let port = port {
             guard potentialPart.isCompatible(with: port) else { return nil }
         }
-        self.part = potentialPart
+        self.init(part: potentialPart, config: config)
+    }
+    
+    public init(part: MachinePart, config: MachineConfig.Node) {
+        self.part = part
+        self.config = config
+        
+        devices = [:]
+        for port in part.ports {
+            guard let deviceConfig = config.node(for: port.key) else { continue }
+            devices[port.key] = Device(config: deviceConfig, compatibleWith: port)
+        }
     }
     
     func device(for key: MachineConfig.Key) -> Device? {

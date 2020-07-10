@@ -37,7 +37,7 @@ extension keyboard_key_name: Hashable { }
         
     private var pressedKeys = Multiset<keyboard_key_name>()
     
-    func fuseName(for model: Computer.ViceModel) -> String? {
+    func fuseName(for model: Computer.Model) -> String? {
         switch model {
         case .zxSpectrum16k:
             return "16"
@@ -58,7 +58,7 @@ extension keyboard_key_name: Hashable { }
         }
     }
     
-    func builtinControllerPorts(for model: Computer.ViceModel) -> [joystick_type_t] {
+    func builtinControllerPorts(for model: Computer.Model) -> [joystick_type_t] {
         switch model {
         case .zxSpectrumPlus2:
             return [JOYSTICK_TYPE_SINCLAIR_1, JOYSTICK_TYPE_SINCLAIR_2]
@@ -238,7 +238,7 @@ extension keyboard_key_name: Hashable { }
     }
     
     override public func start() {
-        let model = machine.specification.computer.viceMachineModel
+        let model = machine.specification.computer.model
         guard let modelName = fuseName(for: model) else { return } // TODO: close view
         var args = [
             "fuse",

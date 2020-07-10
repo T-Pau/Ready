@@ -151,6 +151,52 @@ public struct Keyboard {
     
     private var layout: Layout
     
+    private init(atariXlWithImageName imageName: String, rows: [Int], left: Int, right: Int, escapeRight: Int, tabRight: Int, returnLeft: Int, controlRight: Int, capsLeft: Int, leftShiftRight: Int, rightShiftLeft: Int, rightShiftRight: Int, spaceLeft: Int, spaceRight: Int, functionTop: Int, functionBottom: Int, functionLeft: Int, functionRight: Int) {
+        self.imageName = imageName
+        let functionHeight = (functionBottom - functionTop) / 5
+        self.layout = Layout(rows: [
+            Row(top: rows[0], bottom: rows[1], spans: [
+                Span(left: left, right: escapeRight, keys: [.Escape]),
+                Span(left: escapeRight, right: right, keys: [.Char("1"), .Char("2"), .Char("3"), .Char("4"), .Char("5"), .Char("6"), .Char("7"), .Char("8"), .Char("9"), .Char("0"), .Char("<"), .Char(">"), .Delete, .Break])
+            ]),
+            Row(top: rows[1], bottom: rows[2], spans: [
+                Span(left: left, right: tabRight, keys: [.Tab]),
+                Span(left: tabRight, right: returnLeft, keys: [.Char("q"), .Char("w"), .Char("e"), .Char("r"), .Char("t"), .Char("y"), .Char("u"), .Char("i"), .Char("o"), .Char("p"), .Char("-"), .Char("=")]),
+                Span(left: returnLeft, right: right, keys: [.Return])
+            ]),
+            Row(top: rows[2], bottom: rows[3], spans: [
+                Span(left: left, right: controlRight, keys: [.Control]),
+                Span(left: controlRight, right: capsLeft, keys: [.Char("a"), .Char("s"), .Char("d"), .Char("f"), .Char("g"), .Char("h"), .Char("j"), .Char("k"), .Char("l"), .Char(";"), .Char("+"), .Char("*")]),
+                Span(left: capsLeft, right: right, keys: [.Caps])
+            ]),
+            Row(top: rows[3], bottom: rows[4], spans: [
+                Span(left: left, right: leftShiftRight, keys: [.ShiftLeft]),
+                Span(left: leftShiftRight, right: rightShiftLeft, keys: [.Char("z"), .Char("x"), .Char("c"), .Char("v"), .Char("b"), .Char("n"), .Char("m"), .Char(","), .Char("."), .Char("/")]),
+                Span(left: rightShiftLeft, right: rightShiftRight, keys: [.ShiftRight]),
+                Span(left: rightShiftRight, right: right, keys: [.InverseVideo])
+            ]),
+            Row(top: rows[4], bottom: rows[5], spans: [
+                Span(left: spaceLeft, right: spaceRight, keys: [.Char(" ")])
+            ]),
+            Row(top: functionTop, bottom: functionTop + functionHeight, spans: [
+                Span(left: functionLeft, right: functionRight, keys: [.Reset])
+            ]),
+            Row(top: functionTop + functionHeight, bottom: functionTop + functionHeight * 2, spans: [
+                Span(left: functionLeft, right: functionRight, keys: [.Option])
+            ]),
+            Row(top: functionTop + functionHeight * 2, bottom: functionTop + functionHeight * 3, spans: [
+                Span(left: functionLeft, right: functionRight, keys: [.Select])
+            ]),
+            Row(top: functionTop + functionHeight * 3, bottom: functionTop + functionHeight * 4, spans: [
+                Span(left: functionLeft, right: functionRight, keys: [.Start])
+            ]),
+            Row(top: functionTop + functionHeight * 4, bottom: functionBottom, spans: [
+                Span(left: functionLeft, right: functionRight, keys: [.Help])
+            ])
+        ])
+        self.keyboardSymbols = KeyboardSymbols.atariXl
+    }
+    
     private init(c16WithImageName imageName: String, rows: [Int], topHalfLeft: Int, topHalfRight: Int, bottomHalfLeft: Int, bottomHalfRight: Int, functionKeysLeft: Int, functionKeysRight: Int, spaceLeft: Int, spaceRight: Int, ctrlRight: Int, clearLeft: Int, returnLeft: Int, leftShiftLeft: Int, leftShiftRight: Int, rightShiftLeft: Int, rightShiftRight: Int) {
         self.imageName = imageName
         self.toggleKeys = [.ShiftLock: imageName + " ShiftLock"]
@@ -349,6 +395,25 @@ public struct Keyboard {
     }
 
     private static var keyboards: [String: Keyboard] = [
+        "Atari XL": Keyboard(atariXlWithImageName: "Atari XL Keyboard",
+                             rows: [65, 278, 469, 668, 870, 1085],
+                             left: 88,
+                             right: 3097,
+                             escapeRight: 315,
+                             tabRight: 418,
+                             returnLeft: 379,
+                             controlRight: 472,
+                             capsLeft: 2860,
+                             leftShiftRight: 568,
+                             rightShiftLeft: 2584,
+                             rightShiftRight: 2910,
+                             spaceLeft: 667,
+                             spaceRight: 2473,
+                             functionTop: 83,
+                             functionBottom: 1073,
+                             functionLeft: 3207,
+                             functionRight: 3421),
+        
         "C16": Keyboard(c16WithImageName: "C16 Keyboard",
                         rows: [72, 262, 442, 618, 817, 981],
                         topHalfLeft: 86,

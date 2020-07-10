@@ -53,6 +53,45 @@ public class MachineConfig {
         case expansionPort1 // expansionPort.expansionPort
         case userPortJoystick1 // userPort.joystickPort
         case userPortJoystick2 // userPort.joystickPort
+        
+        
+        // compatibility methods to allow replacing MachineConfig.Key
+        public var driveNumber: Int? {
+            switch  self {
+            case .diskDrive8:
+                return 8
+            case .diskDrive9:
+                return 9
+            case .diskDrive10:
+                return 10
+            case .diskDrive11:
+                return 11
+            default:
+                return nil
+            }
+        }
+
+        public var expansionPortIndex: Int? {
+            switch self {
+            case .expansionPort:
+                return 0
+            case .expansionPort1:
+                return 1
+            case .expansionPort2:
+                return 2
+            default:
+                return nil
+            }
+        }
+        
+        public var supportsAuto: Bool {
+            switch self {
+            case .diskDrive8, .diskDrive9, .diskDrive10, .diskDrive11, .cassetteDrive, .expansionPort, .expansionPort1, .expansionPort2:
+                return true
+            default:
+                return false
+            }
+        }
     }
 
     public class Node {

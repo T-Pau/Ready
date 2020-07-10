@@ -45,15 +45,15 @@ public struct MachineSpecification {
         return newSecification
     }
     
-    public func topLayerIdentifier(for key: MachineConfigOld.Key) -> String {
+    public func topLayerIdentifier(for key: MachineConfig.Key) -> String {
         return layers[0].string(for: key) ?? "default"
     }
     
-    public func identifier(for key: MachineConfigOld.Key) -> String {
+    public func identifier(for key: MachineConfig.Key) -> String {
         return string(for: key) ?? "none"
     }
     
-    func value(for key: MachineConfigOld.Key, skipFirstLayer: Bool = false) -> MachineConfigOld.Value? {
+    func value(for key: MachineConfig.Key, skipFirstLayer: Bool = false) -> MachineConfigOld.Value? {
         let relevantLayers = skipFirstLayer ? layers.dropFirst() : ArraySlice(layers)
         
         for layer in relevantLayers {
@@ -65,7 +65,7 @@ public struct MachineSpecification {
         return nil
     }
     
-    func string(for key: MachineConfigOld.Key, skipFirstLayer: Bool = false) -> String? {
+    func string(for key: MachineConfig.Key, skipFirstLayer: Bool = false) -> String? {
         if let value = value(for: key, skipFirstLayer: skipFirstLayer) {
             switch value {
             case .string(let string):
@@ -77,7 +77,7 @@ public struct MachineSpecification {
         return nil
     }
     
-    func integer(for key: MachineConfigOld.Key, skipFirstLayer: Bool = false) -> Int? {
+    func integer(for key: MachineConfig.Key, skipFirstLayer: Bool = false) -> Int? {
         if let value = value(for: key, skipFirstLayer: skipFirstLayer) {
             switch value {
             case .integer(let integer):
@@ -89,15 +89,15 @@ public struct MachineSpecification {
         return nil
     }
     
-    public mutating func set(string: String?, for key: MachineConfigOld.Key) {
+    public mutating func set(string: String?, for key: MachineConfig.Key) {
         layers[0].set(string: string, for: key)
     }
     
-    public func isDefault(key: MachineConfigOld.Key) -> Bool {
+    public func isDefault(key: MachineConfig.Key) -> Bool {
         return !layers[0].hasValue(for: key)
     }
     
-    public func differences(to specification: MachineSpecification) -> Set<MachineConfigOld.Key> {
+    public func differences(to specification: MachineSpecification) -> Set<MachineConfig.Key> {
         return layers[0].differences(to: specification.layers[0])
     }
 }
@@ -297,7 +297,7 @@ extension MachineSpecification {
 }
 
 extension MachineSpecification {
-    private func autoPart(for key: MachineConfigOld.Key, machine: MachineOld?) -> MachinePart {
+    private func autoPart(for key: MachineConfig.Key, machine: MachineOld?) -> MachinePart {
         if let machine = machine {
             var part: MachinePart = DummyMachinePart.none
             var annotateName = true
@@ -358,7 +358,7 @@ extension MachineSpecification {
         }
     }
     
-    public func part(for key: MachineConfigOld.Key, value: String?, machine: MachineOld?) -> MachinePart {
+    public func part(for key: MachineConfig.Key, value: String?, machine: MachineOld?) -> MachinePart {
         guard let value = value else { return DummyMachinePart.none }
         if value == "none" {
             return DummyMachinePart.none
@@ -392,14 +392,17 @@ extension MachineSpecification {
             return DummyMachinePart.none
         case .screen:
             return DummyMachinePart.none // TODO
+            
+        default:
+            return DummyMachinePart.none
         }
     }
 
-    public func part(for key: MachineConfigOld.Key, machine: MachineOld?) -> MachinePart {
+    public func part(for key: MachineConfig.Key, machine: MachineOld?) -> MachinePart {
         return part(for: key, value: string(for: key), machine: machine)
     }
     
-    public func partList(for key: MachineConfigOld.Key, machine: MachineOld?) -> MachinePartList {
+    public func partList(for key: MachineConfig.Key, machine: MachineOld?) -> MachinePartList {
         var partList: MachinePartList
         
         switch key {

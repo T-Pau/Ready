@@ -22,9 +22,11 @@
 */
 
 import UIKit
+import RetroMedia
 
 public struct Computer: MachinePart {
     public enum ComputerType {
+        case atari8Bit
         case c64
         case plus4
         case spectrum
@@ -32,6 +34,8 @@ public struct Computer: MachinePart {
         
         var dataDirectory: String {
             switch self {
+            case .atari8Bit:
+                return "atari800"
             case .c64, .plus4: // TODO: Plus4 actually uses two directories
                 return "vice/C64"
             case .spectrum:
@@ -41,8 +45,63 @@ public struct Computer: MachinePart {
             }
         }
         
+        var supportedMediaTypes: Set<MediaType> {
+            switch self {
+            case .atari8Bit:
+                return [] // TODO
+            case .c64:
+                return [
+                    .cartridgeCommodore64,
+                    .cassetteCommodore,
+                    .compactFlashIde64,
+                    .cd,
+                    .disk3_5DoubleDensityCmd,
+                    .disk3_5DoubleDensityCommodore,
+                    .disk3_5HighDensityCmd,
+                    .disk3_5HighDensityCmd,
+                    .disk5_25SingleDensitySingleSidedCommodore,
+                    .disk5_25SingleDensityDoubleSidedCommodore,
+                    .disk5_25DoubleDensitySingleSidedCommodore,
+                    .harddiskIdeIde64
+                ]
+                
+            case .plus4:
+                return [
+                    .cartridgeCommodorePlus4,
+                    .cassetteCommodore,
+                    .disk3_5DoubleDensityCmd,
+                    .disk3_5DoubleDensityCommodore,
+                    .disk3_5HighDensityCmd,
+                    .disk3_5HighDensityCmd,
+                    .disk5_25SingleDensitySingleSidedCommodore,
+                    .disk5_25SingleDensityDoubleSidedCommodore,
+                    .disk5_25DoubleDensitySingleSidedCommodore,
+                ]
+
+            case .spectrum:
+                return [
+                    .cassetteSpectrum
+                ]
+
+            case .vic:
+                return [
+                    .cartridgeCommodoreVIC20,
+                    .cassetteCommodore,
+                    .disk3_5DoubleDensityCmd,
+                    .disk3_5DoubleDensityCommodore,
+                    .disk3_5HighDensityCmd,
+                    .disk3_5HighDensityCmd,
+                    .disk5_25SingleDensitySingleSidedCommodore,
+                    .disk5_25SingleDensityDoubleSidedCommodore,
+                    .disk5_25DoubleDensitySingleSidedCommodore,
+                ]
+            }
+        }
+        
         var ports: [Port] {
             switch self {
+            case .atari8Bit:
+                return [] // TODO
             case .c64:
                 return [
                     Port(name: "Screen", key: .screen, connectorTypes: [.videoComponent], supportsHotSwap: true, iconWidth: 2, iconHeight: 2),
@@ -94,7 +153,9 @@ public struct Computer: MachinePart {
         }
     }
     
-    public enum ViceModel: String {
+    public enum Model: String {
+        case atari600Xl
+        case atari800Xl
         case c16Pal
         case c16Ntsc
         case c64cNtsc
@@ -124,8 +185,10 @@ public struct Computer: MachinePart {
         case zxSpectrum128k
         case zxSpectrumPlus2
 
-        public var viceMachine: ComputerType {
+        public var type: ComputerType {
             switch self {
+            case .atari600Xl, .atari800Xl:
+                return .atari8Bit
             case .c64cNtsc, .c64cPal, .c64Japanese, .c64Gs, .c64Ntsc, .c64OldNtsc, .c64OldPal, .c64Pal, .c64PalN, .pet64Ntsc, .pet64Pal, .sx64Ntsc, .sx64Pal, .ultimax:
                 return .c64
             case .vic1001, .vic20Pal, .vic20Ntsc:
@@ -135,65 +198,6 @@ public struct Computer: MachinePart {
             case .zxSpectrum16k, .zxSpectrum48k, .zxSpectrum48kNtsc, .zxSpectrum128k, .zxSpectrumPlus2:
                 return .spectrum
             }
-        }
-        public var int32Value: Int32 {
-            switch self {
-            // ViceC64
-            case .c64Pal:
-                return 0
-            case .c64cPal:
-                return 1
-            case .c64OldPal:
-                return 2
-            case .c64Ntsc:
-                return 3
-            case .c64cNtsc:
-                return 4
-            case .c64OldNtsc:
-                return 5
-            case .c64PalN:
-                return 6
-            case .sx64Pal:
-                return 7
-            case .sx64Ntsc:
-                return 8
-            case .c64Japanese:
-                return 9
-            case .c64Gs:
-                return 10
-            case .pet64Pal:
-                return 11
-            case .pet64Ntsc:
-                return 12
-            case .ultimax:
-                return 13
-                
-            // ViceVIC20
-            case .vic20Pal:
-                return 0
-            case .vic20Ntsc:
-                return 1
-            case .vic1001:
-                return 3
-                
-            // VicePlus4
-            case .c16Pal:
-                return 0
-            case .c16Ntsc:
-                return 1
-            case .c232Ntsc:
-                return 5
-            case .plus4Pal:
-                return 2
-            case .plus4Ntsc:
-                return 3
-            case .v364Ntsc:
-                return 4
-                
-            default:
-                return -1
-            }
-            
         }
     }
     
@@ -207,32 +211,32 @@ public struct Computer: MachinePart {
     public var connector: ConnectorType { return .computer }
     public var ports: [Port]
 
-    public var viceMachineModel: ViceModel
+    public var model: Model
     public var caseColor: UIColor
     public var keyboard: Keyboard?
     public var drive8: DiskDrive?
     public var chargenName: String
     
     public var chargenUppercase: Chargen? {
-        return Chargen(named: chargenName, subdirectory: viceMachineModel.viceMachine.dataDirectory, bank: 0)
+        return Chargen(named: chargenName, subdirectory: model.type.dataDirectory, bank: 0)
     }
     public var chargenLowercase: Chargen? {
-        return Chargen(named: chargenName, subdirectory: viceMachineModel.viceMachine.dataDirectory, bank: 1)
+        return Chargen(named: chargenName, subdirectory: model.type.dataDirectory, bank: 1)
     }
 
-    public init(identifier: String, name: String, fullName: String? = nil, variantName: String? = nil, iconName: String, priority: Int = MachinePartNormalPriority, viceMachineModel: ViceModel, keyboardName: String?, caseColorName: String, drive8: DiskDrive? = nil, missingPorts: Set<MachineConfigOld.Key> = [], additionalPorts: [Port]? = nil, chargenName: String = "chargen") {
+    public init(identifier: String, name: String, fullName: String? = nil, variantName: String? = nil, iconName: String, priority: Int = MachinePartNormalPriority, viceMachineModel: Model, keyboardName: String?, caseColorName: String, drive8: DiskDrive? = nil, missingPorts: Set<MachineConfig.Key> = [], additionalPorts: [Port]? = nil, chargenName: String = "chargen") {
         self.identifier = identifier
         self.name = name
         self.fullName = fullName ?? name
         self.variantName = variantName
         self.icon = UIImage(named: iconName)
         self.priority = priority
-        self.viceMachineModel = viceMachineModel
+        self.model = viceMachineModel
         self.caseColor = UIColor(named: caseColorName) ?? UIColor.white
         if let keyboardName = keyboardName {
             self.keyboard = Keyboard.keyboard(named: keyboardName)
         }
-        self.ports = viceMachineModel.viceMachine.ports
+        self.ports = viceMachineModel.type.ports
 
         self.drive8 = drive8
         if drive8 != nil {
@@ -317,6 +321,7 @@ public struct Computer: MachinePart {
                      keyboardName: "PET Style",
                      caseColorName: "VIC-20 Case"),
         ]),
+        
         MachinePartSection(title: "Commdore 64 C", parts: [
             Computer(identifier: "C64C PAL",
                      name: "Commodore 64C (Old Keyboard, PAL)",
@@ -588,6 +593,27 @@ public struct Computer: MachinePart {
             ]),
 
         ]),
+/*
+        MachinePartSection(title: "Atari 8-Bit Computers", parts: [
+            Computer(identifier: "Atari 600XL",
+                     name: "Atari 800XL",
+                     fullName: "Atari 600XL",
+                     iconName: "Atari 600XL",
+                     viceMachineModel: .atari600Xl,
+                     keyboardName: "Atari XL",
+                     caseColorName: "Atari XL",
+                     chargenName: ""),
+
+            Computer(identifier: "Atari 800XL",
+                     name: "Atari 800XL",
+                     fullName: "Atari 800XL",
+                     iconName: "Atari 800XL",
+                     viceMachineModel: .atari800Xl,
+                     keyboardName: "Atari XL",
+                     caseColorName: "Atari XL Case",
+                     chargenName: "")
+        ])
+ */
 ])
     
     static private var byIdentifier = [String: Computer]()

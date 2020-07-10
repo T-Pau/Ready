@@ -1,0 +1,277 @@
+atari800 (4.0.0-1) unstable; urgency=medium
+
+  * [26b9009] New upstream version 4.0.0
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Fri, 27 Apr 2018 09:42:31 +0200
+
+atari800 (3.1.0-2) unstable; urgency=medium
+
+  * [8596bb2] update config.{sub, guess} (Closes: #762477)
+  * Thank Aurelien Jarno for report and Tobias Frost for a friendly NMU
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Mon, 11 Apr 2016 08:36:31 +0200
+
+atari800 (3.1.0-1) unstable; urgency=medium
+
+  * [947c00c] Imported Upstream version 3.1.0
+  * [6d267ad] update standards version
+  * [646e6e7] add source format
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Tue, 15 Apr 2014 14:07:16 +0200
+
+atari800 (3.0.0-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Sat, 16 Mar 2013 13:02:47 +0100
+
+atari800 (2.2.1-2) unstable; urgency=low
+
+  * depend on libpng-dev not libpng12-dev (Closes: #662272)
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Mon, 05 Mar 2012 09:29:03 +0100
+
+atari800 (2.2.1-1) unstable; urgency=low
+
+  * new upstream release fixes kFreeBSD and other things
+    Closes: #621100
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Thu, 28 Apr 2011 18:45:09 +0200
+
+atari800 (2.2.0-1) unstable; urgency=low
+
+  * New upstream release.
+  * Upstream dropped support for X and ncurses versions
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Wed, 06 Apr 2011 13:11:07 +0200
+
+atari800 (2.1.0-2) unstable; urgency=low
+
+  * Link against libreadline(6) (Closes: #553728)
+  * fixes stale autoconf files
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Tue, 22 Dec 2009 21:45:05 +0100
+
+atari800 (2.1.0-1) unstable; urgency=low
+
+  * New upstream release.
+  * Updated atari800.cfg example config file.
+  * Added dependency to libreadline5-dev.
+  * added libpng12-dev to build depends
+  * hopefully fixed problem with gpg key in keyring
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Tue, 05 May 2009 19:05:33 +0000
+
+atari800 (2.0.3-1) unstable; urgency=low
+
+  * New upstream release.
+  * added calls to strip to get rid of .comment section (linda complained)
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Wed, 11 Jul 2007 18:49:38 +0000
+
+atari800 (2.0.2-1) unstable; urgency=low
+
+  * New upstream source. Closes: #288543
+  * Updated atari800.cfg example config file.
+  * Package addopted, Closes: #379022
+
+ -- Antonin Kral <A.Kral@sh.cvut.cz>  Sun, 01 Oct 2006 13:59:59 +0200
+
+atari800 (1.3.2-1) unstable; urgency=low
+
+  * New upstream source and new maintainer (closes: #226787).
+  * Debian/control: remove debhelper and sharutils from Build-Depends.
+  * Debian/rules: handle DEB_BUILD_OPTIONS=noopt,
+    clean: removes src/Makefile and src/config.{h,log,status}.
+  * Update config.{guess,sub} from autotools-dev-20040105.1.
+  * Patch src/rdevice.c::581,583 to use '/dev/ttyS0' on all archs.
+  * Add some notes of new maintainer to README.Debian - thanks Dale.
+
+ -- Martin Albert <ma@debian.org>  Thu, 19 Feb 2004 20:09:49 +0100
+
+atari800 (1.3.1-2) unstable; urgency=low
+
+  * Fixed broken syntax in last changelog entry. Closes: #203707
+  * Changed dependency from xlib6g-dev to xlibs-dev. Closes: #209203
+  * Repaired bad patch. Now deliver upstream changelog and NEWS
+  * Updated /etc/atari800.cfg example in /usr/share/doc/atari800
+  *                provided by upstream author.
+  * Fixed several Lintian Warnings/Errors:
+  *     Removed /usr/share/doc/atari800/INSTALL.gz
+  *     Removed postinst usr-doc-link code
+  *     Added copyright reference to /usr/share/common-licenses
+
+ -- Dale Scheetz (Dwarf #1) <dwarf@polaris.net>  Wed,  8 Oct 2003 17:26:37 -0400
+
+atari800 (1.3.1-1) unstable; urgency=low
+
+  * new upstream source
+  *        updated configure files.  Closes: #193397
+  * removed svgalib version, security fix installed upstream. Closes 203707
+
+ -- Dale Scheetz (Dwarf #1) <dwarf@polaris.net>  Sat,  6 Sep 2003 17:14:56 -0400
+
+atari800 (1.3.0-2) unstable; urgency=low
+
+  * changed build depends from xlib6g-dev to xlibs-dev and libncurses-dev
+  *     to libncurses5-dev. Closes: #188777
+  * new system wide config file example in /usr/share/doc/atari800/atari800.cfg
+  *     for details see /usr/share/doc/atari800/README.Debian
+
+ -- Dale Scheetz (Dwarf #1) <dwarf@polaris.net>  Tue, 13 May 2003 19:00:50 -0400
+
+atari800 (1.3.0-1) unstable; urgency=low
+
+  * new upstream source. (error in last entry ;-)
+  * modified config and added sdl target to the build
+
+ -- Dale Scheetz (Dwarf #1) <dwarf@polaris.net>  Sat, 12 Apr 2003 14:56:16 -0400
+
+atari800 (1.2.2-1) unstable; urgency=low
+
+  * new upstream source. Finally catching up...
+
+ -- Dale Scheetz (Dwarf #1) <dwarf@polaris.net>  Sat, 16 Mar 2002 20:32:22 -0500
+
+atari800 (1.0.7-3) unstable; urgency=low
+
+  * Compiled against libncurses5-dev. Closes: #132589
+
+ -- Dale Scheetz (Dwarf #1) <dwarf@polaris.net>  Sat,  9 Feb 2002 14:32:05 -0500
+
+atari800 (1.0.7-2) unstable; urgency=low
+
+  * Fixed rules file so svgalib version is only built/installed
+  *         on i386 architectures. Closes: #122282, #122779
+  * Added patch to wrap LED_lastline in SET_LED #ifdef to allow reasonable
+  *         feature selection. Thanks Stephen!
+  * Fixed USAGE docs for curses mode keyboard controls to declare
+  *         the F8 function key starts basic mode operations.
+
+ -- Dale Scheetz (Dwarf #1) <dwarf@polaris.net>  Fri,  7 Dec 2001 11:47:05 -0500
+
+atari800 (1.0.7-1) unstable; urgency=low
+
+  * New upstream source. Closes: #81032
+  * Changed Maintainer to match signature. Closes: #104829
+  * Compiled with sound enabled. Closes: #70940
+
+ -- Dale Scheetz (Dwarf #1) <dwarf@polaris.net>  Sat,  3 Nov 2001 17:25:15 -0500
+
+atari800 (0.9.9f-3) unstable; urgency=low
+
+  * Added sharutils to build-depends. Closes: #104829
+
+ -- Dale Scheetz (Dwarf #1) <dwarf@polaris.net>  Tue, 25 Sep 2001 12:46:15 -0400
+
+atari800 (0.9.9f-2) unstable; urgency=low
+
+  * new maintainer...
+
+ -- Dale Scheetz <dwarf@polaris.net>  Sat, 26 Aug 2000 08:11:23 -0400
+
+atari800 (0.9.9f-1) unstable; urgency=low
+
+  * Hm, seems this is the package time forgot. I missed checking this into
+    cvs when I converted, and then forgot about it.
+  * New upstream version which fixes X. Closes: #57435
+  * Several changes like build-depends and FHS.
+
+ -- Joey Hess <joeyh@master.debian.org>  Mon,  1 May 2000 15:35:26 -0700
+
+atari800 (0.9.8a-2) unstable; urgency=low
+
+  * Updated config file.
+
+ -- Joey Hess <joeyh@master.debian.org>  Fri,  9 Oct 1998 12:34:44 -0700
+
+atari800 (0.9.8a-1) unstable; urgency=low
+
+  * New upstream release.
+  * No pristine source since upstream source is now a .zip file.
+  * Corrected several apparent dos-isms in the source. Ugh.
+
+ -- Joey Hess <joeyh@master.debian.org>  Tue,  6 Oct 1998 21:16:02 -0700
+
+atari800 (0.8.6-3) unstable; urgency=low
+
+  * Don't use icon=none in menu file.
+
+ -- Joey Hess <joeyh@master.debian.org>  Wed,  5 Aug 1998 14:31:25 -0700
+
+atari800 (0.8.6-2) unstable; urgency=low
+
+  * Rebuilt with a newer svgalib.
+  * Hacked debian/rules so it still depends on | svgalib-dummyg1.
+
+ -- Joey Hess <joeyh@master.debian.org>  Sat, 14 Mar 1998 17:44:03 -0800
+
+atari800 (0.8.6-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Joey Hess <joeyh@master.debian.org>  Sun,  8 Mar 1998 13:15:06 -0800
+
+atari800 (0.8.4-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Joey Hess <joeyh@master.debian.org>  Sat, 21 Feb 1998 12:35:57 -0800
+
+atari800 (0.8.2-2) unstable; urgency=low
+
+  * Updated fsf address.
+
+ -- Joey Hess <joeyh@master.debian.org>  Mon,  9 Feb 1998 13:05:46 -0800
+
+atari800 (0.8.2-1) unstable; urgency=low
+
+  * New upstream release.
+  * Use debhelper.
+
+ -- Joey Hess <joeyh@master.debian.org>  Fri, 16 Jan 1998 14:34:10 -0500
+
+atari800 (0.8.1-1) unstable; urgency=low
+
+  * New upstream release
+  * Libc6.
+  * Moved to contrib: depends on non-free roms.
+
+ -- Joey Hess <joeyh@master.debian.org>  Mon,  8 Sep 1997 18:43:42 -0400
+
+atari800 (0.8.0-1) unstable; urgency=low
+
+  * New upstream release
+  	- Now has sound support!
+  * Changed debian menu file to 1.0 format.
+  * The X version no longer uses xview. This interface has been obsoleted by
+    the menu system that appears if you hit F1.
+
+ -- Joey Hess <joeyh@master.debian.org>  Sun, 20 Apr 1997 22:06:04 -0400
+
+atari800 (0.7.0-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Joey Hess <joeyh@master.debian.org>  Wed, 2 Apr 1997 18:58:37 -0500
+
+atari800 (0.6.2-1) unstable; urgency=low
+
+  * New upstream release.
+  * Added an atari800 game: Alien Encounter, with permission of
+    author.
+  * Added /etc/atari800.cfg file.
+  * Added svgalib version to debian menu.
+
+ -- Joey Hess <joeyh@master.debian.org>  Sun, 23 Mar 1997 13:50:54 -0500
+
+atari800 (0.6.1-1) unstable; urgency=low
+
+  * First release.
+
+ -- Joey Hess <joeyh@master.debian.org>  Wed, 5 Mar 1997 22:08:42 -0500
+
+
+Local variables:
+mode: debian-changelog
+End:

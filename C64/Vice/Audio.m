@@ -99,8 +99,6 @@ BOOL audioSetup(audio_render_callback_t renderCallback, Float64 sampleRate, UInt
         return NO;
     }
     
-    audioStart();
-    
     return YES;
 }
 

@@ -49,16 +49,16 @@ extension MachinePart {
         return connector == .none || port.connectorTypes.contains(connector)
     }
     
-    public func has(port key: MachineConfigOld.Key) -> Bool {
+    public func has(port key: MachineConfig.Key) -> Bool {
         return port(for: key) != nil
     }
     
-    public func port(for key: MachineConfigOld.Key) -> Port? {
+    public func port(for key: MachineConfig.Key) -> Port? {
         return ports.first(where: { $0.key == key })
     }
     
     public func portNew(for key: MachineConfig.Key) -> Port? {
-        // TODO: use function above on switch from MachineConfigOld.Key to MachineConfig.Key
+        // TODO: use function above on switch from MachineConfig.Key to MachineConfig.Key
         return nil
     }
 }

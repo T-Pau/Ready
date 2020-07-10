@@ -24,69 +24,6 @@
 import Foundation
 
 public struct MachineConfigOld: ExpressibleByDictionaryLiteral {
-    public enum Key: String, CaseIterable, CodingKey {
-        case borderMode
-        case cassetteDrive
-        case computer
-        case controlPort1
-        case controlPort2
-        case diskDrive8
-        case diskDrive9
-        case diskDrive10
-        case diskDrive11
-        case expansionPort
-        case expansionPort1
-        case expansionPort2
-        case screen
-        case singularAdapterMode
-        case userPortJoystick1
-        case userPortJoystick2
-        case userPort
-        
-        public init?(expansionPort index: Int) {
-            let suffix = index > 0 ? "\(index)" : ""
-            guard let key = Key(rawValue: "expansionPort\(suffix)") else { return nil }
-            self = key
-        }
-        
-        public var supportsAuto: Bool {
-            switch self {
-            case .diskDrive8, .diskDrive9, .diskDrive10, .diskDrive11, .cassetteDrive, .expansionPort, .expansionPort1, .expansionPort2:
-                return true
-            default:
-                return false
-            }
-        }
-        
-        public var driveNumber: Int? {
-            switch  self {
-            case .diskDrive8:
-                return 8
-            case .diskDrive9:
-                return 9
-            case .diskDrive10:
-                return 10
-            case .diskDrive11:
-                return 11
-            default:
-                return nil
-            }
-        }
-        
-        public var expansionPortIndex: Int? {
-            switch self {
-            case .expansionPort:
-                return 0
-            case .expansionPort1:
-                return 1
-            case .expansionPort2:
-                return 2
-            default:
-                return nil
-            }
-        }
-    }
-    
     public enum BorderMode: String, CaseIterable, CustomStringConvertible {
         case auto
         case hide
@@ -230,8 +167,8 @@ public struct MachineConfigOld: ExpressibleByDictionaryLiteral {
     
     private var values = [String: Value]()
     
-    public static let cartridgeKeys: [Key] = [ .expansionPort, .expansionPort1, .expansionPort2 ]
-    public static let diskDriveKeys: [Key] = [ .diskDrive8, .diskDrive9, .diskDrive10, .diskDrive11 ]
+    public static let cartridgeKeys: [MachineConfig.Key] = [ .expansionPort, .expansionPort1, .expansionPort2 ]
+    public static let diskDriveKeys: [MachineConfig.Key] = [ .diskDrive8, .diskDrive9, .diskDrive10, .diskDrive11 ]
     
     public static let defaultConfig: MachineConfigOld = [
         .borderMode: .string("auto"),
@@ -254,7 +191,7 @@ public struct MachineConfigOld: ExpressibleByDictionaryLiteral {
     public init() {
     }
     
-    public init(dictionaryLiteral elements: (Key, Value)...) {
+    public init(dictionaryLiteral elements: (MachineConfig.Key, Value)...) {
         for (key, value) in elements {
             set(value: value, for: key)
         }
@@ -282,15 +219,15 @@ public struct MachineConfigOld: ExpressibleByDictionaryLiteral {
         try self.write(to: url, options: [.atomic] )
     }
 
-    func hasValue(for key: Key) -> Bool {
+    func hasValue(for key: MachineConfig.Key) -> Bool {
         return values[key.rawValue] != nil
     }
 
-    func value(for key: Key) -> Value? {
+    func value(for key: MachineConfig.Key) -> Value? {
         return values[key.rawValue]
     }
     
-    mutating func set(value: Value?, for key: Key) {
+    mutating func set(value: Value?, for key: MachineConfig.Key) {
         if let value = value {
             values[key.rawValue] = value
         }
@@ -299,7 +236,7 @@ public struct MachineConfigOld: ExpressibleByDictionaryLiteral {
         }
     }
     
-    func string(for key: Key) -> String? {
+    func string(for key: MachineConfig.Key) -> String? {
         guard let value = value(for: key) else { return nil }
         switch value {
         case .string(let string):
@@ -310,7 +247,7 @@ public struct MachineConfigOld: ExpressibleByDictionaryLiteral {
         }
     }
     
-    mutating func set(string: String?, for key: Key) {
+    mutating func set(string: String?, for key: MachineConfig.Key) {
         if let string = string {
             set(value: .string(string), for: key)
         }
@@ -319,7 +256,7 @@ public struct MachineConfigOld: ExpressibleByDictionaryLiteral {
         }
     }
     
-    subscript(key: Key) -> Value? {
+    subscript(key: MachineConfig.Key) -> Value? {
         get {
             return value(for: key)
         }
@@ -328,8 +265,8 @@ public struct MachineConfigOld: ExpressibleByDictionaryLiteral {
         }
     }
     
-    public func differences(to config: MachineConfigOld) -> Set<Key> {
-        var diffs = Set<Key>()
+    public func differences(to config: MachineConfigOld) -> Set<MachineConfig.Key> {
+        var diffs = Set<MachineConfig.Key>()
         
         for key in Key.allCases {
             if value(for: key) != config.value(for: key) {

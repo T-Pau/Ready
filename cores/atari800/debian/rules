@@ -1,0 +1,152 @@
+#!/usr/bin/make -f
+#
+# This is a debian/rules make file. It supports the targets:
+# build, clean, binary-indep, binary-arch, and binary
+#
+# Package name variables
+#
+P=atari800
+
+ARCH := $(shell dpkg-architecture -qDEB_BUILD_ARCH)
+
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+DPKG_EXPORT_BUILDFLAGS = 1
+include /usr/share/dpkg/buildflags.mk
+CFLAGS+=$(CPPFLAGS)
+CXXFLAGS+=$(CPPFLAGS)
+
+# Build the binary components and assemble the libraries
+# =====================================================================
+build: build-arch build-indep
+build-arch: build-stamp
+build-indep: build-stamp
+build-stamp:
+	$(checkdir)
+	debian/rules bld-sdl
+	touch build-stamp
+
+bld-sdl:
+	cp /usr/share/misc/config.guess /usr/share/misc/config.sub src
+	if [ -e Makefile ]; then $(MAKE) clean; fi
+	./configure \
+		 --with-video=sdl --with-sound=sdl
+	$(MAKE)
+
+# Clean up after a build and before building a source package
+#======================================================================
+clean:
+	$(checkdir)
+	-rm -f build-stamp
+	if [ -e Makefile ]; then $(MAKE) clean; fi; \
+	 rm -f config.log config.status config.h Makefile
+	rm -f src/config.guess src/config.sub
+	mv ./atari800.spec ./tmp ; rm -f atari800 ; rm -f atari800.* ; mv ./tmp ./atari800.spec
+	-rm -rf	debian/tmp debian/*~ *~ *.orig *.log \
+		debian/files* debian/substvars*
+
+binary: binary-arch
+
+# No binary independent components to this package
+#======================================================================
+binary-indep:
+#
+# No independent components
+#
+	echo "No independent binary components."
+
+# Install package components into debian/tmp to be built into packages
+#======================================================================
+binary-arch:		checkroot build
+
+# Clean out old tmp directory
+#
+	-rm -rf debian/tmp
+	install -d debian/tmp
+
+# Install installation scripts
+#
+	install -d debian/tmp/DEBIAN
+	install -m 755 debian/postinst debian/tmp/DEBIAN/.
+	install -m 755 debian/postrm debian/tmp/DEBIAN/.
+	install -m 755 debian/prerm debian/tmp/DEBIAN/.
+
+# Install docs in proper directory and gzip them
+#
+	install -d debian/tmp/usr/share/doc/$(P)
+	cp debian/changelog debian/tmp/usr/share/doc/$(P)/changelog.Debian
+	cp DOC/ChangeLog debian/tmp/usr/share/doc/$(P)/changelog
+	cp DOC/NEWS debian/tmp/usr/share/doc/$(P)/NEWS
+	cp DOC/CREDITS debian/tmp/usr/share/doc/$(P)/CREDITS
+	cp DOC/README debian/tmp/usr/share/doc/$(P)/README
+	cp DOC/USAGE debian/tmp/usr/share/doc/$(P)/USAGE
+	gzip -9nv debian/tmp/usr/share/doc/$(P)/*
+
+# These are too small to gzip
+#
+	cp DOC/FAQ debian/tmp/usr/share/doc/$(P)/FAQ
+	cp DOC/BUGS debian/tmp/usr/share/doc/$(P)/BUGS
+	cp DOC/TODO debian/tmp/usr/share/doc/$(P)/TODO
+	cp debian/README.Debian debian/tmp/usr/share/doc/$(P)/README.Debian
+	cp debian/atari800.cfg debian/tmp/usr/share/doc/$(P)/atari800.cfg
+
+
+# and don't gzip the copyright statement
+#
+	cp debian/copyright debian/tmp/usr/share/doc/$(P)/copyright
+
+# install and gzip man page
+#
+	install -d debian/tmp/usr/share/man/man1
+	install -m 644 src/$(P).man debian/tmp/usr/share/man/man1/$(P).1
+	gzip -9nv debian/tmp/usr/share/man/man1/$(P).1
+
+# install menu file
+#
+	install -d debian/tmp/usr/share/menu
+	install -m 644 debian/menu debian/tmp/usr/share/menu/$(P)
+
+# install binaries
+#
+	install -d debian/tmp/usr/bin
+	install -s src/$(P) debian/tmp/usr/bin/$(P)
+
+	strip -R .comment -R .note -R .note.ABI-tag debian/tmp/usr/bin/$(P)
+
+	# Install lintian overrides
+
+	install -d debian/tmp/usr/share/lintian/overrides
+	install -m 644 debian/atari800.lintian-overrides debian/tmp/usr/share/lintian/overrides/atari800
+
+#	(if [ "$(ARCH)" = "i386" ]; then install debian/$(P) debian/tmp/usr/bin; \
+#	else install debian/$(P).alt debian/tmp/usr/bin/$(P); fi)
+
+# Create dependency information
+#
+	dpkg-shlibdeps src/$(P)
+
+# Generate control file for the package
+#
+	dpkg-gencontrol -p$(P) -isp
+
+# Clean up file ownership
+#
+	chown -R root.root debian/tmp
+
+# and permissions
+#
+	chmod -R g-ws debian/tmp
+
+# and build the package
+#
+	dpkg --build debian/tmp ..
+
+define checkdir
+	test -f ./atari800.spec
+endef
+
+# Below here is fairly generic really
+checkroot:
+	$(checkdir)
+	test root = "`whoami`"
+
+.PHONY: binary binary-arch binary-indep clean checkroot

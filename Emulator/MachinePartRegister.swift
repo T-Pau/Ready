@@ -22,6 +22,7 @@
  */
 
 import C64UIComponents
+import RetroMedia
 
 public struct MachinePartRegister {
     public struct Section {
@@ -40,7 +41,9 @@ public struct MachinePartRegister {
     private var partByIdentifier = [String: MachinePart]()
     private var mediaByFilename = [String: MachinePart]()
     
+    public var media = [Medium]()
     public var sections: [Section]
+    private(set) public var sortedParts: [MachinePart]
 
     public func part(for config: MachineConfig.Node) -> MachinePart? {
         guard let identifier = config.identifier else { return nil }
@@ -62,15 +65,18 @@ public struct MachinePartRegister {
                 partByIdentifier[part.identifier] = part
             }
         }
+        
+        sortedParts = sections.flatMap({ $0.parts }).sorted(by: { $0.priority > $1.priority })
     }
 
-    init(mediaItems: [MediaItem]) {
+    init(media: [Medium]) {
         self =  MachinePartRegister.default
+        self.media = media
         
         var parts = [MachinePart]()
-        for item in mediaItems {
-            guard let part = item as? MachinePart, let filename = item.url?.lastPathComponent else { continue }
-            mediaByFilename[filename] = part
+        for medium in media {
+            guard let part = medium as? MachinePart else { continue }
+            mediaByFilename[medium.url.lastPathComponent] = part
             parts.append(part)
         }
         

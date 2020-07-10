@@ -38,10 +38,13 @@ static pthread_mutex_t ringbuffer_mutex;
 #undef AUDIO_TRACE
 
 static int ios_bufferspace(void) {
+    pthread_mutex_lock(&ringbuffer_mutex);
+    int samples_free = (int)(ringbuffer_bytes_free(ringbuffer) / sample_size);
+    pthread_mutex_unlock(&ringbuffer_mutex);
 #ifdef AUDIO_TRACE
-    printf("available %zu bytes\n", ringbuffer_bytes_free(ringbuffer));
+    printf("available %d samples\n", samples_free);
 #endif
-    return (int)(ringbuffer_bytes_free(ringbuffer) / sample_size);
+    return samples_free;
 }
 
 
@@ -84,10 +87,15 @@ static int ios_init(const char *param, int *speed, int *fragsize, int *fragnr, i
 //    printf("INIT: sample rate: %d, buffer size: %zu bytes, duration: %f\n", *speed, *fragnr * *fragsize * *channels * sizeof(int16_t), (double)buffer_size / *speed / 2);
 
     pthread_mutex_init(&ringbuffer_mutex, NULL);
+    __block BOOL ok;
     dispatch_sync(dispatch_get_main_queue(), ^{
-        audioSetup(audio_render_callback, (Float64)*speed, *channels, buffer_size / 2); // TODO: propagate error
+        ok = audioSetup(audio_render_callback, (Float64)*speed, *channels, buffer_size / 2);
+        if (ok) {
+            audioStart();
+        }
     });
     
+    // TODO: handle error
     return 0;
 }
 
@@ -113,8 +121,10 @@ static int ios_suspend(void) {
 
 static int ios_write(int16_t *pbuf, size_t nr)
 {
+    pthread_mutex_lock(&ringbuffer_mutex);
     ringbuffer_memcpy_into(ringbuffer, pbuf, nr * sample_size);
-    
+    pthread_mutex_unlock(&ringbuffer_mutex);
+
 #ifdef AUDIO_TRACE
     printf("wrote %zu bytes\n", nr * sample_size);
 #endif

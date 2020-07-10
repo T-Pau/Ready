@@ -98,19 +98,25 @@ int sound_lowlevel_init(const char *device, int *freqptr, int *stereoptr) {
         return 1;
     }
 
+    __block BOOL ok;
     dispatch_sync(dispatch_get_main_queue(), ^{
-        if (!audioSetup(audio_render_callback, (Float64)*freqptr, channels, sound_framesize)) {
-            sfifo_flush(&sound_fifo);
-            sfifo_close(&sound_fifo);
-            // TODO: propagate error
+        ok = audioSetup(audio_render_callback, (Float64)*freqptr, channels, sound_framesize);
+        
+        if (ok) {
+            audioStart();
         }
     });
+                  
+    if (!ok) {
+        sfifo_flush(&sound_fifo);
+        sfifo_close(&sound_fifo);
+    }
     
 #ifdef DEBUG_FUSE_AUDIO
     printf("fuse sound started: %d channels, %dkHz, frame size %d duration %gs\n", channels, *freqptr, sound_framesize, 1 / hz);
 #endif
 
-    return 0;
+    return ok ? 0 : -1;
 }
 
 void sound_lowlevel_end(void) {

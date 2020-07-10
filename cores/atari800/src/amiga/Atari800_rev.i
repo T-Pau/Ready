@@ -1,0 +1,18 @@
+VERSION		EQU	2
+REVISION	EQU	4
+
+DATE	MACRO
+		dc.b '31.03.2009'
+		ENDM
+
+VERS	MACRO
+		dc.b 'Atari800 2.1'
+		ENDM
+
+VSTRING	MACRO
+		dc.b 'Atari800 2.1 (31.03.2009)',13,10,0
+		ENDM
+
+VERSTAG	MACRO
+		dc.b 0,'$VER: Atari800 2.1 (31.03.2009)',0
+		ENDM

@@ -1,0 +1,1549 @@
+.TH ATARI800 1 "2019-12-28" "Atari800 4.2.0"
+
+.SH NAME
+atari800 \- emulator of Atari 8-bit computers and the 5200 console
+
+.SH SYNOPSIS
+.B atari800
+.RI [ option "]... [" file ]...
+
+.SH DESCRIPTION
+.B atari800
+emulates the Atari 8-bit computer systems including the 400, 800, 1200XL,
+600XL, 800XL, 65XE, 130XE, 800XE and the XE Game System, and also the Atari
+5200 SuperSystem console.
+
+.SH OPTIONS
+
+.TP
+.B \-help
+Print complete and up-to-date list of command line switches
+.TP
+.B \-v
+Print emulator version
+.TP
+.B \-verbose
+Display framerate when exiting
+.TP
+.BI \-config\  filename
+Specify an alternative configuration filename
+.TP
+.B \-autosave\-config
+Automatically save the current configuration on emulator exit.
+.TP
+.B \-no\-autosave\-config
+Don't save the current configuration on emulator exit (the default).
+
+.TP
+.BI \-osa_rom\  filename
+Path to file containing Atari Rev.A Operating System.
+.TP
+.BI \-osb_rom\  filename
+Path to file containing Atari Rev.B Operating System.
+.TP
+.BI \-xlxe_rom\  filename
+Path to file containing Atari XL/XE Operating System.
+.TP
+.BI \-5200_rom\  filename
+Path to file containing Atari 5200 Games System ROM.
+.TP
+.BI \-basic_rom\  filename
+Path to file containing Atari BASIC ROM.
+Used to override paths defined at compile time.
+
+.TP
+\fB\-800\-rev auto\fR|\fBa\-ntsc\fR|\fBa\-pal\fR|\fBb\-ntsc\fR|\fBcustom\fR|\fBaltirra\fR
+Select operating system revision for Atari 800:
+.PP
+.RS
+.PD 0
+.TP
+.B auto
+The default.
+Use the most appropriate from the available ones.
+.TP
+.B a\-ntsc
+Use OS rev. A NTSC from early NTSC 400/800 units.
+.TP
+.B a\-pal
+Use OS rev. A PAL from PAL 400/800 units.
+.TP
+.B b\-ntsc
+Use OS rev. B NTSC from late NTSC 400/800 units.
+.TP
+.B custom
+Use a custom OS.
+.TP
+.B altirra
+Use AltirraOS that is included in the emulator.
+.PD
+.RE
+.TP
+\fB\-xl\-rev auto\fR|\fB10\fR|\fB11\fR|\fB1\fR|\fB2\fR|\fB3a\fR|\fB3b\fR|\fB5\fR|\fB3\fR|\fB4\fR|\fB59\fR|\fB59a\fR|\fBcustom\fR|\fBaltirra\fR
+Select operating system revision for Atari XL/XE:
+.PP
+.RS
+.PD 0
+.TP
+.B auto
+The default.
+Use the most appropriate from the available ones.
+.TP
+.B 10
+Use OS AA000000 rev. 10 from early 1200XL units.
+.TP
+.B 11
+Use OS AA000001 rev. 11 from late 1200XL units.
+.TP
+.B 1
+Use OS BB000000 rev. 1 from the 600XL.
+.TP
+.B 2
+Use OS BB000001 rev. 2 from the 800XL and early 65XE/130XE units.
+.TP
+.B 3a
+Use prototype OS BB000002 rev. 3 from 1400XL/1450XLD units (also known as 1540OS3.V0 and 1450R3V0.ROM).
+.TP
+.B 3b
+Use prototype OS BB000002 rev. 3 ver. 4 from 1400XL/1450XLD units (also known as os1450.128 and 1450R3VX.ROM).
+.TP
+.B 5
+Use prototype OS CC000001 rev. 4 (also known as Rev. 5), for which sources are
+available at <http://www.atariage.com/forums/topic/78579-a800ossrc/page__view__findpost__p__961535>.
+.TP
+.B 3
+Use OS BB000001 rev. 3 from late 65XE/130XE units.
+.TP
+.B 4
+Use OS BB000001 rev. 4 from the XEGS.
+.TP
+.B 59
+Use OS BB000001 rev. 59 from the Arabic 65XE.
+.TP
+.B 59a
+Use OS BB000001 rev. 59 from Kevin Savetz' Arabic 65XE: <http://www.savetz.com/vintagecomputers/arabic65xe/>.
+.TP
+.B custom
+Use a custom OS.
+.TP
+.B altirra
+Use AltirraOS that is included in the emulator.
+.PD
+.RE
+.TP
+\fB\-5200\-rev auto\fR|\fBorig\fR|\fBa\fR|\fBcustom\fR|\fBaltirra\fR
+Select BIOS revision for Atari 5200:
+.PP
+.RS
+.PD 0
+.TP
+.B auto
+The default.
+Use the most appropriate from the available ones.
+.TP
+.B orig
+Use BIOS from 4-port and early 2\-port 5200 units.
+.TP
+.B a
+Use BIOS rev. A from late 2\-port 5200 units.
+.TP
+.B custom
+Use a custom BIOS.
+.TP
+.B altirra
+Use Altirra BIOS that is included in the emulator.
+.PD
+.RE
+.TP
+\fB\-basic\-rev auto\fR|\fBa\fR|\fBb\fR|\fBc\fR|\fBcustom\fR|\fBaltirra\fR
+Select BASIC revision:
+.PP
+.RS
+.PD 0
+.TP
+.B auto
+The default.
+Use the most appropriate from the available ones.
+.TP
+.B a
+Use BASIC rev. A.
+.TP
+.B b
+Use BASIC rev. B from early 600XL/800XL units.
+.TP
+.B c
+Use BASIC rev. C from late 600XL/800XL and all XE units.
+.TP
+.B custom
+Use a custom BASIC.
+.TP
+.B altirra
+Use Altirra BASIC that is included in the emulator.
+.PD
+.RE
+.TP
+\fB\-xegame\-rev auto\fR|\fBorig\fR|\fBcustom\fR
+Select XEGS builtin game version:
+.PP
+.RS
+.PD 0
+.TP
+.B auto
+The default.
+Use the most appropriate from the available ones.
+.TP
+.B orig
+Use the original Missile Command game.
+.TP
+.B custom
+Use a custom game ROM.
+.PD
+.RE
+
+.TP
+.B \-atari
+Emulate Atari 400/800
+.TP
+.B \-1200
+Emulate Atari 1200XL
+.TP
+.B \-xl
+Emulate Atari 800XL
+.TP
+.B \-xe
+Emulate Atari 130XE
+.TP
+.B \-320xe
+Emulate Atari 320XE (Compy-Shop)
+.TP
+.B \-rambo
+Emulate Atari 320XE (Rambo)
+.TP
+.B \-xegs
+Emulate Atari XEGS
+.TP
+.B \-5200
+Emulate Atari 5200
+.TP
+.B \-c
+Enable RAM between 0xc000 and 0xcfff in Atari 800
+
+.TP
+.BI \-axlon\  n
+Use Atari 800 Axlon memory expansion: \fIn\fR k total RAM
+.TP
+.B \-axlon0f
+Use Axlon shadow at 0x0fc0-0x0fff
+.TP
+.BI \-mosaic\  n
+Use 400/800 Mosaic memory expansion: \fIn\fR k total RAM
+.TP
+.B \-mapram
+Enable the MapRAM memory expansion. Works only when emulating an Atari XL/XE machine.
+.TP
+.B \-no-mapram
+Disable the MapRAM memory expansion.
+
+.TP
+.B \-pal
+Emulate PAL TV mode
+.TP
+.B \-ntsc
+Emulate NTSC TV mode
+
+.TP
+.B \-nobasic
+Used to disable Basic when starting the emulator in XL/XE mode.
+Simulates the Option key being held down during system boot.
+.TP
+.B \-basic
+Turn on Atari BASIC ROM
+
+.TP
+.BI \-cart\  filename
+Insert cartridge (CART or raw format)
+.TP
+.BR "\-cart\-type 0" .. 70
+Select type of the cartridge inserted with the \fB\-cart\fR option.
+When inserting a raw ROM image its type cannot be detected automaticcaly,
+and must be provided with this option.
+Setting to \fB0\fR means disabling the cartridge, and any other number
+indicates a specific cartridge type:
+.RS
+.PD 0
+.TP
+.B 1
+Standard 8 KB cartridge
+.TP
+.B 2
+Standard 16 KB cartridge
+.TP
+.B 3
+OSS two chip 16 KB cartridge (034M)
+.TP
+.B 4
+Standard 32 KB 5200 cartridge
+.TP
+.B 5
+DB 32 KB cartridge
+.TP
+.B 6
+Two chip 16 KB 5200 cartridge
+.TP
+.B 7
+Bounty Bob Strikes Back 40 KB 5200 cartridge
+.TP
+.B 8
+64 KB Williams cartridge
+.TP
+.B 9
+Express 64 KB cartridge
+.TP
+.B 10
+Diamond 64 KB cartridge
+.TP
+.B 11
+SpartaDos X 64 KB cartridge
+.TP
+.B 12
+XEGS 32 KB cartridge
+.TP
+.B 13
+XEGS 64 KB cartridge (banks 0-7)
+.TP
+.B 14
+XEGS 128 KB cartridge
+.TP
+.B 15
+OSS one chip 16 KB cartridge
+.TP
+.B 16
+One chip 16 KB 5200 cartridge
+.TP
+.B 17
+Decoded Atrax 128 KB cartridge
+.TP
+.B 18
+Bounty Bob Strikes Back 40 KB cartridge
+.TP
+.B 19
+Standard 8 KB 5200 cartridge
+.TP
+.B 20
+Standard 4 KB 5200 cartridge
+.TP
+.B 21
+Right slot 8 KB cartridge
+.TP
+.B 22
+32 KB Williams cartridge
+.TP
+.B 23
+XEGS 256 KB cartridge
+.TP
+.B 24
+XEGS 512 KB cartridge
+.TP
+.B 25
+XEGS 1 MB cartridge
+.TP
+.B 26
+MegaCart 16 KB cartridge
+.TP
+.B 27
+MegaCart 32 KB cartridge
+.TP
+.B 28
+MegaCart 64 KB cartridge
+.TP
+.B 29
+MegaCart 128 KB cartridge
+.TP
+.B 30
+MegaCart 256 KB cartridge
+.TP
+.B 31
+MegaCart 512 KB cartridge
+.TP
+.B 32
+MegaCart 1 MB cartridge
+.TP
+.B 33
+Switchable XEGS 32 KB cartridge
+.TP
+.B 34
+Switchable XEGS 64 KB cartridge
+.TP
+.B 35
+Switchable XEGS 128 KB cartridge
+.TP
+.B 36
+Switchable XEGS 256 KB cartridge
+.TP
+.B 37
+Switchable XEGS 512 KB cartridge
+.TP
+.B 38
+Switchable XEGS 1 MB cartridge
+.TP
+.B 39
+Phoenix 8 KB cartridge
+.TP
+.B 40
+Blizzard 16 KB cartridge
+.TP
+.B 41
+Atarimax 128 KB Flash cartridge
+.TP
+.B 42
+Atarimax 1 MB Flash cartridge
+.TP
+.B 43
+SpartaDos X 128 KB cartridge
+.TP
+.B 44
+OSS 8 KB cartridge
+.TP
+.B 45
+OSS two chip 16 KB cartridge (043M)
+.TP
+.B 46
+Blizzard 4 KB cartridge
+.TP
+.B 47
+AST 32 KB cartridge
+.TP
+.B 48
+Atrax SDX 64 KB cartridge
+.TP
+.B 49
+Atrax SDX 128 KB cartridge
+.TP
+.B 50
+Turbosoft 64 KB cartridge
+.TP
+.B 51
+Turbosoft 128 KB cartridge
+.TP
+.B 52
+Ultracart 32 KB cartridge
+.TP
+.B 53
+Low bank 8 KB cartridge
+.TP
+.B 54
+SIC! 128 KB cartridge
+.TP
+.B 55
+SIC! 256 KB cartridge
+.TP
+.B 56
+SIC! 512 KB cartridge
+.TP
+.B 57
+Standard 2 KB cartridge
+.TP
+.B 58
+Standard 4 KB cartridge
+.TP
+.B 59
+Right slot 4 KB cartridge
+.TP
+.B 60
+Blizzard 32 KB cartridge
+.TP
+.B 61
+MegaMax 2 MB cartridge
+.TP
+.B 62
+The!Cart 128 MB cartridge
+.TP
+.B 63
+Flash MegaCart 4 MB cartridge
+.TP
+.B 64
+MegaCart 2 MB cartridge
+.TP
+.B 65
+The!Cart 32 MB cartridge
+.TP
+.B 66
+The!Cart 64 MB cartridge
+.TP
+.B 67
+XEGS 64 KB cartridge (banks 8-15)
+.TP
+.B 68
+Atrax 128 KB cartridge
+.TP
+.B 69
+aDawliah 32 KB cartridge
+.TP
+.B 70
+aDawliah 64 KB cartridge
+.PD
+.RE
+If this option is not given, the user will be asked to choose the cartridge
+type when the emulator starts.
+.TP
+.BI \-cart2\  filename
+Insert piggyback cartridge (CART or raw format).
+This works only if the first cartridge is a pass-through (currently only
+SpartaDOS X 64KB and 128KB types).
+.TP
+.BR "\-cart2\-type 0" .. 70
+Select type of the cartridge inserted with the \fB-cart2\fR option.
+When inserting a raw ROM image its type cannot be detected automatically,
+and must be provided with this option.
+The available values are the same as for the \fB\-cart\-type\fR option above.
+.TP
+.B \-cart\-autoreboot
+Automatically reboot after cartridge inserting/removing (this is the default
+setting).
+This does not apply to the piggyback cartridge - inserting or removing it
+never causes automatic reboot.
+.TP
+.B \-no\-cart\-autoreboot
+Disable automatic reboot after cartridge inserting/removing.
+
+.TP
+.BI \-run\  filename
+Run Atari program (EXE, COM, XEX, BAS, LST)
+.TP
+.BI \-state\  filename
+Load saved-state file
+.TP
+.BI \-tape\  filename
+Attach cassette image (CAS format or raw file)
+.TP
+.BI \-boottape\  filename
+Attach cassette image and boot it
+.TP
+.B \-tape\-readonly
+Set the attached cassette image as read-only. 
+
+
+.TP
+.B \-1400
+Emulate the Atari 1400XL
+.TP
+.B \-xld
+Emulate the Atari 1450XLD
+.TP
+.B \-bb
+Emulate the CSS Black Box
+.TP
+.B \-mio
+Emulate the ICD MIO board
+
+.TP
+.B \-nopatch
+Normally the OS is patched giving very fast I/O.
+This options prevents the patch from being applied so that the OS accesses
+the serial port hardware directly.
+This option will probably never be needed since programs that access the
+serial hardware should work even if the OS has been patched.
+.TP
+.B \-nopatchall
+Don't patch OS at all, H:, P: and R: devices won't work
+
+.TP
+.BI \-H1\  path
+Set path for H1: device
+.TP
+.BI \-H2\  path
+Set path for H2: device
+.TP
+.BI \-H3\  path
+Set path for H3: device
+.TP
+.BI \-H4\  path
+Set path for H4: device
+.TP
+.BI \-Hpath\  path
+Set path for Atari executables on the H: device
+.TP
+.B \-hreadonly
+Enable read-only mode for H: device
+.TP
+.B \-hreadwrite
+Disable read-only mode for H: device
+.TP
+.B \-devbug
+Put debugging messages for H: and P: devices in log file
+
+.TP
+.B \-rtime
+Enable R-Time 8 emulation
+.TP
+.B \-nortime
+Disable R-Time 8 emulation
+
+.TP
+\fB\-rdevice\fR [\fIdev\fR]
+Enable R: device.
+If \fIdev\fR is specified then it's used as host serial device name (e.g.
+\fI/dev/ttyS0\fR on linux).
+If there is no \fIdev\fR specified then R: is directed to network.
+
+.TP
+.B \-mouse off
+Do not use mouse
+.TP
+.B \-mouse pad
+Emulate paddles
+.TP
+.B \-mouse touch
+Emulate Atari Touch Tablet
+.TP
+.B \-mouse koala
+Emulate Koala Pad
+.TP
+.B \-mouse pen
+Emulate Light Pen
+.TP
+.B \-mouse gun
+Emulate Light Gun
+.TP
+.B \-mouse amiga
+Emulate Amiga mouse
+.TP
+.B \-mouse st
+Emulate Atari ST mouse
+.TP
+.B \-mouse trak
+Emulate Atari Trak-Ball
+.TP
+.B \-mouse joy
+Emulate joystick using mouse
+.TP
+.BI \-mouseport\  num
+Set mouse port 1-4 (default 1)
+.TP
+.BI \-mousespeed\  num
+Set mouse speed 1-9 (default 3)
+.TP
+.B \-multijoy
+Emulate MultiJoy4 interface
+.TP
+.B \-directmouse
+Use mouse's absolute position
+.TP
+.BI \-cx85\  num
+Emulate CX85 numeric keypad on port \fInum\fR
+.TP
+.B \-grabmouse
+SDL only, prevent mouse pointer from leaving the window
+
+.TP
+.BI \-record\  filename
+Record all input events to \fIfilename\fR. Can be used for gaming contests
+(highest score etc).
+.TP
+.BI \-playback\  filename
+Playback input events from \fIfilename\fR. Watch an expert play the game.
+
+.TP
+.B \-refresh
+Controls screen refresh rate.
+A numerical value follows this option which specifies how many emulated
+screen updates are required before the actual screen is updated.
+This value effects the speed of the emulation: A higher value results in
+faster CPU emulation but a less frequently updated screen.
+
+.TP
+\fB\-ntsc\-artif \fImode\fR, \fB\-pal\-artif \fImode\fR
+Set emulation mode of video artifacts in NTSC or PAL, respectively. The
+available values for \fImode\fR are:
+.RS
+.PD 0
+.TP
+.B none
+Disable video artifacts.
+.TP
+.B ntsc-old
+Simple emulation of NTSC composite video artifacts. Fast but inaccurate.
+.TP
+.B ntsc-new
+Improved emulation of NTSC artifacts. May look better than \fBntsc\-old\fR.
+.TP
+.B ntsc-full
+Full emulation of NTSC artifacts. Rather slow and available only in 16-
+and 32-bit video modes.
+.TP
+.B pal-simple
+Simple emulation of PAL chroma blending, without composite artifacts. Fast but
+inaccurate.
+.TP
+.B pal-blend
+Accurate emulation of PAL chroma blending, without composite artifacts.
+Available only in 16- and 32-bit video modes.
+.PD
+.RE
+.TP
+.BI \-artif\  mode
+Set artifacting mode 0-4 (0 = disable). Only for tv effects \fBntsc\-old\fR and \fBntsc\-new\fR.
+
+.TP
+.BR "\-colors\-preset standard" | "deep\-black" | vibrant
+Use one of predefined colour adjustments
+.TP
+.BI \-saturation\  n
+Set screen color saturation (like TV Colour control)
+.TP
+\fB\-ntsc\-saturation \fIn\fR, \fB\-pal\-saturation \fIn\fR
+Set saturation only for NTSC or PAL, respectively
+.TP
+.BI \-contrast\  n
+Set screen contrast (also called white level)
+.TP
+\fB\-ntsc\-contrast \fIn\fR, \fB\-pal\-contrast \-fIn\fR
+Set contrast only for NTSC or PAL, respectively
+.TP
+.BI \-brightness\  n
+Set screen brightness (also called black level)
+.TP
+\fB\-ntsc\-brightness \fIn\fR, \fB\-pal\-brightness \fIn\fR
+Set brightness only for NTSC or PAL, respectively
+.TP
+.BI \-gamma\  n
+Set screen gamma correction
+.TP
+\fB\-ntsc\-gamma \fIn\fR, \fB\-pal\-gamma \fIn\fR
+Set gamma adjustment only for NTSC or PAL, respectively
+.TP
+.BI \-tint\  n
+Set tint -1..1.
+.TP
+\fB\-ntsc\-tint \fIn\fR, \fB\-pal\-tint \fIn\fR
+Set tint only for NTSC or PAL, respectively
+.TP
+.BI \-ntsc-colordelay\  n
+Set GTIA color delay for NTSC system.
+This emulates adjusting the potentiometer existing at the bottom of Atari
+computers, which adjusts hues of colors produced by the computer.
+.TP
+.BI \-pal\-colordelay\  n
+Set GTIA color delay for PAL system.
+
+.TP
+\fB\-paletten \fIfilename\fR, \fB\-palettep \fIfilename\fR
+Read Atari NTSC/PAL colors from ACT file
+.TP
+.BR \-paletten\-adjust ,\  \-palettep\-adjust
+Apply colour adjustments (brightness, contrast etc.) to the loaded NTSC/PAL
+palette (by default the loaded palette is displayed unmodified).
+
+.TP
+.BI \-screenshots\  pattern
+Set filename pattern for screenshots.
+Use to override the default \fIatari000.png\fR, \fIatari001.png\fR etc.
+filenames.
+Hashes are replaced with raising numbers.
+Existing files are overwritten only if all the files defined by the pattern
+exist.
+
+.TP
+.B \-showspeed
+Show percentage of actual speed
+
+.TP
+.B \-sound
+Enable sound
+.TP
+.B \-nosound
+Disable sound
+.TP
+.BI \-dsprate\  freq
+Set sound output frequency in Hz.
+The default is 44100 Hz.
+.TP
+.B \-audio16
+Set sound output format to 16-bit
+.TP
+.B \-audio8
+Set sound output format to 8-bit
+.TP
+.BI \-snd\-buflen\  ms
+Set length of the hardware sound buffer in milliseconds.
+Setting to 0 (the default) causes the length to be set automatically.
+Higher values increase sound latency.
+Automatic setting should be OK in most cases.
+.TP
+.BI \-snddelay\  ms
+Set sound latency in milliseconds. 
+Increase it if you experience gaps of silence during sound playback.
+
+.SS Curses Options
+
+.TP
+.B \-left
+Use columns 0 to 39
+.TP
+.B \-central
+Use columns 20 to 59
+.TP
+.B \-right
+Use columns 40 to 79
+.TP
+.B \-wide1
+Use columns 0 to 79.
+In this mode only the even character positions are used.
+The odd locations are filled with spaces.
+.TP
+.B \-wide2
+Use columns 0 to 79.
+This mode is similar to \fB-wide1\fP except that the spaces are in reverse
+video if the previous character was also in reverse video.
+
+.SS Falcon Options
+
+.TP
+.BI \-interlace\  x
+Generate Falcon screen only every \fIx\fR frame
+.TP
+.B \-videl
+Direct VIDEL programming (Falcon/VGA only)
+.TP
+.B \-double
+Double the screen size on NOVA
+.TP
+.B \-delta
+Delta screen output (differences only)
+.TP
+.B \-joyswap
+Swap joysticks
+
+.SS Java NestedVM Options
+
+.TP
+.BI \-scale\  n
+Scale width and height by \fIn\fR
+
+.SS SDL Options
+
+.TP
+.B \-fullscreen
+Start in fullscreen mode.
+The default resolution is 336x240 and can be later changed.
+.TP
+.B \-windowed
+Start in a window (the default).
+.TP
+.B \-rotate90
+Rotate display (useful for devices with 240x320 screen).
+.TP
+.B \-no\-rotate90
+Don't rotate display (the default).
+.TP
+.BI \-fs\-width\ number\-of\-pixels
+Host horizontal resolution for fullscreen.
+.TP
+.BI \-fs\-height\  number\-of\-pixels
+Host vertical resolution for fullscreen.
+.TP
+.BI \-win\-width\  number\-of\-pixels
+Set horizontal size of the window.
+The window can be later resized manually.
+.TP
+.BI \-win\-height\  number\-of\-pixels
+Set vertical size of the window.
+The window can be later resized nanually.
+.TP
+.BI \-bpp\ number\-of\-bits
+Sets image color depth when OpenGL acceleration is disabled.
+Accepted values are: \fB0\fR (use desktop depth; this is the default),
+\fB8\fR, \fB16\fR and \fB32\fR.
+Depending on the type of graphics hardware, the fullscreen setting and current
+desktop bit depth, either of the values might give the best performance.
+Note that with bit depth set to 16 emulation of colors is slightly less
+accurate.
+.TP
+.B \-vsync
+Synchronize the display with the monitor's vertical retrace, to remove image
+tearing artifacts.
+This improves display quality, but may be not available depending on the
+current wideo mode (fullscreen/windowed), the chosen \fBSDL_VIDEODRIVER\fR
+and type of graphics hardware.
+Synchronization is available for some SDL videodrivers (directx, dga) but not
+for others.
+In OpenGL this option has no effect - vertical synchronization must be instead
+enabled in the video hardware driver's settings, if available.
+.TP
+.B \-no\-vsync
+Disable synchronization with monitor's vertical retrace (the default).
+.TP
+\fB\-horiz\-area narrow\fR|\fBtv\fR|\fBfull\fR|\fInumber\fR
+Set amount of visible screen horizontally:
+.PP
+.RS
+.PD 0
+.TP
+.B narrow
+Shows 320 pixels.
+.TP
+.B tv
+The default.
+Shows area visible on a standard TV (336 pixels).
+.TP
+.B full
+Shows full overscan area (384 pixels).
+.TP
+.I number
+An exact horizontal size can be set by providing a \fInumber\fR between 160
+and 384.
+.PD
+.RE
+.TP
+\fB\-vertical\-area short\fR|\fBtv\fR|\fBfull\fR|\fInumber\fR
+Set amount of visible screen vertically:
+.PP
+.RS
+.PD 0
+.TP
+.B short
+Shows 200 pixels.
+.TP
+.B tv
+The default.
+Shows area visible on a typical TV (224 or 240 pixels, depending on current TV
+system).
+.TP
+.B full
+Shows full overscan area, which can be up to 300 pixels in case of the XEP80.
+.TP
+.I number
+An exact number of visible scanlines can be set by providing a \fInumber\fR
+between 100 and 300.
+.PD
+.RE
+.PP
+Note that when displaying output of an XEP80 or Austin Franklin 80 column
+card, the \fBtv\fR setting will crop the top and bottom parts of text area,
+just like a real TV does - in such case setting the option to \fBfull\fR would
+be more appriopriate.
+.TP
+.BI \-horiz\-shift\  number
+When the visible horizontal area is not set to \fBfull\fR, this option
+specifies the screen's area that will be visible.
+Values higher than 0 will cause showing more of the right side of the screen,
+while values lower than 0 will cause showing more of the left side.
+The default is 0 (no shift).
+.BI \-vert\-shift\  number
+Analogically to \fB-horiz-shift\fR: when the visible vertical area is not set
+to \fBfull\fR, this option specifies the screen's area that will be visible.
+Values higher than 0 will cause showing more of the bottom part of the screen,
+while values lower than 0 will cause showing more of the top part.
+The default is 0 (no shift).
+.TP
+\fB\-stretch none\fR|\fBintegral\fR|\fBfull\fR|\fInumber\fR
+Choose method of stretching the image to fit the screen/window area:
+.PP
+.RS
+.PD 0
+.TP
+.B none
+The image won't be stretched at all.
+.TP
+.B integral
+The default.
+The image will fit the screen/window but will be stretched only by an integral
+multiplier.
+This setting allows for nice output when using scanlines in low screen
+resolutions.
+.TP
+.B full
+The screen will fit the entire screen/window area.
+This setting looks best in high screen resolutions.
+.TP
+.I number
+A custom multiplier (floating point number) can be also provided to precisely
+set the amount of stretching.
+.PD
+.RE
+.TP
+\fB\-fit\-screen width\fR|\fBheight\R|\fBboth\fR
+When \fB-stretch\fR is set to \fIintegral\fR or \fIfull\fR, this parameter
+controls how the stretching is performed with relation to window/screen size:
+.PP
+.RS
+.PD 0
+.TP
+.B width
+Fits the image's width while allowing it to be cropped vertically.
+.TP
+.B height
+Fits the image's height while allowing it to be cropped horizontally.
+.TP
+.B both
+The default.
+Fit both the image's width and height, avoiding cropping.
+.PD
+.RE
+.TP
+\fB\-image\-aspect none\fR|\fBsquare\-pixels\fR|\fBreal\fR
+Choose how the image's aspect ratio should be maintained when stretching:
+.PP
+.RS
+.PD 0
+.TP
+.B none
+Causes the image to be stretched without restriction to fit the screen/window
+area fully.
+.TP
+.B square\-pixels
+The default.
+Causes the image to be stretched by the same amount horizontally and
+vertically, maintaining square pixels.
+In low screen resolutions this setting may produce the nicest result.
+.TP
+.B real
+Recreates the aspect ratio of a real TV display (pixels are not square), but
+only if the \fB\-host\-aspect\-ratio\fR option is set correctly.
+.PD
+.RE
+.TP
+\fB\-host\-aspect\-ratio auto\fR|\fIx\fB:\fIy\fR
+Set the aspect ratio of the host monitor on which the emulator's display is
+placed.
+Allowed values are \fBauto\fR for autodetection, or ratios like \fB4:3\fR,
+\fB16:9\fR, \fB1.25:1\fR ...
+This value is used to properly maintain image's aspect ratio when having
+\fB\-image\-aspect\fR set to \fBreal\fR.
+The default value is \fBauto\fR.
+Note that host aspect ratio detection works as expected only if the desktop
+resolution matches aspect ratio of the display device (in other words, display
+pixels are square).
+If, for example, desktop resolution is 800x600 on a 16:9 monitor,
+autodetection will fail and host aspect ratio will have to be set manually, by
+measuring physical width and height of the monitor and setting the parameter
+to \fIwidth\fB:\fIheight\fR.
+.TP
+.B \-80column
+Shows output of an 80 column hardware, when it is available (the default).
+This parameter has effect only if an 80 column hardware is activated, using
+one of the parameters \fB\-af80\fR, \fB\-proto80\fR or \fB\-af80\fR.
+.TP
+.B \-no\-80column
+Deactivates showing output of an 80 column hardware.
+
+
+.TP
+.B \-nojoystick
+Do not initialize SDL joysticks
+.TP
+.BI \-joy0\  path\-to\-device
+Define path to device used in LPTjoy 0. Available on linux-ia32 only.
+.TP
+.BI \-joy1\  path\-to\-device
+Define path to device used in LPTjoy 1. Available on linux-ia32 only.
+
+.TP
+\fB\-ntsc\-filter\-preset composite\fR|\fBsvideo\fR|\fBrgb\fR|\fBmonochrome\fR
+Use one of predefined NTSC filter adjustments.
+.TP
+.BI \-ntsc\-sharpness\  n
+Set sharpness of the NTSC filter.
+.TP
+.BI \-ntsc\-resolution\  n
+Set resolution of the NTSC filter.
+.TP
+.BI \-ntsc\-artifacts\  n
+Set artifacts of the NTSC filter.
+.TP
+.BI \-ntsc\-fringing\  n
+Set fringing of the NTSC filter.
+.TP
+.BI \-ntsc\-bleed\  n
+Set bleed of the NTSC filter.
+.TP
+.BI \-ntsc\-burstphase\  n
+Set burst phase of the NTSC filter.
+This changes colors of artifacts.
+The best values are \fB0\fR, \fB0.5\fR, \fB1\fR, \fB1.5\fR.
+.TP
+.BI \-scanlines\  n
+Set visibility of scanlines (0..100).
+Scanlines are only visible when the screen's or window's vertical size is at
+least 480 (more precisely, at least twice the number of scanlines given in
+\fB\-vert\-area\fR).
+.TP
+.B \-scanlinesint
+Enable scanlines interpolation (looks nicer).
+.TP
+.B \-no\-scanlinesint
+Disable scanlines interpolation (in software modes may give better performance).
+.TP
+.B \-video\-accel
+Use OpenGL hardware acceleration for displaying and stretching of the emulator's
+display.
+Using OpenGL improves performance.
+.TP
+.B \-no\-video\-accel
+Don't use OpenGL hardware acceleration (the default).
+.TP
+\fB\-pixel\-format bgr16\fR|\fBrgb16\fR|\fBbgra32\fR|\fBargb32\fR
+Choose format of texture data when OpenGL acceleration is enabled.
+Depending on the type of the graphics hardware, either of the values might
+give the best performance.
+Note that with pixel format set to \fBbgr16\fR or \fBrgb16\fR, emulation of
+colors is slightly less accurate.
+.TP
+.B \-pbo
+Use Pixel Buffer Objects when OpenGL acceleration is enabled (the default).
+PBOs are available on newer graphics hardware and when used, substantially
+improve emulator's performance.
+However in rare cases (some Intel on-board chips) using PBOs may actually
+descrease perfromance.
+.TP
+.B \-no\-pbo
+Don't use Pixel Buffer Objects when OpenGL acceleration is used.
+.TP
+.B \-bilinear\-filter
+Enable bilinear filtering of the screen in OpenGL modes.
+.TP
+.B \-no\-bilinear\-filter
+Disable bilinear filtering in OpenGL modes (the default).
+.TP
+.BI \-opengl\-lib\  path
+Provide a custom OpenGL shared library.
+If not given, Atari800 will use a default system-specific library (typically
+\fIopengl32.dll\fR or \fIlibGL.so\fR).
+.TP
+.B \-proto80
+Emulate a prototype 80 column board for the 1090
+.TP
+.B \-xep80
+Emulate the XEP80
+.TP
+.BI \-xep80port\ n
+Use XEP80 on joystick port \fIn\fR
+.TP
+.B \-af80
+Emulate the Austin Franklin 80 column daughterboard for Atari 800.
+.TP
+.B \-volume 0..100
+Sets global volume of Atari 800.
+
+
+.SS X11 Options
+
+.TP
+.B \-small
+Run the emulator in a small window where each Atari 800 pixel is
+represented by one X Window pixel
+.TP
+.B \-large
+Runs the emulator in a large window where each Atari 800 pixel is
+represented by a 2x2 X Window rectangle. This mode is selected by
+default.
+.TP
+.B \-huge
+Runs the emulator in a huge window where each Atari 800 pixel is
+represented by a 3x3 X Window rectangle.
+.TP
+.BI \-clip_x\  number\-of\-pixels
+Set left offset for clipping
+.TP
+.BI \-clip_width\  number\-of\-pixels
+Set the width of the clipping-area
+.TP
+.BI \-clip_y\  number\-of\-pixels
+Set top offset for clipping
+.TP
+.BI \-clip_height\  number\-of\-pixels
+Set the height of the clipping-area
+.TP
+.B \-private_cmap
+Use private colormap
+.TP
+.B \-sio
+Show SIO monitor
+.TP
+.B \-x11bug
+Enable debug code in \fIatari_x11.c\fR
+
+.TP
+.B \-keypad
+Keypad mode
+
+.PD 0
+
+.SH KEYBOARD, JOYSTICK AND OTHER CONTROLLERS
+
+.TP 22
+.B F1
+Built in user interface
+.TP
+.B F2
+Option key
+.TP
+.B F3
+Select key
+.TP
+.B F4
+Start key
+.TP
+.B F5
+Reset key ("warm reset")
+.TP
+.BR Shift + F5
+Reboot ("cold reset")
+.TP
+.B F6
+Help key (XL/XE only)
+.TP
+.B F7
+Break key
+.TP
+.B F8
+Enter monitor
+.TP
+.B F9
+Exit emulator
+.TP
+.B F10
+Save screenshot
+.TP
+.BR Shift + F10
+Save interlaced screenshot
+.TP
+.BR Alt + R
+Run Atari program
+.TP
+.BR Alt + D
+Disk management
+.TP
+.BR Alt + C
+Cartridge management
+.TP
+.BR Alt + Y
+Select system
+.TP
+.BR Alt + O
+Sound settings
+.TP
+.BR Alt + W
+Sound recording start/stop
+.TP
+.BR Alt + S
+Save state file
+.TP
+.BR Alt + L
+Load state file
+.TP
+.BR Alt + A
+About the emulator
+.TP
+.B Insert
+Insert line (Atari Shift+'>')
+.TP
+.BR Ctrl + Insert
+Insert character (Atari Ctrl+'>')
+.TP
+.BR Shift + Ctrl + Insert
+Shift+Ctrl+'>'
+.TP
+.B Delete
+Delete line (Atari Shift+Backspace)
+.TP
+.BR Shift + Backspace
+Delete line (Atari Shift+Backspace)
+.TP
+.BR Ctrl + Delete
+Delete character (Atari Ctrl+Backspace)
+.TP
+.BR Ctrl + Backspace
+Delete character (Atari Ctrl+Backspace)
+.TP
+.BR Shift + Ctrl + Delete
+Shift+Ctrl+Backspace
+.TP
+.BR Shift + Ctrl + Backspace
+Shift+Ctrl+Backspace
+.TP
+.B Home
+Clear (Atari Shift+'<')
+.TP
+.BR Ctrl + Home
+Ctrl+'<' (also clears screen)
+.TP
+.BR Shift + Ctrl + Home
+Shift+Ctrl+'<'
+.TP
+.B ~
+Inverse video
+.TP
+.B Up
+Up (Atari Ctrl+'-')
+.TP
+.B Down
+Down (Atari Ctrl+'=')
+.TP
+.B Left
+Left (Atari ctrl+'+')
+.TP
+.B Right
+Right (Atari ctrl+'*')
+.TP
+.BR Ctrl + Up
+-
+.TP
+.BR Ctrl + Down
+=
+.TP
+.BR Ctrl + Left
++
+.TP
+.BR Ctrl + Right
+*
+.TP
+.BR Shift + Up
+_ (Atari Shift+'-')
+.TP
+.BR Shift + Down
+| (Atari Shift+'=')
+.TP
+.BR Shift + Left
+\ (Atari Shift+'+')
+.TP
+.BR Shift + Right
+^ (Atari Shift+'*')
+.TP
+.BR Shift + Ctrl + Up
+Shift+Ctrl+-
+.TP
+.BR Shift + Ctrl + Down
+Shift+Ctrl+=
+.TP
+\fBCtrl\fR+\fB\\\fR
+Ctrl+Esc  (Workaround for Windows)
+.TP
+\fBShift\fR+\fBCtrl\fR+\fB\\\fR
+Shift+Ctrl+Esc (Workaround for Windows)
+
+.SS CX85 Keypad (if enabled):
+.TP 25
+.RB "host keypad " 0123456789- .
+0123456789-.
+.TP
+.RB "host keypad " \/
+NO
+.TP
+.RB "host keypad " Ctrl + /
+ESCAPE
+.TP
+.RB "host keypad " *
+DELETE
+.TP
+.RB "host keypad " +
+YES
+.TP
+.RB "host keypad " Enter
++ENTER
+
+.PP
+Paddles, Atari touch tablet, Koala pad, light pen, light gun,
+ST/Amiga mouse, Atari trak-ball, joystick and Atari 5200 analog
+controller are emulated using mouse on ports that support it.
+See the options above for how to enable mouse.
+
+.SS Basic
+
+No function keys or \fBAlt\fR+\fIletter\fR shortcuts.
+Use \fBCtrl\fR+\fBC\fR to enter the monitor.
+Controllers not supported in this version.
+
+.SS Curses
+
+\fBF10\fR (Save screenshot) does not work in the default CURSES_BASIC build.
+\fBShift\fR+\fBF5\fR and \fBShift\fR+\fBF10\fR don't work at all.
+Avoid \fBCtrl\fR + \fBC\fR, \fBH\fR, \fBJ\fR, \fBM\fR, \fBQ\fR, \fBS\fR and
+\fBZ\fR.
+The remaining control characters can be typed.
+Control characters are displayed on the screen with the associated upper case
+character in bold.
+
+Controllers not supported in this version.
+
+.SS Falcon
+
+.TP
+.B Help
+Help key (XL/XE)
+
+.PP
+Joystick 0 is operated by the numeric keypad (make sure that the numeric
+keypad has been enabled).
+
+        \fB7\fR \fB8\fR \fB9\fR
+         \\|/
+        \fB4\fR \fB5\fR \fB6\fR
+         /|\\
+        \fB1\fR \fB2\fR \fB3\fR
+
+        And \fB0\fR is the fire key.
+
+Mouse not supported in this version.
+
+.SS SDL
+
+.TP 15
+.B `
+Atari/Inverse key
+.TP
+.B LSUPER
+Atari/Inverse key (unusable under Windows)
+.TP
+.B RSUPER
+CapsToggle (+Shift = CapsLock)
+
+.TP
+.BR LAlt + F
+Switch fullscreen/windowed display.
+.TP
+.BR LAlt + G
+Switch visible horizontal area. See \fB\-horiz\-area\fR.
+.TP
+.BR LAlt + J
+Swap \fBkeyboard_emulated\fP joysticks
+.TP
+.BR LAlt + M
+Grab mouse (prevents mouse pointer from leaving the window)
+
+.TP
+.BR LAlt + LShift + 1
+Decrease tint (also called hue)
+.TP
+.BR LAlt + 1
+Increase hue
+.TP
+.BR LAlt + LShift + 2
+Decrease saturation (like TV Colour control)
+.TP
+.BR LAlt + 2
+Increase saturation
+.TP
+.BR LAlt + LShift + 3
+Decrease contrast (also called white level)
+.TP
+.BR LAlt + 3
+Increase contrast
+.TP
+.BR LAlt + LShift + 4
+Decrease brightness (also called black level)
+.TP
+.BR LAlt + 4
+Increase brightness
+.TP
+.BR LAlt + LShift + 5
+Decrease gamma adjustment
+.TP
+.BR LAlt + 5
+Increase gamma adjustment
+.TP
+.BR LAlt + LShift + 6
+Decrease color delay (Atari color adjustment potentiometer)
+.TP
+.BR LAlt + 6
+Increase color delay
+
+.PP
+The following keys work only when the NTSC filter is enabled (\fB\-ntsc\-artif\fR
+set to \fBntsc\-full\fR):
+.RS
+.TP 15
+.BR LAlt + LShift + 7
+Decrease sharpness
+.TP
+.BR LAlt + 7
+Increase sharpness
+.TP
+.BR LAlt + LShift + 8
+Decrease resolution
+.TP
+.BR LAlt + 8
+Increase resolution
+.TP
+.BR LAlt + LShift + 9
+Decrease artifacts
+.TP
+.BR LAlt + 9
+Increase artifacts
+.TP
+.BR LAlt + LShift + 0
+Decrease fringing
+.TP
+.BR LAlt + 0
+Increase fringing
+.TP
+.BR LAlt + LShift + -
+Decrease bleed
+.TP
+.BR LAlt + -
+Increase bleed
+.TP
+.BR LAlt + LShift + =
+Decrease NTSC burst phase (use this to change artifacting colours)
+.TP
+.BR LAlt + =
+Increase NTSC burst phase
+.RE
+
+.TP 15
+.BR LAlt + LShift + [
+Decrease scanlines visibility
+.TP
+.BR LAlt + [
+Increase scanlines visibility
+.TP
+.BR LAlt + ]
+Toggle NTSC composite/S-Video/RGB/monochrome settings
+
+
+.TP
+.BR LAlt + Shift + X
+Enable/disable output of a 80 column hardware (use with \fB-xep80\fR,
+\fB-proto80\fR or \fB-af80\fR).
+
+
+.PP
+Apart from standard joysticks (handled by the SDL) up to two keyboard joysticks
+are supported. The keys used for joystick directions and the trigger can be
+freely defined in the config UI (Controller Config -> Define layout).
+Keyboard joystick emulation can be enabled/disabled in the Controller Config.
+By default, joy 0 is enabled and joy 1 is disabled (to not steal normal
+AWDS keys in the emulator).
+
+.SS X11
+
+.TP
+.B Alt
+Atari key (either Alt key will work)
+
+.PP
+Joystick 0 is operated by the mouse position relative to the center of
+the screen. The mouse button acts as the trigger.  On Linux, standard
+joysticks are also supported.
+
+.PD 1
+
+.SH FILES
+.TP
+.I /usr/share/atari800/ATARIOSA.ROM
+Atari O/S A
+.TP
+.I /usr/share/atari800/ATARIOSB.ROM
+Atari O/S B
+.TP
+.I /usr/share/atari800/ATARIXL.ROM
+Atari 800XL O/S
+.TP
+.I /usr/share/atari800/ATARI5200.ROM
+Atari 5200 O/S
+.TP
+.I /usr/share/atari800/ATARIBAS.ROM
+Atari Basic
+
+.SH BUGS
+See the \fIBUGS\fR file.

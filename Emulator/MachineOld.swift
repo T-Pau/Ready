@@ -149,9 +149,9 @@ public class MachineOld {
         return controllers.contains(where: { $0.inputType == .mouse })
     }
     
-    private static let controllerKeys: [MachineConfigOld.Key] = [ .controlPort1, .controlPort2 ]
+    private static let controllerKeys: [MachineConfig.Key] = [ .controlPort1, .controlPort2 ]
 
-    private static let driveKeys: [MachineConfigOld.Key] = [ .diskDrive8, .diskDrive9, .diskDrive10, .diskDrive11 ]
+    private static let driveKeys: [MachineConfig.Key] = [ .diskDrive8, .diskDrive9, .diskDrive10, .diskDrive11 ]
 
     public convenience init() {
         self.init(specification: Defaults.standard.machineSpecification)
@@ -372,7 +372,7 @@ extension MachineOld {
             break
             
         case .joystick, .lightGun, .lightPen, .mouse:
-            let priorityPort = specification.computer.viceMachineModel.viceMachine == .spectrum ? 1 : 2
+            let priorityPort = specification.computer.model.type == .spectrum ? 1 : 2
             inputPorts.append(InputPort(port: port, isUserPort: isUserPort, controller: controller, priority: port == priorityPort))
         case .paddle:
             if !isUserPort {

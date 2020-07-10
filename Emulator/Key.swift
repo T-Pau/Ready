@@ -29,6 +29,7 @@ public enum Key : Equatable, Hashable {
     case ArrowLeft
     case ArrowUp
     case Break
+    case Caps
     case ClearHome
     case Commodore
     case CommodoreLock
@@ -57,14 +58,19 @@ public enum Key : Equatable, Hashable {
     case Help
     case InsertDelete
     case InverseVideo
+    case Option
+    case Reset
     case Restore
     case Return
     case RunStop
+    case Select
     case Shift
     case ShiftLeft
     case ShiftLock
     case ShiftRight
+    case Start
     case SymbolShift
+    case Tab
     case TrueVideo
     
     public var isShift: Bool {
