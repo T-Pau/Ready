@@ -166,8 +166,6 @@
 		4B540ECF24A8D84100F6925B /* Icon-SX64-60.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B540EC524A8D84100F6925B /* Icon-SX64-60.png */; };
 		4B540ED024A8D84100F6925B /* Icon-SX64-76.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B540EC624A8D84100F6925B /* Icon-SX64-76.png */; };
 		4B540ED324A8D84100F6925B /* Icon-VIC20-83.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B540EC924A8D84100F6925B /* Icon-VIC20-83.5.png */; };
-		4B540F1724A9B59F00F6925B /* PLUS4 in Resources */ = {isa = PBXBuildFile; fileRef = 4B540F1524A9B59F00F6925B /* PLUS4 */; };
-		4B540F1824A9B59F00F6925B /* C128 in Resources */ = {isa = PBXBuildFile; fileRef = 4B540F1624A9B59F00F6925B /* C128 */; };
 		4B540F1924A9B60800F6925B /* PLUS4 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B540F1524A9B59F00F6925B /* PLUS4 */; };
 		4B540F1A24A9B61100F6925B /* C128 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B540F1624A9B59F00F6925B /* C128 */; };
 		4B540F1B24A9B89B00F6925B /* libvice-archdep.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FCAF2498EC2500A76E57 /* libvice-archdep.a */; };
@@ -1181,7 +1179,6 @@
 		4B94397C24ADECF300FD0237 /* plus3e-0.rom in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B54114824AB363A00F6925B /* plus3e-0.rom */; };
 		4B94397D24ADECF300FD0237 /* plus3e-2.rom in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B54114924AB363A00F6925B /* plus3e-2.rom */; };
 		4B94397E24ADECF300FD0237 /* plus3e-3.rom in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B54114A24AB363A00F6925B /* plus3e-3.rom */; };
-		4B94397F24ADECF300FD0237 /* Makefile.am in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B54114B24AB363A00F6925B /* Makefile.am */; };
 		4B94398024ADECF300FD0237 /* plus2-0.rom in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B54114C24AB363A00F6925B /* plus2-0.rom */; };
 		4B94398124ADECF300FD0237 /* plus2-1.rom in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B54114D24AB363A00F6925B /* plus2-1.rom */; };
 		4B94398224ADECF300FD0237 /* plus3-0.rom in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B54114E24AB363A00F6925B /* plus3-0.rom */; };
@@ -1296,6 +1293,11 @@
 		4BBF86A821DA284A00EF99ED /* PRINTER in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4BBF86A021DA265E00EF99ED /* PRINTER */; };
 		4BBF86AC21DAB03200EF99ED /* EmulatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF86AB21DAB03200EF99ED /* EmulatorViewController.swift */; };
 		4BBF86B021DB9AB400EF99ED /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BBF863E21D7FEA800EF99ED /* CoreAudio.framework */; };
+		4BCF7C6B24B9A44A00172C24 /* EmulatorInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF7C6A24B9A44A00172C24 /* EmulatorInfo.swift */; };
+		4BCF7C6E24B9A95A00172C24 /* atari800 in Resources */ = {isa = PBXBuildFile; fileRef = 4BCF7C6D24B9A95A00172C24 /* atari800 */; };
+		4BCF7C7324BA0C8400172C24 /* Icon-XL-83.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BCF7C7024BA0C8400172C24 /* Icon-XL-83.5.png */; };
+		4BCF7C7424BA0C8400172C24 /* Icon-XL-76png in Resources */ = {isa = PBXBuildFile; fileRef = 4BCF7C7124BA0C8400172C24 /* Icon-XL-76png */; };
+		4BCF7C7524BA0C8400172C24 /* Icon-XL-60.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BCF7C7224BA0C8400172C24 /* Icon-XL-60.png */; };
 		4BD5B37C2221C425000C77B8 /* MachinePartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD5B37B2221C425000C77B8 /* MachinePartView.swift */; };
 		4BD5B37E2222DDC0000C77B8 /* MachinePartsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD5B37D2222DDC0000C77B8 /* MachinePartsViewController.swift */; };
 		4BEBC6C821FE3880009DED63 /* TapeDocument.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BEBC6C721FE3880009DED63 /* TapeDocument.png */; };
@@ -1861,7 +1863,6 @@
 				4B94397C24ADECF300FD0237 /* plus3e-0.rom in CopyFiles */,
 				4B94397D24ADECF300FD0237 /* plus3e-2.rom in CopyFiles */,
 				4B94397E24ADECF300FD0237 /* plus3e-3.rom in CopyFiles */,
-				4B94397F24ADECF300FD0237 /* Makefile.am in CopyFiles */,
 				4B94398024ADECF300FD0237 /* plus2-0.rom in CopyFiles */,
 				4B94398124ADECF300FD0237 /* plus2-1.rom in CopyFiles */,
 				4B94398224ADECF300FD0237 /* plus3-0.rom in CopyFiles */,
@@ -4796,6 +4797,11 @@
 		4BBF86BC21DBCB5500EF99ED /* ringbuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ringbuffer.h; sourceTree = "<group>"; };
 		4BC5BBD821DE245D00D44A10 /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
 		4BC5BBDA21DF548000D44A10 /* Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
+		4BCF7C6A24B9A44A00172C24 /* EmulatorInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmulatorInfo.swift; sourceTree = "<group>"; };
+		4BCF7C6D24B9A95A00172C24 /* atari800 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = atari800; sourceTree = "<group>"; };
+		4BCF7C7024BA0C8400172C24 /* Icon-XL-83.5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-XL-83.5.png"; sourceTree = "<group>"; };
+		4BCF7C7124BA0C8400172C24 /* Icon-XL-76png */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Icon-XL-76png"; sourceTree = "<group>"; };
+		4BCF7C7224BA0C8400172C24 /* Icon-XL-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-XL-60.png"; sourceTree = "<group>"; };
 		4BD164F0229C4B4900B25212 /* C64.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = C64.entitlements; sourceTree = "<group>"; };
 		4BD5B373221FF363000C77B8 /* JoystickGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoystickGestureRecognizer.swift; sourceTree = "<group>"; };
 		4BD5B3752220184E000C77B8 /* VirtualControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualControlsView.swift; sourceTree = "<group>"; };
@@ -5515,6 +5521,7 @@
 		4B3F973A21D7ACC700C272C4 = {
 			isa = PBXGroup;
 			children = (
+				4BCF7C6C24B9A92D00172C24 /* Data */,
 				4B9ABB1A24B6232900678531 /* NEWS.md */,
 				4B460E1E2269F70100815E7F /* README.md */,
 				4BBF869C21DA20CA00EF99ED /* TODO.md */,
@@ -7331,6 +7338,9 @@
 				4B540EC424A8D84100F6925B /* Icon-VIC20-60.png */,
 				4B540EC324A8D84100F6925B /* Icon-VIC20-76.png */,
 				4B540EC924A8D84100F6925B /* Icon-VIC20-83.5.png */,
+				4BCF7C7224BA0C8400172C24 /* Icon-XL-60.png */,
+				4BCF7C7124BA0C8400172C24 /* Icon-XL-76png */,
+				4BCF7C7024BA0C8400172C24 /* Icon-XL-83.5.png */,
 				4B54100F24AA7FF000F6925B /* Icon-ZX48-60.png */,
 				4B54100E24AA7FEF00F6925B /* Icon-ZX48-76.png */,
 				4B54100D24AA7FEF00F6925B /* Icon-ZX48-83.5.png */,
@@ -8648,6 +8658,7 @@
 				4B68F8B32496407700A76E57 /* Emulator.h */,
 				4B68F8BE24966ECF00A76E57 /* Emulator.swift */,
 				4B68F8AA24963F1B00A76E57 /* EmulatorDelegate.swift */,
+				4BCF7C6A24B9A44A00172C24 /* EmulatorInfo.swift */,
 				4B81F2A624AF12E30090B21A /* EmulatorThread.h */,
 				4B81F2A424AF12B50090B21A /* EmulatorThread.m */,
 				4B94399024AE833100FD0237 /* EventQueue.swift */,
@@ -9746,6 +9757,14 @@
 			name = data;
 			path = vice/data;
 			sourceTree = SOURCE_ROOT;
+		};
+		4BCF7C6C24B9A92D00172C24 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				4BCF7C6D24B9A95A00172C24 /* atari800 */,
+			);
+			path = Data;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -11037,13 +11056,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B540F1824A9B59F00F6925B /* C128 in Resources */,
+				4BCF7C7524BA0C8400172C24 /* Icon-XL-60.png in Resources */,
 				4B540ECF24A8D84100F6925B /* Icon-SX64-60.png in Resources */,
 				4B54101024AA7FF000F6925B /* Icon-ZX48-83.5.png in Resources */,
 				4B3182C62281E320006D86AC /* Compact Flash Card.png in Resources */,
 				4B79795021DBDBB70047FBE6 /* LaunchScreen.storyboard in Resources */,
 				4B540ECD24A8D84100F6925B /* Icon-VIC20-76.png in Resources */,
 				4B841CFA21F75C12009CAF4B /* Floppy35Document.png in Resources */,
+				4BCF7C7424BA0C8400172C24 /* Icon-XL-76png in Resources */,
 				4B540ED024A8D84100F6925B /* Icon-SX64-76.png in Resources */,
 				4B9ABB1824B5F5B900678531 /* Icon-ZX128-60.png in Resources */,
 				4B3182CE2282F36E006D86AC /* Compact Disc Document.png in Resources */,
@@ -11053,7 +11073,7 @@
 				4BEBC6C821FE3880009DED63 /* TapeDocument.png in Resources */,
 				4B3F974C21D7ACC700C272C4 /* Main.storyboard in Resources */,
 				4B54100B24A9E16000F6925B /* Icon-C16-60.png in Resources */,
-				4B540F1724A9B59F00F6925B /* PLUS4 in Resources */,
+				4BCF7C6E24B9A95A00172C24 /* atari800 in Resources */,
 				4B54100C24A9E16000F6925B /* Icon-C16-83.5.png in Resources */,
 				4B841CFC21F76AB3009CAF4B /* Floppy525Document.png in Resources */,
 				4B540ECE24A8D84100F6925B /* Icon-VIC20-60.png in Resources */,
@@ -11062,6 +11082,7 @@
 				4B3E4A56220EE8A000511F08 /* Licenses in Resources */,
 				4B54101224AA7FF000F6925B /* Icon-ZX48-60.png in Resources */,
 				4B540ECC24A8D84100F6925B /* Icon-SX64-83.5.png in Resources */,
+				4BCF7C7324BA0C8400172C24 /* Icon-XL-83.5.png in Resources */,
 				4B54101124AA7FF000F6925B /* Icon-ZX48-76.png in Resources */,
 				4B9DBB78223904B00032B280 /* Assets.xcassets in Resources */,
 				4B540ED324A8D84100F6925B /* Icon-VIC20-83.5.png in Resources */,
@@ -11674,6 +11695,7 @@
 				4B68FB622497525500A76E57 /* MachinePart.swift in Sources */,
 				4BA1E9B924B314C100D935D3 /* MultiSet.swift in Sources */,
 				4B68FB5D249751FB00A76E57 /* Controller.swift in Sources */,
+				4BCF7C6B24B9A44A00172C24 /* EmulatorInfo.swift in Sources */,
 				4B2FA1A524B1B66B002A11BA /* Device.swift in Sources */,
 				4B68FB702497749B00A76E57 /* Computer.swift in Sources */,
 				4B2FA1A724B1B792002A11BA /* MachinePartRegister.swift in Sources */,
@@ -12845,7 +12867,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
 					C64/Vice,
@@ -12875,7 +12897,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
 					C64/Vice,

@@ -33,6 +33,9 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Release 1.6 build 2", year: 2020, month: 7, day: 11, changes: [
+            "Preliminary Atari 800XL support. (No peripherals supported yet. It starts in diagnostic mode, press reset to exit to BASIC.)"
+        ]),
         Release(name: "Release 1.6", year: 2020, month: 7, day: 8, changes: [
             "Rename to Ready.",
             "Add Commodore 16 and Plus/4 emulation.",

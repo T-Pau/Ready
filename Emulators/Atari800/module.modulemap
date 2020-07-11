@@ -1,6 +1,7 @@
 module Atari800C [system][extern_c] {
-    header "../../cores/atari800/src/platform.h"
+    header "../../cores/atari800/src/akey.h"
     header "../../cores/atari800/src/input.h"
+    header "../../cores/atari800/src/platform.h"
     header "Atari800Thread.h"
     export *
 }

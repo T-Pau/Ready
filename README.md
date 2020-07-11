@@ -8,9 +8,10 @@ Ready is an open source emulator for the following 8 bit home computers:
 - [Commodore 64](https://en.wikipedia.org/wiki/Commodore_64)
 - [Commodore VIC-20](https://en.wikipedia.org/wiki/Commodore_VIC-20)
 - [Commodore 16, Plus/4](https://en.wikipedia.org/wiki/Commodore_Plus/4)
+- [Atari 600XL, 800XL](https://en.wikipedia.org/wiki/Atari_8-bit_family)
 - [Sinclair ZX Spectrum](https://en.wikipedia.org/wiki/ZX_Spectrum) (16k, 48k, Spectrum+, 128k, +2)
 
-It is based on [Vice](http://vice-emu.sourceforge.net) and [fuse](http://fuse-emulator.sourceforge.net/), which provide accurate emulation of many hardware variants and peripherals.
+It is based on [fuse](http://fuse-emulator.sourceforge.net/), [atari800](https://atari800.github.io), and [Vice](http://vice-emu.sourceforge.net), which provide accurate emulation of many hardware variants and peripherals.
 
 It requires at least iPadOS 13.5.
 

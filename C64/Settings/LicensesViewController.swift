@@ -33,6 +33,7 @@ class LicensesViewController: UIViewController {
     let sections = [
         Section(title: "Application and Emulators", rows: [
             "Ready",
+            "Atari800",
             "Fuse",
             "Vice",
             "GNU General Public License"

@@ -27,6 +27,7 @@ public let MachinePartLowPriority = 50
 public let MachinePartNormalPriority = 100
 public let MachinePartHighPriority = 200
 
+
 public protocol MachinePart {
     var identifier: String { get }
     var name: String { get }
@@ -37,6 +38,7 @@ public protocol MachinePart {
     var priority: Int { get }
     var ports: [Port] { get }
     var connector: ConnectorType { get }
+    func emulatorInfo(for type: Computer.ComputerType) -> EmulatorInfo?
 }
 
 extension MachinePart {
@@ -44,6 +46,10 @@ extension MachinePart {
     public var smallIcon: UIImage? { return icon  }
     public var variantName: String? { return nil }
     public var ports: [Port] { return [] }
+    
+    public func emulatorInfo(for type: Computer.ComputerType) -> EmulatorInfo? {
+        return nil
+    }
     
     public func isCompatible(with port: Port) -> Bool {
         return connector == .none || port.connectorTypes.contains(connector)

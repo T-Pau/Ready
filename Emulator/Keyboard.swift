@@ -401,7 +401,7 @@ public struct Keyboard {
                              right: 3097,
                              escapeRight: 315,
                              tabRight: 418,
-                             returnLeft: 379,
+                             returnLeft: 2810,
                              controlRight: 472,
                              capsLeft: 2860,
                              leftShiftRight: 568,

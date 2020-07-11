@@ -38,6 +38,7 @@ class AppIconViewController: UIViewController {
     
     let sections: [Section] = [
         Section(title: nil, rows: [
+            Row(name: "Atari 600XL, 800XL", iconName: "App Icon XL"),
             Row(name: "Commodore 64", iconName: "App Icon C64", defaultIcon: true),
             Row(name: "Commodore SX-64", iconName: "App Icon SX-64"),
             Row(name: "Commodore 16, Plus/4", iconName: "App Icon C16"),

@@ -36,12 +36,13 @@
 @property int currentBorderMode;
 @property int newBorderMode;
 
-
 - (void)main;
+- (void)updateJoystick: (int)port directions: (int)directions fire: (BOOL)fire;
 
 @end
 
 extern int joystickPort[2];
+extern int joystickTrigger[4];
 
 extern Atari800Thread * _Nullable atari800Thread;
 

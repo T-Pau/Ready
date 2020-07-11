@@ -1,7 +1,8 @@
 Thanks to these projects for their emulator cores:
 
-- [VICE - the Versatile Commodore Emulator](http://vice-emu.sourceforge.net/)
+- [Atari800](https://atari800.github.io)
 - [Fuse - Free Unix Spectrum Emulator](http://fuse-emulator.sourceforge.net/)
+- [VICE - the Versatile Commodore Emulator](http://vice-emu.sourceforge.net/)
 
 Thanks to these people for providing images:
 

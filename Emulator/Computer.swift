@@ -217,6 +217,13 @@ public struct Computer: MachinePart {
     public var drive8: DiskDrive?
     public var chargenName: String
     
+    private var emulatorInfo: EmulatorInfo?
+    
+    public func emulatorInfo(for type: ComputerType) -> EmulatorInfo? {
+        guard type == model.type else { return nil }
+        return emulatorInfo
+    }
+    
     public var chargenUppercase: Chargen? {
         return Chargen(named: chargenName, subdirectory: model.type.dataDirectory, bank: 0)
     }
@@ -224,7 +231,7 @@ public struct Computer: MachinePart {
         return Chargen(named: chargenName, subdirectory: model.type.dataDirectory, bank: 1)
     }
 
-    public init(identifier: String, name: String, fullName: String? = nil, variantName: String? = nil, iconName: String, priority: Int = MachinePartNormalPriority, viceMachineModel: Model, keyboardName: String?, caseColorName: String, drive8: DiskDrive? = nil, missingPorts: Set<MachineConfig.Key> = [], additionalPorts: [Port]? = nil, chargenName: String = "chargen") {
+    public init(identifier: String, name: String, fullName: String? = nil, variantName: String? = nil, iconName: String, priority: Int = MachinePartNormalPriority, viceMachineModel: Model, keyboardName: String?, caseColorName: String, drive8: DiskDrive? = nil, missingPorts: Set<MachineConfig.Key> = [], additionalPorts: [Port]? = nil, emulatorInfo: EmulatorInfo? = nil, chargenName: String = "chargen") {
         self.identifier = identifier
         self.name = name
         self.fullName = fullName ?? name
@@ -248,6 +255,7 @@ public struct Computer: MachinePart {
         if let additionalPorts = additionalPorts {
             ports.append(contentsOf: additionalPorts)
         }
+        self.emulatorInfo = emulatorInfo
         self.chargenName = chargenName
     }
     
@@ -593,7 +601,7 @@ public struct Computer: MachinePart {
             ]),
 
         ]),
-/*
+
         MachinePartSection(title: "Atari 8-Bit Computers", parts: [
             Computer(identifier: "Atari 600XL",
                      name: "Atari 800XL",
@@ -602,18 +610,21 @@ public struct Computer: MachinePart {
                      viceMachineModel: .atari600Xl,
                      keyboardName: "Atari XL",
                      caseColorName: "Atari XL",
+                     emulatorInfo: Atari800EmulatorInfo(arguments: ["-xl", "-xlxe_rom", "@DATADIR@/Atari 6600XE OS rev. 1.rom", "-basic_rom", "@DATADIR@/Atari BASIC rev. B.rom"]), // TODO: limit RAM
                      chargenName: ""),
 
             Computer(identifier: "Atari 800XL",
                      name: "Atari 800XL",
                      fullName: "Atari 800XL",
                      iconName: "Atari 800XL",
+                     priority: MachinePartHighPriority,
                      viceMachineModel: .atari800Xl,
                      keyboardName: "Atari XL",
                      caseColorName: "Atari XL Case",
+                     emulatorInfo: Atari800EmulatorInfo(arguments: ["-xl", "-xlxe_rom", "@DATADIR@/Atari 800XE OS rev. 3.rom", "-basic_rom", "@DATADIR@/Atari BASIC rev. B.rom"]),
                      chargenName: "")
         ])
- */
+
 ])
     
     static private var byIdentifier = [String: Computer]()
