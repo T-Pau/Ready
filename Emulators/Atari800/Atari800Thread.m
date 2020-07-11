@@ -56,6 +56,7 @@ void atari800_main(int argc, char **argv) {
     INPUT_key_code = AKEY_NONE;
     INPUT_key_shift = 0;
     INPUT_key_consol = 0x7;
+    Sound_enabled = 1;
 
     if (!(ret=Atari800_Initialise(&argc, argv))) {
         printf("init failed: %d\n", ret);

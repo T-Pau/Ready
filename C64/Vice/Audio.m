@@ -163,6 +163,7 @@ BOOL audioStop(void) {
 }
 
 void audioClose(void) {
+    printf("audioClose\n");
     free(audioUnit);
     audioUnit = NULL;
 }

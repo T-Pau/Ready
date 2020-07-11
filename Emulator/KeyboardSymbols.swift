@@ -113,7 +113,7 @@ public struct KeyboardSymbols {
             .Char("4"): KeySymbols(normal: .char("4"), shifted: .char("$")),
             .Char("5"): KeySymbols(normal: .char("5"), shifted: .char("%")),
             .Char("6"): KeySymbols(normal: .char("6"), shifted: .char("&")),
-            .Char("7"): KeySymbols(normal: .char("7"), shifted: .char("/")),
+            .Char("7"): KeySymbols(normal: .char("7"), shifted: .char("'")),
             .Char("8"): KeySymbols(normal: .char("8"), shifted: .char("@")),
             .Char("9"): KeySymbols(normal: .char("9"), shifted: .char("(")),
             .Char("0"): KeySymbols(normal: .char("0"), shifted: .char(")")),
@@ -161,6 +161,14 @@ public struct KeyboardSymbols {
             .Char("."): KeySymbols(normal: .char("."), shifted: .char("]")),
             .Char("/"): KeySymbols(normal: .char("/"), shifted: .char("?")),
             // TODO: inverse video
+            
+            .Char(" "): KeySymbols(both: .char(" "))
+        ],
+        symbolRemap: [
+            ModifiedSymbol(symbol: .char("`")): ModifiedSymbol(symbol: .key(.keyboardEscape)),
+            ModifiedSymbol(symbol: .char("~")): ModifiedSymbol(symbol: .key(.keyboardEscape), modifiers: [.shift]),
+            ModifiedSymbol(symbol: .char("`"), modifiers: .control): ModifiedSymbol(symbol: .key(.keyboardEscape), modifiers: .control),
+            ModifiedSymbol(symbol: .char("~"), modifiers: .control): ModifiedSymbol(symbol: .key(.keyboardEscape), modifiers: [.control, .shift])
         ])
     
     public static let c64 = KeyboardSymbols(modifierMap: [

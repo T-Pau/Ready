@@ -148,7 +148,7 @@ import Atari800C
         case .Char("/"):
             return AKEY_SLASH
         case .InverseVideo:
-            return nil // TODO: which key?
+            return AKEY_ATARI
             
         case .Char(" "):
             return AKEY_SPACE
