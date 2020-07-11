@@ -1296,7 +1296,7 @@
 		4BCF7C6B24B9A44A00172C24 /* EmulatorInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF7C6A24B9A44A00172C24 /* EmulatorInfo.swift */; };
 		4BCF7C6E24B9A95A00172C24 /* atari800 in Resources */ = {isa = PBXBuildFile; fileRef = 4BCF7C6D24B9A95A00172C24 /* atari800 */; };
 		4BCF7C7324BA0C8400172C24 /* Icon-XL-83.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BCF7C7024BA0C8400172C24 /* Icon-XL-83.5.png */; };
-		4BCF7C7424BA0C8400172C24 /* Icon-XL-76png in Resources */ = {isa = PBXBuildFile; fileRef = 4BCF7C7124BA0C8400172C24 /* Icon-XL-76png */; };
+		4BCF7C7424BA0C8400172C24 /* Icon-XL-76.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BCF7C7124BA0C8400172C24 /* Icon-XL-76.png */; };
 		4BCF7C7524BA0C8400172C24 /* Icon-XL-60.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BCF7C7224BA0C8400172C24 /* Icon-XL-60.png */; };
 		4BD5B37C2221C425000C77B8 /* MachinePartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD5B37B2221C425000C77B8 /* MachinePartView.swift */; };
 		4BD5B37E2222DDC0000C77B8 /* MachinePartsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD5B37D2222DDC0000C77B8 /* MachinePartsViewController.swift */; };
@@ -4800,7 +4800,7 @@
 		4BCF7C6A24B9A44A00172C24 /* EmulatorInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmulatorInfo.swift; sourceTree = "<group>"; };
 		4BCF7C6D24B9A95A00172C24 /* atari800 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = atari800; sourceTree = "<group>"; };
 		4BCF7C7024BA0C8400172C24 /* Icon-XL-83.5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-XL-83.5.png"; sourceTree = "<group>"; };
-		4BCF7C7124BA0C8400172C24 /* Icon-XL-76png */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Icon-XL-76png"; sourceTree = "<group>"; };
+		4BCF7C7124BA0C8400172C24 /* Icon-XL-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-XL-76.png"; sourceTree = "<group>"; };
 		4BCF7C7224BA0C8400172C24 /* Icon-XL-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-XL-60.png"; sourceTree = "<group>"; };
 		4BD164F0229C4B4900B25212 /* C64.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = C64.entitlements; sourceTree = "<group>"; };
 		4BD5B373221FF363000C77B8 /* JoystickGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoystickGestureRecognizer.swift; sourceTree = "<group>"; };
@@ -7339,7 +7339,7 @@
 				4B540EC324A8D84100F6925B /* Icon-VIC20-76.png */,
 				4B540EC924A8D84100F6925B /* Icon-VIC20-83.5.png */,
 				4BCF7C7224BA0C8400172C24 /* Icon-XL-60.png */,
-				4BCF7C7124BA0C8400172C24 /* Icon-XL-76png */,
+				4BCF7C7124BA0C8400172C24 /* Icon-XL-76.png */,
 				4BCF7C7024BA0C8400172C24 /* Icon-XL-83.5.png */,
 				4B54100F24AA7FF000F6925B /* Icon-ZX48-60.png */,
 				4B54100E24AA7FEF00F6925B /* Icon-ZX48-76.png */,
@@ -11063,7 +11063,7 @@
 				4B79795021DBDBB70047FBE6 /* LaunchScreen.storyboard in Resources */,
 				4B540ECD24A8D84100F6925B /* Icon-VIC20-76.png in Resources */,
 				4B841CFA21F75C12009CAF4B /* Floppy35Document.png in Resources */,
-				4BCF7C7424BA0C8400172C24 /* Icon-XL-76png in Resources */,
+				4BCF7C7424BA0C8400172C24 /* Icon-XL-76.png in Resources */,
 				4B540ED024A8D84100F6925B /* Icon-SX64-76.png in Resources */,
 				4B9ABB1824B5F5B900678531 /* Icon-ZX128-60.png in Resources */,
 				4B3182CE2282F36E006D86AC /* Compact Disc Document.png in Resources */,
@@ -12867,7 +12867,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
 					C64/Vice,
@@ -12897,7 +12897,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
 					C64/Vice,
