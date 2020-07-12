@@ -39,6 +39,7 @@ public class MachineConfig {
         case identifier
         case joystickPort
         case joystickPort2
+        case medium
         case screen
         case singularAdapterMode
         case userPort

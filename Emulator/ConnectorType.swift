@@ -42,6 +42,7 @@ public enum ConnectorType: Hashable {
     case kempstonMouse
     case plus4TapePort
     case plus4ExpansionPort
+    case atariSio
     case spectrumExpansionPort
     case vic20ExpansionPort
     case videoComponent

@@ -42,6 +42,7 @@ public enum MediaType {
     case cartridgeCommodorePlus4
     case cartridgeCommodoreVIC20
     
+    case cassetteAtari
     case cassetteCommodore
     case cassetteSpectrum
     

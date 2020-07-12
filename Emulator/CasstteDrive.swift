@@ -23,6 +23,8 @@
 
 import UIKit
 
+import RetroMedia
+
 public struct CasstteDrive: MachinePart {
     public var identifier: String
     public var name: String
@@ -31,10 +33,11 @@ public struct CasstteDrive: MachinePart {
     public var icon: UIImage?
     public var priority: Int
     public var connector: ConnectorType
+    public var ports: [Port]
     
     public var caseColor: UIColor?
     
-    public init(identifier: String, name: String, fullName: String? = nil, variantName: String? = nil, iconName: String?, priority: Int = MachinePartNormalPriority, connector: ConnectorType, caseColorName: String?) {
+    public init(identifier: String, name: String, fullName: String? = nil, variantName: String? = nil, iconName: String?, priority: Int = MachinePartNormalPriority, connector: ConnectorType, mediaType: MediaType, caseColorName: String?) {
         self.identifier = identifier
         self.name = name
         self.fullName = fullName ?? name
@@ -47,11 +50,12 @@ public struct CasstteDrive: MachinePart {
             self.caseColor = UIColor(named: caseColorName)
         }
         self.connector = connector
+        self.ports = [Port(name: "Cassette", key: .medium, connectorTypes: [.media(mediaType)])]
     }
     
     public var hasStatus: Bool { return identifier != "none" }
     
-    public static let none = CasstteDrive(identifier: "none", name: "None", iconName: nil, priority: 0, connector: .none, caseColorName: nil)
+    public static let none = CasstteDrive(identifier: "none", name: "None", iconName: nil, priority: 0, connector: .none, mediaType: .cassetteCommodore, caseColorName: nil)
     
     public static let drives = MachinePartList(sections: [
         MachinePartSection(title: nil, parts: [
@@ -59,11 +63,13 @@ public struct CasstteDrive: MachinePart {
         ]),
         
         MachinePartSection(title: "Datasette", parts: [
-            CasstteDrive(identifier: "1530", name: "1530", fullName: "Commodore 1530 C2N", iconName: "Commodore 1530 C2N", connector: .commodoreTapePort, caseColorName: "1530 C2N Case"),
+            CasstteDrive(identifier: "1530", name: "1530", fullName: "Commodore 1530 C2N", iconName: "Commodore 1530 C2N", connector: .commodoreTapePort, mediaType: .cassetteCommodore, caseColorName: "1530 C2N Case"),
 
-            CasstteDrive(identifier: "1530 Plus/4", name: "1530", fullName: "Commodore 1530 C2N", variantName: "for C16, Plus/4", iconName: "Commodore 1530 C2N Black", connector: .plus4TapePort, caseColorName: "C16 Case"),
+            CasstteDrive(identifier: "1530 Plus/4", name: "1530", fullName: "Commodore 1530 C2N", variantName: "for C16, Plus/4", iconName: "Commodore 1530 C2N Black", connector: .plus4TapePort, mediaType: .cassetteCommodore, caseColorName: "C16 Case"),
             
-            CasstteDrive(identifier: "Tape Recorder", name: "Recorder", fullName: "Tape Recorder", iconName: "Tape Recorder", connector: .audioJackTape, caseColorName: "Tape Recorder Case")
+            CasstteDrive(identifier: "Tape Recorder", name: "Recorder", fullName: "Tape Recorder", iconName: "Tape Recorder", connector: .audioJackTape, mediaType: .cassetteSpectrum, caseColorName: "Tape Recorder Case"),
+
+            CasstteDrive(identifier: "Atari 1010", name: "Atari 1010", fullName: "Atari 1010", iconName: "Atari 1010", connector: .atariSio, mediaType: .cassetteAtari, caseColorName: "Atari XL Case")
 
         ])
     ])
