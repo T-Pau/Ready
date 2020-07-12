@@ -62,6 +62,8 @@ void atari800_main(int argc, char **argv) {
         printf("init failed: %d\n", ret);
         return;
     }
+    
+    MEMORY_ram_size = [atari800Thread.delegate ramSize];
 
     printf("starting main loop\n");
     atari800Thread.running = YES;

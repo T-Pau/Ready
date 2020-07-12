@@ -231,10 +231,20 @@ public struct Computer: MachinePart {
         return Chargen(named: chargenName, subdirectory: model.type.dataDirectory, bank: 1)
     }
 
-    public init(identifier: String, name: String, fullName: String? = nil, variantName: String? = nil, iconName: String, priority: Int = MachinePartNormalPriority, viceMachineModel: Model, keyboardName: String?, caseColorName: String, drive8: DiskDrive? = nil, missingPorts: Set<MachineConfig.Key> = [], additionalPorts: [Port]? = nil, emulatorInfo: EmulatorInfo? = nil, chargenName: String = "chargen") {
+    public init(identifier: String, name: String? = nil, fullName: String, variantName: String? = nil, iconName: String, priority: Int = MachinePartNormalPriority, viceMachineModel: Model, keyboardName: String?, caseColorName: String, drive8: DiskDrive? = nil, missingPorts: Set<MachineConfig.Key> = [], additionalPorts: [Port]? = nil, emulatorInfo: EmulatorInfo? = nil, chargenName: String = "chargen") {
         self.identifier = identifier
-        self.name = name
-        self.fullName = fullName ?? name
+        if let name = name {
+            self.name = name
+        }
+        else {
+            if let variantName = variantName {
+                self.name = "fullName (\(variantName))"
+            }
+            else {
+                self.name = fullName
+            }
+        }
+        self.fullName = fullName
         self.variantName = variantName
         self.icon = UIImage(named: iconName)
         self.priority = priority
@@ -275,7 +285,6 @@ public struct Computer: MachinePart {
             c64Pal,
             
             Computer(identifier: "C64 NTSC",
-                     name: "Commodore 64 (NTSC)",
                      fullName: "Commodore 64",
                      variantName: "NTSC",
                      iconName: "Commodore 64 Original",
@@ -284,7 +293,6 @@ public struct Computer: MachinePart {
                      caseColorName: "C64 Case"),
             
             Computer(identifier: "C64 Japanese",
-                     name: "Commodore 64 (Japanese)",
                      fullName: "Commodore 64",
                      variantName: "Japanese",
                      iconName: "Commodore 64 Original",
@@ -294,7 +302,6 @@ public struct Computer: MachinePart {
                      chargenName: "jpchrgen"),
             
             Computer(identifier: "C64 VIC20 PAL",
-                     name: "Commodore 64 (VIC-20 Style Keyboard, PAL)",
                      fullName: "Commodore 64",
                      variantName: "VIC-20 Style Keyboard, PAL",
                      iconName: "Commodore 64 VIC-20",
@@ -303,7 +310,6 @@ public struct Computer: MachinePart {
                      caseColorName: "C64 Case"),
             
             Computer(identifier: "C64 VIC20 NTSC",
-                     name: "Commodore 64 (VIC-20 Style Keyboard, NTSC)",
                      fullName: "Commodore 64",
                      variantName: "VIC-20 Style Keyboard, NTSC",
                      iconName: "Commodore 64 VIC-20",
@@ -312,7 +318,6 @@ public struct Computer: MachinePart {
                      caseColorName: "C64 Case"),
             
             Computer(identifier: "C64 Silver PAL",
-                     name: "Commodore 64 Silver (PAL)",
                      fullName: "Commodore 64 Silver",
                      variantName: "PAL",
                      iconName: "Commodore 64 Silver",
@@ -321,7 +326,6 @@ public struct Computer: MachinePart {
                      caseColorName: "VIC-20 Case"),
             
             Computer(identifier: "C64 Silver NTSC",
-                     name: "Commodore 64 Silver (NTSC)",
                      fullName: "Commodore 64 Silver",
                      variantName: "NTSC",
                      iconName: "Commodore 64 Silver",
@@ -332,7 +336,6 @@ public struct Computer: MachinePart {
         
         MachinePartSection(title: "Commdore 64 C", parts: [
             Computer(identifier: "C64C PAL",
-                     name: "Commodore 64C (Old Keyboard, PAL)",
                      fullName: "Commodore 64C",
                      variantName: "Old Keyboard, PAL",
                      iconName: "Commodore 64 C",
@@ -341,7 +344,6 @@ public struct Computer: MachinePart {
                      caseColorName: "C64C Case"),
             
             Computer(identifier: "C64C NTSC",
-                     name: "Commodore 64C (Old Keyboard, NTSC)",
                      fullName: "Commodore 64C",
                      variantName: "Old Keyboard, NTSC",
                      iconName: "Commodore 64 C",
@@ -350,7 +352,6 @@ public struct Computer: MachinePart {
                      caseColorName: "C64C Case"),
             
             Computer(identifier: "C64C New PAL",
-                     name: "Commodore 64C (New Keyboard, PAL)",
                      fullName: "Commodore 64C",
                      variantName: "New Keyboard, PAL",
                      iconName: "Commodore 64 C",
@@ -359,7 +360,6 @@ public struct Computer: MachinePart {
                      caseColorName: "C64C Case"),
             
             Computer(identifier: "C64C New NTSC",
-                     name: "Commodore 64C (New Keyboard, NTSC)",
                      fullName: "Commodore 64C",
                      variantName: "New Keyboard, NTSC",
                      iconName: "Commodore 64 C",
@@ -368,7 +368,6 @@ public struct Computer: MachinePart {
                      caseColorName: "C64C Case"),
             
             Computer(identifier: "C64 Drean",
-                     name: "Commodore 64 Drean",
                      fullName: "Commodore 64 Drean",
                      iconName: "Commodore 64 Drean",
                      viceMachineModel: .c64PalN,
@@ -378,7 +377,6 @@ public struct Computer: MachinePart {
         
         MachinePartSection(title: "Other Commodore 64 Variants", parts: [
             Computer(identifier: "SX64 PAL",
-                     name: "Commodore SX-64 (PAL)",
                      fullName: "Commodore SX-64",
                      variantName: "PAL",
                      iconName: "Commodore SX64",
@@ -389,7 +387,6 @@ public struct Computer: MachinePart {
                      missingPorts: [ .cassetteDrive ]),
             
             Computer(identifier: "SX64 NTSC",
-                     name: "Commodore SX-64 (NTSC)",
                      fullName: "Commodore SX-64",
                      variantName: "NTSC",
                      iconName: "Commodore SX64",
@@ -400,7 +397,6 @@ public struct Computer: MachinePart {
                      missingPorts: [ .cassetteDrive ]),
             
             Computer(identifier: "Educator 64 PAL",
-                     name: "Commodore Educator 64 (PAL)",
                      fullName: "Commodore Educator 64",
                      variantName: "PAL",
                      iconName: "Commodore Educator 64",
@@ -409,7 +405,6 @@ public struct Computer: MachinePart {
                      caseColorName: "Educator 64 Case"),
             
             Computer(identifier: "Educator 64 NTSC",
-                     name: "Commodore Educator 64 (NTSC)",
                      fullName: "Commodore Educator 64",
                      variantName: "NTSC",
                      iconName: "Commodore Educator 64",
@@ -418,7 +413,6 @@ public struct Computer: MachinePart {
                      caseColorName: "Educator 64 Case"),
             
             Computer(identifier: "Max",
-                     name: "Commodore Ultimax",
                      fullName: "Commodore Ultimax",
                      iconName: "Commodore Ultimax",
                      viceMachineModel: .ultimax,
@@ -427,7 +421,6 @@ public struct Computer: MachinePart {
                      missingPorts: [ .diskDrive8, .diskDrive9, .diskDrive10, .diskDrive11, .userPort ]),
             
             Computer(identifier: "C64 GS",
-                     name: "Commodore 64 Game System",
                      fullName: "Commodore 64 Game System",
                      iconName: "Commodore 64 Game System",
                      viceMachineModel: .c64Gs,
@@ -438,7 +431,6 @@ public struct Computer: MachinePart {
         
         MachinePartSection(title: "Commodore 16, Plus/4", parts: [
             Computer(identifier: "C16 PAL",
-                     name: "Commodore 16 (PAL)",
                      fullName: "Commodore 16",
                      variantName: "PAL",
                      iconName: "Commodore C16",
@@ -447,7 +439,6 @@ public struct Computer: MachinePart {
                      caseColorName: "C16 Case"),
             
             Computer(identifier: "C16 NTSC",
-                     name: "Commodore 16 (NTSC)",
                      fullName: "Commodore 16",
                      variantName: "NTSC",
                      iconName: "Commodore C16",
@@ -456,7 +447,6 @@ public struct Computer: MachinePart {
                      caseColorName: "C16 Case"),
             
             Computer(identifier: "Plus/4 PAL",
-                     name: "Commodore Plus/4 (PAL)",
                      fullName: "Commodore Plus/4",
                      variantName: "PAL",
                      iconName: "Commodore Plus 4",
@@ -465,7 +455,6 @@ public struct Computer: MachinePart {
                      caseColorName: "C16 Case"),
 
             Computer(identifier: "Plus/4 NTSC",
-                     name: "Commodore Plus/4 (NTSC)",
                      fullName: "Commodore Plus/4",
                      variantName: "NTSC",
                      iconName: "Commodore Plus 4",
@@ -476,7 +465,6 @@ public struct Computer: MachinePart {
         
         MachinePartSection(title: "Commodore VIC-20", parts: [
             Computer(identifier: "VIC-20 PAL",
-                     name: "Commodore VIC-20 (PAL)",
                      fullName: "Commodore VIC-20",
                      variantName: "PAL",
                      iconName: "Commodore VIC-20",
@@ -485,7 +473,6 @@ public struct Computer: MachinePart {
                      caseColorName: "VIC-20 Case"),
             
             Computer(identifier: "VIC-20 NTSC",
-                     name: "Commodore VIC-20 (NTSC)",
                      fullName: "Commodore VIC-20",
                      variantName: "NTSC",
                      iconName: "Commodore VIC-20",
@@ -495,6 +482,7 @@ public struct Computer: MachinePart {
             
             Computer(identifier: "VIC-1001",
                      name: "Commodore VIC-1001",
+                     fullName: "Commodore VIC-1001",
                      variantName: "Japanese",
                      iconName: "Commodore VIC-1001",
                      viceMachineModel: .vic1001,
@@ -503,7 +491,6 @@ public struct Computer: MachinePart {
                      chargenName: "jpchrgen"),
             
             Computer(identifier: "VIC-20 PET PAL",
-                     name: "Commodore VIC-20 (PET Style Keyboard, PAL)",
                      fullName: "Commodore VIC-20",
                      variantName: "PET Style Keyboard, PAL",
                      iconName: "Commodore VIC-20",
@@ -512,7 +499,6 @@ public struct Computer: MachinePart {
                      caseColorName: "VIC-20 Case"),
             
             Computer(identifier: "VIC-20 PET NTSC",
-                     name: "Commodore VIC-20 (PET Style Keyboard, NTSC)",
                      fullName: "Commodore VIC-20",
                      variantName: "PET Style Keyboard, NTSC",
                      iconName: "Commodore VIC-20",
@@ -521,7 +507,6 @@ public struct Computer: MachinePart {
                      caseColorName: "VIC-20 Case"),
 
             Computer(identifier: "VIC-20 C64 PAL",
-                     name: "Commodore VIC-20 (C64 Style Keyboard, PAL)",
                      fullName: "Commodore VIC-20",
                      variantName: "C64 Style Keyboard, PAL",
                      iconName: "Commodore VIC-20 C64",
@@ -530,7 +515,6 @@ public struct Computer: MachinePart {
                      caseColorName: "VIC-20 Case"),
 
             Computer(identifier: "VIC-20 C64 NTSC",
-                     name: "Commodore VIC-20 (C64 Style Keyboard, NTSC)",
                      fullName: "Commodore VIC-20",
                      variantName: "C64 Style Keyboard, NTSC",
                      iconName: "Commodore VIC-20 C64",
@@ -541,7 +525,6 @@ public struct Computer: MachinePart {
         
         MachinePartSection(title: "Sinclair ZX Spectrum", parts: [
             Computer(identifier: "ZX 16k",
-                     name: "Sinclair ZX Spectrum (16k, PAL)",
                      fullName: "Sinclair ZX Spectrum",
                      variantName: "16k, PAL",
                      iconName: "Sinclair ZX Spectrum",
@@ -550,7 +533,6 @@ public struct Computer: MachinePart {
                      caseColorName: "ZX Case"),
             
             Computer(identifier: "ZX 48k",
-                     name: "Sinclair ZX Spectrum (48k, PAL)",
                      fullName: "Sinclair ZX Spectrum",
                      variantName: "48k, PAL",
                      iconName: "Sinclair ZX Spectrum",
@@ -559,7 +541,6 @@ public struct Computer: MachinePart {
                      caseColorName: "ZX Case"),
 
             Computer(identifier: "ZX 48k NTSC",
-                     name: "Sinclair ZX Spectrum (48k, NTSC)",
                      fullName: "Sinclair ZX Spectrum",
                      variantName: "48k, NTSC",
                      iconName: "Sinclair ZX Spectrum",
@@ -568,7 +549,6 @@ public struct Computer: MachinePart {
                      caseColorName: "ZX Case"),
             
             Computer(identifier: "ZX+",
-                     name: "Sinclair ZX Spectrum+ (PAL)",
                      fullName: "Sinclair ZX Spectrum+",
                      variantName: "PAL",
                      iconName: "Sinclair ZX Spectrum Plus",
@@ -577,7 +557,6 @@ public struct Computer: MachinePart {
                      caseColorName: "ZX Plus Case"),
 
             Computer(identifier: "ZX 128k",
-                     name: "Sinclair ZX Spectrum 128k (PAL)",
                      fullName: "Sinclair ZX Spectrum 128k",
                      variantName: "PAL",
                      iconName: "Sinclair ZX Spectrum 128k",
@@ -586,7 +565,6 @@ public struct Computer: MachinePart {
                      caseColorName: "ZX Plus Case"),
 
             Computer(identifier: "ZX +2",
-                     name: "Sinclair ZX Spectrum +2 (PAL)",
                      fullName: "Sinclair ZX Spectrum +2",
                      variantName: "PAL",
                      iconName: "Sinclair ZX Spectrum +2",
@@ -604,25 +582,47 @@ public struct Computer: MachinePart {
 
         MachinePartSection(title: "Atari 8-Bit Computers", parts: [
             Computer(identifier: "Atari 600XL",
-                     name: "Atari 800XL",
                      fullName: "Atari 600XL",
+                     variantName: "PAL",
                      iconName: "Atari 600XL",
                      viceMachineModel: .atari600Xl,
                      keyboardName: "Atari XL",
-                     caseColorName: "Atari XL",
-                     emulatorInfo: Atari800EmulatorInfo(arguments: ["-xl", "-xlxe_rom", "@DATADIR@/Atari 6600XE OS rev. 1.rom", "-basic_rom", "@DATADIR@/Atari BASIC rev. B.rom"]), // TODO: limit RAM
+                     caseColorName: "Atari XL Case",
+                     emulatorInfo: Atari800EmulatorInfo(xlOS: "Atari 600XL OS rev. 1", basicRom: "Atari BASIC rev. B"),
+                     chargenName: ""),
+
+            Computer(identifier: "Atari 600XL NTSC",
+                     fullName: "Atari 600XL",
+                     variantName: "NTSC",
+                     iconName: "Atari 600XL",
+                     viceMachineModel: .atari600Xl,
+                     keyboardName: "Atari XL",
+                     caseColorName: "Atari XL Case",
+                     emulatorInfo: Atari800EmulatorInfo(xlOS: "Atari 600XL OS rev. 1", basicRom: "Atari BASIC rev. B", ntsc: true),
                      chargenName: ""),
 
             Computer(identifier: "Atari 800XL",
-                     name: "Atari 800XL",
                      fullName: "Atari 800XL",
+                     variantName: "PAL",
                      iconName: "Atari 800XL",
                      priority: MachinePartHighPriority,
                      viceMachineModel: .atari800Xl,
                      keyboardName: "Atari XL",
                      caseColorName: "Atari XL Case",
-                     emulatorInfo: Atari800EmulatorInfo(arguments: ["-xl", "-xlxe_rom", "@DATADIR@/Atari 800XE OS rev. 3.rom", "-basic_rom", "@DATADIR@/Atari BASIC rev. B.rom"]),
+                     emulatorInfo: Atari800EmulatorInfo(xlOS: "Atari XL-XE OS rev. 2", basicRom: "Atari BASIC rev. B"),
+                     chargenName: ""),
+            
+            Computer(identifier: "Atari 800XL NTSC",
+                     name: "Atari 800XL",
+                     fullName: "Atari 800XL",
+                     variantName: "NTSC",
+                     iconName: "Atari 800XL",
+                     viceMachineModel: .atari800Xl,
+                     keyboardName: "Atari XL",
+                     caseColorName: "Atari XL Case",
+                     emulatorInfo: Atari800EmulatorInfo(xlOS: "Atari XL-XE OS rev. 2", basicRom: "Atari BASIC rev. B", ntsc: true),
                      chargenName: "")
+
         ])
 
 ])

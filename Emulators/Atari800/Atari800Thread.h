@@ -25,6 +25,7 @@
 //- (void)autostartInjectDeviceInfo;
 - (BOOL)handleEvents;
 //- (void)updateStatusBar;
+- (int)ramSize;
 @end
 
 @interface Atari800Thread : EmulatorThread

@@ -16,6 +16,19 @@ public protocol EmulatorInfo {
 
 public struct Atari800EmulatorInfo : EmulatorInfo {
     public var arguments: [String]
+    
+    public init(arguments: [String]) {
+        self.arguments = arguments
+    }
+    
+    public init(xlOS osRom: String, basicRom: String, ntsc: Bool = false) {
+        arguments = [
+            "-xl",
+            "-xlxe_rom", "@DATADIR@/\(osRom).rom",
+            "-basic_rom", "@DATADIR@/\(basicRom).rom",
+            ntsc ? "-ntsc" : "-pal"
+        ]
+    }
 }
 
 public struct FuseEmulatorInfo : EmulatorInfo {

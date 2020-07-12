@@ -38,6 +38,18 @@ import Atari800C
     private var rightShiftPressed = false
     private var pressedKeyes = [Int32]()
     
+    @objc public func ramSize() -> Int32 {
+        switch machine.specification.computer.model {
+        case .atari600Xl:
+            return 16
+        case .atari800Xl:
+            return 64
+            
+        default:
+            return 64
+        }
+    }
+
     private func keyCode(for key: Key) -> Int32? {
         switch key {
         case .Escape:
