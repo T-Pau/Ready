@@ -1186,7 +1186,7 @@
                                                             <outletCollection property="gestureRecognizers" destination="iE5-B1-JIf" appends="YES" id="g3m-dm-mUn"/>
                                                         </connections>
                                                     </view>
-                                                    <view opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TFG-4c-Gy0" customClass="TapeStatusView" customModule="C64UIComponents">
+                                                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TFG-4c-Gy0" customClass="TapeStatusView" customModule="C64UIComponents">
                                                         <rect key="frame" x="252" y="0.0" width="76" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="210" id="6Pm-JP-YtM"/>
@@ -1339,7 +1339,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Emulator" id="tBX-ZY-kcQ">
                         <rightBarButtonItems>
-                            <barButtonItem title="Keyboard" image="Keyboard" id="I1v-3d-HdN">
+                            <barButtonItem title="Keyboard" image="keyboard" catalog="system" id="I1v-3d-HdN">
                                 <connections>
                                     <action selector="toggleKeyboard:" destination="BYZ-38-t0r" id="6Er-GL-eap"/>
                                 </connections>
@@ -1373,7 +1373,7 @@
                                     <action selector="resetMachine:" destination="BYZ-38-t0r" id="lpU-0h-nku"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Freeze" image="Freeze" id="IrD-IO-bSk">
+                            <barButtonItem title="Freeze" image="snow" catalog="system" id="IrD-IO-bSk">
                                 <connections>
                                     <action selector="freezeMachine:" destination="BYZ-38-t0r" id="DO6-FR-5gs"/>
                                 </connections>
@@ -2022,19 +2022,19 @@
                                                         <rect key="frame" x="20" y="20" width="482" height="45"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Media" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k4N-2f-XOk">
-                                                                <rect key="frame" x="0.0" y="0.0" width="48" height="29"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="52" height="29"/>
                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yG3-tC-08V" userLabel="Padding">
-                                                                <rect key="frame" x="68" y="0.0" width="230" height="45"/>
+                                                                <rect key="frame" x="72" y="0.0" width="230" height="45"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="1" id="oUj-FJ-T5n"/>
                                                                 </constraints>
                                                             </view>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eiF-V5-W5M" userLabel="Cancel">
-                                                                <rect key="frame" x="318" y="1" width="53" height="33"/>
+                                                                <rect key="frame" x="322" y="1" width="53" height="33"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <state key="normal" title="Cancel"/>
                                                                 <connections>
@@ -2042,7 +2042,7 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hcw-yM-NMr">
-                                                                <rect key="frame" x="391" y="1" width="49" height="33"/>
+                                                                <rect key="frame" x="395" y="1" width="49" height="33"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <state key="normal" title="Select"/>
                                                                 <connections>
@@ -2050,8 +2050,8 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zgh-lA-Zmb">
-                                                                <rect key="frame" x="460" y="0.0" width="22" height="22.5"/>
-                                                                <state key="normal" image="Add"/>
+                                                                <rect key="frame" x="464" y="6" width="18" height="22"/>
+                                                                <state key="normal" image="plus" catalog="system"/>
                                                                 <connections>
                                                                     <action selector="addMedia:" destination="CGg-Ey-b7L" eventType="touchUpInside" id="SBh-QQ-3rT"/>
                                                                 </connections>
@@ -2217,7 +2217,7 @@
                         <viewLayoutGuide key="safeArea" id="TmC-2r-THf"/>
                     </view>
                     <navigationItem key="navigationItem" id="sLW-KW-J48">
-                        <barButtonItem key="leftBarButtonItem" title="Settings" image="Settings" id="81G-xv-bbb">
+                        <barButtonItem key="leftBarButtonItem" title="Settings" image="Gear Shape" id="81G-xv-bbb">
                             <connections>
                                 <segue destination="WFw-Bn-iNx" kind="presentation" modalPresentationStyle="formSheet" id="RCw-lw-ubG"/>
                             </connections>
@@ -2511,7 +2511,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MN6-3c-Oli" customClass="MediaView" customModule="C64UIComponents">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MN6-3c-Oli" customClass="MediaView" customModule="C64UIComponents">
                                                     <rect key="frame" x="436" y="10" width="89" height="39"/>
                                                 </view>
                                             </subviews>
@@ -2756,14 +2756,13 @@
         <segue reference="y1V-6h-4Dq"/>
         <segue reference="Uko-dl-en4"/>
         <segue reference="fyt-Cy-pp8"/>
-        <segue reference="L40-fc-b91"/>
+        <segue reference="F0r-Rm-INo"/>
         <segue reference="aJA-5G-D1v"/>
         <segue reference="HEU-xw-QdH"/>
         <segue reference="084-Qa-dKX"/>
         <segue reference="Gfr-8p-ORJ"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="Add" width="22" height="22.5"/>
         <image name="Automatic Disk Drive II" width="194" height="78"/>
         <image name="Border Mode" width="22" height="22"/>
         <image name="C64 Keyboard" width="3500" height="1071"/>
@@ -2775,13 +2774,12 @@
         <image name="Deleted Compact" width="18" height="18"/>
         <image name="Favorites" width="25" height="25"/>
         <image name="Favorites Compact" width="18" height="18"/>
-        <image name="Freeze" width="22.5" height="22.5"/>
+        <image name="Gear Shape" width="18" height="18"/>
         <image name="HeartEmpty" width="22.5" height="22.5"/>
         <image name="Icon" width="1024" height="1024"/>
         <image name="Inbox" width="25" height="25"/>
         <image name="Inbox Compact" width="18" height="18"/>
         <image name="Joystick" width="22" height="22.5"/>
-        <image name="Keyboard" width="22" height="22"/>
         <image name="Library" width="25" height="25"/>
         <image name="Library Compact" width="18" height="18"/>
         <image name="Reset" width="22" height="22"/>
@@ -2791,6 +2789,9 @@
         <image name="Tools" width="25" height="25"/>
         <image name="Tools Compact" width="18" height="18"/>
         <image name="Vice" width="1720" height="480"/>
+        <image name="keyboard" catalog="system" width="128" height="70"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
+        <image name="snow" catalog="system" width="120" height="128"/>
         <namedColor name="Header">
             <color red="1" green="1" blue="1" alpha="0.6600000262260437" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
