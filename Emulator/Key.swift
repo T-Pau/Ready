@@ -26,14 +26,23 @@ import Foundation
 
 public enum Key : Equatable, Hashable {
     case Char(Character)
+    case Alt
+    case AltLeft
+    case AltRight
     case ArrowLeft
     case ArrowUp
+    case Backspace
     case Break
     case Caps
+    case CapsLock
     case ClearHome
+    case CommanderLeft
+    case CommanderRight
     case Commodore
     case CommodoreLock
     case Control
+    case ControlLeft
+    case ControlRight
     case CursorDown
     case CursorLeft
     case CursorLeftRight
@@ -41,7 +50,9 @@ public enum Key : Equatable, Hashable {
     case CursorUp
     case CursorUpDown
     case Delete
+    case Display4080
     case Edit
+    case End
     case Escape
     case ExtendedMode
     case F1
@@ -54,15 +65,37 @@ public enum Key : Equatable, Hashable {
     case F8
     case F9
     case F10
+    case F11
+    case F12
     case Graphics
     case Help
+    case Insert
     case InsertDelete
     case InverseVideo
+    case Keypad0
+    case Keypad1
+    case Keypad2
+    case Keypad3
+    case Keypad4
+    case Keypad5
+    case Keypad6
+    case Keypad7
+    case Keypad8
+    case Keypad9
+    case KeypadEnter
+    case KeypadMinus
+    case KeypadPeriod
+    case KeypadPlus
+    case LineFeed
+    case Menu
     case Option
+    case PageDown
+    case PageUp
     case Reset
     case Restore
     case Return
     case RunStop
+    case ScrollLock
     case Select
     case Shift
     case ShiftLeft

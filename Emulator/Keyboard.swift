@@ -289,6 +289,51 @@ public struct Keyboard {
         }
     }
     
+    private init(c128WithImageName imageName: String, rows: [Int], left: Int, right: Int, controlRight: Int, restoreLeft: Int, returnLeft: Int, leftShiftLeft: Int, leftShiftRight: Int, rightShiftLeft: Int, rightShiftRight: Int, spaceLeft: Int, spaceRight: Int, keypadLeft: Int, keypadRight: Int, keypad0Right: Int, functionRowTop: Int, functionRowBottom: Int, functionBlock1Right: Int, functionBlock2Left: Int, functionBlock2Right: Int, functionBlock3Left: Int) {
+        self.imageName = imageName
+        self.toggleKeys = [
+            .CapsLock: imageName + " CapsLock",
+            .Display4080: imageName + " 40-80 Display",
+            .ShiftLock: imageName + " ShiftLock"
+        ]
+        self.layout = Layout(rows: [
+            Row(top: functionRowTop, bottom: functionRowBottom, spans: [
+                Span(left: left, right: functionBlock1Right, keys: [.Escape, .Tab, .Alt, .CapsLock]),
+                Span(left: functionBlock2Left, right: functionBlock2Right, keys: [.Help, .LineFeed, .Display4080, .ScrollLock]),
+                Span(left: functionBlock3Left, right: right, keys: [.CursorUp, .CursorDown, .CursorLeft, .CursorRight]),
+                Span(left: keypadLeft, right: keypadRight, keys: [.F1, .F3, .F5, .F7])
+            ]),
+            Row(top: rows[0], bottom: rows[1], spans: [
+                Span(left: left, right: right, keys: [.ArrowLeft, .Char("1"), .Char("2"), .Char("3"), .Char("4"), .Char("5"), .Char("6"), .Char("7"), .Char("8"), .Char("9"), .Char("0"), .Char("+"), .Char("-"), .Char("£"), .ClearHome, .InsertDelete]),
+                Span(left: keypadLeft, right: keypadRight, keys: [.Keypad7, .Keypad8, .Keypad9, .KeypadPlus])
+            ]),
+            Row(top: rows[1], bottom: rows[2], spans: [
+                Span(left: left, right: controlRight, keys: [.Control]),
+                Span(left: controlRight, right: restoreLeft, keys: [.Char("q"), .Char("w"), .Char("e"), .Char("r"), .Char("t"), .Char("y"), .Char("u"), .Char("i"), .Char("o"), .Char("p"), .Char("@"), .Char("*"), .ArrowUp]),
+                Span(left: restoreLeft, right: right, keys: [.Restore]),
+                Span(left: keypadLeft, right: keypadRight, keys: [.Keypad4, .Keypad5, .Keypad6, .KeypadMinus])
+            ]),
+            Row(top: rows[2], bottom: rows[3], spans: [
+                Span(left: left, right: returnLeft, keys: [.RunStop, .ShiftLock, .Char("a"), .Char("s"), .Char("d"), .Char("f"), .Char("g"), .Char("h"), .Char("j"), .Char("k"), .Char("l"), .Char(":"), .Char(";"), .Char("=")]),
+                Span(left: returnLeft, right: right, keys: [.Return]),
+                Span(left: keypadLeft, right: keypadRight, keys: [.Keypad1, .Keypad2, .Keypad3, .KeypadEnter])
+            ]),
+            Row(top: rows[3], bottom: rows[4], spans: [
+                Span(left: left, right: leftShiftLeft, keys: [.Commodore]),
+                Span(left: leftShiftLeft, right: leftShiftRight, keys: [.ShiftLeft]),
+                Span(left: leftShiftRight, right: rightShiftLeft, keys: [.Char("z"), .Char("x"), .Char("c"), .Char("v"), .Char("b"), .Char("n"), .Char("m"), .Char(","), .Char("."), .Char("/")]),
+                Span(left: rightShiftLeft, right: rightShiftRight, keys: [.ShiftRight]),
+                Span(left: rightShiftRight, right: right, keys: [.CursorUpDown, .CursorLeftRight]),
+                Span(left: keypadLeft, right: keypad0Right, keys: [.Keypad0]),
+                Span(left: keypad0Right, right: keypadRight, keys: [.KeypadPeriod, .KeypadEnter])
+            ]),
+            Row(top: rows[4], bottom: rows[5], spans: [
+                Span(left: spaceLeft, right: spaceRight, keys: [.Char(" ")])
+            ])
+        ])
+        self.keyboardSymbols = KeyboardSymbols.c64 // TODO
+    }
+    
     private init(plus4WithImageName imageName: String, rows: [Int], functionLeft: Int, functionRight: Int, left: Int, right: Int, leftControlRight: Int, rightControlLeft: Int,returnLeft: Int, returnRight: Int, leftShiftLeft: Int, leftShiftRight: Int, rightShiftLeft: Int, rightShiftRight: Int, spaceLeft: Int, spaceRight: Int, cursorTop: CGFloat, cursorLeft: CGFloat, cursorRight: CGFloat, cursorBottom: CGFloat) {
         self.imageName = imageName
         self.toggleKeys = [.ShiftLock: imageName + " ShiftLock"]
@@ -326,9 +371,9 @@ public struct Keyboard {
             ]),
             Row(top: rows[4], bottom: rows[5], spans: [
                 Span(left: left, right: leftShiftLeft, keys: [.Commodore]),
-                Span(left: leftShiftLeft, right: leftShiftRight, keys: [.Shift]),
+                Span(left: leftShiftLeft, right: leftShiftRight, keys: [.ShiftLeft]),
                 Span(left: leftShiftRight, right: rightShiftLeft, keys: [.Char("z"), .Char("x"), .Char("c"), .Char("v"), .Char("b"), .Char("n"), .Char("m"), .Char(","), .Char("."), .Char("/")]),
-                Span(left: rightShiftLeft, right: rightShiftRight, keys: [.Shift])
+                Span(left: rightShiftLeft, right: rightShiftRight, keys: [.ShiftRight])
             ]),
             Row(top: rows[5], bottom: rows[6], spans: [
                 Span(left: spaceLeft, right: spaceRight, keys: [.Char(" ")])
@@ -340,6 +385,53 @@ public struct Keyboard {
             Polygon(vertices: [cursorPoints[4], cursorPoints[7], cursorPoints[8], cursorPoints[6]], key: .CursorDown)
         ])
         self.keyboardSymbols = KeyboardSymbols.plus4
+    }
+    
+    init(x16WithImageName imageName: String, rows: [Int], left: Int, right: Int, backspaceLeft: Int, tabRight: Int, poundLeft: Int, shiftLockRight: Int, returnLeft: Int, leftShiftRight: Int, rightShiftLeft: Int, spaceLeft: Int, spaceRight: Int, extraLeft: Int, extraRight: Int, functionRowTop: Int, functionRowBottom: Int, escapeRight: Int, functionBlock1Left: Int, functionBlock1Right: Int, functionBlock2Left: Int, functionBlock2Right: Int, functionBlock3Left: Int) {
+        self.imageName = imageName
+        self.toggleKeys = [
+            .Display4080: imageName + " 40-80 Display",
+            .ShiftLock: imageName + " ShiftLock"
+        ]
+        let extraWidth = extraRight - extraLeft
+        self.layout = Layout(rows: [
+            Row(top: functionRowTop, bottom: functionRowBottom, spans: [
+                Span(left: left, right: escapeRight, keys: [.Escape]),
+                Span(left: functionBlock1Left, right: functionBlock1Right, keys: [.F1, .F2, .F3, .F4]),
+                Span(left: functionBlock2Left, right: functionBlock2Right, keys: [.F5, .F6, .F7, .F8]),
+                Span(left: functionBlock3Left, right: right, keys: [.F9, .F10, .F11, .F12]),
+                Span(left: extraLeft, right: extraRight, keys: [.Restore, .Display4080, .RunStop])
+            ]),
+            Row(top: rows[0], bottom: rows[1], spans: [
+                Span(left: left, right: backspaceLeft, keys: [.ArrowLeft, .Char("1"), .Char("2"), .Char("3"), .Char("4"), .Char("5"), .Char("6"), .Char("7"), .Char("8"), .Char("9"), .Char("0"), .Char("-"), .Char("=")]),
+                Span(left: backspaceLeft, right: right, keys: [.Backspace]),
+                Span(left: extraLeft, right: extraRight, keys: [.Insert, .ClearHome, .PageUp])
+            ]),
+            Row(top: rows[1], bottom: rows[2], spans: [
+                Span(left: left, right: tabRight, keys: [.Tab]),
+                Span(left: tabRight, right: poundLeft, keys: [.Char("q"), .Char("w"), .Char("e"), .Char("r"), .Char("t"), .Char("y"), .Char("u"), .Char("i"), .Char("o"), .Char("p"), .Char("["), .Char("]")]),
+                Span(left: poundLeft, right: right, keys: [.Char("£")]),
+                Span(left: extraLeft, right: extraRight, keys: [.Delete, .End, .PageDown])
+            ]),
+            Row(top: rows[3], bottom: rows[4], spans: [
+                Span(left: left, right: shiftLockRight, keys: [.ShiftLock]),
+                Span(left: shiftLockRight, right: returnLeft, keys: [.Char("a"), .Char("s"), .Char("d"), .Char("f"), .Char("g"), .Char("h"), .Char("j"), .Char("k"), .Char("l"), .Char(";"), .Char("'")]),
+                Span(left: returnLeft, right: right, keys: [.Return])
+            ]),
+            Row(top: rows[4], bottom: rows[5], spans: [
+                Span(left: left, right: leftShiftRight, keys: [.ShiftLeft]),
+                Span(left: leftShiftRight, right: rightShiftLeft, keys: [.Char("z"), .Char("x"), .Char("c"), .Char("v"), .Char("b"), .Char("n"), .Char("m"), .Char(","), .Char("."), .Char("/")]),
+                Span(left: rightShiftLeft, right: right, keys: [.ShiftRight]),
+                Span(left: extraLeft + extraWidth / 3, right: extraRight - extraWidth / 3, keys: [.CursorUp])
+            ]),
+            Row(top: rows[5], bottom: rows[6], spans: [
+                Span(left: left, right: spaceLeft, keys: [.ControlLeft, .CommanderLeft, .AltLeft]),
+                Span(left: spaceLeft, right: spaceRight, keys: [.Char(" ")]),
+                Span(left: spaceRight, right: right, keys: [.AltRight, .CommanderRight, .Menu, .ControlRight]),
+                Span(left: extraLeft, right: extraRight, keys: [.CursorLeft, .CursorDown, .CursorRight])
+            ])
+        ])
+        self.keyboardSymbols = KeyboardSymbols.x16
     }
     
     init(zxSpectrumWithImageName imageName: String, rows: [Int], left: [Int], right: [Int], capsRight: Int, spaceLeft: Int) {
@@ -505,7 +597,7 @@ public struct Keyboard {
                              leftShiftRight: 477,
                              rightShiftLeft: 2215,
                              rightShiftRight: 2476),
-        
+                
         "Max": Keyboard(c64WithImageName: "Max Keyboard",
                         rows: [ 32, 217, 400, 588, 780, 972 ],
                         topHalfLeft: 39,
@@ -617,6 +709,30 @@ public struct Keyboard {
                              leftShiftRight: 421,
                              rightShiftLeft: 1898,
                              rightShiftRight: 2120),
+        
+        "X16": Keyboard(x16WithImageName: "X16 Keyboard",
+                        rows: [152, 242, 325, 408, 493, 578],
+                        left: 29,
+                        right: 1294,
+                        backspaceLeft: 1123,
+                        tabRight: 168,
+                        poundLeft: 1165,
+                        shiftLockRight: 180,
+                        returnLeft: 1101,
+                        leftShiftRight: 221,
+                        rightShiftLeft: 1061,
+                        spaceLeft: 349,
+                        spaceRight: 872,
+                        extraLeft: 1312,
+                        extraRight: 1569,
+                        functionRowTop: 31,
+                        functionRowBottom: 123,
+                        escapeRight: 120,
+                        functionBlock1Left: 197,
+                        functionBlock1Right: 540,
+                        functionBlock2Left: 574,
+                        functionBlock2Right: 917,
+                        functionBlock3Left: 951),
         
         "ZX Spectrum": Keyboard(zxSpectrumWithImageName: "ZX Spectrum Keyboard",
                                 rows: [138, 466, 807, 1146, 1473],

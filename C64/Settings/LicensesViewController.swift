@@ -43,6 +43,7 @@ class LicensesViewController: UIViewController {
             "PET",
             "Ultimax",
             "VIC-1001",
+            "X16",
             "ZX Spectrum+",
             "ZX Spectrum +2"
         ]),
