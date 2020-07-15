@@ -231,8 +231,8 @@ render_t *render_new(render_size_t size, void *data, const uint32_t *palette, re
     render->bitmap_size = size;
     render->palette = palette;
     
-    render->border_mode = BORDER_MODE_AUTO;
-    render->last_border_color = border_mode;
+    render->border_mode = border_mode;
+    render->last_border_color = BORDER_COLOR_UNKNOWN;
     if (border_mode == BORDER_MODE_SHOW) {
         render->show_border = true;
         render->transition_countdown = BORDER_HIDE_FRAMES;

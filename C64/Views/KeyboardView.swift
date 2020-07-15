@@ -54,6 +54,14 @@ class KeyboardView: UIView {
             else {
                 keyboardImageView.image = nil
             }
+            if let constraint = aspectConstraint {
+                removeConstraint(constraint)
+            }
+            if let image = keyboardImageView.image, image.size.height > 0 {
+                let constraint = NSLayoutConstraint(item: self, attribute: .width, relatedBy: .equal, toItem: self, attribute: .height, multiplier: image.size.width / image.size.height, constant: 0)
+                addConstraint(constraint)
+                aspectConstraint = constraint
+            }
         }
     }
     
@@ -81,6 +89,8 @@ class KeyboardView: UIView {
             NSLayoutConstraint(item: self, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0),
             ])
     }
+    
+    private var aspectConstraint: NSLayoutConstraint?
     
     private var keyTouches = [UITouch : Key]()
 

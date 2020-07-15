@@ -1,11 +1,11 @@
 {
   "images" : [
     {
-      "filename" : "App Icon ZX-128 Preview.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "App Icon ZX-128 Preview.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

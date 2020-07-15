@@ -36,6 +36,7 @@ class LicensesViewController: UIViewController {
             "Atari800",
             "Fuse",
             "Vice",
+            "x16-emulator",
             "GNU General Public License"
         ]),
         Section(title: "Keyboard Images", rows: [

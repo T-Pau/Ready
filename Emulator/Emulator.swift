@@ -133,7 +133,7 @@ import UIKit
     }
 }
 
-extension Emulator: EmulatorThreadDelegate {
+extension Emulator: RendererDelegate {
     @objc public func update(_ image: UIImage?) {
         DispatchQueue.main.async {
             self.imageView?.image = image

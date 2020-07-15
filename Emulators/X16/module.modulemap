@@ -1,0 +1,6 @@
+module X16C [system][extern_c] {
+    header "X16Thread.h"
+    header "../../cores/x16-sdl/include/SDL_scancode.h"
+    header "../../cores/x16-emulator/keyboard.h"
+    export *
+}

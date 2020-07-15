@@ -33,6 +33,7 @@ import FuseZX
 import ViceC64
 import VicePlus4
 import ViceVIC20
+import X16
 
 class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, SeguePreparer, UIGestureRecognizerDelegate {
     enum SegueType: String {
@@ -81,6 +82,7 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
     @IBOutlet weak var saveTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var fullscreenTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var controllerViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var keyboardAspectConstraint: NSLayoutConstraint!
     
     private var driveStatus = [DriveStatusView]()
     
@@ -165,6 +167,8 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
             emulator = FuseZX.Fuse()
         case .vic:
             emulator = ViceVIC20.Vice()
+        case .x16:
+            emulator = X16()
         }
         machine.vice = emulator
         

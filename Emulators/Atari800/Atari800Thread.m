@@ -32,10 +32,10 @@ void atari800_main(int argc, char **argv);
 
 - (void)updateJoystick: (int)port directions: (int)directions fire: (BOOL)fire {
     if (port % 2 == 0) {
-        joystickPort[port/2] = joystickPort[port/2] & 0xf0 | directions;
+        joystickPort[port/2] = (joystickPort[port/2] & 0xf0) | directions;
     }
     else {
-        joystickPort[port/2] = joystickPort[port/2] & 0x0f | (directions << 4);
+        joystickPort[port/2] = (joystickPort[port/2] & 0x0f) | (directions << 4);
     }
     joystickTrigger[port] = fire ? 0 : 1;
 }

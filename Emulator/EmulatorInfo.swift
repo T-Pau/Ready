@@ -38,3 +38,7 @@ public struct FuseEmulatorInfo : EmulatorInfo {
 public struct ViceEmulatorInfo: EmulatorInfo {
     public var resources: [MachineOld.ResourceName: MachineOld.ResourceValue]
 }
+
+public struct X16EmulatorInfo : EmulatorInfo {
+    public var arguments: [String]
+}

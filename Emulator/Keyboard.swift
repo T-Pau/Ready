@@ -413,18 +413,18 @@ public struct Keyboard {
                 Span(left: poundLeft, right: right, keys: [.Char("£")]),
                 Span(left: extraLeft, right: extraRight, keys: [.Delete, .End, .PageDown])
             ]),
-            Row(top: rows[3], bottom: rows[4], spans: [
+            Row(top: rows[2], bottom: rows[3], spans: [
                 Span(left: left, right: shiftLockRight, keys: [.ShiftLock]),
                 Span(left: shiftLockRight, right: returnLeft, keys: [.Char("a"), .Char("s"), .Char("d"), .Char("f"), .Char("g"), .Char("h"), .Char("j"), .Char("k"), .Char("l"), .Char(";"), .Char("'")]),
                 Span(left: returnLeft, right: right, keys: [.Return])
             ]),
-            Row(top: rows[4], bottom: rows[5], spans: [
+            Row(top: rows[3], bottom: rows[4], spans: [
                 Span(left: left, right: leftShiftRight, keys: [.ShiftLeft]),
                 Span(left: leftShiftRight, right: rightShiftLeft, keys: [.Char("z"), .Char("x"), .Char("c"), .Char("v"), .Char("b"), .Char("n"), .Char("m"), .Char(","), .Char("."), .Char("/")]),
                 Span(left: rightShiftLeft, right: right, keys: [.ShiftRight]),
                 Span(left: extraLeft + extraWidth / 3, right: extraRight - extraWidth / 3, keys: [.CursorUp])
             ]),
-            Row(top: rows[5], bottom: rows[6], spans: [
+            Row(top: rows[4], bottom: rows[5], spans: [
                 Span(left: left, right: spaceLeft, keys: [.ControlLeft, .CommanderLeft, .AltLeft]),
                 Span(left: spaceLeft, right: spaceRight, keys: [.Char(" ")]),
                 Span(left: spaceRight, right: right, keys: [.AltRight, .CommanderRight, .Menu, .ControlRight]),

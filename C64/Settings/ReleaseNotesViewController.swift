@@ -33,6 +33,9 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Release 1.6 build 4", year: 2020, month: 7, day: 15, changes: [
+            "Preliminary Commander X16 support. (No peripherals supported yet.)"
+        ]),
         Release(name: "Release 1.6 build 3", year: 2020, month: 7, day: 11, changes: [
             "Preliminary Atari 800XL support. (No peripherals supported yet. It starts in diagnostic mode, press reset to exit to BASIC.)"
         ]),

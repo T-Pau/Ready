@@ -189,6 +189,13 @@
 					<string>Icon-VIC20-60</string>
 				</array>
 			</dict>
+			<key>App Icon X16</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Icon-X16-60</string>
+				</array>
+			</dict>
 			<key>App Icon XL</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
@@ -241,6 +248,15 @@
 					<string>Icon-VIC20-60</string>
 					<string>Icon-VIC20-76</string>
 					<string>Icon-VIC20-83.5</string>
+				</array>
+			</dict>
+			<key>App Icon X16</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Icon-X16-60</string>
+					<string>Icon-X16-76</string>
+					<string>Icon-X16-83.5</string>
 				</array>
 			</dict>
 			<key>App Icon XL</key>

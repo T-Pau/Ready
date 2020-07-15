@@ -44,9 +44,11 @@ public enum ConnectorType: Hashable {
     case plus4ExpansionPort
     case atariSio
     case spectrumExpansionPort
+    case supernesJoystick
     case vic20ExpansionPort
     case videoComponent
     case videoRGBi
+    case videoVGA
         
     case none // used for dummy parts
     

@@ -4,11 +4,9 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-typedef enum {
-    BORDER_MODE_AUTO = 0,
-    BORDER_MODE_SHOW = 1,
-    BORDER_MODE_HIDE = 2
-} render_border_mode_t;
+#include <Emulator/Renderer.h>
+
+typedef RendererBorderMode render_border_mode_t;
 
 typedef struct {
     size_t x;

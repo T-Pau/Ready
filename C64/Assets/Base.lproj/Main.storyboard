@@ -1139,17 +1139,17 @@
                                 <rect key="frame" x="0.0" y="50" width="1024" height="1316"/>
                                 <subviews>
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r3y-Ch-gxd" userLabel="Screen">
-                                        <rect key="frame" x="0.0" y="0.0" width="1024" height="973"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1024" height="211"/>
                                         <subviews>
                                             <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="byJ-GM-hsG">
-                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="973"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="211"/>
                                                 <gestureRecognizers/>
                                             </imageView>
                                             <view opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SD9-Ec-zdE" customClass="VirtualControlsView" customModule="Ready" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="74" width="1024" height="899"/>
+                                                <rect key="frame" x="0.0" y="74" width="1024" height="137"/>
                                             </view>
                                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TIh-sV-LcP">
-                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="973"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="211"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                         </subviews>
@@ -1170,7 +1170,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ufs-jw-ysx" userLabel="Status Bar">
-                                        <rect key="frame" x="0.0" y="973" width="1024" height="34"/>
+                                        <rect key="frame" x="0.0" y="211" width="1024" height="34"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="9NH-rt-nKV">
                                                 <rect key="frame" x="8" y="4" width="1008" height="30"/>
@@ -1186,7 +1186,7 @@
                                                             <outletCollection property="gestureRecognizers" destination="iE5-B1-JIf" appends="YES" id="g3m-dm-mUn"/>
                                                         </connections>
                                                     </view>
-                                                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TFG-4c-Gy0" customClass="TapeStatusView" customModule="C64UIComponents">
+                                                    <view opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TFG-4c-Gy0" customClass="TapeStatusView" customModule="C64UIComponents">
                                                         <rect key="frame" x="252" y="0.0" width="76" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="210" id="6Pm-JP-YtM"/>
@@ -1304,11 +1304,8 @@
                                         </constraints>
                                     </view>
                                     <imageView multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="C64 Keyboard" translatesAutoresizingMaskIntoConstraints="NO" id="1D6-gZ-gDq" customClass="KeyboardView" customModule="Ready" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1007" width="1024" height="309"/>
+                                        <rect key="frame" x="0.0" y="245" width="1024" height="1071"/>
                                         <gestureRecognizers/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="1D6-gZ-gDq" secondAttribute="height" multiplier="1190:359" id="q9N-5d-SMD"/>
-                                        </constraints>
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="sbR-tC-7gE" appends="YES" id="aiv-62-XQN"/>
                                         </connections>
@@ -2511,7 +2508,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MN6-3c-Oli" customClass="MediaView" customModule="C64UIComponents">
+                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MN6-3c-Oli" customClass="MediaView" customModule="C64UIComponents">
                                                     <rect key="frame" x="436" y="10" width="89" height="39"/>
                                                 </view>
                                             </subviews>

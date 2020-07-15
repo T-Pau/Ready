@@ -31,6 +31,7 @@ public struct Computer: MachinePart {
         case plus4
         case spectrum
         case vic
+        case x16
         
         var dataDirectory: String {
             switch self {
@@ -42,6 +43,8 @@ public struct Computer: MachinePart {
                 return "fuse"
             case .vic:
                 return "vice/VIC20"
+            case .x16:
+                return "x16-emulator"
             }
         }
         
@@ -95,6 +98,9 @@ public struct Computer: MachinePart {
                     .disk5_25SingleDensityDoubleSidedCommodore,
                     .disk5_25DoubleDensitySingleSidedCommodore,
                 ]
+                
+            case .x16:
+                return [] // TODO
             }
         }
         
@@ -149,6 +155,13 @@ public struct Computer: MachinePart {
                     Port(name: "Disk Drive 11", key: .diskDrive11, connectorTypes: [.commodoreIEC], iconWidth: 2),
                     Port(name: "Control Port", key: .controlPort1, connectorTypes: [.atariJoystick, .atariJoystickAnalog], supportsHotSwap: true) // TODO: lightpen
                 ]
+                
+            case .x16:
+                return [
+                    Port(name: "Screen", key: .screen, connectorTypes: [.videoVGA], supportsHotSwap: true, iconWidth: 2, iconHeight:  2),
+                    Port(name: "Joystick 1", key: .controlPort1, connectorTypes: [.supernesJoystick], supportsHotSwap: true),
+                    Port(name: "Joystick 2", key: .controlPort2, connectorTypes: [.supernesJoystick], supportsHotSwap: true),
+                ] // TODO
             }
         }
     }
@@ -179,6 +192,7 @@ public struct Computer: MachinePart {
         case vic1001
         case vic20Pal
         case vic20Ntsc
+        case x16
         case zxSpectrum16k
         case zxSpectrum48k
         case zxSpectrum48kNtsc
@@ -195,6 +209,8 @@ public struct Computer: MachinePart {
                 return .vic
             case .c16Pal, .c16Ntsc, .c232Ntsc, .plus4Pal, .plus4Ntsc, .v364Ntsc:
                 return .plus4
+            case .x16:
+                return .x16
             case .zxSpectrum16k, .zxSpectrum48k, .zxSpectrum48kNtsc, .zxSpectrum128k, .zxSpectrumPlus2:
                 return .spectrum
             }
@@ -622,9 +638,17 @@ public struct Computer: MachinePart {
                      caseColorName: "Atari XL Case",
                      emulatorInfo: Atari800EmulatorInfo(xlOS: "Atari XL-XE OS rev. 2", basicRom: "Atari BASIC rev. B", ntsc: true),
                      chargenName: "")
-
+        ]),
+        
+        MachinePartSection(title: "Commander X16", parts: [
+            Computer(identifier: "X16",
+                     fullName: "Commander X16",
+                     iconName: "Commander X16",
+                     viceMachineModel: .x16,
+                     keyboardName: "X16",
+                     caseColorName: "X16 Case",
+                     chargenName: "")
         ])
-
 ])
     
     static private var byIdentifier = [String: Computer]()
