@@ -14,6 +14,6 @@ Thanks to these people for providing images:
 
 Thanks to these people for suggestions, testing, and bug reports:
 
-- ecstaticax
 - Michael Berengue
 - Kye Lewis <kye@themodernmachine.com>
+- Gianluca Musumeci
