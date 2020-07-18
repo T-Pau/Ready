@@ -8,10 +8,14 @@ Ready is an open source emulator for the following 8 bit home computers:
 - [Commodore 64](https://en.wikipedia.org/wiki/Commodore_64)
 - [Commodore VIC-20](https://en.wikipedia.org/wiki/Commodore_VIC-20)
 - [Commodore 16, Plus/4](https://en.wikipedia.org/wiki/Commodore_Plus/4)
-- [Atari 600XL, 800XL](https://en.wikipedia.org/wiki/Atari_8-bit_family)
 - [Sinclair ZX Spectrum](https://en.wikipedia.org/wiki/ZX_Spectrum) (16k, 48k, Spectrum+, 128k, +2)
 
-It is based on [fuse](http://fuse-emulator.sourceforge.net/), [atari800](https://atari800.github.io), and [Vice](http://vice-emu.sourceforge.net), which provide accurate emulation of many hardware variants and peripherals.
+With preliminary support for these computers:
+
+- [Atari 600XL, 800XL](https://en.wikipedia.org/wiki/Atari_8-bit_family)
+- [Commander X16](https://www.commanderx16.com/)
+
+It is based on [atari800](https://atari800.github.io), [fuse](http://fuse-emulator.sourceforge.net/), [Vice](http://vice-emu.sourceforge.net), and [x16-emulator](https://github.com/commanderx16/x16-emulator), which provide accurate emulation of many hardware variants and peripherals.
 
 It requires at least iPadOS 13.5.
 
@@ -36,7 +40,7 @@ Visit the website [spiderlab.at/c64](http://spiderlab.at/c64/) for screenshots.
 
 You can join us on [Discord](https://discord.gg/4GuSY5e).
 
-The authors can be contacted at c64@spiderlab.at.
+The authors can be contacted at ready@tpau.group.
 
 ### Installing
 
