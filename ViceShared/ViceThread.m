@@ -34,7 +34,6 @@
 #include "machine.h"
 #include "maincpu.h"
 #include "attach.h"
-#include "Audio.h"
 #include "resources.h"
 
 #import "ViceThread.h"
@@ -71,20 +70,6 @@
 
 - (void)dealloc {
     free(bundle_directory);
-}
-
-- (void)updateBitmapWidth: (size_t)width height: (size_t)height {
-    UIImage *image;
-    
-    @autoreleasepool {
-        CIImage *ciImage = [CIImage imageWithBitmapData:_imageData bytesPerRow:_bytesPerRow size:CGSizeMake((CGFloat)width, (CGFloat)height) format:kCIFormatABGR8 colorSpace:CGColorSpaceCreateWithName(kCGColorSpaceSRGB)];
-    
-        image = [UIImage imageWithCIImage:ciImage];
-    }
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.imageView.image = image;
-    });
 }
 
 - (BOOL)vsync {

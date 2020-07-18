@@ -27,10 +27,9 @@ import Emulator
 import Atari800C
 
 @objc public class Atari800: Emulator {
-    public override init() {
+    public init() {
         atari800Thread = Atari800Thread()
-        super.init()
-        atari800Thread?.delegate = self
+        super.init(emulatorThread: atari800Thread)
     }
     
     private var controlPressed = false
@@ -278,10 +277,6 @@ import Atari800C
         }
         atari800Thread?.args = args
         atari800Thread?.start()
-    }
-    
-    public override func set(borderMode: MachineConfigOld.BorderMode) {
-        atari800Thread?.newBorderMode = borderMode.cValue
     }
 }
 

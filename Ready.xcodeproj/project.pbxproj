@@ -19,12 +19,10 @@
 		4B174B9F24B8A5F200EA700D /* bit3.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B9ABCE924B8887100678531 /* bit3.c */; };
 		4B174BA024B8A5F200EA700D /* pbi_proto80.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B9ABBD024B8887000678531 /* pbi_proto80.c */; };
 		4B174BA324B8A99800EA700D /* sound.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B174BA224B8A99800EA700D /* sound.m */; };
-		4B174BA424B8B1DA00EA700D /* Audio.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF86B521DBA50900EF99ED /* Audio.m */; };
 		4B174BA624B8B4F700EA700D /* platform.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B174BA524B8B4F700EA700D /* platform.m */; };
 		4B174BA824B8E8F000EA700D /* ui.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B9ABC9324B8887100678531 /* ui.c */; };
 		4B174BA924B8E90000EA700D /* ui_basic.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B9ABC1624B8887000678531 /* ui_basic.c */; };
 		4B174BAE24B8EDC700EA700D /* video.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B174BAD24B8EDC700EA700D /* video.m */; };
-		4B174BAF24B8F0FD00EA700D /* render.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B680041249B3F7F00A76E57 /* render.m */; };
 		4B1B2DB1227AE5410022B053 /* CartridgeDocument.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B1B2DB0227AE5090022B053 /* CartridgeDocument.png */; };
 		4B1CA1F324BDB2170074D45C /* statesav.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B9ABCC324B8887100678531 /* statesav.c */; };
 		4B1CA1F424BDB2890074D45C /* statesav.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B9ABBC324B8887000678531 /* statesav.c */; };
@@ -274,7 +272,6 @@
 		4B540FF524A9BD5800F6925B /* iec-plus4exp.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F984421D7AD4800C272C4 /* iec-plus4exp.c */; };
 		4B540FF624A9BD5800F6925B /* plus4exp-cmdline-options.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F984321D7AD4800C272C4 /* plus4exp-cmdline-options.c */; };
 		4B540FF724A9BD5800F6925B /* plus4exp-resources.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F984521D7AD4800C272C4 /* plus4exp-resources.c */; };
-		4B540FF824A9BD8F00F6925B /* Audio.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF86B521DBA50900EF99ED /* Audio.m */; };
 		4B540FF924A9BD9A00F6925B /* ringbuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF86BB21DBCB5500EF99ED /* ringbuffer.c */; };
 		4B540FFB24A9BDA600F6925B /* dummy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BB22E4421E9682E0075E694 /* dummy.cpp */; };
 		4B540FFC24A9BDA900F6925B /* joy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF864C21D8D85200EF99ED /* joy.m */; };
@@ -530,7 +527,6 @@
 		4B54145C24ABA74C00F6925B /* libvice-c64sc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B54131F24AB9B0500F6925B /* libvice-c64sc.a */; };
 		4B54145D24ABA74C00F6925B /* libvice-driveiecc64exp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B54143424ABA59100F6925B /* libvice-driveiecc64exp.a */; };
 		4B54145E24ABA74C00F6925B /* libvice-viciisc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B54144A24ABA66F00F6925B /* libvice-viciisc.a */; };
-		4B54151424ABC94600F6925B /* archdep.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF864221D8D07700EF99ED /* archdep.m */; };
 		4B54151524ABCAEC00F6925B /* libvice-base.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FF9D2499F0C900A76E57 /* libvice-base.a */; };
 		4B54151624ABCB1F00F6925B /* libvice-midi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FFA52499F0DF00A76E57 /* libvice-midi.a */; };
 		4B54151724ABCB7500F6925B /* mmcreplay.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F999221D7AD4B00C272C4 /* mmcreplay.c */; };
@@ -608,8 +604,6 @@
 		4B68003C249A17F100A76E57 /* ViceVIC20.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B68003B249A17F100A76E57 /* ViceVIC20.swift */; };
 		4B68003E249A225900A76E57 /* VIC20 in Resources */ = {isa = PBXBuildFile; fileRef = 4B68003D249A225900A76E57 /* VIC20 */; };
 		4B68003F249A226F00A76E57 /* VIC20 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B68003D249A225900A76E57 /* VIC20 */; };
-		4B680042249B3F7F00A76E57 /* render.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B680040249B3F7F00A76E57 /* render.h */; };
-		4B680043249B3F7F00A76E57 /* render.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B680040249B3F7F00A76E57 /* render.h */; };
 		4B68F8B52496407700A76E57 /* Emulator.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B68F8B32496407700A76E57 /* Emulator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B68F8B82496407700A76E57 /* Emulator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68F8B12496407700A76E57 /* Emulator.framework */; };
 		4B68F8B92496407700A76E57 /* Emulator.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68F8B12496407700A76E57 /* Emulator.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -657,7 +651,6 @@
 		4B68FB732497C2DD00A76E57 /* CwlMutex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1CCBAD223BDDDD0032B9F0 /* CwlMutex.swift */; };
 		4B68FB782497CE2100A76E57 /* vice_x64sc.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B68FB572496817200A76E57 /* vice_x64sc.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		4B68FB7A2498AE7200A76E57 /* ringbuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF86BB21DBCB5500EF99ED /* ringbuffer.c */; };
-		4B68FB7B2498AE7B00A76E57 /* Audio.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF86B521DBA50900EF99ED /* Audio.m */; };
 		4B68FB852498DC0600A76E57 /* ViceVIC20.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B68FB832498DC0600A76E57 /* ViceVIC20.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B68FB882498DC0600A76E57 /* ViceVIC20.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FB812498DC0600A76E57 /* ViceVIC20.framework */; };
 		4B68FB892498DC0600A76E57 /* ViceVIC20.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FB812498DC0600A76E57 /* ViceVIC20.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -1090,7 +1083,6 @@
 		4B68FF78249918DD00A76E57 /* libvice-socketdrv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FEEA2499133400A76E57 /* libvice-socketdrv.a */; };
 		4B68FF79249918DD00A76E57 /* libvice-tape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FEF22499133900A76E57 /* libvice-tape.a */; };
 		4B68FF7A2499EE3300A76E57 /* ui.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF864821D8D38E00EF99ED /* ui.m */; };
-		4B68FF7B2499EE5500A76E57 /* Audio.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF86B521DBA50900EF99ED /* Audio.m */; };
 		4B68FF7C2499EE5B00A76E57 /* ringbuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF86BB21DBCB5500EF99ED /* ringbuffer.c */; };
 		4B68FFA62499F25F00A76E57 /* alarm.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F9B3621D7AD5500C272C4 /* alarm.c */; };
 		4B68FFA72499F25F00A76E57 /* attach.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F9BE421D7AD5A00C272C4 /* attach.c */; };
@@ -1166,6 +1158,9 @@
 		4B697C7121E378DE0091BFCC /* SingleSelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B697C7021E378DE0091BFCC /* SingleSelectionTableViewController.swift */; };
 		4B69AFDC21E8AEDF00D90C42 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B69AFDB21E8AEDF00D90C42 /* Game.swift */; };
 		4B69AFDE21E8B15200D90C42 /* Disk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B69AFDD21E8B15200D90C42 /* Disk.swift */; };
+		4B73ED2724C1A71000B0561C /* archdep.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF864221D8D07700EF99ED /* archdep.m */; };
+		4B73ED2824C1A71100B0561C /* archdep.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF864221D8D07700EF99ED /* archdep.m */; };
+		4B73ED2924C1A71200B0561C /* archdep.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF864221D8D07700EF99ED /* archdep.m */; };
 		4B7609EA21F240180058FBCD /* C64FileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7609E921F240180058FBCD /* C64FileType.swift */; };
 		4B7609F421F47B900058FBCD /* C64UIComponents.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B7609F221F47B900058FBCD /* C64UIComponents.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B7609F721F47B900058FBCD /* C64UIComponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7609F021F47B900058FBCD /* C64UIComponents.framework */; };
@@ -1180,7 +1175,6 @@
 		4B81F2A524AF12B50090B21A /* EmulatorThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B81F2A424AF12B50090B21A /* EmulatorThread.m */; };
 		4B81F2A724AF17360090B21A /* EmulatorThread.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B81F2A624AF12E30090B21A /* EmulatorThread.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B81F2AB24B069680090B21A /* sound.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B81F2AA24B069680090B21A /* sound.m */; };
-		4B81F2AC24B070340090B21A /* Audio.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF86B521DBA50900EF99ED /* Audio.m */; };
 		4B81F2AD24B070470090B21A /* sfifo.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B54127624AB363A00F6925B /* sfifo.c */; };
 		4B841CFA21F75C12009CAF4B /* Floppy35Document.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B841CF921F75C12009CAF4B /* Floppy35Document.png */; };
 		4B841CFC21F76AB3009CAF4B /* Floppy525Document.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B841CFB21F76AB3009CAF4B /* Floppy525Document.png */; };
@@ -2037,6 +2031,7 @@
 		4B1CA21724BF145B0074D45C /* platform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; };
 		4B1CA21824BF181D0074D45C /* Renderer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Renderer.m; sourceTree = "<group>"; };
 		4B1CA21A24BF18290074D45C /* Renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
+		4B1CA21C24C198170074D45C /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		4B1CCBA8223A8C340032B9F0 /* InputMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputMapping.swift; sourceTree = "<group>"; };
 		4B1CCBAD223BDDDD0032B9F0 /* CwlMutex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CwlMutex.swift; sourceTree = "<group>"; };
 		4B1CCBAF223FF3990032B9F0 /* GameCollectionNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCollectionNavigationViewController.swift; sourceTree = "<group>"; };
@@ -4208,8 +4203,6 @@
 		4B680039249A173500A76E57 /* VIceC64.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VIceC64.swift; sourceTree = "<group>"; };
 		4B68003B249A17F100A76E57 /* ViceVIC20.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViceVIC20.swift; sourceTree = "<group>"; };
 		4B68003D249A225900A76E57 /* VIC20 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = VIC20; sourceTree = "<group>"; };
-		4B680040249B3F7F00A76E57 /* render.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = render.h; sourceTree = "<group>"; };
-		4B680041249B3F7F00A76E57 /* render.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = render.m; sourceTree = "<group>"; };
 		4B68F8AA24963F1B00A76E57 /* EmulatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmulatorDelegate.swift; sourceTree = "<group>"; };
 		4B68F8B12496407700A76E57 /* Emulator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Emulator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B68F8B32496407700A76E57 /* Emulator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Emulator.h; sourceTree = "<group>"; };
@@ -4894,8 +4887,6 @@
 		4BBF86A021DA265E00EF99ED /* PRINTER */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PRINTER; sourceTree = "<group>"; };
 		4BBF86AB21DAB03200EF99ED /* EmulatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmulatorViewController.swift; sourceTree = "<group>"; };
 		4BBF86B121DB9C5500EF99ED /* soundios.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = soundios.m; sourceTree = "<group>"; };
-		4BBF86B521DBA50900EF99ED /* Audio.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Audio.m; sourceTree = "<group>"; };
-		4BBF86B721DBA70F00EF99ED /* Audio.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Audio.h; sourceTree = "<group>"; };
 		4BBF86BB21DBCB5500EF99ED /* ringbuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ringbuffer.c; sourceTree = "<group>"; };
 		4BBF86BC21DBCB5500EF99ED /* ringbuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ringbuffer.h; sourceTree = "<group>"; };
 		4BC5BBD821DE245D00D44A10 /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
@@ -5750,17 +5741,6 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
-		4B3E4A602212B37F00511F08 /* Vice */ = {
-			isa = PBXGroup;
-			children = (
-				4BBF86B721DBA70F00EF99ED /* Audio.h */,
-				4BBF86B521DBA50900EF99ED /* Audio.m */,
-				4B680041249B3F7F00A76E57 /* render.m */,
-				4B680040249B3F7F00A76E57 /* render.h */,
-			);
-			path = Vice;
-			sourceTree = "<group>";
-		};
 		4B3E4A612212B3D200511F08 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
@@ -5839,6 +5819,7 @@
 				4B460E1E2269F70100815E7F /* README.md */,
 				4BBF869C21DA20CA00EF99ED /* TODO.md */,
 				4B7560F72441BF72004B170F /* THANKS.md */,
+				4B1CA21C24C198170074D45C /* LICENSE.md */,
 				4BB22EB621EB4ADC0075E694 /* res */,
 				4BB22EB521EB4ADC0075E694 /* specs */,
 				4B3E4A55220EE8A000511F08 /* Licenses */,
@@ -5949,7 +5930,6 @@
 				4B3F975521D7ACC700C272C4 /* Info.plist */,
 				4B3E4A622212B59700511F08 /* Model */,
 				4B3E4A59220EF29600511F08 /* Settings */,
-				4B3E4A602212B37F00511F08 /* Vice */,
 				4B3E4A642212B5B400511F08 /* ViewControllers */,
 				4B3E4A632212B5A900511F08 /* Views */,
 			);
@@ -10429,7 +10409,6 @@
 			files = (
 				4B68FB782497CE2100A76E57 /* vice_x64sc.h in Headers */,
 				4B68FB4224967CCD00A76E57 /* Vice_C64.h in Headers */,
-				4B680042249B3F7F00A76E57 /* render.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -10437,7 +10416,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B680043249B3F7F00A76E57 /* render.h in Headers */,
 				4B68FB852498DC0600A76E57 /* ViceVIC20.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -11938,7 +11916,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B540FF824A9BD8F00F6925B /* Audio.m in Sources */,
 				4B540FFD24A9BDB800F6925B /* mousedrv.m in Sources */,
 				4B540FFC24A9BDA900F6925B /* joy.m in Sources */,
 				4B54100224A9BDB800F6925B /* videoarch.m in Sources */,
@@ -11946,6 +11923,7 @@
 				4B54100124A9BDB800F6925B /* ViceThread.m in Sources */,
 				4B540FFF24A9BDB800F6925B /* soundios.m in Sources */,
 				4B540EA424A6750B00F6925B /* vice_plus4.c in Sources */,
+				4B73ED2824C1A71100B0561C /* archdep.m in Sources */,
 				4B540EA624A6757B00F6925B /* VicePlus4.swift in Sources */,
 				4B540FFB24A9BDA600F6925B /* dummy.cpp in Sources */,
 				4B54100324A9BDCC00F6925B /* Vice.swift in Sources */,
@@ -12146,7 +12124,6 @@
 				4B54151A24ACA8AE00F6925B /* FuseThread.m in Sources */,
 				4B81F2AB24B069680090B21A /* sound.m in Sources */,
 				4B81F29E24AE8F6E0090B21A /* ui.m in Sources */,
-				4B81F2AC24B070340090B21A /* Audio.m in Sources */,
 				4B5412D724AB52CA00F6925B /* Fuse.swift in Sources */,
 				4B94397124ADDF9700FD0237 /* uidisplay.m in Sources */,
 			);
@@ -12439,7 +12416,6 @@
 				4B68FB5F2497523C00A76E57 /* UserPortModule.swift in Sources */,
 				4B671FDE24A08ABB00E39F01 /* Keyboard.swift in Sources */,
 				4B68FB682497533000A76E57 /* ProgramFile.swift in Sources */,
-				4B174BAF24B8F0FD00EA700D /* render.m in Sources */,
 				4B52816C249E442D0023F453 /* Port.swift in Sources */,
 				4B68FB672497532200A76E57 /* TapeImage.swift in Sources */,
 				4B1CA21224BF0EF50074D45C /* ringbuffer.c in Sources */,
@@ -12461,7 +12437,7 @@
 				4B68FB4E24967D5A00A76E57 /* mousedrv.m in Sources */,
 				4B68FB7A2498AE7200A76E57 /* ringbuffer.c in Sources */,
 				4B680034249A00A500A76E57 /* vice_c64.c in Sources */,
-				4B68FB7B2498AE7B00A76E57 /* Audio.m in Sources */,
+				4B73ED2724C1A71000B0561C /* archdep.m in Sources */,
 				4B68003A249A173500A76E57 /* VIceC64.swift in Sources */,
 				4B68FB5124967D6C00A76E57 /* Vice.swift in Sources */,
 				4B68FB5224967D7600A76E57 /* ViceThread.m in Sources */,
@@ -12480,8 +12456,8 @@
 				4B68FB942498DCED00A76E57 /* videoarch.m in Sources */,
 				4B68FB8F2498DCD700A76E57 /* dummy.cpp in Sources */,
 				4B68FB902498DCDA00A76E57 /* joy.m in Sources */,
+				4B73ED2924C1A71200B0561C /* archdep.m in Sources */,
 				4B680037249A023500A76E57 /* vice_vic20.c in Sources */,
-				4B68FF7B2499EE5500A76E57 /* Audio.m in Sources */,
 				4B68FF7A2499EE3300A76E57 /* ui.m in Sources */,
 				4B68003C249A17F100A76E57 /* ViceVIC20.swift in Sources */,
 				4B68FB922498DCE200A76E57 /* soundios.m in Sources */,
@@ -12567,7 +12543,6 @@
 				4B68FD94249905F800A76E57 /* archdep_expand_path.c in Sources */,
 				4B68FD8D249905F800A76E57 /* archdep_boot_path.c in Sources */,
 				4B68FD93249905F800A76E57 /* archdep_default_sysfile_pathlist.c in Sources */,
-				4B54151424ABC94600F6925B /* archdep.m in Sources */,
 				4B68FDA0249905F900A76E57 /* archdep_open_default_log_file.c in Sources */,
 				4B68FDA3249905F900A76E57 /* archdep_program_path.c in Sources */,
 				4B68FDA9249905F900A76E57 /* archdep_stat.c in Sources */,
@@ -13368,7 +13343,6 @@
 				4B174BA624B8B4F700EA700D /* platform.m in Sources */,
 				4B174BA324B8A99800EA700D /* sound.m in Sources */,
 				4B174BAE24B8EDC700EA700D /* video.m in Sources */,
-				4B174BA424B8B1DA00EA700D /* Audio.m in Sources */,
 				4B64C8F624B90CE5001DCF0B /* ringbuffer.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -13727,6 +13701,8 @@
 					vice/src/arch/shared,
 					vice/src/sid,
 					C64,
+					vice/src/drive,
+					vice/src/lib/p64,
 				);
 				INFOPLIST_FILE = VicePlus4/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -13775,6 +13751,8 @@
 					vice/src/arch/shared,
 					vice/src/sid,
 					C64,
+					vice/src/drive,
+					vice/src/lib/p64,
 				);
 				INFOPLIST_FILE = VicePlus4/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -14442,6 +14420,8 @@
 					vice/src/arch/shared,
 					vice/src/sid,
 					C64,
+					vice/src/drive,
+					vice/src/lib/p64,
 				);
 				INFOPLIST_FILE = ViceC64/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -14486,6 +14466,8 @@
 					vice/src/arch/shared,
 					vice/src/sid,
 					C64,
+					vice/src/drive,
+					vice/src/lib/p64,
 				);
 				INFOPLIST_FILE = ViceC64/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -14530,6 +14512,8 @@
 					vice/src/arch/shared,
 					vice/src/sid,
 					C64,
+					vice/src/drive,
+					vice/src/lib/p64,
 				);
 				INFOPLIST_FILE = ViceVIC20/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -14573,6 +14557,8 @@
 					vice/src/arch/shared,
 					vice/src/sid,
 					C64,
+					vice/src/drive,
+					vice/src/lib/p64,
 				);
 				INFOPLIST_FILE = ViceVIC20/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";

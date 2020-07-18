@@ -17,22 +17,34 @@
         return nil;
     }
     self.qualityOfService = NSQualityOfServiceUserInteractive;
+    self.renderer = [[Renderer alloc] init];
     return self;
 }
 
-
-- (void)initBitmapWidth:(size_t)width height:(size_t)height {
-    self.bytesPerRow = width * 4;
-    self.imageData = [NSMutableData dataWithLength:self.bytesPerRow * height];
+- (int)borderMode {
+    if (_renderer != nil) {
+        return _renderer.borderMode;
+    }
+    else {
+        return _initialBorderMode;
+    }
 }
 
-
-- (void)updateBitmapWidth: (size_t)width height: (size_t)height {
-    @autoreleasepool {
-        CIImage *ciImage = [CIImage imageWithBitmapData:_imageData bytesPerRow:_bytesPerRow size:CGSizeMake((CGFloat)width, (CGFloat)height) format:kCIFormatABGR8 colorSpace:CGColorSpaceCreateWithName(kCGColorSpaceSRGB)];
-        
-        [self.delegate updateImage: [UIImage imageWithCIImage:ciImage]];
+- (void)setBorderMode:(int)borderMode {
+    if (_renderer != nil) {
+        _renderer.borderMode = borderMode;
     }
+    else {
+        _initialBorderMode = borderMode;
+    }
+}
+
+- (id)delegate {
+    return _delegate;
+}
+- (void)setDelegate:(id)delegate {
+    _delegate = delegate;
+    _renderer.delegate = delegate;
 }
 
 @end

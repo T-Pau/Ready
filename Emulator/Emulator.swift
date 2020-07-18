@@ -30,10 +30,18 @@ import UIKit
     open var imageView: UIImageView?
     public var delegate: EmulatorDelegate?
     
+    public var emulatorThread: EmulatorThread?
+    
     private var eventQueue = EventQueue()
     
     private var pressedKeys = Multiset<Key>()
     private var joystickState = [JoystickButtons](repeating: JoystickButtons(), count: 10)
+
+    public init(emulatorThread: EmulatorThread?) {
+        self.emulatorThread = emulatorThread
+        super.init()
+        emulatorThread?.delegate = self
+    }
 
     // Call this function once per frame on emulator thread to process pending events. handle(event:) is called for each event.
     @objc public func handleEvents() -> Bool {
@@ -125,7 +133,7 @@ import UIKit
     }
 
     open func set(borderMode: MachineConfigOld.BorderMode) {
-        
+        emulatorThread?.borderMode = borderMode.cValue
     }
     
     public func send(event: Event, delay: Int = 0) {

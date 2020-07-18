@@ -9,12 +9,8 @@
 #import <Foundation/Foundation.h>
 
 #include "screen.h"
-#include "render.h"
 #include "Atari800Thread.h"
 
-static render_t *renderer;
-
-// TODO: really need all 256 entries? I think only 128.
 static uint32_t palette[] = {
     0x000000ff,
     0x1c1c1cff,
@@ -275,23 +271,21 @@ static uint32_t palette[] = {
 };
 
 int display_init() {
-    render_size_t size = { Screen_WIDTH, Screen_HEIGHT };
-    [atari800Thread initBitmapWidth:size.width  height:size.height];
-    if ((renderer = render_new(size, atari800Thread.imageData.mutableBytes, palette, atari800Thread.currentBorderMode)) == NULL) {
-        return -1;
-    }
+    RendererSize size = { Screen_WIDTH, Screen_HEIGHT };
+    [atari800Thread.renderer resize:size];
+    atari800Thread.renderer.palette = palette;
     
     return 0;
 }
 
 void display_fini() {
-    render_free(renderer);
+    [atari800Thread.renderer close];
 }
 
 void PLATFORM_DisplayScreen(void) {
-    render_image_t image;
+    RendererImage image;
     image.data = (uint8_t *)Screen_atari + Screen_visible_y1 * Screen_WIDTH + Screen_visible_x1;
-    image.row_size = Screen_WIDTH;
+    image.rowSize = Screen_WIDTH;
     image.size.width = Screen_visible_x2 - Screen_visible_x1;
     image.size.height = Screen_visible_y2 - Screen_visible_y1;
     image.screen.origin.x = 8;
@@ -299,8 +293,6 @@ void PLATFORM_DisplayScreen(void) {
     image.screen.size.width = 320;
     image.screen.size.height = 192;
 
-    const render_size_t *current_size = render(renderer, &image, atari800Thread.newBorderMode);
-    [atari800Thread updateBitmapWidth:current_size->width height:current_size->height];
-    atari800Thread.currentBorderMode = atari800Thread.newBorderMode;
+    [atari800Thread.renderer render:&image];
 }
 

@@ -29,10 +29,9 @@ import FuseC
 extension keyboard_key_name: Hashable { }
 
 @objc public class Fuse: Emulator {
-    public override init() {
+    public init() {
         fuseThread = FuseThread()
-        super.init()
-        fuseThread?.delegate = self
+        super.init(emulatorThread: fuseThread)
     }
         
     private var pressedKeys = Multiset<keyboard_key_name>()
@@ -256,10 +255,6 @@ extension keyboard_key_name: Hashable { }
         }
         fuseThread?.args = args
         fuseThread?.start()
-    }
-    
-    public override func set(borderMode: MachineConfigOld.BorderMode) {
-        fuseThread?.newBorderMode = borderMode.cValue
     }
 }
 

@@ -27,10 +27,9 @@ import Emulator
 import X16C
 
 @objc public class X16: Emulator {
-    public override init() {
+    public init() {
         x16Thread = X16Thread()
-        super.init()
-        x16Thread?.delegate = self
+        super.init(emulatorThread: x16Thread)
     }
     
         

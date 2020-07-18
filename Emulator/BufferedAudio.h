@@ -17,7 +17,7 @@
 - (instancetype)initSampleRate: (Float64)sampleRate channels: (UInt32)channels samplesPerBuffer: (UInt32)samplesPerBuffer numberOfBuffers: (UInt32)numberOfBuffers;
 
 - (size_t)available;
-- (void)write: (const uint8_t *)buffer length: (size_t)length;
+- (void)write: (const void *)buffer length: (size_t)length;
 
 - (OSStatus)fillBuffer: (uint8_t *)buffer numberOfFrames: (UInt32)numberOfFrames;
 

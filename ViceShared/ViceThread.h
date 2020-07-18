@@ -26,7 +26,7 @@
 
 #import <UIKit/UIKit.h>
 @import GameController;
-//@import Emulator;
+@import Emulator;
 
 #if VICE_C64
 #define ViceThread ViceThreadC64
@@ -51,12 +51,7 @@
 - (void)updateStatusBar;
 @end
 
-@interface ViceThread : NSThread
-
-@property UIImageView * _Nullable imageView;
-
-@property NSMutableData * _Nullable imageData;
-@property size_t bytesPerRow;
+@interface ViceThread : EmulatorThread
 
 // these are read by vice thread, written by main thread
 @property int mouseX;
@@ -66,17 +61,12 @@
 
 @property NSArray * _Nullable argv;
 
-@property NSMutableArray * _Nonnull eventQueue;
+@property BufferedAudio * _Nullable audio;
 
-@property int currentBorderMode;
-@property int newBorderMode;
 @property bool firstFrame;
-
-@property (weak) id _Nullable delegate;
 
 - (void)main;
 
-- (void)updateBitmapWidth: (size_t)width height: (size_t)height;
 - (BOOL)vsync;
 
 // called on the main thread

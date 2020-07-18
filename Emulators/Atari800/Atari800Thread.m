@@ -77,4 +77,5 @@ void atari800_main(int argc, char **argv) {
     }
     
     Atari800_Exit(FALSE);
+    printf("exiting\n");
 }

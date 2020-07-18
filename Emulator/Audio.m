@@ -34,7 +34,7 @@ void printOSStatus(char *name, OSStatus status) {
 
 @implementation Audio
 
-- (instancetype)initSampleRate: (Float64)sampleRate channels: (UInt32)channels samplesPerBuffer: (UInt32)samplesPerBuffer callback: (audio_render_callback_t)renderCallback {
+- (instancetype)initSampleRate: (Float64)sampleRate channels: (UInt32)channels samplesPerBuffer: (UInt32)samplesPerBuffer callback: (audio_render_callback_t)renderCallback userData: (void *)userData {
     // init audio session
     __block BOOL ok = YES;
     
@@ -96,7 +96,7 @@ void printOSStatus(char *name, OSStatus status) {
         }
         AURenderCallbackStruct callbackStruct;
         callbackStruct.inputProc = renderCallback; // render function
-        callbackStruct.inputProcRefCon = NULL;
+        callbackStruct.inputProcRefCon = userData;
         status = AudioUnitSetProperty(*_audioUnit, kAudioUnitProperty_SetRenderCallback,
                                       kAudioUnitScope_Input, 0, &callbackStruct,
                                       sizeof(AURenderCallbackStruct));

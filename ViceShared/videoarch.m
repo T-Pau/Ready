@@ -43,7 +43,6 @@
 
 #import <CoreImage/CoreImage.h>
 #import "ViceThread.h"
-#include "render.h"
 
 #define MY_MIN(a, b) ((a) < (b) ? (a) : (b))
 #define MY_MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -58,12 +57,6 @@ static video_canvas_t *current_canvas;
 static int lightpen_x;
 static int lightpen_y;
 static int lightpen_buttons;
-
-/* For border auto hiding */
-/* Number of consecutive frames border must not change until it's hidden */
-#define BORDER_HIDE_FRAMES 25
-/* Number of consecutive frames border must change until it's shown */
-#define BORDER_SHOW_FRAMES 5
 
 #define TICKSPERSECOND  1000000000L  /* Nanoseconds resolution. */
 
@@ -128,7 +121,6 @@ video_canvas_t *video_canvas_create(video_canvas_t *canvas, unsigned int *width,
     canvas->created = 1;
     canvas->initialized = 1;
 
-    canvas->render = NULL;
     canvas->bitmap = NULL;
     canvas->bitmap_row_size = 0;
 
@@ -141,7 +133,7 @@ video_canvas_t *video_canvas_create(video_canvas_t *canvas, unsigned int *width,
  *  \param[in] canvas The canvas to destroy.
  */
 void video_canvas_destroy(struct video_canvas_s *canvas) {
-    render_free(canvas->render);
+    [viceThread.renderer close];
 }
 
 
@@ -162,25 +154,25 @@ void video_canvas_refresh(struct video_canvas_s *canvas, unsigned int xs, unsign
     size_t full_width = MY_MIN(canvas->geometry->screen_size.width - canvas->viewport->first_x, canvas->draw_buffer->canvas_width);
     size_t full_height = canvas->viewport->last_line - canvas->viewport->first_line + 1;
     
-    render_image_t image;
+    RendererImage image;
     
     uint8_t *source = canvas->draw_buffer->draw_buffer + canvas->draw_buffer->draw_buffer_pitch * ys + xs;
 
     if (canvas_has_partial_updates == 0) {
         image.data = source;
-        image.row_size = canvas->draw_buffer->draw_buffer_pitch;
+        image.rowSize = canvas->draw_buffer->draw_buffer_pitch;
     }
     else {
-        const render_size_t *size = render_get_bitmap_size(canvas->render);
+        const RendererSize size = viceThread.renderer.size;
         if (canvas->bitmap == NULL) {
-            canvas->bitmap = calloc(size->width * size->height, 1);
-            canvas->bitmap_row_size = size->width;
+            canvas->bitmap = calloc(size.width * size.height, 1);
+            canvas->bitmap_row_size = size.width;
         }
         
-        size_t x_offset = MY_MIN(size->width, xi);
-        size_t y_offset = MY_MIN(size->height, yi);
-        size_t width = MY_MIN(size->width - x_offset, w);
-        size_t height = MY_MIN(size->height - y_offset, h);
+        size_t x_offset = MY_MIN(size.width, xi);
+        size_t y_offset = MY_MIN(size.height, yi);
+        size_t width = MY_MIN(size.width - x_offset, w);
+        size_t height = MY_MIN(size.height - y_offset, h);
         uint8_t *destination = canvas->bitmap + y_offset * canvas->bitmap_row_size + x_offset;
         
         for (size_t y = 0; y < height; y++) {
@@ -190,7 +182,7 @@ void video_canvas_refresh(struct video_canvas_s *canvas, unsigned int xs, unsign
         }
         
         image.data = canvas->bitmap;
-        image.row_size = canvas->bitmap_row_size;
+        image.rowSize = canvas->bitmap_row_size;
     }
     
     image.size.width = full_width;
@@ -200,11 +192,7 @@ void video_canvas_refresh(struct video_canvas_s *canvas, unsigned int xs, unsign
     image.screen.size.width = canvas->geometry->gfx_size.width;
     image.screen.size.height = canvas->geometry->gfx_size.height;
 
-    const render_size_t *current_size = render(canvas->render, &image, viceThread.newBorderMode);
-    if (current_size != NULL) {
-        [viceThread updateBitmapWidth: current_size->width height: current_size->height];
-    }
-    viceThread.currentBorderMode = viceThread.newBorderMode;
+    [viceThread.renderer render:&image];
     screen_updated = SCREEN_UPDATE_DONE;
 }
 
@@ -244,15 +232,10 @@ void video_canvas_resize(struct video_canvas_s *canvas, char resize_canvas) {
     int height = canvas->viewport->last_line - canvas->viewport->first_line + 1;
     int width = canvas->geometry->screen_size.width;
 
-    render_free(canvas->render);
+    RendererSize size = { width, height };
+    [viceThread.renderer resize:size];
+    viceThread.renderer.palette = palette;
     
-    render_size_t size = { width, height };
-    viceThread.bytesPerRow = width * 4;
-    viceThread.imageData = [NSMutableData dataWithLength:render_data_size(size)];
-    
-    if ((canvas->render = render_new(size, viceThread.imageData.mutableBytes, palette, viceThread.currentBorderMode)) == NULL) {
-        printf("can't create render\n");
-    }
     current_canvas = canvas;
     screen_updated = SCREEN_UPDATE_NEVER;
 }
@@ -371,10 +354,8 @@ void vsyncarch_sleep(unsigned long delay)
     }
 }
 
-#ifdef VICE_C64
+#ifndef VICE_PLUS4
 void update_light_pen(int x_in, int y_in, int width, int height, int button_1, int button_2, int is_koala_pad) {
-    video_canvas_t *canvas = vicii.raster.canvas;
-    
     if (is_koala_pad) {
         mouse_button_press(1, button_1);
         mouse_button_press(2, button_2);
@@ -384,25 +365,24 @@ void update_light_pen(int x_in, int y_in, int width, int height, int button_1, i
     }
     
     if (x_in > 0 && y_in > 0) {
-        const render_size_t *current_size = render_get_current_size(canvas->render);
-//        const render_rect_t *current_screen = render_get_current_screen(canvas->render);
+        const RendererSize current_size = viceThread.renderer.currentSize;
         
-        double scale = MY_MIN((double)width / current_size->width, (double)height / current_size->height);
-        int x_offset = (width - current_size->width * scale) / 2;
-        int y_offset = (height - current_size->height * scale) / 2;
+        double scale = MY_MIN((double)width / current_size.width, (double)height / current_size.height);
+        int x_offset = (width - current_size.width * scale) / 2;
+        int y_offset = (height - current_size.height * scale) / 2;
         
         double x = (x_in - x_offset) / scale;
         double y = (y_in - y_offset) / scale;
         
-        if (x >= 0 && x < current_size->width && y >= 0 && y < current_size->height) {
+        if (x >= 0 && x < current_size.width && y >= 0 && y < current_size.height) {
             if (is_koala_pad) {
-                viceThread.mouseX = x / current_size->width * (225 - 44) + 45;
-                viceThread.mouseY = (1 - y / current_size->height) * (204 - 6) + 7;
+                viceThread.mouseX = x / current_size.width * (225 - 44) + 45;
+                viceThread.mouseY = (1 - y / current_size.height) * (204 - 6) + 7;
             }
             else {
-                const render_point_t *current_offset = render_get_current_offset(canvas->render);
-                lightpen_x = x + current_offset->x;
-                lightpen_y = y + current_offset->y;
+                const RendererPoint current_offset = viceThread.renderer.currentOffset;
+                lightpen_x = x + current_offset.x;
+                lightpen_y = y + current_offset.y;
                 /* printf("light pen at %dx%d, buttons: %d\n", lightpen_x, lightpen_y, lightpen_buttons); */
             }
             return;

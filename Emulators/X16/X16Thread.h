@@ -32,13 +32,7 @@
 @property NSArray *args;
 @property NSString *dataDir;
 
-@property BOOL running;
-
-@property BufferedAudio *audio;
-@property Renderer *rernderer;
-
-@property int currentBorderMode;
-@property int newBorderMode;
+@property BufferedAudio *_Nullable audio;
 
 - (void)main;
 

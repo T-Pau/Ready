@@ -38,12 +38,17 @@ static int get_border_color(const RendererImage *image, const uint32_t *palette)
 
 @implementation Renderer
 
-- (instancetype)initWithSize:(RendererSize)size borderMode:(RendererBorderMode)borderMode {
+- (instancetype)init {
+    _size.width = 0;
+    _size.height = 0;
+    
+    return self;
+}
 
+- (void)resize:(const RendererSize)size {
     _size = size;
     _data = [[NSMutableData alloc] initWithLength:size.height * size.width * 4];
-    _borderMode = borderMode;
-    _lastBorderMode = borderMode;
+    _lastBorderMode = _borderMode;
     _lastBorderColor = BORDER_COLOR_UNKNOWN;
     if (_borderMode == BORDER_MODE_SHOW) {
         _showBorder = true;
@@ -54,8 +59,12 @@ static int get_border_color(const RendererImage *image, const uint32_t *palette)
         _transitionCountdown = BORDER_SHOW_FRAMES;
     }
     _borderWidth = BORDER_WIDTH_MAX;
+}
 
-    return self;
+- (void)close {
+    _size.width = 0;
+    _size.height = 0;
+    _data = nil;
 }
 
 - (void)render:(const RendererImage *)image {

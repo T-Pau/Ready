@@ -19,8 +19,7 @@ static RendererSize screen_size = {640, 480};
 bool video_init(int window_scale, char *quality) {
     video_reset();
 
-    x16Thread.rernderer = [[Renderer alloc] initWithSize:screen_size borderMode:BORDER_MODE_SHOW];
-    x16Thread.rernderer.delegate = x16Thread.delegate;
+    [x16Thread.renderer resize:screen_size];
     
     if (debugger_enabled) {
         //DEBUGInitUI(renderer);
@@ -39,7 +38,7 @@ bool platform_video_update(const uint32_t *framebuffer) {
     image.screen.origin.y = 0;
     image.screen.size = screen_size;
     
-    [x16Thread.rernderer renderRGB:&image];
+    [x16Thread.renderer renderRGB:&image];
     
     if (debugger_enabled && showDebugOnRender != 0) {
         //DEBUGRenderDisplay(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -57,5 +56,5 @@ video_end()
         DEBUGFreeUI();
     }
     
-    x16Thread.rernderer = nil;
+    [x16Thread.renderer close];
 }

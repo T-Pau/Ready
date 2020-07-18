@@ -35,7 +35,7 @@
 #include "sound.h"
 #include "ui/ui.h"
 
-#include "../C64/Vice/Audio.h"
+#include "FuseThread.h"
 
 #undef DEBUG_FUSE_AUDIO
 
@@ -98,37 +98,26 @@ int sound_lowlevel_init(const char *device, int *freqptr, int *stereoptr) {
         return 1;
     }
 
-    __block BOOL ok;
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        ok = audioSetup(audio_render_callback, (Float64)*freqptr, channels, sound_framesize);
-        
-        if (ok) {
-            audioStart();
-        }
-    });
-                  
-    if (!ok) {
+    fuseThread.audio = [[Audio alloc] initSampleRate:*freqptr channels:channels samplesPerBuffer:sound_framesize callback:audio_render_callback userData:NULL];
+
+    if (fuseThread.audio == nil) {
         sfifo_flush(&sound_fifo);
         sfifo_close(&sound_fifo);
+        return -1;
     }
     
-#ifdef DEBUG_FUSE_AUDIO
-    printf("fuse sound started: %d channels, %dkHz, frame size %d duration %gs\n", channels, *freqptr, sound_framesize, 1 / hz);
-#endif
+    [fuseThread.audio start];
 
-    return ok ? 0 : -1;
+    return 0;
 }
 
 void sound_lowlevel_end(void) {
 #ifdef DEBUG_FUSE_AUDIO
     printf("fuse sound ending\n");
 #endif
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        audioStop();
-        audioClose();
-        sfifo_flush(&sound_fifo);
-        sfifo_close(&sound_fifo);
-    });
+    fuseThread.audio = nil;
+    sfifo_flush(&sound_fifo);
+    sfifo_close(&sound_fifo);
 }
 
 /* Copy data to fifo */

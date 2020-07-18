@@ -119,12 +119,6 @@ extension JoystickButtons {
 
 
 @objc public class Vice: Emulator {
-    override public var imageView: UIImageView? {
-        didSet {
-            viceThread?.imageView = imageView
-        }
-    }
-            
     private var tempFile: URL?
     
     public struct DriveInfo : Equatable {
@@ -160,12 +154,9 @@ extension JoystickButtons {
         }
     }
     
-    public override init() {
+    public init() {
         viceThread = ViceThread()
-        
-        super.init()
-
-        viceThread?.delegate = self
+        super.init(emulatorThread: viceThread)
     }
     
     private var keyboard = [[Int]](repeating: [Int](repeating: 0, count: 8), count: 8)
@@ -182,8 +173,7 @@ extension JoystickButtons {
         machine.resources[.Drive10IdleMethod] = .Int(DRIVE_IDLE_TRAP_IDLE)
         machine.resources[.Drive11IdleMethod] = .Int(DRIVE_IDLE_TRAP_IDLE)
 
-        viceThread?.newBorderMode = machine.specification.borderMode.cValue
-        viceThread?.currentBorderMode = machine.specification.borderMode.cValue
+        viceThread?.borderMode = machine.specification.borderMode.cValue
         
         var argv = [ "vice" ]
         
@@ -308,10 +298,6 @@ extension JoystickButtons {
         case .String(let value):
             resources_set_string(name.rawValue, value)
         }
-    }
-    
-    public override func set(borderMode: MachineConfigOld.BorderMode) {
-        viceThread?.newBorderMode = borderMode.cValue
     }
     
     override public func handle(event: Event) -> Bool {

@@ -21,7 +21,7 @@ static OSStatus callback(void *userData, AudioUnitRenderActionFlags *actionFlags
 @implementation BufferedAudio
 
 - (instancetype)initSampleRate: (Float64)sampleRate channels: (UInt32)channels samplesPerBuffer: (UInt32)samplesPerBuffer numberOfBuffers: (UInt32)numberOfBuffers {
-    if ((self = [super initSampleRate:sampleRate channels:channels samplesPerBuffer:samplesPerBuffer callback:callback]) == nil) {
+    if ((self = [super initSampleRate:sampleRate channels:channels samplesPerBuffer:samplesPerBuffer callback:callback userData: (__bridge void *)(self)]) == nil) {
         return nil;
     }
     
@@ -45,7 +45,7 @@ static OSStatus callback(void *userData, AudioUnitRenderActionFlags *actionFlags
     return available;
 }
 
-- (void)write:(const uint8_t *)buffer length:(size_t)length {
+- (void)write:(const void *)buffer length:(size_t)length {
     pthread_mutex_lock(&_ringbufferMutex);
     ringbuffer_memcpy_into(_ringbuffer, buffer, length);
     pthread_mutex_unlock(&_ringbufferMutex);
@@ -59,6 +59,7 @@ static OSStatus callback(void *userData, AudioUnitRenderActionFlags *actionFlags
     pthread_mutex_unlock(&_ringbufferMutex);
     
     if (p == NULL) {
+        printf("underflow\n");
         memset(buffer, 0, totalBytes);
     }
     

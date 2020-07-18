@@ -34,8 +34,7 @@
 
 @property BOOL running;
 
-@property int currentBorderMode;
-@property int newBorderMode;
+@property BufferedAudio * _Nullable audio;
 
 - (void)main;
 - (void)updateJoystick: (int)port directions: (int)directions fire: (BOOL)fire;

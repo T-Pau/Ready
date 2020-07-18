@@ -11,7 +11,7 @@
 typedef enum {
     BORDER_MODE_AUTO = 0,
     BORDER_MODE_SHOW = 1,
-    BORDER_MODE_HIDE = 2
+    BORDER_MODE_HIDE = 2,
 } RendererBorderMode;
 
 typedef struct {
@@ -49,7 +49,10 @@ RendererImage *renderer_image_new(size_t width, size_t height);
 
 /* MARK: - Public Methods */
 
-- (instancetype)initWithSize: (RendererSize)size borderMode: (RendererBorderMode)borderMode;
+- (instancetype)init;
+
+- (void)resize: (const RendererSize)size;
+- (void)close;
 
 - (void)render: (const RendererImage *)image;
 - (void)renderRGB: (const RendererImage *)image;
@@ -61,17 +64,18 @@ RendererImage *renderer_image_new(size_t width, size_t height);
 @property RendererBorderMode borderMode; /* desired border mode*/
 @property UInt32 *palette; /* palette to use for rendering */
 
+@property RendererSize size; /* maximum size of image */
+@property RendererSize currentSize;    /* current size of rendered image */
+@property RendererPoint currentOffset;  /* curront offset to source image du to border hiding */
+
 /* MARK: - Private Methods */
 
 - (void)updateImage;
 
 /* MARK: - Private Properties */
 
-@property RendererSize size; /* maximum size of image */
-@property NSMutableData *data; /* image data */
+@property NSMutableData * _Nullable data; /* image data */
 @property RendererBorderMode lastBorderMode; /* border mode of last render */
-@property RendererSize currentSize;    /* current size of rendered image */
-@property RendererPoint currentOffset;  /* curront offset to source image du to border hiding */
 @property RendererRect currentScreen;   /* current position of screen with in image */
 
 /* For border auto hiding */

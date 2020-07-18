@@ -11,20 +11,27 @@
 
 @import UIKit;
 
+#include "Audio.h"
+#include "Renderer.h"
+
 @protocol EmulatorThreadDelegate
 @required
 - (void)updateImage: (UIImage *_Nullable)image;
 @end
 
-@interface EmulatorThread : NSThread
+@interface EmulatorThread : NSThread {
+    id _delegate;
+}
 
-@property NSMutableData * _Nullable imageData;
-@property size_t bytesPerRow;
+@property Renderer * _Nonnull renderer;
 
 @property id _Nullable delegate;
 
-- (void)initBitmapWidth: (size_t)width height: (size_t)height;
-- (void)updateBitmapWidth: (size_t)width height: (size_t)height;
+@property int borderMode;
+@property int initialBorderMode;
+
+//- (int)borderMode;
+//- (void)setBorderMode: (int)borderMode;
 
 @end
 

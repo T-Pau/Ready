@@ -31,9 +31,7 @@
 
 @property NSArray *args;
 
-@property int currentBorderMode;
-@property int newBorderMode;
-
+@property Audio * _Nullable audio;
 
 - (void)main;
 

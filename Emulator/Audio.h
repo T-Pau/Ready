@@ -30,7 +30,7 @@ typedef OSStatus(*audio_render_callback_t)(void *userData, AudioUnitRenderAction
 
 @interface Audio : NSObject
 
-- (instancetype)initSampleRate: (Float64)sampleRate channels: (UInt32)channels samplesPerBuffer: (UInt32)samplesPerBuffer callback: (audio_render_callback_t)renderCallback;
+- (instancetype)initSampleRate: (Float64)sampleRate channels: (UInt32)channels samplesPerBuffer: (UInt32)samplesPerBuffer callback: (audio_render_callback_t)renderCallback userData: (void *)userData;
 
 - (BOOL)start;
 - (BOOL)stop;

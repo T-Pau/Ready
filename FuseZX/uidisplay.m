@@ -21,10 +21,8 @@
 
 #import <CoreImage/CoreImage.h>
 #import "FuseThread.h"
-#include "render.h"
 
-static render_image_t *screen;
-static render_t *renderer;
+static RendererImage *screen;
 
 static uint32_t palette[] = {
     0x000000FF,
@@ -50,15 +48,13 @@ void uidisplay_area(int x, int y, int w, int h) {
 }
 
 int uidisplay_end(void) {
-    render_image_free(screen);
-    render_free(renderer);
+    renderer_image_free(screen);
+    [fuseThread.renderer close];
     return 0;
 }
 
 void uidisplay_frame_end(void) {
-    const render_size_t *current_size = render(renderer, screen, fuseThread.newBorderMode);
-    [fuseThread updateBitmapWidth: current_size->width height: current_size->height];
-    fuseThread.currentBorderMode = fuseThread.newBorderMode;
+    [fuseThread.renderer render:screen];
 }
 
 int uidisplay_hotswap_gfx_mode(void) {
@@ -66,7 +62,7 @@ int uidisplay_hotswap_gfx_mode(void) {
 }
 
 int uidisplay_init(int width, int height) {
-    if ((screen = render_image_new(width, height)) == NULL) {
+    if ((screen = renderer_image_new(width, height)) == NULL) {
         fuse_exiting = 1;
         return 0;
     }
@@ -78,13 +74,15 @@ int uidisplay_init(int width, int height) {
     screen->screen.size.width = width - 64;
     screen->screen.size.height = height - 48;
     
-    [fuseThread initBitmapWidth: width height: height];
+    [fuseThread.renderer resize:screen->size];
 
-    if ((renderer = render_new(screen->size, fuseThread.imageData.mutableBytes, palette, fuseThread.currentBorderMode)) == NULL) {
-        render_image_free(screen);
+    if (fuseThread.renderer == nil) {
+        renderer_image_free(screen);
         fuse_exiting = 1;
         return 0;
     }
+    
+    fuseThread.renderer.palette = palette;
     
     display_ui_initialised = 1;
     
@@ -93,7 +91,7 @@ int uidisplay_init(int width, int height) {
 
 
 void uidisplay_plot8(int x, int y, libspectrum_byte data, libspectrum_byte ink, libspectrum_byte paper) {
-    uint8_t *dest = screen->data + y * screen->row_size + x * 8;
+    uint8_t *dest = screen->data + y * screen->rowSize + x * 8;
     
     for (uint8_t mask = 0x80; mask != 0; mask >>= 1) {
         *dest = data & mask ? ink : paper;
@@ -104,7 +102,7 @@ void uidisplay_plot8(int x, int y, libspectrum_byte data, libspectrum_byte ink, 
 
 void uidisplay_plot16(int x, int y, libspectrum_word data, libspectrum_byte ink, libspectrum_byte paper) {
     printf("put 16 pixels at (%d, %d)\n", x, y);
-    uint8_t *dest = screen->data + y * screen->row_size + x * 16;
+    uint8_t *dest = screen->data + y * screen->rowSize + x * 16;
     
     for (uint16_t mask = 0x8000; mask != 0; mask >>= 1) {
         *dest = data & mask ? ink : paper;
@@ -114,5 +112,5 @@ void uidisplay_plot16(int x, int y, libspectrum_word data, libspectrum_byte ink,
 
 
 void uidisplay_putpixel(int x, int y, int colour) {
-    screen->data[y * screen->row_size + x] = colour;
+    screen->data[y * screen->rowSize + x] = colour;
 }
