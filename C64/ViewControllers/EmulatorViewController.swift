@@ -39,6 +39,7 @@ import Emulator
 import Atari800
 import FuseZX
 import ViceC64
+import ViceC128
 import VicePlus4
 import ViceVIC20
 import X16
@@ -163,12 +164,14 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
             machine.cartridgeImage = Tools.standard.selectedCartridge
             machine.autostart = false
         }
-        
+
         switch machine.specification.computer.model.type {
         case .atari8Bit:
             emulator = Atari800()
         case .c64:
             emulator = ViceC64.Vice()
+        case .c128:
+            emulator = ViceC128.Vice()
         case .plus4:
             emulator = VicePlus4.Vice()
         case .spectrum:

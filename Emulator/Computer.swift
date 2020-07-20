@@ -36,6 +36,7 @@ public struct Computer: MachinePart {
     public enum ComputerType {
         case atari8Bit
         case c64
+        case c128
         case plus4
         case spectrum
         case vic
@@ -45,7 +46,7 @@ public struct Computer: MachinePart {
             switch self {
             case .atari8Bit:
                 return "atari800"
-            case .c64, .plus4: // TODO: Plus4 actually uses two directories
+            case .c64, .c128, .plus4: // TODO: Plus4 actually uses two directories
                 return "vice/C64"
             case .spectrum:
                 return "fuse"
@@ -75,7 +76,23 @@ public struct Computer: MachinePart {
                     .disk5_25DoubleDensitySingleSidedCommodore,
                     .harddiskIdeIde64
                 ]
-                
+
+            case .c128:
+                return [
+                    .cartridgeCommodore64,
+                    .cassetteCommodore,
+                    .compactFlashIde64,
+                    .cd,
+                    .disk3_5DoubleDensityCmd,
+                    .disk3_5DoubleDensityCommodore,
+                    .disk3_5HighDensityCmd,
+                    .disk3_5HighDensityCmd,
+                    .disk5_25SingleDensitySingleSidedCommodore,
+                    .disk5_25SingleDensityDoubleSidedCommodore,
+                    .disk5_25DoubleDensitySingleSidedCommodore,
+                    .harddiskIdeIde64
+                ] // TODO
+
             case .plus4:
                 return [
                     .cartridgeCommodorePlus4,
@@ -129,7 +146,21 @@ public struct Computer: MachinePart {
                     Port(name: "Control Port 1", key: .controlPort1, connectorTypes: [.atariJoystick, .atariJoystickAnalog, .c64JoystickLightpen], supportsHotSwap: true),
                     Port(name: "Control Port 2", key: .controlPort2, connectorTypes: [.atariJoystick, .atariJoystickAnalog], supportsHotSwap: true)
                 ]
- 
+
+            case .c128:
+                return [
+                    Port(name: "Screen", key: .screen, connectorTypes: [.videoComponent], supportsHotSwap: true, iconWidth: 2, iconHeight: 2),
+                    Port(name: "User Port", key: .userPort, connectorTypes: [.c64UserPort]),
+                    Port(name: "Cassette", key: .cassetteDrive, connectorTypes: [.commodoreTapePort]),
+                    Port(name: "Cartridge", key: .expansionPort, connectorTypes: [.c64ExpansionPort, .media(.cartridgeCommodore64)]),
+                    Port(name: "Disk Drive 8", key: .diskDrive8, connectorTypes: [.commodoreIEC], iconWidth: 2),
+                    Port(name: "Disk Drive 9", key: .diskDrive9, connectorTypes: [.commodoreIEC], iconWidth: 2),
+                    Port(name: "Disk Drive 10", key: .diskDrive10, connectorTypes: [.commodoreIEC], iconWidth: 2),
+                    Port(name: "Disk Drive 11", key: .diskDrive11, connectorTypes: [.commodoreIEC], iconWidth: 2),
+                    Port(name: "Control Port 1", key: .controlPort1, connectorTypes: [.atariJoystick, .atariJoystickAnalog, .c64JoystickLightpen], supportsHotSwap: true),
+                    Port(name: "Control Port 2", key: .controlPort2, connectorTypes: [.atariJoystick, .atariJoystickAnalog], supportsHotSwap: true)
+                ]
+
             case .plus4:
                 return [
                     Port(name: "Screen", key: .screen, connectorTypes: [.videoComponent], supportsHotSwap: true, iconWidth: 2, iconHeight: 2),
@@ -188,6 +219,8 @@ public struct Computer: MachinePart {
         case c64OldPal
         case c64Pal
         case c64PalN
+        case c128Pal
+        case c128Ntsc
         case c232Ntsc
         case pet64Ntsc
         case pet64Pal
@@ -213,10 +246,12 @@ public struct Computer: MachinePart {
                 return .atari8Bit
             case .c64cNtsc, .c64cPal, .c64Japanese, .c64Gs, .c64Ntsc, .c64OldNtsc, .c64OldPal, .c64Pal, .c64PalN, .pet64Ntsc, .pet64Pal, .sx64Ntsc, .sx64Pal, .ultimax:
                 return .c64
-            case .vic1001, .vic20Pal, .vic20Ntsc:
-                return .vic
+            case .c128Pal, .c128Ntsc:
+                return .c128
             case .c16Pal, .c16Ntsc, .c232Ntsc, .plus4Pal, .plus4Ntsc, .v364Ntsc:
                 return .plus4
+            case .vic1001, .vic20Pal, .vic20Ntsc:
+                return .vic
             case .x16:
                 return .x16
             case .zxSpectrum16k, .zxSpectrum48k, .zxSpectrum48kNtsc, .zxSpectrum128k, .zxSpectrumPlus2:
@@ -453,6 +488,18 @@ public struct Computer: MachinePart {
                      missingPorts: [ .cassetteDrive, .diskDrive8, .diskDrive9, .diskDrive10, .diskDrive11, .userPort ])
             ]),
         
+/*
+        MachinePartSection(title: "Commodore 128", parts: [
+            Computer(identifier: "C128 DE PAL",
+                     fullName: "Commodore 128",
+                     variantName: "German Keyboard, PAL",
+                     iconName: "Commodore 128",
+                     viceMachineModel: .c128Pal,
+                     keyboardName: "C128 DE",
+                     caseColorName: "C64C Case"),
+        ]),
+*/
+
         MachinePartSection(title: "Commodore 16, Plus/4", parts: [
             Computer(identifier: "C16 PAL",
                      fullName: "Commodore 16",

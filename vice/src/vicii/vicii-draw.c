@@ -1487,12 +1487,21 @@ static void init_drawing_tables(void)
     for (f = 0; f <= 0xf; f++) {
         for (b = 0; b <= 0xf; b++) {
             for (i = 0; i <= 0xf; i++) {
+#if 0 // compiler bug
                 p[0] = i & 0x8 ? f : b;
                 p[1] = i & 0x4 ? f : b;
+#endif
                 p[2] = i & 0x2 ? f : b;
                 p[3] = i & 0x1 ? f : b;
                 p += 4;
             }
+#if 1 // compiler bug
+            for (i = 0; i <= 0xf; i++) {
+                p[0] = i & 0x8 ? f : b;
+                p[1] = i & 0x4 ? f : b;
+                p += 4;
+            }
+#endif
         }
     }
 

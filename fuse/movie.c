@@ -194,7 +194,7 @@ fwrite_compr( const void *b, size_t n, size_t m, FILE *f )
     fwrite( b, n, m, f );
   } else {
     zstream.avail_in = n * m;
-    zstream.next_in = b;
+    zstream.next_in = (Bytef *)b;
     zstream.avail_out = ZBUF_SIZE;
     zstream.next_out = zbuf_o;
     do {

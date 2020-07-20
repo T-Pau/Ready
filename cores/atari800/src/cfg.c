@@ -75,7 +75,9 @@ int CFG_save_on_exit = FALSE;
 #define SYSTEM_WIDE_CFG_FILE "/etc/atari800.cfg"
 #endif
 
+#if 0
 static char rtconfig_filename[FILENAME_MAX];
+#endif
 
 int CFG_LoadConfig(const char *alternate_config_filename)
 {

@@ -43,10 +43,12 @@ import X16C
         
     override public func handle(event: Event) -> Bool {
         switch event {
+#if false
         case let .joystick(port: port, buttons: buttons, _):
             // TODO
             break
-
+#endif
+            
         case .key(let key, let pressed):
             if let scancode = scancode[key] {
                 handle_keyboard(pressed, scancode)
@@ -67,6 +69,8 @@ import X16C
     }
     
     override public func start() {
+        super.start()
+        
         var args = [
             "x16emu",
             "-ram", "2048"

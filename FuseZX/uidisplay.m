@@ -56,7 +56,14 @@ static uint32_t palette[] = {
 };
 
 void uidisplay_area(int x, int y, int w, int h) {
-    // area for optimization when render supports partial updates
+    RendererPoint offset = {x, y};
+    RendererImage image;
+    
+    image.data = screen->data + y * screen->rowSize + x;
+    image.rowSize = screen->rowSize;
+    image.size.width = w;
+    image.size.height = h;
+    [fuseThread.renderer render:&image at:offset];
 }
 
 int uidisplay_end(void) {
@@ -66,7 +73,7 @@ int uidisplay_end(void) {
 }
 
 void uidisplay_frame_end(void) {
-    [fuseThread.renderer render:screen];
+    [fuseThread.renderer displayImage];
 }
 
 int uidisplay_hotswap_gfx_mode(void) {
@@ -81,18 +88,15 @@ int uidisplay_init(int width, int height) {
 
     // TODO: handle doubled resolution for Timex machines (640x480)
 
-    screen->screen.origin.x = 32;
-    screen->screen.origin.y = 24;
-    screen->screen.size.width = width - 64;
-    screen->screen.size.height = height - 48;
+    RendererRect screenPosition;
+    
+    screenPosition.origin.x = 32;
+    screenPosition.origin.y = 24;
+    screenPosition.size.width = width - 64;
+    screenPosition.size.height = height - 48;
     
     [fuseThread.renderer resize:screen->size];
-
-    if (fuseThread.renderer == nil) {
-        renderer_image_free(screen);
-        fuse_exiting = 1;
-        return 0;
-    }
+    fuseThread.renderer.screenPosition = screenPosition;
     
     fuseThread.renderer.palette = palette;
     
@@ -113,7 +117,6 @@ void uidisplay_plot8(int x, int y, libspectrum_byte data, libspectrum_byte ink, 
 
 
 void uidisplay_plot16(int x, int y, libspectrum_word data, libspectrum_byte ink, libspectrum_byte paper) {
-    printf("put 16 pixels at (%d, %d)\n", x, y);
     uint8_t *dest = screen->data + y * screen->rowSize + x * 16;
     
     for (uint16_t mask = 0x8000; mask != 0; mask >>= 1) {

@@ -93,7 +93,7 @@ import UIKit
     }
     
     open func start() {
-        
+        emulatorThread?.renderer.borderMode = RendererBorderMode(rawValue: RendererBorderMode.RawValue(machine.specification.borderMode.cValue))
     }
     
     open func attach(drive: Int, image: DiskImage?) {

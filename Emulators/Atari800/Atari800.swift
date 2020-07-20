@@ -274,6 +274,8 @@ import Atari800C
     }
     
     override public func start() {
+        super.start()
+        
         var args = [
             "atari800"
         ]

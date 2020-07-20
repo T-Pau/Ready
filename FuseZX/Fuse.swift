@@ -245,6 +245,8 @@ extension keyboard_key_name: Hashable { }
     }
     
     override public func start() {
+        super.start()
+        
         let model = machine.specification.computer.model
         guard let modelName = fuseName(for: model) else { return } // TODO: close view
         var args = [

@@ -294,9 +294,11 @@ static uint32_t palette[] = {
 };
 
 int display_init() {
-    RendererSize size = { Screen_WIDTH, Screen_HEIGHT };
+    RendererSize size = {Screen_visible_x2 - Screen_visible_x1, Screen_visible_y2 - Screen_visible_y1};
+    RendererRect screenPosition = {{8, 24}, {320, 192}};
     [atari800Thread.renderer resize:size];
     atari800Thread.renderer.palette = palette;
+    atari800Thread.renderer.screenPosition = screenPosition;
     
     return 0;
 }
@@ -311,11 +313,8 @@ void PLATFORM_DisplayScreen(void) {
     image.rowSize = Screen_WIDTH;
     image.size.width = Screen_visible_x2 - Screen_visible_x1;
     image.size.height = Screen_visible_y2 - Screen_visible_y1;
-    image.screen.origin.x = 8;
-    image.screen.origin.y = 24;
-    image.screen.size.width = 320;
-    image.screen.size.height = 192;
 
     [atari800Thread.renderer render:&image];
+    [atari800Thread.renderer displayImage];
 }
 

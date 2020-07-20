@@ -167,6 +167,134 @@
 		4B460E492274530500815E7F /* LightPenGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B460E482274530500815E7F /* LightPenGestureRecognizer.swift */; };
 		4B460E4E2279F46A00815E7F /* REU Document.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B460E4D2279F46A00815E7F /* REU Document.png */; };
 		4B467E36248B7A88007E631D /* KeyPressHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B467E35248B7A88007E631D /* KeyPressHandler.swift */; };
+		4B49571B24C46A2C0074A053 /* vice_x64sc.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B68FB572496817200A76E57 /* vice_x64sc.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		4B49571E24C46A2C0074A053 /* soundios.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF86B121DB9C5500EF99ED /* soundios.m */; };
+		4B49571F24C46A2C0074A053 /* joy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF864C21D8D85200EF99ED /* joy.m */; };
+		4B49572024C46A2C0074A053 /* dummy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BB22E4421E9682E0075E694 /* dummy.cpp */; };
+		4B49572124C46A2C0074A053 /* ui.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF864821D8D38E00EF99ED /* ui.m */; };
+		4B49572224C46A2C0074A053 /* mousedrv.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF864421D8D1A800EF99ED /* mousedrv.m */; };
+		4B49572324C46A2C0074A053 /* ringbuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF86BB21DBCB5500EF99ED /* ringbuffer.c */; };
+		4B49572524C46A2C0074A053 /* archdep.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF864221D8D07700EF99ED /* archdep.m */; };
+		4B49572724C46A2C0074A053 /* Vice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B697C7221E38EDA0091BFCC /* Vice.swift */; };
+		4B49572824C46A2C0074A053 /* ViceThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF866321D9629600EF99ED /* ViceThread.m */; };
+		4B49572924C46A2C0074A053 /* videoarch.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF864A21D8D67A00EF99ED /* videoarch.m */; };
+		4B49572B24C46A2C0074A053 /* libvice-midi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FFA52499F0DF00A76E57 /* libvice-midi.a */; };
+		4B49572C24C46A2C0074A053 /* libvice-base.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FF9D2499F0C900A76E57 /* libvice-base.a */; };
+		4B49572D24C46A2C0074A053 /* libvice-c64cart.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B54139824ABA44C00F6925B /* libvice-c64cart.a */; };
+		4B49572E24C46A2C0074A053 /* libvice-c64cartsystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B54138824AB9C6100F6925B /* libvice-c64cartsystem.a */; };
+		4B49573024C46A2C0074A053 /* libvice-driveiecc64exp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B54143424ABA59100F6925B /* libvice-driveiecc64exp.a */; };
+		4B49573224C46A2C0074A053 /* libvice-resid.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FFE72499F95600A76E57 /* libvice-resid.a */; };
+		4B49573324C46A2C0074A053 /* libvice-core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FE82249912EA00A76E57 /* libvice-core.a */; };
+		4B49573424C46A2C0074A053 /* libvice-diskimage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FE8A249912F900A76E57 /* libvice-diskimage.a */; };
+		4B49573524C46A2C0074A053 /* libvice-fileio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FE92249912FD00A76E57 /* libvice-fileio.a */; };
+		4B49573624C46A2C0074A053 /* libvice-fsdevice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FE9A2499130000A76E57 /* libvice-fsdevice.a */; };
+		4B49573724C46A2C0074A053 /* libvice-gfxoutputdrv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FEA22499130900A76E57 /* libvice-gfxoutputdrv.a */; };
+		4B49573824C46A2C0074A053 /* libvice-hwsiddrv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FEAA2499131000A76E57 /* libvice-hwsiddrv.a */; };
+		4B49573924C46A2C0074A053 /* libvice-iodrv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FEB22499131500A76E57 /* libvice-iodrv.a */; };
+		4B49573A24C46A2C0074A053 /* libvice-joyport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FEBA2499131800A76E57 /* libvice-joyport.a */; };
+		4B49573B24C46A2C0074A053 /* libvice-mididrv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FEC22499131D00A76E57 /* libvice-mididrv.a */; };
+		4B49573C24C46A2C0074A053 /* libvice-printerdrv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FECA2499132000A76E57 /* libvice-printerdrv.a */; };
+		4B49573D24C46A2C0074A053 /* libvice-rs232drv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FED22499132400A76E57 /* libvice-rs232drv.a */; };
+		4B49573E24C46A2C0074A053 /* libvice-samplerdrv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FEDA2499132800A76E57 /* libvice-samplerdrv.a */; };
+		4B49573F24C46A2C0074A053 /* libvice-serial.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FEE22499132F00A76E57 /* libvice-serial.a */; };
+		4B49574024C46A2C0074A053 /* libvice-socketdrv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FEEA2499133400A76E57 /* libvice-socketdrv.a */; };
+		4B49574124C46A2C0074A053 /* libvice-sounddrv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B6800152499FDD500A76E57 /* libvice-sounddrv.a */; };
+		4B49574224C46A2C0074A053 /* libvice-tape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FEF22499133900A76E57 /* libvice-tape.a */; };
+		4B49574324C46A2C0074A053 /* libvice-diag.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FD372498ECFD00A76E57 /* libvice-diag.a */; };
+		4B49574424C46A2C0074A053 /* libvice-hvsc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FD6F2498ED1400A76E57 /* libvice-hvsc.a */; };
+		4B49574524C46A2C0074A053 /* libvice-imagecontents.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FD572498ED0800A76E57 /* libvice-imagecontents.a */; };
+		4B49574624C46A2C0074A053 /* libvice-raster.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FD272498ECF200A76E57 /* libvice-raster.a */; };
+		4B49574724C46A2C0074A053 /* libvice-rtc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FD3F2498ED0000A76E57 /* libvice-rtc.a */; };
+		4B49574824C46A2C0074A053 /* libvice-userport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FD2F2498ECF700A76E57 /* libvice-userport.a */; };
+		4B49574924C46A2C0074A053 /* libvice-video.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FD472498ED0300A76E57 /* libvice-video.a */; };
+		4B49574A24C46A2C0074A053 /* libvice-drive.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FCDF2498ECB900A76E57 /* libvice-drive.a */; };
+		4B49574B24C46A2C0074A053 /* libvice-driveieee.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FCD72498ECAD00A76E57 /* libvice-driveieee.a */; };
+		4B49574C24C46A2C0074A053 /* libvice-drivetcbm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FCE72498ECBF00A76E57 /* libvice-drivetcbm.a */; };
+		4B49574D24C46A2C0074A053 /* libvice-iecbus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FCF72498ECD400A76E57 /* libvice-iecbus.a */; };
+		4B49574E24C46A2C0074A053 /* libvice-monitor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FD0F2498ECE600A76E57 /* libvice-monitor.a */; };
+		4B49574F24C46A2C0074A053 /* libvice-p64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FCEF2498ECCE00A76E57 /* libvice-p64.a */; };
+		4B49575024C46A2C0074A053 /* libvice-parallel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FCFF2498ECD900A76E57 /* libvice-parallel.a */; };
+		4B49575124C46A2C0074A053 /* libvice-sid.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FD172498ECEB00A76E57 /* libvice-sid.a */; };
+		4B49575224C46A2C0074A053 /* libvice-vdrive.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FD072498ECE000A76E57 /* libvice-vdrive.a */; };
+		4B49575324C46A2C0074A053 /* libvice-c64commoncart.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FCBF2498EC5F00A76E57 /* libvice-c64commoncart.a */; };
+		4B49575424C46A2C0074A053 /* libvice-driveiec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FCC72498EC6C00A76E57 /* libvice-driveiec.a */; };
+		4B49575524C46A2C0074A053 /* libvice-driveiecieee.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FCCF2498EC7C00A76E57 /* libvice-driveiecieee.a */; };
+		4B49575624C46A2C0074A053 /* libvice-archdep.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FCAF2498EC2500A76E57 /* libvice-archdep.a */; };
+		4B49575724C46A2C0074A053 /* libvice-tapeport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FCB72498EC5000A76E57 /* libvice-tapeport.a */; };
+		4B49575824C46A2C0074A053 /* Emulator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68F8B12496407700A76E57 /* Emulator.framework */; };
+		4B49576F24C46C190074A053 /* vice_c128.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B49576B24C46AD70074A053 /* vice_c128.c */; };
+		4B49577024C46C1F0074A053 /* ViceC128.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B49576924C46AD70074A053 /* ViceC128.swift */; };
+		4B49577124C46C3E0074A053 /* Vice_C128.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B49576824C46AD70074A053 /* Vice_C128.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4B49578A24C470F70074A053 /* z80.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B49570124C457760074A053 /* z80.c */; };
+		4B49578B24C470F70074A053 /* c128memlimit.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B49571024C457760074A053 /* c128memlimit.c */; };
+		4B49578C24C470F70074A053 /* z80mem.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B4956F224C457760074A053 /* z80mem.c */; };
+		4B49578D24C470F70074A053 /* c128video.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B49570C24C457760074A053 /* c128video.c */; };
+		4B49578E24C470F70074A053 /* c128.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B4956FA24C457760074A053 /* c128.c */; };
+		4B49578F24C470F70074A053 /* c128romset.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B4956FB24C457760074A053 /* c128romset.c */; };
+		4B49579024C470F70074A053 /* c128model.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B49570924C457760074A053 /* c128model.c */; };
+		4B49579124C470F70074A053 /* c128memsnapshot.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B49570724C457760074A053 /* c128memsnapshot.c */; };
+		4B49579224C470F70074A053 /* c128fastiec.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B49570624C457760074A053 /* c128fastiec.c */; };
+		4B49579424C470F70074A053 /* c128-cmdline-options.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B4956F524C457760074A053 /* c128-cmdline-options.c */; };
+		4B49579524C470F70074A053 /* c128-resources.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B4956F424C457760074A053 /* c128-resources.c */; };
+		4B49579624C470F70074A053 /* functionrom.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B4956F724C457760074A053 /* functionrom.c */; };
+		4B49579724C470F70074A053 /* c128mmu.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B49571524C457760074A053 /* c128mmu.c */; };
+		4B49579824C470F70074A053 /* c128embedded.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B49570D24C457760074A053 /* c128embedded.c */; };
+		4B49579924C470F70074A053 /* c128drive.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B49570224C457760074A053 /* c128drive.c */; };
+		4B49579A24C470F70074A053 /* c128meminit.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B4956F624C457760074A053 /* c128meminit.c */; };
+		4B49579B24C470F70074A053 /* c128cpu.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B4956F824C457760074A053 /* c128cpu.c */; };
+		4B49579C24C470F70074A053 /* c128-snapshot.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B49571124C457760074A053 /* c128-snapshot.c */; };
+		4B49579D24C470F70074A053 /* c128rom.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B49571224C457760074A053 /* c128rom.c */; };
+		4B49579E24C470F70074A053 /* c128mem.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B4956FF24C457760074A053 /* c128mem.c */; };
+		4B49579F24C470F70074A053 /* c128memrom.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B49571824C457760074A053 /* c128memrom.c */; };
+		4B4957A024C470F70074A053 /* c128cia1.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B49571724C457760074A053 /* c128cia1.c */; };
+		4B4957C524C471CC0074A053 /* c64bus.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F98D221D7AD4B00C272C4 /* c64bus.c */; };
+		4B4957C624C471CC0074A053 /* c64cia2.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F98E821D7AD4B00C272C4 /* c64cia2.c */; };
+		4B4957C724C471CC0074A053 /* c64datasette.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F99BA21D7AD4B00C272C4 /* c64datasette.c */; };
+		4B4957C824C471CC0074A053 /* c64export.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F99C121D7AD4B00C272C4 /* c64export.c */; };
+		4B4957C924C471CC0074A053 /* c64gluelogic.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F99AC21D7AD4B00C272C4 /* c64gluelogic.c */; };
+		4B4957CA24C471CC0074A053 /* c64iec.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F99B021D7AD4B00C272C4 /* c64iec.c */; };
+		4B4957CB24C471CC0074A053 /* c64keyboard.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F98CF21D7AD4B00C272C4 /* c64keyboard.c */; };
+		4B4957CC24C471CC0074A053 /* c64meminit.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F99AF21D7AD4B00C272C4 /* c64meminit.c */; };
+		4B4957CD24C471CC0074A053 /* c64memrom.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F98D421D7AD4B00C272C4 /* c64memrom.c */; };
+		4B4957CE24C471CC0074A053 /* c64parallel.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F98DF21D7AD4B00C272C4 /* c64parallel.c */; };
+		4B4957CF24C471CC0074A053 /* c64pla.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F98CC21D7AD4B00C272C4 /* c64pla.c */; };
+		4B4957D024C471CC0074A053 /* c64printer.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F99CA21D7AD4B00C272C4 /* c64printer.c */; };
+		4B4957D124C471CC0074A053 /* c64rsuser.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F98D821D7AD4B00C272C4 /* c64rsuser.c */; };
+		4B4957D224C471CC0074A053 /* c64sound.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F99AE21D7AD4B00C272C4 /* c64sound.c */; };
+		4B4957D324C471CC0074A053 /* patchrom.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F99BD21D7AD4B00C272C4 /* patchrom.c */; };
+		4B4957EB24C472330074A053 /* iec128dcr-cmdline-options.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F97FE21D7AD4800C272C4 /* iec128dcr-cmdline-options.c */; };
+		4B4957EC24C472330074A053 /* iec128dcr-resources.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F980421D7AD4800C272C4 /* iec128dcr-resources.c */; };
+		4B4957ED24C472330074A053 /* iec128dcr.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F980121D7AD4800C272C4 /* iec128dcr.c */; };
+		4B4957EE24C472330074A053 /* iec128dcrrom.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F980321D7AD4800C272C4 /* iec128dcrrom.c */; };
+		4B49580324C472E50074A053 /* vdc-cmdline-options.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F97B421D7AD4700C272C4 /* vdc-cmdline-options.c */; };
+		4B49580424C472E50074A053 /* vdc-color.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F97B621D7AD4700C272C4 /* vdc-color.c */; };
+		4B49580524C472E50074A053 /* vdc-draw.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F97B821D7AD4700C272C4 /* vdc-draw.c */; };
+		4B49580624C472E50074A053 /* vdc-mem.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F97B021D7AD4700C272C4 /* vdc-mem.c */; };
+		4B49580724C472E50074A053 /* vdc-resources.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F97AE21D7AD4700C272C4 /* vdc-resources.c */; };
+		4B49580824C472E50074A053 /* vdc-snapshot.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F97AD21D7AD4700C272C4 /* vdc-snapshot.c */; };
+		4B49580924C472E50074A053 /* vdc.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F97B221D7AD4700C272C4 /* vdc.c */; };
+		4B49582C24C473530074A053 /* vicii-badline.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B49580E24C473110074A053 /* vicii-badline.c */; };
+		4B49582D24C473530074A053 /* vicii-clock-stretch.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B49581424C473110074A053 /* vicii-clock-stretch.c */; };
+		4B49582E24C473530074A053 /* vicii-cmdline-options.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B49581224C473110074A053 /* vicii-cmdline-options.c */; };
+		4B49582F24C473530074A053 /* vicii-color.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B49581324C473110074A053 /* vicii-color.c */; };
+		4B49583024C473530074A053 /* vicii-draw.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B49581F24C473110074A053 /* vicii-draw.c */; };
+		4B49583124C473530074A053 /* vicii-fetch.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B49581E24C473110074A053 /* vicii-fetch.c */; };
+		4B49583224C473530074A053 /* vicii-irq.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B49580C24C473110074A053 /* vicii-irq.c */; };
+		4B49583324C473530074A053 /* vicii-mem.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B49581824C473110074A053 /* vicii-mem.c */; };
+		4B49583424C473530074A053 /* vicii-phi1.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B49582A24C473110074A053 /* vicii-phi1.c */; };
+		4B49583524C473530074A053 /* vicii-resources.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B49582B24C473110074A053 /* vicii-resources.c */; };
+		4B49583624C473530074A053 /* vicii-snapshot.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B49582424C473110074A053 /* vicii-snapshot.c */; };
+		4B49583724C473530074A053 /* vicii-sprites.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B49581924C473110074A053 /* vicii-sprites.c */; };
+		4B49583824C473530074A053 /* vicii-stubs.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B49581C24C473110074A053 /* vicii-stubs.c */; };
+		4B49583924C473530074A053 /* vicii-timing.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B49582124C473110074A053 /* vicii-timing.c */; };
+		4B49583A24C473530074A053 /* vicii.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B49580B24C473110074A053 /* vicii.c */; };
+		4B49583B24C473A70074A053 /* libvice-c128.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B4957A624C470F70074A053 /* libvice-c128.a */; };
+		4B49583C24C473A70074A053 /* libvice-c64c128.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B4957C424C4715D0074A053 /* libvice-c64c128.a */; };
+		4B49583D24C473A70074A053 /* libvice-driveiec128dcr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B4957EA24C472040074A053 /* libvice-driveiec128dcr.a */; };
+		4B49583E24C473A70074A053 /* libvice-vdc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B4957FA24C472A60074A053 /* libvice-vdc.a */; };
+		4B49583F24C473A70074A053 /* libvice-vicii.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B49580224C472B80074A053 /* libvice-vicii.a */; };
+		4B49584024C478A70074A053 /* ViceC128.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B49575D24C46A2C0074A053 /* ViceC128.framework */; };
+		4B49584124C4876E0074A053 /* c64io.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F99C321D7AD4B00C272C4 /* c64io.c */; };
 		4B52816A249E0A320023F453 /* ConnectorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B528169249E0A320023F453 /* ConnectorType.swift */; };
 		4B52816C249E442D0023F453 /* Port.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B52816B249E442D0023F453 /* Port.swift */; };
 		4B540E9B24A674E100F6925B /* VicePlus4.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B540E9924A674E100F6925B /* VicePlus4.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1274,6 +1402,7 @@
 		4B9DBB66223143540032B280 /* TouchInputDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9DBB65223143540032B280 /* TouchInputDevice.swift */; };
 		4B9DBB702232DE6E0032B280 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9DBB6F2232DE6E0032B280 /* AboutViewController.swift */; };
 		4B9DBB78223904B00032B280 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B9DBB77223904B00032B280 /* Assets.xcassets */; };
+		4B9E576F24C5898700CEE0D6 /* ViceC128.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4B49575D24C46A2C0074A053 /* ViceC128.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4BA0AE7D22957B1600E54C96 /* PillButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA0AE7C22957B1600E54C96 /* PillButton.swift */; };
 		4BA1E9B924B314C100D935D3 /* MultiSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA1E9B824B314C100D935D3 /* MultiSet.swift */; };
 		4BA1E9BB24B49A4F00D935D3 /* Machine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA1E9BA24B49A4F00D935D3 /* Machine.swift */; };
@@ -1441,6 +1570,51 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		4B4957A224C470F70074A053 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4B4957C024C4715D0074A053 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4B4957E624C472040074A053 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4B4957F624C472A60074A053 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4B4957FE24C472B80074A053 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4B540FBA24A9BBCE00F6925B /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1960,6 +2134,7 @@
 				4B9ABEF624B89A5000678531 /* Atari800.framework in Embed Frameworks */,
 				4B5412D024AB519900F6925B /* FuseZX.framework in Embed Frameworks */,
 				4B68FB4624967CCD00A76E57 /* ViceC64.framework in Embed Frameworks */,
+				4B9E576F24C5898700CEE0D6 /* ViceC128.framework in Embed Frameworks */,
 				4B540E9F24A674E100F6925B /* VicePlus4.framework in Embed Frameworks */,
 				4B68FB892498DC0600A76E57 /* ViceVIC20.framework in Embed Frameworks */,
 				4BCF7D0B24BDA9E900172C24 /* X16.framework in Embed Frameworks */,
@@ -3363,6 +3538,90 @@
 		4B460E4F227A001700815E7F /* C64-7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "C64-7.xcdatamodel"; sourceTree = "<group>"; };
 		4B460E50227A064E00815E7F /* RamExpansionUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RamExpansionUnit.swift; sourceTree = "<group>"; };
 		4B467E35248B7A88007E631D /* KeyPressHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPressHandler.swift; sourceTree = "<group>"; };
+		4B4956F124C457760074A053 /* c128memsnapshot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = c128memsnapshot.h; sourceTree = "<group>"; };
+		4B4956F224C457760074A053 /* z80mem.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = z80mem.c; sourceTree = "<group>"; };
+		4B4956F324C457760074A053 /* c128fastiec.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = c128fastiec.h; sourceTree = "<group>"; };
+		4B4956F424C457760074A053 /* c128-resources.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "c128-resources.c"; sourceTree = "<group>"; };
+		4B4956F524C457760074A053 /* c128-cmdline-options.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "c128-cmdline-options.c"; sourceTree = "<group>"; };
+		4B4956F624C457760074A053 /* c128meminit.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = c128meminit.c; sourceTree = "<group>"; };
+		4B4956F724C457760074A053 /* functionrom.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = functionrom.c; sourceTree = "<group>"; };
+		4B4956F824C457760074A053 /* c128cpu.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = c128cpu.c; sourceTree = "<group>"; };
+		4B4956F924C457760074A053 /* c128model.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = c128model.h; sourceTree = "<group>"; };
+		4B4956FA24C457760074A053 /* c128.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = c128.c; sourceTree = "<group>"; };
+		4B4956FB24C457760074A053 /* c128romset.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = c128romset.c; sourceTree = "<group>"; };
+		4B4956FC24C457760074A053 /* c128rom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = c128rom.h; sourceTree = "<group>"; };
+		4B4956FD24C457760074A053 /* c128-snapshot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "c128-snapshot.h"; sourceTree = "<group>"; };
+		4B4956FE24C457760074A053 /* c128memlimit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = c128memlimit.h; sourceTree = "<group>"; };
+		4B4956FF24C457760074A053 /* c128mem.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = c128mem.c; sourceTree = "<group>"; };
+		4B49570024C457760074A053 /* c128memrom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = c128memrom.h; sourceTree = "<group>"; };
+		4B49570124C457760074A053 /* z80.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = z80.c; sourceTree = "<group>"; };
+		4B49570224C457760074A053 /* c128drive.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = c128drive.c; sourceTree = "<group>"; };
+		4B49570324C457760074A053 /* c128mmu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = c128mmu.h; sourceTree = "<group>"; };
+		4B49570424C457760074A053 /* Makefile.am */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
+		4B49570524C457760074A053 /* c128-resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "c128-resources.h"; sourceTree = "<group>"; };
+		4B49570624C457760074A053 /* c128fastiec.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = c128fastiec.c; sourceTree = "<group>"; };
+		4B49570724C457760074A053 /* c128memsnapshot.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = c128memsnapshot.c; sourceTree = "<group>"; };
+		4B49570824C457760074A053 /* z80mem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = z80mem.h; sourceTree = "<group>"; };
+		4B49570924C457760074A053 /* c128model.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = c128model.c; sourceTree = "<group>"; };
+		4B49570A24C457760074A053 /* c128-cmdline-options.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "c128-cmdline-options.h"; sourceTree = "<group>"; };
+		4B49570B24C457760074A053 /* c128meminit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = c128meminit.h; sourceTree = "<group>"; };
+		4B49570C24C457760074A053 /* c128video.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = c128video.c; sourceTree = "<group>"; };
+		4B49570D24C457760074A053 /* c128embedded.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = c128embedded.c; sourceTree = "<group>"; };
+		4B49570E24C457760074A053 /* functionrom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = functionrom.h; sourceTree = "<group>"; };
+		4B49570F24C457760074A053 /* c128mem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = c128mem.h; sourceTree = "<group>"; };
+		4B49571024C457760074A053 /* c128memlimit.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = c128memlimit.c; sourceTree = "<group>"; };
+		4B49571124C457760074A053 /* c128-snapshot.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "c128-snapshot.c"; sourceTree = "<group>"; };
+		4B49571224C457760074A053 /* c128rom.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = c128rom.c; sourceTree = "<group>"; };
+		4B49571324C457760074A053 /* c128.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = c128.h; sourceTree = "<group>"; };
+		4B49571424C457760074A053 /* Makefile.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.in; sourceTree = "<group>"; };
+		4B49571524C457760074A053 /* c128mmu.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = c128mmu.c; sourceTree = "<group>"; };
+		4B49571624C457760074A053 /* z80.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = z80.h; sourceTree = "<group>"; };
+		4B49571724C457760074A053 /* c128cia1.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = c128cia1.c; sourceTree = "<group>"; };
+		4B49571824C457760074A053 /* c128memrom.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = c128memrom.c; sourceTree = "<group>"; };
+		4B49575D24C46A2C0074A053 /* ViceC128.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ViceC128.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B49575E24C46A2C0074A053 /* ViceC64 copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "ViceC64 copy-Info.plist"; path = "/Users/dillo/Projects/tpau/Ready/ViceC64 copy-Info.plist"; sourceTree = "<absolute>"; };
+		4B49576824C46AD70074A053 /* Vice_C128.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vice_C128.h; sourceTree = "<group>"; };
+		4B49576924C46AD70074A053 /* ViceC128.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViceC128.swift; sourceTree = "<group>"; };
+		4B49576A24C46AD70074A053 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4B49576B24C46AD70074A053 /* vice_c128.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vice_c128.c; sourceTree = "<group>"; };
+		4B4957A624C470F70074A053 /* libvice-c128.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libvice-c128.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B4957C424C4715D0074A053 /* libvice-c64c128.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libvice-c64c128.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B4957EA24C472040074A053 /* libvice-driveiec128dcr.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libvice-driveiec128dcr.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B4957FA24C472A60074A053 /* libvice-vdc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libvice-vdc.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B49580224C472B80074A053 /* libvice-vicii.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libvice-vicii.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B49580B24C473110074A053 /* vicii.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = vicii.c; sourceTree = "<group>"; };
+		4B49580C24C473110074A053 /* vicii-irq.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "vicii-irq.c"; sourceTree = "<group>"; };
+		4B49580D24C473110074A053 /* vicii-sprites.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "vicii-sprites.h"; sourceTree = "<group>"; };
+		4B49580E24C473110074A053 /* vicii-badline.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "vicii-badline.c"; sourceTree = "<group>"; };
+		4B49580F24C473110074A053 /* vicii-timing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "vicii-timing.h"; sourceTree = "<group>"; };
+		4B49581024C473110074A053 /* vicii-draw.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "vicii-draw.h"; sourceTree = "<group>"; };
+		4B49581124C473110074A053 /* vicii-fetch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "vicii-fetch.h"; sourceTree = "<group>"; };
+		4B49581224C473110074A053 /* vicii-cmdline-options.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "vicii-cmdline-options.c"; sourceTree = "<group>"; };
+		4B49581324C473110074A053 /* vicii-color.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "vicii-color.c"; sourceTree = "<group>"; };
+		4B49581424C473110074A053 /* vicii-clock-stretch.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "vicii-clock-stretch.c"; sourceTree = "<group>"; };
+		4B49581524C473110074A053 /* vicii-snapshot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "vicii-snapshot.h"; sourceTree = "<group>"; };
+		4B49581624C473110074A053 /* vicii-resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "vicii-resources.h"; sourceTree = "<group>"; };
+		4B49581724C473110074A053 /* vicii-phi1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "vicii-phi1.h"; sourceTree = "<group>"; };
+		4B49581824C473110074A053 /* vicii-mem.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "vicii-mem.c"; sourceTree = "<group>"; };
+		4B49581924C473110074A053 /* vicii-sprites.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "vicii-sprites.c"; sourceTree = "<group>"; };
+		4B49581A24C473110074A053 /* Makefile.am */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
+		4B49581B24C473110074A053 /* vicii-irq.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "vicii-irq.h"; sourceTree = "<group>"; };
+		4B49581C24C473110074A053 /* vicii-stubs.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "vicii-stubs.c"; sourceTree = "<group>"; };
+		4B49581D24C473110074A053 /* viciitypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = viciitypes.h; sourceTree = "<group>"; };
+		4B49581E24C473110074A053 /* vicii-fetch.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "vicii-fetch.c"; sourceTree = "<group>"; };
+		4B49581F24C473110074A053 /* vicii-draw.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "vicii-draw.c"; sourceTree = "<group>"; };
+		4B49582024C473110074A053 /* viciidtv-snapshot.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "viciidtv-snapshot.c"; sourceTree = "<group>"; };
+		4B49582124C473110074A053 /* vicii-timing.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "vicii-timing.c"; sourceTree = "<group>"; };
+		4B49582224C473110074A053 /* vicii-badline.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "vicii-badline.h"; sourceTree = "<group>"; };
+		4B49582324C473110074A053 /* viciidtv-draw.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "viciidtv-draw.c"; sourceTree = "<group>"; };
+		4B49582424C473110074A053 /* vicii-snapshot.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "vicii-snapshot.c"; sourceTree = "<group>"; };
+		4B49582524C473110074A053 /* vicii-color.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "vicii-color.h"; sourceTree = "<group>"; };
+		4B49582624C473110074A053 /* vicii-cmdline-options.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "vicii-cmdline-options.h"; sourceTree = "<group>"; };
+		4B49582724C473110074A053 /* Makefile.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.in; sourceTree = "<group>"; };
+		4B49582824C473110074A053 /* vicii-mem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "vicii-mem.h"; sourceTree = "<group>"; };
+		4B49582924C473110074A053 /* viciidtv-color.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "viciidtv-color.c"; sourceTree = "<group>"; };
+		4B49582A24C473110074A053 /* vicii-phi1.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "vicii-phi1.c"; sourceTree = "<group>"; };
+		4B49582B24C473110074A053 /* vicii-resources.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "vicii-resources.c"; sourceTree = "<group>"; };
 		4B528169249E0A320023F453 /* ConnectorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectorType.swift; sourceTree = "<group>"; };
 		4B52816B249E442D0023F453 /* Port.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Port.swift; sourceTree = "<group>"; };
 		4B540E9724A674E100F6925B /* VicePlus4.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = VicePlus4.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -5113,16 +5372,108 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4BCF7D0A24BDA9E900172C24 /* X16.framework in Frameworks */,
+				4BBF86B021DB9AB400EF99ED /* CoreAudio.framework in Frameworks */,
 				4B7609F721F47B900058FBCD /* C64UIComponents.framework in Frameworks */,
 				4BA1E9C824B49EDE00D935D3 /* RetroMedia.framework in Frameworks */,
 				4B68F8B82496407700A76E57 /* Emulator.framework in Frameworks */,
 				4B9ABEF524B89A5000678531 /* Atari800.framework in Frameworks */,
 				4B5412CF24AB519900F6925B /* FuseZX.framework in Frameworks */,
 				4B68FB4524967CCD00A76E57 /* ViceC64.framework in Frameworks */,
+				4B49584024C478A70074A053 /* ViceC128.framework in Frameworks */,
 				4B540EA824A67CE900F6925B /* VicePlus4.framework in Frameworks */,
 				4B68FB882498DC0600A76E57 /* ViceVIC20.framework in Frameworks */,
-				4BBF86B021DB9AB400EF99ED /* CoreAudio.framework in Frameworks */,
+				4BCF7D0A24BDA9E900172C24 /* X16.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4B49572A24C46A2C0074A053 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B49583B24C473A70074A053 /* libvice-c128.a in Frameworks */,
+				4B49583C24C473A70074A053 /* libvice-c64c128.a in Frameworks */,
+				4B49583D24C473A70074A053 /* libvice-driveiec128dcr.a in Frameworks */,
+				4B49583E24C473A70074A053 /* libvice-vdc.a in Frameworks */,
+				4B49583F24C473A70074A053 /* libvice-vicii.a in Frameworks */,
+				4B49572C24C46A2C0074A053 /* libvice-base.a in Frameworks */,
+				4B49575624C46A2C0074A053 /* libvice-archdep.a in Frameworks */,
+				4B49572B24C46A2C0074A053 /* libvice-midi.a in Frameworks */,
+				4B49575724C46A2C0074A053 /* libvice-tapeport.a in Frameworks */,
+				4B49572E24C46A2C0074A053 /* libvice-c64cartsystem.a in Frameworks */,
+				4B49572D24C46A2C0074A053 /* libvice-c64cart.a in Frameworks */,
+				4B49575324C46A2C0074A053 /* libvice-c64commoncart.a in Frameworks */,
+				4B49575424C46A2C0074A053 /* libvice-driveiec.a in Frameworks */,
+				4B49575524C46A2C0074A053 /* libvice-driveiecieee.a in Frameworks */,
+				4B49573024C46A2C0074A053 /* libvice-driveiecc64exp.a in Frameworks */,
+				4B49574B24C46A2C0074A053 /* libvice-driveieee.a in Frameworks */,
+				4B49574A24C46A2C0074A053 /* libvice-drive.a in Frameworks */,
+				4B49574C24C46A2C0074A053 /* libvice-drivetcbm.a in Frameworks */,
+				4B49574F24C46A2C0074A053 /* libvice-p64.a in Frameworks */,
+				4B49574D24C46A2C0074A053 /* libvice-iecbus.a in Frameworks */,
+				4B49575024C46A2C0074A053 /* libvice-parallel.a in Frameworks */,
+				4B49575224C46A2C0074A053 /* libvice-vdrive.a in Frameworks */,
+				4B49575124C46A2C0074A053 /* libvice-sid.a in Frameworks */,
+				4B49574E24C46A2C0074A053 /* libvice-monitor.a in Frameworks */,
+				4B49574624C46A2C0074A053 /* libvice-raster.a in Frameworks */,
+				4B49574824C46A2C0074A053 /* libvice-userport.a in Frameworks */,
+				4B49574324C46A2C0074A053 /* libvice-diag.a in Frameworks */,
+				4B49574724C46A2C0074A053 /* libvice-rtc.a in Frameworks */,
+				4B49574924C46A2C0074A053 /* libvice-video.a in Frameworks */,
+				4B49574524C46A2C0074A053 /* libvice-imagecontents.a in Frameworks */,
+				4B49573224C46A2C0074A053 /* libvice-resid.a in Frameworks */,
+				4B49574424C46A2C0074A053 /* libvice-hvsc.a in Frameworks */,
+				4B49573A24C46A2C0074A053 /* libvice-joyport.a in Frameworks */,
+				4B49573E24C46A2C0074A053 /* libvice-samplerdrv.a in Frameworks */,
+				4B49574124C46A2C0074A053 /* libvice-sounddrv.a in Frameworks */,
+				4B49573B24C46A2C0074A053 /* libvice-mididrv.a in Frameworks */,
+				4B49574024C46A2C0074A053 /* libvice-socketdrv.a in Frameworks */,
+				4B49573824C46A2C0074A053 /* libvice-hwsiddrv.a in Frameworks */,
+				4B49573924C46A2C0074A053 /* libvice-iodrv.a in Frameworks */,
+				4B49573724C46A2C0074A053 /* libvice-gfxoutputdrv.a in Frameworks */,
+				4B49573C24C46A2C0074A053 /* libvice-printerdrv.a in Frameworks */,
+				4B49573D24C46A2C0074A053 /* libvice-rs232drv.a in Frameworks */,
+				4B49573424C46A2C0074A053 /* libvice-diskimage.a in Frameworks */,
+				4B49573624C46A2C0074A053 /* libvice-fsdevice.a in Frameworks */,
+				4B49574224C46A2C0074A053 /* libvice-tape.a in Frameworks */,
+				4B49573524C46A2C0074A053 /* libvice-fileio.a in Frameworks */,
+				4B49573F24C46A2C0074A053 /* libvice-serial.a in Frameworks */,
+				4B49573324C46A2C0074A053 /* libvice-core.a in Frameworks */,
+				4B49575824C46A2C0074A053 /* Emulator.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4B4957A124C470F70074A053 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4B4957BF24C4715D0074A053 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4B4957E524C472040074A053 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4B4957F524C472A60074A053 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4B4957FD24C472B80074A053 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5844,6 +6195,7 @@
 				4B5412C924AB519900F6925B /* FuseZX */,
 				4B3F974421D7ACC700C272C4 /* Products */,
 				4BBF863D21D7FEA800EF99ED /* Frameworks */,
+				4B49575E24C46A2C0074A053 /* ViceC64 copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -5915,6 +6267,12 @@
 				4BCF7CFD24BDA93E00172C24 /* libx16-emulator.a */,
 				4BCF7D0324BDA9E900172C24 /* X16.framework */,
 				4BCF84A324BDAF5600172C24 /* libx16-sdl.a */,
+				4B49575D24C46A2C0074A053 /* ViceC128.framework */,
+				4B4957A624C470F70074A053 /* libvice-c128.a */,
+				4B4957C424C4715D0074A053 /* libvice-c64c128.a */,
+				4B4957EA24C472040074A053 /* libvice-driveiec128dcr.a */,
+				4B4957FA24C472A60074A053 /* libvice-vdc.a */,
+				4B49580224C472B80074A053 /* libvice-vicii.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -5969,6 +6327,7 @@
 				4B3F98A421D7AD4A00C272C4 /* buildtools */,
 				4B3F98C821D7AD4B00C272C4 /* c64 */,
 				4B3F9C1721D7AD5C00C272C4 /* c64ui.h */,
+				4B4956F024C457760074A053 /* c128 */,
 				4B3F9A8921D7AD5000C272C4 /* c128ui.h */,
 				4B3F98C521D7AD4A00C272C4 /* c1541.c */,
 				4B3F97C421D7AD4800C272C4 /* cartio.h */,
@@ -6182,6 +6541,7 @@
 				4B3FA94D21D7AD6900C272C4 /* vicefeatures.h */,
 				4B3FAB3321D7AD7D00C272C4 /* vicemaxpath.h */,
 				4B3F9B4321D7AD5700C272C4 /* vicesocket.h */,
+				4B49580A24C473110074A053 /* vicii */,
 				4B3FAA7721D7AD7600C272C4 /* vicii.h */,
 				4B3F9AB921D7AD5100C272C4 /* viciisc */,
 				4B3FAB7621D7AD8800C272C4 /* video */,
@@ -7609,6 +7969,104 @@
 				4B3FAB9421D7AD8800C272C4 /* video-viewport.c */,
 			);
 			path = video;
+			sourceTree = "<group>";
+		};
+		4B4956F024C457760074A053 /* c128 */ = {
+			isa = PBXGroup;
+			children = (
+				4B4956F524C457760074A053 /* c128-cmdline-options.c */,
+				4B49570A24C457760074A053 /* c128-cmdline-options.h */,
+				4B4956F424C457760074A053 /* c128-resources.c */,
+				4B49570524C457760074A053 /* c128-resources.h */,
+				4B49571124C457760074A053 /* c128-snapshot.c */,
+				4B4956FD24C457760074A053 /* c128-snapshot.h */,
+				4B4956FA24C457760074A053 /* c128.c */,
+				4B49571324C457760074A053 /* c128.h */,
+				4B49571724C457760074A053 /* c128cia1.c */,
+				4B4956F824C457760074A053 /* c128cpu.c */,
+				4B49570224C457760074A053 /* c128drive.c */,
+				4B49570D24C457760074A053 /* c128embedded.c */,
+				4B49570624C457760074A053 /* c128fastiec.c */,
+				4B4956F324C457760074A053 /* c128fastiec.h */,
+				4B4956FF24C457760074A053 /* c128mem.c */,
+				4B49570F24C457760074A053 /* c128mem.h */,
+				4B4956F624C457760074A053 /* c128meminit.c */,
+				4B49570B24C457760074A053 /* c128meminit.h */,
+				4B49571024C457760074A053 /* c128memlimit.c */,
+				4B4956FE24C457760074A053 /* c128memlimit.h */,
+				4B49571824C457760074A053 /* c128memrom.c */,
+				4B49570024C457760074A053 /* c128memrom.h */,
+				4B49570724C457760074A053 /* c128memsnapshot.c */,
+				4B4956F124C457760074A053 /* c128memsnapshot.h */,
+				4B49571524C457760074A053 /* c128mmu.c */,
+				4B49570324C457760074A053 /* c128mmu.h */,
+				4B49570924C457760074A053 /* c128model.c */,
+				4B4956F924C457760074A053 /* c128model.h */,
+				4B49571224C457760074A053 /* c128rom.c */,
+				4B4956FC24C457760074A053 /* c128rom.h */,
+				4B4956FB24C457760074A053 /* c128romset.c */,
+				4B49570C24C457760074A053 /* c128video.c */,
+				4B4956F724C457760074A053 /* functionrom.c */,
+				4B49570E24C457760074A053 /* functionrom.h */,
+				4B49570424C457760074A053 /* Makefile.am */,
+				4B49571424C457760074A053 /* Makefile.in */,
+				4B49570124C457760074A053 /* z80.c */,
+				4B49571624C457760074A053 /* z80.h */,
+				4B4956F224C457760074A053 /* z80mem.c */,
+				4B49570824C457760074A053 /* z80mem.h */,
+			);
+			path = c128;
+			sourceTree = "<group>";
+		};
+		4B49576724C46AD70074A053 /* ViceC128 */ = {
+			isa = PBXGroup;
+			children = (
+				4B49576A24C46AD70074A053 /* Info.plist */,
+				4B49576B24C46AD70074A053 /* vice_c128.c */,
+				4B49576824C46AD70074A053 /* Vice_C128.h */,
+				4B49576924C46AD70074A053 /* ViceC128.swift */,
+			);
+			path = ViceC128;
+			sourceTree = "<group>";
+		};
+		4B49580A24C473110074A053 /* vicii */ = {
+			isa = PBXGroup;
+			children = (
+				4B49581A24C473110074A053 /* Makefile.am */,
+				4B49582724C473110074A053 /* Makefile.in */,
+				4B49580E24C473110074A053 /* vicii-badline.c */,
+				4B49582224C473110074A053 /* vicii-badline.h */,
+				4B49581424C473110074A053 /* vicii-clock-stretch.c */,
+				4B49581224C473110074A053 /* vicii-cmdline-options.c */,
+				4B49582624C473110074A053 /* vicii-cmdline-options.h */,
+				4B49581324C473110074A053 /* vicii-color.c */,
+				4B49582524C473110074A053 /* vicii-color.h */,
+				4B49581F24C473110074A053 /* vicii-draw.c */,
+				4B49581024C473110074A053 /* vicii-draw.h */,
+				4B49581E24C473110074A053 /* vicii-fetch.c */,
+				4B49581124C473110074A053 /* vicii-fetch.h */,
+				4B49580C24C473110074A053 /* vicii-irq.c */,
+				4B49581B24C473110074A053 /* vicii-irq.h */,
+				4B49581824C473110074A053 /* vicii-mem.c */,
+				4B49582824C473110074A053 /* vicii-mem.h */,
+				4B49582A24C473110074A053 /* vicii-phi1.c */,
+				4B49581724C473110074A053 /* vicii-phi1.h */,
+				4B49582B24C473110074A053 /* vicii-resources.c */,
+				4B49581624C473110074A053 /* vicii-resources.h */,
+				4B49582424C473110074A053 /* vicii-snapshot.c */,
+				4B49581524C473110074A053 /* vicii-snapshot.h */,
+				4B49581924C473110074A053 /* vicii-sprites.c */,
+				4B49580D24C473110074A053 /* vicii-sprites.h */,
+				4B49581C24C473110074A053 /* vicii-stubs.c */,
+				4B49582124C473110074A053 /* vicii-timing.c */,
+				4B49580F24C473110074A053 /* vicii-timing.h */,
+				4B49580B24C473110074A053 /* vicii.c */,
+				4B49582924C473110074A053 /* viciidtv-color.c */,
+				4B49582324C473110074A053 /* viciidtv-draw.c */,
+				4B49582024C473110074A053 /* viciidtv-snapshot.c */,
+				4B49581D24C473110074A053 /* viciitypes.h */,
+			);
+			path = vicii;
 			sourceTree = "<group>";
 		};
 		4B540E9824A674E100F6925B /* VicePlus4 */ = {
@@ -9943,6 +10401,7 @@
 			isa = PBXGroup;
 			children = (
 				4B9ABEEF24B89A5000678531 /* Atari800 */,
+				4B49576724C46AD70074A053 /* ViceC128 */,
 				4BCF7D0424BDA9E900172C24 /* X16 */,
 			);
 			path = Emulators;
@@ -10374,6 +10833,15 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		4B49571A24C46A2C0074A053 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B49571B24C46A2C0074A053 /* vice_x64sc.h in Headers */,
+				4B49577124C46C3E0074A053 /* Vice_C128.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4B540E9224A674E100F6925B /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -10483,6 +10951,109 @@
 			productName = C64;
 			productReference = 4B3F974321D7ACC700C272C4 /* Ready.app */;
 			productType = "com.apple.product-type.application";
+		};
+		4B49571924C46A2C0074A053 /* ViceC128 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4B49575A24C46A2C0074A053 /* Build configuration list for PBXNativeTarget "ViceC128" */;
+			buildPhases = (
+				4B49571A24C46A2C0074A053 /* Headers */,
+				4B49571D24C46A2C0074A053 /* Sources */,
+				4B49572A24C46A2C0074A053 /* Frameworks */,
+				4B49575924C46A2C0074A053 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ViceC128;
+			productName = "Vice-C64";
+			productReference = 4B49575D24C46A2C0074A053 /* ViceC128.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		4B49578824C470F70074A053 /* vice-c128 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4B4957A324C470F70074A053 /* Build configuration list for PBXNativeTarget "vice-c128" */;
+			buildPhases = (
+				4B49578924C470F70074A053 /* Sources */,
+				4B4957A124C470F70074A053 /* Frameworks */,
+				4B4957A224C470F70074A053 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "vice-c128";
+			productName = libvic20;
+			productReference = 4B4957A624C470F70074A053 /* libvice-c128.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		4B4957A724C4715D0074A053 /* vice-c64c128 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4B4957C124C4715D0074A053 /* Build configuration list for PBXNativeTarget "vice-c64c128" */;
+			buildPhases = (
+				4B4957A824C4715D0074A053 /* Sources */,
+				4B4957BF24C4715D0074A053 /* Frameworks */,
+				4B4957C024C4715D0074A053 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "vice-c64c128";
+			productName = libvic20;
+			productReference = 4B4957C424C4715D0074A053 /* libvice-c64c128.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		4B4957D424C472040074A053 /* vice-driveiec128dcr */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4B4957E724C472040074A053 /* Build configuration list for PBXNativeTarget "vice-driveiec128dcr" */;
+			buildPhases = (
+				4B4957D524C472040074A053 /* Sources */,
+				4B4957E524C472040074A053 /* Frameworks */,
+				4B4957E624C472040074A053 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "vice-driveiec128dcr";
+			productName = libvic20;
+			productReference = 4B4957EA24C472040074A053 /* libvice-driveiec128dcr.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		4B4957EF24C472A60074A053 /* vice-vdc */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4B4957F724C472A60074A053 /* Build configuration list for PBXNativeTarget "vice-vdc" */;
+			buildPhases = (
+				4B4957F024C472A60074A053 /* Sources */,
+				4B4957F524C472A60074A053 /* Frameworks */,
+				4B4957F624C472A60074A053 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "vice-vdc";
+			productName = libvic20;
+			productReference = 4B4957FA24C472A60074A053 /* libvice-vdc.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		4B4957FB24C472B80074A053 /* vice-vicii */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4B4957FF24C472B80074A053 /* Build configuration list for PBXNativeTarget "vice-vicii" */;
+			buildPhases = (
+				4B4957FC24C472B80074A053 /* Sources */,
+				4B4957FD24C472B80074A053 /* Frameworks */,
+				4B4957FE24C472B80074A053 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "vice-vicii";
+			productName = libvic20;
+			productReference = 4B49580224C472B80074A053 /* libvice-vicii.a */;
+			productType = "com.apple.product-type.library.static";
 		};
 		4B540E9624A674E100F6925B /* VicePlus4 */ = {
 			isa = PBXNativeTarget;
@@ -11666,6 +12237,7 @@
 				4B9ABEED24B89A5000678531 /* Atari800 */,
 				4B5412C724AB519900F6925B /* FuseZX */,
 				4B68FB3D24967CCD00A76E57 /* ViceC64 */,
+				4B49571924C46A2C0074A053 /* ViceC128 */,
 				4B540E9624A674E100F6925B /* VicePlus4 */,
 				4B68FB802498DC0600A76E57 /* ViceVIC20 */,
 				4BCF7D0224BDA9E900172C24 /* X16 */,
@@ -11674,10 +12246,12 @@
 				4B5414F024ABABC600F6925B /* fuse-libspectrum */,
 				4B68FCA82498EC2500A76E57 /* vice-archdep */,
 				4B68FF7D2499F0C900A76E57 /* vice-base */,
+				4B4957A724C4715D0074A053 /* vice-c64c128 */,
 				4B54138D24ABA44C00F6925B /* vice-c64cart */,
 				4B54134424AB9C6100F6925B /* vice-c64cartsystem */,
 				4B68FCB82498EC5F00A76E57 /* vice-c64commoncart */,
 				4B5412FF24AB9B0500F6925B /* vice-c64sc */,
+				4B49578824C470F70074A053 /* vice-c128 */,
 				4B68FE62249912EA00A76E57 /* vice-core */,
 				4B68FD302498ECFD00A76E57 /* vice-diag */,
 				4B68FE83249912F900A76E57 /* vice-diskimage */,
@@ -11685,6 +12259,7 @@
 				4B68FCC02498EC6C00A76E57 /* vice-driveiec */,
 				4B68FCC82498EC7C00A76E57 /* vice-driveiecieee */,
 				4B5413E324ABA59100F6925B /* vice-driveiecc64exp */,
+				4B4957D424C472040074A053 /* vice-driveiec128dcr */,
 				4B540FBF24A9BBEC00F6925B /* vice-driveiecplus4exp */,
 				4B68FCD02498ECAD00A76E57 /* vice-driveieee */,
 				4B68FCE02498ECBF00A76E57 /* vice-drivetcbm */,
@@ -11717,9 +12292,11 @@
 				4B68FEEB2499133900A76E57 /* vice-tape */,
 				4B68FCB02498EC5000A76E57 /* vice-tapeport */,
 				4B68FD282498ECF700A76E57 /* vice-userport */,
+				4B4957EF24C472A60074A053 /* vice-vdc */,
 				4B68FD002498ECE000A76E57 /* vice-vdrive */,
 				4B68FB982498E74400A76E57 /* vice-vic20 */,
 				4B68FC212498EA2600A76E57 /* vice-vic20cart */,
+				4B4957FB24C472B80074A053 /* vice-vicii */,
 				4B54143C24ABA66F00F6925B /* vice-viciisc */,
 				4B68FD402498ED0300A76E57 /* vice-video */,
 				4BCF7CE024BDA93E00172C24 /* x16-emulator */,
@@ -11770,6 +12347,13 @@
 				4B9ABB1724B5F5B900678531 /* Icon-ZX128-83.5.png in Resources */,
 				4BAE5BF221FDD72E0098ADFF /* FileDocument.png in Resources */,
 				4B9ABB1924B5F5B900678531 /* Icon-ZX128-76.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4B49575924C46A2C0074A053 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -11909,6 +12493,124 @@
 				4B3F6E472254C1F70065180A /* DiskDirectoryTableViewDelegate.swift in Sources */,
 				4BEBC6CB22008720009DED63 /* Category.swift in Sources */,
 				4BF57EF9225C8F7D00909B2B /* DirectoryWatcher.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4B49571D24C46A2C0074A053 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B49577024C46C1F0074A053 /* ViceC128.swift in Sources */,
+				4B49571E24C46A2C0074A053 /* soundios.m in Sources */,
+				4B49571F24C46A2C0074A053 /* joy.m in Sources */,
+				4B49572024C46A2C0074A053 /* dummy.cpp in Sources */,
+				4B49576F24C46C190074A053 /* vice_c128.c in Sources */,
+				4B49572124C46A2C0074A053 /* ui.m in Sources */,
+				4B49572224C46A2C0074A053 /* mousedrv.m in Sources */,
+				4B49572324C46A2C0074A053 /* ringbuffer.c in Sources */,
+				4B49572524C46A2C0074A053 /* archdep.m in Sources */,
+				4B49572724C46A2C0074A053 /* Vice.swift in Sources */,
+				4B49572824C46A2C0074A053 /* ViceThread.m in Sources */,
+				4B49572924C46A2C0074A053 /* videoarch.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4B49578924C470F70074A053 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B49578A24C470F70074A053 /* z80.c in Sources */,
+				4B49578B24C470F70074A053 /* c128memlimit.c in Sources */,
+				4B49578C24C470F70074A053 /* z80mem.c in Sources */,
+				4B49578D24C470F70074A053 /* c128video.c in Sources */,
+				4B49578E24C470F70074A053 /* c128.c in Sources */,
+				4B49578F24C470F70074A053 /* c128romset.c in Sources */,
+				4B49579024C470F70074A053 /* c128model.c in Sources */,
+				4B49579124C470F70074A053 /* c128memsnapshot.c in Sources */,
+				4B49579224C470F70074A053 /* c128fastiec.c in Sources */,
+				4B49579424C470F70074A053 /* c128-cmdline-options.c in Sources */,
+				4B49579524C470F70074A053 /* c128-resources.c in Sources */,
+				4B49579624C470F70074A053 /* functionrom.c in Sources */,
+				4B49579724C470F70074A053 /* c128mmu.c in Sources */,
+				4B49579824C470F70074A053 /* c128embedded.c in Sources */,
+				4B49579924C470F70074A053 /* c128drive.c in Sources */,
+				4B49579A24C470F70074A053 /* c128meminit.c in Sources */,
+				4B49579B24C470F70074A053 /* c128cpu.c in Sources */,
+				4B49579C24C470F70074A053 /* c128-snapshot.c in Sources */,
+				4B49579D24C470F70074A053 /* c128rom.c in Sources */,
+				4B49579E24C470F70074A053 /* c128mem.c in Sources */,
+				4B49579F24C470F70074A053 /* c128memrom.c in Sources */,
+				4B4957A024C470F70074A053 /* c128cia1.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4B4957A824C4715D0074A053 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B4957D324C471CC0074A053 /* patchrom.c in Sources */,
+				4B4957C724C471CC0074A053 /* c64datasette.c in Sources */,
+				4B4957CB24C471CC0074A053 /* c64keyboard.c in Sources */,
+				4B4957CF24C471CC0074A053 /* c64pla.c in Sources */,
+				4B4957D224C471CC0074A053 /* c64sound.c in Sources */,
+				4B4957CA24C471CC0074A053 /* c64iec.c in Sources */,
+				4B4957C624C471CC0074A053 /* c64cia2.c in Sources */,
+				4B4957D124C471CC0074A053 /* c64rsuser.c in Sources */,
+				4B4957C924C471CC0074A053 /* c64gluelogic.c in Sources */,
+				4B4957D024C471CC0074A053 /* c64printer.c in Sources */,
+				4B4957CC24C471CC0074A053 /* c64meminit.c in Sources */,
+				4B4957CE24C471CC0074A053 /* c64parallel.c in Sources */,
+				4B4957CD24C471CC0074A053 /* c64memrom.c in Sources */,
+				4B49584124C4876E0074A053 /* c64io.c in Sources */,
+				4B4957C524C471CC0074A053 /* c64bus.c in Sources */,
+				4B4957C824C471CC0074A053 /* c64export.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4B4957D524C472040074A053 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B4957EB24C472330074A053 /* iec128dcr-cmdline-options.c in Sources */,
+				4B4957EC24C472330074A053 /* iec128dcr-resources.c in Sources */,
+				4B4957EE24C472330074A053 /* iec128dcrrom.c in Sources */,
+				4B4957ED24C472330074A053 /* iec128dcr.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4B4957F024C472A60074A053 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B49580524C472E50074A053 /* vdc-draw.c in Sources */,
+				4B49580824C472E50074A053 /* vdc-snapshot.c in Sources */,
+				4B49580924C472E50074A053 /* vdc.c in Sources */,
+				4B49580324C472E50074A053 /* vdc-cmdline-options.c in Sources */,
+				4B49580424C472E50074A053 /* vdc-color.c in Sources */,
+				4B49580724C472E50074A053 /* vdc-resources.c in Sources */,
+				4B49580624C472E50074A053 /* vdc-mem.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4B4957FC24C472B80074A053 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B49583924C473530074A053 /* vicii-timing.c in Sources */,
+				4B49583424C473530074A053 /* vicii-phi1.c in Sources */,
+				4B49582E24C473530074A053 /* vicii-cmdline-options.c in Sources */,
+				4B49583A24C473530074A053 /* vicii.c in Sources */,
+				4B49583124C473530074A053 /* vicii-fetch.c in Sources */,
+				4B49582C24C473530074A053 /* vicii-badline.c in Sources */,
+				4B49583524C473530074A053 /* vicii-resources.c in Sources */,
+				4B49582F24C473530074A053 /* vicii-color.c in Sources */,
+				4B49583324C473530074A053 /* vicii-mem.c in Sources */,
+				4B49583724C473530074A053 /* vicii-sprites.c in Sources */,
+				4B49583624C473530074A053 /* vicii-snapshot.c in Sources */,
+				4B49583024C473530074A053 /* vicii-draw.c in Sources */,
+				4B49583224C473530074A053 /* vicii-irq.c in Sources */,
+				4B49582D24C473530074A053 /* vicii-clock-stretch.c in Sources */,
+				4B49583824C473530074A053 /* vicii-stubs.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -13672,6 +14374,344 @@
 			};
 			name = Release;
 		};
+		4B49575B24C46A2C0074A053 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = F27CVJNWXK;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREPROCESSOR_DEFINITIONS = "VICE_C128=1";
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				HEADER_SEARCH_PATHS = (
+					"3rd-Party",
+					vice/src,
+					vice/src/arch/ios,
+					vice/src/vicii,
+					vice/src/joyport,
+					vice/src/raster,
+					vice/src/arch/shared,
+					vice/src/sid,
+					C64,
+					vice/src/drive,
+					vice/src/lib/p64,
+				);
+				INFOPLIST_FILE = Emulators/ViceC128/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "";
+				PRODUCT_BUNDLE_IDENTIFIER = at.tpau.ViceC128;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_INCLUDE_PATHS = "ViceShared/**";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		4B49575C24C46A2C0074A053 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = F27CVJNWXK;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREPROCESSOR_DEFINITIONS = "VICE_C128=1";
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				HEADER_SEARCH_PATHS = (
+					"3rd-Party",
+					vice/src,
+					vice/src/arch/ios,
+					vice/src/vicii,
+					vice/src/joyport,
+					vice/src/raster,
+					vice/src/arch/shared,
+					vice/src/sid,
+					C64,
+					vice/src/drive,
+					vice/src/lib/p64,
+				);
+				INFOPLIST_FILE = Emulators/ViceC128/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "";
+				PRODUCT_BUNDLE_IDENTIFIER = at.tpau.ViceC128;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_INCLUDE_PATHS = "ViceShared/**";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		4B4957A424C470F70074A053 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = F27CVJNWXK;
+				HEADER_SEARCH_PATHS = (
+					vice/src,
+					vice/src/arch/ios,
+					vice/src/core,
+					vice/src/tapeport,
+					vice/src/samplerdrv,
+					vice/src/joyport,
+					vice/src/rtc,
+					vice/src/vdc,
+					vice/src/lib/p64,
+					vice/src/video,
+					vice/src/vicii,
+					vice/src/userport,
+					vice/src/tape,
+					vice/src/sid,
+					vice/src/raster,
+					vice/src/c64/cart,
+					vice/src/c64,
+					vice/src/drive,
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4B4957A524C470F70074A053 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = F27CVJNWXK;
+				HEADER_SEARCH_PATHS = (
+					vice/src,
+					vice/src/arch/ios,
+					vice/src/core,
+					vice/src/tapeport,
+					vice/src/samplerdrv,
+					vice/src/joyport,
+					vice/src/rtc,
+					vice/src/vdc,
+					vice/src/lib/p64,
+					vice/src/video,
+					vice/src/vicii,
+					vice/src/userport,
+					vice/src/tape,
+					vice/src/sid,
+					vice/src/raster,
+					vice/src/c64/cart,
+					vice/src/c64,
+					vice/src/drive,
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		4B4957C224C4715D0074A053 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = F27CVJNWXK;
+				HEADER_SEARCH_PATHS = (
+					vice/src,
+					vice/src/arch/ios,
+					vice/src/hvsc,
+					vice/src/core,
+					vice/src/tapeport,
+					vice/src/samplerdrv,
+					vice/src/joyport,
+					vice/src/rtc,
+					vice/src/video,
+					vice/src/lib/p64,
+					vice/src/viciivsid,
+					vice/src/viciisc,
+					vice/src/userport,
+					vice/src/tape,
+					vice/src/sid,
+					vice/src/raster,
+					vice/src/drive/iec,
+					vice/src/drive,
+					vice/src/c64/cart,
+					vice/src/c64,
+					vice/src/drive/iec/c64exp,
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4B4957C324C4715D0074A053 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = F27CVJNWXK;
+				HEADER_SEARCH_PATHS = (
+					vice/src,
+					vice/src/arch/ios,
+					vice/src/hvsc,
+					vice/src/core,
+					vice/src/tapeport,
+					vice/src/samplerdrv,
+					vice/src/joyport,
+					vice/src/rtc,
+					vice/src/video,
+					vice/src/lib/p64,
+					vice/src/viciivsid,
+					vice/src/viciisc,
+					vice/src/userport,
+					vice/src/tape,
+					vice/src/sid,
+					vice/src/raster,
+					vice/src/drive/iec,
+					vice/src/drive,
+					vice/src/c64/cart,
+					vice/src/c64,
+					vice/src/drive/iec/c64exp,
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		4B4957E824C472040074A053 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = F27CVJNWXK;
+				HEADER_SEARCH_PATHS = (
+					vice/src,
+					vice/src/arch/ios,
+					vice/src/lib/p64,
+					vice/src/drive,
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4B4957E924C472040074A053 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = F27CVJNWXK;
+				HEADER_SEARCH_PATHS = (
+					vice/src,
+					vice/src/arch/ios,
+					vice/src/lib/p64,
+					vice/src/drive,
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		4B4957F824C472A60074A053 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = F27CVJNWXK;
+				HEADER_SEARCH_PATHS = (
+					vice/src,
+					vice/src/arch/ios,
+					vice/src/raster,
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4B4957F924C472A60074A053 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = F27CVJNWXK;
+				HEADER_SEARCH_PATHS = (
+					vice/src,
+					vice/src/arch/ios,
+					vice/src/raster,
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		4B49580024C472B80074A053 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = F27CVJNWXK;
+				HEADER_SEARCH_PATHS = (
+					vice/src,
+					vice/src/arch/ios,
+					vice/src/c64dtv,
+					vice/src/lib/p64,
+					vice/src/c64/cart,
+					vice/src/c64,
+					vice/src/joyport,
+					vice/src/raster,
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4B49580124C472B80074A053 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = F27CVJNWXK;
+				HEADER_SEARCH_PATHS = (
+					vice/src,
+					vice/src/arch/ios,
+					vice/src/c64dtv,
+					vice/src/lib/p64,
+					vice/src/c64/cart,
+					vice/src/c64,
+					vice/src/joyport,
+					vice/src/raster,
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		4B540EA024A674E100F6925B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -13922,6 +14962,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -13965,6 +15006,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -16320,6 +17362,7 @@
 		4B9ABEB124B88A5300678531 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_WARN_STRICT_PROTOTYPES = NO;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = cores/atari800/src;
@@ -16333,6 +17376,7 @@
 		4B9ABEB224B88A5300678531 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_WARN_STRICT_PROTOTYPES = NO;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = cores/atari800/src;
@@ -16547,6 +17591,7 @@
 			buildSettings = {
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -16588,6 +17633,7 @@
 			buildSettings = {
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -16666,6 +17712,60 @@
 			buildConfigurations = (
 				4B3F976F21D7ACC800C272C4 /* Debug */,
 				4B3F977021D7ACC800C272C4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4B49575A24C46A2C0074A053 /* Build configuration list for PBXNativeTarget "ViceC128" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4B49575B24C46A2C0074A053 /* Debug */,
+				4B49575C24C46A2C0074A053 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4B4957A324C470F70074A053 /* Build configuration list for PBXNativeTarget "vice-c128" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4B4957A424C470F70074A053 /* Debug */,
+				4B4957A524C470F70074A053 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4B4957C124C4715D0074A053 /* Build configuration list for PBXNativeTarget "vice-c64c128" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4B4957C224C4715D0074A053 /* Debug */,
+				4B4957C324C4715D0074A053 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4B4957E724C472040074A053 /* Build configuration list for PBXNativeTarget "vice-driveiec128dcr" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4B4957E824C472040074A053 /* Debug */,
+				4B4957E924C472040074A053 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4B4957F724C472A60074A053 /* Build configuration list for PBXNativeTarget "vice-vdc" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4B4957F824C472A60074A053 /* Debug */,
+				4B4957F924C472A60074A053 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4B4957FF24C472B80074A053 /* Build configuration list for PBXNativeTarget "vice-vicii" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4B49580024C472B80074A053 /* Debug */,
+				4B49580124C472B80074A053 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -53,53 +53,60 @@ typedef struct {
 } RendererRect;
 
 typedef struct {
-    uint8_t *data;          // source image data, palette indices
+    uint8_t * _Nonnull data;          // source image data, palette indices
     size_t rowSize;        // size of one row in data
     RendererSize size;     // size of image
-    RendererRect screen;   // rectangle of screen, excluding border
 } RendererImage;
 
-void renderer_image_free(RendererImage *image);
-RendererImage *renderer_image_new(size_t width, size_t height);
+void renderer_image_free(RendererImage * _Nullable image);
+RendererImage * _Nullable renderer_image_new(size_t width, size_t height);
 
 @protocol RendererDelegate <NSObject>
 
-- (void)updateImage: (UIImage *)image;
+- (void)updateImage: (UIImage *_Nullable)image;
 
 @end
 
-@interface Renderer : NSObject
+@interface Renderer : NSObject {
+    RendererRect _screenPosition;
+}
 
 /* MARK: - Public Methods */
-
-- (instancetype)init;
 
 - (void)resize: (const RendererSize)size;
 - (void)close;
 
-- (void)render: (const RendererImage *)image;
-- (void)renderRGB: (const RendererImage *)image;
+- (void)render: (const RendererImage *_Nonnull)image;
+- (void)renderRGB: (const RendererImage *_Nonnull)image;
+
+- (void)render:(const RendererImage * _Nonnull)image at: (RendererPoint)offset;
+- (void)renderRGB:(const RendererImage * _Nonnull)image at: (RendererPoint)offset;
+
+- (void)displayImage;
 
 /* MARK: - Public Properties */
 
-@property id delegate;
+@property id _Nullable delegate;
 
 @property RendererBorderMode borderMode; /* desired border mode*/
-@property UInt32 *palette; /* palette to use for rendering */
+@property UInt32 * _Nullable palette; /* palette to use for rendering */
 
+@property BOOL changed; /* bitmap changed since last displayImage */
 @property RendererSize size; /* maximum size of image */
+@property RendererRect screenPosition;   /* position of screen within full image */
 @property RendererSize currentSize;    /* current size of rendered image */
 @property RendererPoint currentOffset;  /* curront offset to source image du to border hiding */
 
 /* MARK: - Private Methods */
 
+- (RendererRect)clip:(const RendererImage * _Nonnull)image at:(RendererPoint)offset;
+- (int)getBorderColor;
 - (void)updateImage;
 
 /* MARK: - Private Properties */
 
 @property NSMutableData * _Nullable data; /* image data */
 @property RendererBorderMode lastBorderMode; /* border mode of last render */
-@property RendererRect currentScreen;   /* current position of screen with in image */
 
 /* For border auto hiding */
 @property int lastBorderColor;      /* color of the border in last frame*/

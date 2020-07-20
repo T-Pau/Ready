@@ -55,13 +55,6 @@
 #define MY_MIN(a, b) ((a) < (b) ? (a) : (b))
 #define MY_MAX(a, b) ((a) > (b) ? (a) : (b))
 
-static enum {
-    SCREEN_UPDATE_NEVER,
-    SCREEN_UPDATE_DONE,
-    SCREEN_UPDATE_NEEDED
-} screen_updated;
-static video_canvas_t *current_canvas;
-
 static int lightpen_x;
 static int lightpen_y;
 static int lightpen_buttons;
@@ -158,50 +151,23 @@ void video_canvas_destroy(struct video_canvas_s *canvas) {
  * \param h      Height of the rectangle to update
  */
 void video_canvas_refresh(struct video_canvas_s *canvas, unsigned int xs, unsigned int ys, unsigned int xi, unsigned int yi, unsigned int w, unsigned int h) {
-    
-    size_t full_width = MY_MIN(canvas->geometry->screen_size.width - canvas->viewport->first_x, canvas->draw_buffer->canvas_width);
-    size_t full_height = canvas->viewport->last_line - canvas->viewport->first_line + 1;
+    RendererRect screen;
+    screen.origin.x = canvas->geometry->gfx_position.x - canvas->viewport->first_x;
+    screen.origin.y = canvas->geometry->gfx_position.y - canvas->geometry->first_displayed_line;
+    screen.size.width = canvas->geometry->gfx_size.width;
+    screen.size.height = canvas->geometry->gfx_size.height;
+    viceThread.renderer.screenPosition = screen;
     
     RendererImage image;
-    
-    uint8_t *source = canvas->draw_buffer->draw_buffer + canvas->draw_buffer->draw_buffer_pitch * ys + xs;
+    RendererPoint offset = {xi, yi};
+     
+    image.data = canvas->draw_buffer->draw_buffer + canvas->draw_buffer->draw_buffer_pitch * ys + xs;
+    image.rowSize = canvas->draw_buffer->draw_buffer_pitch;
+    image.size.width = w;
+    image.size.height = h;
 
-    if (canvas_has_partial_updates == 0) {
-        image.data = source;
-        image.rowSize = canvas->draw_buffer->draw_buffer_pitch;
-    }
-    else {
-        const RendererSize size = viceThread.renderer.size;
-        if (canvas->bitmap == NULL) {
-            canvas->bitmap = calloc(size.width * size.height, 1);
-            canvas->bitmap_row_size = size.width;
-        }
-        
-        size_t x_offset = MY_MIN(size.width, xi);
-        size_t y_offset = MY_MIN(size.height, yi);
-        size_t width = MY_MIN(size.width - x_offset, w);
-        size_t height = MY_MIN(size.height - y_offset, h);
-        uint8_t *destination = canvas->bitmap + y_offset * canvas->bitmap_row_size + x_offset;
-        
-        for (size_t y = 0; y < height; y++) {
-            memcpy(destination, source, width);
-            source += canvas->draw_buffer->draw_buffer_pitch;
-            destination += canvas->bitmap_row_size;
-        }
-        
-        image.data = canvas->bitmap;
-        image.rowSize = canvas->bitmap_row_size;
-    }
+    [viceThread.renderer render:&image at:offset];
     
-    image.size.width = full_width;
-    image.size.height = full_height;
-    image.screen.origin.x = canvas->geometry->gfx_position.x - canvas->viewport->first_x;
-    image.screen.origin.y = canvas->geometry->gfx_position.y - canvas->geometry->first_displayed_line;
-    image.screen.size.width = canvas->geometry->gfx_size.width;
-    image.screen.size.height = canvas->geometry->gfx_size.height;
-
-    [viceThread.renderer render:&image];
-    screen_updated = SCREEN_UPDATE_DONE;
 }
 
 
@@ -237,15 +203,15 @@ void video_canvas_resize(struct video_canvas_s *canvas, char resize_canvas) {
     printf("    x/y_offset: (%d, %d)\n", canvas->viewport->x_offset, canvas->viewport->y_offset);
 #endif
     
-    int height = canvas->viewport->last_line - canvas->viewport->first_line + 1;
-    int width = canvas->geometry->screen_size.width;
+    size_t width = MY_MIN(canvas->geometry->screen_size.width - canvas->viewport->first_x, canvas->draw_buffer->canvas_width);
+    size_t height = canvas->viewport->last_line - canvas->viewport->first_line + 1;
+
+//    int height = canvas->viewport->last_line - canvas->viewport->first_line + 1;
+//    int width = canvas->geometry->screen_size.width;
 
     RendererSize size = { width, height };
     [viceThread.renderer resize:size];
     viceThread.renderer.palette = palette;
-    
-    current_canvas = canvas;
-    screen_updated = SCREEN_UPDATE_NEVER;
 }
 
 
@@ -314,10 +280,7 @@ void vsyncarch_presync(void) {
         return;
     }
 
-    if (canvas_has_partial_updates && screen_updated == SCREEN_UPDATE_NEEDED) {
-        video_canvas_refresh(current_canvas, 0, 0, 0, 0, 0, 0);
-    }
-    screen_updated = SCREEN_UPDATE_NEEDED;
+    [viceThread.renderer displayImage];
     
     lightpen_update(0, lightpen_x, lightpen_y, lightpen_buttons);
     kbdbuf_flush();

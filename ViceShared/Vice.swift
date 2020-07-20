@@ -67,6 +67,12 @@ public func viceModel(for model: Computer.Model) -> Int32 {
     case .ultimax:
         return 13
         
+    // ViceC128
+//    case .c128Pal:
+  //      return 0
+//    case .c128Ntsc:
+  //      return 1
+        
     // ViceVIC20
     case .vic20Pal:
         return 0
@@ -172,6 +178,8 @@ extension JoystickButtons {
     private var autostartPrgName: [UInt8]?
     
     public override func start() {
+        super.start()
+        
         machine.resources[.AutostartPrgMode] = .Int(AUTOSTART_PRG_MODE_INJECT);
         //machineSpecification.resources[.VICIIBorderMode] = .Int(VICII_TALL_BORDERS)
         machine.resources[.Mouse] = .Bool(true)

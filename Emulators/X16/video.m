@@ -42,7 +42,9 @@ static RendererSize screen_size = {640, 480};
 bool video_init(int window_scale, char *quality) {
     video_reset();
 
+    RendererRect screenPosition = {{0,0},screen_size};
     [x16Thread.renderer resize:screen_size];
+    x16Thread.renderer.screenPosition = screenPosition;
     
     if (debugger_enabled) {
         //DEBUGInitUI(renderer);
@@ -57,11 +59,9 @@ bool platform_video_update(const uint32_t *framebuffer) {
     image.data = (uint8_t *)framebuffer;
     image.rowSize = screen_size.width * sizeof(uint32_t);
     image.size = screen_size;
-    image.screen.origin.x = 0;
-    image.screen.origin.y = 0;
-    image.screen.size = screen_size;
     
     [x16Thread.renderer renderRGB:&image];
+    [x16Thread.renderer displayImage];
     
     if (debugger_enabled && showDebugOnRender != 0) {
         //DEBUGRenderDisplay(SCREEN_WIDTH, SCREEN_HEIGHT);
