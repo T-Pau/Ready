@@ -47,6 +47,7 @@
 }
 
 @property Renderer * _Nonnull renderer;
+@property NSMutableArray * _Nonnull renderers;
 
 @property id _Nullable delegate;
 

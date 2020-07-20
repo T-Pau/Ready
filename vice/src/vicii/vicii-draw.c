@@ -1483,6 +1483,9 @@ static void init_drawing_tables(void)
     uint32_t i;
     unsigned int f, b;
     uint8_t *p = (uint8_t *)hr_table;
+#if 1 // compiler bug
+    uint8_t *q = (uint8_t *)hr_table;
+#endif
 
     for (f = 0; f <= 0xf; f++) {
         for (b = 0; b <= 0xf; b++) {
@@ -1497,9 +1500,9 @@ static void init_drawing_tables(void)
             }
 #if 1 // compiler bug
             for (i = 0; i <= 0xf; i++) {
-                p[0] = i & 0x8 ? f : b;
-                p[1] = i & 0x4 ? f : b;
-                p += 4;
+                q[0] = i & 0x8 ? f : b;
+                q[1] = i & 0x4 ? f : b;
+                q += 4;
             }
 #endif
         }

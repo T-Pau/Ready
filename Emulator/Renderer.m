@@ -292,7 +292,7 @@ static int get_border_color(const RendererImage *image, const uint32_t *palette)
             
             UIImage *image = [UIImage imageWithCIImage:ciImage];
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.delegate updateImage:image];
+                [self.delegate renderer:self updateImage:image];
             });
         }
     }

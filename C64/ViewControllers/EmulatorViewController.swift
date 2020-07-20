@@ -73,6 +73,7 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
     
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var imageView2: UIImageView!
     @IBOutlet weak var keyboardView: KeyboardView!
     @IBOutlet weak var keyboardButton: UIBarButtonItem!
     @IBOutlet weak var freezeButton: UIBarButtonItem!
@@ -91,7 +92,6 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
     @IBOutlet weak var saveTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var fullscreenTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var controllerViewTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var keyboardAspectConstraint: NSLayoutConstraint!
     
     private var driveStatus = [DriveStatusView]()
     
@@ -268,7 +268,13 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
         machine.resources[.DriveSoundEmulation] = .Bool(Defaults.standard.emulateDriveSounds)
 
         emulator?.machine = machine
-        emulator?.imageView = imageView
+        emulator?.imageViews.append(imageView)
+        if emulator?.screens.count ?? 1 > 1 {
+            emulator?.imageViews.append(imageView2)
+        }
+        else {
+            imageView2.isHidden = true
+        }
         emulator?.delegate = self
        
         if Defaults.standard.videoFilter == "None" {

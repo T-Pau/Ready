@@ -68,11 +68,15 @@ public func viceModel(for model: Computer.Model) -> Int32 {
         return 13
         
     // ViceC128
-//    case .c128Pal:
-  //      return 0
-//    case .c128Ntsc:
-  //      return 1
-        
+    case .c128Pal:
+        return 0
+    case .c128DcrPal:
+        return 1
+    case .c128Ntsc:
+        return 2
+    case .c128DcrNtsc:
+        return 3
+
     // ViceVIC20
     case .vic20Pal:
         return 0
@@ -171,6 +175,9 @@ extension JoystickButtons {
     public init() {
         viceThread = ViceThread()
         super.init(emulatorThread: viceThread)
+        if let multipleScreens = multipleScreens {
+            screens = multipleScreens
+        }
     }
     
     private var keyboard = [[Int]](repeating: [Int](repeating: 0, count: 8), count: 8)

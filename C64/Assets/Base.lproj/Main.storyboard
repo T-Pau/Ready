@@ -1141,10 +1141,18 @@
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r3y-Ch-gxd" userLabel="Screen">
                                         <rect key="frame" x="0.0" y="0.0" width="1024" height="211"/>
                                         <subviews>
-                                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="byJ-GM-hsG">
+                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ojt-HP-kEm">
                                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="211"/>
-                                                <gestureRecognizers/>
-                                            </imageView>
+                                                <subviews>
+                                                    <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="byJ-GM-hsG">
+                                                        <rect key="frame" x="0.0" y="0.0" width="1024" height="211"/>
+                                                        <gestureRecognizers/>
+                                                    </imageView>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wlF-pc-PE0" userLabel="Image View 2">
+                                                        <rect key="frame" x="1024" y="0.0" width="0.0" height="211"/>
+                                                    </imageView>
+                                                </subviews>
+                                            </stackView>
                                             <view opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SD9-Ec-zdE" customClass="VirtualControlsView" customModule="Ready" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="74" width="1024" height="137"/>
                                             </view>
@@ -1155,18 +1163,18 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="byJ-GM-hsG" firstAttribute="leading" secondItem="r3y-Ch-gxd" secondAttribute="leading" id="39R-Y7-8OB"/>
-                                            <constraint firstItem="byJ-GM-hsG" firstAttribute="top" secondItem="r3y-Ch-gxd" secondAttribute="top" id="DbD-l8-Mn4"/>
+                                            <constraint firstAttribute="trailing" secondItem="Ojt-HP-kEm" secondAttribute="trailing" id="2rd-y8-ZTA"/>
                                             <constraint firstAttribute="trailing" secondItem="TIh-sV-LcP" secondAttribute="trailing" id="RgY-lE-5U8"/>
                                             <constraint firstAttribute="bottom" secondItem="SD9-Ec-zdE" secondAttribute="bottom" id="UZG-g7-sli"/>
+                                            <constraint firstAttribute="bottom" secondItem="Ojt-HP-kEm" secondAttribute="bottom" id="Uyc-uG-5Ae"/>
+                                            <constraint firstItem="Ojt-HP-kEm" firstAttribute="leading" secondItem="r3y-Ch-gxd" secondAttribute="leading" id="V7u-TI-1A2"/>
                                             <constraint firstItem="TIh-sV-LcP" firstAttribute="top" secondItem="r3y-Ch-gxd" secondAttribute="top" id="VAC-1W-Fha"/>
                                             <constraint firstItem="TIh-sV-LcP" firstAttribute="leading" secondItem="r3y-Ch-gxd" secondAttribute="leading" id="VPk-h8-9qX"/>
                                             <constraint firstAttribute="bottom" secondItem="TIh-sV-LcP" secondAttribute="bottom" id="Xtx-lq-W8K"/>
-                                            <constraint firstAttribute="bottom" secondItem="byJ-GM-hsG" secondAttribute="bottom" id="aAg-Xu-ejD"/>
                                             <constraint firstItem="SD9-Ec-zdE" firstAttribute="top" secondItem="r3y-Ch-gxd" secondAttribute="top" constant="74" id="aQx-wl-htc"/>
                                             <constraint firstAttribute="trailing" secondItem="SD9-Ec-zdE" secondAttribute="trailing" id="b5w-KY-GaI"/>
+                                            <constraint firstItem="Ojt-HP-kEm" firstAttribute="top" secondItem="r3y-Ch-gxd" secondAttribute="top" id="gr2-oD-qek"/>
                                             <constraint firstItem="SD9-Ec-zdE" firstAttribute="leading" secondItem="r3y-Ch-gxd" secondAttribute="leading" id="kMO-dE-c4i"/>
-                                            <constraint firstAttribute="trailing" secondItem="byJ-GM-hsG" secondAttribute="trailing" id="wXv-1s-WoE"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ufs-jw-ysx" userLabel="Status Bar">
@@ -1186,7 +1194,7 @@
                                                             <outletCollection property="gestureRecognizers" destination="iE5-B1-JIf" appends="YES" id="g3m-dm-mUn"/>
                                                         </connections>
                                                     </view>
-                                                    <view opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TFG-4c-Gy0" customClass="TapeStatusView" customModule="C64UIComponents">
+                                                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TFG-4c-Gy0" customClass="TapeStatusView" customModule="C64UIComponents">
                                                         <rect key="frame" x="252" y="0.0" width="76" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="210" id="6Pm-JP-YtM"/>
@@ -1387,6 +1395,7 @@
                         <outlet property="freezeButton" destination="IrD-IO-bSk" id="f2d-yQ-DKg"/>
                         <outlet property="fullscreenTopConstraint" destination="FEs-z5-jt3" id="avB-tp-DTh"/>
                         <outlet property="imageView" destination="byJ-GM-hsG" id="fP4-BQ-76h"/>
+                        <outlet property="imageView2" destination="wlF-pc-PE0" id="v5C-Pl-LDa"/>
                         <outlet property="keyboardButton" destination="I1v-3d-HdN" id="Kgb-ze-sWz"/>
                         <outlet property="keyboardView" destination="1D6-gZ-gDq" id="jd6-j2-bG8"/>
                         <outlet property="mouseJoystickButton" destination="nfW-UG-VhB" id="HJC-6N-xUr"/>
@@ -1865,7 +1874,7 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Oj-vZ-2lb" userLabel="Start Button" customClass="PillButton" customModule="C64UIComponents">
-                                                                <rect key="frame" x="84" y="128" width="52" height="32"/>
+                                                                <rect key="frame" x="84" y="128" width="84" height="32"/>
                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                                 <state key="normal" title="START">
                                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1875,7 +1884,7 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KQT-o5-uyI" customClass="PillButton" customModule="C64UIComponents">
-                                                                <rect key="frame" x="168" y="128" width="55" height="32"/>
+                                                                <rect key="frame" x="200" y="128" width="87" height="32"/>
                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                                 <state key="normal" title="TOOLS">
                                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2069,7 +2078,7 @@
                                                                             <rect key="frame" x="0.0" y="0.0" width="482" height="59"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                             <subviews>
-                                                                                <view opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rSo-nS-zEu" customClass="MediaView" customModule="C64UIComponents">
+                                                                                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rSo-nS-zEu" customClass="MediaView" customModule="C64UIComponents">
                                                                                     <rect key="frame" x="8" y="10" width="474" height="39"/>
                                                                                     <userDefinedRuntimeAttributes>
                                                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="subtitleIsPETASCII" value="YES"/>
@@ -2105,7 +2114,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="482" height="33"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WU8-RS-VWj" userLabel="Start Button" customClass="PillButton" customModule="C64UIComponents">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="31" height="33"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="33"/>
                                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                                         <state key="normal" title="START">
                                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2115,7 +2124,7 @@
                                                                         </connections>
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NaR-ga-Aoz" customClass="PillButton" customModule="C64UIComponents">
-                                                                        <rect key="frame" x="63" y="0.0" width="55" height="33"/>
+                                                                        <rect key="frame" x="32" y="0.0" width="86" height="33"/>
                                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                                         <state key="normal" title="TOOLS">
                                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

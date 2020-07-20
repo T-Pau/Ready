@@ -61,12 +61,6 @@ typedef struct {
 void renderer_image_free(RendererImage * _Nullable image);
 RendererImage * _Nullable renderer_image_new(size_t width, size_t height);
 
-@protocol RendererDelegate <NSObject>
-
-- (void)updateImage: (UIImage *_Nullable)image;
-
-@end
-
 @interface Renderer : NSObject {
     RendererRect _screenPosition;
 }
@@ -113,5 +107,11 @@ RendererImage * _Nullable renderer_image_new(size_t width, size_t height);
 @property BOOL showBorder;   /* number of frames until transition */
 @property int transitionCountdown;   /* number of frames until transition */
 @property size_t borderWidth;        /* current widht of displayed border (used during transition animation) */
+
+@end
+
+@protocol RendererDelegate <NSObject>
+
+- (void)renderer:(Renderer *_Nonnull)renderer updateImage: (UIImage *_Nullable)image;
 
 @end

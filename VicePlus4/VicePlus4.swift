@@ -33,6 +33,8 @@ import Emulator
 
 import ViceX64sc
 
+var multipleScreens: [String]?
+
 typealias ViceThread = ViceThreadPlus4
 
 /*

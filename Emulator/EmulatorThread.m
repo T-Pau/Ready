@@ -41,6 +41,8 @@
     }
     self.qualityOfService = NSQualityOfServiceUserInteractive;
     self.renderer = [[Renderer alloc] init];
+    self.renderers = [[NSMutableArray alloc] init];
+    [self.renderers addObject:self.renderer];
     return self;
 }
 

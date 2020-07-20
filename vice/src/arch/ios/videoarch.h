@@ -57,9 +57,8 @@ typedef struct video_canvas_s {
     /** \brief Color palette for translating display results into
      *         window colors. */
     struct palette_s *palette;
-        
-    uint8_t *bitmap;
-    size_t bitmap_row_size;
+
+    size_t index;
 } video_canvas_t;
 
 extern int canvas_has_partial_updates;

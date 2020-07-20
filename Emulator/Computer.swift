@@ -219,6 +219,8 @@ public struct Computer: MachinePart {
         case c64OldPal
         case c64Pal
         case c64PalN
+        case c128DcrPal
+        case c128DcrNtsc
         case c128Pal
         case c128Ntsc
         case c232Ntsc
@@ -246,7 +248,7 @@ public struct Computer: MachinePart {
                 return .atari8Bit
             case .c64cNtsc, .c64cPal, .c64Japanese, .c64Gs, .c64Ntsc, .c64OldNtsc, .c64OldPal, .c64Pal, .c64PalN, .pet64Ntsc, .pet64Pal, .sx64Ntsc, .sx64Pal, .ultimax:
                 return .c64
-            case .c128Pal, .c128Ntsc:
+            case .c128DcrPal, .c128DcrNtsc, .c128Pal, .c128Ntsc:
                 return .c128
             case .c16Pal, .c16Ntsc, .c232Ntsc, .plus4Pal, .plus4Ntsc, .v364Ntsc:
                 return .plus4

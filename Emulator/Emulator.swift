@@ -35,10 +35,27 @@ import UIKit
 
 @objc open class Emulator: NSObject {
     public var machine = MachineOld()
-    open var imageView: UIImageView?
+    open var imageViews = [UIImageView?]()
     public var delegate: EmulatorDelegate?
     
     public var emulatorThread: EmulatorThread?
+    
+    public var screens = ["Screen"] {
+        didSet {
+            if (oldValue.count < screens.count) {
+                for _ in [oldValue.count ..< screens.count] {
+                    let renderer = Renderer()
+                    renderer.delegate = self
+                    emulatorThread?.renderers.add(renderer)
+                }
+            }
+            else if (oldValue.count > screens.count) {
+                for _ in [screens.count ..< oldValue.count] {
+                    emulatorThread?.renderers.removeLastObject()
+                }
+            }
+        }
+    }
     
     private var eventQueue = EventQueue()
     
@@ -150,9 +167,10 @@ import UIKit
 }
 
 extension Emulator: RendererDelegate {
-    @objc public func update(_ image: UIImage?) {
+    @objc public func renderer(_ renderer: Renderer, update image: UIImage?) {
+        guard let index = emulatorThread?.renderers.index(of: renderer), index < imageViews.count else { return }
         DispatchQueue.main.async {
-            self.imageView?.image = image
+            self.imageViews[index]?.image = image
         }
     }
 }

@@ -606,7 +606,7 @@ public struct Keyboard {
                              rightShiftLeft: 2215,
                              rightShiftRight: 2476),
                 
-        "C128 DE": Keyboard(c128WithImageName: "Commodore 128 DE Keyboard",
+        "C128 DE": Keyboard(c128WithImageName: "C128 DE Keyboard",
                             rows: [345, 511, 680, 848, 1014, 1177],
                             left: 59,
                             right: 2739,

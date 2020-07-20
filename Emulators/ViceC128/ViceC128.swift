@@ -32,6 +32,8 @@
 import Emulator
 import ViceX64sc
 
+var multipleScreens: [String]? = ["40 Columns", "80 Columns"]
+
 typealias ViceThread = ViceThreadC128
 
 /*

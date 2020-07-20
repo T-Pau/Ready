@@ -59,6 +59,8 @@ static int lightpen_x;
 static int lightpen_y;
 static int lightpen_buttons;
 
+static int canvas_index;
+
 #define TICKSPERSECOND  1000000000L  /* Nanoseconds resolution. */
 
 extern uint32_t palette[];
@@ -72,6 +74,7 @@ void video_arch_canvas_init(struct video_canvas_s *canvas) {
     lightpen_x = -1;
     lightpen_y = -1;
     lightpen_buttons = 0;
+    canvas_index = 0;
 }
 
 
@@ -122,8 +125,7 @@ video_canvas_t *video_canvas_create(video_canvas_t *canvas, unsigned int *width,
     canvas->created = 1;
     canvas->initialized = 1;
 
-    canvas->bitmap = NULL;
-    canvas->bitmap_row_size = 0;
+    canvas->index = canvas_index++;
 
     return canvas;
 }
@@ -151,12 +153,14 @@ void video_canvas_destroy(struct video_canvas_s *canvas) {
  * \param h      Height of the rectangle to update
  */
 void video_canvas_refresh(struct video_canvas_s *canvas, unsigned int xs, unsigned int ys, unsigned int xi, unsigned int yi, unsigned int w, unsigned int h) {
+    Renderer *renderer = viceThread.renderers[canvas->index];
+
     RendererRect screen;
     screen.origin.x = canvas->geometry->gfx_position.x - canvas->viewport->first_x;
     screen.origin.y = canvas->geometry->gfx_position.y - canvas->geometry->first_displayed_line;
     screen.size.width = canvas->geometry->gfx_size.width;
     screen.size.height = canvas->geometry->gfx_size.height;
-    viceThread.renderer.screenPosition = screen;
+    renderer.screenPosition = screen;
     
     RendererImage image;
     RendererPoint offset = {xi, yi};
@@ -166,8 +170,7 @@ void video_canvas_refresh(struct video_canvas_s *canvas, unsigned int xs, unsign
     image.size.width = w;
     image.size.height = h;
 
-    [viceThread.renderer render:&image at:offset];
-    
+    [renderer render:&image at:offset];
 }
 
 
@@ -210,8 +213,9 @@ void video_canvas_resize(struct video_canvas_s *canvas, char resize_canvas) {
 //    int width = canvas->geometry->screen_size.width;
 
     RendererSize size = { width, height };
-    [viceThread.renderer resize:size];
-    viceThread.renderer.palette = palette;
+    Renderer *renderer = viceThread.renderers[canvas->index];
+    [renderer resize:size];
+    renderer.palette = palette;
 }
 
 
@@ -280,7 +284,10 @@ void vsyncarch_presync(void) {
         return;
     }
 
-    [viceThread.renderer displayImage];
+    for (size_t i = 0; i < viceThread.renderers.count; i++) {
+        Renderer *renderer = viceThread.renderers[i];
+        [renderer displayImage];
+    }
     
     lightpen_update(0, lightpen_x, lightpen_y, lightpen_buttons);
     kbdbuf_flush();
