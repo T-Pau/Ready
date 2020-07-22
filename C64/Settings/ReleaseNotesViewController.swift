@@ -41,6 +41,9 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Release 1.6 build 5", year: 2020, month: 7, day: 21, changes: [
+            "Preliminary Commodore 128 support."
+        ]),
         Release(name: "Release 1.6 build 4", year: 2020, month: 7, day: 15, changes: [
             "Preliminary Commander X16 support. (No peripherals supported yet.)"
         ]),

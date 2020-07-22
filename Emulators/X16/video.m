@@ -61,7 +61,7 @@ bool platform_video_update(const uint32_t *framebuffer) {
     image.size = screen_size;
     
     [x16Thread.renderer renderRGB:&image];
-    [x16Thread.renderer displayImage];
+    [x16Thread displayImage];
     
     if (debugger_enabled && showDebugOnRender != 0) {
         //DEBUGRenderDisplay(SCREEN_WIDTH, SCREEN_HEIGHT);

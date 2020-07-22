@@ -33,8 +33,6 @@ import Emulator
 
 import ViceX64sc
 
-var multipleScreens: [String]?
-
 typealias ViceThread = ViceThreadPlus4
 
 /*
@@ -60,53 +58,22 @@ typealias ViceThread = ViceThreadPlus4
  |Bit 7| 1 ! | HOME| CTRL| 2 " |SPACE|  C= |  Q  | R/S |
  +-----+-----+-----+-----+-----+-----+-----+-----+-----+
 */
-
-struct KeyboardMatrix {
-    static func column(for key: Key) -> Int? {
-        switch key {
-        case .InsertDelete, .Char("3"), .Char("5"), .Char("7"), .Char("9"), .CursorDown, .CursorLeft, .Char("1"):
-            return 0
-        case  .Return, .Char("w"), .Char("r"), .Char("y"), .Char("i"), .Char("p"), .Char("*"), .ClearHome:
-            return 1
-        case .Char("£"), .Char("a"), .Char("d"), .Char("g"), .Char("j"), .Char("l"), .Char(";"), .Control:
-            return 2
-        case .Help, .Char("4"), .Char("6"), .Char("8"), .Char("0"), .CursorUp, .CursorRight, .Char("2"):
-            return 3
-        case .F1, .Char("z"), .Char("c"), .Char("b"), .Char("m"), .Char("."), .Escape, .Char(" "):
-            return 4
-        case .F2, .Char("s"), .Char("f"), .Char("h"), .Char("k"), .Char(":"), .Char("="), .Commodore:
-            return 5
-        case .F3, .Char("e"), .Char("t"), .Char("u"), .Char("o"), .Char("-"), .Char("+"), .Char("q"):
-            return 6
-        case .Char("@"), .Shift, .ShiftLock, .Char("x"), .Char("v"), .Char("n"), .Char(","), .Char("/"), .RunStop:
-            return 7
-
-        default:
-            return nil
-        }
-    }
-    
-    static func row(for key: Key) -> Int? {
-        switch key {
-        case .InsertDelete, .Return, .Char("£"), .Help, .F1, .F2, .F3, .Char("@"):
-            return 0
-        case .Char("3"), .Char("w"), .Char("a"), .Char("4"), .Char("z"), .Char("s"), .Char("e"), .Shift, .ShiftLock:
-            return 1
-        case .Char("5"), .Char("r"), .Char("d"), .Char("6"), .Char("c"), .Char("f"), .Char("t"), .Char("x"):
-            return 2
-        case .Char("7"), .Char("y"), .Char("g"), .Char("8"), .Char("b"), .Char("h"), .Char("u"), .Char("v"):
-            return 3
-        case .Char("9"), .Char("i"), .Char("j"), .Char("0"), .Char("m"), .Char("k"), .Char("o"), .Char("n"):
-            return 4
-        case .CursorDown, .Char("p"), .Char("l"), .CursorUp, .Char("."), .Char(":"), .Char("-"), .Char(","):
-            return 5
-        case .CursorLeft, .Char("*"), .Char(";"), .CursorRight, .Escape, .Char("="), .Char("+"), .Char("/"):
-            return 6
-        case .Char("1"), .ClearHome, .Control, .Char("2"), .Char(" "), .Commodore, .Char("q"), .RunStop:
-            return 7
-
-        default:
-            return nil
-        }
-    }
-}
+let viceVariant = ViceVariant(keyboardMatrix: [
+        [.InsertDelete, .Return, .Char("£"), .Help, .F1, .F2, .F3, .Char("@")],
+        [.Char("3"), .Char("w"), .Char("a"), .Char("4"), .Char("z"), .Char("s"), .Char("e"), .Shift],
+        [.Char("5"), .Char("r"), .Char("d"), .Char("6"), .Char("c"), .Char("f"), .Char("t"), .Char("x")],
+        [.Char("7"), .Char("y"), .Char("g"), .Char("8"), .Char("b"), .Char("h"), .Char("u"), .Char("v")],
+        [.Char("9"), .Char("i"), .Char("j"), .Char("0"), .Char("m"), .Char("k"), .Char("o"), .Char("n")],
+        [.CursorDown, .Char("p"), .Char("l"), .CursorUp, .Char("."), .Char(":"), .Char("-"), .Char(",")],
+        [.CursorLeft, .Char("*"), .Char(";"), .CursorRight, .Escape, .Char("="), .Char("+"), .Char("/")],
+        [.Char("1"), .ClearHome, .Control, .Char("2"), .Char(" "), .Commodore, .Char("q"), .RunStop]
+    ], aliases: [
+        .Shift: [.ShiftLock]
+    ], viceModel: [
+        .c16Pal: 0,
+        .c16Ntsc: 1,
+        .plus4Pal: 2,
+        .plus4Ntsc: 3,
+        .v364Ntsc: 4,
+        .c232Ntsc: 5
+    ])

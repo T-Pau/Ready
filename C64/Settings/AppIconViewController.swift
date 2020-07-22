@@ -50,6 +50,7 @@ class AppIconViewController: UIViewController {
             Row(name: "Commander X16", iconName: "App Icon X16"),
             Row(name: "Commodore 64", iconName: "App Icon C64", defaultIcon: true),
             Row(name: "Commodore SX-64", iconName: "App Icon SX-64"),
+            Row(name: "Commodore 128", iconName: "App Icon C128"),
             Row(name: "Commodore 16, Plus/4", iconName: "App Icon C16"),
             Row(name: "Commodore VIC-20", iconName: "App Icon VIC-20"),
             Row(name: "Sinclair ZX Spectrum 16k, 48k", iconName: "App Icon ZX-48"),

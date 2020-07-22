@@ -59,8 +59,7 @@ typedef struct video_canvas_s {
     struct palette_s *palette;
 
     size_t index;
+    int doubleLines;
 } video_canvas_t;
-
-extern int canvas_has_partial_updates;
 
 #endif /* VICE_VIDEOARCH_H */

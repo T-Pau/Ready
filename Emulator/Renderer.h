@@ -68,6 +68,7 @@ RendererImage * _Nullable renderer_image_new(size_t width, size_t height);
 /* MARK: - Public Methods */
 
 - (void)resize: (const RendererSize)size;
+- (void)resize: (const RendererSize)size doubleLines:(BOOL)doubleLines;
 - (void)close;
 
 - (void)render: (const RendererImage *_Nonnull)image;
@@ -87,12 +88,14 @@ RendererImage * _Nullable renderer_image_new(size_t width, size_t height);
 
 @property BOOL changed; /* bitmap changed since last displayImage */
 @property RendererSize size; /* maximum size of image */
+@property BOOL doubleLines; /* strech image vertically */
 @property RendererRect screenPosition;   /* position of screen within full image */
 @property RendererSize currentSize;    /* current size of rendered image */
 @property RendererPoint currentOffset;  /* curront offset to source image du to border hiding */
 
 /* MARK: - Private Methods */
 
+- (uint32_t * _Nonnull) dataAt:(RendererPoint)offset;
 - (RendererRect)clip:(const RendererImage * _Nonnull)image at:(RendererPoint)offset;
 - (int)getBorderColor;
 - (void)updateImage;

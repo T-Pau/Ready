@@ -70,8 +70,13 @@ static int get_border_color(const RendererImage *image, const uint32_t *palette)
 }
 
 - (void)resize:(const RendererSize)size {
+    [self resize:size doubleLines:NO];
+}
+- (void)resize:(const RendererSize)size doubleLines:(BOOL)doubleLines {
     _size = size;
-    _data = [[NSMutableData alloc] initWithLength:(size.height + 1) * size.width * 4];
+    _doubleLines = doubleLines;
+    size_t dataLength = (size.height + 1) * size.width * sizeof(uint32_t) * (doubleLines ? 2 : 1);
+    _data = [[NSMutableData alloc] initWithLength:dataLength];
     _lastBorderMode = _borderMode;
     _lastBorderColor = BORDER_COLOR_UNKNOWN;
     if (_borderMode == BORDER_MODE_SHOW) {
@@ -123,17 +128,26 @@ static int get_border_color(const RendererImage *image, const uint32_t *palette)
     RendererRect rect = [self clip:image at:offset];
 
     const uint8_t *source = image->data;
-    uint32_t *destination = (uint32_t *)[_data mutableBytes] + rect.origin.y * _size.width + rect.origin.x;
+    uint32_t *destination = [self dataAt:rect.origin];
     
     for (size_t y = 0; y < rect.size.height; y++) {
+        BOOL lineChanged = NO;
         for (size_t x = 0; x < rect.size.width; x++) {
             uint32_t value = _palette[source[x]];
             if (destination[x] != value) {
-                _changed = YES;
+                lineChanged = YES;
                 destination[x] = value;
             }
         }
         
+        if (_doubleLines) {
+            if (lineChanged) {
+                memcpy(destination + _size.width, destination, rect.size.width * sizeof(destination[0]));
+            }
+            destination += _size.width;
+        }
+        
+        _changed |= lineChanged;
         source += image->rowSize;
         destination += _size.width;
     }
@@ -149,17 +163,24 @@ static int get_border_color(const RendererImage *image, const uint32_t *palette)
     RendererRect rect = [self clip:image at:offset];
 
     const uint32_t *source = (const uint32_t *)image->data;
-    uint32_t *destination = (uint32_t *)[_data mutableBytes] + rect.origin.y * _size.width + rect.origin.x;
+    uint32_t *destination = [self dataAt:rect.origin];
 
     for (size_t y = 0; y < rect.size.height; y++) {
+        BOOL lineChanged = NO;
         for (size_t x = 0; x < rect.size.width; x++) {
             uint32_t value = (source[x] << 8) | 0xff;
             if (destination[x] != value) {
-                _changed = YES;
+                lineChanged = YES;
                 destination[x] = value;
             }
         }
-        
+
+        if (_doubleLines && lineChanged) {
+            memcpy(destination + _size.width, destination, rect.size.width * sizeof(destination[0]));
+            destination += _size.width;
+        }
+
+        _changed |= lineChanged;
         source += image->rowSize / sizeof(uint32_t);
         destination += _size.width;
     }
@@ -286,9 +307,9 @@ static int get_border_color(const RendererImage *image, const uint32_t *palette)
 - (void)updateImage {
     if (_delegate != nil) {
         @autoreleasepool {
-            NSUInteger start = (_currentOffset.y * _size.width + _currentOffset.x) * sizeof(uint32_t);
+            NSUInteger start = (uint8_t *)[self dataAt:_currentOffset] - (uint8_t *)[_data mutableBytes];
             NSRange range = NSMakeRange(start, [_data length] - start);
-            CIImage *ciImage = [CIImage imageWithBitmapData:[_data subdataWithRange:range] bytesPerRow:_size.width * 4 size:CGSizeMake((CGFloat)_currentSize.width, (CGFloat)_currentSize.height) format:kCIFormatABGR8 colorSpace:CGColorSpaceCreateWithName(kCGColorSpaceSRGB)];
+            CIImage *ciImage = [CIImage imageWithBitmapData:[_data subdataWithRange:range] bytesPerRow:_size.width * 4 size:CGSizeMake((CGFloat)_currentSize.width, (CGFloat)_currentSize.height * (_doubleLines ? 2 : 1)) format:kCIFormatABGR8 colorSpace:CGColorSpaceCreateWithName(kCGColorSpaceSRGB)];
             
             UIImage *image = [UIImage imageWithCIImage:ciImage];
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -298,6 +319,9 @@ static int get_border_color(const RendererImage *image, const uint32_t *palette)
     }
 }
 
+- (uint32_t *)dataAt:(RendererPoint)offset {
+    return (uint32_t *)[_data mutableBytes] + offset.y * _size.width * (_doubleLines ? 2 : 1) + offset.x;
+}
 - (int)getBorderColor {
     int border_color = BORDER_COLOR_UNKNOWN;
     

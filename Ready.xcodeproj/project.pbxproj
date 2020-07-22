@@ -1403,6 +1403,17 @@
 		4B9DBB702232DE6E0032B280 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9DBB6F2232DE6E0032B280 /* AboutViewController.swift */; };
 		4B9DBB78223904B00032B280 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B9DBB77223904B00032B280 /* Assets.xcassets */; };
 		4B9E576F24C5898700CEE0D6 /* ViceC128.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4B49575D24C46A2C0074A053 /* ViceC128.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4B9E577124C6CE2600CEE0D6 /* ViceVariant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9E577024C6CE2600CEE0D6 /* ViceVariant.swift */; };
+		4B9E577224C6CE2600CEE0D6 /* ViceVariant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9E577024C6CE2600CEE0D6 /* ViceVariant.swift */; };
+		4B9E577324C6CE2600CEE0D6 /* ViceVariant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9E577024C6CE2600CEE0D6 /* ViceVariant.swift */; };
+		4B9E577424C6CE2600CEE0D6 /* ViceVariant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9E577024C6CE2600CEE0D6 /* ViceVariant.swift */; };
+		4B9E577624C6CE7600CEE0D6 /* KeyboardMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9E577524C6CE7600CEE0D6 /* KeyboardMatrix.swift */; };
+		4B9E577724C6CE7600CEE0D6 /* KeyboardMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9E577524C6CE7600CEE0D6 /* KeyboardMatrix.swift */; };
+		4B9E577824C6CE7600CEE0D6 /* KeyboardMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9E577524C6CE7600CEE0D6 /* KeyboardMatrix.swift */; };
+		4B9E577924C6CE7600CEE0D6 /* KeyboardMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9E577524C6CE7600CEE0D6 /* KeyboardMatrix.swift */; };
+		4B9E578024C74E8200CEE0D6 /* Icon-C128-83.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B9E577D24C74E8100CEE0D6 /* Icon-C128-83.5.png */; };
+		4B9E578124C74E8200CEE0D6 /* Icon-C128-60.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B9E577E24C74E8100CEE0D6 /* Icon-C128-60.png */; };
+		4B9E578224C74E8200CEE0D6 /* Icon-C128-76.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B9E577F24C74E8100CEE0D6 /* Icon-C128-76.png */; };
 		4BA0AE7D22957B1600E54C96 /* PillButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA0AE7C22957B1600E54C96 /* PillButton.swift */; };
 		4BA1E9B924B314C100D935D3 /* MultiSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA1E9B824B314C100D935D3 /* MultiSet.swift */; };
 		4BA1E9BB24B49A4F00D935D3 /* Machine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA1E9BA24B49A4F00D935D3 /* Machine.swift */; };
@@ -5082,6 +5093,11 @@
 		4B9DBB712233C9AB0032B280 /* CasstteDrive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CasstteDrive.swift; sourceTree = "<group>"; };
 		4B9DBB732233CAA00032B280 /* UserPortModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPortModule.swift; sourceTree = "<group>"; };
 		4B9DBB77223904B00032B280 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4B9E577024C6CE2600CEE0D6 /* ViceVariant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViceVariant.swift; sourceTree = "<group>"; };
+		4B9E577524C6CE7600CEE0D6 /* KeyboardMatrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardMatrix.swift; sourceTree = "<group>"; };
+		4B9E577D24C74E8100CEE0D6 /* Icon-C128-83.5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-C128-83.5.png"; sourceTree = "<group>"; };
+		4B9E577E24C74E8100CEE0D6 /* Icon-C128-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-C128-60.png"; sourceTree = "<group>"; };
+		4B9E577F24C74E8100CEE0D6 /* Icon-C128-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-C128-76.png"; sourceTree = "<group>"; };
 		4BA0AE7C22957B1600E54C96 /* PillButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillButton.swift; sourceTree = "<group>"; };
 		4BA1E9B824B314C100D935D3 /* MultiSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSet.swift; sourceTree = "<group>"; };
 		4BA1E9BA24B49A4F00D935D3 /* Machine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Machine.swift; sourceTree = "<group>"; };
@@ -8086,6 +8102,9 @@
 				4B54100824A9E16000F6925B /* Icon-C16-60.png */,
 				4B54100724A9E16000F6925B /* Icon-C16-76.png */,
 				4B54100924A9E16000F6925B /* Icon-C16-83.5.png */,
+				4B9E577E24C74E8100CEE0D6 /* Icon-C128-60.png */,
+				4B9E577F24C74E8100CEE0D6 /* Icon-C128-76.png */,
+				4B9E577D24C74E8100CEE0D6 /* Icon-C128-83.5.png */,
 				4B540EC524A8D84100F6925B /* Icon-SX64-60.png */,
 				4B540EC624A8D84100F6925B /* Icon-SX64-76.png */,
 				4B540EC224A8D84000F6925B /* Icon-SX64-83.5.png */,
@@ -9635,6 +9654,8 @@
 				4B697C7221E38EDA0091BFCC /* Vice.swift */,
 				4BBF866521D962BD00EF99ED /* ViceThread.h */,
 				4BBF866321D9629600EF99ED /* ViceThread.m */,
+				4B9E577024C6CE2600CEE0D6 /* ViceVariant.swift */,
+				4B9E577524C6CE7600CEE0D6 /* KeyboardMatrix.swift */,
 				4BBF864A21D8D67A00EF99ED /* videoarch.m */,
 			);
 			path = ViceShared;
@@ -12321,6 +12342,7 @@
 				4B540ED024A8D84100F6925B /* Icon-SX64-76.png in Resources */,
 				4B1CA20524BE556B0074D45C /* Icon-X16-76.png in Resources */,
 				4B9ABB1824B5F5B900678531 /* Icon-ZX128-60.png in Resources */,
+				4B9E578024C74E8200CEE0D6 /* Icon-C128-83.5.png in Resources */,
 				4B3182CE2282F36E006D86AC /* Compact Disc Document.png in Resources */,
 				4B460E4E2279F46A00815E7F /* REU Document.png in Resources */,
 				4B3182C72281E320006D86AC /* IDE Hard Disk.png in Resources */,
@@ -12333,6 +12355,7 @@
 				4B841CFC21F76AB3009CAF4B /* Floppy525Document.png in Resources */,
 				4B540ECE24A8D84100F6925B /* Icon-VIC20-60.png in Resources */,
 				4B1CA20724BE556B0074D45C /* Icon-X16-60.png in Resources */,
+				4B9E578224C74E8200CEE0D6 /* Icon-C128-76.png in Resources */,
 				4B1B2DB1227AE5410022B053 /* CartridgeDocument.png in Resources */,
 				4B1CA20624BE556B0074D45C /* Icon-X16-83.5.png in Resources */,
 				4B54100A24A9E16000F6925B /* Icon-C16-76.png in Resources */,
@@ -12346,6 +12369,7 @@
 				4B9ABB1724B5F5B900678531 /* Icon-ZX128-83.5.png in Resources */,
 				4BAE5BF221FDD72E0098ADFF /* FileDocument.png in Resources */,
 				4B9ABB1924B5F5B900678531 /* Icon-ZX128-76.png in Resources */,
+				4B9E578124C74E8200CEE0D6 /* Icon-C128-60.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -12506,11 +12530,13 @@
 				4B49576F24C46C190074A053 /* vice_c128.c in Sources */,
 				4B49572124C46A2C0074A053 /* ui.m in Sources */,
 				4B49572224C46A2C0074A053 /* mousedrv.m in Sources */,
+				4B9E577224C6CE2600CEE0D6 /* ViceVariant.swift in Sources */,
 				4B49572324C46A2C0074A053 /* ringbuffer.c in Sources */,
 				4B49572524C46A2C0074A053 /* archdep.m in Sources */,
 				4B49572724C46A2C0074A053 /* Vice.swift in Sources */,
 				4B49572824C46A2C0074A053 /* ViceThread.m in Sources */,
 				4B49572924C46A2C0074A053 /* videoarch.m in Sources */,
+				4B9E577724C6CE7600CEE0D6 /* KeyboardMatrix.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -12624,11 +12650,13 @@
 				4B54100124A9BDB800F6925B /* ViceThread.m in Sources */,
 				4B540FFF24A9BDB800F6925B /* soundios.m in Sources */,
 				4B540EA424A6750B00F6925B /* vice_plus4.c in Sources */,
+				4B9E577324C6CE2600CEE0D6 /* ViceVariant.swift in Sources */,
 				4B73ED2824C1A71100B0561C /* archdep.m in Sources */,
 				4B540EA624A6757B00F6925B /* VicePlus4.swift in Sources */,
 				4B540FFB24A9BDA600F6925B /* dummy.cpp in Sources */,
 				4B54100324A9BDCC00F6925B /* Vice.swift in Sources */,
 				4B540FF924A9BD9A00F6925B /* ringbuffer.c in Sources */,
+				4B9E577824C6CE7600CEE0D6 /* KeyboardMatrix.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -13138,11 +13166,13 @@
 				4B68FB4E24967D5A00A76E57 /* mousedrv.m in Sources */,
 				4B68FB7A2498AE7200A76E57 /* ringbuffer.c in Sources */,
 				4B680034249A00A500A76E57 /* vice_c64.c in Sources */,
+				4B9E577124C6CE2600CEE0D6 /* ViceVariant.swift in Sources */,
 				4B73ED2724C1A71000B0561C /* archdep.m in Sources */,
 				4B68003A249A173500A76E57 /* VIceC64.swift in Sources */,
 				4B68FB5124967D6C00A76E57 /* Vice.swift in Sources */,
 				4B68FB5224967D7600A76E57 /* ViceThread.m in Sources */,
 				4B68FB5324967D7C00A76E57 /* videoarch.m in Sources */,
+				4B9E577624C6CE7600CEE0D6 /* KeyboardMatrix.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -13157,11 +13187,13 @@
 				4B68FB942498DCED00A76E57 /* videoarch.m in Sources */,
 				4B68FB8F2498DCD700A76E57 /* dummy.cpp in Sources */,
 				4B68FB902498DCDA00A76E57 /* joy.m in Sources */,
+				4B9E577424C6CE2600CEE0D6 /* ViceVariant.swift in Sources */,
 				4B73ED2924C1A71200B0561C /* archdep.m in Sources */,
 				4B680037249A023500A76E57 /* vice_vic20.c in Sources */,
 				4B68FF7A2499EE3300A76E57 /* ui.m in Sources */,
 				4B68003C249A17F100A76E57 /* ViceVIC20.swift in Sources */,
 				4B68FB922498DCE200A76E57 /* soundios.m in Sources */,
+				4B9E577924C6CE7600CEE0D6 /* KeyboardMatrix.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -14322,7 +14354,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
 					C64/Vice,
@@ -14352,7 +14384,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
 					C64/Vice,

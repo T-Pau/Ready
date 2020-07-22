@@ -1141,15 +1141,15 @@
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r3y-Ch-gxd" userLabel="Screen">
                                         <rect key="frame" x="0.0" y="0.0" width="1024" height="211"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ojt-HP-kEm">
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Ojt-HP-kEm">
                                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="211"/>
                                                 <subviews>
-                                                    <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="byJ-GM-hsG">
-                                                        <rect key="frame" x="0.0" y="0.0" width="1024" height="211"/>
+                                                    <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="byJ-GM-hsG">
+                                                        <rect key="frame" x="0.0" y="0.0" width="512" height="211"/>
                                                         <gestureRecognizers/>
                                                     </imageView>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wlF-pc-PE0" userLabel="Image View 2">
-                                                        <rect key="frame" x="1024" y="0.0" width="0.0" height="211"/>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wlF-pc-PE0" userLabel="Image View 2">
+                                                        <rect key="frame" x="512" y="0.0" width="512" height="211"/>
                                                     </imageView>
                                                 </subviews>
                                             </stackView>

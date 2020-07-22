@@ -315,6 +315,6 @@ void PLATFORM_DisplayScreen(void) {
     image.size.height = Screen_visible_y2 - Screen_visible_y1;
 
     [atari800Thread.renderer render:&image];
-    [atari800Thread.renderer displayImage];
+    [atari800Thread displayImage];
 }
 

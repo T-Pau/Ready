@@ -64,7 +64,9 @@ static int canvas_index;
 #define TICKSPERSECOND  1000000000L  /* Nanoseconds resolution. */
 
 extern uint32_t palette[];
-
+#ifdef VICE_C128
+extern uint32_t vdc_palette[];
+#endif
 
 /** \brief  Arch-specific initialization for a video canvas
  *  \param[in,out] canvas The canvas being initialized
@@ -126,6 +128,7 @@ video_canvas_t *video_canvas_create(video_canvas_t *canvas, unsigned int *width,
     canvas->initialized = 1;
 
     canvas->index = canvas_index++;
+    canvas->doubleLines = false;
 
     return canvas;
 }
@@ -156,20 +159,29 @@ void video_canvas_refresh(struct video_canvas_s *canvas, unsigned int xs, unsign
     Renderer *renderer = viceThread.renderers[canvas->index];
 
     RendererRect screen;
-    screen.origin.x = canvas->geometry->gfx_position.x - canvas->viewport->first_x;
-    screen.origin.y = canvas->geometry->gfx_position.y - canvas->geometry->first_displayed_line;
-    screen.size.width = canvas->geometry->gfx_size.width;
-    screen.size.height = canvas->geometry->gfx_size.height;
-    renderer.screenPosition = screen;
+    if (canvas->doubleLines) {
+        /* I give up trying to make sense of the 500 different canvas measurements. */
+        screen.origin.x = 112;
+        screen.origin.y = 38;
+        screen.size.width = 640;
+        screen.size.height = 200;
+    }
+    else {
+        screen.origin.x = canvas->geometry->gfx_position.x - canvas->viewport->first_x;
+        screen.origin.y = canvas->geometry->gfx_position.y - canvas->geometry->first_displayed_line;
+        screen.size.width = canvas->geometry->gfx_size.width;
+        screen.size.height = canvas->geometry->gfx_size.height;
+    }
     
     RendererImage image;
     RendererPoint offset = {xi, yi};
-     
+    
     image.data = canvas->draw_buffer->draw_buffer + canvas->draw_buffer->draw_buffer_pitch * ys + xs;
     image.rowSize = canvas->draw_buffer->draw_buffer_pitch;
     image.size.width = w;
     image.size.height = h;
 
+    renderer.screenPosition = screen;
     [renderer render:&image at:offset];
 }
 
@@ -183,7 +195,7 @@ void video_canvas_refresh(struct video_canvas_s *canvas, unsigned int xs, unsign
 
 void video_canvas_resize(struct video_canvas_s *canvas, char resize_canvas) {
 #if 0
-    printf("creating canvas:\n");
+    printf("creating canvas %zu:\n", canvas->index);
     printf("  draw_buffer:\n");
     printf("    canvas_width/height: (%d, %d)\n", canvas->draw_buffer->canvas_width, canvas->draw_buffer->canvas_height);
     printf("    canvas_pysical_width/height: (%d, %d)\n", canvas->draw_buffer->canvas_physical_width, canvas->draw_buffer->canvas_physical_height);
@@ -212,10 +224,16 @@ void video_canvas_resize(struct video_canvas_s *canvas, char resize_canvas) {
 //    int height = canvas->viewport->last_line - canvas->viewport->first_line + 1;
 //    int width = canvas->geometry->screen_size.width;
 
-    RendererSize size = { width, height };
     Renderer *renderer = viceThread.renderers[canvas->index];
-    [renderer resize:size];
     renderer.palette = palette;
+#if VICE_C128
+    if (width > 800) { // 80 Columns
+        canvas->doubleLines = true;
+        renderer.palette = vdc_palette;
+    }
+#endif
+    RendererSize size = { width, height };
+    [renderer resize:size doubleLines:canvas->doubleLines];
 }
 
 
@@ -284,10 +302,7 @@ void vsyncarch_presync(void) {
         return;
     }
 
-    for (size_t i = 0; i < viceThread.renderers.count; i++) {
-        Renderer *renderer = viceThread.renderers[i];
-        [renderer displayImage];
-    }
+    [viceThread displayImage];
     
     lightpen_update(0, lightpen_x, lightpen_y, lightpen_buttons);
     kbdbuf_flush();

@@ -47,20 +47,14 @@
 }
 
 - (int)borderMode {
-    if (_renderer != nil) {
-        return _renderer.borderMode;
-    }
-    else {
-        return _initialBorderMode;
-    }
+    Renderer *renderer = _renderers[0];
+    return renderer.borderMode;
 }
 
 - (void)setBorderMode:(int)borderMode {
-    if (_renderer != nil) {
-        _renderer.borderMode = borderMode;
-    }
-    else {
-        _initialBorderMode = borderMode;
+    for (size_t i = 0; i < _renderers.count; i++) {
+        Renderer *renderer = _renderers[i];
+        renderer.borderMode = borderMode;
     }
 }
 
@@ -69,7 +63,18 @@
 }
 - (void)setDelegate:(id)delegate {
     _delegate = delegate;
-    _renderer.delegate = delegate;
+    for (size_t i = 0; i < _renderers.count; i++) {
+        Renderer *renderer = _renderers[i];
+        renderer.delegate = delegate;
+    }
+}
+
+- (void)displayImage {
+    // TODO: implement auto hiding
+    for (size_t i = 0; i < _renderers.count; i++) {
+        Renderer *renderer = _renderers[i];
+        [renderer displayImage];
+    }
 }
 
 @end

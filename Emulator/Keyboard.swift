@@ -1,6 +1,6 @@
 /*
  Keyboard.swift -- Layout of Virtual Keyboards
- Copyright (C) 2019 Dieter Baron
+ Copyright (C) 2019-2020 Dieter Baron
  
  This file is part of Ready, a home computer emulator for iPad.
  The authors can be contacted at <ready@tpau.group>.
@@ -61,7 +61,7 @@ public struct Keyboard {
                     if point.y < top {
                         top = point.y
                     }
-                    if point.y < bottom {
+                    if point.y > bottom {
                         bottom = point.y
                     }
                 }
@@ -353,9 +353,9 @@ public struct Keyboard {
             CGPoint(x: cursorLeft + cursorWidth * 0.5, y: cursorTop),
             CGPoint(x: cursorLeft + cursorWidth * 0.25, y: cursorTop + cursorHeight * 0.25),
             CGPoint(x: cursorLeft + cursorWidth * 0.75, y: cursorTop + cursorHeight * 0.25),
-            CGPoint(x: cursorLeft, y: cursorTop + cursorHeight * 8.5),
-            CGPoint(x: cursorLeft + cursorWidth * 0.5, y: cursorTop + cursorHeight * 8.5),
-            CGPoint(x: cursorRight, y: cursorTop + cursorHeight * 8.5),
+            CGPoint(x: cursorLeft, y: cursorTop + cursorHeight * 0.5),
+            CGPoint(x: cursorLeft + cursorWidth * 0.5, y: cursorTop + cursorHeight * 0.5),
+            CGPoint(x: cursorRight, y: cursorTop + cursorHeight * 0.5),
             CGPoint(x: cursorLeft + cursorWidth * 0.25, y: cursorTop + cursorHeight * 0.75),
             CGPoint(x: cursorLeft + cursorWidth * 0.75, y: cursorTop + cursorHeight * 0.75),
             CGPoint(x: cursorLeft + cursorWidth * 0.5, y: cursorBottom)

@@ -1,6 +1,6 @@
 /*
- vice_c64.c -- C64 specifics
- Copyright (C) 2020 Dieter Baron
+ KeyboardMatrix.swift -- Mapping Keys to Row/Column in Keyboard Matrix
+ Copyright (C) 2019-2020 Dieter Baron
  
  This file is part of Ready, a home computer emulator for iPad.
  The authors can be contacted at <ready@tpau.group>.
@@ -29,32 +29,24 @@
  IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <stdio.h>
+import Emulator
 
-// TODO: include correct file?
-extern void c64model_set(int model);
-extern void cartridge_trigger_freeze(void);
-
-void model_set(int model) {
-    c64model_set(model);
+struct KeyboardMatrix {
+    var row = [Key: Int]()
+    var column = [Key: Int]()
+    
+    init(matrix: [[Key]], aliases: [Key: [Key]]) {
+        for (rowIndex, rowKeys) in matrix.enumerated() {
+            for (columnIndex, key) in rowKeys.enumerated() {
+                row[key] = rowIndex
+                column[key] = columnIndex
+                if let alias = aliases[key] {
+                    for aliasedKey in alias {
+                        row[aliasedKey] = rowIndex
+                        column[aliasedKey] = columnIndex
+                    }
+                }
+            }
+        }
+    }
 }
-
-/* taken from https://www.pepto.de/projects/colorvic/ */
-uint32_t palette[] = {
-    0x000000FF,
-    0xFFFFFFFF,
-    0x813338FF,
-    0x75CEC8FF,
-    0x8E3C97FF,
-    0x56AC4DFF,
-    0x2E2C9BFF,
-    0xEDF171FF,
-    0x8E5029FF,
-    0x553800FF,
-    0xC46C71FF,
-    0x4A4A4AFF,
-    0x7B7B7BFF,
-    0xA9FF9FFF,
-    0x706DEBFF,
-    0xB2B2B2FF
-};

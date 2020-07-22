@@ -353,14 +353,17 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
     
     @IBAction func takeScreenshot(_ sender: Any) {
         guard let gameViewItem = gameViewItem else { return }
-        guard let ciImage = imageView.image?.ciImage else { return }
-        let tempURL = gameViewItem.directoryURL.appendingPathComponent(UUID().uuidString + ".png")
-        let context = CIContext(options: nil)
-        guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent) else { return }
-        guard let destination = CGImageDestinationCreateWithURL(tempURL as CFURL, kUTTypePNG, 1, nil) else { return }
-        CGImageDestinationAddImage(destination, cgImage, nil)
-        CGImageDestinationFinalize(destination)
-        gameViewItem.addScreenshot(url: tempURL)
+        for view in [imageView, imageView2] {
+            guard view?.isHidden ?? true == false else { continue }
+            guard let ciImage = view?.image?.ciImage else { continue }
+            let tempURL = gameViewItem.directoryURL.appendingPathComponent(UUID().uuidString + ".png")
+            let context = CIContext(options: nil)
+            guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent) else { continue }
+            guard let destination = CGImageDestinationCreateWithURL(tempURL as CFURL, kUTTypePNG, 1, nil) else { continue }
+            CGImageDestinationAddImage(destination, cgImage, nil)
+            CGImageDestinationFinalize(destination)
+            gameViewItem.addScreenshot(url: tempURL)
+        }
         UIView.animate(withDuration: 0.1, animations: {
             self.screenshotFlashView.alpha = 1.0
         }, completion: { finished in

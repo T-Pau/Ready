@@ -490,7 +490,6 @@ public struct Computer: MachinePart {
                      missingPorts: [ .cassetteDrive, .diskDrive8, .diskDrive9, .diskDrive10, .diskDrive11, .userPort ])
             ]),
         
-/*
         MachinePartSection(title: "Commodore 128", parts: [
             Computer(identifier: "C128 DE PAL",
                      fullName: "Commodore 128",
@@ -500,7 +499,6 @@ public struct Computer: MachinePart {
                      keyboardName: "C128 DE",
                      caseColorName: "C64C Case"),
         ]),
-*/
 
         MachinePartSection(title: "Commodore 16, Plus/4", parts: [
             Computer(identifier: "C16 PAL",

@@ -73,7 +73,7 @@ int uidisplay_end(void) {
 }
 
 void uidisplay_frame_end(void) {
-    [fuseThread.renderer displayImage];
+    [fuseThread displayImage];
 }
 
 int uidisplay_hotswap_gfx_mode(void) {

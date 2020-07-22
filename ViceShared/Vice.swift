@@ -35,76 +35,6 @@ import Emulator
 
 import ViceX64sc
 
-public func viceModel(for model: Computer.Model) -> Int32 {
-    switch model {
-    // ViceC64
-    case .c64Pal:
-        return 0
-    case .c64cPal:
-        return 1
-    case .c64OldPal:
-        return 2
-    case .c64Ntsc:
-        return 3
-    case .c64cNtsc:
-        return 4
-    case .c64OldNtsc:
-        return 5
-    case .c64PalN:
-        return 6
-    case .sx64Pal:
-        return 7
-    case .sx64Ntsc:
-        return 8
-    case .c64Japanese:
-        return 9
-    case .c64Gs:
-        return 10
-    case .pet64Pal:
-        return 11
-    case .pet64Ntsc:
-        return 12
-    case .ultimax:
-        return 13
-        
-    // ViceC128
-    case .c128Pal:
-        return 0
-    case .c128DcrPal:
-        return 1
-    case .c128Ntsc:
-        return 2
-    case .c128DcrNtsc:
-        return 3
-
-    // ViceVIC20
-    case .vic20Pal:
-        return 0
-    case .vic20Ntsc:
-        return 1
-    case .vic1001:
-        return 3
-        
-    // VicePlus4
-    case .c16Pal:
-        return 0
-    case .c16Ntsc:
-        return 1
-    case .c232Ntsc:
-        return 5
-    case .plus4Pal:
-        return 2
-    case .plus4Ntsc:
-        return 3
-    case .v364Ntsc:
-        return 4
-        
-    default:
-        return -1
-    }
-    
-}
-
 extension JoystickButtons {
     var value: Int {
         var value = 0
@@ -175,7 +105,7 @@ extension JoystickButtons {
     public init() {
         viceThread = ViceThread()
         super.init(emulatorThread: viceThread)
-        if let multipleScreens = multipleScreens {
+        if let multipleScreens = viceVariant.multipleScreens {
             screens = multipleScreens
         }
     }
@@ -348,7 +278,7 @@ extension JoystickButtons {
                     keyboard_restore_released()
                 }
             }
-            else if let row = KeyboardMatrix.row(for: key), let column = KeyboardMatrix.column(for: key){
+            else if let row = viceVariant.keyboardMatrix.row[key], let column = viceVariant.keyboardMatrix.column[key] {
                 if pressed {
                     viceThread?.pressKey(row: Int32(row), column: Int32(column))
                 }
@@ -413,7 +343,8 @@ extension Vice: ViceThreadDelegate {
     
     
     @objc public func setupVice() {
-        model_set(viceModel(for: machine.specification.computer.model))
+        guard let model = viceVariant.viceModel[machine.specification.computer.model] else { return }
+        model_set(model)
     }
 
     

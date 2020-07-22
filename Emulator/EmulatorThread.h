@@ -52,7 +52,8 @@
 @property id _Nullable delegate;
 
 @property int borderMode;
-@property int initialBorderMode;
+
+- (void)displayImage;
 
 //- (int)borderMode;
 //- (void)setBorderMode: (int)borderMode;
