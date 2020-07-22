@@ -59,8 +59,6 @@ static int lightpen_x;
 static int lightpen_y;
 static int lightpen_buttons;
 
-static int canvas_index;
-
 #define TICKSPERSECOND  1000000000L  /* Nanoseconds resolution. */
 
 extern uint32_t palette[];
@@ -76,7 +74,6 @@ void video_arch_canvas_init(struct video_canvas_s *canvas) {
     lightpen_x = -1;
     lightpen_y = -1;
     lightpen_buttons = 0;
-    canvas_index = 0;
 }
 
 
@@ -127,7 +124,7 @@ video_canvas_t *video_canvas_create(video_canvas_t *canvas, unsigned int *width,
     canvas->created = 1;
     canvas->initialized = 1;
 
-    canvas->index = canvas_index++;
+    canvas->index = 0;
     canvas->doubleLines = false;
 
     return canvas;
@@ -224,14 +221,16 @@ void video_canvas_resize(struct video_canvas_s *canvas, char resize_canvas) {
 //    int height = canvas->viewport->last_line - canvas->viewport->first_line + 1;
 //    int width = canvas->geometry->screen_size.width;
 
-    Renderer *renderer = viceThread.renderers[canvas->index];
-    renderer.palette = palette;
+    uint32_t *palette_to_use = palette;
 #if VICE_C128
     if (width > 800) { // 80 Columns
+        canvas->index = 1;
         canvas->doubleLines = true;
-        renderer.palette = vdc_palette;
+        palette_to_use = vdc_palette;
     }
 #endif
+    Renderer *renderer = viceThread.renderers[canvas->index];
+    renderer.palette = palette_to_use;
     RendererSize size = { width, height };
     [renderer resize:size doubleLines:canvas->doubleLines];
 }

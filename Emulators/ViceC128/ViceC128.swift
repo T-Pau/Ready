@@ -87,4 +87,4 @@ let viceVariant = ViceVariant(keyboardMatrix: [
         .c128DcrPal: 1,
         .c128Ntsc: 2,
         .c128DcrNtsc: 3
-    ], multipleScreens: ["80 Columns", "40 Columns"])
+    ], multipleScreens: ["40 Columns", "80 Columns"])

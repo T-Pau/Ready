@@ -290,6 +290,7 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
        
         if Defaults.standard.videoFilter == "None" {
             imageView.layer.magnificationFilter = .nearest
+            imageView2.layer.magnificationFilter = .nearest
         }
     
         if machine.cartridgeImage?.hasFreeze ?? false != true {

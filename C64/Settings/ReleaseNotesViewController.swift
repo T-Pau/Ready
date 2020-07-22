@@ -41,6 +41,11 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Release 1.6 build 6", year: 2020, month: 7, day: 22, changes: [
+            "Allow choosing which screen to show (automatic not implemented yet).",
+            "Add C128 PAL/NTSC with US keyboard.",
+            "Implement 40/08 Display key."
+        ]),
         Release(name: "Release 1.6 build 5", year: 2020, month: 7, day: 21, changes: [
             "Preliminary Commodore 128 support."
         ]),
