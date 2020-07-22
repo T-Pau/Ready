@@ -491,6 +491,22 @@ public struct Computer: MachinePart {
             ]),
         
         MachinePartSection(title: "Commodore 128", parts: [
+            Computer(identifier: "C128 PAL",
+                     fullName: "Commodore 128",
+                     variantName: "PAL",
+                     iconName: "Commodore 128",
+                     viceMachineModel: .c128Pal,
+                     keyboardName: "C128",
+                     caseColorName: "C64C Case"),
+
+            Computer(identifier: "C128 NTSC",
+                     fullName: "Commodore 128",
+                     variantName: "NTSC",
+                     iconName: "Commodore 128",
+                     viceMachineModel: .c128Ntsc,
+                     keyboardName: "C128",
+                     caseColorName: "C64C Case"),
+
             Computer(identifier: "C128 DE PAL",
                      fullName: "Commodore 128",
                      variantName: "German Keyboard, PAL",

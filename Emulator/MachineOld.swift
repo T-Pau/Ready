@@ -35,6 +35,7 @@ import C64UIComponents
 public class MachineOld {
     public enum ResourceName: String {
         case AutostartPrgMode
+        case C128ColumnKey
         case CartridgeFile
         case CartridgeType
         case CPMCart

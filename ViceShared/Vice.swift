@@ -270,20 +270,26 @@ extension JoystickButtons {
             joystick_set_value_absolute(UInt32(port), UInt8(buttons.value))
             
         case .key(let key, pressed: let pressed):
-            if key == .Restore {
+            switch key {
+            case .Restore:
                 if pressed {
                     keyboard_restore_pressed()
                 }
                 else {
                     keyboard_restore_released()
                 }
-            }
-            else if let row = viceVariant.keyboardMatrix.row[key], let column = viceVariant.keyboardMatrix.column[key] {
-                if pressed {
-                    viceThread?.pressKey(row: Int32(row), column: Int32(column))
-                }
-                else {
-                    viceThread?.releaseKey(row: Int32(row), column: Int32(column))
+                
+            case .Display4080:
+                setResourceNow(name: .C128ColumnKey, value: .Bool(pressed))
+                
+            default:
+                if let row = viceVariant.keyboardMatrix.row[key], let column = viceVariant.keyboardMatrix.column[key] {
+                    if pressed {
+                        viceThread?.pressKey(row: Int32(row), column: Int32(column))
+                    }
+                    else {
+                        viceThread?.releaseKey(row: Int32(row), column: Int32(column))
+                    }
                 }
             }
             
