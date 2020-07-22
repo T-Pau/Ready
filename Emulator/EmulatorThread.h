@@ -37,13 +37,17 @@
 #include "Audio.h"
 #include "Renderer.h"
 
+#define DISPLAY_SCREENS_ALL (-1)
+#define DISPLAY_SCREENS_AUTO (-2)
+
 @protocol EmulatorThreadDelegate
 @required
-- (void)updateImage: (UIImage *_Nullable)image;
+- (void)updateDisplayedScreensAnimated:(BOOL)animated;
 @end
 
 @interface EmulatorThread : NSThread {
     id _delegate;
+    int _displayedScreens;
 }
 
 @property Renderer * _Nonnull renderer;
@@ -52,6 +56,8 @@
 @property id _Nullable delegate;
 
 @property int borderMode;
+@property int displayedScreens;
+@property BOOL * _Nonnull screenVisible;
 
 - (void)displayImage;
 

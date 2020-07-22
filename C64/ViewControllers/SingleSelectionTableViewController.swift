@@ -97,16 +97,17 @@ class SingleSelectionTableViewController: UITableViewController {
     // MARK: - Table view selection
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let oldSelectedRow = selectedRow
+        selectedRow = indexPath.row
         selected?(items[indexPath.row])
         if dismissOnSelection {
             self.dismiss(animated: true)
         }
         else {
             var indexPaths = [IndexPath]()
-            if let oldRow = selectedRow {
+            if let oldRow = oldSelectedRow {
                 indexPaths.append(IndexPath(row: oldRow, section: 0))
             }
-            selectedRow = indexPath.row
             indexPaths.append(IndexPath(row: indexPath.row, section: 0))
             tableView.reloadRows(at: indexPaths, with: .automatic)
         }

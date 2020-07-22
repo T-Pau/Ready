@@ -1356,6 +1356,13 @@
                                     </segue>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem title="Item" image="rectangle.on.rectangle" catalog="system" id="hQf-P1-8ON">
+                                <connections>
+                                    <segue destination="2tQ-mL-r7q" kind="popoverPresentation" identifier="displayScreens" popoverAnchorBarButtonItem="hQf-P1-8ON" id="Bls-LH-JL0">
+                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                    </segue>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem title="Controller Mapping" image="Joystick" id="SHF-tN-oxH">
                                 <connections>
                                     <segue destination="6LH-mK-XUd" kind="popoverPresentation" identifier="inputMapping" popoverAnchorBarButtonItem="SHF-tN-oxH" id="ozk-co-8Un">
@@ -1388,6 +1395,7 @@
                     <connections>
                         <outlet property="controllerView" destination="SD9-Ec-zdE" id="RbO-4e-KJI"/>
                         <outlet property="controllerViewTopConstraint" destination="aQx-wl-htc" id="vwg-Wd-fKX"/>
+                        <outlet property="displayScreensButton" destination="hQf-P1-8ON" id="AM5-z7-yVw"/>
                         <outlet property="drive10Status" destination="Hlc-Q7-BPl" id="kYB-45-28Q"/>
                         <outlet property="drive11Status" destination="bhQ-dM-GHE" id="8KN-98-kpa"/>
                         <outlet property="drive8Status" destination="lSY-0d-bx7" id="bBO-Jf-Iky"/>
@@ -2761,6 +2769,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="y1V-6h-4Dq"/>
         <segue reference="Uko-dl-en4"/>
+        <segue reference="Bls-LH-JL0"/>
         <segue reference="fyt-Cy-pp8"/>
         <segue reference="L40-fc-b91"/>
         <segue reference="aJA-5G-D1v"/>
@@ -2797,6 +2806,7 @@
         <image name="Vice" width="1720" height="480"/>
         <image name="keyboard" catalog="system" width="128" height="70"/>
         <image name="plus" catalog="system" width="128" height="113"/>
+        <image name="rectangle.on.rectangle" catalog="system" width="128" height="98"/>
         <image name="snow" catalog="system" width="120" height="128"/>
         <namedColor name="Header">
             <color red="1" green="1" blue="1" alpha="0.6600000262260437" colorSpace="custom" customColorSpace="sRGB"/>

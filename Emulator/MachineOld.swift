@@ -193,6 +193,16 @@ public class MachineOld {
         catch { }
     }
     
+    public func change(displayedScreens: MachineConfigOld.DisplayedScreens) {
+        guard displayedScreens != specification.displayedScreens else { return }
+        vice?.set(displayedScreens: displayedScreens)
+        specification.displayedScreens = displayedScreens
+        do {
+            try specification.save()
+        }
+        catch { }
+    }
+    
     public func connect(inputDevice: InputDevice) {
         inputDevice.delegate = self
         inputMapping.add(device: inputDevice)

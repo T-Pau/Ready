@@ -39,6 +39,8 @@
     if ((self = [super init]) == nil) {
         return nil;
     }
+    _delegate = NULL;
+    _screenVisible = NULL;
     self.qualityOfService = NSQualityOfServiceUserInteractive;
     self.renderer = [[Renderer alloc] init];
     self.renderers = [[NSMutableArray alloc] init];
@@ -58,9 +60,37 @@
     }
 }
 
+- (int)displayedScreens {
+    return _displayedScreens;
+}
+
+- (void)setDisplayedScreens:(int)displayedScreens {
+    BOOL initial = _screenVisible == NULL;
+    if (initial) {
+        _screenVisible = (BOOL *)malloc(_renderers.count * sizeof(_screenVisible[0]));
+    }
+    else if (_displayedScreens == displayedScreens) {
+        return;
+    }
+    
+    _displayedScreens = displayedScreens;
+
+    // TODO: for auto, consult last change
+    BOOL visible = displayedScreens < 0 ? YES : NO;
+    for (size_t i = 0; i < _renderers.count; i++) {
+        _screenVisible[i] = visible;
+    }
+    if (displayedScreens >= 0) {
+        _screenVisible[displayedScreens] = YES;
+    }
+
+    [_delegate updateDisplayedScreensAnimated:!initial];
+}
+
 - (id)delegate {
     return _delegate;
 }
+
 - (void)setDelegate:(id)delegate {
     _delegate = delegate;
     for (size_t i = 0; i < _renderers.count; i++) {

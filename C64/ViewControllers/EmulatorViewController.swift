@@ -44,9 +44,19 @@ import VicePlus4
 import ViceVIC20
 import X16
 
+struct DisplayScreensItem: CustomStringConvertible {
+    var value: MachineConfigOld.DisplayedScreens
+    var label: String
+    
+    var description: String {
+        return label
+    }
+}
+
 class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, SeguePreparer, UIGestureRecognizerDelegate {
     enum SegueType: String {
         case borderMode
+        case displayScreens
         case diskDrive8Control
         case diskDrive9Control
         case diskDrive10Control
@@ -77,6 +87,7 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
     @IBOutlet weak var keyboardView: KeyboardView!
     @IBOutlet weak var keyboardButton: UIBarButtonItem!
     @IBOutlet weak var freezeButton: UIBarButtonItem!
+    @IBOutlet weak var displayScreensButton: UIBarButtonItem!
     @IBOutlet weak var tapeStatus: TapeStatusView!
     @IBOutlet var drive8Status: DriveStatusView!
     @IBOutlet var drive9Status: DriveStatusView!
@@ -287,6 +298,9 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
         if computer.keyboard == nil {
             navigationItem.rightBarButtonItems?.removeAll(where: { $0 == keyboardButton })
         }
+        if machine.vice?.screens.count == 1 {
+            navigationItem.rightBarButtonItems?.removeAll(where: { $0 == displayScreensButton })
+        }
         
         if let game = gameViewItem as? Game {
             game.lastOpened = Date()
@@ -398,6 +412,25 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
             destination.selected = { value in
                 guard let mode = value as? MachineConfigOld.BorderMode else { return }
                 self.machine.change(borderMode: mode)
+            }
+            
+        case .displayScreens:
+            guard let destination = segue.destination as? SingleSelectionTableViewController else { return }
+            guard let screens = emulator?.screens else { return }
+            var items = [
+                DisplayScreensItem(value: .auto, label: "Automatic"),
+                DisplayScreensItem(value: .all, label: "All")
+            ]
+            for (index, name) in screens.enumerated() {
+                items.append(DisplayScreensItem(value: .screen(index), label: name))
+            }
+            let currentValue = machine.specification.displayedScreens
+            destination.items = items
+            destination.selectedRow = items.firstIndex(where: { $0.value == currentValue })
+            destination.dismissOnSelection = true
+            destination.selected = { item in
+                guard let item = item as? DisplayScreensItem else { return }
+                self.machine.change(displayedScreens: item.value)
             }
 
         case .diskDrive8Control, .diskDrive9Control, .diskDrive10Control, .diskDrive11Control:
@@ -581,7 +614,7 @@ extension EmulatorViewController: EmulatorDelegate {
         statusBar(item: statusView, isActive: led1Intensity != 0 || led2Intensity != 0)
     }
     
-func updateTapeStatus(controlStatus: DatasetteControlStatus, isMotorOn: Bool, counter: Double) {
+    func updateTapeStatus(controlStatus: DatasetteControlStatus, isMotorOn: Bool, counter: Double) {
         guard haveStatusBar else { return }
 
         tapeStatus.counterView?.counter = counter

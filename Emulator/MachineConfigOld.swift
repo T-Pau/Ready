@@ -83,6 +83,51 @@ public struct MachineConfigOld: ExpressibleByDictionaryLiteral {
         }
     }
     
+    public enum DisplayedScreens: Equatable {
+        case all
+        case auto
+        case screen(_ index: Int)
+        
+        public var cValue: Int32 {
+            switch self {
+            case .all:
+                return -1
+            case .auto:
+                return -2
+                
+            case .screen(let index):
+                return Int32(index)
+            }
+        }
+        
+        public var stringValue: String {
+            switch self {
+            case .all:
+                return "all"
+            case .auto:
+                return "auto"
+                
+            case .screen(let index):
+                return "\(index)"
+            }
+        }
+        
+        public init?(stringValue: String) {
+            if stringValue == "all" {
+                self = .all
+            }
+            else if stringValue == "auto" {
+                self = .auto
+            }
+            else if let index = Int(stringValue) {
+                self = .screen(index)
+            }
+            else {
+                return nil
+            }
+        }
+    }
+
     public enum SingularAdapterMode: String, CaseIterable, CustomStringConvertible {
         case cga
         case hs

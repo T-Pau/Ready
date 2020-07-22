@@ -40,6 +40,7 @@ public class MachineConfig {
         case diskDrive2
         case diskDrive3
         case diskDrive4
+        case displayedScreens
         case expansionPort
         case expansionPort2
         case filename

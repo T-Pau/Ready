@@ -110,7 +110,8 @@ import UIKit
     }
     
     open func start() {
-        emulatorThread?.renderer.borderMode = RendererBorderMode(rawValue: RendererBorderMode.RawValue(machine.specification.borderMode.cValue))
+        emulatorThread?.borderMode = machine.specification.borderMode.cValue
+        emulatorThread?.displayedScreens = machine.specification.displayedScreens.cValue
     }
     
     open func attach(drive: Int, image: DiskImage?) {
@@ -161,8 +162,32 @@ import UIKit
         emulatorThread?.borderMode = borderMode.cValue
     }
     
+    open func set(displayedScreens: MachineConfigOld.DisplayedScreens) {
+        emulatorThread?.displayedScreens = displayedScreens.cValue
+    }
+    
     public func send(event: Event, delay: Int = 0) {
         eventQueue.send(event: event, delay: delay)
+    }
+}
+
+extension Emulator: EmulatorThreadDelegate {
+    public func updateDisplayedScreens(animated: Bool) {
+        guard let screenVisible = emulatorThread?.screenVisible else { return }
+        DispatchQueue.main.async {
+            if animated {
+                UIView.animate(withDuration: 0.3) {
+                    for (index, imageView) in self.imageViews.enumerated() {
+                        imageView?.isHidden = !screenVisible[index].boolValue
+                    }
+                }
+            }
+            else {
+                for (index, imageView) in self.imageViews.enumerated() {
+                    imageView?.isHidden = !screenVisible[index].boolValue
+                }
+            }
+        }
     }
 }
 

@@ -121,6 +121,16 @@ extension MachineSpecification {
         }
     }
     
+    public var displayedScreens: MachineConfigOld.DisplayedScreens {
+        get {
+            guard let value = string(for: .displayedScreens) else { return .auto }
+            return MachineConfigOld.DisplayedScreens(stringValue: value) ?? .auto
+        }
+        set {
+            set(string: newValue.stringValue, for: .displayedScreens)
+        }
+    }
+    
     public var singularAdapterMode: MachineConfigOld.SingularAdapterMode {
         get {
             guard let value = string(for: .singularAdapterMode) else { return .cga }
