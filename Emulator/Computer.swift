@@ -299,7 +299,7 @@ public struct Computer: MachinePart {
         }
         else {
             if let variantName = variantName {
-                self.name = "fullName (\(variantName))"
+                self.name = "\(fullName) (\(variantName))"
             }
             else {
                 self.name = fullName

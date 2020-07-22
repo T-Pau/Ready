@@ -280,7 +280,7 @@ extension JoystickButtons {
                 }
                 
             case .Display4080:
-                setResourceNow(name: .C128ColumnKey, value: .Bool(pressed))
+                setResourceNow(name: .C128ColumnKey, value: .Bool(!pressed))
                 
             default:
                 if let row = viceVariant.keyboardMatrix.row[key], let column = viceVariant.keyboardMatrix.column[key] {
