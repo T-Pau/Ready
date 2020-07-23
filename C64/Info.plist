@@ -716,10 +716,12 @@
 			</dict>
 		</dict>
 		<dict>
+			<key>LSTypeIsPackage</key>
+			<true/>
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>at.spiderlab.c64.disk</string>
-				<string>public.data</string>
+				<string>com.apple.package</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>DS Card Image</string>
