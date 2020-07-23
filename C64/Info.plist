@@ -161,6 +161,22 @@
 				<string>at.spiderlab.c64.iso</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeIconFiles</key>
+			<array>
+				<string>SD Card.png</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>SD Card Image</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>at.spiderlab.c64.sdcard</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
@@ -697,6 +713,26 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<string>tzx</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>at.spiderlab.c64.disk</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>DS Card Image</string>
+			<key>UTTypeIconFiles</key>
+			<array>
+				<string>SD Card.png</string>
+			</array>
+			<key>UTTypeIdentifier</key>
+			<string>at.spiderlab.c64.sdcard</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<string>sdcard</string>
 			</dict>
 		</dict>
 	</array>

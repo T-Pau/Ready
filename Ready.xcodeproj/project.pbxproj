@@ -1414,6 +1414,7 @@
 		4B9E578024C74E8200CEE0D6 /* Icon-C128-83.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B9E577D24C74E8100CEE0D6 /* Icon-C128-83.5.png */; };
 		4B9E578124C74E8200CEE0D6 /* Icon-C128-60.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B9E577E24C74E8100CEE0D6 /* Icon-C128-60.png */; };
 		4B9E578224C74E8200CEE0D6 /* Icon-C128-76.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B9E577F24C74E8100CEE0D6 /* Icon-C128-76.png */; };
+		4B9E578C24C9BEE000CEE0D6 /* SD Card.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B9E578B24C9BEE000CEE0D6 /* SD Card.png */; };
 		4BA0AE7D22957B1600E54C96 /* PillButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA0AE7C22957B1600E54C96 /* PillButton.swift */; };
 		4BA1E9B924B314C100D935D3 /* MultiSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA1E9B824B314C100D935D3 /* MultiSet.swift */; };
 		4BA1E9BB24B49A4F00D935D3 /* Machine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA1E9BA24B49A4F00D935D3 /* Machine.swift */; };
@@ -5098,6 +5099,7 @@
 		4B9E577D24C74E8100CEE0D6 /* Icon-C128-83.5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-C128-83.5.png"; sourceTree = "<group>"; };
 		4B9E577E24C74E8100CEE0D6 /* Icon-C128-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-C128-60.png"; sourceTree = "<group>"; };
 		4B9E577F24C74E8100CEE0D6 /* Icon-C128-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-C128-76.png"; sourceTree = "<group>"; };
+		4B9E578B24C9BEE000CEE0D6 /* SD Card.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SD Card.png"; sourceTree = "<group>"; };
 		4BA0AE7C22957B1600E54C96 /* PillButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillButton.swift; sourceTree = "<group>"; };
 		4BA1E9B824B314C100D935D3 /* MultiSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSet.swift; sourceTree = "<group>"; };
 		4BA1E9BA24B49A4F00D935D3 /* Machine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Machine.swift; sourceTree = "<group>"; };
@@ -9672,6 +9674,7 @@
 				4B841CF921F75C12009CAF4B /* Floppy35Document.png */,
 				4B841CFB21F76AB3009CAF4B /* Floppy525Document.png */,
 				4B460E4D2279F46A00815E7F /* REU Document.png */,
+				4B9E578B24C9BEE000CEE0D6 /* SD Card.png */,
 				4BEBC6C721FE3880009DED63 /* TapeDocument.png */,
 			);
 			path = "Document Icons";
@@ -12356,6 +12359,7 @@
 				4B540ECE24A8D84100F6925B /* Icon-VIC20-60.png in Resources */,
 				4B1CA20724BE556B0074D45C /* Icon-X16-60.png in Resources */,
 				4B9E578224C74E8200CEE0D6 /* Icon-C128-76.png in Resources */,
+				4B9E578C24C9BEE000CEE0D6 /* SD Card.png in Resources */,
 				4B1B2DB1227AE5410022B053 /* CartridgeDocument.png in Resources */,
 				4B1CA20624BE556B0074D45C /* Icon-X16-83.5.png in Resources */,
 				4B54100A24A9E16000F6925B /* Icon-C16-76.png in Resources */,
