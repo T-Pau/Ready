@@ -288,6 +288,9 @@ extension IdeDiskImage: MediaItem {
             
         case .hardDisk:
             return UIImage(named: "IDE Hard Disk")
+            
+        case .sdCard:
+            return UIImage(named: "SD Card")
         }
     }
 }

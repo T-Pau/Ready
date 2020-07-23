@@ -47,7 +47,7 @@ struct C64FileType {
             case .disk:
                 return ["at.spiderlab.c64.d1m", "at.spiderlab.c64.d2m", "at.spiderlab.c64.d4m", "at.spiderlab.c64.d64", "at.spiderlab.c64.d81", "at.spiderlab.c64.g64", "org.sidmusic.d64"]
             case .ideDisk:
-                return ["at.spiderlab.c64.cfa", "at.spiderlab.c64.hdd", "at.spiderlab.c64.iso"]
+                return ["at.spiderlab.c64.cfa", "at.spiderlab.c64.hdd", "at.spiderlab.c64.iso", "at.spiderlab.c64.sdcard"]
             case .ramExpansionUnit:
                 return ["at.spiderlab.c64.reu"]
             case .programFile:
@@ -84,6 +84,7 @@ struct C64FileType {
         "p03": .programFile,
         "prg": .programFile,
         "reu": .ramExpansionUnit,
+        "sdcard": .ideDisk,
         "t64": .tape,
         "tap": .tape,
         "tzx": .tape

@@ -60,4 +60,6 @@ public enum MediaType {
     case disk5_25DoubleDensityDoulbeSidedCommodore
     
     case harddiskIdeIde64
+    
+    case sdCard
 }

@@ -36,6 +36,7 @@ public struct IdeDiskImage {
     public enum IdeType {
         case cd
         case compactFlash
+        case sdCard
         case hardDisk
         
         public init?(pathExtension: String) {
@@ -46,6 +47,8 @@ public struct IdeDiskImage {
                 self = .hardDisk
             case "iso":
                 self = .cd
+            case "sdcard":
+                self = .sdCard
             default:
                 return nil
             }
@@ -62,9 +65,16 @@ public struct IdeDiskImage {
         self.ideType = ideType
         self.url = url
         do {
-            let values = try url.resourceValues(forKeys: [.fileSizeKey])
-            guard let size = values.fileSize else { return nil }
-            self.size = size
+            let values = try url.resourceValues(forKeys: [.isDirectoryKey, .fileSizeKey])
+            if values.isDirectory ?? false {
+                // TODO: get size of directory?
+                // TODO: get listing
+                self.size = 0
+            }
+            else {
+                guard let size = values.fileSize else { return nil }
+                self.size = size
+            }
         }
         catch {
             return nil

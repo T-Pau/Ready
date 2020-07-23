@@ -347,16 +347,10 @@ struct GameViewItemMedia {
         }
         
         private func load(from url: URL, fileType: C64FileType, sectionIndex: Int, destinationRow: Int?) -> Bool {
-            do {
-                let data = try Data(contentsOf: url)
-                guard let mediaItem = gameViewItem.addMediaItem(name: url.lastPathComponent, fileType: fileType, data: data) else { return false }
+            guard let mediaItem = gameViewItem.addMediaItem(name: url.lastPathComponent, fileType: fileType, url: url, copy: true) else { return false }
                 
-                add(mediaItem: mediaItem, at: destinationRow, sectionIndex: sectionIndex)
-                return true
-            }
-            catch {
-                return false
-            }
+            add(mediaItem: mediaItem, at: destinationRow, sectionIndex: sectionIndex)
+            return true
         }
         
         private func loadGmod2(flashURL: URL, eepromURL: URL, sectionIndex: Int, destinationRow: Int?) -> Bool {
@@ -588,8 +582,8 @@ extension GameViewItem {
         }
     }
     
-    func addMediaItem(name: String?, fileType: C64FileType, data: Data) -> MediaItem? {
-        guard let url = self.addFile(name: name, pathExtension: fileType.pathExtension, data: data) else { return nil }
+    func addMediaItem(name: String?, fileType: C64FileType, url: URL, copy: Bool = true) -> MediaItem? {
+        guard let url = self.addFile(name: name, pathExtension: fileType.pathExtension, url: url, copy: copy) else { return nil }
         
         let mediaItem = CartridgeImage.loadMediaItem(from: url)
         
@@ -633,13 +627,13 @@ extension GameViewItem {
             return
         }
         
-        itemProvider.loadDataRepresentation(forTypeIdentifier: fileType.typeIdentifier) { data, error in
-            guard let data = data, error == nil else {
+        itemProvider.loadFileRepresentation(forTypeIdentifier: fileType.typeIdentifier) { url, error in
+            guard let url = url, error == nil else {
                 completionHandler(nil)
                 return
             }
-
-            let mediaItem = self.addMediaItem(name: itemProvider.suggestedName, fileType: fileType, data: data)
+            
+            let mediaItem = self.addMediaItem(name: itemProvider.suggestedName, fileType: fileType, url: url, copy: false)
             
             completionHandler(mediaItem)
         }
@@ -670,7 +664,7 @@ extension GameViewItem {
         }
     }
     
-    func addFile(name: String?, pathExtension: String, url: URL) -> URL? {
+    func addFile(name: String?, pathExtension: String, url: URL, copy: Bool = true) -> URL? {
         var fileName: String
         if let name = name, let index = name.lastIndex(of: ".") {
             fileName = String(name[name.startIndex..<index])
@@ -683,7 +677,12 @@ extension GameViewItem {
         
         do {
             fileURL = try uniqueName(directory: directoryURL, name: fileName, pathExtension: pathExtension)
-            try FileManager.default.moveItem(at: url, to: fileURL)
+            if copy {
+                try FileManager.default.copyItem(at: url, to: fileURL)
+            }
+            else {
+                try FileManager.default.moveItem(at: url, to: fileURL)
+            }
         }
         catch {
             return nil

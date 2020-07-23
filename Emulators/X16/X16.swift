@@ -85,6 +85,10 @@ import X16C
         if let emulatorInfo = machine.specification.computer.emulatorInfo(for: .x16) as? X16EmulatorInfo {
             args.append(contentsOf: emulatorInfo.arguments);
         }
+        if let sdimage = machine.ideDiskImages.first(where: { $0.ideType == .sdCard }), let url = sdimage.url {
+            args.append(contentsOf: ["-sdcard-dir", url.path])
+        }
+
         x16Thread?.args = args
         x16Thread?.start()
     }
