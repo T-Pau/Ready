@@ -13,6 +13,7 @@ Ready is an open source emulator for the following 8 bit home computers:
 With preliminary support for these computers:
 
 - [Atari 600XL, 800XL](https://en.wikipedia.org/wiki/Atari_8-bit_family)
+- [Commodore 128](https://en.wikipedia.org/wiki/Commodore_128)
 - [Commander X16](https://www.commanderx16.com/)
 
 It is based on [atari800](https://atari800.github.io), [fuse](http://fuse-emulator.sourceforge.net/), [Vice](http://vice-emu.sourceforge.net), and [x16-emulator](https://github.com/commanderx16/x16-emulator), which provide accurate emulation of many hardware variants and peripherals.
