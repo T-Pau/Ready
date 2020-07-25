@@ -1,5 +1,5 @@
 /*
- BufferedAudio.h -- Audio Interface with Internal Buffer.
+ RingBuffer.h -- Thread Save Ring Buffer
  Copyright (C) 2020 Dieter Baron
  
  This file is part of Ready, a home computer emulator for iPad.
@@ -29,26 +29,26 @@
  IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef HAD_BUFFERED_AUDIO_H
-#define HAD_BUFFERED_AUDIO_H
-
 #import <Foundation/Foundation.h>
 
-#import "Audio.h"
-#import "RingBuffer.h"
+#include <pthread.h>
 
-@interface BufferedAudio : Audio
+@interface RingBuffer : NSObject {
+    pthread_mutex_t mutex;
+    uint8_t * _Nonnull _end;
+    uint8_t * _Nonnull _read_position;
+    uint8_t * _Nonnull _write_position;
+}
 
-- (instancetype)initSampleRate: (Float64)sampleRate channels: (UInt32)channels samplesPerBuffer: (UInt32)samplesPerBuffer numberOfBuffers: (UInt32)numberOfBuffers;
+@property (readonly) uint8_t * _Nonnull buffer;
+@property (readonly) size_t size;
+@property (readonly) BOOL isEmpty;
+@property (readonly) size_t bytesReadable;
+@property (readonly) size_t bytesWritable;
 
-- (size_t)bytesWritable;
-- (void)write: (const void *)buffer length: (size_t)length;
+-(instancetype _Nonnull)initSize: (size_t)size;
 
-- (OSStatus)fillBuffer: (uint8_t *)buffer numberOfFrames: (UInt32)numberOfFrames;
-
-@property UInt32 sampleSize;
-@property RingBuffer *ringBuffer;
+-(size_t) readBuffer: (uint8_t * _Nonnull)buffer length: (size_t)length;
+-(size_t) writeBuffer: (const uint8_t * _Nonnull)buffer length: (size_t)length;
 
 @end
-
-#endif /* HAD_BUFFERED_AUDIO_H */

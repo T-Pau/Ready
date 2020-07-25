@@ -49,41 +49,30 @@ static OSStatus callback(void *userData, AudioUnitRenderActionFlags *actionFlags
     }
     
     _sampleSize = channels * 2;
-    pthread_mutex_init(&_ringbufferMutex, NULL);
-    _ringbuffer = ringbuffer_new(_sampleSize * samplesPerBuffer * numberOfBuffers);
+    _ringBuffer = [[RingBuffer alloc] initSize:_sampleSize * samplesPerBuffer * numberOfBuffers];
     return self;
 }
 
 - (void)dealloc {
     [self stop];
-    ringbuffer_free(_ringbuffer);
-    pthread_mutex_destroy(&_ringbufferMutex);
 }
 
-- (size_t)available {
-    pthread_mutex_lock(&_ringbufferMutex);
-    size_t available = ringbuffer_bytes_free(_ringbuffer);
-    pthread_mutex_unlock(&_ringbufferMutex);
-    
-    return available;
+- (size_t)bytesWritable {
+    return _ringBuffer.bytesWritable;
 }
 
 - (void)write:(const void *)buffer length:(size_t)length {
-    pthread_mutex_lock(&_ringbufferMutex);
-    ringbuffer_memcpy_into(_ringbuffer, buffer, length);
-    pthread_mutex_unlock(&_ringbufferMutex);
+    [_ringBuffer writeBuffer:buffer length:length];
 }
 
 - (OSStatus)fillBuffer: (uint8_t *)buffer numberOfFrames: (UInt32)numberOfFrames {
     size_t totalBytes = numberOfFrames * _sampleSize;
     
-    pthread_mutex_lock(&_ringbufferMutex);
-    void *p = ringbuffer_memcpy_from(buffer, _ringbuffer, totalBytes);
-    pthread_mutex_unlock(&_ringbufferMutex);
+    size_t n = [_ringBuffer readBuffer:buffer length:totalBytes];
     
-    if (p == NULL) {
-        printf("underflow\n");
-        memset(buffer, 0, totalBytes);
+    if (n < totalBytes) {
+        printf("underflow (%zu bytes)\n", totalBytes - n);
+        memset(buffer + n, 0, totalBytes - n);
     }
     
     return noErr;

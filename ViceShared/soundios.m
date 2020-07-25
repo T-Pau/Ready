@@ -40,7 +40,7 @@
 #undef AUDIO_TRACE
 
 static int ios_bufferspace(void) {
-    int samples_free = (int)([viceThread.audio available] / viceThread.audio.sampleSize);
+    int samples_free = (int)([viceThread.audio bytesWritable] / viceThread.audio.sampleSize);
 #ifdef AUDIO_TRACE
     printf("available %d samples\n", samples_free);
 #endif

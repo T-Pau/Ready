@@ -60,7 +60,6 @@ class LicensesViewController: UIViewController {
             "CwlMutex",
             "IDEDOS",
             "Multiset",
-            "ringbuffer",
             "SearchTextField",
         ]),
         Section(title: nil, rows: [

@@ -121,6 +121,8 @@ void printOSStatus(char *name, OSStatus status) {
     
     _playing = NO;
     
+    printf("audioOpen\n");
+    
     return self;
 }
 

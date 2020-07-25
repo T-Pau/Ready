@@ -39,9 +39,7 @@
 		4B1CA20B24BF087D0074D45C /* Audio.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1CA20A24BF087D0074D45C /* Audio.m */; };
 		4B1CA20D24BF0C3A0074D45C /* BufferedAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1CA20C24BF0C3A0074D45C /* BufferedAudio.m */; };
 		4B1CA20F24BF0C440074D45C /* BufferedAudio.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1CA20E24BF0C440074D45C /* BufferedAudio.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4B1CA21224BF0EF50074D45C /* ringbuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B1CA21124BF0EF50074D45C /* ringbuffer.c */; };
 		4B1CA21324BF116D0074D45C /* Audio.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1CA20824BF08260074D45C /* Audio.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4B1CA21424BF12070074D45C /* ringbuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1CA21024BF0EF50074D45C /* ringbuffer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B1CA21624BF13310074D45C /* audio.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1CA21524BF13310074D45C /* audio.m */; };
 		4B1CA21924BF181D0074D45C /* Renderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B1CA21824BF181D0074D45C /* Renderer.m */; };
 		4B1CA21B24BF18290074D45C /* Renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B1CA21A24BF18290074D45C /* Renderer.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1446,6 +1444,8 @@
 		4BBF86AC21DAB03200EF99ED /* EmulatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF86AB21DAB03200EF99ED /* EmulatorViewController.swift */; };
 		4BBF86B021DB9AB400EF99ED /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BBF863E21D7FEA800EF99ED /* CoreAudio.framework */; };
 		4BCC49FC24CC3BCC00AEFFE7 /* sound.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B81F2AA24B069680090B21A /* sound.m */; };
+		4BCC4A0224CC9FB000AEFFE7 /* RingBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCC4A0124CC9FB000AEFFE7 /* RingBuffer.m */; };
+		4BCC4A0324CCAA4E00AEFFE7 /* RingBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BCC49FF24CC9DDC00AEFFE7 /* RingBuffer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4BCF7C6B24B9A44A00172C24 /* EmulatorInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF7C6A24B9A44A00172C24 /* EmulatorInfo.swift */; };
 		4BCF7C6E24B9A95A00172C24 /* atari800 in Resources */ = {isa = PBXBuildFile; fileRef = 4BCF7C6D24B9A95A00172C24 /* atari800 */; };
 		4BCF7C7324BA0C8400172C24 /* Icon-XL-83.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BCF7C7024BA0C8400172C24 /* Icon-XL-83.5.png */; };
@@ -2212,8 +2212,6 @@
 		4B1CA20A24BF087D0074D45C /* Audio.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Audio.m; sourceTree = "<group>"; };
 		4B1CA20C24BF0C3A0074D45C /* BufferedAudio.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BufferedAudio.m; sourceTree = "<group>"; };
 		4B1CA20E24BF0C440074D45C /* BufferedAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BufferedAudio.h; sourceTree = "<group>"; };
-		4B1CA21024BF0EF50074D45C /* ringbuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ringbuffer.h; sourceTree = "<group>"; };
-		4B1CA21124BF0EF50074D45C /* ringbuffer.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ringbuffer.c; sourceTree = "<group>"; };
 		4B1CA21524BF13310074D45C /* audio.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = audio.m; sourceTree = "<group>"; };
 		4B1CA21724BF145B0074D45C /* platform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; };
 		4B1CA21824BF181D0074D45C /* Renderer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Renderer.m; sourceTree = "<group>"; };
@@ -5168,6 +5166,8 @@
 		4BBF86BC21DBCB5500EF99ED /* ringbuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ringbuffer.h; sourceTree = "<group>"; };
 		4BC5BBD821DE245D00D44A10 /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
 		4BC5BBDA21DF548000D44A10 /* Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
+		4BCC49FF24CC9DDC00AEFFE7 /* RingBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RingBuffer.h; sourceTree = "<group>"; };
+		4BCC4A0124CC9FB000AEFFE7 /* RingBuffer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RingBuffer.m; sourceTree = "<group>"; };
 		4BCF7C6A24B9A44A00172C24 /* EmulatorInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmulatorInfo.swift; sourceTree = "<group>"; };
 		4BCF7C6D24B9A95A00172C24 /* atari800 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = atari800; sourceTree = "<group>"; };
 		4BCF7C7024BA0C8400172C24 /* Icon-XL-83.5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-XL-83.5.png"; sourceTree = "<group>"; };
@@ -9464,8 +9464,8 @@
 				4B460E50227A064E00815E7F /* RamExpansionUnit.swift */,
 				4B1CA21A24BF18290074D45C /* Renderer.h */,
 				4B1CA21824BF181D0074D45C /* Renderer.m */,
-				4B1CA21124BF0EF50074D45C /* ringbuffer.c */,
-				4B1CA21024BF0EF50074D45C /* ringbuffer.h */,
+				4BCC49FF24CC9DDC00AEFFE7 /* RingBuffer.h */,
+				4BCC4A0124CC9FB000AEFFE7 /* RingBuffer.m */,
 				4BAE5BF321FDE0990098ADFF /* TapeImage.swift */,
 				4B9DBB732233CAA00032B280 /* UserPortModule.swift */,
 			);
@@ -10886,11 +10886,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B1CA21424BF12070074D45C /* ringbuffer.h in Headers */,
 				4B1CA21B24BF18290074D45C /* Renderer.h in Headers */,
 				4B68F8B52496407700A76E57 /* Emulator.h in Headers */,
 				4B1CA21324BF116D0074D45C /* Audio.h in Headers */,
 				4B1CA20F24BF0C440074D45C /* BufferedAudio.h in Headers */,
+				4BCC4A0324CCAA4E00AEFFE7 /* RingBuffer.h in Headers */,
 				4B81F2A724AF17360090B21A /* EmulatorThread.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -13119,6 +13119,7 @@
 				4BCF7C6B24B9A44A00172C24 /* EmulatorInfo.swift in Sources */,
 				4B2FA1A524B1B66B002A11BA /* Device.swift in Sources */,
 				4B68FB702497749B00A76E57 /* Computer.swift in Sources */,
+				4BCC4A0224CC9FB000AEFFE7 /* RingBuffer.m in Sources */,
 				4B2FA1A724B1B792002A11BA /* MachinePartRegister.swift in Sources */,
 				4B68FB612497524B00A76E57 /* CasstteDrive.swift in Sources */,
 				4BA1E9BB24B49A4F00D935D3 /* Machine.swift in Sources */,
@@ -13151,7 +13152,6 @@
 				4B68FB682497533000A76E57 /* ProgramFile.swift in Sources */,
 				4B52816C249E442D0023F453 /* Port.swift in Sources */,
 				4B68FB672497532200A76E57 /* TapeImage.swift in Sources */,
-				4B1CA21224BF0EF50074D45C /* ringbuffer.c in Sources */,
 				4B68FB69249753CB00A76E57 /* InputDevice.swift in Sources */,
 				4B68FB6E24975EFD00A76E57 /* Ide64Cartridge.swift in Sources */,
 				4B68FB602497524B00A76E57 /* Cartridge.swift in Sources */,

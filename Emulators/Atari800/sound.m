@@ -62,7 +62,7 @@ void PLATFORM_SoundContinue(void) {
 }
 
 unsigned int PLATFORM_SoundAvailable(void) {
-    return (unsigned int)[atari800Thread.audio available];
+    return (unsigned int)[atari800Thread.audio bytesWritable];
 }
 
 void PLATFORM_SoundWrite(UBYTE const *buffer, unsigned int size) {

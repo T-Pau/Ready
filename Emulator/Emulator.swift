@@ -94,6 +94,7 @@ import UIKit
     // quit emulation
     open func quit() {
         send(event: .quit)
+        
     }
     
     // release key, delayed by given number of frames

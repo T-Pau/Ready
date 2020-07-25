@@ -34,7 +34,7 @@
 #include "platform.h"
 
 size_t platform_audio_available(void) {
-    return [x16Thread.audio available];
+    return [x16Thread.audio bytesWritable];
 }
 void platform_audio_close(void) {
     x16Thread.audio = nil;
@@ -42,6 +42,7 @@ void platform_audio_close(void) {
 
 int platform_audio_init(int samplerate, int samples_per_buffer, int channels) {
     x16Thread.audio = [[BufferedAudio alloc] initSampleRate:samplerate channels:channels samplesPerBuffer:samples_per_buffer numberOfBuffers:3];
+    [x16Thread.audio start];
     return x16Thread.audio != nil;
 }
 
