@@ -1,0 +1,7 @@
+module FuseC [system][extern_c] {
+    header "../../cores/fuse/fuse.h"
+    header "../../cores/fuse/keyboard.h"
+    header "../../cores/fuse/peripherals/joystick.h"
+    header "FuseThread.h"
+    export *
+}

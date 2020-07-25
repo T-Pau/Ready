@@ -1302,7 +1302,6 @@
 		4B81F29F24AE904B0090B21A /* uijoystick.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B5410A124AB363900F6925B /* uijoystick.c */; };
 		4B81F2A524AF12B50090B21A /* EmulatorThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B81F2A424AF12B50090B21A /* EmulatorThread.m */; };
 		4B81F2A724AF17360090B21A /* EmulatorThread.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B81F2A624AF12E30090B21A /* EmulatorThread.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4B81F2AB24B069680090B21A /* sound.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B81F2AA24B069680090B21A /* sound.m */; };
 		4B81F2AD24B070470090B21A /* sfifo.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B54127624AB363A00F6925B /* sfifo.c */; };
 		4B841CFA21F75C12009CAF4B /* Floppy35Document.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B841CF921F75C12009CAF4B /* Floppy35Document.png */; };
 		4B841CFC21F76AB3009CAF4B /* Floppy525Document.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B841CFB21F76AB3009CAF4B /* Floppy525Document.png */; };
@@ -1446,6 +1445,7 @@
 		4BBF86A821DA284A00EF99ED /* PRINTER in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4BBF86A021DA265E00EF99ED /* PRINTER */; };
 		4BBF86AC21DAB03200EF99ED /* EmulatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF86AB21DAB03200EF99ED /* EmulatorViewController.swift */; };
 		4BBF86B021DB9AB400EF99ED /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BBF863E21D7FEA800EF99ED /* CoreAudio.framework */; };
+		4BCC49FC24CC3BCC00AEFFE7 /* sound.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B81F2AA24B069680090B21A /* sound.m */; };
 		4BCF7C6B24B9A44A00172C24 /* EmulatorInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCF7C6A24B9A44A00172C24 /* EmulatorInfo.swift */; };
 		4BCF7C6E24B9A95A00172C24 /* atari800 in Resources */ = {isa = PBXBuildFile; fileRef = 4BCF7C6D24B9A95A00172C24 /* atari800 */; };
 		4BCF7C7324BA0C8400172C24 /* Icon-XL-83.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BCF7C7024BA0C8400172C24 /* Icon-XL-83.5.png */; };
@@ -4318,7 +4318,7 @@
 		4B5412C824AB519900F6925B /* FuseZX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FuseZX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B5412CA24AB519900F6925B /* FuseZX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FuseZX.h; sourceTree = "<group>"; };
 		4B5412CB24AB519900F6925B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4B5412D624AB52CA00F6925B /* Fuse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Fuse.swift; path = FuseZX/Fuse.swift; sourceTree = SOURCE_ROOT; };
+		4B5412D624AB52CA00F6925B /* Fuse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Fuse.swift; path = Emulators/FuseZX/Fuse.swift; sourceTree = SOURCE_ROOT; };
 		4B54131F24AB9B0500F6925B /* libvice-c64sc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libvice-c64sc.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B54138824AB9C6100F6925B /* libvice-c64cartsystem.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libvice-c64cartsystem.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B54139824ABA44C00F6925B /* libvice-c64cart.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libvice-c64cart.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -4636,7 +4636,7 @@
 		4B7A7C81226891A000775010 /* Gmod2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gmod2.swift; sourceTree = "<group>"; };
 		4B81F2A424AF12B50090B21A /* EmulatorThread.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmulatorThread.m; sourceTree = "<group>"; };
 		4B81F2A624AF12E30090B21A /* EmulatorThread.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmulatorThread.h; sourceTree = "<group>"; };
-		4B81F2AA24B069680090B21A /* sound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = sound.m; path = FuseZX/sound.m; sourceTree = SOURCE_ROOT; };
+		4B81F2AA24B069680090B21A /* sound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = sound.m; path = Emulators/FuseZX/sound.m; sourceTree = SOURCE_ROOT; };
 		4B841CF621F7358F009CAF4B /* DiskDrive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskDrive.swift; sourceTree = "<group>"; };
 		4B841CF921F75C12009CAF4B /* Floppy35Document.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Floppy35Document.png; sourceTree = "<group>"; };
 		4B841CFB21F76AB3009CAF4B /* Floppy525Document.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Floppy525Document.png; sourceTree = "<group>"; };
@@ -6198,8 +6198,6 @@
 				4BB22EBB21EB74680075E694 /* Shared */,
 				4B3F974521D7ACC700C272C4 /* C64 */,
 				4B7609F121F47B900058FBCD /* C64UIComponents */,
-				4B54101324AB363900F6925B /* fuse */,
-				4B54145F24ABA96600F6925B /* libspectrum */,
 				4BA81FB321E4713700D036DE /* vice */,
 				4B3F975D21D7ACC800C272C4 /* C64Tests */,
 				4BA1E9C224B49EDE00D935D3 /* RetroMedia */,
@@ -6210,7 +6208,6 @@
 				4B68FB3F24967CCD00A76E57 /* ViceC64 */,
 				4B68FB822498DC0600A76E57 /* ViceVIC20 */,
 				4B540E9824A674E100F6925B /* VicePlus4 */,
-				4B5412C924AB519900F6925B /* FuseZX */,
 				4B3F974421D7ACC700C272C4 /* Products */,
 				4BBF863D21D7FEA800EF99ED /* Frameworks */,
 				4B49575E24C46A2C0074A053 /* ViceC64 copy-Info.plist */,
@@ -9684,6 +9681,8 @@
 			isa = PBXGroup;
 			children = (
 				4B9ABB2124B8887000678531 /* atari800 */,
+				4B54101324AB363900F6925B /* fuse */,
+				4B54145F24ABA96600F6925B /* libspectrum */,
 				4BCF7C7624BDA52800172C24 /* x16-emulator */,
 				4BCF7D1B24BDAEC800172C24 /* x16-sdl */,
 			);
@@ -10425,6 +10424,7 @@
 			isa = PBXGroup;
 			children = (
 				4B9ABEEF24B89A5000678531 /* Atari800 */,
+				4B5412C924AB519900F6925B /* FuseZX */,
 				4B49576724C46AD70074A053 /* ViceC128 */,
 				4BCF7D0424BDA9E900172C24 /* X16 */,
 			);
@@ -12854,8 +12854,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BCC49FC24CC3BCC00AEFFE7 /* sound.m in Sources */,
 				4B54151A24ACA8AE00F6925B /* FuseThread.m in Sources */,
-				4B81F2AB24B069680090B21A /* sound.m in Sources */,
 				4B81F29E24AE8F6E0090B21A /* ui.m in Sources */,
 				4B5412D724AB52CA00F6925B /* Fuse.swift in Sources */,
 				4B94397124ADDF9700FD0237 /* uidisplay.m in Sources */,
@@ -14954,8 +14954,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					fuse,
-					libspectrum,
+					cores/fuse,
+					cores/libspectrum,
 				);
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -14976,8 +14976,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					fuse,
-					libspectrum,
+					cores/fuse,
+					cores/libspectrum,
 				);
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -15012,11 +15012,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				HEADER_SEARCH_PATHS = (
-					libspectrum,
-					fuse,
-					C64/Vice,
+					cores/libspectrum,
+					cores/fuse,
 				);
-				INFOPLIST_FILE = FuseZX/Info.plist;
+				INFOPLIST_FILE = Emulators/FuseZX/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -15026,7 +15025,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = at.spiderlab.FuseZX;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = FuseZX;
+				SWIFT_INCLUDE_PATHS = Emulators/FuseZX;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -15055,11 +15054,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				HEADER_SEARCH_PATHS = (
-					libspectrum,
-					fuse,
-					C64/Vice,
+					cores/libspectrum,
+					cores/fuse,
 				);
-				INFOPLIST_FILE = FuseZX/Info.plist;
+				INFOPLIST_FILE = Emulators/FuseZX/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -15069,7 +15067,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = at.spiderlab.FuseZX;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = FuseZX;
+				SWIFT_INCLUDE_PATHS = Emulators/FuseZX;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -15354,7 +15352,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
-				HEADER_SEARCH_PATHS = libspectrum;
+				HEADER_SEARCH_PATHS = cores/libspectrum;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -15366,7 +15364,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
-				HEADER_SEARCH_PATHS = libspectrum;
+				HEADER_SEARCH_PATHS = cores/libspectrum;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
