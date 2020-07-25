@@ -41,6 +41,10 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Release 1.6 build 7", year: 2020, month: 7, day: 25, changes: [
+            "Add option to disable accellerated tape loading on ZX Spectrum.",
+            "Add directory as SD Card for Commander X16."
+        ]),
         Release(name: "Release 1.6 build 6", year: 2020, month: 7, day: 22, changes: [
             "Allow choosing which screen to show (automatic not implemented yet).",
             "Add C128 PAL/NTSC with US keyboard.",

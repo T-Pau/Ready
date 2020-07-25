@@ -70,6 +70,7 @@ public class Defaults {
         case GroupGames
         case GroupFavorites
         case ShowUncategorized
+        case SpectrumAccellerateTape
         case SortCriterium
         case SortCriteriumFavorites
         case ToolsCartridgeFile
@@ -218,6 +219,15 @@ public class Defaults {
             set(value: newValue.rawValue, for: .SortCriteriumFavorites)
         }
     }
+    
+    public var spectrumAccellerateTape: Bool {
+        get {
+            return boolValue(for: .SpectrumAccellerateTape)
+        }
+        set {
+            set(value: newValue, for: .SpectrumAccellerateTape)
+        }
+    }
 
     public var toolsCartridgeFile: String? {
         get {
@@ -251,6 +261,8 @@ public class Defaults {
         case .GroupGames:
             return false
         case .ShowUncategorized:
+            return true
+        case .SpectrumAccellerateTape:
             return true
             
         default:

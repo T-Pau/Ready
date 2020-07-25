@@ -1,6 +1,6 @@
 /*
  GeneralSettingsViewController.swift
- Copyright (C) 2019 Dieter Baron
+ Copyright (C) 2019-2020 Dieter Baron
  
  This file is part of Ready, a home computer emulator for iPad.
  The authors can be contacted at <ready@tpau.group>.
@@ -55,6 +55,7 @@ class GeneralSettingsViewController: UIViewController {
             Row(name: "Video Scaling", reuseIdentifier: .Enum, defaultsKey: .VideoFilter),
             Row(name: "Emulate Drive Sounds", reuseIdentifier: .Switch, defaultsKey: .EmulateDriveSounds),
             Row(name: "Enable JiffyDOS", reuseIdentifier: .Switch, defaultsKey: .EnableJiffyDos),
+            Row(name: "Accellerate Tape Loading on ZX Spectrum", reuseIdentifier: .Switch, defaultsKey: .SpectrumAccellerateTape),
             Row(name: "Use Caps Lock as Commodore Key", reuseIdentifier: .Switch, defaultsKey: .CapsLockAsCommodore)
         ])
     ]
