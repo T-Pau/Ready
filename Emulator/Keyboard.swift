@@ -379,9 +379,9 @@ public struct Keyboard {
             ]),
             Row(top: rows[4], bottom: rows[5], spans: [
                 Span(left: left, right: leftShiftLeft, keys: [.Commodore]),
-                Span(left: leftShiftLeft, right: leftShiftRight, keys: [.ShiftLeft]),
+                Span(left: leftShiftLeft, right: leftShiftRight, keys: [.Shift]),
                 Span(left: leftShiftRight, right: rightShiftLeft, keys: [.Char("z"), .Char("x"), .Char("c"), .Char("v"), .Char("b"), .Char("n"), .Char("m"), .Char(","), .Char("."), .Char("/")]),
-                Span(left: rightShiftLeft, right: rightShiftRight, keys: [.ShiftRight])
+                Span(left: rightShiftLeft, right: rightShiftRight, keys: [.Shift])
             ]),
             Row(top: rows[5], bottom: rows[6], spans: [
                 Span(left: spaceLeft, right: spaceRight, keys: [.Char(" ")])

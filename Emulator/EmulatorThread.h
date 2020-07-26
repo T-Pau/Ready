@@ -61,6 +61,7 @@
 @property int borderMode;
 @property int displayedScreens;
 @property BOOL * _Nonnull screenVisible;
+@property int * _Nonnull screenActivity;
 
 - (void)displayImage;
 

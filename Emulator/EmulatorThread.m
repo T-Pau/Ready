@@ -33,6 +33,9 @@
 
 #include "EmulatorThread.h"
 
+#define DISPLAY_SCREEN_SHOW_FRAMES 0
+#define DISPLAY_SCREEN_HIDE_FRAMES 25
+
 @implementation EmulatorThread
 
 - (id)init {
@@ -69,6 +72,11 @@
     BOOL initial = _screenVisible == NULL;
     if (initial) {
         _screenVisible = (BOOL *)malloc(_renderers.count * sizeof(_screenVisible[0]));
+        _screenActivity = (int *)malloc(_renderers.count * sizeof(_screenActivity[0]));
+        for (size_t i = 0; i < _renderers.count; i++) {
+            _screenVisible[i] = i == 0;
+            _screenActivity[i] = 0;
+        }
     }
     else if (_displayedScreens == displayedScreens) {
         return;
@@ -76,13 +84,15 @@
     
     _displayedScreens = displayedScreens;
 
-    // TODO: for auto, consult last change
-    BOOL visible = displayedScreens < 0 ? YES : NO;
-    for (size_t i = 0; i < _renderers.count; i++) {
-        _screenVisible[i] = visible;
-    }
-    if (displayedScreens >= 0) {
-        _screenVisible[displayedScreens] = YES;
+    // auto will be handled by next call to displayImage.
+    if (displayedScreens != DISPLAY_SCREENS_AUTO) {
+        BOOL visible = displayedScreens < 0 ? YES : NO;
+        for (size_t i = 0; i < _renderers.count; i++) {
+            _screenVisible[i] = visible;
+        }
+        if (displayedScreens >= 0) {
+            _screenVisible[displayedScreens] = YES;
+        }
     }
 
     [_delegate updateDisplayedScreensAnimated:!initial];
@@ -101,10 +111,49 @@
 }
 
 - (void)displayImage {
-    // TODO: implement auto hiding
+
     for (size_t i = 0; i < _renderers.count; i++) {
         Renderer *renderer = _renderers[i];
+        if (_screenVisible[i] == renderer.changed) {
+            _screenActivity[i] = 0;
+        }
+        else {
+            _screenActivity[i] += 1;
+        }
         [renderer displayImage];
+    }
+        
+    if (_displayedScreens == DISPLAY_SCREENS_AUTO) {
+        BOOL visible[_renderers.count];
+        
+        for (size_t i = 0; i < _renderers.count; i++) {
+            if (_screenVisible[i] == NO && _screenActivity[i] > DISPLAY_SCREEN_SHOW_FRAMES) {
+                visible[i] = YES;
+                _screenActivity[i] = 0;
+            }
+            else if (_screenVisible[i] == YES && _screenActivity[i] > DISPLAY_SCREEN_HIDE_FRAMES) {
+                visible[i] = NO;
+                _screenActivity[i] = 0;
+            }
+            else {
+                visible[i] = _screenVisible[i];
+            }
+        }
+        
+        BOOL screenVisible = NO;
+        BOOL visibilityChanged = NO;
+        for (size_t i = 0; i < _renderers.count; i++) {
+            if (visible[i]) {
+                screenVisible = YES;
+            }
+            if (visible[i] != _screenVisible[i]) {
+                visibilityChanged = YES;
+            }
+        }
+        if (screenVisible && visibilityChanged) {
+            memcpy(_screenVisible, visible, sizeof(visible));
+            [_delegate updateDisplayedScreensAnimated:YES];
+        }
     }
 }
 
@@ -122,6 +171,10 @@
     printf("emulator thread exiting\n");
     fflush(stdout);
     [NSThread exit];
+}
+
+- (void)runEmulator {
+    
 }
 
 -(void)dealloc {
