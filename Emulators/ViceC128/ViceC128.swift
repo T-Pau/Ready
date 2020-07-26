@@ -76,7 +76,7 @@ let viceVariant = ViceVariant(keyboardMatrix: [
         [.Char("9"), .Char("i"), .Char("j"), .Char("0"), .Char("m"), .Char("k"), .Char("o"), .Char("n")],
         [.Char("+"), .Char("p"), .Char("l"), .Char("-"), .Char("."), .Char(":"), .Char("@"), .Char(",")],
         [.Char("£"), .Char("*"), .Char(";"), .ClearHome, .ShiftRight, .Char("="), .ArrowUp, .Char("/")],
-        [.Char("1"), .ArrowLeft, .Control, .Char("2"), .Char(" "), .Commodore, .CommodoreLock, .Char("q"), .RunStop],
+        [.Char("1"), .ArrowLeft, .Control, .Char("2"), .Char(" "), .Commodore, .Char("q"), .RunStop],
         [.Help, .Keypad8, .Keypad5, .Tab, .Keypad2, .Keypad4, .Keypad7, .Keypad1],
         [.Escape, .KeypadPlus, .KeypadMinus, .LineFeed, .KeypadEnter, .Keypad6, .Keypad9, .Keypad3],
         [.Alt, .Keypad0, .KeypadPeriod, .CursorUp, .CursorDown, .CursorLeft, .CursorRight, .ScrollLock]

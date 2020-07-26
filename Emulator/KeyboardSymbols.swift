@@ -272,7 +272,127 @@ public struct KeyboardSymbols {
             ModifiedSymbol(symbol: .char("`"), modifiers: .control): ModifiedSymbol(symbol: .key(.keyboardEscape), modifiers: .control),
             ModifiedSymbol(symbol: .char("~"), modifiers: .control): ModifiedSymbol(symbol: .key(.keyboardEscape), modifiers: [.control, .shift])
         ])
-    
+
+        public static let c128 = KeyboardSymbols(modifierMap: [
+            .keyboardLeftShift: .ShiftLeft,
+            .keyboardRightShift: .ShiftRight,
+            .keyboardLeftControl: .Control,
+            .keyboardRightControl: .Control,
+            UIKeyboardHIDUsage(rawValue: 669)!: .Commodore
+            // TODO: Alt, CapsLock
+        ],
+        keyMap: [
+            .Escape: KeySymbols(both: .key(.keyboardEscape)),
+            // .Tab: KeySymbols(both: .key(.keyboardTab)), // already used for RunStop
+
+            .Help: KeySymbols(both: .key(.keyboardF9)),
+            // .LineFeed
+            // .Display4080
+            .ScrollLock: KeySymbols(both: .key(.keyboardScrollLock)),
+
+            // extra cursor keys
+            
+            .F1: KeySymbols(normal: .key(.keyboardF1), shifted: .key(.keyboardF2)),
+            .F3: KeySymbols(normal: .key(.keyboardF3), shifted: .key(.keyboardF4)),
+            .F5: KeySymbols(normal: .key(.keyboardF5), shifted: .key(.keyboardF6)),
+            .F7: KeySymbols(normal: .key(.keyboardF7), shifted: .key(.keyboardF8)),
+
+            .ArrowLeft: KeySymbols(normal: .char("`"), shifted: .char("~")),
+            .Char("1"): KeySymbols(normal: .char("1"), shifted: .char("!")),
+            .Char("2"): KeySymbols(normal: .char("2"), shifted: .char("\"")),
+            .Char("3"): KeySymbols(normal: .char("3"), shifted: .char("#")),
+            .Char("4"): KeySymbols(normal: .char("4"), shifted: .char("$")),
+            .Char("5"): KeySymbols(normal: .char("5"), shifted: .char("%")),
+            .Char("6"): KeySymbols(normal: .char("6"), shifted: .char("&")),
+            .Char("7"): KeySymbols(normal: .char("7"), shifted: .char("'")),
+            .Char("8"): KeySymbols(normal: .char("8"), shifted: .char("(")),
+            .Char("9"): KeySymbols(normal: .char("9"), shifted: .char(")")),
+            .Char("0"): KeySymbols(normal: .char("0"), shifted: .char("0")),
+            .Char("+"): KeySymbols(normal: .char("+")),
+            .Char("-"): KeySymbols(normal: .char("-")),
+            .Char("£"): KeySymbols(normal: .char("£")),
+            .ClearHome: KeySymbols(both: .key(.keyboardHome)),
+            .InsertDelete: KeySymbols(both: .key(.keyboardDeleteOrBackspace)),
+                            
+            .Char("q"): KeySymbols(normal: .char("q"), shifted: .char("Q")),
+            .Char("w"): KeySymbols(normal: .char("w"), shifted: .char("W")),
+            .Char("e"): KeySymbols(normal: .char("e"), shifted: .char("E")),
+            .Char("r"): KeySymbols(normal: .char("r"), shifted: .char("R")),
+            .Char("t"): KeySymbols(normal: .char("t"), shifted: .char("T")),
+            .Char("y"): KeySymbols(normal: .char("y"), shifted: .char("Y")),
+            .Char("u"): KeySymbols(normal: .char("u"), shifted: .char("U")),
+            .Char("i"): KeySymbols(normal: .char("i"), shifted: .char("I")),
+            .Char("o"): KeySymbols(normal: .char("o"), shifted: .char("O")),
+            .Char("p"): KeySymbols(normal: .char("p"), shifted: .char("P")),
+            .Char("@"): KeySymbols(normal: .char("@")),
+            .Char("*"): KeySymbols(normal: .char("*")),
+            .ArrowUp: KeySymbols(normal: .char("^"), shifted: .char("π")),
+            .Restore: KeySymbols(normal: .char("\\"), shifted: .char("|")),
+                            
+            .RunStop: KeySymbols(both: .key(.keyboardTab)),
+            .Char("a"): KeySymbols(normal: .char("a"), shifted: .char("A")),
+            .Char("s"): KeySymbols(normal: .char("s"), shifted: .char("S")),
+            .Char("d"): KeySymbols(normal: .char("d"), shifted: .char("D")),
+            .Char("f"): KeySymbols(normal: .char("f"), shifted: .char("F")),
+            .Char("g"): KeySymbols(normal: .char("g"), shifted: .char("G")),
+            .Char("h"): KeySymbols(normal: .char("h"), shifted: .char("H")),
+            .Char("j"): KeySymbols(normal: .char("j"), shifted: .char("J")),
+            .Char("k"): KeySymbols(normal: .char("k"), shifted: .char("K")),
+            .Char("l"): KeySymbols(normal: .char("l"), shifted: .char("L")),
+            .Char(":"): KeySymbols(normal: .char(":"), shifted: .char("[")),
+            .Char(";"): KeySymbols(normal: .char(";"), shifted: .char("]")),
+            .Char("="): KeySymbols(normal: .char("="), shifted: .char("=")),
+            .Return: KeySymbols(both: .key(.keyboardReturnOrEnter)),
+                            
+            .Char("z"): KeySymbols(normal: .char("z"), shifted: .char("Z")),
+            .Char("x"): KeySymbols(normal: .char("x"), shifted: .char("X")),
+            .Char("c"): KeySymbols(normal: .char("c"), shifted: .char("C")),
+            .Char("v"): KeySymbols(normal: .char("v"), shifted: .char("V")),
+            .Char("b"): KeySymbols(normal: .char("b"), shifted: .char("B")),
+            .Char("n"): KeySymbols(normal: .char("n"), shifted: .char("N")),
+            .Char("m"): KeySymbols(normal: .char("m"), shifted: .char("M")),
+            .Char(","): KeySymbols(normal: .char(","), shifted: .char("<")),
+            .Char("."): KeySymbols(normal: .char("."), shifted: .char(">")),
+            .Char("/"): KeySymbols(normal: .char("/"), shifted: .char("?")),
+            .CursorLeftRight: KeySymbols(normal: .key(.keyboardRightArrow), shifted: .key(.keyboardLeftArrow)),
+            .CursorUpDown: KeySymbols(normal: .key(.keyboardDownArrow), shifted: .key(.keyboardUpArrow)),
+                            
+            .Char(" "): KeySymbols(both: .char(" ")),
+                            
+            .Keypad7: KeySymbols(both: .key(.keypad7)),
+            .Keypad8: KeySymbols(both: .key(.keypad8)),
+            .Keypad9: KeySymbols(both: .key(.keypad9)),
+            .KeypadPlus: KeySymbols(both: .key(.keypadPlus)),
+
+            .Keypad4: KeySymbols(both: .key(.keypad4)),
+            .Keypad5: KeySymbols(both: .key(.keypad5)),
+            .Keypad6: KeySymbols(both: .key(.keypad6)),
+            .KeypadMinus: KeySymbols(both: .key(.keypadHyphen)),
+
+            .Keypad1: KeySymbols(both: .key(.keypad1)),
+            .Keypad2: KeySymbols(both: .key(.keypad2)),
+            .Keypad3: KeySymbols(both: .key(.keypad3)),
+            .KeypadEnter: KeySymbols(both: .key(.keypadEnter)),
+
+            .Keypad0: KeySymbols(both: .key(.keypad0)),
+            .KeypadPeriod: KeySymbols(both: .key(.keypadComma)),
+        ],
+        symbolRemap: [
+            ModifiedSymbol(symbol: .char("1"), modifiers: .command): ModifiedSymbol(symbol: .key(.keyboardF1)),
+            ModifiedSymbol(symbol: .char("2"), modifiers: .command): ModifiedSymbol(symbol: .key(.keyboardF2)),
+            ModifiedSymbol(symbol: .char("3"), modifiers: .command): ModifiedSymbol(symbol: .key(.keyboardF3)),
+            ModifiedSymbol(symbol: .char("4"), modifiers: .command): ModifiedSymbol(symbol: .key(.keyboardF4)),
+            ModifiedSymbol(symbol: .char("5"), modifiers: .command): ModifiedSymbol(symbol: .key(.keyboardF5)),
+            ModifiedSymbol(symbol: .char("6"), modifiers: .command): ModifiedSymbol(symbol: .key(.keyboardF6)),
+            ModifiedSymbol(symbol: .char("7"), modifiers: .command): ModifiedSymbol(symbol: .key(.keyboardF7)),
+            ModifiedSymbol(symbol: .char("8"), modifiers: .command): ModifiedSymbol(symbol: .key(.keyboardF8)),
+            ModifiedSymbol(symbol: .char("9"), modifiers: .command): ModifiedSymbol(symbol: .key(.keyboardF9)),
+            ModifiedSymbol(symbol: .key(.keyboardDeleteOrBackspace), modifiers: .command): ModifiedSymbol(symbol: .key(.keyboardHome)),
+            ModifiedSymbol(symbol: .key(.keyboardDeleteOrBackspace), modifiers: [.shift, .command]): ModifiedSymbol(symbol: .key(.keyboardHome), modifiers: .shift),
+            ModifiedSymbol(symbol: .key(.keyboardDeleteOrBackspace), modifiers: [.control, .command]): ModifiedSymbol(symbol: .key(.keyboardHome), modifiers: .control),
+            ModifiedSymbol(symbol: .key(.keyboardDeleteOrBackspace), modifiers: [.control, .shift, .command]): ModifiedSymbol(symbol: .key(.keyboardHome), modifiers: [.control, .shift]),
+        ])
+
     public static let plus4 = KeyboardSymbols(modifierMap: [
             .keyboardLeftShift: .Shift,
             .keyboardRightShift: .Shift,

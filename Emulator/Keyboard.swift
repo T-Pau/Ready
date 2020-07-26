@@ -339,7 +339,7 @@ public struct Keyboard {
                 Span(left: spaceLeft, right: spaceRight, keys: [.Char(" ")])
             ])
         ])
-        self.keyboardSymbols = KeyboardSymbols.c64 // TODO
+        self.keyboardSymbols = KeyboardSymbols.c128
     }
     
     private init(plus4WithImageName imageName: String, rows: [Int], functionLeft: Int, functionRight: Int, left: Int, right: Int, leftControlRight: Int, rightControlLeft: Int,returnLeft: Int, returnRight: Int, leftShiftLeft: Int, leftShiftRight: Int, rightShiftLeft: Int, rightShiftRight: Int, spaceLeft: Int, spaceRight: Int, cursorTop: CGFloat, cursorLeft: CGFloat, cursorRight: CGFloat, cursorBottom: CGFloat) {
