@@ -851,7 +851,9 @@ emscripten_main_loop(void) {
 void*
 emulator_loop(void *param)
 {
-	for (;;) {
+    int frames = 0;
+
+    for (;;) {
 
 		if (debugger_enabled) {
 			int dbgCmd = DEBUGGetCurrentStatus();
@@ -966,7 +968,6 @@ emulator_loop(void *param)
 				break;
 			}
 
-			static int frames = 0;
 			frames++;
 			int32_t sdlTicks = SDL_GetTicks();
 			int32_t diff_time = 1000 * frames / 60 - sdlTicks;
