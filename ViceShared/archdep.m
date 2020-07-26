@@ -182,9 +182,6 @@ void archdep_vice_exit(int excode)
     }
     
     printf("exit %d\n", excode);
-    
-    viceThread = nil;
-    [NSThread exit];
 }
 
 void archdep_set_resources(void) {

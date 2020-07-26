@@ -48,18 +48,26 @@
 @interface EmulatorThread : NSThread {
     id _delegate;
     int _displayedScreens;
+    int _argc;
+    char ** _argv;
 }
 
+@property NSArray * _Nonnull args;
 @property Renderer * _Nonnull renderer;
 @property NSMutableArray * _Nonnull renderers;
 
-@property id _Nullable delegate;
+@property (weak) id _Nullable delegate;
 
 @property int borderMode;
 @property int displayedScreens;
 @property BOOL * _Nonnull screenVisible;
 
 - (void)displayImage;
+
+- (void)main;
+
+// Override this in emulator implementation.
+- (void)runEmulator;
 
 //- (int)borderMode;
 //- (void)setBorderMode: (int)borderMode;

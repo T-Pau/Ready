@@ -35,19 +35,12 @@
 
 @implementation FuseThread
 
-- (void)main {
-    const char *argv[256];
-
-    int argc = (int)self.args.count;
-    
-    for (int i = 0; i < self.args.count; i++) {
-        argv[i] = [self.args[i] cStringUsingEncoding:NSUTF8StringEncoding];
-    }
-    argv[argc] = NULL;
-    
+- (void)runEmulator {
     fuse_datadir = [[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"fuse"] cStringUsingEncoding:NSUTF8StringEncoding];
 
-    fuse_main(argc, (char **)argv);
+    fuse_main(_argc, _argv);
+
+    fuseThread = nil;
 }
 
 

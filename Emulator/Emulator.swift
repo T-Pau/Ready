@@ -170,6 +170,10 @@ import UIKit
     public func send(event: Event, delay: Int = 0) {
         eventQueue.send(event: event, delay: delay)
     }
+    
+    deinit {
+        print("Emulator freed\n")
+    }
 }
 
 extension Emulator: EmulatorThreadDelegate {

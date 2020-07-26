@@ -329,6 +329,8 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
     
     override func viewDidDisappear(_ animated: Bool) {
         emulator?.quit()
+        print("releasing emulator")
+        emulator = nil
         running = false
     }
     

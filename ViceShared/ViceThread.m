@@ -48,32 +48,17 @@
 
 @implementation ViceThread
 
-- (id)init {
-    if ((self = [super init]) == nil) {
-        return nil;
-    }
-    self.qualityOfService = NSQualityOfServiceUserInteractive;
-    return self;
-}
-
-- (void)main {
-    const char *argv[256];
-    int argc = 0;
-
-    for (NSString *arg in self.argv) {
-        argv[argc++] = [arg cStringUsingEncoding:NSUTF8StringEncoding];
-    }
-    
-    argv[argc] = NULL;
-    
+- (void)runEmulator {
     bundle_directory = strdup([[[NSBundle mainBundle] resourcePath] cStringUsingEncoding:NSUTF8StringEncoding]);
     _firstFrame = true;
     
-    main_program(argc, (char **)argv);
+    main_program(_argc, _argv);
     
     printf("vice exiting\n");
     
     archdep_vice_exit(0);
+
+    viceThread = nil;
 }
 
 - (void)dealloc {

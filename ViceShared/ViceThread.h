@@ -69,13 +69,11 @@
 @property unsigned long mouseTimestamp;
 
 
-@property NSArray * _Nullable argv;
-
 @property BufferedAudio * _Nullable audio;
 
 @property bool firstFrame;
 
-- (void)main;
+- (void)runEmulator;
 
 - (BOOL)vsync;
 

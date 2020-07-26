@@ -128,25 +128,25 @@ extension JoystickButtons {
 
         viceThread?.borderMode = machine.specification.borderMode.cValue
         
-        var argv = [ "vice" ]
+        var args = [ "vice" ]
         
         var autostartDisk = machine.autostart
         
         if let programFileURL = machine.programFile?.url {
-            argv.append("-autostart")
-            argv.append(programFileURL.path)
+            args.append("-autostart")
+            args.append(programFileURL.path)
             autostartDisk = false
         }
         
         if let tapeImageURL = (machine.tapeImages.isEmpty ? nil : machine.tapeImages[0])?.url {
             if autostartDisk {
-                argv.append("-autostart")
+                args.append("-autostart")
                 autostartDisk = false
             }
             else {
-                argv.append("-1")
+                args.append("-1")
             }
-            argv.append(tapeImageURL.path)
+            args.append(tapeImageURL.path)
         }
         
         // TODO: Tape
@@ -173,8 +173,8 @@ extension JoystickButtons {
                             let fileURL = temporaryDirectoryURL.appendingPathComponent(UUID().uuidString + ".prg")
                             try fileData.write(to: fileURL)
                             tempFile = fileURL
-                            argv.append("-autostart")
-                            argv.append(fileURL.path)
+                            args.append("-autostart")
+                            args.append(fileURL.path)
                             autostartDisk = false
                             autostartPrgName = fileName
                         }
@@ -184,17 +184,17 @@ extension JoystickButtons {
             }
 
             if autostartDisk {
-                argv.append("-autostart")
+                args.append("-autostart")
                 autostartDisk = false
             }
             else {
-                argv.append("-\(index + 8)")
+                args.append("-\(index + 8)")
             }
-            argv.append(url.path)
+            args.append(url.path)
         }
         
-        NSLog("\(argv)")
-        viceThread?.argv = argv
+        NSLog("\(args)")
+        viceThread?.args = args
         viceThread?.start()
     }
     

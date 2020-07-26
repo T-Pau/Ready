@@ -81,7 +81,7 @@ RendererImage * _Nullable renderer_image_new(size_t width, size_t height);
 
 /* MARK: - Public Properties */
 
-@property id _Nullable delegate;
+@property (weak) id _Nullable delegate;
 
 @property RendererBorderMode borderMode; /* desired border mode*/
 @property UInt32 * _Nullable palette; /* palette to use for rendering */

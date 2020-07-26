@@ -33,17 +33,11 @@
 
 @implementation X16Thread
 
-- (void)main {
-    const char *argv[256];
+- (void)runEmulator {
+    x16_emulator_main(_argc, _argv);
     
-    int argc = (int)self.args.count;
-    
-    for (int i = 0; i < self.args.count; i++) {
-        argv[i] = [self.args[i] cStringUsingEncoding:NSUTF8StringEncoding];
-    }
-    argv[argc] = NULL;
-        
-    x16_emulator_main(argc, (char **)argv);
+    printf("releasing emulatorThread\n");
+    x16Thread = nil;
 }
 
 @end

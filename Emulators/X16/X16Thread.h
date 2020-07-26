@@ -52,12 +52,11 @@
 
 @interface X16Thread : EmulatorThread
 
-@property NSArray *args;
 @property NSString *dataDir;
 
 @property BufferedAudio *_Nullable audio;
 
-- (void)main;
+- (void)runEmulator;
 
 @end
 

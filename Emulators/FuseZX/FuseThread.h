@@ -52,11 +52,9 @@
 
 @interface FuseThread : EmulatorThread
 
-@property NSArray *args;
-
 @property Audio * _Nullable audio;
 
-- (void)main;
+- (void)runEmulator;
 
 @end
 

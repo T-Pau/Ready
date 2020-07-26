@@ -41,6 +41,7 @@
     }
     _delegate = NULL;
     _screenVisible = NULL;
+    self.args = [[NSArray alloc] init];
     self.qualityOfService = NSQualityOfServiceUserInteractive;
     self.renderer = [[Renderer alloc] init];
     self.renderers = [[NSMutableArray alloc] init];
@@ -105,6 +106,26 @@
         Renderer *renderer = _renderers[i];
         [renderer displayImage];
     }
+}
+
+- (void)main {
+    _argv = (char **)malloc(sizeof(_argv[0]) * (self.args.count) + 1);
+    _argc = (int)self.args.count;
+    
+    for (int i = 0; i < self.args.count; i++) {
+        _argv[i] = (char *)[self.args[i] cStringUsingEncoding:NSUTF8StringEncoding];
+    }
+    _argv[_argc] = NULL;
+    
+    [self runEmulator];
+    
+    printf("emulator thread exiting\n");
+    fflush(stdout);
+    [NSThread exit];
+}
+
+-(void)dealloc {
+    printf("emulator thread freed\n");
 }
 
 @end
