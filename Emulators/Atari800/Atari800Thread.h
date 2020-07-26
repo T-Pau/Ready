@@ -35,31 +35,16 @@
 @import UIKit;
 @import Emulator;
 
-@protocol Atari800ThreadDelegate
-@required
-//- (NSString *_Nonnull)getDirectoryPath;
-//- (void)updateDriveUnit:(int) unit track: (double)track;
-//- (void)updateDriveUnit:(int) uint led1Intensity: (double)intensity1 led2Intensity: (double)intensity2;
-//- (void)updateTapeControlStatus: (int)control;
-//- (void)updateTapeCounter: (double)counter;
-//- (void)updateTapeIsMotorOn: (int)motor;
-//- (void)setupVice;
-//- (void)viceSetResources;
-//- (void)autostartInjectDeviceInfo;
-- (BOOL)handleEvents;
-//- (void)updateStatusBar;
-- (int)ramSize;
-@end
-
 @interface Atari800Thread : EmulatorThread
 
 @property NSArray *args;
 
+@property int ramSize;
 @property BOOL running;
 
 @property BufferedAudio * _Nullable audio;
 
-- (void)main;
+- (void)runEmulator;
 - (void)updateJoystick: (int)port directions: (int)directions fire: (BOOL)fire;
 
 @end

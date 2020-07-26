@@ -312,9 +312,7 @@ static int get_border_color(const RendererImage *image, const uint32_t *palette)
             CIImage *ciImage = [CIImage imageWithBitmapData:[_data subdataWithRange:range] bytesPerRow:_size.width * 4 size:CGSizeMake((CGFloat)_currentSize.width, (CGFloat)_currentSize.height * (_doubleLines ? 2 : 1)) format:kCIFormatABGR8 colorSpace:CGColorSpaceCreateWithName(kCGColorSpaceSRGB)];
             
             UIImage *image = [UIImage imageWithCIImage:ciImage];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.delegate renderer:self updateImage:image];
-            });
+            [self.delegate renderer:self updateImage:image];
         }
     }
 }

@@ -286,6 +286,7 @@ import Atari800C
             args.append(contentsOf: emulatorInfo.arguments.map({ $0.replacingOccurrences(of: "@DATADIR@", with: dataDir) }))
         }
         atari800Thread?.args = args
+        atari800Thread?.ramSize = ramSize()
         atari800Thread?.start()
     }
 }

@@ -46,7 +46,7 @@
 #define ViceThread ViceThreadVIC20
 #endif
 
-@protocol ViceThreadDelegate
+@protocol ViceThreadDelegate<EmulatorThreadDelegate>
 @required
 - (NSString *_Nonnull)getDirectoryPath;
 - (void)updateDriveUnit:(int) unit track: (double)track;

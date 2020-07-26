@@ -42,6 +42,7 @@
 
 @protocol EmulatorThreadDelegate
 @required
+- (BOOL)handleEvents;
 - (void)updateDisplayedScreensAnimated:(BOOL)animated;
 @end
 
@@ -56,7 +57,7 @@
 @property Renderer * _Nonnull renderer;
 @property NSMutableArray * _Nonnull renderers;
 
-@property (weak) id _Nullable delegate;
+@property (nonatomic, weak) id _Nullable delegate;
 
 @property int borderMode;
 @property int displayedScreens;

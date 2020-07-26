@@ -35,22 +35,15 @@ void atari800_main(int argc, char **argv);
 
 @implementation Atari800Thread
 
-- (void)main {
-    const char *argv[256];
-    
-    int argc = (int)self.args.count;
-    
-    for (int i = 0; i < self.args.count; i++) {
-        argv[i] = [self.args[i] cStringUsingEncoding:NSUTF8StringEncoding];
-    }
-    argv[argc] = NULL;
-        
+- (void)runEmulator {
     joystickPort[0] = 0x1f;
     joystickPort[1] = 0x1f;
 
     display_init();
-    atari800_main(argc, (char **)argv);
+    atari800_main(_argc, _argv);
     display_fini();
+    
+    atari800Thread = nil;
 }
 
 - (void)updateJoystick: (int)port directions: (int)directions fire: (BOOL)fire {
@@ -86,7 +79,7 @@ void atari800_main(int argc, char **argv) {
         return;
     }
     
-    MEMORY_ram_size = [atari800Thread.delegate ramSize];
+    MEMORY_ram_size = atari800Thread.ramSize;
 
     printf("starting main loop\n");
     atari800Thread.running = YES;

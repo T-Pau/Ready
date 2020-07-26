@@ -94,7 +94,8 @@ import UIKit
     // quit emulation
     open func quit() {
         send(event: .quit)
-        
+        // Break retain cycle. I don't understand why we have one, EmulatorThread.delegate is weak!
+        emulatorThread = nil
     }
     
     // release key, delayed by given number of frames

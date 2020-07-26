@@ -61,6 +61,14 @@ typedef struct {
 void renderer_image_free(RendererImage * _Nullable image);
 RendererImage * _Nullable renderer_image_new(size_t width, size_t height);
 
+@class Renderer;
+
+@protocol RendererDelegate <NSObject>
+
+- (void)renderer:(Renderer *_Nonnull)renderer updateImage: (UIImage *_Nullable)image;
+
+@end
+
 @interface Renderer : NSObject {
     RendererRect _screenPosition;
 }
@@ -81,7 +89,7 @@ RendererImage * _Nullable renderer_image_new(size_t width, size_t height);
 
 /* MARK: - Public Properties */
 
-@property (weak) id _Nullable delegate;
+@property (nonatomic, weak) id <RendererDelegate> _Nullable delegate;
 
 @property RendererBorderMode borderMode; /* desired border mode*/
 @property UInt32 * _Nullable palette; /* palette to use for rendering */
@@ -113,8 +121,3 @@ RendererImage * _Nullable renderer_image_new(size_t width, size_t height);
 
 @end
 
-@protocol RendererDelegate <NSObject>
-
-- (void)renderer:(Renderer *_Nonnull)renderer updateImage: (UIImage *_Nullable)image;
-
-@end
