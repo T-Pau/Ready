@@ -271,6 +271,13 @@ extension JoystickButtons {
             
         case .key(let key, pressed: let pressed):
             switch key {
+            case .CapsLock:
+                caps_sense = pressed ? 0 : 1;
+                mem_pla_config_changed();
+
+            case .Display4080:
+                setResourceNow(name: .C128ColumnKey, value: .Bool(!pressed))
+                
             case .Restore:
                 if pressed {
                     keyboard_restore_pressed()
@@ -278,9 +285,6 @@ extension JoystickButtons {
                 else {
                     keyboard_restore_released()
                 }
-                
-            case .Display4080:
-                setResourceNow(name: .C128ColumnKey, value: .Bool(!pressed))
                 
             default:
                 if let row = viceVariant.keyboardMatrix.row[key], let column = viceVariant.keyboardMatrix.column[key] {

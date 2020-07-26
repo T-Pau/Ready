@@ -509,11 +509,12 @@ public struct Computer: MachinePart {
 
             Computer(identifier: "C128 DE PAL",
                      fullName: "Commodore 128",
-                     variantName: "German Keyboard, PAL",
+                     variantName: "German, PAL",
                      iconName: "Commodore 128",
                      viceMachineModel: .c128Pal,
                      keyboardName: "C128 DE",
-                     caseColorName: "C64C Case"),
+                     caseColorName: "C64C Case",
+                     emulatorInfo: ViceEmulatorInfo(resources: [.MachineType: .Int(3)])), // TODO: use symbolic constant
         ]),
 
         MachinePartSection(title: "Commodore 16, Plus/4", parts: [

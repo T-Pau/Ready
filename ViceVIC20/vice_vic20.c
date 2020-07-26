@@ -31,6 +31,9 @@
 
 #include <stdio.h>
 
+void mem_pla_config_changed(void) {
+}
+
 // TODO: include correct file?
 extern void vic20model_set(int model);
 

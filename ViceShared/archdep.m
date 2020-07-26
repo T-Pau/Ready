@@ -47,6 +47,9 @@
 
 char *bundle_directory;
 
+int caps_sense;
+
+
 /** \brief  Generate a list of search paths for VICE system files
  *
  * \param[in]   emu_id  emulator ID (ie 'C64 or 'VSID')

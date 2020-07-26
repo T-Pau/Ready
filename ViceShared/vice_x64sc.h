@@ -44,6 +44,10 @@
 
 extern int maincpu_running;
 
+extern int caps_sense;
+
+void mem_pla_config_changed(void);
+
 extern void cartridge_trigger_freeze(void);
 
 extern int file_system_attach_disk(unsigned int unit, const char *filename);

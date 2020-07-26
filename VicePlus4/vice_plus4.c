@@ -31,6 +31,10 @@
 
 #include <stdio.h>
 
+void mem_pla_config_changed(void) {
+}
+
+
 // TODO: include correct file?
 extern void plus4model_set(int model);
 

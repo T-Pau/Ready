@@ -144,7 +144,7 @@ static unsigned int mem_machine_type;
 static log_t c128_mem_log = LOG_DEFAULT;
 
 /* Status of the CAPS key (ASCII/DIN).  */
-static int caps_sense = 1;
+extern int caps_sense;
 
 /* ------------------------------------------------------------------------- */
 

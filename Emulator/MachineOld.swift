@@ -72,6 +72,7 @@ public class MachineOld {
         case JoyPort4Device
         case KernalName
         case LogFileName
+        case MachineType
         case MIDIEnable
         case MIDIMode
         case Mouse
@@ -173,6 +174,10 @@ public class MachineOld {
         diskDrives = specification.diskDrives
         cassetteDrive = specification.cassetteDrive
         userPortModule = specification.userPortModule
+        
+        if let info = specification.computer.emulatorInfo(for: .c128) as? ViceEmulatorInfo {
+            resources.merge(info.resources) {(_, new) in new}
+        }
         
         if let userJoystickType = userPortModule?.getViceJoystickType(for: specification) {
             resources[.UserportJoy] = .Bool(true)
