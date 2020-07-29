@@ -6202,7 +6202,7 @@
 				4B841CF821F75BAC009CAF4B /* Document Icons */,
 				4BB22EAD21EA8D960075E694 /* 3rd-Party */,
 				4BB22EBB21EB74680075E694 /* Shared */,
-				4B3F974521D7ACC700C272C4 /* C64 */,
+				4B3F974521D7ACC700C272C4 /* Ready */,
 				4B7609F121F47B900058FBCD /* C64UIComponents */,
 				4BA81FB321E4713700D036DE /* vice */,
 				4B3F975D21D7ACC800C272C4 /* C64Tests */,
@@ -6298,7 +6298,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		4B3F974521D7ACC700C272C4 /* C64 */ = {
+		4B3F974521D7ACC700C272C4 /* Ready */ = {
 			isa = PBXGroup;
 			children = (
 				4BD164F0229C4B4900B25212 /* C64.entitlements */,
@@ -6312,7 +6312,7 @@
 				4B3E4A642212B5B400511F08 /* ViewControllers */,
 				4B3E4A632212B5A900511F08 /* Views */,
 			);
-			path = C64;
+			path = Ready;
 			sourceTree = "<group>";
 		};
 		4B3F975D21D7ACC800C272C4 /* C64Tests */ = {
@@ -14376,7 +14376,7 @@
 					C64/Vice,
 					libspectrum,
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/C64/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Ready/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -14406,7 +14406,7 @@
 					C64/Vice,
 					libspectrum,
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/C64/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Ready/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
