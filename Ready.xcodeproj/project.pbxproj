@@ -6187,7 +6187,6 @@
 		4B3F973A21D7ACC700C272C4 = {
 			isa = PBXGroup;
 			children = (
-				4BCF7C6C24B9A92D00172C24 /* Data */,
 				4B9ABB1A24B6232900678531 /* NEWS.md */,
 				4B460E1E2269F70100815E7F /* README.md */,
 				4BBF869C21DA20CA00EF99ED /* TODO.md */,
@@ -6197,12 +6196,12 @@
 				4BB22EB521EB4ADC0075E694 /* specs */,
 				4B3E4A55220EE8A000511F08 /* Licenses */,
 				4B540EB124A8A66200F6925B /* App Icons */,
+				4BCF7C6C24B9A92D00172C24 /* Data */,
 				4B841CF821F75BAC009CAF4B /* Document Icons */,
 				4BB22EAD21EA8D960075E694 /* 3rd-Party */,
 				4BB22EBB21EB74680075E694 /* Shared */,
 				4B3F974521D7ACC700C272C4 /* Ready */,
 				4B7609F121F47B900058FBCD /* C64UIComponents */,
-				4BA81FB321E4713700D036DE /* vice */,
 				4BA1E9C224B49EDE00D935D3 /* RetroMedia */,
 				4B68F8B22496407700A76E57 /* Emulator */,
 				4B9ABB2024B8887000678531 /* cores */,
@@ -9676,6 +9675,7 @@
 				4B9ABB2124B8887000678531 /* atari800 */,
 				4B54101324AB363900F6925B /* fuse */,
 				4B54145F24ABA96600F6925B /* libspectrum */,
+				4BA81FB321E4713700D036DE /* vice */,
 				4BCF7C7624BDA52800172C24 /* x16-emulator */,
 				4BCF7D1B24BDAEC800172C24 /* x16-sdl */,
 			);
@@ -10545,7 +10545,7 @@
 				4B68003D249A225900A76E57 /* VIC20 */,
 			);
 			name = data;
-			path = vice/data;
+			path = cores/vice/data;
 			sourceTree = SOURCE_ROOT;
 		};
 		4BCF7C6C24B9A92D00172C24 /* Data */ = {
@@ -14360,10 +14360,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
-				HEADER_SEARCH_PATHS = (
-					C64/Vice,
-					libspectrum,
-				);
+				HEADER_SEARCH_PATHS = libspectrum;
 				INFOPLIST_FILE = "$(SRCROOT)/Ready/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -14390,10 +14387,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
-				HEADER_SEARCH_PATHS = (
-					C64/Vice,
-					libspectrum,
-				);
+				HEADER_SEARCH_PATHS = libspectrum;
 				INFOPLIST_FILE = "$(SRCROOT)/Ready/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -14423,17 +14417,15 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "VICE_C128=1";
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = (
-					"3rd-Party",
-					vice/src,
-					vice/src/arch/ios,
-					vice/src/vicii,
-					vice/src/joyport,
-					vice/src/raster,
-					vice/src/arch/shared,
-					vice/src/sid,
-					C64,
-					vice/src/drive,
-					vice/src/lib/p64,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
+					cores/vice/src/vicii,
+					cores/vice/src/joyport,
+					cores/vice/src/raster,
+					cores/vice/src/arch/shared,
+					cores/vice/src/sid,
+					cores/vice/src/drive,
+					cores/vice/src/lib/p64,
 				);
 				INFOPLIST_FILE = Emulators/ViceC128/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -14468,17 +14460,15 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "VICE_C128=1";
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = (
-					"3rd-Party",
-					vice/src,
-					vice/src/arch/ios,
-					vice/src/vicii,
-					vice/src/joyport,
-					vice/src/raster,
-					vice/src/arch/shared,
-					vice/src/sid,
-					C64,
-					vice/src/drive,
-					vice/src/lib/p64,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
+					cores/vice/src/vicii,
+					cores/vice/src/joyport,
+					cores/vice/src/raster,
+					cores/vice/src/arch/shared,
+					cores/vice/src/sid,
+					cores/vice/src/drive,
+					cores/vice/src/lib/p64,
 				);
 				INFOPLIST_FILE = Emulators/ViceC128/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -14505,24 +14495,24 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
-					vice/src/core,
-					vice/src/tapeport,
-					vice/src/samplerdrv,
-					vice/src/joyport,
-					vice/src/rtc,
-					vice/src/vdc,
-					vice/src/lib/p64,
-					vice/src/video,
-					vice/src/vicii,
-					vice/src/userport,
-					vice/src/tape,
-					vice/src/sid,
-					vice/src/raster,
-					vice/src/c64/cart,
-					vice/src/c64,
-					vice/src/drive,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
+					cores/vice/src/core,
+					cores/vice/src/tapeport,
+					cores/vice/src/samplerdrv,
+					cores/vice/src/joyport,
+					cores/vice/src/rtc,
+					cores/vice/src/vdc,
+					cores/vice/src/lib/p64,
+					cores/vice/src/video,
+					cores/vice/src/vicii,
+					cores/vice/src/userport,
+					cores/vice/src/tape,
+					cores/vice/src/sid,
+					cores/vice/src/raster,
+					cores/vice/src/c64/cart,
+					cores/vice/src/c64,
+					cores/vice/src/drive,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -14537,24 +14527,24 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
-					vice/src/core,
-					vice/src/tapeport,
-					vice/src/samplerdrv,
-					vice/src/joyport,
-					vice/src/rtc,
-					vice/src/vdc,
-					vice/src/lib/p64,
-					vice/src/video,
-					vice/src/vicii,
-					vice/src/userport,
-					vice/src/tape,
-					vice/src/sid,
-					vice/src/raster,
-					vice/src/c64/cart,
-					vice/src/c64,
-					vice/src/drive,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
+					cores/vice/src/core,
+					cores/vice/src/tapeport,
+					cores/vice/src/samplerdrv,
+					cores/vice/src/joyport,
+					cores/vice/src/rtc,
+					cores/vice/src/vdc,
+					cores/vice/src/lib/p64,
+					cores/vice/src/video,
+					cores/vice/src/vicii,
+					cores/vice/src/userport,
+					cores/vice/src/tape,
+					cores/vice/src/sid,
+					cores/vice/src/raster,
+					cores/vice/src/c64/cart,
+					cores/vice/src/c64,
+					cores/vice/src/drive,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -14569,27 +14559,27 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
-					vice/src/hvsc,
-					vice/src/core,
-					vice/src/tapeport,
-					vice/src/samplerdrv,
-					vice/src/joyport,
-					vice/src/rtc,
-					vice/src/video,
-					vice/src/lib/p64,
-					vice/src/viciivsid,
-					vice/src/viciisc,
-					vice/src/userport,
-					vice/src/tape,
-					vice/src/sid,
-					vice/src/raster,
-					vice/src/drive/iec,
-					vice/src/drive,
-					vice/src/c64/cart,
-					vice/src/c64,
-					vice/src/drive/iec/c64exp,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
+					cores/vice/src/hvsc,
+					cores/vice/src/core,
+					cores/vice/src/tapeport,
+					cores/vice/src/samplerdrv,
+					cores/vice/src/joyport,
+					cores/vice/src/rtc,
+					cores/vice/src/video,
+					cores/vice/src/lib/p64,
+					cores/vice/src/viciivsid,
+					cores/vice/src/viciisc,
+					cores/vice/src/userport,
+					cores/vice/src/tape,
+					cores/vice/src/sid,
+					cores/vice/src/raster,
+					cores/vice/src/drive/iec,
+					cores/vice/src/drive,
+					cores/vice/src/c64/cart,
+					cores/vice/src/c64,
+					cores/vice/src/drive/iec/c64exp,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -14604,27 +14594,27 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
-					vice/src/hvsc,
-					vice/src/core,
-					vice/src/tapeport,
-					vice/src/samplerdrv,
-					vice/src/joyport,
-					vice/src/rtc,
-					vice/src/video,
-					vice/src/lib/p64,
-					vice/src/viciivsid,
-					vice/src/viciisc,
-					vice/src/userport,
-					vice/src/tape,
-					vice/src/sid,
-					vice/src/raster,
-					vice/src/drive/iec,
-					vice/src/drive,
-					vice/src/c64/cart,
-					vice/src/c64,
-					vice/src/drive/iec/c64exp,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
+					cores/vice/src/hvsc,
+					cores/vice/src/core,
+					cores/vice/src/tapeport,
+					cores/vice/src/samplerdrv,
+					cores/vice/src/joyport,
+					cores/vice/src/rtc,
+					cores/vice/src/video,
+					cores/vice/src/lib/p64,
+					cores/vice/src/viciivsid,
+					cores/vice/src/viciisc,
+					cores/vice/src/userport,
+					cores/vice/src/tape,
+					cores/vice/src/sid,
+					cores/vice/src/raster,
+					cores/vice/src/drive/iec,
+					cores/vice/src/drive,
+					cores/vice/src/c64/cart,
+					cores/vice/src/c64,
+					cores/vice/src/drive/iec/c64exp,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -14639,10 +14629,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
-					vice/src/lib/p64,
-					vice/src/drive,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
+					cores/vice/src/lib/p64,
+					cores/vice/src/drive,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -14657,10 +14647,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
-					vice/src/lib/p64,
-					vice/src/drive,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
+					cores/vice/src/lib/p64,
+					cores/vice/src/drive,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -14675,9 +14665,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
-					vice/src/raster,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
+					cores/vice/src/raster,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -14692,9 +14682,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
-					vice/src/raster,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
+					cores/vice/src/raster,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -14709,14 +14699,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
-					vice/src/c64dtv,
-					vice/src/lib/p64,
-					vice/src/c64/cart,
-					vice/src/c64,
-					vice/src/joyport,
-					vice/src/raster,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
+					cores/vice/src/c64dtv,
+					cores/vice/src/lib/p64,
+					cores/vice/src/c64/cart,
+					cores/vice/src/c64,
+					cores/vice/src/joyport,
+					cores/vice/src/raster,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -14731,14 +14721,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
-					vice/src/c64dtv,
-					vice/src/lib/p64,
-					vice/src/c64/cart,
-					vice/src/c64,
-					vice/src/joyport,
-					vice/src/raster,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
+					cores/vice/src/c64dtv,
+					cores/vice/src/lib/p64,
+					cores/vice/src/c64/cart,
+					cores/vice/src/c64,
+					cores/vice/src/joyport,
+					cores/vice/src/raster,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -14766,18 +14756,15 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				HEADER_SEARCH_PATHS = (
-					C64/Vice,
-					"3rd-Party",
-					vice/src,
-					vice/src/arch/ios,
-					vice/src/vicii,
-					vice/src/joyport,
-					vice/src/raster,
-					vice/src/arch/shared,
-					vice/src/sid,
-					C64,
-					vice/src/drive,
-					vice/src/lib/p64,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
+					cores/vice/src/vicii,
+					cores/vice/src/joyport,
+					cores/vice/src/raster,
+					cores/vice/src/arch/shared,
+					cores/vice/src/sid,
+					cores/vice/src/drive,
+					cores/vice/src/lib/p64,
 				);
 				INFOPLIST_FILE = Emulators/VicePlus4/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -14816,18 +14803,15 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				HEADER_SEARCH_PATHS = (
-					C64/Vice,
-					"3rd-Party",
-					vice/src,
-					vice/src/arch/ios,
-					vice/src/vicii,
-					vice/src/joyport,
-					vice/src/raster,
-					vice/src/arch/shared,
-					vice/src/sid,
-					C64,
-					vice/src/drive,
-					vice/src/lib/p64,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
+					cores/vice/src/vicii,
+					cores/vice/src/joyport,
+					cores/vice/src/raster,
+					cores/vice/src/arch/shared,
+					cores/vice/src/sid,
+					cores/vice/src/drive,
+					cores/vice/src/lib/p64,
 				);
 				INFOPLIST_FILE = Emulators/VicePlus4/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -14857,20 +14841,20 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src/tapeport,
-					vice/src/raster,
-					vice/src/userport,
-					vice/src/joyport,
-					vice/src/lib/p64,
-					vice/src/samplerdrv,
-					vice/src/video,
-					vice/src/monitor,
-					vice/src/tape,
-					vice/src/sid,
-					vice/src/drive,
-					vice/src/core,
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src/tapeport,
+					cores/vice/src/raster,
+					cores/vice/src/userport,
+					cores/vice/src/joyport,
+					cores/vice/src/lib/p64,
+					cores/vice/src/samplerdrv,
+					cores/vice/src/video,
+					cores/vice/src/monitor,
+					cores/vice/src/tape,
+					cores/vice/src/sid,
+					cores/vice/src/drive,
+					cores/vice/src/core,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -14885,20 +14869,20 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src/tapeport,
-					vice/src/raster,
-					vice/src/userport,
-					vice/src/joyport,
-					vice/src/lib/p64,
-					vice/src/samplerdrv,
-					vice/src/video,
-					vice/src/monitor,
-					vice/src/tape,
-					vice/src/sid,
-					vice/src/drive,
-					vice/src/core,
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src/tapeport,
+					cores/vice/src/raster,
+					cores/vice/src/userport,
+					cores/vice/src/joyport,
+					cores/vice/src/lib/p64,
+					cores/vice/src/samplerdrv,
+					cores/vice/src/video,
+					cores/vice/src/monitor,
+					cores/vice/src/tape,
+					cores/vice/src/sid,
+					cores/vice/src/drive,
+					cores/vice/src/core,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -14917,10 +14901,10 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src/lib/p64,
-					vice/src/drive/iec,
-					vice/src/drive,
-					vice/src,
+					cores/vice/src/lib/p64,
+					cores/vice/src/drive/iec,
+					cores/vice/src/drive,
+					cores/vice/src,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -14935,10 +14919,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src/lib/p64,
-					vice/src/drive/iec,
-					vice/src/drive,
-					vice/src,
+					cores/vice/src/lib/p64,
+					cores/vice/src/drive/iec,
+					cores/vice/src/drive,
+					cores/vice/src,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15085,27 +15069,27 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
-					vice/src/hvsc,
-					vice/src/core,
-					vice/src/tapeport,
-					vice/src/samplerdrv,
-					vice/src/joyport,
-					vice/src/rtc,
-					vice/src/video,
-					vice/src/lib/p64,
-					vice/src/viciivsid,
-					vice/src/viciisc,
-					vice/src/userport,
-					vice/src/tape,
-					vice/src/sid,
-					vice/src/raster,
-					vice/src/drive/iec,
-					vice/src/drive,
-					vice/src/c64/cart,
-					vice/src/c64,
-					vice/src/drive/iec/c64exp,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
+					cores/vice/src/hvsc,
+					cores/vice/src/core,
+					cores/vice/src/tapeport,
+					cores/vice/src/samplerdrv,
+					cores/vice/src/joyport,
+					cores/vice/src/rtc,
+					cores/vice/src/video,
+					cores/vice/src/lib/p64,
+					cores/vice/src/viciivsid,
+					cores/vice/src/viciisc,
+					cores/vice/src/userport,
+					cores/vice/src/tape,
+					cores/vice/src/sid,
+					cores/vice/src/raster,
+					cores/vice/src/drive/iec,
+					cores/vice/src/drive,
+					cores/vice/src/c64/cart,
+					cores/vice/src/c64,
+					cores/vice/src/drive/iec/c64exp,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15120,27 +15104,27 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
-					vice/src/hvsc,
-					vice/src/core,
-					vice/src/tapeport,
-					vice/src/samplerdrv,
-					vice/src/joyport,
-					vice/src/rtc,
-					vice/src/video,
-					vice/src/lib/p64,
-					vice/src/viciivsid,
-					vice/src/viciisc,
-					vice/src/userport,
-					vice/src/tape,
-					vice/src/sid,
-					vice/src/raster,
-					vice/src/drive/iec,
-					vice/src/drive,
-					vice/src/c64/cart,
-					vice/src/c64,
-					vice/src/drive/iec/c64exp,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
+					cores/vice/src/hvsc,
+					cores/vice/src/core,
+					cores/vice/src/tapeport,
+					cores/vice/src/samplerdrv,
+					cores/vice/src/joyport,
+					cores/vice/src/rtc,
+					cores/vice/src/video,
+					cores/vice/src/lib/p64,
+					cores/vice/src/viciivsid,
+					cores/vice/src/viciisc,
+					cores/vice/src/userport,
+					cores/vice/src/tape,
+					cores/vice/src/sid,
+					cores/vice/src/raster,
+					cores/vice/src/drive/iec,
+					cores/vice/src/drive,
+					cores/vice/src/c64/cart,
+					cores/vice/src/c64,
+					cores/vice/src/drive/iec/c64exp,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15159,17 +15143,17 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
-					vice/src/core,
-					vice/src/samplerdrv,
-					vice/src/rtc,
-					vice/src/lib/p64,
-					vice/src/sid,
-					vice/src/arch/shared,
-					vice/src/vicii,
-					vice/src/c64,
-					vice/src/drive,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
+					cores/vice/src/core,
+					cores/vice/src/samplerdrv,
+					cores/vice/src/rtc,
+					cores/vice/src/lib/p64,
+					cores/vice/src/sid,
+					cores/vice/src/arch/shared,
+					cores/vice/src/vicii,
+					cores/vice/src/c64,
+					cores/vice/src/drive,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15184,17 +15168,17 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
-					vice/src/core,
-					vice/src/samplerdrv,
-					vice/src/rtc,
-					vice/src/lib/p64,
-					vice/src/sid,
-					vice/src/arch/shared,
-					vice/src/vicii,
-					vice/src/c64,
-					vice/src/drive,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
+					cores/vice/src/core,
+					cores/vice/src/samplerdrv,
+					cores/vice/src/rtc,
+					cores/vice/src/lib/p64,
+					cores/vice/src/sid,
+					cores/vice/src/arch/shared,
+					cores/vice/src/vicii,
+					cores/vice/src/c64,
+					cores/vice/src/drive,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15213,17 +15197,17 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
-					vice/src/core,
-					vice/src/samplerdrv,
-					vice/src/rtc,
-					vice/src/lib/p64,
-					vice/src/sid,
-					vice/src/arch/shared,
-					vice/src/vicii,
-					vice/src/c64,
-					vice/src/drive,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
+					cores/vice/src/core,
+					cores/vice/src/samplerdrv,
+					cores/vice/src/rtc,
+					cores/vice/src/lib/p64,
+					cores/vice/src/sid,
+					cores/vice/src/arch/shared,
+					cores/vice/src/vicii,
+					cores/vice/src/c64,
+					cores/vice/src/drive,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15238,17 +15222,17 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
-					vice/src/core,
-					vice/src/samplerdrv,
-					vice/src/rtc,
-					vice/src/lib/p64,
-					vice/src/sid,
-					vice/src/arch/shared,
-					vice/src/vicii,
-					vice/src/c64,
-					vice/src/drive,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
+					cores/vice/src/core,
+					cores/vice/src/samplerdrv,
+					cores/vice/src/rtc,
+					cores/vice/src/lib/p64,
+					cores/vice/src/sid,
+					cores/vice/src/arch/shared,
+					cores/vice/src/vicii,
+					cores/vice/src/c64,
+					cores/vice/src/drive,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15267,12 +15251,12 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
-					vice/src/core,
-					vice/src/lib/p64,
-					vice/src/drive/iec,
-					vice/src/drive,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
+					cores/vice/src/core,
+					cores/vice/src/lib/p64,
+					cores/vice/src/drive/iec,
+					cores/vice/src/drive,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15287,12 +15271,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
-					vice/src/core,
-					vice/src/lib/p64,
-					vice/src/drive/iec,
-					vice/src/drive,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
+					cores/vice/src/core,
+					cores/vice/src/lib/p64,
+					cores/vice/src/drive/iec,
+					cores/vice/src/drive,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15311,13 +15295,13 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
-					vice/src/c64/cart,
-					vice/src/c64,
-					vice/src/joyport,
-					vice/src/raster,
-					vice/src/lib/p64,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
+					cores/vice/src/c64/cart,
+					cores/vice/src/c64,
+					cores/vice/src/joyport,
+					cores/vice/src/raster,
+					cores/vice/src/lib/p64,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15332,13 +15316,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
-					vice/src/c64/cart,
-					vice/src/c64,
-					vice/src/joyport,
-					vice/src/raster,
-					vice/src/lib/p64,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
+					cores/vice/src/c64/cart,
+					cores/vice/src/c64,
+					cores/vice/src/joyport,
+					cores/vice/src/raster,
+					cores/vice/src/lib/p64,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15381,8 +15365,8 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15397,8 +15381,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15485,18 +15469,15 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "VICE_C64=1";
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = (
-					C64/Vice,
-					"3rd-Party",
-					vice/src,
-					vice/src/arch/ios,
-					vice/src/vicii,
-					vice/src/joyport,
-					vice/src/raster,
-					vice/src/arch/shared,
-					vice/src/sid,
-					C64,
-					vice/src/drive,
-					vice/src/lib/p64,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
+					cores/vice/src/vicii,
+					cores/vice/src/joyport,
+					cores/vice/src/raster,
+					cores/vice/src/arch/shared,
+					cores/vice/src/sid,
+					cores/vice/src/drive,
+					cores/vice/src/lib/p64,
 				);
 				INFOPLIST_FILE = Emulators/ViceC64/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -15531,18 +15512,15 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "VICE_C64=1";
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = (
-					C64/Vice,
-					"3rd-Party",
-					vice/src,
-					vice/src/arch/ios,
-					vice/src/vicii,
-					vice/src/joyport,
-					vice/src/raster,
-					vice/src/arch/shared,
-					vice/src/sid,
-					C64,
-					vice/src/drive,
-					vice/src/lib/p64,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
+					cores/vice/src/vicii,
+					cores/vice/src/joyport,
+					cores/vice/src/raster,
+					cores/vice/src/arch/shared,
+					cores/vice/src/sid,
+					cores/vice/src/drive,
+					cores/vice/src/lib/p64,
 				);
 				INFOPLIST_FILE = Emulators/ViceC64/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -15577,18 +15555,15 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "VICE_VIC20=1";
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = (
-					C64/Vice,
-					"3rd-Party",
-					vice/src,
-					vice/src/arch/ios,
-					vice/src/vicii,
-					vice/src/joyport,
-					vice/src/raster,
-					vice/src/arch/shared,
-					vice/src/sid,
-					C64,
-					vice/src/drive,
-					vice/src/lib/p64,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
+					cores/vice/src/vicii,
+					cores/vice/src/joyport,
+					cores/vice/src/raster,
+					cores/vice/src/arch/shared,
+					cores/vice/src/sid,
+					cores/vice/src/drive,
+					cores/vice/src/lib/p64,
 				);
 				INFOPLIST_FILE = Emulators/ViceVIC20/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -15622,18 +15597,15 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "VICE_VIC20=1";
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = (
-					C64/Vice,
-					"3rd-Party",
-					vice/src,
-					vice/src/arch/ios,
-					vice/src/vicii,
-					vice/src/joyport,
-					vice/src/raster,
-					vice/src/arch/shared,
-					vice/src/sid,
-					C64,
-					vice/src/drive,
-					vice/src/lib/p64,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
+					cores/vice/src/vicii,
+					cores/vice/src/joyport,
+					cores/vice/src/raster,
+					cores/vice/src/arch/shared,
+					cores/vice/src/sid,
+					cores/vice/src/drive,
+					cores/vice/src/lib/p64,
 				);
 				INFOPLIST_FILE = Emulators/ViceVIC20/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -15663,20 +15635,20 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src/core,
-					vice/src/tapeport,
-					vice/src/samplerdrv,
-					vice/src/joyport,
-					vice/src/lib/p64,
-					vice/src/vic20/cart,
-					vice/src/userport,
-					vice/src/video,
-					vice/src/raster,
-					vice/src/tape,
-					vice/src/sid,
-					vice/src/drive,
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src/core,
+					cores/vice/src/tapeport,
+					cores/vice/src/samplerdrv,
+					cores/vice/src/joyport,
+					cores/vice/src/lib/p64,
+					cores/vice/src/vic20/cart,
+					cores/vice/src/userport,
+					cores/vice/src/video,
+					cores/vice/src/raster,
+					cores/vice/src/tape,
+					cores/vice/src/sid,
+					cores/vice/src/drive,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15691,20 +15663,20 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src/core,
-					vice/src/tapeport,
-					vice/src/samplerdrv,
-					vice/src/joyport,
-					vice/src/lib/p64,
-					vice/src/vic20/cart,
-					vice/src/userport,
-					vice/src/video,
-					vice/src/raster,
-					vice/src/tape,
-					vice/src/sid,
-					vice/src/drive,
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src/core,
+					cores/vice/src/tapeport,
+					cores/vice/src/samplerdrv,
+					cores/vice/src/joyport,
+					cores/vice/src/lib/p64,
+					cores/vice/src/vic20/cart,
+					cores/vice/src/userport,
+					cores/vice/src/video,
+					cores/vice/src/raster,
+					cores/vice/src/tape,
+					cores/vice/src/sid,
+					cores/vice/src/drive,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15723,13 +15695,13 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src/lib/p64,
-					vice/src/vic20,
-					vice/src/sid,
-					vice/src/raster,
-					vice/src/c64/cart,
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src/lib/p64,
+					cores/vice/src/vic20,
+					cores/vice/src/sid,
+					cores/vice/src/raster,
+					cores/vice/src/c64/cart,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15744,13 +15716,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src/lib/p64,
-					vice/src/vic20,
-					vice/src/sid,
-					vice/src/raster,
-					vice/src/c64/cart,
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src/lib/p64,
+					cores/vice/src/vic20,
+					cores/vice/src/sid,
+					cores/vice/src/raster,
+					cores/vice/src/c64/cart,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15769,20 +15741,20 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src/core,
-					vice/src/tapeport,
-					vice/src/samplerdrv,
-					vice/src/joyport,
-					vice/src/lib/p64,
-					vice/src/vic20/cart,
-					vice/src/userport,
-					vice/src/video,
-					vice/src/raster,
-					vice/src/tape,
-					vice/src/sid,
-					vice/src/drive,
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src/core,
+					cores/vice/src/tapeport,
+					cores/vice/src/samplerdrv,
+					cores/vice/src/joyport,
+					cores/vice/src/lib/p64,
+					cores/vice/src/vic20/cart,
+					cores/vice/src/userport,
+					cores/vice/src/video,
+					cores/vice/src/raster,
+					cores/vice/src/tape,
+					cores/vice/src/sid,
+					cores/vice/src/drive,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15797,20 +15769,20 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src/core,
-					vice/src/tapeport,
-					vice/src/samplerdrv,
-					vice/src/joyport,
-					vice/src/lib/p64,
-					vice/src/vic20/cart,
-					vice/src/userport,
-					vice/src/video,
-					vice/src/raster,
-					vice/src/tape,
-					vice/src/sid,
-					vice/src/drive,
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src/core,
+					cores/vice/src/tapeport,
+					cores/vice/src/samplerdrv,
+					cores/vice/src/joyport,
+					cores/vice/src/lib/p64,
+					cores/vice/src/vic20/cart,
+					cores/vice/src/userport,
+					cores/vice/src/video,
+					cores/vice/src/raster,
+					cores/vice/src/tape,
+					cores/vice/src/sid,
+					cores/vice/src/drive,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15829,12 +15801,12 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
-					vice/src/arch/shared,
-					vice/src/sid,
-					vice/src/drive,
-					vice/src/lib/p64,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
+					cores/vice/src/sid,
+					cores/vice/src/drive,
+					cores/vice/src/lib/p64,
 					Emulator,
 				);
 				OTHER_LDFLAGS = "-ObjC";
@@ -15850,12 +15822,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
-					vice/src/arch/shared,
-					vice/src/sid,
-					vice/src/drive,
-					vice/src/lib/p64,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
+					cores/vice/src/sid,
+					cores/vice/src/drive,
+					cores/vice/src/lib/p64,
 					Emulator,
 				);
 				OTHER_LDFLAGS = "-ObjC";
@@ -15875,10 +15847,10 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src/diag,
-					vice/src/rtc,
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src/diag,
+					cores/vice/src/rtc,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15893,10 +15865,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src/diag,
-					vice/src/rtc,
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src/diag,
+					cores/vice/src/rtc,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15915,17 +15887,17 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src/arch/shared,
-					vice/src/samplerdrv,
-					vice/src/vicii,
-					vice/src/lib/p64,
-					vice/src/sid,
-					vice/src/c64,
-					vice/src/rtc,
-					vice/src/drive,
-					vice/src/core,
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src/arch/shared,
+					cores/vice/src/samplerdrv,
+					cores/vice/src/vicii,
+					cores/vice/src/lib/p64,
+					cores/vice/src/sid,
+					cores/vice/src/c64,
+					cores/vice/src/rtc,
+					cores/vice/src/drive,
+					cores/vice/src/core,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15940,17 +15912,17 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src/arch/shared,
-					vice/src/samplerdrv,
-					vice/src/vicii,
-					vice/src/lib/p64,
-					vice/src/sid,
-					vice/src/c64,
-					vice/src/rtc,
-					vice/src/drive,
-					vice/src/core,
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src/arch/shared,
+					cores/vice/src/samplerdrv,
+					cores/vice/src/vicii,
+					cores/vice/src/lib/p64,
+					cores/vice/src/sid,
+					cores/vice/src/c64,
+					cores/vice/src/rtc,
+					cores/vice/src/drive,
+					cores/vice/src/core,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15969,9 +15941,9 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src/lib/p64,
-					vice/src/drive,
-					vice/src,
+					cores/vice/src/lib/p64,
+					cores/vice/src/drive,
+					cores/vice/src,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15986,9 +15958,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src/lib/p64,
-					vice/src/drive,
-					vice/src,
+					cores/vice/src/lib/p64,
+					cores/vice/src/drive,
+					cores/vice/src,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16007,9 +15979,9 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src/lib/p64,
-					vice/src/drive,
-					vice/src,
+					cores/vice/src/lib/p64,
+					cores/vice/src/drive,
+					cores/vice/src,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16024,9 +15996,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src/lib/p64,
-					vice/src/drive,
-					vice/src,
+					cores/vice/src/lib/p64,
+					cores/vice/src/drive,
+					cores/vice/src,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16045,9 +16017,9 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src/lib/p64,
-					vice/src/drive,
-					vice/src,
+					cores/vice/src/lib/p64,
+					cores/vice/src/drive,
+					cores/vice/src,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16062,9 +16034,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src/lib/p64,
-					vice/src/drive,
-					vice/src,
+					cores/vice/src/lib/p64,
+					cores/vice/src/drive,
+					cores/vice/src,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16083,14 +16055,14 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src/drive/ieee,
-					vice/src/drive/tcbm,
-					vice/src/drive/iec,
-					vice/src/lib/p64,
-					vice/src/rtc,
-					vice/src/vdrive,
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src/drive/ieee,
+					cores/vice/src/drive/tcbm,
+					cores/vice/src/drive/iec,
+					cores/vice/src/lib/p64,
+					cores/vice/src/rtc,
+					cores/vice/src/vdrive,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16105,14 +16077,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src/drive/ieee,
-					vice/src/drive/tcbm,
-					vice/src/drive/iec,
-					vice/src/lib/p64,
-					vice/src/rtc,
-					vice/src/vdrive,
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src/drive/ieee,
+					cores/vice/src/drive/tcbm,
+					cores/vice/src/drive/iec,
+					cores/vice/src/lib/p64,
+					cores/vice/src/rtc,
+					cores/vice/src/vdrive,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16131,9 +16103,9 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src/lib/p64,
-					vice/src/drive,
-					vice/src,
+					cores/vice/src/lib/p64,
+					cores/vice/src/drive,
+					cores/vice/src,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16148,9 +16120,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src/lib/p64,
-					vice/src/drive,
-					vice/src,
+					cores/vice/src/lib/p64,
+					cores/vice/src/drive,
+					cores/vice/src,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16168,7 +16140,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				HEADER_SEARCH_PATHS = vice/src;
+				HEADER_SEARCH_PATHS = cores/vice/src;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16181,7 +16153,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
-				HEADER_SEARCH_PATHS = vice/src;
+				HEADER_SEARCH_PATHS = cores/vice/src;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16199,9 +16171,9 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src/lib/p64,
-					vice/src/drive,
-					vice/src,
+					cores/vice/src/lib/p64,
+					cores/vice/src/drive,
+					cores/vice/src,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16216,9 +16188,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src/lib/p64,
-					vice/src/drive,
-					vice/src,
+					cores/vice/src/lib/p64,
+					cores/vice/src/drive,
+					cores/vice/src,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16238,10 +16210,10 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src/lib/p64,
-					vice/src/drive,
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src/lib/p64,
+					cores/vice/src/drive,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16257,10 +16229,10 @@
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				FRAMEWORK_SEARCH_PATHS = "${SRCROOT}/ViceC64";
 				HEADER_SEARCH_PATHS = (
-					vice/src/lib/p64,
-					vice/src/drive,
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src/lib/p64,
+					cores/vice/src/drive,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16279,9 +16251,9 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src/lib/p64,
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src/lib/p64,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16296,9 +16268,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src/lib/p64,
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src/lib/p64,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16317,14 +16289,14 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
-					vice/src/monitor,
-					vice/src/imagecontents,
-					vice/src/lib/p64,
-					vice/src/vdrive,
-					vice/src/drive,
-					vice/src/arch/unix/readline,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
+					cores/vice/src/monitor,
+					cores/vice/src/imagecontents,
+					cores/vice/src/lib/p64,
+					cores/vice/src/vdrive,
+					cores/vice/src/drive,
+					cores/vice/src/arch/unix/readline,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16339,14 +16311,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
-					vice/src/monitor,
-					vice/src/imagecontents,
-					vice/src/lib/p64,
-					vice/src/vdrive,
-					vice/src/drive,
-					vice/src/arch/unix/readline,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
+					cores/vice/src/monitor,
+					cores/vice/src/imagecontents,
+					cores/vice/src/lib/p64,
+					cores/vice/src/vdrive,
+					cores/vice/src/drive,
+					cores/vice/src/arch/unix/readline,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16365,11 +16337,11 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src/resid,
-					vice/src/arch/ios,
-					vice/src/joyport,
-					vice/src,
-					vice/src/sid,
+					cores/vice/src/resid,
+					cores/vice/src/arch/ios,
+					cores/vice/src/joyport,
+					cores/vice/src,
+					cores/vice/src/sid,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16384,11 +16356,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src/resid,
-					vice/src/arch/ios,
-					vice/src/joyport,
-					vice/src,
-					vice/src/sid,
+					cores/vice/src/resid,
+					cores/vice/src/arch/ios,
+					cores/vice/src/joyport,
+					cores/vice/src,
+					cores/vice/src/sid,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16407,9 +16379,9 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src/joyport,
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src/joyport,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16424,9 +16396,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src/joyport,
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src/joyport,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16445,14 +16417,14 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src/samplerdrv,
-					vice/src/joyport,
-					vice/src/rtc,
-					vice/src/lib/p64,
-					vice/src/c64/cart,
-					vice/src,
-					vice/src/diag,
-					vice/src/arch/ios,
+					cores/vice/src/samplerdrv,
+					cores/vice/src/joyport,
+					cores/vice/src/rtc,
+					cores/vice/src/lib/p64,
+					cores/vice/src/c64/cart,
+					cores/vice/src,
+					cores/vice/src/diag,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16467,14 +16439,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src/samplerdrv,
-					vice/src/joyport,
-					vice/src/rtc,
-					vice/src/lib/p64,
-					vice/src/c64/cart,
-					vice/src,
-					vice/src/diag,
-					vice/src/arch/ios,
+					cores/vice/src/samplerdrv,
+					cores/vice/src/joyport,
+					cores/vice/src/rtc,
+					cores/vice/src/lib/p64,
+					cores/vice/src/c64/cart,
+					cores/vice/src,
+					cores/vice/src/diag,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16492,7 +16464,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				HEADER_SEARCH_PATHS = vice/src;
+				HEADER_SEARCH_PATHS = cores/vice/src;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16505,7 +16477,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
-				HEADER_SEARCH_PATHS = vice/src;
+				HEADER_SEARCH_PATHS = cores/vice/src;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16523,8 +16495,8 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16539,8 +16511,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16559,8 +16531,8 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16575,8 +16547,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16595,9 +16567,9 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src/lib/p64,
-					vice/src/vdrive,
-					vice/src,
+					cores/vice/src/lib/p64,
+					cores/vice/src/vdrive,
+					cores/vice/src,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16612,9 +16584,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src/lib/p64,
-					vice/src/vdrive,
-					vice/src,
+					cores/vice/src/lib/p64,
+					cores/vice/src/vdrive,
+					cores/vice/src,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16661,8 +16633,8 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16677,8 +16649,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16697,9 +16669,9 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src/lib/p64,
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src/lib/p64,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16714,9 +16686,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src/lib/p64,
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src/lib/p64,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16735,8 +16707,8 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16751,8 +16723,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16771,10 +16743,10 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src/lib/p64,
-					vice/src/vdrive,
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src/lib/p64,
+					cores/vice/src/vdrive,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16789,10 +16761,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src/lib/p64,
-					vice/src/vdrive,
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src/lib/p64,
+					cores/vice/src/vdrive,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16811,9 +16783,9 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src/sounddrv,
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src/sounddrv,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16828,9 +16800,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src/sounddrv,
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src/sounddrv,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16849,10 +16821,10 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src/iodrv,
-					vice/src/platform,
-					vice/src/sid,
-					vice/src,
+					cores/vice/src/iodrv,
+					cores/vice/src/platform,
+					cores/vice/src/sid,
+					cores/vice/src,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16867,10 +16839,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src/iodrv,
-					vice/src/platform,
-					vice/src/sid,
-					vice/src,
+					cores/vice/src/iodrv,
+					cores/vice/src/platform,
+					cores/vice/src/sid,
+					cores/vice/src,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16888,7 +16860,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				HEADER_SEARCH_PATHS = vice/src;
+				HEADER_SEARCH_PATHS = cores/vice/src;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16901,7 +16873,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
-				HEADER_SEARCH_PATHS = vice/src;
+				HEADER_SEARCH_PATHS = cores/vice/src;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16919,12 +16891,12 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/userport,
-					vice/src/rtc,
-					vice/src/samplerdrv,
-					vice/src/arch/ios,
-					vice/src/joyport,
+					cores/vice/src,
+					cores/vice/src/userport,
+					cores/vice/src/rtc,
+					cores/vice/src/samplerdrv,
+					cores/vice/src/arch/ios,
+					cores/vice/src/joyport,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16939,12 +16911,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/userport,
-					vice/src/rtc,
-					vice/src/samplerdrv,
-					vice/src/arch/ios,
-					vice/src/joyport,
+					cores/vice/src,
+					cores/vice/src/userport,
+					cores/vice/src/rtc,
+					cores/vice/src/samplerdrv,
+					cores/vice/src/arch/ios,
+					cores/vice/src/joyport,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16962,7 +16934,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				HEADER_SEARCH_PATHS = vice/src;
+				HEADER_SEARCH_PATHS = cores/vice/src;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16975,7 +16947,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
-				HEADER_SEARCH_PATHS = vice/src;
+				HEADER_SEARCH_PATHS = cores/vice/src;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16993,9 +16965,9 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src/userport,
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src/userport,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -17010,9 +16982,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src/userport,
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src/userport,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -17031,8 +17003,8 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -17047,8 +17019,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -17066,7 +17038,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				HEADER_SEARCH_PATHS = vice/src;
+				HEADER_SEARCH_PATHS = cores/vice/src;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17079,7 +17051,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
-				HEADER_SEARCH_PATHS = vice/src;
+				HEADER_SEARCH_PATHS = cores/vice/src;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17097,9 +17069,9 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src/lib/p64,
-					vice/src/drive,
-					vice/src,
+					cores/vice/src/lib/p64,
+					cores/vice/src/drive,
+					cores/vice/src,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -17114,9 +17086,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src/lib/p64,
-					vice/src/drive,
-					vice/src,
+					cores/vice/src/lib/p64,
+					cores/vice/src/drive,
+					cores/vice/src,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -17135,8 +17107,8 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -17151,8 +17123,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -17171,8 +17143,8 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -17187,8 +17159,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -17207,26 +17179,26 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
-					vice/src/hvsc,
-					vice/src/socetdrv,
-					vice/src/tape,
-					vice/src/tapeport,
-					vice/src/rtc,
-					vice/src/joyport,
-					vice/src/lib/p64,
-					vice/src/userport,
-					vice/src/diag,
-					vice/src/imagecontents,
-					vice/src/diskimage,
-					vice/src/vdrive,
-					vice/src/vic20,
-					vice/src/plus4,
-					vice/src/monitor,
-					vice/src/drive,
-					vice/src/c64,
-					vice/src/arch/unix/readline,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
+					cores/vice/src/hvsc,
+					cores/vice/src/socetdrv,
+					cores/vice/src/tape,
+					cores/vice/src/tapeport,
+					cores/vice/src/rtc,
+					cores/vice/src/joyport,
+					cores/vice/src/lib/p64,
+					cores/vice/src/userport,
+					cores/vice/src/diag,
+					cores/vice/src/imagecontents,
+					cores/vice/src/diskimage,
+					cores/vice/src/vdrive,
+					cores/vice/src/vic20,
+					cores/vice/src/plus4,
+					cores/vice/src/monitor,
+					cores/vice/src/drive,
+					cores/vice/src/c64,
+					cores/vice/src/arch/unix/readline,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -17241,26 +17213,26 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
-					vice/src/hvsc,
-					vice/src/socetdrv,
-					vice/src/tape,
-					vice/src/tapeport,
-					vice/src/rtc,
-					vice/src/joyport,
-					vice/src/lib/p64,
-					vice/src/userport,
-					vice/src/diag,
-					vice/src/imagecontents,
-					vice/src/diskimage,
-					vice/src/vdrive,
-					vice/src/vic20,
-					vice/src/plus4,
-					vice/src/monitor,
-					vice/src/drive,
-					vice/src/c64,
-					vice/src/arch/unix/readline,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
+					cores/vice/src/hvsc,
+					cores/vice/src/socetdrv,
+					cores/vice/src/tape,
+					cores/vice/src/tapeport,
+					cores/vice/src/rtc,
+					cores/vice/src/joyport,
+					cores/vice/src/lib/p64,
+					cores/vice/src/userport,
+					cores/vice/src/diag,
+					cores/vice/src/imagecontents,
+					cores/vice/src/diskimage,
+					cores/vice/src/vdrive,
+					cores/vice/src/vic20,
+					cores/vice/src/plus4,
+					cores/vice/src/monitor,
+					cores/vice/src/drive,
+					cores/vice/src/c64,
+					cores/vice/src/arch/unix/readline,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -17279,8 +17251,8 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -17295,8 +17267,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
-					vice/src,
-					vice/src/arch/ios,
+					cores/vice/src,
+					cores/vice/src/arch/ios,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -17438,11 +17410,7 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				HEADER_SEARCH_PATHS = (
-					cores/atari800/src,
-					C64/Vice,
-					"3rd-Party",
-				);
+				HEADER_SEARCH_PATHS = cores/atari800/src;
 				INFOPLIST_FILE = Emulators/Atari800/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -17480,11 +17448,7 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				HEADER_SEARCH_PATHS = (
-					cores/atari800/src,
-					C64/Vice,
-					"3rd-Party",
-				);
+				HEADER_SEARCH_PATHS = cores/atari800/src;
 				INFOPLIST_FILE = Emulators/Atari800/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
