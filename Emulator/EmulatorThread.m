@@ -111,7 +111,6 @@
 }
 
 - (void)displayImage {
-
     for (size_t i = 0; i < _renderers.count; i++) {
         Renderer *renderer = _renderers[i];
         if (_screenVisible[i] == renderer.changed) {

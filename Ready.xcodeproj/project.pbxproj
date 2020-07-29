@@ -1490,6 +1490,9 @@
 		4BEBC6D12200A6C3009DED63 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEBC6D02200A6C3009DED63 /* SwitchTableViewCell.swift */; };
 		4BEBC6D822036035009DED63 /* FullScreenImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEBC6D622035FFB009DED63 /* FullScreenImageViewController.swift */; };
 		4BEBC6DA2205A237009DED63 /* DebugLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEBC6D92205A237009DED63 /* DebugLog.swift */; };
+		4BF2110824D157AE00CD233F /* Icon-Amiga-60.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BF2110524D157AE00CD233F /* Icon-Amiga-60.png */; };
+		4BF2110924D157AE00CD233F /* Icon-Amiga-83.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BF2110624D157AE00CD233F /* Icon-Amiga-83.5.png */; };
+		4BF2110A24D157AE00CD233F /* Icon-Amiga-76.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BF2110724D157AE00CD233F /* Icon-Amiga-76.png */; };
 		4BF57EF9225C8F7D00909B2B /* DirectoryWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF57EF8225C8F7D00909B2B /* DirectoryWatcher.swift */; };
 		4BF57EFB225CA83D00909B2B /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF57EFA225CA83D00909B2B /* TabBarViewController.swift */; };
 		4BF57EFD2260EB6500909B2B /* InputMappingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF57EFC2260EB6500909B2B /* InputMappingTableViewCell.swift */; };
@@ -5374,6 +5377,9 @@
 		4BEBC6D32201E5F3009DED63 /* C64-6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "C64-6.xcdatamodel"; sourceTree = "<group>"; };
 		4BEBC6D622035FFB009DED63 /* FullScreenImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenImageViewController.swift; sourceTree = "<group>"; };
 		4BEBC6D92205A237009DED63 /* DebugLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLog.swift; sourceTree = "<group>"; };
+		4BF2110524D157AE00CD233F /* Icon-Amiga-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Amiga-60.png"; sourceTree = "<group>"; };
+		4BF2110624D157AE00CD233F /* Icon-Amiga-83.5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Amiga-83.5.png"; sourceTree = "<group>"; };
+		4BF2110724D157AE00CD233F /* Icon-Amiga-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Amiga-76.png"; sourceTree = "<group>"; };
 		4BF57EF8225C8F7D00909B2B /* DirectoryWatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryWatcher.swift; sourceTree = "<group>"; };
 		4BF57EFA225CA83D00909B2B /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		4BF57EFC2260EB6500909B2B /* InputMappingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputMappingTableViewCell.swift; sourceTree = "<group>"; };
@@ -8098,6 +8104,9 @@
 		4B540EB124A8A66200F6925B /* App Icons */ = {
 			isa = PBXGroup;
 			children = (
+				4BF2110524D157AE00CD233F /* Icon-Amiga-60.png */,
+				4BF2110724D157AE00CD233F /* Icon-Amiga-76.png */,
+				4BF2110624D157AE00CD233F /* Icon-Amiga-83.5.png */,
 				4B54100824A9E16000F6925B /* Icon-C16-60.png */,
 				4B54100724A9E16000F6925B /* Icon-C16-76.png */,
 				4B54100924A9E16000F6925B /* Icon-C16-83.5.png */,
@@ -12337,6 +12346,7 @@
 				4B540ECF24A8D84100F6925B /* Icon-SX64-60.png in Resources */,
 				4B54101024AA7FF000F6925B /* Icon-ZX48-83.5.png in Resources */,
 				4B3182C62281E320006D86AC /* Compact Flash Card.png in Resources */,
+				4BF2110824D157AE00CD233F /* Icon-Amiga-60.png in Resources */,
 				4B79795021DBDBB70047FBE6 /* LaunchScreen.storyboard in Resources */,
 				4BCF7CCA24BDA7B900172C24 /* x16-emulator in Resources */,
 				4B540ECD24A8D84100F6925B /* Icon-VIC20-76.png in Resources */,
@@ -12355,6 +12365,7 @@
 				4B54100B24A9E16000F6925B /* Icon-C16-60.png in Resources */,
 				4BCF7C6E24B9A95A00172C24 /* atari800 in Resources */,
 				4B54100C24A9E16000F6925B /* Icon-C16-83.5.png in Resources */,
+				4BF2110A24D157AE00CD233F /* Icon-Amiga-76.png in Resources */,
 				4B841CFC21F76AB3009CAF4B /* Floppy525Document.png in Resources */,
 				4B540ECE24A8D84100F6925B /* Icon-VIC20-60.png in Resources */,
 				4B1CA20724BE556B0074D45C /* Icon-X16-60.png in Resources */,
@@ -12364,6 +12375,7 @@
 				4B1CA20624BE556B0074D45C /* Icon-X16-83.5.png in Resources */,
 				4B54100A24A9E16000F6925B /* Icon-C16-76.png in Resources */,
 				4B3E4A56220EE8A000511F08 /* Licenses in Resources */,
+				4BF2110924D157AE00CD233F /* Icon-Amiga-83.5.png in Resources */,
 				4B54101224AA7FF000F6925B /* Icon-ZX48-60.png in Resources */,
 				4B540ECC24A8D84100F6925B /* Icon-SX64-83.5.png in Resources */,
 				4BCF7C7324BA0C8400172C24 /* Icon-XL-83.5.png in Resources */,
