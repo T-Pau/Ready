@@ -47,6 +47,7 @@
 #endif
 
 static FILE *log_file = NULL;
+static int close_log_file = 0;
 
 static char **logs = NULL;
 static log_t num_logs = 0;
@@ -73,6 +74,7 @@ static void log_file_open(void)
     }
     /* flush all data direct to the output stream. */
     if (log_file) {
+        close_log_file = (log_file != stdout);
         setbuf(log_file, NULL);
     }
 }
@@ -88,7 +90,10 @@ static int set_log_file_name(const char *val, void *param)
     }
 
     if (log_file) {
-        fclose(log_file);
+        if (close_log_file) {
+            fclose(log_file);
+        }
+        log_file = NULL;
         log_file_open();
     }
 
