@@ -6208,9 +6208,6 @@
 				4B9ABB2024B8887000678531 /* cores */,
 				4B9ABEE824B89A1D00678531 /* Emulators */,
 				4B81F2A924B0664B0090B21A /* ViceShared */,
-				4B68FB3F24967CCD00A76E57 /* ViceC64 */,
-				4B68FB822498DC0600A76E57 /* ViceVIC20 */,
-				4B540E9824A674E100F6925B /* VicePlus4 */,
 				4B3F974421D7ACC700C272C4 /* Products */,
 				4BBF863D21D7FEA800EF99ED /* Frameworks */,
 				4B49575E24C46A2C0074A053 /* ViceC64 copy-Info.plist */,
@@ -10422,7 +10419,10 @@
 			children = (
 				4B9ABEEF24B89A5000678531 /* Atari800 */,
 				4B5412C924AB519900F6925B /* FuseZX */,
+				4B68FB3F24967CCD00A76E57 /* ViceC64 */,
 				4B49576724C46AD70074A053 /* ViceC128 */,
+				4B540E9824A674E100F6925B /* VicePlus4 */,
+				4B68FB822498DC0600A76E57 /* ViceVIC20 */,
 				4BCF7D0424BDA9E900172C24 /* X16 */,
 			);
 			path = Emulators;
@@ -14779,7 +14779,7 @@
 					vice/src/drive,
 					vice/src/lib/p64,
 				);
-				INFOPLIST_FILE = VicePlus4/Info.plist;
+				INFOPLIST_FILE = Emulators/VicePlus4/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -14829,7 +14829,7 @@
 					vice/src/drive,
 					vice/src/lib/p64,
 				);
-				INFOPLIST_FILE = VicePlus4/Info.plist;
+				INFOPLIST_FILE = Emulators/VicePlus4/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -15498,7 +15498,7 @@
 					vice/src/drive,
 					vice/src/lib/p64,
 				);
-				INFOPLIST_FILE = ViceC64/Info.plist;
+				INFOPLIST_FILE = Emulators/ViceC64/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -15544,7 +15544,7 @@
 					vice/src/drive,
 					vice/src/lib/p64,
 				);
-				INFOPLIST_FILE = ViceC64/Info.plist;
+				INFOPLIST_FILE = Emulators/ViceC64/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -15590,7 +15590,7 @@
 					vice/src/drive,
 					vice/src/lib/p64,
 				);
-				INFOPLIST_FILE = ViceVIC20/Info.plist;
+				INFOPLIST_FILE = Emulators/ViceVIC20/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -15635,7 +15635,7 @@
 					vice/src/drive,
 					vice/src/lib/p64,
 				);
-				INFOPLIST_FILE = ViceVIC20/Info.plist;
+				INFOPLIST_FILE = Emulators/ViceVIC20/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
