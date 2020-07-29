@@ -41,26 +41,6 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4B3F975921D7ACC800C272C4"
-               BuildableName = "C64Tests.xctest"
-               BlueprintName = "C64Tests"
-               ReferencedContainer = "container:Ready.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4B3F976421D7ACC800C272C4"
-               BuildableName = "C64UITests.xctest"
-               BlueprintName = "C64UITests"
-               ReferencedContainer = "container:Ready.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "4B3F976421D7ACC800C272C4"
                BuildableName = "C64UITests.xctest"
                BlueprintName = "C64UITests"

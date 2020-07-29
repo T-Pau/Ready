@@ -2261,8 +2261,6 @@
 		4B3F974B21D7ACC700C272C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4B3F975321D7ACC700C272C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4B3F975521D7ACC700C272C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4B3F975E21D7ACC800C272C4 /* C64Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C64Tests.swift; sourceTree = "<group>"; };
-		4B3F976021D7ACC800C272C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4B3F97A121D7AD4700C272C4 /* palette.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = palette.c; sourceTree = "<group>"; };
 		4B3F97A221D7AD4700C272C4 /* initcmdline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = initcmdline.h; sourceTree = "<group>"; };
 		4B3F97A421D7AD4700C272C4 /* midi-osx-drv.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "midi-osx-drv.c"; sourceTree = "<group>"; };
@@ -6205,7 +6203,6 @@
 				4B3F974521D7ACC700C272C4 /* Ready */,
 				4B7609F121F47B900058FBCD /* C64UIComponents */,
 				4BA81FB321E4713700D036DE /* vice */,
-				4B3F975D21D7ACC800C272C4 /* C64Tests */,
 				4BA1E9C224B49EDE00D935D3 /* RetroMedia */,
 				4B68F8B22496407700A76E57 /* Emulator */,
 				4B9ABB2024B8887000678531 /* cores */,
@@ -6313,15 +6310,6 @@
 				4B3E4A632212B5A900511F08 /* Views */,
 			);
 			path = Ready;
-			sourceTree = "<group>";
-		};
-		4B3F975D21D7ACC800C272C4 /* C64Tests */ = {
-			isa = PBXGroup;
-			children = (
-				4B3F975E21D7ACC800C272C4 /* C64Tests.swift */,
-				4B3F976021D7ACC800C272C4 /* Info.plist */,
-			);
-			path = C64Tests;
 			sourceTree = "<group>";
 		};
 		4B3F977721D7AD1F00C272C4 /* src */ = {
