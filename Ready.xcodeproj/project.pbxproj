@@ -3585,7 +3585,6 @@
 		4B49571724C457760074A053 /* c128cia1.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = c128cia1.c; sourceTree = "<group>"; };
 		4B49571824C457760074A053 /* c128memrom.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = c128memrom.c; sourceTree = "<group>"; };
 		4B49575D24C46A2C0074A053 /* ViceC128.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ViceC128.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4B49575E24C46A2C0074A053 /* ViceC64 copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "ViceC64 copy-Info.plist"; path = "/Users/dillo/Projects/tpau/Ready/ViceC64 copy-Info.plist"; sourceTree = "<absolute>"; };
 		4B49576824C46AD70074A053 /* Vice_C128.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vice_C128.h; sourceTree = "<group>"; };
 		4B49576924C46AD70074A053 /* ViceC128.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViceC128.swift; sourceTree = "<group>"; };
 		4B49576A24C46AD70074A053 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -6201,7 +6200,6 @@
 				4B9ABEE824B89A1D00678531 /* Emulators */,
 				4B3F974421D7ACC700C272C4 /* Products */,
 				4BBF863D21D7FEA800EF99ED /* Frameworks */,
-				4B49575E24C46A2C0074A053 /* ViceC64 copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
