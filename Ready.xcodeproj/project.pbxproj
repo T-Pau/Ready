@@ -6207,7 +6207,6 @@
 				4B68F8B22496407700A76E57 /* Emulator */,
 				4B9ABB2024B8887000678531 /* cores */,
 				4B9ABEE824B89A1D00678531 /* Emulators */,
-				4B81F2A924B0664B0090B21A /* ViceShared */,
 				4B3F974421D7ACC700C272C4 /* Products */,
 				4BBF863D21D7FEA800EF99ED /* Frameworks */,
 				4B49575E24C46A2C0074A053 /* ViceC64 copy-Info.plist */,
@@ -10419,6 +10418,7 @@
 			children = (
 				4B9ABEEF24B89A5000678531 /* Atari800 */,
 				4B5412C924AB519900F6925B /* FuseZX */,
+				4B81F2A924B0664B0090B21A /* ViceShared */,
 				4B68FB3F24967CCD00A76E57 /* ViceC64 */,
 				4B49576724C46AD70074A053 /* ViceC128 */,
 				4B540E9824A674E100F6925B /* VicePlus4 */,
@@ -14446,7 +14446,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = at.tpau.ViceC128;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = "ViceShared/**";
+				SWIFT_INCLUDE_PATHS = "Emulators/ViceShared/**";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -14491,7 +14491,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = at.tpau.ViceC128;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = "ViceShared/**";
+				SWIFT_INCLUDE_PATHS = "Emulators/ViceShared/**";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -14789,7 +14789,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = at.tpau.VicePlus4;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = "${SRCROOT}/ViceShared/**";
+				SWIFT_INCLUDE_PATHS = "Emulators/ViceShared/**";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -14839,7 +14839,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = at.tpau.VicePlus4;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = "${SRCROOT}/ViceShared/**";
+				SWIFT_INCLUDE_PATHS = "Emulators/ViceShared/**";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -15509,7 +15509,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = at.tpau.ViceC64;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = "${SRCROOT}/ViceShared/**";
+				SWIFT_INCLUDE_PATHS = "Emulators/ViceShared/**";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -15555,7 +15555,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = at.tpau.ViceC64;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = "${SRCROOT}/ViceShared/**";
+				SWIFT_INCLUDE_PATHS = "Emulators/ViceShared/**";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -15600,7 +15600,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = at.tpau.ViceVIC20;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = "${SRCROOT}/ViceShared/**";
+				SWIFT_INCLUDE_PATHS = "Emulators/ViceShared/**";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -15645,7 +15645,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = at.tpau.ViceVIC20;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = "${SRCROOT}/ViceShared/**";
+				SWIFT_INCLUDE_PATHS = "Emulators/ViceShared/**";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";

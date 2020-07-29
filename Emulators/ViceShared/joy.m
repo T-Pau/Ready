@@ -31,7 +31,7 @@
 
 #include "joy.h"
 
-#import "../../ViceShared/ViceThread.h"
+#import "ViceThread.h"
 
 #include "joystick.h"
 #include "joyport.h"
