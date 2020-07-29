@@ -171,7 +171,6 @@
 		4B49572024C46A2C0074A053 /* dummy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BB22E4421E9682E0075E694 /* dummy.cpp */; };
 		4B49572124C46A2C0074A053 /* ui.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF864821D8D38E00EF99ED /* ui.m */; };
 		4B49572224C46A2C0074A053 /* mousedrv.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF864421D8D1A800EF99ED /* mousedrv.m */; };
-		4B49572324C46A2C0074A053 /* ringbuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF86BB21DBCB5500EF99ED /* ringbuffer.c */; };
 		4B49572524C46A2C0074A053 /* archdep.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF864221D8D07700EF99ED /* archdep.m */; };
 		4B49572724C46A2C0074A053 /* Vice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B697C7221E38EDA0091BFCC /* Vice.swift */; };
 		4B49572824C46A2C0074A053 /* ViceThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF866321D9629600EF99ED /* ViceThread.m */; };
@@ -398,7 +397,6 @@
 		4B540FF524A9BD5800F6925B /* iec-plus4exp.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F984421D7AD4800C272C4 /* iec-plus4exp.c */; };
 		4B540FF624A9BD5800F6925B /* plus4exp-cmdline-options.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F984321D7AD4800C272C4 /* plus4exp-cmdline-options.c */; };
 		4B540FF724A9BD5800F6925B /* plus4exp-resources.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F984521D7AD4800C272C4 /* plus4exp-resources.c */; };
-		4B540FF924A9BD9A00F6925B /* ringbuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF86BB21DBCB5500EF99ED /* ringbuffer.c */; };
 		4B540FFB24A9BDA600F6925B /* dummy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BB22E4421E9682E0075E694 /* dummy.cpp */; };
 		4B540FFC24A9BDA900F6925B /* joy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF864C21D8D85200EF99ED /* joy.m */; };
 		4B540FFD24A9BDB800F6925B /* mousedrv.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF864421D8D1A800EF99ED /* mousedrv.m */; };
@@ -693,7 +691,6 @@
 		4B54154624ACE83E00F6925B /* z80.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B5414B324ABA96600F6925B /* z80.c */; };
 		4B54154724ACE83E00F6925B /* z80em.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B54146824ABA96600F6925B /* z80em.c */; };
 		4B54154824ACE83E00F6925B /* zxs.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B5414E224ABA96700F6925B /* zxs.c */; };
-		4B64C8F624B90CE5001DCF0B /* ringbuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF86BB21DBCB5500EF99ED /* ringbuffer.c */; };
 		4B671FDE24A08ABB00E39F01 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1638C2224672A50056A275 /* Keyboard.swift */; };
 		4B6800162499FDF700A76E57 /* libvice-sounddrv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B6800152499FDD500A76E57 /* libvice-sounddrv.a */; };
 		4B6800172499FE6800A76E57 /* lamelib.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAA5321D7AD7400C272C4 /* lamelib.c */; };
@@ -776,7 +773,6 @@
 		4B68FB72249774D100A76E57 /* Chargen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2B9BBA2253B60F002948B7 /* Chargen.swift */; };
 		4B68FB732497C2DD00A76E57 /* CwlMutex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1CCBAD223BDDDD0032B9F0 /* CwlMutex.swift */; };
 		4B68FB782497CE2100A76E57 /* vice_x64sc.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B68FB572496817200A76E57 /* vice_x64sc.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		4B68FB7A2498AE7200A76E57 /* ringbuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF86BB21DBCB5500EF99ED /* ringbuffer.c */; };
 		4B68FB852498DC0600A76E57 /* ViceVIC20.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B68FB832498DC0600A76E57 /* ViceVIC20.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B68FB882498DC0600A76E57 /* ViceVIC20.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FB812498DC0600A76E57 /* ViceVIC20.framework */; };
 		4B68FB892498DC0600A76E57 /* ViceVIC20.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FB812498DC0600A76E57 /* ViceVIC20.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -1209,7 +1205,6 @@
 		4B68FF78249918DD00A76E57 /* libvice-socketdrv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FEEA2499133400A76E57 /* libvice-socketdrv.a */; };
 		4B68FF79249918DD00A76E57 /* libvice-tape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FEF22499133900A76E57 /* libvice-tape.a */; };
 		4B68FF7A2499EE3300A76E57 /* ui.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF864821D8D38E00EF99ED /* ui.m */; };
-		4B68FF7C2499EE5B00A76E57 /* ringbuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF86BB21DBCB5500EF99ED /* ringbuffer.c */; };
 		4B68FFA62499F25F00A76E57 /* alarm.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F9B3621D7AD5500C272C4 /* alarm.c */; };
 		4B68FFA72499F25F00A76E57 /* attach.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F9BE421D7AD5A00C272C4 /* attach.c */; };
 		4B68FFA82499F25F00A76E57 /* autostart-prg.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F9B9C21D7AD5900C272C4 /* autostart-prg.c */; };
@@ -5163,8 +5158,6 @@
 		4BBF86A021DA265E00EF99ED /* PRINTER */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PRINTER; sourceTree = "<group>"; };
 		4BBF86AB21DAB03200EF99ED /* EmulatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmulatorViewController.swift; sourceTree = "<group>"; };
 		4BBF86B121DB9C5500EF99ED /* soundios.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = soundios.m; sourceTree = "<group>"; };
-		4BBF86BB21DBCB5500EF99ED /* ringbuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ringbuffer.c; sourceTree = "<group>"; };
-		4BBF86BC21DBCB5500EF99ED /* ringbuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ringbuffer.h; sourceTree = "<group>"; };
 		4BC5BBD821DE245D00D44A10 /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
 		4BC5BBDA21DF548000D44A10 /* Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
 		4BCC49FF24CC9DDC00AEFFE7 /* RingBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RingBuffer.h; sourceTree = "<group>"; };
@@ -9450,7 +9443,6 @@
 				4B9DBB59222911CC0032B280 /* MachinePart.swift */,
 				4B2FA1A624B1B792002A11BA /* MachinePartRegister.swift */,
 				4B9DBB67223147300032B280 /* MachineSpecification.swift */,
-				4BA1E9B824B314C100D935D3 /* MultiSet.swift */,
 				4B52816B249E442D0023F453 /* Port.swift */,
 				4B841D0421FCB96B009CAF4B /* ProgramFile.swift */,
 				4B460E50227A064E00815E7F /* RamExpansionUnit.swift */,
@@ -10469,8 +10461,7 @@
 			isa = PBXGroup;
 			children = (
 				4B1CCBAD223BDDDD0032B9F0 /* CwlMutex.swift */,
-				4BBF86BB21DBCB5500EF99ED /* ringbuffer.c */,
-				4BBF86BC21DBCB5500EF99ED /* ringbuffer.h */,
+				4BA1E9B824B314C100D935D3 /* MultiSet.swift */,
 				4BB22EB121EA97CF0075E694 /* SearchTextField.swift */,
 			);
 			path = "3rd-Party";
@@ -12535,7 +12526,6 @@
 				4B49572124C46A2C0074A053 /* ui.m in Sources */,
 				4B49572224C46A2C0074A053 /* mousedrv.m in Sources */,
 				4B9E577224C6CE2600CEE0D6 /* ViceVariant.swift in Sources */,
-				4B49572324C46A2C0074A053 /* ringbuffer.c in Sources */,
 				4B49572524C46A2C0074A053 /* archdep.m in Sources */,
 				4B49572724C46A2C0074A053 /* Vice.swift in Sources */,
 				4B49572824C46A2C0074A053 /* ViceThread.m in Sources */,
@@ -12659,7 +12649,6 @@
 				4B540EA624A6757B00F6925B /* VicePlus4.swift in Sources */,
 				4B540FFB24A9BDA600F6925B /* dummy.cpp in Sources */,
 				4B54100324A9BDCC00F6925B /* Vice.swift in Sources */,
-				4B540FF924A9BD9A00F6925B /* ringbuffer.c in Sources */,
 				4B9E577824C6CE7600CEE0D6 /* KeyboardMatrix.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -13168,7 +13157,6 @@
 				4B68FB4D24967D5200A76E57 /* dummy.cpp in Sources */,
 				4B68FB5024967D6600A76E57 /* ui.m in Sources */,
 				4B68FB4E24967D5A00A76E57 /* mousedrv.m in Sources */,
-				4B68FB7A2498AE7200A76E57 /* ringbuffer.c in Sources */,
 				4B680034249A00A500A76E57 /* vice_c64.c in Sources */,
 				4B9E577124C6CE2600CEE0D6 /* ViceVariant.swift in Sources */,
 				4B73ED2724C1A71000B0561C /* archdep.m in Sources */,
@@ -13184,7 +13172,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B68FF7C2499EE5B00A76E57 /* ringbuffer.c in Sources */,
 				4B68FB932498DCE600A76E57 /* ViceThread.m in Sources */,
 				4B68FB8D2498DC8F00A76E57 /* Vice.swift in Sources */,
 				4B68FB912498DCE200A76E57 /* mousedrv.m in Sources */,
@@ -14080,7 +14067,6 @@
 				4B174BA624B8B4F700EA700D /* platform.m in Sources */,
 				4B174BA324B8A99800EA700D /* sound.m in Sources */,
 				4B174BAE24B8EDC700EA700D /* video.m in Sources */,
-				4B64C8F624B90CE5001DCF0B /* ringbuffer.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
