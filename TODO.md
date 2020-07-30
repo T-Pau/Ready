@@ -2,17 +2,55 @@
 
 ## Support for Multiple Computers
 
-- move Audio.m, ringbuffer.c to Emulator
 - split machine specific ui callbacks into their own files
-- render: More efficient partial updates (especially refresh only)
 - rewrite machine configuration, embed in scroll view
 - hierarchical configuration
 - don't split media in games by type, use single list
+- Fix auto cassette drive (vice & fuse).
+
+## Commodore 128
+
+- **Starting emulator a second time hangs.**
+- **Don't inject program when autostarting disk.**
+- Map remaining extended keys in hardware keyboard.
+- Add more models.
+- Change hardware keyboard mapping if DIN is active.
+
+## Plus/4
+
+- **Starting emulator a second time hangs.**
+- Detect cartridge images by boot signature.
+- Add C116.
+
+## Commander X16
+
+- **core: sync via sound, avoid underruns**
+- Support SD card images.
 
 ## VIC-20
 
-- Lightpen support
-- VIC-1001 with jpkernal: keyboard strange in lower case mode
+- Add 32k RAM expansion.
+- Check/fix light pen support.
+- VIC-1001 with jpkernal: keyboard behaves strangely in lower case mode.
+- Add variant with old PET keyboard.
+
+## Atari 8-Bit
+
+- **Don't boot in diagnostic mode.**
+- **Support media images.**
+- **Support cursor keys in hardware keyboard (control + keys).**
+- Map more keys in hardware keyboard.
+- Add more models.
+
+## ZX Spectrum
+
+- Update Tape status view.
+- Support disk images.
+- Add joystick/mouse interface cartridges.
+- Map Symbol Shift and extended key combinations in hardware keyboard.
+- Add more models.
+- Add more peripherals.
+
 
 ## other
 
