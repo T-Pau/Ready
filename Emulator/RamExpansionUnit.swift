@@ -64,6 +64,13 @@ public struct RamExpansionUnit {
                              size: 16,
                              connector: .vic20ExpansionPort),
 
+        32: RamExpansionUnit(identifier: "VIC-20 32K RAM",
+                             name: "32K RAM",
+                             fullName: "VIC-20 32K RAM",
+                             iconName: "VIC-20 32K RAM",
+                             size: 32,
+                             connector: .vic20ExpansionPort),
+
         128: RamExpansionUnit(identifier: "1700",
                               name: "1700",
                               fullName: "Commodore 1700 REU",
@@ -180,10 +187,15 @@ extension RamExpansionUnit: Cartridge {
                 resources[.RAMBlock1] = .Bool(true)
                 resources[.RAMBlock2] = .Bool(true)
 
+            case 32:
+                resources[.RAMBlock1] = .Bool(true)
+                resources[.RAMBlock2] = .Bool(true)
+                resources[.RAMBlock3] = .Bool(true)
+                resources[.RAMBlock5] = .Bool(true)
+
             default:
                 break
             }
-            // TODO
             
         default:
             break

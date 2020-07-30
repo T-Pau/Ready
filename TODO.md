@@ -29,7 +29,6 @@
 
 ## VIC-20
 
-- Add 32k RAM expansion.
 - Check/fix light pen support.
 - VIC-1001 with jpkernal: keyboard behaves strangely in lower case mode.
 - Add variant with old PET keyboard.

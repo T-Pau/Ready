@@ -41,6 +41,9 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Release 1.6 build 8", year: 2020, month: 7, day: 31, changes: [
+            "Add VIC-20 32K RAM expansion."
+        ]),
         Release(name: "Release 1.6 build 7", year: 2020, month: 7, day: 25, changes: [
             "Add option to disable accellerated tape loading on ZX Spectrum.",
             "Add directory as SD Card for Commander X16."
