@@ -756,7 +756,7 @@
 				<string>com.apple.package</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>DS Card Image</string>
+			<string>SD Card Image</string>
 			<key>UTTypeIconFiles</key>
 			<array>
 				<string>SD Card.png</string>
