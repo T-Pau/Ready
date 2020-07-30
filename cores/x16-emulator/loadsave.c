@@ -7,6 +7,7 @@
 #include <stdbool.h>
 #include <sys/stat.h>
 #include <dirent.h>
+#include <fnmatch.h>
 #include <unistd.h>
 #include <SDL.h>
 #include "glue.h"
@@ -19,6 +20,7 @@
 
 char *sdcard_dir;
 
+#if 0
 static void convert_name(char *name, size_t length) {
     for (size_t i = 0; i < length; i++) {
         if (name[i] >= 'A' && name[i] <= 'Z') {
@@ -29,6 +31,38 @@ static void convert_name(char *name, size_t length) {
         }
     }
 }
+#else
+#define convert_name(name, length) (void)(0)
+#endif
+
+static void get_filename(char *full_name, size_t length, const char *directory, const char *filename) {
+    int found = 0;
+
+    if (strcspn(filename, "*?") != strlen(filename)) {
+        DIR *dirp;
+        struct dirent *dp;
+        
+        if ((dirp = opendir(sdcard_dir))) {
+            while ((dp = readdir(dirp))) {
+                if (strcmp(dp->d_name, ".") == 0 || strcmp(dp->d_name, "..") == 0) {
+                    continue;
+                }
+                if (fnmatch(filename, dp->d_name, FNM_NOESCAPE) == 0) {
+                    snprintf(full_name, length, "%s/%s", directory, dp->d_name);
+                    found = 1;
+                    break;
+                }
+            }
+        }
+        (void)closedir(dirp);
+    }
+    
+    if (!found) {
+        snprintf(full_name, length, "%s/%s", directory, filename);
+    }
+}
+
+
 
 static int
 create_directory_listing(uint8_t *data)
@@ -169,7 +203,7 @@ LOAD()
 		a = 0;
 	} else {
         char full_name[8192];
-        snprintf(full_name, sizeof(full_name), "%s/%s", sdcard_dir, filename);
+        get_filename(full_name, sizeof(full_name), sdcard_dir, filename);
 		SDL_RWops *f = SDL_RWFromFile(full_name, "rb");
 		if (!f) {
 			a = 4; // FNF
@@ -251,7 +285,7 @@ SAVE()
 	}
 
     char full_name[8192];
-    snprintf(full_name, sizeof(full_name), "%s/%s", sdcard_dir, filename);
+    get_filename(full_name, sizeof(full_name), sdcard_dir, filename);
 	SDL_RWops *f = SDL_RWFromFile(full_name, "wb");
 	if (!f) {
 		a = 4; // FNF
