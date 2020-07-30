@@ -1478,6 +1478,9 @@
 		4BCF7D1A24BDACA600172C24 /* Emulator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68F8B12496407700A76E57 /* Emulator.framework */; };
 		4BD5B37C2221C425000C77B8 /* MachinePartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD5B37B2221C425000C77B8 /* MachinePartView.swift */; };
 		4BD5B37E2222DDC0000C77B8 /* MachinePartsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD5B37D2222DDC0000C77B8 /* MachinePartsViewController.swift */; };
+		4BEA24AD24D2B2C000903BAC /* Icon-ST-60.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BEA24AA24D2B2BF00903BAC /* Icon-ST-60.png */; };
+		4BEA24AE24D2B2C000903BAC /* Icon-ST-76.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BEA24AB24D2B2BF00903BAC /* Icon-ST-76.png */; };
+		4BEA24AF24D2B2C000903BAC /* Icon-ST-83.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BEA24AC24D2B2BF00903BAC /* Icon-ST-83.5.png */; };
 		4BEBC6C821FE3880009DED63 /* TapeDocument.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BEBC6C721FE3880009DED63 /* TapeDocument.png */; };
 		4BEBC6CB22008720009DED63 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEBC6CA22008720009DED63 /* Category.swift */; };
 		4BEBC6CD22008B9A009DED63 /* PlaceholderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEBC6CC22008B99009DED63 /* PlaceholderButton.swift */; };
@@ -5357,6 +5360,9 @@
 		4BD5B379222019CE000C77B8 /* JoystickView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoystickView.swift; sourceTree = "<group>"; };
 		4BD5B37B2221C425000C77B8 /* MachinePartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachinePartView.swift; sourceTree = "<group>"; };
 		4BD5B37D2222DDC0000C77B8 /* MachinePartsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachinePartsViewController.swift; sourceTree = "<group>"; };
+		4BEA24AA24D2B2BF00903BAC /* Icon-ST-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-ST-60.png"; sourceTree = "<group>"; };
+		4BEA24AB24D2B2BF00903BAC /* Icon-ST-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-ST-76.png"; sourceTree = "<group>"; };
+		4BEA24AC24D2B2BF00903BAC /* Icon-ST-83.5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-ST-83.5.png"; sourceTree = "<group>"; };
 		4BEBC6C721FE3880009DED63 /* TapeDocument.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TapeDocument.png; sourceTree = "<group>"; };
 		4BEBC6C9220085F2009DED63 /* C64-4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "C64-4.xcdatamodel"; sourceTree = "<group>"; };
 		4BEBC6CA22008720009DED63 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
@@ -8087,6 +8093,9 @@
 				4B9E577E24C74E8100CEE0D6 /* Icon-C128-60.png */,
 				4B9E577F24C74E8100CEE0D6 /* Icon-C128-76.png */,
 				4B9E577D24C74E8100CEE0D6 /* Icon-C128-83.5.png */,
+				4BEA24AA24D2B2BF00903BAC /* Icon-ST-60.png */,
+				4BEA24AB24D2B2BF00903BAC /* Icon-ST-76.png */,
+				4BEA24AC24D2B2BF00903BAC /* Icon-ST-83.5.png */,
 				4B540EC524A8D84100F6925B /* Icon-SX64-60.png */,
 				4B540EC624A8D84100F6925B /* Icon-SX64-76.png */,
 				4B540EC224A8D84000F6925B /* Icon-SX64-83.5.png */,
@@ -12324,9 +12333,11 @@
 				4B54101024AA7FF000F6925B /* Icon-ZX48-83.5.png in Resources */,
 				4B3182C62281E320006D86AC /* Compact Flash Card.png in Resources */,
 				4BF2110824D157AE00CD233F /* Icon-Amiga-60.png in Resources */,
+				4BEA24AF24D2B2C000903BAC /* Icon-ST-83.5.png in Resources */,
 				4B79795021DBDBB70047FBE6 /* LaunchScreen.storyboard in Resources */,
 				4BCF7CCA24BDA7B900172C24 /* x16-emulator in Resources */,
 				4B540ECD24A8D84100F6925B /* Icon-VIC20-76.png in Resources */,
+				4BEA24AE24D2B2C000903BAC /* Icon-ST-76.png in Resources */,
 				4B841CFA21F75C12009CAF4B /* Floppy35Document.png in Resources */,
 				4BCF7C7424BA0C8400172C24 /* Icon-XL-76.png in Resources */,
 				4B540ED024A8D84100F6925B /* Icon-SX64-76.png in Resources */,
@@ -12353,6 +12364,7 @@
 				4B54100A24A9E16000F6925B /* Icon-C16-76.png in Resources */,
 				4B3E4A56220EE8A000511F08 /* Licenses in Resources */,
 				4BF2110924D157AE00CD233F /* Icon-Amiga-83.5.png in Resources */,
+				4BEA24AD24D2B2C000903BAC /* Icon-ST-60.png in Resources */,
 				4B54101224AA7FF000F6925B /* Icon-ZX48-60.png in Resources */,
 				4B540ECC24A8D84100F6925B /* Icon-SX64-83.5.png in Resources */,
 				4BCF7C7324BA0C8400172C24 /* Icon-XL-83.5.png in Resources */,

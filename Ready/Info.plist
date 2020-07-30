@@ -205,6 +205,13 @@
 					<string>Icon-C16-60</string>
 				</array>
 			</dict>
+			<key>App Icon ST</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Icon-ST-60</string>
+				</array>
+			</dict>
 			<key>App Icon SX-64</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
@@ -278,6 +285,15 @@
 					<string>Icon-C16-60</string>
 					<string>Icon-C16-76</string>
 					<string>Icon-C16-83.5</string>
+				</array>
+			</dict>
+			<key>App Icon ST</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Icon-ST-60</string>
+					<string>Icon-ST-76</string>
+					<string>Icon-ST-83.5</string>
 				</array>
 			</dict>
 			<key>App Icon SX-64</key>
