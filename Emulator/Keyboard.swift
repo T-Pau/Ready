@@ -159,6 +159,55 @@ public struct Keyboard {
     
     private var layout: Layout
     
+    private init(amigaWithImageName imageName: String, rows: [Int], left: Int, right: Int, tildeRight: Int, tabRight: Int, returnUpperLeft: Int, controlRight: Int, returnLowerLeft: Int, leftShiftRight: Int, rightShiftLeft: Int, leftAltLeft: Int, spaceLeft: Int, spaceRight: Int, rightAltRight: Int, cursorLeft: Int, cursorRight: Int, keypadLeft: Int, keypadRight: Int, keypad0Right: Int, functionRowTop: Int, functionRowBottom: Int, escapeRight: Int, functionBlock1Left: Int, functionBlock1Right: Int, functionBlock2Left: Int, functionBlock2Right: Int) {
+        self.imageName = imageName
+        self.toggleKeys = [
+            .CapsLock: imageName + " CapsLock",
+        ]
+        let cursorThirdWidth = (cursorRight - cursorLeft) / 3
+        self.layout = Layout(rows: [
+            Row(top: functionRowTop, bottom: functionRowBottom, spans: [
+                Span(left: left, right: escapeRight, keys: [.Escape]),
+                Span(left: functionBlock1Left, right: functionBlock1Right, keys: [.F1, .F2, .F3, .F4, .F5]),
+                Span(left: functionBlock2Left, right: functionBlock2Right, keys: [.F6, .F7, .F8, .F9, .F10]),
+            ]),
+            Row(top: rows[0], bottom: rows[1], spans: [
+                Span(left: left, right: tildeRight, keys: [.Char("`")]),
+                Span(left: tildeRight, right: right, keys: [.Char("1"), .Char("2"), .Char("3"), .Char("4"), .Char("5"), .Char("6"), .Char("7"), .Char("8"), .Char("9"), .Char("0"), .Char("ß"), .Char("'"), .Char("\\"), .Backspace]),
+                Span(left: cursorLeft, right: cursorRight, keys: [.Delete, .Help]),
+                Span(left: keypadLeft, right: keypadRight, keys: [.KeypadBracketOpen, .KeypadBracketClose, .KeypadSlash, .KeypadAsterisk])
+            ]),
+            Row(top: rows[1], bottom: rows[2], spans: [
+                Span(left: left, right: tabRight, keys: [.Tab]),
+                Span(left: tabRight, right: right, keys: [.Char("q"), .Char("w"), .Char("e"), .Char("r"), .Char("t"), .Char("y"), .Char("u"), .Char("i"), .Char("o"), .Char("p"), .Char("ü"), .Char("+")]),
+                Span(left: returnUpperLeft, right: right, keys: [.Return]),
+                Span(left: keypadLeft, right: keypadRight, keys: [.Keypad7, .Keypad8, .Keypad9, .KeypadMinus])
+            ]),
+            Row(top: rows[2], bottom: rows[3], spans: [
+                Span(left: left, right: controlRight, keys: [.Control]),
+                Span(left: controlRight, right: returnLowerLeft, keys: [.CapsLock, .Char("a"), .Char("s"), .Char("d"), .Char("f"), .Char("g"), .Char("h"), .Char("j"), .Char("k"), .Char("l"), .Char("ö"), .Char("ä"), .Char("#")]),
+                Span(left: returnLowerLeft, right: right, keys: [.Return]),
+                Span(left: cursorLeft + cursorThirdWidth, right: cursorRight - cursorThirdWidth, keys: [.CursorUp]),
+                Span(left: keypadLeft, right: keypadRight, keys: [.Keypad4, .Keypad5, .Keypad6, .KeypadPlus])
+            ]),
+            Row(top: rows[3], bottom: rows[4], spans: [
+                Span(left: left, right: leftShiftRight, keys: [.ShiftLeft]),
+                Span(left: leftShiftRight, right: rightShiftLeft, keys: [.Char("<"), .Char("y"), .Char("x"), .Char("c"), .Char("v"), .Char("b"), .Char("n"), .Char("m"), .Char(","), .Char("."), .Char("-")]),
+                Span(left: rightShiftLeft, right: right, keys: [.ShiftRight]),
+                Span(left: cursorLeft, right: cursorRight, keys: [.CursorLeft, .CursorDown, .CursorRight]),
+                Span(left: keypadLeft, right: keypadRight, keys: [.Keypad1, .Keypad2, .Keypad3, .KeypadEnter])
+            ]),
+            Row(top: rows[4], bottom: rows[5], spans: [
+                Span(left: leftAltLeft, right: spaceLeft, keys: [.AltLeft, .AmigaLeft]),
+                Span(left: spaceLeft, right: spaceRight, keys: [.Char(" ")]),
+                Span(left: spaceRight, right: rightAltRight, keys: [.AmigaRight, .AltRight]),
+                Span(left: keypadLeft, right: keypad0Right, keys: [.Keypad0]),
+                Span(left: keypad0Right, right: keypadRight, keys: [.KeypadPeriod, .KeypadEnter])
+            ])
+        ])
+        self.keyboardSymbols = KeyboardSymbols.c128 // KeyboardSymbols.amiga
+    }
+
     private init(atariXlWithImageName imageName: String, rows: [Int], left: Int, right: Int, escapeRight: Int, tabRight: Int, returnLeft: Int, controlRight: Int, capsLeft: Int, leftShiftRight: Int, rightShiftLeft: Int, rightShiftRight: Int, spaceLeft: Int, spaceRight: Int, functionTop: Int, functionBottom: Int, functionLeft: Int, functionRight: Int) {
         self.imageName = imageName
         let functionHeight = (functionBottom - functionTop) / 5
@@ -341,7 +390,7 @@ public struct Keyboard {
         ])
         self.keyboardSymbols = KeyboardSymbols.c128
     }
-    
+        
     private init(plus4WithImageName imageName: String, rows: [Int], functionLeft: Int, functionRight: Int, left: Int, right: Int, leftControlRight: Int, rightControlLeft: Int,returnLeft: Int, returnRight: Int, leftShiftLeft: Int, leftShiftRight: Int, rightShiftLeft: Int, rightShiftRight: Int, spaceLeft: Int, spaceRight: Int, cursorTop: CGFloat, cursorLeft: CGFloat, cursorRight: CGFloat, cursorBottom: CGFloat) {
         self.imageName = imageName
         self.toggleKeys = [.ShiftLock: imageName + " ShiftLock"]

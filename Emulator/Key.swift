@@ -37,6 +37,8 @@ public enum Key : Equatable, Hashable {
     case Alt
     case AltLeft
     case AltRight
+    case AmigaLeft
+    case AmigaRight
     case ArrowLeft
     case ArrowUp
     case Backspace
@@ -90,10 +92,14 @@ public enum Key : Equatable, Hashable {
     case Keypad7
     case Keypad8
     case Keypad9
+    case KeypadAsterisk
+    case KeypadBracketClose
+    case KeypadBracketOpen
     case KeypadEnter
     case KeypadMinus
     case KeypadPeriod
     case KeypadPlus
+    case KeypadSlash
     case LineFeed
     case Menu
     case Option
