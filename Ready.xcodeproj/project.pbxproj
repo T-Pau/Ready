@@ -1491,6 +1491,7 @@
 		4BF2110824D157AE00CD233F /* Icon-Amiga-60.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BF2110524D157AE00CD233F /* Icon-Amiga-60.png */; };
 		4BF2110924D157AE00CD233F /* Icon-Amiga-83.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BF2110624D157AE00CD233F /* Icon-Amiga-83.5.png */; };
 		4BF2110A24D157AE00CD233F /* Icon-Amiga-76.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BF2110724D157AE00CD233F /* Icon-Amiga-76.png */; };
+		4BF243C124D87A4A00EDC525 /* ByteStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF243C024D87A4A00EDC525 /* ByteStream.swift */; };
 		4BF57EF9225C8F7D00909B2B /* DirectoryWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF57EF8225C8F7D00909B2B /* DirectoryWatcher.swift */; };
 		4BF57EFB225CA83D00909B2B /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF57EFA225CA83D00909B2B /* TabBarViewController.swift */; };
 		4BF57EFD2260EB6500909B2B /* InputMappingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF57EFC2260EB6500909B2B /* InputMappingTableViewCell.swift */; };
@@ -5376,6 +5377,7 @@
 		4BF2110524D157AE00CD233F /* Icon-Amiga-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Amiga-60.png"; sourceTree = "<group>"; };
 		4BF2110624D157AE00CD233F /* Icon-Amiga-83.5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Amiga-83.5.png"; sourceTree = "<group>"; };
 		4BF2110724D157AE00CD233F /* Icon-Amiga-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Amiga-76.png"; sourceTree = "<group>"; };
+		4BF243C024D87A4A00EDC525 /* ByteStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ByteStream.swift; sourceTree = "<group>"; };
 		4BF57EF8225C8F7D00909B2B /* DirectoryWatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryWatcher.swift; sourceTree = "<group>"; };
 		4BF57EFA225CA83D00909B2B /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		4BF57EFC2260EB6500909B2B /* InputMappingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputMappingTableViewCell.swift; sourceTree = "<group>"; };
@@ -10451,6 +10453,7 @@
 				4BA1E9CD24B49F0A00D935D3 /* MediaType.swift */,
 				4B9ABB1B24B62CC600678531 /* Medium.swift */,
 				4B9ABB1D24B62E3F00678531 /* RetroMedia.swift */,
+				4BF243C024D87A4A00EDC525 /* ByteStream.swift */,
 			);
 			path = RetroMedia;
 			sourceTree = "<group>";
@@ -14087,6 +14090,7 @@
 				4B9ABE9224B8890400678531 /* RetroMedia.swift in Sources */,
 				4B9ABE9124B8890400678531 /* Medium.swift in Sources */,
 				4B9ABE9024B8890400678531 /* MediaType.swift in Sources */,
+				4BF243C124D87A4A00EDC525 /* ByteStream.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
