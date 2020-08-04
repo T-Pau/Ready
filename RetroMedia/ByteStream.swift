@@ -34,7 +34,7 @@ struct ByteStream {
     var bytes: ArraySlice<UInt8>
     var littleEndian: Bool
 
-    var offset: Int
+    var index: Int
     
     init(bytes: [UInt8], range: Range<Int>? = nil, littleEndian: Bool = true) {
         self.init(bytes: ArraySlice<UInt8>(bytes), range: range, littleEndian: littleEndian)
@@ -49,7 +49,26 @@ struct ByteStream {
         }
         self.littleEndian = littleEndian
         
-        self.offset = self.bytes.startIndex
+        self.index = self.bytes.startIndex
+    }
+    
+    var offset: Int {
+        get {
+            return index - bytes.startIndex
+        }
+        set {
+            index = newValue + bytes.startIndex
+            if index < bytes.startIndex {
+                index = bytes.startIndex
+            }
+            else if index > bytes.endIndex {
+                index = bytes.endIndex
+            }
+        }
+    }
+    
+    var count: Int {
+        return bytes.count
     }
     
     mutating func getStream(_ size: Int) -> ByteStream? {
@@ -62,166 +81,165 @@ struct ByteStream {
         guard available(size: 1) else { return nil }
         
         defer {
-            offset += 1
+            index += 1
         }
-        return bytes[offset]
+        return bytes[index]
     }
     
     mutating func getBytes(_ size: Int) -> ArraySlice<UInt8>? {
         guard available(size: size) else { return nil }
         
         defer {
-            offset += size
+            index += size
         }
-        return bytes[offset ..< offset + size]
+        
+        return bytes[index ..< index + size]
     }
     
     mutating func getUInt16(littleEndian: Bool? = nil) -> UInt16? {
-        guard let b = getBytes(4) else { return nil }
-        
+        guard available(size: 2) else { return nil }
+
+        defer {
+            index += 2
+        }
+
         if littleEndian ?? self.littleEndian {
-            return UInt16(b[b.startIndex]) | (UInt16(b[b.startIndex + 1]) << 8)
+            return UInt16(bytes[index]) | (UInt16(bytes[index + 1]) << 8)
         }
         else {
-            return (UInt16(b[b.startIndex]) << 8) | UInt16(b[b.startIndex + 1])
+            return (UInt16(bytes[index]) << 8) | UInt16(bytes[index + 1])
         }
     }
     
     mutating func getUInt24(littleEndian: Bool? = nil) -> UInt32? {
-        guard let b = getBytes(3) else { return nil }
+        guard available(size: 3) else { return nil }
         
+        defer {
+            index += 3
+        }
+
         if littleEndian ?? self.littleEndian {
-            return UInt32(b[b.startIndex]) | (UInt32(b[b.startIndex + 1]) << 8) | (UInt32(b[b.startIndex + 2]) << 16)
+            return UInt32(bytes[index]) | (UInt32(bytes[index + 1]) << 8) | (UInt32(bytes[index + 2]) << 16)
         }
         else {
-            return (UInt32(b[b.startIndex]) << 16) | (UInt32(b[b.startIndex + 1]) << 8) | UInt32(b[b.startIndex + 2])
+            return (UInt32(bytes[index]) << 16) | (UInt32(bytes[index + 1]) << 8) | UInt32(bytes[index + 2])
         }
     }
 
     mutating func getUInt32(littleEndian: Bool? = nil) -> UInt32? {
-        guard let b = getBytes(4) else { return nil }
+        guard available(size: 4) else { return nil }
         
+        defer {
+            index += 4
+        }
+
         if littleEndian ?? self.littleEndian {
-            return UInt32(b[b.startIndex]) | (UInt32(b[b.startIndex + 1]) << 8) | (UInt32(b[b.startIndex + 2]) << 16) | (UInt32(b[b.startIndex + 3]) << 24)
+            return UInt32(bytes[index]) | (UInt32(bytes[index + 1]) << 8) | (UInt32(bytes[index + 2]) << 16) | (UInt32(bytes[index + 3]) << 24)
         }
         else {
-            return (UInt32(b[b.startIndex]) << 24) | (UInt32(b[b.startIndex + 1]) << 16) | (UInt32(b[b.startIndex + 2]) << 8) | UInt32(b[b.startIndex + 3])
+            return (UInt32(bytes[index]) << 24) | (UInt32(bytes[index + 1]) << 16) | (UInt32(bytes[index + 2]) << 8) | UInt32(bytes[index + 3])
         }
     }
     
     mutating func getUInt64(littleEndian: Bool? = nil) -> UInt64? {
-        guard let b = getBytes(8) else { return nil }
+        guard available(size: 8) else { return nil }
         
+        defer {
+            index += 8
+        }
+
         if littleEndian ?? self.littleEndian {
-            return UInt32(b[b.startIndex]) | (UInt32(b[b.startIndex + 1]) << 8) | (UInt32(b[b.startIndex + 2]) << 16) | (UInt32(b[b.startIndex + 3]) << 24) | (UInt32(b[b.startIndex + 4]) << 32) | (UInt32(b[b.startIndex + 5]) << 40) | (UInt32(b[b.startIndex + 6]) << 48) | (UInt32(b[b.startIndex + 7]) << 56)
+            let value = UInt64(bytes[index]) | (UInt64(bytes[index + 1]) << 8) | (UInt64(bytes[index + 2]) << 16) | (UInt64(bytes[index + 3]) << 24)
+            return value | (UInt64(bytes[index + 4]) << 32) | (UInt64(bytes[index + 5]) << 40) | (UInt64(bytes[index + 6]) << 48) | (UInt64(bytes[index + 7]) << 56)
         }
         else {
-            return (UInt32(b[b.startIndex]) << 56) | (UInt32(b[b.startIndex + 1]) << 48) | (UInt32(b[b.startIndex + 2]) << 40) | (UInt32(b[b.startIndex + 3]) << 32) | (UInt32(b[b.startIndex + 4]) << 24) | (UInt32(b[b.startIndex + 5]) << 16) | (UInt32(b[b.startIndex + 6]) << 8) | UInt32(b[b.startIndex + 7])
+            let value = UInt64(bytes[index] << 56) | (UInt64(bytes[index + 1]) << 48) | (UInt64(bytes[index + 2]) << 40) | (UInt64(bytes[index + 3]) << 32)
+            return value | (UInt64(bytes[index + 4]) << 24) | (UInt64(bytes[index + 5]) << 16) | (UInt64(bytes[index + 6]) << 8) | UInt64(bytes[index + 7])
         }
     }
     
     mutating func put(byte: UInt8) {
         guard available(size: 1) else { return }
 
-        bytes[offset] = byte
-        offset += 1
+        bytes[index] = byte
+        index += 1
     }
 
     mutating func put(uInt16 value: UInt16, littleEndian: Bool? = nil) {
         guard available(size: 2) else { return }
         
         if littleEndian ?? self.littleEndian {
-            bytes[offset] = UInt8(value & 0xff)
-            bytes[offset + 1] = UInt8(value >> 8)
+            bytes[index] = UInt8(value & 0xff)
+            bytes[index + 1] = UInt8(value >> 8)
         }
         else {
-            bytes[offset] = UInt8(value >> 8)
-            bytes[offset + 1] = UInt8(value & 0xff)
+            bytes[index] = UInt8(value >> 8)
+            bytes[index + 1] = UInt8(value & 0xff)
         }
-        offset += 2
+        index += 2
     }
 
     mutating func put(uInt24 value: UInt32, littleEndian: Bool? = nil) {
         guard available(size: 3) else { return }
         
         if littleEndian ?? self.littleEndian {
-            bytes[offset] = UInt8(value & 0xff)
-            bytes[offset + 1] = UInt8((value >> 8) & 0xff)
-            bytes[offset + 2] = UInt8((value >> 16) & 0xff)
+            bytes[index] = UInt8(value & 0xff)
+            bytes[index + 1] = UInt8((value >> 8) & 0xff)
+            bytes[index + 2] = UInt8((value >> 16) & 0xff)
         }
         else {
-            bytes[offset] = UInt8((value >> 16) & 0xff)
-            bytes[offset + 1] = UInt8((value >> 8) & 0xff)
-            bytes[offset + 2] = UInt8(value & 0xff)
+            bytes[index] = UInt8((value >> 16) & 0xff)
+            bytes[index + 1] = UInt8((value >> 8) & 0xff)
+            bytes[index + 2] = UInt8(value & 0xff)
         }
-        offset += 3
+        index += 3
     }
 
     mutating func put(uInt32 value: UInt32, littleEndian: Bool? = nil) {
         guard available(size: 4) else { return }
         
         if littleEndian ?? self.littleEndian {
-            bytes[offset] = UInt8(value & 0xff)
-            bytes[offset + 1] = UInt8((value >> 8) & 0xff)
-            bytes[offset + 2] = UInt8((value >> 16) & 0xff)
-            bytes[offset + 3] = UInt8(value >> 24)
+            bytes[index] = UInt8(value & 0xff)
+            bytes[index + 1] = UInt8((value >> 8) & 0xff)
+            bytes[index + 2] = UInt8((value >> 16) & 0xff)
+            bytes[index + 3] = UInt8(value >> 24)
         }
         else {
-            bytes[offset ] = UInt8(value >> 24)
-            bytes[offset + 1] = UInt8((value >> 16) & 0xff)
-            bytes[offset + 2] = UInt8((value >> 8) & 0xff)
-            bytes[offset + 3] = UInt8(value & 0xff)
+            bytes[index ] = UInt8(value >> 24)
+            bytes[index + 1] = UInt8((value >> 16) & 0xff)
+            bytes[index + 2] = UInt8((value >> 8) & 0xff)
+            bytes[index + 3] = UInt8(value & 0xff)
         }
-        offset += 4
+        index += 4
     }
 
     mutating func put(uInt64 value: UInt64, littleEndian: Bool? = nil) {
         guard available(size: 8) else { return }
         
         if littleEndian ?? self.littleEndian {
-            bytes[offset] = UInt8(value & 0xff)
-            bytes[offset + 1] = UInt8((value >> 8) & 0xff)
-            bytes[offset + 2] = UInt8((value >> 16) & 0xff)
-            bytes[offset + 3] = UInt8((value >> 24) & 0xff)
-            bytes[offset + 4] = UInt8((value >> 32) & 0xff)
-            bytes[offset + 5] = UInt8((value >> 40) & 0xff)
-            bytes[offset + 6] = UInt8((value >> 48) & 0xff)
-            bytes[offset + 7] = UInt8(value >> 56)
+            bytes[index] = UInt8(value & 0xff)
+            bytes[index + 1] = UInt8((value >> 8) & 0xff)
+            bytes[index + 2] = UInt8((value >> 16) & 0xff)
+            bytes[index + 3] = UInt8((value >> 24) & 0xff)
+            bytes[index + 4] = UInt8((value >> 32) & 0xff)
+            bytes[index + 5] = UInt8((value >> 40) & 0xff)
+            bytes[index + 6] = UInt8((value >> 48) & 0xff)
+            bytes[index + 7] = UInt8(value >> 56)
         }
         else {
-            bytes[offset ] = UInt8(value >> 56)
-            bytes[offset + 1] = UInt8((value >> 48) & 0xff)
-            bytes[offset + 2] = UInt8((value >> 40) & 0xff)
-            bytes[offset + 3] = UInt8((value >> 32) & 0xff)
-            bytes[offset + 4] = UInt8((value >> 24) & 0xff)
-            bytes[offset + 5] = UInt8((value >> 16) & 0xff)
-            bytes[offset + 6] = UInt8((value >> 8) & 0xff)
-            bytes[offset + 7] = UInt8(value & 0xff)
+            bytes[index ] = UInt8(value >> 56)
+            bytes[index + 1] = UInt8((value >> 48) & 0xff)
+            bytes[index + 2] = UInt8((value >> 40) & 0xff)
+            bytes[index + 3] = UInt8((value >> 32) & 0xff)
+            bytes[index + 4] = UInt8((value >> 24) & 0xff)
+            bytes[index + 5] = UInt8((value >> 16) & 0xff)
+            bytes[index + 6] = UInt8((value >> 8) & 0xff)
+            bytes[index + 7] = UInt8(value & 0xff)
         }
-        offset += 8
+        index += 8
     }
 
     func available(size: Int) -> Bool {
-        return offset + size <= bytes.endIndex
-    }
-    
-    mutating func advance(by n: Int) {
-        guard offset + n >= bytes.startIndex && offset + n <= bytes.endIndex else { return }
-        offset += n
-    }
-    
-    mutating func rewind(by n: Int) {
-        advance(by: -n)
-    }
-    
-    mutating func seek(to index: Int, fromEnd: Bool = false) {
-        guard index <= bytes.count else { return }
-        
-        if fromEnd {
-            offset = bytes.endIndex - index
-        }
-        else {
-            offset = bytes.startIndex + index
-        }
+        return index + size <= bytes.endIndex
     }
 }
