@@ -115,7 +115,7 @@ extern int cur_len, last_len;
 #define ERR_EXPECT_CHECKNUM 5
 #define ERR_EXPECT_END_CMD 6
 #define ERR_MISSING_CLOSE_PAREN 7
-#define ERR_INCOMPLETE_COMPARE_OP 8
+#define ERR_INCOMPLETE_COND_OP 8
 #define ERR_EXPECT_FILENAME 9
 #define ERR_ADDR_TOO_BIG 10
 #define ERR_IMM_TOO_BIG 11
@@ -149,7 +149,7 @@ extern int cur_len, last_len;
 %token<str> H_RANGE_GUESS D_NUMBER_GUESS O_NUMBER_GUESS B_NUMBER_GUESS
 %token<i> BAD_CMD MEM_OP IF MEM_COMP MEM_DISK8 MEM_DISK9 MEM_DISK10 MEM_DISK11 EQUALS
 %token TRAIL CMD_SEP LABEL_ASGN_COMMENT
-%token CMD_SIDEFX CMD_RETURN CMD_BLOCK_READ CMD_BLOCK_WRITE CMD_UP CMD_DOWN
+%token CMD_LOG CMD_LOGNAME CMD_SIDEFX CMD_RETURN CMD_BLOCK_READ CMD_BLOCK_WRITE CMD_UP CMD_DOWN
 %token CMD_LOAD CMD_SAVE CMD_VERIFY CMD_IGNORE CMD_HUNT CMD_FILL CMD_MOVE
 %token CMD_GOTO CMD_REGISTERS CMD_READSPACE CMD_WRITESPACE CMD_RADIX
 %token CMD_MEM_DISPLAY CMD_BREAK CMD_TRACE CMD_IO CMD_BRMON CMD_COMPARE
@@ -175,12 +175,12 @@ extern int cur_len, last_len;
 %token<i> PLUS MINUS
 %token<str> STRING FILENAME R_O_L OPCODE LABEL BANKNAME CPUTYPE
 %token<reg> MON_REGISTER
-%left<cond_op> COMPARE_OP
+%left<cond_op> COND_OP
 %token<rt> RADIX_TYPE INPUT_SPEC
 %token<action> CMD_CHECKPT_ON CMD_CHECKPT_OFF TOGGLE
 %type<range> address_range address_opt_range
 %type<a>  address opt_address
-%type<cond_node> opt_if_cond_expr cond_expr compare_operand
+%type<cond_node> opt_if_cond_expr cond_expr cond_operand
 %type<i> number expression d_number guess_default device_num
 %type<i> memspace memloc memaddr checkpt_num mem_op opt_mem_op
 %type<i> top_level value
@@ -450,6 +450,29 @@ monitor_state_rules: CMD_SIDEFX TOGGLE end_cmd
                          mon_out("I/O side effects are %s\n",
                                    sidefx ? "enabled" : "disabled");
                      }
+                   | CMD_LOG TOGGLE end_cmd
+                     { 
+                        int logenabled;
+                        resources_get_int("MonitorLogEnabled", &logenabled);
+                        logenabled = (($2 == e_TOGGLE) ? (logenabled ^ 1) : $2);
+                        resources_set_int("MonitorLogEnabled", logenabled);
+                     }
+                   | CMD_LOG end_cmd
+                     {
+                         int logenabled;
+                         const char *logfilename;
+                         resources_get_int("MonitorLogEnabled", &logenabled);
+                         resources_get_string("MonitorLogFileName", &logfilename);
+                         if (logenabled) {
+                            mon_out("Logging to '%s' is enabled.\n", logfilename);
+                         } else {
+                            mon_out("Logging is disabled.\n");
+                         }
+                     }                     
+                   | CMD_LOGNAME filename end_cmd
+                     { 
+                        resources_set_string("MonitorLogFileName", $2);
+                     }
                    | CMD_RADIX RADIX_TYPE end_cmd
                      { default_radix = $2; }
                    | CMD_RADIX end_cmd
@@ -699,22 +722,22 @@ expression: expression '+' expression { $$ = $1 + $3; }
 opt_if_cond_expr: IF cond_expr { $$ = $2; }
                 | { $$ = 0; }
 
-cond_expr: cond_expr COMPARE_OP cond_expr
+cond_expr: cond_expr COND_OP cond_expr
            {
                $$ = new_cond; $$->is_parenthized = FALSE;
                $$->child1 = $1; $$->child2 = $3; $$->operation = $2;
            }
-         | cond_expr COMPARE_OP error
-           { return ERR_INCOMPLETE_COMPARE_OP; }
+      	 | cond_expr COND_OP error
+           { return ERR_INCOMPLETE_COND_OP; }
          | L_PAREN cond_expr R_PAREN
            { $$ = $2; $$->is_parenthized = TRUE; }
          | L_PAREN cond_expr error
            { return ERR_MISSING_CLOSE_PAREN; }
-         | compare_operand
+         | cond_operand
            { $$ = $1; }
          ;
 
-compare_operand: register { $$ = new_cond;
+cond_operand: register    { $$ = new_cond;
                             $$->operation = e_INV;
                             $$->is_parenthized = FALSE;
                             $$->reg_num = $1; $$->is_reg = TRUE; $$->banknum=-1;
@@ -1088,8 +1111,8 @@ void parse_and_execute_line(char *input)
          case ERR_MISSING_CLOSE_PAREN:
            mon_out("')' expected:\n");
            break;
-         case ERR_INCOMPLETE_COMPARE_OP:
-           mon_out("Compare operation missing an operand:\n");
+         case ERR_INCOMPLETE_COND_OP:
+           mon_out("Conditional operation missing an operand:\n");
            break;
          case ERR_EXPECT_FILENAME:
            mon_out("Expecting a filename:\n");
@@ -1132,7 +1155,9 @@ void parse_and_execute_line(char *input)
 
 static int yyerror(char *s)
 {
+#if 0
    fprintf(stderr, "ERR:%s\n", s);
+#endif
    return 0;
 }
 

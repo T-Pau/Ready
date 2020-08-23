@@ -130,6 +130,10 @@ void cartridge_resources_shutdown(void)
 {
 }
 
+void cartridge_unset_default(void)
+{
+}
+
 /* ---------------------------------------------------------------------*/
 
 static void cart_power_off(void)
@@ -394,7 +398,9 @@ int cartridge_attach_image(int type, const char *filename)
             if ((type & 0xff00) == CARTRIDGE_PLUS4_DETECT) {
                 return cart_load_generic(type, filename);
             } else {
-                log_error(LOG_DEFAULT, "cartridge_attach_image: unsupported type (%04x)", type);
+                log_error(LOG_DEFAULT,
+                        "cartridge_attach_image: unsupported type (%04x)",
+                        (unsigned int)type);
             }
             break;
     }

@@ -109,7 +109,7 @@ static uint8_t comal80_io1_peek(uint16_t addr)
 static int comal80_dump(void)
 {
     mon_out("extra eprom is installed: %s\n", extrarom ? "yes" : "no");
-    mon_out("register value: $%02x\n", currregval);
+    mon_out("register value: $%02x\n", (unsigned int)currregval);
     mon_out(" bank: %d/%d\n", currregval & 7, extrarom ? 8 : 4);
     return 0;
 }
@@ -117,18 +117,19 @@ static int comal80_dump(void)
 /* ---------------------------------------------------------------------*/
 
 static io_source_t comal80_device = {
-    CARTRIDGE_NAME_COMAL80,
-    IO_DETACH_CART,
-    NULL,
-    0xde00, 0xdeff, 0xff,
-    0,
-    comal80_io1_store,
-    NULL,
-    comal80_io1_peek,
-    comal80_dump,
-    CARTRIDGE_COMAL80,
-    0,
-    0
+    CARTRIDGE_NAME_COMAL80, /* name of the device */
+    IO_DETACH_CART,         /* use cartridge ID to detach the device when involved in a read-collision */
+    IO_DETACH_NO_RESOURCE,  /* does not use a resource for detach */
+    0xde00, 0xdeff, 0xff,   /* range for the device, address is ignored, reg:$de00, mirrors:$de01-$deff */
+    0,                      /* read never valid, device is write only */
+    comal80_io1_store,      /* store function */
+    NULL,                   /* NO poke function */
+    NULL,                   /* NO read function */
+    comal80_io1_peek,       /* peek function */
+    comal80_dump,           /* device state information dump function */
+    CARTRIDGE_COMAL80,      /* cartridge ID */
+    IO_PRIO_NORMAL,         /* normal priority, device read needs to be checked for collisions */
+    0                       /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_list_t *comal80_list_item = NULL;
@@ -278,7 +279,7 @@ int comal80_snapshot_read_module(snapshot_t *s)
     }
 
     /* Do not accept versions higher than current */
-    if (vmajor > SNAP_MAJOR || vminor > SNAP_MINOR) {
+    if (snapshot_version_is_bigger(vmajor, vminor, SNAP_MAJOR, SNAP_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }

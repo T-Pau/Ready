@@ -191,7 +191,7 @@ int ted_snapshot_read_module(snapshot_t *s)
         return -1;
     }
 
-    if (major_version > SNAP_MAJOR || minor_version > SNAP_MINOR) {
+    if (snapshot_version_is_bigger(major_version, minor_version, SNAP_MAJOR, SNAP_MINOR)) {
         log_error(ted.log,
                   "Snapshot module version (%d.%d) newer than %d.%d.",
                   major_version, minor_version,
@@ -235,14 +235,14 @@ int ted_snapshot_read_module(snapshot_t *s)
 
         if (RasterCycle != (uint8_t)TED_RASTER_CYCLE(maincpu_clk)) {
             log_error(ted.log,
-                      "Not matching raster cycle (%d) in snapshot; should be %d.",
+                      "Not matching raster cycle (%d) in snapshot; should be %u.",
                       RasterCycle, TED_RASTER_CYCLE(maincpu_clk));
             goto fail;
         }
 
         if (RasterLine != (uint16_t)TED_RASTER_Y(maincpu_clk)) {
             log_error(ted.log,
-                      "Not matching raster line (%d) in snapshot; should be %d.",
+                      "Not matching raster line (%d) in snapshot; should be %u.",
                       RasterLine, TED_RASTER_Y(maincpu_clk));
             goto fail;
         }

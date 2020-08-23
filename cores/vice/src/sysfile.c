@@ -143,8 +143,6 @@ void sysfile_shutdown(void)
 {
     lib_free(default_path);
     lib_free(expanded_system_path);
-    default_path = NULL;
-    expanded_system_path = NULL;
 }
 
 int sysfile_resources_init(void)
@@ -155,7 +153,6 @@ int sysfile_resources_init(void)
 void sysfile_resources_shutdown(void)
 {
     lib_free(system_path);
-    system_path = NULL;
 }
 
 int sysfile_cmdline_options_init(void)

@@ -86,7 +86,7 @@ rtc_ds1602_t *ds1602_init(char *device, time_t offset0)
     retval->old_offset = retval->offset;
     retval->offset0 = offset0;
 
-    retval->device = lib_stralloc(device);
+    retval->device = lib_strdup(device);
     retval->state = DS1602_IDLE;
     retval->rst_line = 1;
     retval->clk_line = 1;
@@ -350,7 +350,7 @@ int ds1602_read_snapshot(rtc_ds1602_t *context, snapshot_t *s)
     }
 
     /* Do not accept versions higher than current */
-    if (vmajor > SNAP_MAJOR || vminor > SNAP_MINOR) {
+    if (snapshot_version_is_bigger(vmajor, vminor, SNAP_MAJOR, SNAP_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }

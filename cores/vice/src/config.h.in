@@ -39,9 +39,6 @@
 /* Enable Mac IOHIDManager Joystick driver. */
 #undef HAS_HIDMGR
 
-/* Enable joystick emulation. */
-#undef HAS_JOYSTICK
-
 /* Enable emulation for USB joysticks. */
 #undef HAS_USB_JOYSTICK
 
@@ -59,9 +56,6 @@
 
 /* Define to 1 if you have the <arpa/inet.h> header file. */
 #undef HAVE_ARPA_INET_H
-
-/* Define to 1 if you have the <artsc.h> header file. */
-#undef HAVE_ARTSC_H
 
 /* Define to 1 if you have the `atexit' function. */
 #undef HAVE_ATEXIT
@@ -139,9 +133,6 @@
 
 /* Define to 1 if you have the <dir.h> header file. */
 #undef HAVE_DIR_H
-
-/* Define to 1 if you have the <dmedia/audio.h> header file. */
-#undef HAVE_DMEDIA_AUDIO_H
 
 /* dsound.lib or libdsound.a are present */
 #undef HAVE_DSOUND_LIB
@@ -239,17 +230,11 @@
 /* Enable arbitrary window scaling */
 #undef HAVE_HWSCALE
 
-/* Define to 1 if you have the <hw/inout.h> header file. */
-#undef HAVE_HW_INOUT_H
-
 /* Define to 1 if you have the `i386_set_ioperm' function. */
 #undef HAVE_I386_SET_IOPERM
 
 /* Define to 1 if you have the <ieee1284.h> header file. */
 #undef HAVE_IEEE1284_H
-
-/* Define to 1 if you have the `in8' function. */
-#undef HAVE_IN8
 
 /* Define to 1 if you have the `inb' function. */
 #undef HAVE_INB
@@ -278,7 +263,7 @@
 /* Can we use the JPEG library? */
 #undef HAVE_JPEG
 
-/* Define to 1 if you have the `amd64' library (-lamd64). */
+/* Define to 1 if you have the 'amd64' library (-lamd64). */
 #undef HAVE_LIBAMD64
 
 /* Define to 1 if you have the `bsd' library (-lbsd). */
@@ -286,9 +271,6 @@
 
 /* Define to 1 if you have the `bz2' library (-lbz2). */
 #undef HAVE_LIBBZ2
-
-/* Define to 1 if you have the <libc.h> header file. */
-#undef HAVE_LIBC_H
 
 /* Define to 1 if you have the `FLAC' library (-lFLAC). */
 #undef HAVE_LIBFLAC
@@ -299,7 +281,7 @@
 /* Define to 1 if you have the `iconv' library (-liconv). */
 #undef HAVE_LIBICONV
 
-/* Define to 1 if you have the `ieee1284' library (-lieee1284). */
+/* Define to 1 if you have the 'ieee1284' library (-lieee1284). */
 #undef HAVE_LIBIEEE1284
 
 /* Define to 1 if you have the `lzma' library (-llzma). */
@@ -401,9 +383,6 @@
 /* Define to 1 if you have the `mkstemp' function. */
 #undef HAVE_MKSTEMP
 
-/* Define to 1 if you have the `mmap_device_io' function. */
-#undef HAVE_MMAP_DEVICE_IO
-
 /* Enable 1351 mouse support */
 #undef HAVE_MOUSE
 
@@ -428,11 +407,8 @@
 /* Enable netplay support */
 #undef HAVE_NETWORK
 
-/* Support for OpenCBM (former CBM4Linux). */
-#undef HAVE_OPENCBM
-
-/* Define to 1 if you have the `out8' function. */
-#undef HAVE_OUT8
+/* Use the experimental new 8580 filter */
+#undef HAVE_NEW_8580_FILTER
 
 /* Define to 1 if you have the `outb' function. */
 #undef HAVE_OUTB
@@ -482,9 +458,6 @@
 /* Define to 1 if you have the `random' function. */
 #undef HAVE_RANDOM
 
-/* Support for block device disk image access. */
-#undef HAVE_RAWDRIVE
-
 /* Support for CS8900A ethernet controller. */
 #undef HAVE_RAWNET
 
@@ -493,6 +466,9 @@
 
 /* Define to 1 if you have the <readline/readline.h> header file. */
 #undef HAVE_READLINE_READLINE_H
+
+/* Support for OpenCBM (former CBM4Linux). */
+#undef HAVE_REALDEVICE
 
 /* Define to 1 if you have the `recv' function. */
 #undef HAVE_RECV
@@ -509,7 +485,7 @@
 /* Define to 1 if you have the `rewinddir' function. */
 #undef HAVE_REWINDDIR
 
-/* Does the `readline' library support `rl_readline_name'? */
+/* Does the 'readline' library support 'rl_readline_name'? */
 #undef HAVE_RLNAME
 
 /* Enable RS232 device emulation. */
@@ -584,7 +560,7 @@
 /* Define to 1 if you have the `strcasecmp' function. */
 #undef HAVE_STRCASECMP
 
-/* Define to 1 if you have the `strdup' function. */
+/* Define to 1 if you have the 'strdup' function. */
 #undef HAVE_STRDUP
 
 /* Define to 1 if you have the `strerror' function. */
@@ -623,9 +599,6 @@
 /* Define to 1 if you have the <sys/audioio.h> header file. */
 #undef HAVE_SYS_AUDIOIO_H
 
-/* Define to 1 if you have the <sys/audio.h> header file. */
-#undef HAVE_SYS_AUDIO_H
-
 /* Define to 1 if you have the <sys/dirent.h> header file. */
 #undef HAVE_SYS_DIRENT_H
 
@@ -641,9 +614,6 @@
 
 /* Define to 1 if you have the <sys/joystick.h> header file. */
 #undef HAVE_SYS_JOYSTICK_H
-
-/* Define to 1 if you have the <sys/mman.h> header file. */
-#undef HAVE_SYS_MMAN_H
 
 /* Define to 1 if you have the <sys/ndir.h> header file, and it defines `DIR'.
    */
@@ -678,12 +648,6 @@
 
 /* Define to 1 if you have the `ultoa' function. */
 #undef HAVE_ULTOA
-
-/* Define to 1 if you have the <UMS/UMSAudioDevice.h> header file. */
-#undef HAVE_UMS_UMSAUDIODEVICE_H
-
-/* Define to 1 if you have the <UMS/UMSBAUDDevice.h> header file. */
-#undef HAVE_UMS_UMSBAUDDEVICE_H
 
 /* Define to 1 if you have the <unistd.h> header file. */
 #undef HAVE_UNISTD_H
@@ -730,9 +694,6 @@
 /* Enable support for Linux style joysticks. */
 #undef LINUX_JOYSTICK
 
-/* Enable Mac OS X application bundles. */
-#undef MACOSX_BUNDLE
-
 /* Enable Mac OS X specific code. */
 #undef MACOSX_SUPPORT
 
@@ -741,18 +702,6 @@
 
 /* Whether struct sockaddr::__ss_family exists */
 #undef NEED_PREFIXED_SS_FAMILY
-
-/* Enable NextStep 3.x support */
-#undef NEXTSTEP_COMPILE
-
-/* Enable SCO Openserver 5.x support */
-#undef OPENSERVER5_COMPILE
-
-/* Enable SCO Openserver 6.x support */
-#undef OPENSERVER6_COMPILE
-
-/* Enable OpenStep 4.x support */
-#undef OPENSTEP_COMPILE
 
 /* Name of package */
 #undef PACKAGE
@@ -784,12 +733,6 @@
 /* Define as the return type of signal handlers (`int' or `void'). */
 #undef RETSIGTYPE
 
-/* Enable Rhapsody 5.x support */
-#undef RHAPSODY_COMPILE
-
-/* Enable SCO Unix 4.x support */
-#undef SCO4UNIX_COMPILE
-
 /* Enable amiga shared SDL library support. */
 #undef SDL_AMIGA_INLINE
 
@@ -820,29 +763,17 @@
 /* time_t is 64 bit */
 #undef TIME_T_IS_64BIT
 
-/* Enable SCO Unixware 7.x support */
-#undef UNIXWARE_COMPILE
-
 /* Are we compiling for unix? */
 #undef UNIX_COMPILE
 
 /* Define if this version is unstable. */
 #undef UNSTABLE
 
-/* Enable aix sound support. */
-#undef USE_AIX_AUDIO
-
 /* Enable alsa support. */
 #undef USE_ALSA
 
-/* Enable aRts support. */
-#undef USE_ARTS
-
 /* Enable CoreAudio support. */
 #undef USE_COREAUDIO
-
-/* Enable sgi sound support. */
-#undef USE_DMEDIA
 
 /* Enable directx sound support. */
 #undef USE_DXSOUND
@@ -904,9 +835,6 @@
 /* Support for The Final Ethernet */
 #undef VICE_USE_LIBNET_1_1
 
-/* owcc is being used. */
-#undef WATCOM_COMPILE
-
 /* Are we compiling for win32? */
 #undef WIN32_COMPILE
 
@@ -939,9 +867,6 @@
 
 /* Define for large files, on AIX-style hosts. */
 #undef _LARGE_FILES
-
-/* define when using the alpha compaq compiler */
-#undef __DECALPHA__
 
 /* Define to `__inline__' or `__inline' if that's what the C compiler
    calls it, or to nothing if 'inline' is not supported under any name.  */

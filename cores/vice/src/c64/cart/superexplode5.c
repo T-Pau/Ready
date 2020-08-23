@@ -125,18 +125,19 @@ static int se5_dump(void)
 /* ---------------------------------------------------------------------*/
 
 static io_source_t se5_io2_device = {
-    CARTRIDGE_NAME_SUPER_EXPLODE_V5,
-    IO_DETACH_CART,
-    NULL,
-    0xdf00, 0xdfff, 0xff,
-    1, /* read is alway valid */
-    se5_io2_store,
-    se5_io2_read,
-    NULL,
-    se5_dump,
-    CARTRIDGE_SUPER_EXPLODE_V5,
-    0,
-    0
+    CARTRIDGE_NAME_SUPER_EXPLODE_V5, /* name of the device */
+    IO_DETACH_CART,                  /* use cartridge ID to detach the device when involved in a read-collision */
+    IO_DETACH_NO_RESOURCE,           /* does not use a resource for detach */
+    0xdf00, 0xdfff, 0xff,            /* range for the device, regs:$df00-$dfff */
+    1,                               /* read is always valid */
+    se5_io2_store,                   /* store function */
+    NULL,                            /* NO poke function */
+    se5_io2_read,                    /* read function */
+    NULL,                            /* NO peek function */
+    se5_dump,                        /* device state information dump function */
+    CARTRIDGE_SUPER_EXPLODE_V5,      /* cartridge ID */
+    IO_PRIO_NORMAL,                  /* normal priority, device read needs to be checked for collisions */
+    0                                /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_list_t *se5_io2_list_item = NULL;
@@ -272,13 +273,13 @@ int se5_snapshot_read_module(snapshot_t *s)
     }
 
     /* Do not accept versions higher than current */
-    if (vmajor > SNAP_MAJOR || vminor > SNAP_MINOR) {
+    if (snapshot_version_is_bigger(vmajor, vminor, SNAP_MAJOR, SNAP_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }
 
     /* new in 0.1 */
-    if (SNAPVAL(vmajor, vminor, 0, 1)) {
+    if (!snapshot_version_is_smaller(vmajor, vminor, 0, 1)) {
         if (SMR_B_INT(m, &se5_bank) < 0) {
             goto fail;
         }

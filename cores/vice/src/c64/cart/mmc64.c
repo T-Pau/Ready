@@ -176,66 +176,76 @@ static int mmc64_dump(void);
 static uint8_t mmc64_clockport_read(uint16_t io_address);
 static uint8_t mmc64_clockport_peek(uint16_t io_address);
 static void mmc64_clockport_store(uint16_t io_address, uint8_t byte);
+static int mmc64_clockport_dump(void);
 
 static io_source_t mmc64_io1_clockport_enable_device = {
-    CARTRIDGE_NAME_MMC64 " Clockport enable",
-    IO_DETACH_RESOURCE,
-    "MMC64",
-    0xde01, 0xde01, 0x01,
-    0,
-    mmc64_clockport_enable_store,
-    NULL, /* read */
-    mmc64_clockport_enable_peek,
-    mmc64_dump,
-    CARTRIDGE_MMC64,
-    0,
-    0
+    CARTRIDGE_NAME_MMC64 " Clockport enable", /* name of the device */
+    IO_DETACH_RESOURCE,                       /* use resource to detach the device when involved in a read-collision */
+    "MMC64",                                  /* resource to set to '0' */
+    0xde01, 0xde01, 0x01,                     /* range for the device, reg:$de01 */
+    0,                                        /* read is never valid, reg is write only */
+    mmc64_clockport_enable_store,             /* store function */
+    NULL,                                     /* NO poke function */
+    NULL,                                     /* NO read function */
+    mmc64_clockport_enable_peek,              /* peek function */
+    mmc64_dump,                               /* device state information dump function */
+    CARTRIDGE_MMC64,                          /* cartridge ID */
+    IO_PRIO_HIGH,                             /* high priority, every other cartridge is assumed to be attached to the passthrough port */
+    0                                         /* insertion order, gets filled in by the registration function */
 };
 
-/* FIXME: register map doesnt show a register at $df21 - is this correct? */
+/* from http://www.schoenfeld.de/inside/mmc64doc.txt:
+ *
+ * $DE01 / $DF21(W)(*):	bit 0: 0 = disable clock port, 1 = enable clockport
+ *
+ * (*) location depends on bit 3 of $DF11
+ */
 static io_source_t mmc64_io2_clockport_enable_device = {
-    CARTRIDGE_NAME_MMC64 " Clockport enable",
-    IO_DETACH_RESOURCE,
-    "MMC64",
-    0xdf21, 0xdf21, 0x01,
-    0,
-    mmc64_clockport_enable_store,
-    NULL, /* read */
-    mmc64_clockport_enable_peek,
-    mmc64_dump,
-    CARTRIDGE_MMC64,
-    0,
-    0
+    CARTRIDGE_NAME_MMC64 " Clockport enable", /* name of the device */
+    IO_DETACH_RESOURCE,                       /* use resource to detach the device when involved in a read-collision */
+    "MMC64",                                  /* resource to set to '0' */
+    0xdf21, 0xdf21, 0x01,                     /* range for the device, reg:$df21 */
+    0,                                        /* read is never valid, reg is write only */
+    mmc64_clockport_enable_store,             /* store function */
+    NULL,                                     /* NO poke function */
+    NULL,                                     /* NO read function */
+    mmc64_clockport_enable_peek,              /* peek function */
+    mmc64_dump,                               /* device state information dump function */
+    CARTRIDGE_MMC64,                          /* cartridge ID */
+    IO_PRIO_HIGH,                             /* high priority, every other cartridge is assumed to be attached to the passthrough port */
+    0                                         /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_t mmc64_io1_clockport_device = {
-    CARTRIDGE_NAME_MMC64 " Clockport",
-    IO_DETACH_RESOURCE,
-    "MMC64ClockPort",
-    0xde02, 0xde0f, 0x0f,
-    0,
-    mmc64_clockport_store,
-    mmc64_clockport_read,
-    mmc64_clockport_peek,
-    mmc64_dump,
-    CARTRIDGE_MMC64,
-    0,
-    0
+    CARTRIDGE_NAME_MMC64 " Clockport", /* name of the device */
+    IO_DETACH_RESOURCE,                /* use resource to detach the device when involved in a read-collision */
+    "MMC64ClockPort",                  /* resource to set to '0' */
+    0xde02, 0xde0f, 0x0f,              /* range for the device, regs:$de02-$de0f */
+    0,                                 /* read validity is determined by the device upon a read */
+    mmc64_clockport_store,             /* store function */
+    NULL,                              /* NO poke function */
+    mmc64_clockport_read,              /* read function */
+    mmc64_clockport_peek,              /* peek function */
+    mmc64_clockport_dump,              /* device state information dump function */
+    CARTRIDGE_MMC64,                   /* cartridge ID */
+    IO_PRIO_HIGH,                      /* high priority, every other cartridge is assumed to be attached to the passthrough port */
+    0                                  /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_t mmc64_io2_clockport_device = {
-    CARTRIDGE_NAME_MMC64 " Clockport",
-    IO_DETACH_RESOURCE,
-    "MMC64ClockPort",
-    0xdf22, 0xdf2f, 0x0f,
-    0,
-    mmc64_clockport_store,
-    mmc64_clockport_read,
-    mmc64_clockport_peek,
-    mmc64_dump,
-    CARTRIDGE_MMC64,
-    0,
-    0
+    CARTRIDGE_NAME_MMC64 " Clockport", /* name of the device */
+    IO_DETACH_RESOURCE,                /* use resource to detach the device when involved in a read-collision */
+    "MMC64ClockPort",                  /* resource to set to '0' */
+    0xdf22, 0xdf2f, 0x0f,              /* range for the device, regs:$df22-$df2f */
+    0,                                 /* read validity is determined by the device upon a read */
+    mmc64_clockport_store,             /* store function */
+    NULL,                              /* NO poke function */
+    mmc64_clockport_read,              /* read function */
+    mmc64_clockport_peek,              /* peek function */
+    mmc64_clockport_dump,              /* device state information dump function */
+    CARTRIDGE_MMC64,                   /* cartridge ID */
+    IO_PRIO_HIGH,                      /* high priority, every other cartridge is assumed to be attached to the passthrough port */
+    0                                  /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_t *mmc64_current_clockport_enable_device = &mmc64_io1_clockport_enable_device;
@@ -251,33 +261,35 @@ static const export_resource_t export_cp_res = {
 #endif
 
 static io_source_t mmc64_io2_device = {
-    CARTRIDGE_NAME_MMC64,
-    IO_DETACH_RESOURCE,
-    "MMC64",
-    0xdf10, 0xdf13, 0x03,
-    0,
-    mmc64_io2_store,
-    mmc64_io2_read,
-    mmc64_io2_peek,
-    mmc64_dump,
-    CARTRIDGE_MMC64,
-    1, /* mask df10-df13 from passthrough */
-    0
+    CARTRIDGE_NAME_MMC64, /* name of the device */
+    IO_DETACH_RESOURCE,   /* use resource to detach the device when involved in a read-collision */
+    "MMC64",              /* resource to set to '0' */
+    0xdf10, 0xdf13, 0x03, /* range for the device, regs:$df10-$df13 */
+    0,                    /* read validity is determined by the device upon a read */
+    mmc64_io2_store,      /* store function */
+    NULL,                 /* NO poke function */
+    mmc64_io2_read,       /* read function */
+    mmc64_io2_peek,       /* peek function */
+    mmc64_dump,           /* device state information dump function */
+    CARTRIDGE_MMC64,      /* cartridge ID */
+    IO_PRIO_HIGH,         /* high priority, every other cartridge is assumed to be attached to the passthrough port */
+    0                     /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_t mmc64_io1_device = {
-    CARTRIDGE_NAME_MMC64,
-    IO_DETACH_RESOURCE,
-    "MMC64",
-    0xde10, 0xde13, 0x03,
-    0,
-    mmc64_io1_store,
-    mmc64_io1_read,
-    mmc64_io1_peek,
-    mmc64_dump,
-    CARTRIDGE_MMC64,
-    0,
-    0
+    CARTRIDGE_NAME_MMC64, /* name of the device */
+    IO_DETACH_RESOURCE,   /* use resource to detach the device when involved in a read-collision */
+    "MMC64",              /* resource to set to '0' */
+    0xde10, 0xde13, 0x03, /* range for the device, regs:$de10-$de13 */
+    0,                    /* read validity is determined by the device upon a read */
+    mmc64_io1_store,      /* store function */
+    NULL,                 /* NO poke function */
+    mmc64_io1_read,       /* read function */
+    mmc64_io1_peek,       /* peek function */
+    mmc64_dump,           /* device state information dump function */
+    CARTRIDGE_MMC64,      /* cartridge ID */
+    IO_PRIO_HIGH,         /* high priority, every other cartridge is assumed to be attached to the passthrough port */
+    0                     /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_list_t *mmc64_clockport_list_item = NULL;
@@ -383,7 +395,7 @@ static int set_mmc64_clockport_device(int val, void *param)
     }
 
     if (val != CLOCKPORT_DEVICE_NONE) {
-        clockport_device = clockport_open_device(val, (char *)STRING_MMC64);
+        clockport_device = clockport_open_device(val, STRING_MMC64);
         if (!clockport_device) {
             return -1;
         }
@@ -402,7 +414,7 @@ static int clockport_activate(void)
         return 0;
     }
 
-    clockport_device = clockport_open_device(clockport_device_id, (char *)STRING_MMC64);
+    clockport_device = clockport_open_device(clockport_device_id, STRING_MMC64);
     if (!clockport_device) {
         return -1;
     }
@@ -1028,22 +1040,26 @@ static uint8_t mmc64_io1_peek(uint16_t addr)
 
 static uint8_t mmc64_clockport_read(uint16_t address)
 {
+    if (address < 0x02) {
+        mmc64_current_clockport_device->io_source_valid = 0;
+        return 0;
+    }
+    /* read from clockport device */
     if (clockport_device) {
-        if (address < 0x02) {
-            mmc64_current_clockport_device->io_source_valid = 0;
-            return 0;
-        }
         return clockport_device->read(address, &mmc64_current_clockport_device->io_source_valid, clockport_device->device_context);
     }
+    /* read open clock port */
+    mmc64_current_clockport_device->io_source_valid = 1;
     return 0;
 }
 
 static uint8_t mmc64_clockport_peek(uint16_t address)
 {
+    if (address < 0x02) {
+        return 0;
+    }
+    /* read from clockport device */
     if (clockport_device) {
-        if (address < 0x02) {
-            return 0;
-        }
         return clockport_device->peek(address, clockport_device->device_context);
     }
     return 0;
@@ -1051,13 +1067,22 @@ static uint8_t mmc64_clockport_peek(uint16_t address)
 
 static void mmc64_clockport_store(uint16_t address, uint8_t byte)
 {
-    if (clockport_device) {
-        if (address < 0x02) {
-            return;
-        }
+    if (address < 0x02) {
+        return;
+    }
 
+    /* write to clockport device */
+    if (clockport_device) {
         clockport_device->store(address, byte, clockport_device->device_context);
     }
+}
+
+static int mmc64_clockport_dump(void)
+{
+    if (clockport_device) {
+        clockport_device->dump(clockport_device->device_context);
+    }
+    return 0;
 }
 
 /* ---------------------------------------------------------------------*/
@@ -1065,7 +1090,7 @@ static void mmc64_clockport_store(uint16_t address, uint8_t byte)
 static int mmc64_dump(void)
 {
     mon_out("Clockport is %s.\n", mmc64_clockport_enabled ? "enabled" : "disabled");
-    mon_out("Clockport mapped to $%04x.\n", mmc64_hw_clockport);
+    mon_out("Clockport mapped to $%04x.\n", (unsigned int)mmc64_hw_clockport);
     mon_out("Clockport device %s\n", clockport_device_id_to_name(clockport_device_id));
 
     return 0;
@@ -1470,7 +1495,7 @@ int mmc64_snapshot_read_module(snapshot_t *s)
     }
 
     /* Do not accept versions higher than current */
-    if (vmajor > SNAP_MAJOR || vminor > SNAP_MINOR) {
+    if (snapshot_version_is_bigger(vmajor, vminor, SNAP_MAJOR, SNAP_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }

@@ -254,7 +254,7 @@ int vicii_snapshot_read_module(snapshot_t *s)
         return -1;
     }
 
-    if (major_version > SNAP_MAJOR || minor_version > SNAP_MINOR) {
+    if (snapshot_version_is_bigger(major_version, minor_version, SNAP_MAJOR, SNAP_MINOR)) {
         log_error(vicii.log,
                   "Snapshot module version (%d.%d) newer than %d.%d.",
                   major_version, minor_version,
@@ -310,14 +310,14 @@ int vicii_snapshot_read_module(snapshot_t *s)
 
         if (RasterCycle != (uint8_t)VICII_RASTER_CYCLE(maincpu_clk)) {
             log_error(vicii.log,
-                      "Not matching raster cycle (%d) in snapshot; should be %d.",
+                      "Not matching raster cycle (%d) in snapshot; should be %u.",
                       RasterCycle, VICII_RASTER_CYCLE(maincpu_clk));
             goto fail;
         }
 
         if (RasterLine != (uint16_t)VICII_RASTER_Y(maincpu_clk)) {
             log_error(vicii.log,
-                      "VIC-II: Not matching raster line (%d) in snapshot; should be %d.",
+                      "VIC-II: Not matching raster line (%d) in snapshot; should be %u.",
                       RasterLine, VICII_RASTER_Y(maincpu_clk));
             goto fail;
         }

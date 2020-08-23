@@ -241,7 +241,7 @@ rtc_ds12c887_t *ds12c887_init(char *device)
 
     retval->bcd = 1;
     retval->ctrl_regs[0] = 0x20;
-    retval->device = lib_stralloc(device);
+    retval->device = lib_strdup(device);
 
     return retval;
 }
@@ -824,7 +824,7 @@ int ds12c887_dump(rtc_ds12c887_t *context)
 
     mon_out("Registers contents:\n");
     for (i = 0; i < 8; ++i) {
-        mon_out("%02X-%02X:", i * 16, (i * 16) + 15);
+        mon_out("%02X-%02X:", i * 16U, (i * 16U) + 15U);
         for (j = 0; j < 16; ++j) {
             mon_out(" %02X", ds12c887_read_regs(context, (i * 16) + j));
         }
@@ -954,7 +954,7 @@ int ds12c887_read_snapshot(rtc_ds12c887_t *context, snapshot_t *s)
     }
 
     /* Do not accept versions higher than current */
-    if (vmajor > SNAP_MAJOR || vminor > SNAP_MINOR) {
+    if (snapshot_version_is_bigger(vmajor, vminor, SNAP_MAJOR, SNAP_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }

@@ -163,6 +163,9 @@ static int realize_canvas(raster_t *raster)
         if (new_canvas == NULL) {
             return -1;
         }
+        
+        /* Ensure that this canvas is ready to screenshot immediately */
+        video_color_update_palette(new_canvas);
 
         raster->canvas = new_canvas;
 
@@ -553,19 +556,16 @@ void raster_shutdown(raster_t *raster)
     if (raster->cache) {
         raster_destroy_cache(raster, raster->geometry->screen_size.height);
         lib_free(raster->cache);
-        raster->cache = NULL;
     }
 
     if (raster->modes) {
         raster_modes_shutdown(raster->modes);
         lib_free(raster->modes);
-        raster->modes = NULL;
     }
 
     raster_changes_shutdown(raster);
 
     lib_free(raster->fake_draw_buffer_line);
-    raster->fake_draw_buffer_line = NULL;
     raster_canvas_shutdown(raster);
 
 

@@ -274,6 +274,7 @@ monitor_interface_t *maincpu_monitor_interface_get(void)
     maincpu_monitor_interface->mem_bank_read = mem_bank_read;
     maincpu_monitor_interface->mem_bank_peek = mem_bank_peek;
     maincpu_monitor_interface->mem_bank_write = mem_bank_write;
+    maincpu_monitor_interface->mem_bank_poke = mem_bank_poke;
 
     maincpu_monitor_interface->mem_ioreg_list_get = mem_ioreg_list_get;
 
@@ -519,7 +520,7 @@ void maincpu_mainloop(void)
 
         if (maincpu_clk_limit && (maincpu_clk > maincpu_clk_limit)) {
             log_error(LOG_DEFAULT, "cycle limit reached.");
-            archdep_vice_exit(EXIT_FAILURE);
+            archdep_vice_exit(1);
         }
 #if 0
         if (CLK > 246171754) {
@@ -527,7 +528,7 @@ void maincpu_mainloop(void)
         }
 #endif
     }
-    
+
     o_bank_base = NULL;
     o_bank_start = NULL;
     o_bank_limit = NULL;

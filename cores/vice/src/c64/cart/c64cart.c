@@ -433,8 +433,6 @@ void cartridge_resources_shutdown(void)
     /* "Main Slot" */
     lib_free(cartridge_file);
     lib_free(cartfile);
-    cartridge_file = NULL;
-    cartfile = NULL;
 }
 
 /* ---------------------------------------------------------------------*/
@@ -555,7 +553,7 @@ int cartridge_attach_image(int type, const char *filename)
     if (archdep_path_is_relative(filename)) {
         archdep_expand_path(&abs_filename, filename);
     } else {
-        abs_filename = lib_stralloc(filename);
+        abs_filename = lib_strdup(filename);
     }
 
     if (type == CARTRIDGE_CRT) {
@@ -773,7 +771,7 @@ void cartridge_unset_default(void)
 
 int cartridge_save_image(int type, const char *filename)
 {
-    char *ext = util_get_extension((char *)filename);
+    char *ext = util_get_extension(filename);
     if (ext != NULL && !strcmp(ext, "crt")) {
         return cartridge_crt_save(type, filename);
     }
@@ -873,16 +871,25 @@ void cartridge_init(void)
     cartridge_int_num = interrupt_cpu_status_int_new(maincpu_int_status, "Cartridge");
 }
 
-
-const char *cartridge_current_filename(void)
+/* returns 1 when cartridge (ROM) image can be flushed */
+int cartridge_can_flush_image(int crtid)
 {
-    return cartfile;
+    const char *p;
+    if (!cartridge_type_enabled(crtid)) {
+        return 0;
+    }
+    p = cartridge_get_file_name(crtid);
+    if ((p == NULL) || (*p == '\x0')) {
+        return 0;
+    }
+    return 1;
 }
 
-void cartridge_wipe_filename(void)
+/* returns 1 when cartridge (ROM) image can be saved */
+int cartridge_can_save_image(int crtid)
 {
-    if (cartridge_file != NULL) {
-        lib_free(cartridge_file);
-        cartridge_file = NULL;
+    if (!cartridge_type_enabled(crtid)) {
+        return 0;
     }
+    return 1;
 }

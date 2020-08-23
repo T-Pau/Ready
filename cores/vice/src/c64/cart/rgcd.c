@@ -98,18 +98,19 @@ static int rgcd_dump(void)
 /* ---------------------------------------------------------------------*/
 
 static io_source_t rgcd_device = {
-    CARTRIDGE_NAME_RGCD,
-    IO_DETACH_CART,
-    NULL,
-    0xde00, 0xdeff, 0xff,
-    0,
-    rgcd_io1_store,
-    NULL,
-    rgcd_io1_peek,
-    rgcd_dump,
-    CARTRIDGE_RGCD,
-    0,
-    0
+    CARTRIDGE_NAME_RGCD,   /* name of the device */
+    IO_DETACH_CART,        /* use cartridge ID to detach the device when involved in a read-collision */
+    IO_DETACH_NO_RESOURCE, /* does not use a resource for detach */
+    0xde00, 0xdeff, 0xff,  /* range for the device, address is ignored, reg:$de00, mirrors:$de01-$deff */
+    0,                     /* read is never valid, reg is write only */
+    rgcd_io1_store,        /* store function */
+    NULL,                  /* NO poke function */
+    NULL,                  /* NO read function */
+    rgcd_io1_peek,         /* peek function */
+    rgcd_dump,             /* device state information dump function */
+    CARTRIDGE_RGCD,        /* cartridge ID */
+    IO_PRIO_NORMAL,        /* normal priority, device read needs to be checked for collisions */
+    0                      /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_list_t *rgcd_list_item = NULL;
@@ -233,7 +234,7 @@ int rgcd_snapshot_read_module(snapshot_t *s)
     }
 
     /* Do not accept versions higher than current */
-    if (vmajor > SNAP_MAJOR || vminor > SNAP_MINOR) {
+    if (snapshot_version_is_bigger(vmajor, vminor, SNAP_MAJOR, SNAP_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }
@@ -243,7 +244,7 @@ int rgcd_snapshot_read_module(snapshot_t *s)
     }
 
     /* new in 0.2 */
-    if (SNAPVAL(vmajor, vminor, 0, 2)) {
+    if (!snapshot_version_is_smaller(vmajor, vminor, 0, 2)) {
         if (SMR_B(m, &disabled) < 0) {
             goto fail;
         }

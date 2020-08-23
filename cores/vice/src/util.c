@@ -160,7 +160,7 @@ char *util_strjoin(const char **list, const char *sep)
         return NULL;
     } else if (list_size == 1) {
         /* one item, just copy */
-        return lib_stralloc(*list);
+        return lib_strdup(*list);
     }
 
     if (sep != NULL && *sep != '\0') {
@@ -254,7 +254,7 @@ int util_string_set(char **str, const char *new_value)
 {
     if (*str == NULL) {
         if (new_value != NULL) {
-            *str = lib_stralloc(new_value);
+            *str = lib_strdup(new_value);
         }
     } else {
         if (new_value == NULL) {
@@ -561,38 +561,58 @@ void util_fname_split(const char *path, char **directory_return,
                       char **name_return)
 {
     const char *p;
-
+#if 0
+    printf("%s:%d:%s(): got '%s'\n", __FILE__, __LINE__, __func__, path);
+#endif
+    /* if no input, return "."/"" */
     if (path == NULL) {
         if (directory_return != NULL) {
-            *directory_return = NULL;
+            *directory_return = lib_strdup(".");
         }
         if (name_return != NULL) {
-            *name_return = NULL;
+            *name_return = lib_strdup("");
         }
+#if 0
+        printf("%s:%d:%s(): dir = '%s', name = '%s' (didn't find DIRSEP)\n",
+                __FILE__, __LINE__, __func__,
+                directory_return != NULL ? *directory_return : "NULL",
+                name_return != NULL ? *name_return : "NULL");
+#endif
         return;
     }
 
+    /* get ptr to last dir seperator before the filename */
     p = strrchr(path, FSDEV_DIR_SEP_CHR);
 
 #if (FSDEV_DIR_SEP_CHR == '\\')
+# if 0
+    printf("WE HAVE \\ AS A DIR SEPARATOR!\n");
+# endif
     /* Both `/' and `\' are valid.  */
     {
         const char *p1;
 
-        p1 = strrchr(path, '\\');
+        p1 = strrchr(path, '/');
         if (p == NULL || p < p1) {
             p = p1;
         }
     }
 #endif
 
+    /* if no path in the input, return "." as path */
     if (p == NULL) {
         if (directory_return != NULL) {
-            *directory_return = NULL;
+            *directory_return = lib_strdup(".");
         }
         if (name_return != NULL) {
-            *name_return = lib_stralloc(path);
+            *name_return = lib_strdup(path);
         }
+#if 0
+        printf("%s:%d:%s(): dir = '%s', name = '%s' (didn't find DIRSEP)\n",
+                __FILE__, __LINE__, __func__,
+                directory_return != NULL ? *directory_return : "NULL",
+                name_return != NULL ? *name_return : "NULL");
+#endif
         return;
     }
 
@@ -603,9 +623,14 @@ void util_fname_split(const char *path, char **directory_return,
     }
 
     if (name_return != NULL) {
-        *name_return = lib_stralloc(p + 1);
+        *name_return = lib_strdup(p + 1);
     }
-
+#if 0
+    printf("%s:%d:%s(): dir = '%s', name = '%s' (didn't find DIRSEP)\n",
+            __FILE__, __LINE__, __func__,
+            directory_return != NULL ? *directory_return : "NULL",
+            name_return != NULL ? *name_return : "NULL");
+#endif
     return;
 }
 
@@ -1361,24 +1386,31 @@ int snprintf(char *text, size_t maxlen, const char *fmt, ...)
 /*
 ------------------------------------------------------------------------- */
 
-/* util_add_extension() add the extension if not already there.
-   If the extension is added `name' is realloced. */
-
+/** \brief  Add \a extension to a\ name if missing
+ *
+ * \param[in,out]   name        input and final 'string'
+ * \param[in]       extension   extension to add to \a name
+ *
+ * \warning Since adding \a extension can trigger a realloc(3) of \a *name,
+ *          make sure to handle the output pointer properly.
+ *
+ */
 void util_add_extension(char **name, const char *extension)
 {
-    size_t name_len, ext_len;
+    size_t name_len;
+    size_t ext_len;
 
     if (extension == NULL || *name == NULL) {
         return;
     }
 
-    name_len = strlen(*name);
     ext_len = strlen(extension);
 
     if (ext_len == 0) {
         return;
     }
 
+    name_len = strlen(*name);
     if ((name_len > ext_len + 1)
         && (strcasecmp(&((*name)[name_len - ext_len]), extension) == 0)) {
         return;
@@ -1394,7 +1426,7 @@ char *util_add_extension_const(const char *filename, const char *extension)
 {
     char *ext_filename;
 
-    ext_filename = lib_stralloc(filename);
+    ext_filename = lib_strdup(filename);
 
     util_add_extension(&ext_filename, extension);
 
@@ -1431,7 +1463,7 @@ void util_add_extension_maxpath(char *name, const char *extension, unsigned int 
     memcpy(name + name_len + 1, extension, ext_len + 1);
 }
 
-char *util_get_extension(char *filename)
+char *util_get_extension(const char *filename)
 {
     char *s;
 
@@ -1470,7 +1502,7 @@ char *util_gen_hex_address_list(int start, int stop, int step)
     char *temp3 = NULL;
     int i = start;
 
-    temp1 = lib_stralloc("");
+    temp1 = lib_strdup("");
     while (i < stop) {
         temp2 = lib_msprintf("0x%X", i);
         temp3 = util_concat(temp1, temp2, NULL);

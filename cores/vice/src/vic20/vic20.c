@@ -367,48 +367,51 @@ static uint8_t via1_via2_peek(uint16_t addr)
 }
 
 static io_source_t vic_device = {
-    "VIC",
-    IO_DETACH_CART, /* dummy */
-    NULL,           /* dummy */
-    0x9000, 0x90ff, 0x3f, /* must include A5/A4 */
-    1, /* read is always valid */
-    vic_via1_via2_store,
-    vic_via1_via2_read,
-    vic_via1_via2_peek,
-    vic_dump,
-    0, /* dummy (not a cartridge) */
-    IO_PRIO_HIGH, /* priority, device and mirrors never involved in collisions */
-    0
+    "VIC",                 /* name of the chip */
+    IO_DETACH_NEVER,       /* chip is never involved in collisions, so no detach */
+    IO_DETACH_NO_RESOURCE, /* does not use a resource for detach */
+    0x9000, 0x90ff, 0x3f,  /* address range for the device, must include A5/A4 */
+    1,                     /* read is always valid */
+    vic_via1_via2_store,   /* store function */
+    NULL,                  /* NO poke function */
+    vic_via1_via2_read,    /* read function */
+    vic_via1_via2_peek,    /* peek function */
+    vic_dump,              /* chip state information dump function */
+    IO_CART_ID_NONE,       /* not a cartridge */
+    IO_PRIO_HIGH,          /* high priority, chip and mirrors never involved in collisions */
+    0                      /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_t via2_device = {
-    "VIA2",
-    IO_DETACH_CART, /* dummy */
-    NULL,           /* dummy */
-    0x9110, 0x93ff, 0x3f, /* must include A5/A4 */
-    1, /* read is always valid */
-    via1_via2_store,
-    via1_via2_read,
-    via1_via2_peek,
-    via2_dump,
-    0, /* dummy (not a cartridge) */
-    IO_PRIO_HIGH, /* priority, device and mirrors never involved in collisions */
-    0
+    "VIA2",                /* name of the chip */
+    IO_DETACH_NEVER,       /* chip is never involved in collisions, so no detach */
+    IO_DETACH_NO_RESOURCE, /* does not use a resource for detach */
+    0x9110, 0x93ff, 0x3f,  /* address range for the device, must include A5/A4 */
+    1,                     /* read is always valid */
+    via1_via2_store,       /* store function */
+    NULL,                  /* NO poke function */
+    via1_via2_read,        /* read function */
+    via1_via2_peek,        /* peek function */
+    via2_dump,             /* chip state information dump function */
+    IO_CART_ID_NONE,       /* not a cartridge */
+    IO_PRIO_HIGH,          /* high priority, chip and mirrors never involved in collisions */
+    0                      /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_t via1_device = {
-    "VIA1",
-    IO_DETACH_CART, /* dummy */
-    NULL,           /* dummy */
-    0x9120, 0x93ff, 0x3f, /* must include A5/A4 */
-    1, /* read is always valid */
-    via1_via2_store,
-    via1_via2_read,
-    via1_via2_peek,
-    via1_dump,
-    0, /* dummy (not a cartridge) */
-    IO_PRIO_HIGH, /* priority, device and mirrors never involved in collisions */
-    0
+    "VIA1",                /* name of the chip */
+    IO_DETACH_NEVER,       /* chip is never involved in collisions, so no detach */
+    IO_DETACH_NO_RESOURCE, /* does not use a resource for detach */
+    0x9120, 0x93ff, 0x3f,  /* address range for the device, must include A5/A4 */
+    1,                     /* read is always valid */
+    via1_via2_store,       /* store function */
+    NULL,                  /* NO poke function */
+    via1_via2_read,        /* read function */
+    via1_via2_peek,        /* peek function */
+    via1_dump,             /* chip state information dump function */
+    IO_CART_ID_NONE,       /* not a cartridge */
+    IO_PRIO_HIGH,          /* high priority, chip and mirrors never involved in collisions */
+    0                      /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_list_t *vic_list_item = NULL;
@@ -929,9 +932,7 @@ int machine_specific_init(void)
     if (delay == 0) {
         delay = 3; /* default */
     }
-    autostart_init((CLOCK)
-                   (delay * VIC20_PAL_RFSH_PER_SEC * VIC20_PAL_CYCLES_PER_RFSH),
-                   1, 0xcc, 0xd1, 0xd3, 0xd5);
+    autostart_init((CLOCK)(delay * VIC20_PAL_RFSH_PER_SEC * VIC20_PAL_CYCLES_PER_RFSH), 1);
 
     /* Pre-init VIC20-specific parts of the menus before vic_init()
        creates a canvas window with a menubar at the top. */
@@ -1184,12 +1185,20 @@ void machine_change_timing(int timeval, int border_mode)
 int machine_write_snapshot(const char *name, int save_roms, int save_disks,
                            int event_mode)
 {
-    return vic20_snapshot_write(name, save_roms, save_disks, event_mode);
+    int err = vic20_snapshot_write(name, save_roms, save_disks, event_mode);
+    if ((err < 0) && (snapshot_get_error() == SNAPSHOT_NO_ERROR)) {
+        snapshot_set_error(SNAPSHOT_CANNOT_WRITE_SNAPSHOT);
+    }
+    return err;
 }
 
 int machine_read_snapshot(const char *name, int event_mode)
 {
-    return vic20_snapshot_read(name, event_mode);
+    int err = vic20_snapshot_read(name, event_mode);
+    if ((err < 0) && (snapshot_get_error() == SNAPSHOT_NO_ERROR)) {
+        snapshot_set_error(SNAPSHOT_CANNOT_READ_SNAPSHOT);
+    }
+    return err;
 }
 
 
@@ -1254,11 +1263,11 @@ static void vic20_userport_set_flag(uint8_t b)
 }
 
 static userport_port_props_t userport_props = {
-    1, /* has pa2 pin */
-    0, /* NO pa3 pin */
-    vic20_userport_set_flag, /* has flag pin */
-    0, /* NO pc pin */
-    0  /* NO cnt1, cnt2 or sp pins */
+    1,                       /* port has the pa2 pin */
+    0,                       /* port does NOT have the pa3 pin */
+    vic20_userport_set_flag, /* port has the flag pin, set flag function */
+    0,                       /* port does NOT have the pc pin */
+    0                        /* port does NOT have the cnt1, cnt2 and sp pins */
 };
 
 int machine_register_userport(void)

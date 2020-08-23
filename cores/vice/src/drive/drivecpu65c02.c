@@ -1,8 +1,7 @@
-/*
- * drivecpu65c02.c - R65C02 processor emulation of CMD fd2000/4000 disk drives.
+/** \file   drivecpu65c02.c
+ * \brief   65C02 processor emulation of CMD fd2000/4000 disk drives
  *
- * Written by
- *  Kajtar Zsolt <soci@c64.rulez.org>
+ * \author  Kajtar Zsolt <soci@c64.rulez.org>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -99,9 +98,12 @@ void drivecpu65c02_setup_context(struct drive_context_s *drv, int i)
     mi->mem_bank_list = NULL;
     mi->mem_bank_from_name = NULL;
     mi->get_line_cycle = NULL;
+    
     mi->mem_bank_read = drivemem_bank_read;
     mi->mem_bank_peek = drivemem_bank_peek;
     mi->mem_bank_write = drivemem_bank_store;
+    mi->mem_bank_poke = drivemem_bank_poke;
+    
     mi->mem_ioreg_list_get = drivemem_ioreg_list_get;
     mi->toggle_watchpoints_func = drivemem_toggle_watchpoints;
     mi->set_bank_base = drivecpu65c02_set_bank_base;
@@ -216,9 +218,7 @@ void drivecpu65c02_shutdown(drive_context_t *drv)
     machine_drive_shutdown(drv);
 
     lib_free(drv->func);
-    drv->func = NULL;
     lib_free(drv->cpud);
-    drv->cpud = NULL;
     lib_free(cpu);
 }
 
@@ -358,11 +358,6 @@ inline static int interrupt_check_irq_delay(interrupt_cpu_status_t *cs,
 #define CPU_R65C02     1
 #define CPU_65SC02     2
 
-/* MPi: For some reason MSVC is generating a compiler fatal error when optimising this function? */
-#ifdef _MSC_VER
-#pragma optimize("",off)
-#endif
-/* -------------------------------------------------------------------------- */
 /* Execute up to the current main CPU clock value.  This automatically
    calculates the corresponding number of clock ticks in the drive.  */
 void drivecpu65c02_execute(drive_context_t *drv, CLOCK clk_value)
@@ -445,9 +440,6 @@ void drivecpu65c02_execute(drive_context_t *drv, CLOCK clk_value)
     drivecpu65c02_sleep(drv);
 }
 
-#ifdef _MSC_VER
-#pragma optimize("",on)
-#endif
 
 /* ------------------------------------------------------------------------- */
 

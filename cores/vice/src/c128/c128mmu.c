@@ -58,6 +58,9 @@
 /* MMU register.  */
 static uint8_t mmu[12];
 
+/* latches for P0H and P1H */
+static uint8_t p0h_latch, p1h_latch;
+
 /* State of the 40/80 column key.  */
 static int mmu_column4080_key = 1;
 
@@ -126,6 +129,26 @@ int mmu_cmdline_options_init(void)
 
 /* ------------------------------------------------------------------------- */
 
+static int mmu_is_in_shared_ram(uint16_t address)
+{
+    unsigned int shared_size;
+    if (mmu[6] & 3) {
+        shared_size = 2048U << (mmu[6] & 3);
+    } else {
+        shared_size = 1024;
+    }
+
+    if ((mmu[6] & 4) && address < shared_size) {
+        return 1;
+    }
+
+    if ((mmu[6] & 8) && address >= shared_size) {
+        return 1;
+    }
+
+    return 0;
+}
+
 static void mmu_toggle_column4080_key(void)
 {
     mmu_column4080_key = !mmu_column4080_key;
@@ -164,6 +187,37 @@ static void mmu_set_ram_bank(uint8_t value)
 #endif
 }
 
+static void mmu_update_page01_pointers(void)
+{
+    /* update pointers for page 0/1 in case they or the shared RAM settings changed */
+    /* (shared window has priority over P0H/P1H) */
+    unsigned int page_zero_bank, page_one_bank;
+
+    if (c128_full_banks) {
+        page_zero_bank = (mmu[0x8] & 0x3) * 0x10000U;
+        page_one_bank  = (mmu[0xa] & 0x3) * 0x10000U;
+    } else {
+        page_zero_bank = (mmu[0x8] & 0x1) * 0x10000U;
+        page_one_bank  = (mmu[0xa] & 0x1) * 0x10000U;
+    }
+
+    if (mmu_is_in_shared_ram(mmu[0x7] << 8)) {
+        page_zero_bank = 0;
+    }
+    if (mmu_is_in_shared_ram(mmu[0x9] << 8)) {
+        page_one_bank = 0;
+    }
+
+    mem_page_zero = mem_ram + page_zero_bank + (mmu[0x7] << 8);
+    mem_page_one  = mem_ram + page_one_bank  + (mmu[0x9] << 8);
+}
+
+/* returns 1 if MMU is in C64 mode */
+int mmu_is_c64config(void)
+{
+    return (mmu[5] & 0x40) ? 1 : 0; /* FIXME: is this correct? */
+}
+
 static void mmu_switch_to_c64mode(void)
 {
 #ifdef MMU_DEBUG
@@ -174,8 +228,16 @@ static void mmu_switch_to_c64mode(void)
         log_message(mmu_log, "mmu_switch_to_c64mode: force_c64_mode\n");
 #endif
         mmu_config64 = 0x07;
+        /* force c64-compatible register values */
+        /* Note: Don't use mmu_store here, it calls this function. */
         mmu[0] = 0x3e;
         mmu[5] = 0xf7;
+        /* force standard addresses for stack and zeropage */
+        mmu[7] = 0;
+        mmu[8] = 0;
+        mmu[9] = 1;
+        mmu[10] = 0;
+        mmu_update_page01_pointers();
     }
     machine_tape_init_c64();
     mem_update_config(0x80 + mmu_config64);
@@ -232,7 +294,8 @@ uint8_t mmu_peek(uint16_t addr)
 #endif
 
     if (addr < 0xc) {
-        if (addr == 5) {
+        switch (addr) {
+        case 5: {
             uint8_t exrom = export.exrom;
 
             if (force_c64_mode) {
@@ -241,9 +304,20 @@ uint8_t mmu_peek(uint16_t addr)
 
             /* 0x80 = 40/80 key released.  */
             return (mmu[5] & 0x0f) | (mmu_column4080_key ? 0x80 : 0) | ((export.game ^ 1) << 4) | ((exrom ^ 1) << 5);
-        } else if (addr == 11) {
-            return (c128_full_banks) ? 4 : 2;
-        } else {
+        }
+
+        case 8:
+        case 10:
+            /* P0H/P1H upper four bits are unused and always return 1 */
+            return mmu[addr] | 0xf0;
+
+        case 11:
+            /* always return 0x20 unless someone confirms it would ever return
+               0x40 in any of the bank2+3 expansions */
+            /* return ((c128_full_banks) ? 0x40 : 0x20); */
+            return 0x20;
+
+        default:
             return mmu[addr];
         }
     } else {
@@ -297,16 +371,22 @@ void mmu_store(uint16_t address, uint8_t value)
             case 6: /* RAM configuration register (RCR).  */
                 mem_set_ram_config(value);
                 break;
-            case 7:
             case 8:
-            case 9:
+                /* do not commit yet, update happens on write to p0l */
+                mmu[address] = oldvalue;
+                p0h_latch = value;
+                break;
             case 10:
-                if (c128_full_banks) {
-                    mem_page_zero = mem_ram + ((mmu[0x8] & 0x3) * 0x10000) + (mmu[0x7] << 8);
-                    mem_page_one = mem_ram + ((mmu[0xa] & 0x3) * 0x10000) + (mmu[0x9] << 8);
+                /* do not commit yet, update happens on write to p1l */
+                mmu[address] = oldvalue;
+                p1h_latch = value;
+                break;
+            case 7:
+            case 9:
+                if (address == 7) {
+                    mmu[8] = p0h_latch;
                 } else {
-                    mem_page_zero = mem_ram + ((mmu[0x8] & 0x1) * 0x10000) + (mmu[0x7] << 8);
-                    mem_page_one = mem_ram + ((mmu[0xa] & 0x1) * 0x10000) + (mmu[0x9] << 8);
+                    mmu[10] = p1h_latch;
                 }
 #ifdef MMU_DEBUG
                 log_message(mmu_log, "PAGE ZERO %05x PAGE ONE %05x",
@@ -315,6 +395,8 @@ void mmu_store(uint16_t address, uint8_t value)
 #endif
                 break;
         }
+
+        mmu_update_page01_pointers();
 
         mmu_update_config();
     }
@@ -421,8 +503,10 @@ int mmu_dump(void *context, uint16_t addr)
             (mmu[6] & 8) ? ((mmu[6] & 4) ? "bottom and top" : "top") : ((mmu[6] & 4) ? "bottom" : "none"),
             (mmu[6] & 2) ? ((mmu[6] & 1) ? "16Kb" : "8Kb") : ((mmu[6] & 1) ? "4Kb" : "1Kb"));
 
-    mon_out("Page 0 pointer: $%04X\n", (mmu[8] << 16) | (mmu[7] << 8));
-    mon_out("Page 1 pointer: $%04X\n", (mmu[10] << 16) | (mmu[9] << 8));
+    mon_out("Page 0 pointer: $%04X\n",
+            (unsigned int)((mmu[8] << 16) | (mmu[7] << 8)));
+    mon_out("Page 1 pointer: $%04X\n",
+            (unsigned int)((mmu[10] << 16) | (mmu[9] << 8)));
 
     mon_out("MMU version: %d\n", mmu[11] & 0xf);
     mon_out("Amount of 64Kb blocks present: %d\n", (c128_full_banks) ? 4 : 2);
@@ -447,6 +531,8 @@ void mmu_reset(void)
     for (i = 0; i < 0xb; i++) {
         mmu[i] = 0;
     }
+    mmu[9] = 1;
+    mmu_update_page01_pointers();
 
     keyboard_register_column4080_key(mmu_toggle_column4080_key);
 

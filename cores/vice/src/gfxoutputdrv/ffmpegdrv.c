@@ -1,9 +1,10 @@
+/** \file   ffmpegdrv.c
+ * \brie    Movie driver using FFMPEG library and screenshot API
+ *
+ * \author  Andreas Matthies <andreas.matthies@gmx.net>
+ */
+
 /*
- * ffmpegdrv.c - Movie driver using FFMPEG library and screenshot API.
- *
- * Written by
- *  Andreas Matthies <andreas.matthies@gmx.net>
- *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
  *
@@ -27,6 +28,10 @@
 #include "vice.h"
 
 #ifdef HAVE_FFMPEG
+
+/* Disable clang deprecation warnings for ffmpeg - let's fix it when it stops working */
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
 #include <stdio.h>
 #include <string.h>
@@ -446,13 +451,8 @@ static int ffmpegmovie_init_audio(int speed, int channels, soundmovie_buffer_t *
     }
     c->channel_layout = (channels == 1 ? AV_CH_LAYOUT_MONO : AV_CH_LAYOUT_STEREO);
     c->channels = VICE_P_AV_GET_CHANNEL_LAYOUT_NB_CHANNELS(c->channel_layout);
- 
-#ifdef _MSC_VER
-    st->time_base.num = 1;
-	st->time_base.den = c->sample_rate;
-#else
+
     st->time_base = (AVRational){ 1, c->sample_rate };
-#endif
     audio_st.st = st;
     audio_st.next_pts = 0;
     audio_st.samples_count = 0;
@@ -524,10 +524,6 @@ static int ffmpegmovie_encode_audio(soundmovie_buffer_t *audio_in)
     AVFrame *frame;
     int ret;
 
-#ifdef _MSC_VER
-    AVRational tmp;
-#endif
-
     if (audio_st.st) {
         audio_st.frame->pts = audio_st.next_pts;
         audio_st.next_pts += audio_in->size;
@@ -565,13 +561,7 @@ static int ffmpegmovie_encode_audio(soundmovie_buffer_t *audio_in)
                 return -1;
             }
             frame = audio_st.frame;
-#ifdef _MSC_VER
-            tmp.num = 1;
-            tmp.den = c->sample_rate;
-            frame->pts = VICE_P_AV_RESCALE_Q(audio_st.samples_count, tmp, c->time_base);
-#else
             frame->pts = VICE_P_AV_RESCALE_Q(audio_st.samples_count, (AVRational){ 1, c->sample_rate }, c->time_base);
-#endif
             audio_st.samples_count += dst_nb_samples;
         }
 
@@ -1113,7 +1103,7 @@ static void ffmpeg_get_formats_and_codecs(void)
                 video_codec_list[vi].name = NULL;
             }
             if (((audio_codec_list == NULL) || (ai > 0)) && ((video_codec_list == NULL) || (vi > 0))) {
-                ffmpegdrv_formatlist[f].name = lib_stralloc(formats_to_test[i].name);
+                ffmpegdrv_formatlist[f].name = lib_strdup(formats_to_test[i].name);
                 ffmpegdrv_formatlist[f].audio_codecs = audio_codec_list;
                 ffmpegdrv_formatlist[f++].video_codecs = video_codec_list;
                 ffmpegdrv_formatlist = lib_realloc(ffmpegdrv_formatlist, (f + 1) * sizeof(gfxoutputdrv_format_t));
@@ -1140,4 +1130,8 @@ void gfxoutput_init_ffmpeg(int help)
     ffmpeg_get_formats_and_codecs();
     gfxoutput_register(&ffmpeg_drv);
 }
+
+/* re-enable ignored clang warnings */
+#pragma clang diagnostic pop
+
 #endif

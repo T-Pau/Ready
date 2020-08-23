@@ -112,19 +112,21 @@ static void gmod2_io1_store(uint16_t addr, uint8_t value);
 static int gmod2_dump(void);
 
 static io_source_t gmod2_io1_device = {
-    CARTRIDGE_NAME_GMOD2,
-    IO_DETACH_CART,
-    NULL,
-    0xde00, 0xdeff, 0xff,
-    0,
-    gmod2_io1_store,
-    gmod2_io1_read,
-    gmod2_io1_peek,
-    gmod2_dump,
-    CARTRIDGE_GMOD2,
-    1,
-    0
+    CARTRIDGE_NAME_GMOD2,  /* name of the device */
+    IO_DETACH_CART,        /* use cartridge ID to detach the device when involved in a read-collision */
+    IO_DETACH_NO_RESOURCE, /* does not use a resource for detach */
+    0xde00, 0xdeff, 0xff,  /* range for the device, address is ignored, reg:$df00, mirrors:$de01-$deff */
+    0,                     /* read validity is determined by the device upon a read */
+    gmod2_io1_store,       /* store function */
+    NULL,                  /* NO poke function */
+    gmod2_io1_read,        /* read function */
+    gmod2_io1_peek,        /* peek function */
+    gmod2_dump,            /* device state information dump function */
+    CARTRIDGE_GMOD2,       /* cartridge ID */
+    IO_PRIO_NORMAL,        /* normal priority, device read needs to be checked for collisions */
+    0                      /* insertion order, gets filled in by the registration function */
 };
+
 static io_source_list_t *gmod2_io1_list_item = NULL;
 
 static const export_resource_t export_res = {
@@ -136,14 +138,13 @@ static const export_resource_t export_res = {
 uint8_t gmod2_io1_read(uint16_t addr)
 {
     gmod2_io1_device.io_source_valid = 0;
-
     /* DBG(("io1 r %04x (cs:%d)\n", addr, eeprom_cs)); */
 
-    gmod2_io1_device.io_source_valid = 1;
     if (eeprom_cs) {
+        gmod2_io1_device.io_source_valid = 1;
         return (m93c86_read_data() << 7) | (vicii_read_phi1() & 0x7f);
     }
-    return (vicii_read_phi1() & 0xff);
+    return 0;
 }
 
 uint8_t gmod2_io1_peek(uint16_t addr)
@@ -334,7 +335,6 @@ int gmod2_resources_init(void)
 void gmod2_resources_shutdown(void)
 {
     lib_free(gmod2_eeprom_filename);
-    gmod2_eeprom_filename = NULL;
 }
 
 /* ------------------------------------------------------------------------- */
@@ -388,7 +388,7 @@ int gmod2_bin_attach(const char *filename, uint8_t *rawcart)
     }
 
     gmod2_filetype = CARTRIDGE_FILETYPE_BIN;
-    gmod2_filename = lib_stralloc(filename);
+    gmod2_filename = lib_strdup(filename);
     return gmod2_common_attach();
 }
 
@@ -417,7 +417,7 @@ int gmod2_crt_attach(FILE *fd, uint8_t *rawcart, const char *filename)
     }
 
     gmod2_filetype = CARTRIDGE_FILETYPE_CRT;
-    gmod2_filename = lib_stralloc(filename);
+    gmod2_filename = lib_strdup(filename);
 
     return gmod2_common_attach();
 }
@@ -513,7 +513,7 @@ void gmod2_detach(void)
 static char snap_module_name[] = "CARTGMOD2";
 static char flash_snap_module_name[] = "FLASH040GMOD2";
 #define SNAP_MAJOR   0
-#define SNAP_MINOR   1
+#define SNAP_MINOR   2
 
 int gmod2_snapshot_write_module(snapshot_t *s)
 {
@@ -527,12 +527,17 @@ int gmod2_snapshot_write_module(snapshot_t *s)
 
     if (0
         || SMW_B(m, (uint8_t)gmod2_cmode) < 0
-        || SMW_B(m, (uint8_t)gmod2_bank) < 0) {
+        || SMW_B(m, (uint8_t)gmod2_bank) < 0
+        || SMW_BA(m, flashrom_state->flash_data, GMOD2_FLASH_SIZE) < 0) {
         snapshot_module_close(m);
         return -1;
     }
 
     snapshot_module_close(m);
+
+    if (m93c86_snapshot_write_module(s) < 0) {
+        return -1;
+    }
 
     return flash040core_snapshot_write_module(s, flashrom_state, flash_snap_module_name);
 }
@@ -548,19 +553,30 @@ int gmod2_snapshot_read_module(snapshot_t *s)
         return -1;
     }
 
-    /* Do not accept versions higher than current */
-    if (vmajor > SNAP_MAJOR || vminor > SNAP_MINOR) {
+    /* reject snapshot modules newer than what we can handle (this VICE is too old) */
+    if (snapshot_version_is_bigger(vmajor, vminor, SNAP_MAJOR, SNAP_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
+        goto fail;
+    }
+
+    /* reject snapshot modules older than what we can handle (the snapshot is too old) */
+    if (snapshot_version_is_smaller(vmajor, vminor, SNAP_MAJOR, SNAP_MINOR)) {
+        snapshot_set_error(SNAPSHOT_MODULE_INCOMPATIBLE);
         goto fail;
     }
 
     if (0
         || SMR_B_INT(m, &gmod2_cmode) < 0
-        || SMR_B_INT(m, &gmod2_bank) < 0) {
+        || SMR_B_INT(m, &gmod2_bank) < 0
+        || SMR_BA(m, roml_banks, GMOD2_FLASH_SIZE) < 0) {
         goto fail;
     }
 
     snapshot_module_close(m);
+
+    if (m93c86_snapshot_read_module(s) < 0) {
+        return -1;
+    }
 
     flashrom_state = lib_malloc(sizeof(flash040_context_t));
     flash040core_init(flashrom_state, maincpu_alarm_context, FLASH040_TYPE_NORMAL, roml_banks);

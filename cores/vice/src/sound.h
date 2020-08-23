@@ -178,7 +178,6 @@ extern int sound_cmdline_options_init(void);
 
 
 /* device initialization prototypes */
-extern int sound_init_aix_device(void);
 extern int sound_init_allegro_device(void);
 extern int sound_init_alsa_device(void);
 extern int sound_init_sb_device(void);
@@ -186,10 +185,8 @@ extern int sound_init_dummy_device(void);
 extern int sound_init_dump_device(void);
 extern int sound_init_fs_device(void);
 extern int sound_init_wav_device(void);
-extern int sound_init_hpux_device(void);
 extern int sound_init_midas_device(void);
 extern int sound_init_sdl_device(void);
-extern int sound_init_sgi_device(void);
 extern int sound_init_sun_device(void);
 extern int sound_init_uss_device(void);
 extern int sound_init_dx_device(void);
@@ -234,17 +231,38 @@ extern const char *sound_device_name(unsigned int num);
 
 extern sound_t *sound_get_psid(unsigned int channel);
 
+/* This structure is used by sound producing chips/devices */
 typedef struct sound_chip_s {
+    /* sound chip open function */
     sound_t *(*open)(int chipno);
+
+    /* sound chip init function */
     int (*init)(sound_t *psid, int speed, int cycles_per_sec);
+
+    /* sound chip close function */
     void (*close)(sound_t *psid);
+
+    /* sound chip calculate samples function */
     int (*calculate_samples)(sound_t **psid, int16_t *pbuf, int nr, int sound_output_channels, int sound_chip_channels, int *delta_t);
+
+    /* sound chip store function */
     void (*store)(sound_t *psid, uint16_t addr, uint8_t val);
+
+    /* sound chip read function */
     uint8_t (*read)(sound_t *psid, uint16_t addr);
+
+    /* sound chip reset function */
     void (*reset)(sound_t *psid, CLOCK cpu_clk);
+
+    /* sound chip 'is_cycle_based()' function */
     int (*cycle_based)(void);
+
+    /* sound chip 'get_amount_of_channels()' function */
     int (*channels)(void);
+
+    /* sound chip enabled flag */
     int chip_enabled;
+
 } sound_chip_t;
 
 extern uint16_t sound_chip_register(sound_chip_t *chip);

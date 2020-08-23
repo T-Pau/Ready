@@ -92,18 +92,19 @@ static int p64_dump(void)
 /* ---------------------------------------------------------------------*/
 
 static io_source_t p64_device = {
-    CARTRIDGE_NAME_P64,
-    IO_DETACH_CART,
-    NULL,
-    0xdf00, 0xdfff, 0xff,
-    0, /* read is never valid */
-    p64_io2_store,
-    NULL,
-    p64_io2_peek,
-    p64_dump,
-    CARTRIDGE_P64,
-    0,
-    0
+    CARTRIDGE_NAME_P64,    /* name of the device */
+    IO_DETACH_CART,        /* use cartridge ID to detach the device when involved in a read-collision */
+    IO_DETACH_NO_RESOURCE, /* does not use a resource for detach */
+    0xdf00, 0xdfff, 0xff,  /* range for the device, address is ignored, reg:$df00, mirrors:$df01-$dfff */
+    0,                     /* read is never valid, reg is write only */
+    p64_io2_store,         /* store function */
+    NULL,                  /* NO poke function */
+    NULL,                  /* NO read function */
+    p64_io2_peek,          /* peek function */
+    p64_dump,              /* device state information dump function */
+    CARTRIDGE_P64,         /* cartridge ID */
+    IO_PRIO_NORMAL,        /* normal priority, device read needs to be checked for collisions */
+    0                      /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_list_t *p64_list_item = NULL;
@@ -227,13 +228,13 @@ int p64_snapshot_read_module(snapshot_t *s)
     }
 
     /* Do not accept versions higher than current */
-    if (vmajor > SNAP_MAJOR || vminor > SNAP_MINOR) {
+    if (snapshot_version_is_bigger(vmajor, vminor, SNAP_MAJOR, SNAP_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }
 
     /* new in 0.1 */
-    if (SNAPVAL(vmajor, vminor, 0, 1)) {
+    if (!snapshot_version_is_smaller(vmajor, vminor, 0, 1)) {
         if (0
             || SMR_B_INT(m, &currbank) < 0
             || SMR_B(m, &regval) < 0) {

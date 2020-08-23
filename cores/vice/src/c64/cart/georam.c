@@ -142,33 +142,35 @@ static void georam_io2_store(uint16_t addr, uint8_t byte);
 static int georam_dump(void);
 
 static io_source_t georam_io1_device = {
-    CARTRIDGE_NAME_GEORAM,
-    IO_DETACH_RESOURCE,
-    "GEORAM",
-    0xde00, 0xdeff, 0xff,
-    1, /* read is always valid */
-    georam_io1_store,
-    georam_io1_read,
-    georam_io1_read,
-    georam_dump,
-    CARTRIDGE_GEORAM,
-    0,
-    0
+    CARTRIDGE_NAME_GEORAM, /* name of the device */
+    IO_DETACH_RESOURCE,    /* use resource to detach the device when involved in a read-collision */
+    "GEORAM",              /* resource to set to '0' */
+    0xde00, 0xdeff, 0xff,  /* range for the device, range is different for vic20 */
+    1,                     /* read is always valid */
+    georam_io1_store,      /* store function */
+    NULL,                  /* NO poke function */
+    georam_io1_read,       /* read function */
+    georam_io1_read,       /* peek function */
+    georam_dump,           /* device state information dump function */
+    CARTRIDGE_GEORAM,      /* cartridge ID */
+    IO_PRIO_NORMAL,        /* normal priority, device read needs to be checked for collisions */
+    0                      /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_t georam_io2_device = {
-    CARTRIDGE_NAME_GEORAM,
-    IO_DETACH_RESOURCE,
-    "GEORAM",
-    0xdf80, 0xdfff, 0x7f,
-    0,
-    georam_io2_store,
-    NULL,
-    georam_io2_peek,
-    georam_dump,
-    CARTRIDGE_GEORAM,
-    0,
-    0
+    CARTRIDGE_NAME_GEORAM, /* name of the device */
+    IO_DETACH_RESOURCE,    /* use resource to detach the device when involved in a read-collision */
+    "GEORAM",              /* resource to set to '0' */
+    0xdf80, 0xdfff, 0x01,  /* range for the device, regs:$dffe-$dfff, mirrors:$df80-$dffd, range is different for vic20 */
+    0,                     /* read is never valid, regs are write only */
+    georam_io2_store,      /* store function */
+    NULL,                  /* NO poke function */
+    NULL,                  /* NO read function */
+    georam_io2_peek,       /* peek function */
+    georam_dump,           /* device state information dump function */
+    CARTRIDGE_GEORAM,      /* cartridge ID */
+    IO_PRIO_NORMAL,        /* normal priority, device read needs to be checked for collisions */
+    0                      /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_list_t *georam_io1_list_item = NULL;
@@ -646,13 +648,13 @@ int georam_read_snapshot_module(snapshot_t *s)
     }
 
     /* Do not accept versions higher than current */
-    if (vmajor > SNAP_MAJOR || vminor > SNAP_MINOR) {
+    if (snapshot_version_is_bigger(vmajor, vminor, SNAP_MAJOR, SNAP_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }
 
     /* new in 0.1 */
-    if (SNAPVAL(vmajor, vminor, 0, 1)) {
+    if (!snapshot_version_is_smaller(vmajor, vminor, 0, 1)) {
         if (SMR_B_INT(m, &georam_io_swap) < 0) {
             goto fail;
         }

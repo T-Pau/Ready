@@ -711,17 +711,17 @@ static int paddles_write_snapshot(struct snapshot_s *s, int port);
 static int paddles_read_snapshot(struct snapshot_s *s, int port);
 
 static joyport_t paddles_joyport_device = {
-    "Paddles",
-    JOYPORT_RES_ID_MOUSE,
-    JOYPORT_IS_NOT_LIGHTPEN,
-    JOYPORT_POT_REQUIRED,
-    joyport_mouse_enable,
-    joyport_mouse_value,
-    NULL,				/* no store digital */
-    mouse_get_paddle_absolute_x,
-    mouse_get_paddle_absolute_y,
-    paddles_write_snapshot,
-    paddles_read_snapshot
+    "Paddles",               /* name of the device */
+    JOYPORT_RES_ID_MOUSE,    /* device uses the mouse for input, only 1 mouse type device can be active at the same time */
+    JOYPORT_IS_NOT_LIGHTPEN, /* device is NOT a lightpen */
+    JOYPORT_POT_REQUIRED,    /* device uses the potentiometer lines */
+    joyport_mouse_enable,    /* device enable function */
+    joyport_mouse_value,     /* digital line read function */
+    NULL,                    /* NO digital line store function */
+    mouse_get_paddle_absolute_x, /* pot-x read function */
+    mouse_get_paddle_absolute_x, /* pot-y read function */
+    paddles_write_snapshot,  /* device write snapshot function */
+    paddles_read_snapshot    /* device read snapshot function */
 };
 
 /* Some prototypes are needed */
@@ -729,17 +729,17 @@ static int mouse_1351_write_snapshot(struct snapshot_s *s, int port);
 static int mouse_1351_read_snapshot(struct snapshot_s *s, int port);
 
 static joyport_t mouse_1351_joyport_device = {
-    "Mouse (1351)",
-    JOYPORT_RES_ID_MOUSE,
-    JOYPORT_IS_NOT_LIGHTPEN,
-    JOYPORT_POT_REQUIRED,
-    joyport_mouse_enable,
-    joyport_mouse_value,
-    NULL,				/* no store digital */
-    mouse_get_1351_x,
-    mouse_get_1351_y,
-    mouse_1351_write_snapshot,
-    mouse_1351_read_snapshot
+    "Mouse (1351)",            /* name of the device */
+    JOYPORT_RES_ID_MOUSE,      /* device uses the mouse for input, only 1 mouse type device can be active at the same time */
+    JOYPORT_IS_NOT_LIGHTPEN,   /* device is NOT a lightpen */
+    JOYPORT_POT_REQUIRED,      /* device uses the potentiometer lines */
+    joyport_mouse_enable,      /* device enable function */
+    joyport_mouse_value,       /* digital line read function */
+    NULL,                      /* NO digital line store function */
+    mouse_get_1351_x,          /* pot-x read function */
+    mouse_get_1351_y,          /* pot-y read function */
+    mouse_1351_write_snapshot, /* device write snapshot function */
+    mouse_1351_read_snapshot   /* device read snapshot function */
 };
 
 static uint8_t joyport_mouse_neos_value(int port)
@@ -772,17 +772,17 @@ static int mouse_neos_write_snapshot(struct snapshot_s *s, int port);
 static int mouse_neos_read_snapshot(struct snapshot_s *s, int port);
 
 static joyport_t mouse_neos_joyport_device = {
-    "Mouse (NEOS)",
-    JOYPORT_RES_ID_MOUSE,
-    JOYPORT_IS_NOT_LIGHTPEN,
-    JOYPORT_POT_OPTIONAL,
-    joyport_mouse_enable,
-    joyport_mouse_neos_value,
-    neos_mouse_store,
-    joyport_mouse_neos_amiga_st_read_potx,
-    NULL,               /* no read pot y */
-    mouse_neos_write_snapshot,
-    mouse_neos_read_snapshot
+    "Mouse (NEOS)",                        /* name of the device */
+    JOYPORT_RES_ID_MOUSE,                  /* device uses the mouse for input, only 1 mouse type device can be active at the same time */
+    JOYPORT_IS_NOT_LIGHTPEN,               /* device is NOT a lightpen */
+    JOYPORT_POT_OPTIONAL,                  /* device uses the potentiometer line for the right button, but could work without it */
+    joyport_mouse_enable,                  /* device enable function */
+    joyport_mouse_neos_value,              /* digital line read function */
+    neos_mouse_store,                      /* digital line store function */
+    joyport_mouse_neos_amiga_st_read_potx, /* pot-x read function */
+    NULL,                                  /* NO pot-y read function */
+    mouse_neos_write_snapshot,             /* device write snapshot function */
+    mouse_neos_read_snapshot               /* device read snapshot function */
 };
 
 static uint8_t joyport_mouse_poll_value(int port)
@@ -808,17 +808,17 @@ static int mouse_amiga_write_snapshot(struct snapshot_s *s, int port);
 static int mouse_amiga_read_snapshot(struct snapshot_s *s, int port);
 
 static joyport_t mouse_amiga_joyport_device = {
-    "Mouse (Amiga)",
-    JOYPORT_RES_ID_MOUSE,
-    JOYPORT_IS_NOT_LIGHTPEN,
-    JOYPORT_POT_OPTIONAL,
-    joyport_mouse_enable,
-    joyport_mouse_poll_value,
-    NULL,               /* no store digital */
-    joyport_mouse_neos_amiga_st_read_potx,
-    joyport_mouse_amiga_st_read_poty,
-    mouse_amiga_write_snapshot,
-    mouse_amiga_read_snapshot
+    "Mouse (Amiga)",                       /* name of the device */
+    JOYPORT_RES_ID_MOUSE,                  /* device uses the mouse for input, only 1 mouse type device can be active at the same time */
+    JOYPORT_IS_NOT_LIGHTPEN,               /* device is NOT a lightpen */
+    JOYPORT_POT_OPTIONAL,                  /* device uses the potentiometer lines for the right and middle buttons, but could work without it */
+    joyport_mouse_enable,                  /* device enable function */
+    joyport_mouse_poll_value,              /* digital line read function */
+    NULL,                                  /* NO digital line store function */
+    joyport_mouse_neos_amiga_st_read_potx, /* pot-x read function */
+    joyport_mouse_amiga_st_read_poty,      /* pot-y read function */
+    mouse_amiga_write_snapshot,            /* device write snapshot function */
+    mouse_amiga_read_snapshot              /* device read snapshot function */
 };
 
 /* Some prototypes are needed */
@@ -826,35 +826,36 @@ static int mouse_cx22_write_snapshot(struct snapshot_s *s, int port);
 static int mouse_cx22_read_snapshot(struct snapshot_s *s, int port);
 
 static joyport_t mouse_cx22_joyport_device = {
-    "Trackball (Atari CX-22)",
-    JOYPORT_RES_ID_MOUSE,
-    JOYPORT_IS_NOT_LIGHTPEN,
-    JOYPORT_POT_OPTIONAL,
-    joyport_mouse_enable,
-    joyport_mouse_poll_value,
-    NULL,               /* no store digital */
-    NULL,               /* no read pot x */
-    NULL,               /* no read pot y */
-    mouse_cx22_write_snapshot,
-    mouse_cx22_read_snapshot
+    "Trackball (Atari CX-22)", /* name of the device */
+    JOYPORT_RES_ID_MOUSE,      /* device uses the mouse for input, only 1 mouse type device can be active at the same time */
+    JOYPORT_IS_NOT_LIGHTPEN,   /* device is NOT a lightpen */
+    JOYPORT_POT_OPTIONAL,      /* device does NOT use the potentiometer lines */
+    joyport_mouse_enable,      /* device enable function */
+    joyport_mouse_poll_value,  /* digital line read function */
+    NULL,                      /* NO digital line store function */
+    NULL,                      /* NO pot-x read function */
+    NULL,                      /* NO pot-y read function */
+    mouse_cx22_write_snapshot, /* device write snapshot function */
+    mouse_cx22_read_snapshot   /* device read snapshot function */
 };
+
 
 /* Some prototypes are needed */
 static int mouse_st_write_snapshot(struct snapshot_s *s, int port);
 static int mouse_st_read_snapshot(struct snapshot_s *s, int port);
 
 static joyport_t mouse_st_joyport_device = {
-    "Mouse (Atari ST)",
-    JOYPORT_RES_ID_MOUSE,
-    JOYPORT_IS_NOT_LIGHTPEN,
-    JOYPORT_POT_OPTIONAL,
-    joyport_mouse_enable,
-    joyport_mouse_poll_value,
-    NULL,               /* no store digital */
-    joyport_mouse_neos_amiga_st_read_potx,
-    joyport_mouse_amiga_st_read_poty,
-    mouse_st_write_snapshot,
-    mouse_st_read_snapshot
+    "Mouse (Atari ST)",                    /* name of the device */
+    JOYPORT_RES_ID_MOUSE,                  /* device uses the mouse for input, only 1 mouse type device can be active at the same time */
+    JOYPORT_IS_NOT_LIGHTPEN,               /* device is NOT a lightpen */
+    JOYPORT_POT_OPTIONAL,                  /* device uses the potentiometer lines for the right button, but could work without it */
+    joyport_mouse_enable,                  /* device enable function */
+    joyport_mouse_poll_value,              /* digital line read function */
+    NULL,                                  /* NO digital line store function */
+    joyport_mouse_neos_amiga_st_read_potx, /* pot-x read function */
+    joyport_mouse_amiga_st_read_poty,      /* pot-y read function */
+    mouse_st_write_snapshot,               /* device write snapshot function */
+    mouse_st_read_snapshot                 /* device read snapshot function */
 };
 
 static uint8_t joyport_mouse_smart_value(int port)
@@ -875,17 +876,17 @@ static int mouse_smart_write_snapshot(struct snapshot_s *s, int port);
 static int mouse_smart_read_snapshot(struct snapshot_s *s, int port);
 
 static joyport_t mouse_smart_joyport_device = {
-    "Mouse (SmartMouse)",
-    JOYPORT_RES_ID_MOUSE,
-    JOYPORT_IS_NOT_LIGHTPEN,
-    JOYPORT_POT_REQUIRED,
-    joyport_mouse_enable,
-    joyport_mouse_smart_value,
-    smart_mouse_store,
-    mouse_get_1351_x,
-    mouse_get_1351_y,
-    mouse_smart_write_snapshot,
-    mouse_smart_read_snapshot
+    "Mouse (SmartMouse)",       /* name of the device */
+    JOYPORT_RES_ID_MOUSE,       /* device uses the mouse for input, only 1 mouse type device can be active at the same time */
+    JOYPORT_IS_NOT_LIGHTPEN,    /* device is NOT a lightpen */
+    JOYPORT_POT_REQUIRED,       /* device uses the potentiometer lines */
+    joyport_mouse_enable,       /* device enable function */
+    joyport_mouse_smart_value,  /* digital line read function */
+    smart_mouse_store,          /* digital line store function */
+    mouse_get_1351_x,           /* pot-x read function */
+    mouse_get_1351_y,           /* pot-y read function */
+    mouse_smart_write_snapshot, /* device write snapshot function */
+    mouse_smart_read_snapshot   /* device read snapshot function */
 };
 
 static uint8_t joyport_mouse_micromys_value(int port)
@@ -906,17 +907,17 @@ static int mouse_micromys_write_snapshot(struct snapshot_s *s, int port);
 static int mouse_micromys_read_snapshot(struct snapshot_s *s, int port);
 
 static joyport_t mouse_micromys_joyport_device = {
-    "Mouse (Micromys)",
-    JOYPORT_RES_ID_MOUSE,
-    JOYPORT_IS_NOT_LIGHTPEN,
-    JOYPORT_POT_REQUIRED,
-    joyport_mouse_enable,
-    joyport_mouse_micromys_value,
-    NULL,               /* no store digital */
-    mouse_get_1351_x,
-    mouse_get_1351_y,
-    mouse_micromys_write_snapshot,
-    mouse_micromys_read_snapshot
+    "Mouse (Micromys)",            /* name of the device */
+    JOYPORT_RES_ID_MOUSE,          /* device uses the mouse for input, only 1 mouse type device can be active at the same time */
+    JOYPORT_IS_NOT_LIGHTPEN,       /* device is NOT a lightpen */
+    JOYPORT_POT_REQUIRED,          /* device uses the potentiometer lines */
+    joyport_mouse_enable,          /* device enable function */
+    joyport_mouse_micromys_value,  /* digital line read function */
+    NULL,                          /* NO digital line store function */
+    mouse_get_1351_x,              /* pot-x read function */
+    mouse_get_1351_y,              /* pot-y read function */
+    mouse_micromys_write_snapshot, /* device write snapshot function */
+    mouse_micromys_read_snapshot   /* device read snapshot function */
 };
 
 static uint8_t joyport_koalapad_pot_x(int port)
@@ -929,17 +930,17 @@ static int koalapad_write_snapshot(struct snapshot_s *s, int port);
 static int koalapad_read_snapshot(struct snapshot_s *s, int port);
 
 static joyport_t koalapad_joyport_device = {
-    "KoalaPad",
-    JOYPORT_RES_ID_MOUSE,
-    JOYPORT_IS_NOT_LIGHTPEN,
-    JOYPORT_POT_REQUIRED,
-    joyport_mouse_enable,
-    joyport_mouse_value,
-    NULL,               /* no store digital */
-    joyport_koalapad_pot_x,
-    mouse_get_paddle_absolute_y,
-    koalapad_write_snapshot,
-    koalapad_read_snapshot
+    "KoalaPad",              /* name of the device */
+    JOYPORT_RES_ID_MOUSE,    /* device uses the mouse for input, only 1 mouse type device can be active at the same time */
+    JOYPORT_IS_NOT_LIGHTPEN, /* device is NOT a lightpen */
+    JOYPORT_POT_REQUIRED,    /* device uses the potentiometer lines */
+    joyport_mouse_enable,    /* device enable function */
+    joyport_mouse_value,     /* digital line read function */
+    NULL,                    /* NO digital line store function */
+    joyport_koalapad_pot_x,  /* pot-x read function */
+    mouse_get_paddle_absolute_y, /* pot-y read function */
+    koalapad_write_snapshot, /* device write snapshot function */
+    koalapad_read_snapshot   /* device read snapshot function */
 };
 
 static int mouse_joyport_register(void)
@@ -1409,7 +1410,7 @@ static int paddles_read_snapshot(struct snapshot_s *s, int port)
     }
 
     /* Do not accept versions higher than current */
-    if (major_version > PADDLES_VER_MAJOR || minor_version > PADDLES_VER_MINOR) {
+    if (snapshot_version_is_bigger(major_version, minor_version, PADDLES_VER_MAJOR, PADDLES_VER_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }
@@ -1495,7 +1496,7 @@ static int mouse_1351_read_snapshot(struct snapshot_s *s, int port)
     }
 
     /* Do not accept versions higher than current */
-    if (major_version > MOUSE_1351_VER_MAJOR || minor_version > MOUSE_1351_VER_MINOR) {
+    if (snapshot_version_is_bigger(major_version, minor_version, MOUSE_1351_VER_MAJOR, MOUSE_1351_VER_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }
@@ -1589,7 +1590,7 @@ static int mouse_neos_read_snapshot(struct snapshot_s *s, int port)
     }
 
     /* Do not accept higher versions than current */
-    if (major_version > MOUSE_NEOS_VER_MAJOR || minor_version > MOUSE_NEOS_VER_MINOR) {
+    if (snapshot_version_is_bigger(major_version, minor_version, MOUSE_NEOS_VER_MAJOR, MOUSE_NEOS_VER_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }
@@ -1695,7 +1696,7 @@ static int mouse_amiga_read_snapshot(struct snapshot_s *s, int port)
     }
 
     /* Do not accept versions higher than current */
-    if (major_version > MOUSE_AMIGA_VER_MAJOR || minor_version > MOUSE_AMIGA_VER_MINOR) {
+    if (snapshot_version_is_bigger(major_version, minor_version, MOUSE_AMIGA_VER_MAJOR, MOUSE_AMIGA_VER_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }
@@ -1784,7 +1785,7 @@ static int mouse_cx22_read_snapshot(struct snapshot_s *s, int port)
     }
 
     /* Do not accept versions higher than current */
-    if (major_version > MOUSE_CX22_VER_MAJOR || minor_version > MOUSE_CX22_VER_MINOR) {
+    if (snapshot_version_is_bigger(major_version, minor_version, MOUSE_CX22_VER_MAJOR, MOUSE_CX22_VER_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }
@@ -1874,7 +1875,7 @@ static int mouse_st_read_snapshot(struct snapshot_s *s, int port)
     }
 
     /* Do not accept versions higher than current */
-    if (major_version > MOUSE_ST_VER_MAJOR || minor_version > MOUSE_ST_VER_MINOR) {
+    if (snapshot_version_is_bigger(major_version, minor_version, MOUSE_ST_VER_MAJOR, MOUSE_ST_VER_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }
@@ -1965,7 +1966,7 @@ static int mouse_smart_read_snapshot(struct snapshot_s *s, int port)
     }
 
     /* Do not accept higher versions than current */
-    if (major_version > MOUSE_SMART_VER_MAJOR || minor_version > MOUSE_SMART_VER_MINOR) {
+    if (snapshot_version_is_bigger(major_version, minor_version, MOUSE_SMART_VER_MAJOR, MOUSE_SMART_VER_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }
@@ -2061,7 +2062,7 @@ static int mouse_micromys_read_snapshot(struct snapshot_s *s, int port)
     }
 
     /* Do not accept versions higher than current */
-    if (major_version > MOUSE_MICROMYS_VER_MAJOR || minor_version > MOUSE_MICROMYS_VER_MINOR) {
+    if (snapshot_version_is_bigger(major_version, minor_version, MOUSE_MICROMYS_VER_MAJOR, MOUSE_MICROMYS_VER_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }
@@ -2143,7 +2144,7 @@ static int koalapad_read_snapshot(struct snapshot_s *s, int port)
     }
 
     /* Do not accept versions higher than current */
-    if (major_version > KOALAPAD_VER_MAJOR || minor_version > KOALAPAD_VER_MINOR) {
+    if (snapshot_version_is_bigger(major_version, minor_version, KOALAPAD_VER_MAJOR, KOALAPAD_VER_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }

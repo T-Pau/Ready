@@ -38,12 +38,14 @@ void ui_create_main_window(video_canvas_t *canvas);
 void ui_display_main_window(int index);
 void ui_destroy_main_window(int index);
 
+void ui_display_paused(int flag);
 void ui_dispatch_events(void);
 void ui_exit(void);
 void ui_show_text(const char *title, const char *text, int width, int height);
 
-void ui_display_paused(int flag);
-void ui_pause_emulation(int flag);
-int  ui_emulation_is_paused(void);
+int  ui_pause_active(void);
+void ui_pause_enable(void);
+void ui_pause_disable(void);
+void ui_pause_toggle(void);
 
 #endif /* ui_h */

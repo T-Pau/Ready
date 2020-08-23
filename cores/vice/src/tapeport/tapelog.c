@@ -90,20 +90,20 @@ static int tapelog_write_snapshot(struct snapshot_s *s, int write_image);
 static int tapelog_read_snapshot(struct snapshot_s *s);
 
 static tapeport_device_t tapelog_device = {
-    TAPEPORT_DEVICE_TAPE_LOG,
-    "Tape Log",
-    0,
-    "TapeLog",
-    NULL,
-    NULL, /* no shutdown */
-    tapelog_set_motor,
-    tapelog_toggle_write_bit,
-    tapelog_set_sense_out,
-    tapelog_set_read_out,
-    tapelog_trigger_flux_change_passthrough,
-    tapelog_set_tape_sense_passthrough,
-    tapelog_set_tape_write_in_passthrough,
-    tapelog_set_tape_motor_in_passthrough
+    TAPEPORT_DEVICE_TAPE_LOG,                /* device id */
+    "Tape Log",                              /* device name */
+    0,                                       /* order of the device, filled in by the tapeport system when the device is attached */
+    "TapeLog",                               /* resource used by the device */
+    NULL,                                    /* NO device shutdown function */
+    NULL,                                    /* NO device specific reset function */
+    tapelog_set_motor,                       /* set motor line function */
+    tapelog_toggle_write_bit,                /* set write line function */
+    tapelog_set_sense_out,                   /* set sense line function */
+    tapelog_set_read_out,                    /* set read line function */
+    tapelog_trigger_flux_change_passthrough, /* passthrough flux change function */
+    tapelog_set_tape_sense_passthrough,      /* passthrough sense read function */
+    tapelog_set_tape_write_in_passthrough,   /* passthrough write line function */
+    tapelog_set_tape_motor_in_passthrough    /* passthrough motor line function */
 };
 
 static tapeport_snapshot_t tapelog_snapshot = {
@@ -283,7 +283,6 @@ void tapelog_resources_shutdown(void)
 {
     if (tapelog_filename != NULL) {
         lib_free(tapelog_filename);
-        tapelog_filename = NULL;
     }
 }
 
@@ -512,7 +511,7 @@ static int tapelog_read_snapshot(struct snapshot_s *s)
     }
 
     /* Do not accept versions higher than current */
-    if (major_version > SNAP_MAJOR || minor_version > SNAP_MINOR) {
+    if (snapshot_version_is_bigger(major_version, minor_version, SNAP_MAJOR, SNAP_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }
@@ -522,7 +521,7 @@ static int tapelog_read_snapshot(struct snapshot_s *s)
     }
 
     /* new in 0.1 */
-    if (SNAPVAL(major_version, minor_version, 0, 1)) {
+    if (!snapshot_version_is_smaller(major_version, minor_version, 0, 1)) {
         if (SMR_B(m, &tapelog_motor_in) < 0) {
             goto fail;
         }
@@ -538,7 +537,7 @@ static int tapelog_read_snapshot(struct snapshot_s *s)
     }
 
     /* new in 0.1 */
-    if (SNAPVAL(major_version, minor_version, 0, 1)) {
+    if (!snapshot_version_is_smaller(major_version, minor_version, 0, 1)) {
         if (0
             || SMR_B(m, &tapelog_write_in) < 0
             || SMR_B(m, &tapelog_read_out) < 0) {

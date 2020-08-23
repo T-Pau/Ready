@@ -57,12 +57,7 @@ static void parsid_outb(unsigned int addrint, BYTE value)
 {
 #ifdef _M_IX86
     WORD addr = (WORD)addrint;
-
-#ifdef WATCOM_COMPILE
-    outp(addr, value);
-#else
     _outp(addr, value);
-#endif
 #endif
 }
 
@@ -71,11 +66,7 @@ static BYTE parsid_inb(unsigned int addrint)
 #ifdef _M_IX86
     WORD addr = (WORD)addrint;
 
-#ifdef WATCOM_COMPILE
-    return inp(addr);
-#else
     return _inp(addr);
-#endif
 #endif
     return 0;
 }
@@ -382,7 +373,9 @@ int ps_io_open(void)
         pssids[sids_found] = parsid_GetAddressLptPort(j + 1);
         if (pssids[sids_found] > 0) {
             if (detect_sid(sids_found)) {
-                log_message(LOG_DEFAULT, "ParSID found on port at address $%X.", pssids[sids_found]);
+                log_message(LOG_DEFAULT,
+                        "ParSID found on port at address $%X.",
+                        (unsigned int)pssids[sids_found]);
                 sids_found++;
             }
         }

@@ -37,6 +37,7 @@
 #endif
 
 #include "lib.h"
+#include "log.h"
 #include "sound.h"
 
 #ifdef ANDROID_COMPILE
@@ -107,11 +108,24 @@ static int sdl_init(const char *param, int *speed,
     SDL_AudioSpec spec;
     int nr;
 
+#ifdef USE_SDLUI2
+    int i;
+
+    log_message(LOG_DEFAULT, "SDLAudio: list of drivers:");
+    for (i = 0; i < SDL_GetNumAudioDrivers(); i++) {
+        log_message(LOG_DEFAULT, "SDLAudio: %d: %s", i, SDL_GetAudioDriver(i));
+    }
+#endif
+
     memset(&spec, 0, sizeof(spec));
     spec.freq = *speed;
-    spec.format = AUDIO_S16;
+    spec.format = AUDIO_S16SYS;
     spec.channels = (Uint8)*channels;
+#ifdef USE_SDLUI2
     spec.samples = (Uint16)(*fragsize * 2);
+#else
+    spec.samples = (Uint16)((*fragsize < 512) ? 1024 : (*fragsize * 2));
+#endif
     spec.callback = sdl_callback;
 
     /* NOTE: on some backends the first (input/desired) spec passed to SDL_OpenAudio
@@ -125,14 +139,32 @@ static int sdl_init(const char *param, int *speed,
      *       see eg http://forums.libsdl.org/viewtopic.php?t=9248&sid=92130a5b4cfd7fd713e076e122d7e2a1
      *       to get an idea of the whole mess
      */
-    if (SDL_OpenAudio(&spec, &sdl_spec)) {
+    if (SDL_OpenAudio(&spec, NULL)) {
+        log_message(LOG_DEFAULT, "SDLAudio: SDL_OpenAudio() failed: %s",
+                SDL_GetError());
         return 1;
     }
 
-    if ((sdl_spec.format != AUDIO_S16 && sdl_spec.format != AUDIO_S16MSB) || sdl_spec.channels != *channels) {
+    memcpy(&sdl_spec, &spec, sizeof(spec));
+
+    /*
+     * The driver can be selected by using the environment variable
+     * 'SDL_AUDIODRIVER', so for example:
+     * $ SDL_AUDIODRIVER="directsound" x64sc.exe
+     */
+#ifdef USE_SDLUI2
+    log_message(LOG_DEFAULT, "SDLAudio: current driver: %s",
+            SDL_GetCurrentAudioDriver());
+#endif
+
+    if ((sdl_spec.format != AUDIO_S16 && sdl_spec.format != AUDIO_S16MSB)
+            || sdl_spec.channels != *channels) {
         SDL_CloseAudio();
+        log_message(LOG_DEFAULT, "SDLAudio: got invalid audio spec.");
         return 1;
     }
+    log_message(LOG_DEFAULT, "SDLAudio: got proper audio spec.");
+
 
     /* recalculate the number of fragments since the frag size might
      * have changed and we want to keep approximately the same

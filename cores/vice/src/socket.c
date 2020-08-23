@@ -40,11 +40,23 @@
 #include <stdlib.h>
 #include <string.h>
 
+/* hopefully fixed in configure */
+#if 0
+/* get rid of the asserts when compiling in non debug mode. somehow
+   configure fails to define NDEBUG instead */
+#ifndef DEBUG
+#undef assert
+#define assert(x)
+#endif
+#endif
+
 #ifdef HAVE_STRINGS_H
 #include <strings.h>
 #endif
 
 #include "socketimpl.h"
+
+#include "archdep_defs.h"
 
 /* Fix Windows' definition of 'INVALID_SOCKET (SOCKET)(~0)', which breaks the
  * code further down. Any 'normal' OS uses -1, but Microsft had to use an
@@ -53,7 +65,7 @@
  *
  * Since Windows only works on two's complement systems, this will work.
  */
-#ifdef WIN32_COMPILE
+#ifdef ARCHDEP_OS_WINDOWS
 # undef INVALID_SOCKET
 # define INVALID_SOCKET -1
 #endif
@@ -389,11 +401,9 @@ static vice_network_socket_address_t * vice_network_alloc_new_socket_address(voi
      socket to be used (IPv4, IPv6, Unix Domain Socket, ...)
      Thus, server_address must not be NULL.
 */
-vice_network_socket_t * vice_network_server(const vice_network_socket_address_t * server_address)
+vice_network_socket_t *vice_network_server(
+        const vice_network_socket_address_t * server_address)
 {
-#ifndef WATCOM_COMPILE
-    int socket_reuse_address = 1;
-#endif
     int sockfd = INVALID_SOCKET;
     int error = 1;
 
@@ -420,16 +430,6 @@ vice_network_socket_t * vice_network_server(const vice_network_socket_address_t 
         if ((server_address->domain == PF_INET) || (server_address->domain == PF_INET6)) {
 #else
         if ((server_address->domain == PF_INET)) {
-#endif
-#ifndef WATCOM_COMPILE
-#if defined(SO_REUSEPORT)
-          setsockopt(sockfd, SOL_SOCKET, SO_REUSEPORT, (const void*)&socket_reuse_address, sizeof(socket_reuse_address));
-#elif defined(SO_REUSEADDR)
-          setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, (const void*)&socket_reuse_address, sizeof(socket_reuse_address));
-#endif
-#if defined(TCP_NODELAY)
-          setsockopt(sockfd, SOL_TCP, TCP_NODELAY, (const void*)&error, sizeof(error)); /* just an integer with 1, not really an error */
-#endif
 #endif
         }
         if (bind(sockfd, &server_address->address.generic, server_address->len) < 0) {
@@ -482,10 +482,8 @@ vice_network_socket_t * vice_network_client(const vice_network_socket_address_t 
             break;
         }
 
-#ifndef WATCOM_COMPILE
 #if defined(TCP_NODELAY)
         setsockopt(sockfd, SOL_TCP, TCP_NODELAY, (const void*)&error, sizeof(error)); /* just an integer with 1, not really an error */
-#endif
 #endif
 
         if (connect(sockfd, &server_address->address.generic, server_address->len) < 0) {
@@ -533,9 +531,12 @@ vice_network_socket_t * vice_network_client(const vice_network_socket_address_t 
      and &lt;port&gt; being the port number. If the first form is used,
      the default port will be used.
 */
-static int vice_network_address_generate_ipv4(vice_network_socket_address_t * socket_address, const char * address_string, unsigned short port)
+static int vice_network_address_generate_ipv4(
+        vice_network_socket_address_t *socket_address,
+        const char *address_string,
+        unsigned short port)
 {
-    const char * address_part = address_string;
+    char * address_part = lib_strdup(address_string);
     int error = 1;
 
     do {
@@ -563,9 +564,10 @@ static int vice_network_address_generate_ipv4(vice_network_socket_address_t * so
                 unsigned long new_port;
 
                 /* yes, there is a port: Copy the part before, so we can modify it */
-                p = lib_stralloc(address_string);
+                p = lib_strdup(address_string);
 
                 p[port_part - address_string] = 0;
+                lib_free(address_part);
                 address_part = p;
 
                 ++port_part;
@@ -590,11 +592,14 @@ static int vice_network_address_generate_ipv4(vice_network_socket_address_t * so
                     /* something weird happened... SHOULD NOT HAPPEN! */
                     log_message(LOG_DEFAULT,
                                 "gethostbyname() returned an IPv4 address, "
-                                "but the length is wrong: %u", host_entry->h_length );
+                                "but the length is wrong: %d", 
+                                host_entry->h_length );
                     break;
                 }
 
-                memcpy(&socket_address->address.ipv4.sin_addr.s_addr, host_entry->h_addr_list[0], host_entry->h_length);
+                memcpy(&socket_address->address.ipv4.sin_addr.s_addr,
+                        host_entry->h_addr_list[0],
+                        host_entry->h_length);
             } else {
                 /* Assume it is an IP address */
 
@@ -608,7 +613,8 @@ static int vice_network_address_generate_ipv4(vice_network_socket_address_t * so
                      * Unfortunately, not all ports have inet_aton(), so, we must
                      * provide both implementations.
                      */
-                    if (inet_aton(address_part, &socket_address->address.ipv4.sin_addr.s_addr) == 0) {
+                    if (inet_aton(address_part,
+                                &socket_address->address.ipv4.sin_addr.s_addr) == 0) {
                         /* no valid IP address */
                         break;
                     }
@@ -628,14 +634,7 @@ static int vice_network_address_generate_ipv4(vice_network_socket_address_t * so
         }
     } while (0);
 
-    /* if we allocated memory for the address part
-     * because a port was specified,
-     * free that memory now.
-     */
-    if (address_part != address_string) {
-        lib_free(address_part);
-    }
-
+    lib_free(address_part);
     return error;
 }
 

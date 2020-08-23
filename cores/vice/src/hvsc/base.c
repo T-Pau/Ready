@@ -8,7 +8,7 @@
 
 /*
  *  HVSClib - a library to work with High Voltage SID Collection files
- *  Copyright (C) 2018  Bas Wassink <b.wassink@ziggo.nl>
+ *  Copyright (C) 2018-2019  Bas Wassink <b.wassink@ziggo.nl>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -190,7 +190,7 @@ void hvsc_text_file_init_handle(hvsc_text_file_t *handle)
  */
 int hvsc_text_file_open(const char *path, hvsc_text_file_t *handle)
 {
-    printf("%s(): opening '%s'\n", __func__, path);
+    hvsc_dbg("%s(): opening '%s'\n", __func__, path);
     hvsc_text_file_init_handle(handle);
 
     handle->fp = fopen(path, "rb");
@@ -258,7 +258,7 @@ const char *hvsc_text_file_read(hvsc_text_file_t *handle)
         /* resize buffer? */
         if (i == handle->buflen - 1) {
             /* resize buffer */
-#ifdef HVSC_BEBUG
+#ifdef HVSC_DEBUG
             printf("RESIZING BUFFER TO %lu, lineno %ld\n",
                     (unsigned long)(handle->buflen  * 2), handle->lineno);
 #endif
@@ -663,17 +663,22 @@ int hvsc_string_is_comment(const char *s)
 
 /** \brief  Parse string \a p for a timestamp and return number of seconds
  *
- * Parse a timestamp in the format HH:MM, return number of seconds.
+ * Parse a timestamp in the format [M]+:SS, return number of seconds, where
+ * [M]+ is minutes and SS is seconds.
  *
  * \param[in]   t       timestamp
  * \param[out]  endptr  object to store pointer to first non-timestamp char
  *
  * \return  time in seconds or -1 on error
+ *
+ * \todo    update to support milliseconds once HVSC 71 is out
  */
 long hvsc_parse_simple_timestamp(char *t, char **endptr)
 {
-    long m = 0;
-    long s = 0;
+    long m = 0; /* minutes */
+    long s = 0; /* seconds */
+    long f = 0; /* fractional seconds (ie milliseconds) */
+    int fd = 0; /* number of fractional digits */
 
     /* minutes */
     while (isdigit((int)*t)) {
@@ -686,6 +691,7 @@ long hvsc_parse_simple_timestamp(char *t, char **endptr)
         hvsc_errno = HVSC_ERR_TIMESTAMP;
         return -1;
     }
+    hvsc_dbg("HVSC: got %ld minutes.", m);
 
     /* seconds */
     t++;
@@ -697,10 +703,35 @@ long hvsc_parse_simple_timestamp(char *t, char **endptr)
             return -1;
         }
     }
+    printf("HVSC: got %ld seconds.", s);
+
+    /* milliseconds */
+    if (*t == '.') {
+        /* parse fractional part */
+        t++;
+        fd = 0;
+        f = 0;
+
+        while (isdigit((int)*t) && fd < 3) {
+            fd++;
+            f = f * 10 + *t - '0';
+            t++;
+        }
+        if (fd == 0) {
+            hvsc_errno = HVSC_ERR_TIMESTAMP;
+            printf("HSVC: parsing msecs failed.");
+            return -1;
+        }
+        /* update fraction to milliseconds */
+        while (fd++ < 3) {
+            f *= 10;
+        }
+        printf("HVSC: got milliseconds: %ld", f);
+    }
 
     /* done */
     *endptr = t;
-    return m * 60 + s;
+    return (m * 60 + s) * 1000 + f;
 }
 
 

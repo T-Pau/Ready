@@ -99,32 +99,16 @@ static sound_register_devices_t sound_register_devices[] = {
     { "coreaudio", sound_init_coreaudio_device, SOUND_PLAYBACK_DEVICE },
 #endif
     { "ios", sound_init_ios_device, SOUND_PLAYBACK_DEVICE },
-#ifdef USE_OSS
-
-/* don't use oss for FreeBSD or BSDI */
-
-#if !defined(__FreeBSD__) && !defined(__bsdi__)
-    { "uss", sound_init_uss_device, SOUND_PLAYBACK_DEVICE },
-#endif
-#endif
-#ifdef USE_DMEDIA
-    { "sgi", sound_init_sgi_device, SOUND_PLAYBACK_DEVICE },
-#endif
 
 /* Don't use the NetBSD/SUN sound driver for OpenBSD */
 #if defined(HAVE_SYS_AUDIOIO_H) && !defined(__OpenBSD__)
 #if defined(__NetBSD__)
     { "netbsd", sound_init_sun_device, SOUND_PLAYBACK_DEVICE },
 #else
+    /* Really? */
     { "sun", sound_init_sun_device, SOUND_PLAYBACK_DEVICE },
-#endif
-#endif
-#if defined(HAVE_SYS_AUDIO_H)
-    { "hpux", sound_init_hpux_device, SOUND_PLAYBACK_DEVICE },
-#endif
-#ifdef USE_AIX_AUDIO
-    { "aix", sound_init_aix_device, SOUND_PLAYBACK_DEVICE },
-#endif
+#endif /* __NetBSD__*/
+#endif /* HAVE_SYS_AUDIOIO_H */
 
 #ifdef WIN32_COMPILE
 #ifdef USE_DXSOUND
@@ -273,12 +257,17 @@ static int sound_machine_calculate_samples(sound_t **psid, int16_t *pbuf, int nr
 
 static void sound_machine_store(sound_t *psid, uint16_t addr, uint8_t val)
 {
-    sound_calls[addr >> 5]->store(psid, (uint16_t)(addr & 0x1f), val);
+    if (sound_calls[addr >> 5]->store) {
+        sound_calls[addr >> 5]->store(psid, (uint16_t)(addr & 0x1f), val);
+    }
 }
 
 static uint8_t sound_machine_read(sound_t *psid, uint16_t addr)
 {
-    return sound_calls[addr >> 5]->read(psid, (uint16_t)(addr & 0x1f));
+    if (sound_calls[addr >> 5]->read) {
+        return sound_calls[addr >> 5]->read(psid, (uint16_t)(addr & 0x1f));
+    }
+    return 0;
 }
 
 static void sound_machine_reset(sound_t *psid, CLOCK cpu_clk)
@@ -411,7 +400,7 @@ static int set_device_name(const char *val, void *param)
     if (!val || val[0] == '\0') {
         /* Use the default sound device */
 #ifdef BEOS_COMPILE
-        if (CheckForHaiku()) {
+        if (archdep_is_haiku()) {
             util_string_set(&device_name, "bsp");
         } else
 #endif
@@ -643,8 +632,8 @@ int sound_cmdline_options_init(void)
         return -1;
     }
 
-    playback_devices_cmdline = lib_stralloc("Specify sound driver. (");
-    record_devices_cmdline = lib_stralloc("Specify recording sound driver. (");
+    playback_devices_cmdline = lib_strdup("Specify sound driver. (");
+    record_devices_cmdline = lib_strdup("Specify recording sound driver. (");
 
     for (i = 0; sound_register_devices[i].name; i++) {
         if (sound_register_devices[i].is_playback_device) {
@@ -1579,7 +1568,7 @@ void sound_init(unsigned int clock_rate, unsigned int ticks_per_frame)
     clk_guard_add_callback(maincpu_clk_guard, prevent_clk_overflow_callback,
                            NULL);
 
-    devlist = lib_stralloc("");
+    devlist = lib_strdup("");
 
     for (i = 0; sound_register_devices[i].name; i++) {
         sound_register_devices[i].init();

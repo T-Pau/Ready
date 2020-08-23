@@ -88,18 +88,19 @@ static void supersnapshot_v5_io1_store(uint16_t addr, uint8_t value);
 static int supersnapshot_v5_dump(void);
 
 static io_source_t ss5_device = {
-    CARTRIDGE_NAME_SUPER_SNAPSHOT_V5,
-    IO_DETACH_CART,
-    NULL,
-    0xde00, 0xdeff, 0xff,
-    0,
-    supersnapshot_v5_io1_store,
-    supersnapshot_v5_io1_read,
-    supersnapshot_v5_io1_peek,
-    supersnapshot_v5_dump,
-    CARTRIDGE_SUPER_SNAPSHOT_V5,
-    0,
-    0
+    CARTRIDGE_NAME_SUPER_SNAPSHOT_V5, /* name of the device */
+    IO_DETACH_CART,                   /* use cartridge ID to detach the device when involved in a read-collision */
+    IO_DETACH_NO_RESOURCE,            /* does not use a resource for detach */
+    0xde00, 0xdeff, 0xff,             /* range for the device, regs:$de00-$deff */
+    0,                                /* read validity is determined by the device upon a read */
+    supersnapshot_v5_io1_store,       /* store function */
+    NULL,                             /* NO poke function */
+    supersnapshot_v5_io1_read,        /* read function */
+    supersnapshot_v5_io1_peek,        /* peek function */
+    supersnapshot_v5_dump,            /* device state information dump function */
+    CARTRIDGE_SUPER_SNAPSHOT_V5,      /* cartridge ID */
+    IO_PRIO_NORMAL,                   /* normal priority, device read needs to be checked for collisions */
+    0                                 /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_list_t *ss5_list_item = NULL;
@@ -173,7 +174,7 @@ static void supersnapshot_v5_io1_store(uint16_t addr, uint8_t value)
 
 static int supersnapshot_v5_dump(void)
 {
-    mon_out("Register: $%02x (%s)\n", currreg, (ss_rom_disabled) ? "disabled" : "enabled");
+    mon_out("Register: $%02x (%s)\n", (unsigned int)currreg, (ss_rom_disabled) ? "disabled" : "enabled");
     mon_out(" EXROM: %d GAME: %d (%s)\n", ((romconfig >> 1) & 1), (romconfig & 1) ^ 1, cart_config_string((uint8_t)(romconfig & 3)));
     mon_out(" ROM %s, Bank: %d\n", (ss_rom_disabled) ? "disabled" : "enabled", currbank);
     mon_out(" RAM %s, Bank: %d\n", (export_ram) ? "enabled" : "disabled", ram_bank);
@@ -402,13 +403,13 @@ int supersnapshot_v5_snapshot_read_module(snapshot_t *s)
     }
 
     /* Do not accept versions higher than current */
-    if (vmajor > SNAP_MAJOR || vminor > SNAP_MINOR) {
+    if (snapshot_version_is_bigger(vmajor, vminor, SNAP_MAJOR, SNAP_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }
 
     /* new in 0.2 */
-    if (SNAPVAL(vmajor, vminor, 0, 2)) {
+    if (!snapshot_version_is_smaller(vmajor, vminor, 0, 2)) {
         if (0
             || SMR_B_INT(m, &currbank) < 0
             || SMR_B_INT(m, &currreg) < 0) {
@@ -426,7 +427,7 @@ int supersnapshot_v5_snapshot_read_module(snapshot_t *s)
     }
 
     /* new in 0.1 */
-    if (SNAPVAL(vmajor, vminor, 0, 1)) {
+    if (!snapshot_version_is_smaller(vmajor, vminor, 0, 1)) {
         if (0
             || SMR_B_INT(m, &ss_32k_enabled) < 0
             || SMR_B_INT(m, &ss_rom_disabled) < 0) {

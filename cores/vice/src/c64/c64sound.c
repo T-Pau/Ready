@@ -42,6 +42,11 @@ static uint8_t machine_sid2_read(uint16_t addr)
     return sid2_read(addr);
 }
 
+static uint8_t machine_sid2_peek(uint16_t addr)
+{
+    return sid2_peek(addr);
+}
+
 static void machine_sid2_store(uint16_t addr, uint8_t byte)
 {
     sid2_store(addr, byte);
@@ -50,6 +55,11 @@ static void machine_sid2_store(uint16_t addr, uint8_t byte)
 static uint8_t machine_sid3_read(uint16_t addr)
 {
     return sid3_read(addr);
+}
+
+static uint8_t machine_sid3_peek(uint16_t addr)
+{
+    return sid3_peek(addr);
 }
 
 static void machine_sid3_store(uint16_t addr, uint8_t byte)
@@ -62,6 +72,11 @@ static uint8_t machine_sid4_read(uint16_t addr)
     return sid4_read(addr);
 }
 
+static uint8_t machine_sid4_peek(uint16_t addr)
+{
+    return sid4_peek(addr);
+}
+
 static void machine_sid4_store(uint16_t addr, uint8_t byte)
 {
     sid4_store(addr, byte);
@@ -69,49 +84,55 @@ static void machine_sid4_store(uint16_t addr, uint8_t byte)
 
 /* ---------------------------------------------------------------------*/
 
+/* 2nd SID, can be a cartridge or an internal board */
 static io_source_t stereo_sid_device = {
-    "Stereo SID",
-    IO_DETACH_RESOURCE,
-    "SidStereo",
-    0xde00, 0xde1f, 0x1f,
-    1, /* read is always valid */
-    machine_sid2_store,
-    machine_sid2_read,
-    NULL, /* TODO: peek */
-    sid2_dump,
-    0,
-    0,
-    0
+    "Stereo SID",         /* name of the device */
+    IO_DETACH_RESOURCE,   /* use resource to detach the device when involved in a read-collision */
+    "SidStereo",          /* resource to set to '0' */
+    0xde00, 0xde1f, 0x1f, /* range for the 2nd SID device, can be changed to other ranges */
+    1,                    /* read is always valid */
+    machine_sid2_store,   /* store function */
+    NULL,                 /* NO poke function */
+    machine_sid2_read,    /* read function */
+    machine_sid2_peek,    /* peek function */
+    sid2_dump,            /* device state information dump function */
+    IO_CART_ID_NONE,      /* none is used here, because it is an I/O only device */
+    IO_PRIO_NORMAL,       /* normal priority, device read needs to be checked for collisions */
+    0                     /* insertion order, gets filled in by the registration function */
 };
 
+/* 3rd SID, can be a cartridge or an internal board */
 static io_source_t triple_sid_device = {
-    "Triple SID",
-    IO_DETACH_RESOURCE,
-    "SidStereo",
-    0xdf00, 0xdf1f, 0x1f,
-    1, /* read is always valid */
-    machine_sid3_store,
-    machine_sid3_read,
-    NULL, /* TODO: peek */
-    sid3_dump,
-    0,
-    0,
-    0
+    "Triple SID",         /* name of the device */
+    IO_DETACH_RESOURCE,   /* use resource to detach the device when involved in a read-collision */
+    "SidStereo",          /* resource to set to '0' */
+    0xdf00, 0xdf1f, 0x1f, /* range for the 3rd SID device, can be changed to other ranges */
+    1,                    /* read is always valid */
+    machine_sid3_store,   /* store function */
+    NULL,                 /* NO poke function */
+    machine_sid3_read,    /* read function */
+    machine_sid3_peek,    /* peek function */
+    sid3_dump,            /* device state information dump function */
+    IO_CART_ID_NONE,      /* none is used here, because it is an I/O only device */
+    IO_PRIO_NORMAL,       /* normal priority, device read needs to be checked for collisions */
+    0                     /* insertion order, gets filled in by the registration function */
 };
 
+/* 4th SID, can be a cartridge or an internal board */
 static io_source_t quad_sid_device = {
-    "Quad SID",
-    IO_DETACH_RESOURCE,
-    "SidStereo",
-    0xdf80, 0xdf9f, 0x1f,
-    1, /* read is always valid */
-    machine_sid4_store,
-    machine_sid4_read,
-    NULL, /* TODO: peek */
-    sid4_dump,
-    0,
-    0,
-    0
+    "Quad SID",           /* name of the device */
+    IO_DETACH_RESOURCE,   /* use resource to detach the device when involved in a read-collision */
+    "SidStereo",          /* resource to set to '0' */
+    0xdf80, 0xdf9f, 0x1f, /* range for the 4th SID device, can be changed to other ranges */
+    1,                    /* read is always valid */
+    machine_sid4_store,   /* store function */
+    NULL,                 /* NO poke function */
+    machine_sid4_read,    /* read function */
+    machine_sid4_peek,    /* peek function */
+    sid4_dump,            /* device state information dump function */
+    IO_CART_ID_NONE,      /* none is used here, because it is an I/O only device */
+    IO_PRIO_NORMAL,       /* normal priority, device read needs to be checked for collisions */
+    0                     /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_list_t *stereo_sid_list_item = NULL;
@@ -120,17 +141,18 @@ static io_source_list_t *quad_sid_list_item = NULL;
 
 /* ---------------------------------------------------------------------*/
 
+/* C64 SID sound chip */
 static sound_chip_t sid_sound_chip = {
-    sid_sound_machine_open,
-    sid_sound_machine_init,
-    sid_sound_machine_close,
-    sid_sound_machine_calculate_samples,
-    sid_sound_machine_store,
-    sid_sound_machine_read,
-    sid_sound_machine_reset,
-    sid_sound_machine_cycle_based,
-    sid_sound_machine_channels,
-    1 /* chip enabled */
+    sid_sound_machine_open,              /* sound chip open function */
+    sid_sound_machine_init,              /* sound chip init function */
+    sid_sound_machine_close,             /* sound chip close function */
+    sid_sound_machine_calculate_samples, /* sound chip calculate samples function */
+    sid_sound_machine_store,             /* sound chip store function */
+    sid_sound_machine_read,              /* sound chip read function */
+    sid_sound_machine_reset,             /* sound chip reset function */
+    sid_sound_machine_cycle_based,       /* sound chip 'is_cycle_based()' function, resid engine is cycle based, all other engines are not */
+    sid_sound_machine_channels,          /* sound chip 'get_amount_of_channels()' function, the amount of channels depends on the extra amount of active SIDs */
+    1                                    /* sound chip is always enabled */
 };
 
 static uint16_t sid_sound_chip_offset = 0;

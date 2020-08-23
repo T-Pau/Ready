@@ -89,6 +89,11 @@ extern int cartridge_bin_save(int type, const char *filename);
 extern int cartridge_crt_save(int type, const char *filename);
 extern int cartridge_flush_image(int type);
 
+/* returns 1 when cartridge (ROM) image can be flushed */
+extern int cartridge_can_flush_image(int crtid);
+/* returns 1 when cartridge (ROM) image can be saved */
+extern int cartridge_can_save_image(int crtid);
+
 /* load/write snapshot modules for attached cartridges */
 struct snapshot_s;
 extern int cartridge_snapshot_read_modules(struct snapshot_s *s);
@@ -456,10 +461,5 @@ typedef struct {
 #define CARTRIDGE_GROUP_UTIL            0x0010
 
 extern cartridge_info_t *cartridge_get_info_list(void);
-
-
-const char *cartridge_current_filename(void);
-
-void cartridge_wipe_filename(void);
 
 #endif

@@ -44,6 +44,7 @@
 #include "fsdevice.h"
 #include "gfxoutput.h"
 #include "interrupt.h"
+#include "joy.h"
 #include "kbdbuf.h"
 #include "keyboard.h"
 #include "lib.h"
@@ -72,14 +73,6 @@
 #include "zfile.h"
 
 /* #define DEBUGMACHINE */
-
-#ifdef WIN32_COMPILE
-# include "joy.h"
-#else
-# ifdef HAS_JOYSTICK
-#  include "joy.h"
-#  endif
-#endif
 
 #ifndef EXIT_SUCCESS
 #define EXIT_SUCCESS 0
@@ -120,7 +113,7 @@ unsigned int machine_jam(const char *format, ...)
     if (jam_action == MACHINE_JAM_ACTION_DIALOG) {
         if (monitor_is_remote()) {
             ret = monitor_network_ui_jam_dialog(str);
-        } else {
+        } else if (!console_mode) {
             ret = ui_jam_dialog(str);
         }
     } else if (jam_action == MACHINE_JAM_ACTION_QUIT) {
@@ -296,11 +289,11 @@ void machine_shutdown(void)
     serial_remove_traps();
     sound_chip_deregister_all();
     sound_shutdown();
-    
+
     autostart_shutdown();
-#ifdef HAS_JOYSTICK
+
     joystick_close();
-#endif
+
     sound_close();
 
     printer_shutdown();
@@ -440,8 +433,6 @@ void machine_common_resources_shutdown(void)
 {
     lib_free(ExitScreenshotName);
     lib_free(ExitScreenshotName1);
-    ExitScreenshotName = NULL;
-    ExitScreenshotName1 = NULL;
 }
 
 static const cmdline_option_t cmdline_options_c128[] =

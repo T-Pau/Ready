@@ -172,7 +172,6 @@ int tape_reinit(const tape_init_t *init)
 void tape_shutdown(void)
 {
     lib_free(tape_image_dev1);
-    tape_image_dev1 = NULL;
 }
 
 int tape_deinstall(void)
@@ -470,7 +469,7 @@ int tape_image_detach_internal(unsigned int unit)
             tape_traps_install();
             break;
         default:
-            log_error(tape_log, "Unknown tape type %i.",
+            log_error(tape_log, "Unknown tape type %u.",
                       tape_image_dev1->type);
     }
 
@@ -522,7 +521,7 @@ static int tape_image_attach_internal(unsigned int unit, const char *name)
         return -1;
     }
 
-    tape_image.name = lib_stralloc(name);
+    tape_image.name = lib_strdup(name);
     tape_image.read_only = 0;
 
     if (tape_image_open(&tape_image) < 0) {
@@ -552,7 +551,7 @@ static int tape_image_attach_internal(unsigned int unit, const char *name)
             tape_traps_deinstall();
             break;
         default:
-            log_error(tape_log, "Unknown tape type %i.",
+            log_error(tape_log, "Unknown tape type %u.",
                       tape_image_dev1->type);
             return -1;
     }

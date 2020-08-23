@@ -83,18 +83,19 @@ static int rex_dump(void)
 /* ---------------------------------------------------------------------*/
 
 static io_source_t rex_device = {
-    CARTRIDGE_NAME_REX,
-    IO_DETACH_CART,
-    NULL,
-    0xdf00, 0xdfff, 0xff,
-    0, /* read is never valid */
-    NULL,
-    rex_io2_read,
-    rex_io2_peek,
-    rex_dump,
-    CARTRIDGE_REX,
-    0,
-    0
+    CARTRIDGE_NAME_REX,    /* name of the device */
+    IO_DETACH_CART,        /* use cartridge ID to detach the device when involved in a read-collision */
+    IO_DETACH_NO_RESOURCE, /* does not use a resource for detach */
+    0xdf00, 0xdfff, 0xff,  /* range for the device, regs:$df00-$dfff */
+    0,                     /* read is never valid */
+    NULL,                  /* NO store function */
+    NULL,                  /* NO poke function */
+    rex_io2_read,          /* read function */
+    rex_io2_peek,          /* peek function */
+    rex_dump,              /* device state information dump function */
+    CARTRIDGE_REX,         /* cartridge ID */
+    IO_PRIO_NORMAL,        /* normal priority, device read needs to be checked for collisions */
+    0                      /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_list_t *rex_list_item = NULL;
@@ -207,13 +208,13 @@ int rex_snapshot_read_module(snapshot_t *s)
     }
 
     /* Do not accept versions higher than current */
-    if ((vmajor != SNAP_MAJOR) || (vminor != SNAP_MINOR)) {
+    if (snapshot_version_is_bigger(vmajor, vminor, SNAP_MAJOR, SNAP_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }
 
     /* new in 0.1 */
-    if (SNAPVAL(vmajor, vminor, 0, 1)) {
+    if (!snapshot_version_is_smaller(vmajor, vminor, 0, 1)) {
         if (SMR_B_INT(m, &rex_active) < 0) {
             goto fail;
         }

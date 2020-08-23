@@ -189,9 +189,9 @@ void output_select_shutdown(void)
         lib_free(list);
         list = next;
     }
-    
+
     output_select_list = NULL;
-    
+
     if (printeruserport_output_names) {
         lib_free(printeruserport_output_names);
         printeruserport_output_names = NULL;

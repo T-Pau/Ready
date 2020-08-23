@@ -59,12 +59,17 @@ extern void mem_mmu_translate(unsigned int addr, uint8_t **base, int *start, int
 extern void mem_color_ram_to_snapshot(uint8_t *color_ram);
 extern void mem_color_ram_from_snapshot(uint8_t *color_ram);
 
+extern uint8_t mem_read_screen(uint16_t addr);
+
 /*
  * DWORD addr allows injection on machines with more than 64Kb of RAM.
  * Injection should be made to follow (mostly) how load would write to
  * RAM on that machine.
  */
 extern void mem_inject(uint32_t addr, uint8_t value);
+/* in banked memory architectures this will always write to the bank that
+   contains the keyboard buffer and "number of keys in buffer" */
+extern void mem_inject_key(uint16_t addr, uint8_t value);
 
 extern read_func_t rom_read, rom_trap_read, zero_read;
 extern store_func_t rom_store, rom_trap_store, zero_store;
@@ -80,7 +85,9 @@ extern int mem_bank_from_name(const char *name);
 extern uint8_t mem_bank_read(int bank, uint16_t addr, void *context);
 extern uint8_t mem_bank_peek(int bank, uint16_t addr, void *context);
 extern void mem_bank_write(int bank, uint16_t addr, uint8_t byte, void *context);
+extern void mem_bank_poke(int bank, uint16_t addr, uint8_t byte, void *context);
 extern void mem_get_screen_parameter(uint16_t *base, uint8_t *rows, uint8_t *columns, int *bank);
+extern void mem_get_cursor_parameter(uint16_t *screen_addr, uint8_t *cursor_column, uint8_t *line_length, int *blinking);
 
 typedef struct mem_ioreg_list_s {
     const char *name;

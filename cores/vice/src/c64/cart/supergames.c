@@ -102,18 +102,19 @@ static int supergames_dump(void)
 /* ---------------------------------------------------------------------*/
 
 static io_source_t supergames_device = {
-    CARTRIDGE_NAME_SUPER_GAMES,
-    IO_DETACH_CART,
-    NULL,
-    0xdf00, 0xdfff, 0xff,
-    0,
-    supergames_io2_store,
-    NULL,
-    supergames_io2_peek,
-    supergames_dump,
-    CARTRIDGE_SUPER_GAMES,
-    0,
-    0
+    CARTRIDGE_NAME_SUPER_GAMES, /* name of the device */
+    IO_DETACH_CART,             /* use cartridge ID to detach the device when involved in a read-collision */
+    IO_DETACH_NO_RESOURCE,      /* does not use a resource for detach */
+    0xdf00, 0xdfff, 0xff,       /* range for the device, address is ignored, reg:$df00, mirrors:$df01-$dfff */
+    0,                          /* read is never valid, reg is write only */
+    supergames_io2_store,       /* store function */
+    NULL,                       /* NO poke function */
+    NULL,                       /* NO read function */
+    supergames_io2_peek,        /* peek function */
+    supergames_dump,            /* device state information dump function */
+    CARTRIDGE_SUPER_GAMES,      /* cartridge ID */
+    IO_PRIO_NORMAL,             /* normal priority, device read needs to be checked for collisions */
+    0                           /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_list_t *supergames_list_item = NULL;
@@ -245,13 +246,13 @@ int supergames_snapshot_read_module(snapshot_t *s)
     }
 
     /* Do not accept versions higher than current */
-    if (vmajor > SNAP_MAJOR || vminor > SNAP_MINOR) {
+    if (snapshot_version_is_bigger(vmajor, vminor, SNAP_MAJOR, SNAP_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }
 
     /* new in 0.2 */
-    if (SNAPVAL(vmajor, vminor, 0, 2)) {
+    if (!snapshot_version_is_smaller(vmajor, vminor, 0, 2)) {
         if (0
             || SMR_B_INT(m, &currmode) < 0
             || SMR_B(m, &regval) < 0) {
@@ -267,7 +268,7 @@ int supergames_snapshot_read_module(snapshot_t *s)
     }
 
     /* new in 0.1 */
-    if (SNAPVAL(vmajor, vminor, 0, 2)) {
+    if (!snapshot_version_is_smaller(vmajor, vminor, 0, 2)) {
         if (SMR_B_INT(m, &reglatched) < 0) {
             goto fail;
         }

@@ -73,18 +73,19 @@ static uint8_t sfx_soundexpander_piano_read(uint16_t addr);
 #endif
 
 static io_source_t sfx_soundexpander_sound_device = {
-    CARTRIDGE_NAME_SFX_SOUND_EXPANDER,
-    IO_DETACH_RESOURCE,
-    "SFXSoundExpander",
-    0xdf00, 0xdfff, 0x7f,
-    0,
-    sfx_soundexpander_sound_store,
-    sfx_soundexpander_sound_read,
-    sfx_soundexpander_sound_peek,
-    NULL, /* TODO: dump */
-    CARTRIDGE_SFX_SOUND_EXPANDER,
-    0,
-    0
+    CARTRIDGE_NAME_SFX_SOUND_EXPANDER, /* name of the device */
+    IO_DETACH_RESOURCE,                /* use resource to detach the device when involved in a read-collision */
+    "SFXSoundExpander",                /* resource to set to '0' */
+    0xdf00, 0xdfff, 0x7f,              /* range for the device, regs:$df40/$df50/$df60, mirrors:$dfc0/$dfd0/$dfe0, range is different for vic20 */
+    0,                                 /* read validity is determined by the device upon a read */
+    sfx_soundexpander_sound_store,     /* store function */
+    NULL,                              /* NO poke function */
+    sfx_soundexpander_sound_read,      /* read function */
+    sfx_soundexpander_sound_peek,      /* peek function */
+    NULL,                              /* TODO: device state information dump function */
+    CARTRIDGE_SFX_SOUND_EXPANDER,      /* cartridge ID */
+    IO_PRIO_NORMAL,                    /* normal priority, device read needs to be checked for collisions */
+    0                                  /* insertion order, gets filled in by the registration function */
 };
 
 #if 0
@@ -141,17 +142,18 @@ static int sfx_soundexpander_sound_machine_channels(void)
     return 1;     /* FIXME: needs to become stereo for stereo capable ports */
 }
 
+/* SFX Sound Expander cartridge sound chip */
 static sound_chip_t sfx_soundexpander_sound_chip = {
-    NULL, /* no open */
-    sfx_soundexpander_sound_machine_init,
-    sfx_soundexpander_sound_machine_close,
-    sfx_soundexpander_sound_machine_calculate_samples,
-    sfx_soundexpander_sound_machine_store,
-    sfx_soundexpander_sound_machine_read,
-    sfx_soundexpander_sound_reset,
-    sfx_soundexpander_sound_machine_cycle_based,
-    sfx_soundexpander_sound_machine_channels,
-    0 /* chip enabled */
+    NULL,                                              /* NO sound chip open function */ 
+    sfx_soundexpander_sound_machine_init,              /* sound chip init function */
+    sfx_soundexpander_sound_machine_close,             /* sound chip close function */
+    sfx_soundexpander_sound_machine_calculate_samples, /* sound chip calculate samples function */
+    sfx_soundexpander_sound_machine_store,             /* sound chip store function */
+    sfx_soundexpander_sound_machine_read,              /* sound chip read function */
+    sfx_soundexpander_sound_reset,                     /* sound chip reset function */
+    sfx_soundexpander_sound_machine_cycle_based,       /* sound chip 'is_cycle_based()' function, sound chip is NOT cycle based */
+    sfx_soundexpander_sound_machine_channels,          /* sound chip 'get_amount_of_channels()' function, sound chip has 1 channel */
+    0                                                  /* chip enabled, toggled when sound chip is (de-)activated */
 };
 
 static uint16_t sfx_soundexpander_sound_chip_offset = 0;
@@ -1253,13 +1255,13 @@ int sfx_soundexpander_snapshot_read_module(snapshot_t *s)
     }
 
     /* Do not accept versions higher than current */
-    if (vmajor > SNAP_MAJOR || vminor > SNAP_MINOR) {
+    if (snapshot_version_is_bigger(vmajor, vminor, SNAP_MAJOR, SNAP_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }
 
     /* new in 0.1 */
-    if (SNAPVAL(vmajor, vminor, 0, 1)) {
+    if (!snapshot_version_is_smaller(vmajor, vminor, 0, 1)) {
         if (SMR_B_INT(m, &sfx_soundexpander_io_swap) < 0) {
             goto fail;
         }

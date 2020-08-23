@@ -1,8 +1,7 @@
-/*
- * cw-win32-pci.c - Windows specific PCI cw3 driver.
+/** \file   cw-win32-pci.c
+ * \brief   Windows specific PCI cw3 driver
  *
- * Written by
- *  Marco van den Heuvel <blackystardust68@yahoo.com>
+ * \author  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -84,69 +83,42 @@ static shutdownfuncPtr shutdown32fp;
 static inpfuncPtr inp32fp;
 static oupfuncPtr oup32fp;
 
+
 /* input/output functions */
 static void cw_outb(unsigned int addrint, DWORD value)
 {
-    WORD addr = (WORD)addrint;
-
-    /* make sure the above conversion did not loose any details */
-    assert(addr == addrint);
-
 #ifdef  _M_IX86
-#ifdef WATCOM_COMPILE
-    outp(addr, (BYTE)value);
+    _outp(addrint, (BYTE)value);
 #else
-    _outp(addr, (BYTE)value);
-#endif
+    (void)addrint;
 #endif
 }
 
 static void cw_outl(unsigned int addrint, DWORD value)
 {
-    WORD addr = (WORD)addrint;
-
-    /* make sure the above conversion did not loose any details */
-    assert(addr == addrint);
-
 #ifdef  _M_IX86
-#ifdef WATCOM_COMPILE
-    outpd(addr, value);
+    _outpd(addrint, value);
 #else
-    _outpd(addr, value);
-#endif
+    (void)addrint;
 #endif
 }
 
 static BYTE cw_inb(unsigned int addrint)
 {
-    WORD addr = (WORD)addrint;
-
-    /* make sure the above conversion did not loose any details */
-    assert(addr == addrint);
-
 #ifdef  _M_IX86
-#ifdef WATCOM_COMPILE
-    return inp(addr);
+    return _inp(addrint);
 #else
-    return _inp(addr);
-#endif
-#endif
+    (void)addrint;
     return 0;
+#endif
 }
 
 static DWORD cw_inl(unsigned int addrint)
 {
-    WORD addr = (WORD)addrint;
-
-    /* make sure the above conversion did not loose any details */
-    assert(addr == addrint);
-
 #ifdef  _M_IX86
-#ifdef WATCOM_COMPILE
-    return inpd(addr);
+    return _inpd(addrint);
 #else
-    return _inpd(addr);
-#endif
+    (void)addrint;
 #endif
     return 0;
 }
@@ -161,7 +133,7 @@ int cw_pci_read(uint16_t addr, int chipno)
             cmd |= 0x40;
         }
         cw_outb(base + CW_SID_CMD, cmd);
-        vice_usleep(1);
+        archdep_usleep(1);
         return cw_inb(base + CW_SID_DAT);
     }
     return 0;
@@ -178,7 +150,7 @@ void cw_pci_store(uint16_t addr, uint8_t outval, int chipno)
         }
         cw_outb(base + CW_SID_DAT, outval);
         cw_outb(base + CW_SID_CMD, cmd);
-        vice_usleep(1);
+        archdep_usleep(1);
     }
 }
 
@@ -186,20 +158,14 @@ void cw_pci_store(uint16_t addr, uint8_t outval, int chipno)
 
 static HINSTANCE hLib = NULL;
 
-#ifdef _MSC_VER
-#  ifdef _WIN64
-#    define INPOUTDLLNAME "winio64.dll"
-#  else
-#    define INPOUTDLLNAME "winio32.dll"
-#    define INPOUTDLLOLDNAME "winio.dll"
-#  endif
+/*
+ * Is this shit required? Doesn't MSYS2 take care of this?
+ */
+#if defined(__amd64__) || defined(__x86_64__)
+#  define INPOUTDLLNAME "winio64.dll"
 #else
-#  if defined(__amd64__) || defined(__x86_64__)
-#    define INPOUTDLLNAME "winio64.dll"
-#  else
-#    define INPOUTDLLNAME "winio32.dll"
-#    define INPOUTDLLOLDNAME "winio.dll"
-#  endif
+#  define INPOUTDLLNAME "winio32.dll"
+#  define INPOUTDLLOLDNAME "winio.dll"
 #endif
 
 static int detect_sid(void)
@@ -268,7 +234,7 @@ static int has_pci(void)
     HKEY hKey;
     LONG ret;
 
-    if (is_windows_nt()) {
+    if (archdep_is_windows_nt()) {
         return 1;
     }
 
@@ -412,7 +378,8 @@ int cw_pci_open(void)
         return -1;
     }
 
-    log_message(LOG_DEFAULT, "PCI CatWeasel board found at $%04X.", base);
+    log_message(LOG_DEFAULT, "PCI CatWeasel board found at $%04X.",
+            (unsigned int)base);
 
     if (detect_sid()) {
         sids_found++;

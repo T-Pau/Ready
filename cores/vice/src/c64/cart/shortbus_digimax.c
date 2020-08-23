@@ -72,18 +72,19 @@ static void shortbus_digimax_sound_store(uint16_t addr, uint8_t value);
 static uint8_t shortbus_digimax_sound_read(uint16_t addr);
 
 static io_source_t digimax_device = {
-    "ShortBus " CARTRIDGE_NAME_DIGIMAX,
-    IO_DETACH_RESOURCE,
-    "SBDIGIMAX",
-    0xde40, 0xde47, 0x03,
-    1, /* read is always valid */
-    shortbus_digimax_sound_store,
-    shortbus_digimax_sound_read,
-    shortbus_digimax_sound_read,
-    NULL, /* nothing to dump */
-    CARTRIDGE_IDE64,
-    0,
-    0
+    "ShortBus " CARTRIDGE_NAME_DIGIMAX, /* name of the device */
+    IO_DETACH_RESOURCE,                 /* use resource to detach the device when involved in a read-collision */
+    "SBDIGIMAX",                        /* resource to set to '0' */
+    0xde40, 0xde47, 0x03,               /* range for the device, regs:$de40-$de43, mirrors:$de44-$de47 */
+    1,                                  /* read is always valid */
+    shortbus_digimax_sound_store,       /* store function */
+    NULL,                               /* NO poke function */
+    shortbus_digimax_sound_read,        /* read function */
+    shortbus_digimax_sound_read,        /* peek function */
+    NULL,                               /* nothing to dump */
+    CARTRIDGE_IDE64,                    /* cartridge ID */
+    IO_PRIO_NORMAL,                     /* normal priority, device read needs to be checked for collisions */
+    0                                   /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_list_t *shortbus_digimax_list_item = NULL;
@@ -206,7 +207,6 @@ void shortbus_digimax_resources_shutdown(void)
 {
     if (shortbus_digimax_address_list) {
         lib_free(shortbus_digimax_address_list);
-        shortbus_digimax_address_list = NULL;
     }
 }
 
@@ -308,7 +308,7 @@ int shortbus_digimax_read_snapshot_module(snapshot_t *s)
     }
 
     /* Do not accept versions higher than current */
-    if (vmajor > SNAP_MAJOR || vminor > SNAP_MINOR) {
+    if (snapshot_version_is_bigger(vmajor, vminor, SNAP_MAJOR, SNAP_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }

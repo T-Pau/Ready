@@ -176,7 +176,7 @@ rtc_ds1202_1302_t *ds1202_1302_init(char *device, int rtc_type)
     memcpy(retval->old_clock_regs, retval->clock_regs, DS1202_1302_REG_SIZE);
 
     retval->rtc_type = rtc_type;
-    retval->device = lib_stralloc(device);
+    retval->device = lib_strdup(device);
 
     return retval;
 }
@@ -661,7 +661,7 @@ int ds1202_1302_dump(rtc_ds1202_1302_t *context)
     }
     mon_out("\n\nRAM contents:\n");
     for (i = 0; i < 4; ++i) {
-        mon_out("%02X-%02X:", i * 8, (i * 8) + 7);
+        mon_out("%02X-%02X:", i * 8U, (i * 8U) + 7U);
         for (j = 0; j < 8; ++j) {
             mon_out(" %02X", context->ram[(i * 8) + j]);
         }
@@ -796,7 +796,7 @@ int ds1202_1302_read_snapshot(rtc_ds1202_1302_t *context, snapshot_t *s)
     }
 
     /* Do not accept versions higher than current */
-    if (vmajor > SNAP_MAJOR || vminor > SNAP_MINOR) {
+    if (snapshot_version_is_bigger(vmajor, vminor, SNAP_MAJOR, SNAP_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }

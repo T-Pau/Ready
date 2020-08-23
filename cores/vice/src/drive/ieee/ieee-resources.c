@@ -112,13 +112,8 @@ int ieee_resources_init(void)
 void ieee_resources_shutdown(void)
 {
     lib_free(dos_rom_name_2031);
-    dos_rom_name_2031 = NULL;
     lib_free(dos_rom_name_1001);
-    dos_rom_name_1001 = NULL;
     lib_free(dos_rom_name_2040);
-    dos_rom_name_2040 = NULL;
     lib_free(dos_rom_name_3040);
-    dos_rom_name_3040 = NULL;
     lib_free(dos_rom_name_4040);
-    dos_rom_name_4040 = NULL;
 }

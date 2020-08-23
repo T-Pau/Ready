@@ -258,19 +258,11 @@ int iec_resources_init(void)
 void iec_resources_shutdown(void)
 {
     lib_free(dos_rom_name_1540);
-    dos_rom_name_1540 = NULL;
     lib_free(dos_rom_name_1541);
-    dos_rom_name_1541 = NULL;
     lib_free(dos_rom_name_1541ii);
-    dos_rom_name_1541ii = NULL;
     lib_free(dos_rom_name_1570);
-    dos_rom_name_1570 = NULL;
     lib_free(dos_rom_name_1571);
-    dos_rom_name_1571 = NULL;
     lib_free(dos_rom_name_1581);
-    dos_rom_name_1581 = NULL;
     lib_free(dos_rom_name_2000);
-    dos_rom_name_2000 = NULL;
     lib_free(dos_rom_name_4000);
-    dos_rom_name_4000 = NULL;
 }

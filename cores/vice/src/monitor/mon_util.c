@@ -57,8 +57,8 @@ int mon_log_file_open(const char *name)
     FILE *fp;
 
     if (name) {
-        /* try to open new file */
-        fp = fopen(name, MODE_WRITE_TEXT);
+        /* if file exists, append to existing file */
+        fp = fopen(name, MODE_APPEND);
         if (fp) {
             /* close old logfile */
             mon_log_file_close();
@@ -286,7 +286,7 @@ char *uimon_in(const char *prompt)
     if (pchCommandLine) {
         /* we have an "artificially" generated command line */
         lib_free(p);
-        p = lib_stralloc(pchCommandLine);
+        p = lib_strdup(pchCommandLine);
         pchCommandLine = NULL;
     }
 

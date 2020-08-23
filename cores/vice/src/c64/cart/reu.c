@@ -1,12 +1,11 @@
-/*! \file reu.c \n
- *  \author Andreas Boose, Spiro Trikaliotis, Jouko Valta, Richard Hable, Ettore Perazzoli\n
- *  \brief   REU emulation.
+/** \file   reu.c
+ * \brief   REU emulation
  *
- * reu.c - REU emulation.
- *
- * Written by
- *  Andreas Boose <viceteam@t-online.de>
- *  Spiro Trikaliotis <spiro.trikaliotis@gmx.de>
+ * \author  Andreas Boose
+ * \author  Spiro Trikaliotis
+ * \author  Jouko Valta
+ * \author  Richard Hable
+ * \author  Ettore Perazzoli
  *
  * Additions upon extensive REU hardware testing:
  *  Wolfgang Moser <http://d81.de>
@@ -15,7 +14,9 @@
  *  Jouko Valta <jopi@stekt.oulu.fi>
  *  Richard Hable <K3027E7@edvz.uni-linz.ac.at>
  *  Ettore Perazzoli <ettore@comm2000.it>
- *
+ */
+
+/*
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
  *
@@ -262,18 +263,19 @@ static uint8_t reu_io2_read(uint16_t addr);
 static uint8_t reu_io2_peek(uint16_t addr);
 
 static io_source_t reu_io2_device = {
-    CARTRIDGE_NAME_REU,
-    IO_DETACH_RESOURCE,
-    "REU",
-    0xdf00, 0xdfff, REU_REG_LAST_REG,
-    0,
-    reu_io2_store,
-    reu_io2_read,
-    reu_io2_peek,
-    NULL, /* TODO: dump */
-    CARTRIDGE_REU,
-    IO_PRIO_HIGH, /* high priority so it will work together with cartridges like RR and SSV5 */
-    0
+    CARTRIDGE_NAME_REU,               /* name of the device */
+    IO_DETACH_RESOURCE,               /* use resource to detach the device when involved in a read-collision */
+    "REU",                            /* resource to set to '0' */
+    0xdf00, 0xdfff, REU_REG_LAST_REG, /* range for the device, regs:$df00-$df1f, mirrors:$df20-$dfff */
+    0,                                /* read validity is determined by the device upon a read */
+    reu_io2_store,                    /* store function */
+    NULL,                             /* NO poke function */
+    reu_io2_read,                     /* read function */
+    reu_io2_peek,                     /* peek function */
+    NULL,                             /* TODO: device state information dump function */
+    CARTRIDGE_REU,                    /* cartridge ID */
+    IO_PRIO_NORMAL,                   /* normal priority, device read needs to be checked for collisions */
+    0                                 /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_list_t *reu_list_item = NULL;
@@ -622,7 +624,7 @@ static int reu_activate(void)
 
     old_reu_ram_size = reu_size;
 
-    log_message(reu_log, "%dKB unit installed.", reu_size >> 10);
+    log_message(reu_log, "%uKB unit installed.", reu_size >> 10);
 
     if (!util_check_null_string(reu_filename)) {
         if (util_file_load(reu_filename, reu_ram, (size_t)reu_size, UTIL_FILE_LOAD_RAW) < 0) {
@@ -1553,7 +1555,7 @@ int reu_read_snapshot_module(snapshot_t *s)
     }
 
     /* Do not accept versions higher than current */
-    if (major_version > SNAP_MAJOR || minor_version > SNAP_MINOR) {
+    if (snapshot_version_is_bigger(major_version, minor_version, SNAP_MAJOR, SNAP_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }

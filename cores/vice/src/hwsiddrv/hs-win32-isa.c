@@ -1,8 +1,7 @@
-/*
- * hs-win32-isa.c - HardSID ISA support for WIN32.
+/** \file   hs-win32-isa.c
+ * \brief   HardSID ISA support for WIN32
  *
- * Written by
- *  Marco van den Heuvel <blackystardust68@yahoo.com>
+ * \author  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -137,11 +136,7 @@ static void hardsid_outb(unsigned int addrint, BYTE value)
         }
     } else {
 #ifdef  _M_IX86
-#ifdef WATCOM_COMPILE
-        outp(addr, value);
-#else
         _outp(addr, value);
-#endif
 #endif
     }
 }
@@ -164,11 +159,7 @@ static BYTE hardsid_inb(unsigned int addrint)
         }
     } else {
 #ifdef  _M_IX86
-#ifdef WATCOM_COMPILE
-        retval = inp(addr);
-#else
         retval = _inp(addr);
-#endif
 #endif
     }
     return retval;
@@ -178,7 +169,7 @@ int hs_isa_read(uint16_t addr, int chipno)
 {
     if (chipno < MAXSID && hssids[chipno] != -1 && addr < 0x20) {
         hardsid_outb(HARDSID_BASE + 1, (BYTE)((chipno << 6) | (addr & 0x1f) | 0x20));
-        vice_usleep(2);
+        archdep_usleep(2);
         return hardsid_inb(HARDSID_BASE);
     }
     return 0;
@@ -189,7 +180,7 @@ void hs_isa_store(uint16_t addr, uint8_t outval, int chipno)
     if (chipno < MAXSID && hssids[chipno] != -1 && addr < 0x20) {
         hardsid_outb(HARDSID_BASE, outval);
         hardsid_outb(HARDSID_BASE + 1, (BYTE)((chipno << 6) | (addr & 0x1f)));
-        vice_usleep(2);
+        archdep_usleep(2);
     }
 }
 
@@ -197,24 +188,13 @@ void hs_isa_store(uint16_t addr, uint8_t outval, int chipno)
 
 static HINSTANCE hLib = NULL;
 
-#ifdef _MSC_VER
-#  ifdef _WIN64
-#    define INPOUTDLLNAME "inpoutx64.dll"
-#    define WINIODLLNAME  "winio64.dll"
-#  else
-#    define INPOUTDLLNAME "inpout32.dll"
-#    define WINIODLLNAME  "winio32.dll"
-#    define WINIOOLDNAME  "winio.dll"
-#  endif
+#if defined(__amd64__) || defined(__x86_64__)
+#  define INPOUTDLLNAME "inpoutx64.dll"
+#  define WINIODLLNAME  "winio64.dll"
 #else
-#  if defined(__amd64__) || defined(__x86_64__)
-#    define INPOUTDLLNAME "inpoutx64.dll"
-#    define WINIODLLNAME  "winio64.dll"
-#  else
-#    define INPOUTDLLNAME "inpout32.dll"
-#    define WINIODLLNAME  "winio32.dll"
-#    define WINIOOLDNAME  "winio.dll"
-#  endif
+#  define INPOUTDLLNAME "inpout32.dll"
+#  define WINIODLLNAME  "winio32.dll"
+#  define WINIOOLDNAME  "winio.dll"
 #endif
 
 static int detect_sid_uno(void)

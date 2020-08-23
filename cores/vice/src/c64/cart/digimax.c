@@ -70,18 +70,19 @@ static void digimax_sound_store(uint16_t addr, uint8_t value);
 static uint8_t digimax_sound_read(uint16_t addr);
 
 static io_source_t digimax_device = {
-    CARTRIDGE_NAME_DIGIMAX,
-    IO_DETACH_RESOURCE,
-    "DIGIMAX",
-    0xde00, 0xde03, 0x03,
-    1, /* read is always valid */
-    digimax_sound_store,
-    digimax_sound_read,
-    digimax_sound_read,
-    NULL, /* nothing to dump */
-    CARTRIDGE_DIGIMAX,
-    0,
-    0
+    CARTRIDGE_NAME_DIGIMAX, /* name of the device */
+    IO_DETACH_RESOURCE,     /* use resource to detach the device when involved in a read-collision */
+    "DIGIMAX",              /* resource to set to '0' */
+    0xde00, 0xde03, 0x03,   /* range for the device, regs:$de00-$de03, range for vic20 will be different */
+    1,                      /* read is always valid */
+    digimax_sound_store,    /* store function */
+    NULL,                   /* NO poke function */
+    digimax_sound_read,     /* read function */
+    digimax_sound_read,     /* peek function */
+    NULL,                   /* nothing to dump */
+    CARTRIDGE_DIGIMAX,      /* cartridge ID */
+    IO_PRIO_NORMAL,         /* normal priority, device read needs to be checked for collisions */
+    0                       /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_list_t * digimax_list_item = NULL;
@@ -268,7 +269,6 @@ void digimax_resources_shutdown(void)
 {
     if (digimax_address_list) {
         lib_free(digimax_address_list);
-        digimax_address_list = NULL;
     }
 }
 
@@ -372,7 +372,7 @@ int digimax_snapshot_read_module(snapshot_t *s)
     }
 
     /* Do not accept versions higher than current */
-    if (vmajor > SNAP_MAJOR || vminor > SNAP_MINOR) {
+    if (snapshot_version_is_bigger(vmajor, vminor, SNAP_MAJOR, SNAP_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }

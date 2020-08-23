@@ -71,8 +71,14 @@ extern uint8_t joystick_value[JOYSTICK_NUM + 1];
 /* the mapping of real devices to emulated joystick ports */
 extern int joystick_port_map[JOYSTICK_NUM];
 
-#if !defined(__OS2__) || defined(USE_SDLUI) || defined(USE_SDLUI2)
+
+/** \brief  Use keypad as predefined keys for joystick emulation
+ *
+ * Should always be defined for proper VICE, can be undef'ed for ports
+ */
 #define COMMON_JOYKEYS
+
+#ifdef COMMON_JOYKEYS
 
 #define JOYSTICK_KEYSET_NUM 3
 #define JOYSTICK_KEYSET_NUM_KEYS 11

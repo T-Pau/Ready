@@ -141,7 +141,7 @@ void traps_shutdown(void)
         lib_free(list);
         list = list_next;
     }
-    
+
     traplist = NULL;
 }
 

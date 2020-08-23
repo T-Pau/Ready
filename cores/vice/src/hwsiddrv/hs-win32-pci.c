@@ -1,8 +1,7 @@
-/*
- * hs-win32-pci.c - HardSID PCI support for WIN32.
+/** \file   hs-win32-pci.c
+ * \brief   HardSID PCI support for WIN32
  *
- * Written by
- *  Marco van den Heuvel <blackystardust68@yahoo.com>
+ * \author  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
@@ -40,6 +39,8 @@
  - Windows XP (PCI HardSID Quattro, winio32.dll PCI I/O)
  - Windows 2003 Server (PCI HardSID, winio32.dll PCI I/O)
  - Windows 2003 Server (PCI HardSID Quattro, winio32.dll PCI I/O)
+
+ None of these are even remotely current :)
  */
 
 #include "vice.h"
@@ -95,68 +96,43 @@ static oupfuncPtr oup32fp;
 /* input/output functions */
 static void hardsid_outb(unsigned int addrint, DWORD value)
 {
-    WORD addr = (WORD)addrint;
-
-    /* make sure the above conversion did not loose any details */
-    assert(addr == addrint);
 
 #ifdef  _M_IX86
-#ifdef WATCOM_COMPILE
-    outp(addr, (BYTE)value);
+    _outp(addrint, (BYTE)value);
 #else
-    _outp(addr, (BYTE)value);
-#endif
+    (void)addrint;
+    (void)value;
 #endif
 }
 
 static void hardsid_outl(unsigned int addrint, DWORD value)
 {
-    WORD addr = (WORD)addrint;
-
-    /* make sure the above conversion did not loose any details */
-    assert(addr == addrint);
-
 #ifdef  _M_IX86
-#ifdef WATCOM_COMPILE
-    outpd(addr, value);
+    _outpd(addrint, value);
 #else
-    _outpd(addr, value);
-#endif
+    (void)addrint;
+    (void)value;
 #endif
 }
 
 static BYTE hardsid_inb(unsigned int addrint)
 {
-    WORD addr = (WORD)addrint;
-
-    /* make sure the above conversion did not loose any details */
-    assert(addr == addrint);
-
 #ifdef  _M_IX86
-#ifdef WATCOM_COMPILE
-    return inp(addr);
+    return _inp(addrint);
 #else
-    return _inp(addr);
-#endif
-#endif
+    (void)addrint;
     return 0;
+#endif
 }
 
 static DWORD hardsid_inl(unsigned int addrint)
 {
-    WORD addr = (WORD)addrint;
-
-    /* make sure the above conversion did not loose any details */
-    assert(addr == addrint);
-
 #ifdef  _M_IX86
-#ifdef WATCOM_COMPILE
-    return inpd(addr);
+    return _inpd(addrint);
 #else
-    return _inpd(addr);
-#endif
-#endif
+    (void)addrint;
     return 0;
+#endif
 }
 
 int hs_pci_read(uint16_t addr, int chipno)
@@ -165,7 +141,7 @@ int hs_pci_read(uint16_t addr, int chipno)
 
     if (chipno < MAXSID && hssids[chipno] != -1 && addr < 0x20) {
         hardsid_outb(io1 + 4, (BYTE)((chipno << 6) | (addr & 0x1f) | 0x20));
-        vice_usleep(2);
+        archdep_usleep(2);
         hardsid_outb(io2 + 2, 0x20);
         ret = hardsid_inb(io1);
         hardsid_outb(io2 + 2, 0x80);
@@ -178,7 +154,7 @@ void hs_pci_store(uint16_t addr, uint8_t outval, int chipno)
     if (chipno < MAXSID && hssids[chipno] != -1 && addr < 0x20) {
         hardsid_outb(io1 + 3, outval);
         hardsid_outb(io1 + 4, (BYTE)((chipno << 6) | (addr & 0x1f)));
-        vice_usleep(2);
+        archdep_usleep(2);
     }
 }
 
@@ -186,20 +162,11 @@ void hs_pci_store(uint16_t addr, uint8_t outval, int chipno)
 
 static HINSTANCE hLib = NULL;
 
-#ifdef _MSC_VER
-#  ifdef _WIN64
-#    define INPOUTDLLNAME "winio64.dll"
-#  else
-#    define INPOUTDLLNAME "winio32.dll"
-#    define INPOUTDLLOLDNAME "winio.dll"
-#  endif
+#if defined(__amd64__) || defined(__x86_64__)
+#  define INPOUTDLLNAME "winio64.dll"
 #else
-#  if defined(__amd64__) || defined(__x86_64__)
-#    define INPOUTDLLNAME "winio64.dll"
-#  else
-#    define INPOUTDLLNAME "winio32.dll"
-#    define INPOUTDLLOLDNAME "winio.dll"
-#  endif
+#  define INPOUTDLLNAME "winio32.dll"
+#  define INPOUTDLLOLDNAME "winio.dll"
 #endif
 
 static int detect_sid_uno(void)
@@ -299,7 +266,7 @@ static int has_pci(void)
     HKEY hKey;
     LONG ret;
 
-    if (is_windows_nt()) {
+    if (archdep_is_windows_nt()) {
         return 1;
     }
 
@@ -448,7 +415,8 @@ int hs_pci_open(void)
         return -1;
     }
 
-    log_message(LOG_DEFAULT, "PCI HardSID board found at $%04X and $%04X", io1, io2);
+    log_message(LOG_DEFAULT, "PCI HardSID board found at $%04X and $%04X",
+            (unsigned int)io1, (unsigned int)io2);
 
     for (i = 0; i < MAXSID; ++i) {
         hssids[sids_found] = i;

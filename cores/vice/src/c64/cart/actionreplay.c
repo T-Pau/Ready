@@ -77,33 +77,35 @@ static void actionreplay_io2_store(uint16_t addr, uint8_t value);
 static int actionreplay_dump(void);
 
 static io_source_t action_replay_io1_device = {
-    CARTRIDGE_NAME_ACTION_REPLAY,
-    IO_DETACH_CART,
-    NULL,
-    0xde00, 0xdeff, 0xff,
-    0,
-    actionreplay_io1_store,
-    NULL,
-    actionreplay_io1_peek,
-    actionreplay_dump,
-    CARTRIDGE_ACTION_REPLAY,
-    0,
-    0
+    CARTRIDGE_NAME_ACTION_REPLAY, /* name of the device */
+    IO_DETACH_CART,               /* use cartridge ID to detach the device when involved in a read-collision */
+    IO_DETACH_NO_RESOURCE,        /* does not use a resource for detach */
+    0xde00, 0xdeff, 0xff,         /* range for the device, address is ignored by the write functions, reg:$de00, mirrors:$de01-$deff */
+    0,                            /* read is never valid */
+    actionreplay_io1_store,       /* store function */
+    NULL,                         /* NO poke function */
+    NULL,                         /* NO read function */
+    actionreplay_io1_peek,        /* peek function */
+    actionreplay_dump,            /* device state information dump function */
+    CARTRIDGE_ACTION_REPLAY,      /* cartridge ID */
+    IO_PRIO_NORMAL,               /* normal priority, device read needs to be checked for collisions */
+    0                             /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_t action_replay_io2_device = {
-    CARTRIDGE_NAME_ACTION_REPLAY,
-    IO_DETACH_CART,
-    NULL,
-    0xdf00, 0xdfff, 0xff,
-    0,
-    actionreplay_io2_store,
-    actionreplay_io2_read,
-    actionreplay_io2_peek,
-    actionreplay_dump,
-    CARTRIDGE_ACTION_REPLAY,
-    0,
-    0
+    CARTRIDGE_NAME_ACTION_REPLAY, /* name of the device */
+    IO_DETACH_CART,               /* use cartridge ID to detach the device when involved in a read-collision */
+    IO_DETACH_NO_RESOURCE,        /* does not use a resource for detach */
+    0xdf00, 0xdfff, 0xff,         /* range for the device, address is ignored by the read/write functions, reg:$df00, mirrors:$df01-$dfff */
+    0,                            /* validity of the read is determined by the cartridge at read time */
+    actionreplay_io2_store,       /* store function */
+    NULL,                         /* NO poke function */
+    actionreplay_io2_read,        /* read function */
+    actionreplay_io2_peek,        /* peek function */
+    actionreplay_dump,            /* device state information dump function */
+    CARTRIDGE_ACTION_REPLAY,      /* cartridge ID */
+    IO_PRIO_NORMAL,               /* normal priority, device read needs to be checked for collisions */
+    0                             /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_list_t *action_replay_io1_list_item = NULL;
@@ -375,7 +377,7 @@ int actionreplay_snapshot_read_module(snapshot_t *s)
     }
 
     /* Do not accept higher versions than current */
-    if (vmajor > SNAP_MAJOR || vminor > SNAP_MINOR) {
+    if (snapshot_version_is_bigger(vmajor, vminor, SNAP_MAJOR, SNAP_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }

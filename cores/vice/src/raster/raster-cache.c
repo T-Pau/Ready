@@ -55,7 +55,6 @@ void raster_cache_destroy(raster_cache_t *cache, raster_sprite_status_t *status)
 {
     if (status != NULL) {
         lib_free(cache->gfx_msk);
-        cache->gfx_msk = NULL;
     }
 }
 

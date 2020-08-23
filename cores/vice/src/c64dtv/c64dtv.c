@@ -95,6 +95,7 @@
 #include "sid.h"
 #include "sound.h"
 #include "tape.h"
+#include "tapecart.h"
 #include "tapeport.h"
 #include "traps.h"
 #include "types.h"
@@ -654,8 +655,7 @@ int machine_specific_init(void)
     if (delay == 0) {
         delay = 3; /* default */
     }
-    autostart_init((CLOCK)(delay * C64_PAL_RFSH_PER_SEC * C64_PAL_CYCLES_PER_RFSH),
-                   1, 0xcc, 0xd1, 0xd3, 0xd5);
+    autostart_init((CLOCK)(delay * C64_PAL_RFSH_PER_SEC * C64_PAL_CYCLES_PER_RFSH), 1);
 
     /* Pre-init C64DTV-specific parts of the menus before vicii_init()
        creates a canvas window with a menubar at the top. */
@@ -872,12 +872,20 @@ void machine_change_timing(int timeval, int border_mode)
 int machine_write_snapshot(const char *name, int save_roms, int save_disks,
                            int event_mode)
 {
-    return c64dtv_snapshot_write(name, save_roms, save_disks, event_mode);
+    int err = c64dtv_snapshot_write(name, save_roms, save_disks, event_mode);
+    if ((err < 0) && (snapshot_get_error() == SNAPSHOT_NO_ERROR)) {
+        snapshot_set_error(SNAPSHOT_CANNOT_WRITE_SNAPSHOT);
+    }
+    return err;
 }
 
 int machine_read_snapshot(const char *name, int event_mode)
 {
-    return c64dtv_snapshot_read(name, event_mode);
+    int err = c64dtv_snapshot_read(name, event_mode);
+    if ((err < 0) && (snapshot_get_error() == SNAPSHOT_NO_ERROR)) {
+        snapshot_set_error(SNAPSHOT_CANNOT_READ_SNAPSHOT);
+    }
+    return err;
 }
 
 /* ------------------------------------------------------------------------- */
@@ -945,8 +953,25 @@ void tapeport_set_tape_sense(int sense, int id)
 {
 }
 
+int tapecart_is_valid(const char *filename)
+{
+    return 0;   /* FALSE */
+}
+
+int tapecart_attach_tcrt(const char *filename, void *unused)
+{
+    return -1;
+}
+
+
+
 int machine_addr_in_ram(unsigned int addr)
 {
+    /* Hack to make autostarting prg files work */
+    if ((addr >= 0x871) && (addr <= 0x872)) {
+        return 0;
+    }
+
     /* NOTE: while the RAM/ROM distinction is more complicated, this is
        sufficient from autostart's perspective */
     return (addr < 0xe000 && !(addr >= 0xa000 && addr < 0xc000)) ? 1 : 0;
@@ -960,11 +985,11 @@ const char *machine_get_name(void)
 /* ------------------------------------------------------------------------- */
 
 static userport_port_props_t userport_props = {
-    0, /* NO pa2 pin */
-    0, /* NO pa3 pin */
-    0, /* NO flag pin */
-    0, /* NO pc pin */
-    0  /* NO cnt1, cnt2 or sp pins */
+    0,    /* port does NOT have the pa2 pin */
+    0,    /* port does NOT have the pa3 pin */
+    NULL, /* port does NOT have the flag pin */
+    0,    /* port does NOT have the pc pin */
+    0     /* port does NOT have the cnt1, cnt2 or sp pins */
 };
 
 int machine_register_userport(void)

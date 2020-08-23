@@ -49,9 +49,18 @@
 #include "uimon.h"
 #include "util.h"
 
+/* FIXME:
+ * Removing `const` from `str` and `abbrev` fixes this warning:
+../../../../vice/src/arch/gtk3/uimon.c: In function ‘console_init’:
+../../../../vice/src/arch/gtk3/uimon.c:710:17: warning: to be safe all intermediate pointers in cast from ‘char **’ to ‘const char **’ must be ‘const’ qualified [-Wcast-qual
+(const char **)&full_name,
+
+  Also had to do some additional hacking, would be nice to see a better solution.
+  See r36839.
+*/
 typedef struct mon_cmds_s {
-    const char *str;
-    const char *abbrev;
+    char *str;
+    char *abbrev;
     const char *param_names;
     const char *description;
     const int filename_as_arg;
@@ -389,19 +398,23 @@ static const mon_cmds_t mon_cmd_array[] = {
 
     { "condition", "cond",
       "<checknum> if <cond_expr>",
-      "Each time the specified checkpoint is examined, the condition is\n"
-      "evaluated. If it evalutes to true, the checkpoint is activated.\n"
-      "Otherwise, it is ignored. If registers are specified in the expression,\n"
-      "the values used are those at the time the checkpoint is examined, not\n"
-      "when the condition is set.\n"
-      "The condition can use registers (A, X, Y, PC, SP, FL and other cpu\n"
-      "specific registers (see manual)) and compare them (==, !=, <, >, <=, >=)\n"
-      "against other registers or constants.\n"
-      "Registers can be the registers of other devices; this is denoted by\n"
-      "a memspace prefix (i.e., c:, 8:, 9:, 10:, 11:\n"
+    /* 12345678901234567890123456789012345678901234567890123456789012345678901234567890 */
+      "Each time the specified checkpoint is examined, the condition is evaluated. If\n"
+      "it evalutes to true, the checkpoint is activated. Otherwise, it is ignored. If\n"
+      "registers are specified in the expression, the values used are those at the\n"
+      "time the checkpoint is examined, not when the condition is set.\n"
+      "The condition can use registers (A, X, Y, PC, SP, FL and other cpu specific\n"
+      "registers (see manual)) and compare them (==, !=, <, >, <=, >=) against other\n"
+      "registers or constants. RL can be used to refer to the current rasterline,\n"
+      "and CY refers to the current cycle in the line.\n"
+      "Full expressions are also supported (+, -, *, /, &&, ||). This let's you f.e.\n"
+      "to check specific bits in the FL register using the bitwise boolean operators.\n"
+      "Paranthises are also supported in the expression.\n"
+      "Registers can be the registers of other devices; this is denoted by a memspace\n"
+      "prefix (i.e., c:, 8:, 9:, 10:, 11:\n"
       "Examples: A == $0, X == Y, 8:X == X)\n"
-      "You can also compare against the value of a memory location in a specific\n"
-      "bank, i.e you can break only if the vic register $d020 is $f0.\n"
+      "You can also compare against the value of a memory location in a specific bank,\n"
+      "i.e you can break only if the vic register $d020 is $f0.\n"
       "use the form @[bankname]:[$<address>] | [.label].\n"
       "Note this is for the C : memspace only.\n"
       "Examples : if @io:$d020 == $f0, if @io:.vicBorder == $f0",
@@ -508,6 +521,22 @@ static const mon_cmds_t mon_cmd_array[] = {
       NO_FILENAME_ARG
     },
 
+    { "log", "",
+      "[on|off|toggle]",
+      "Control whether the monitor output is logged into a logfile. If the\n"
+      "argument is 'on' then all output will be written into the logfile. If\n"
+      "the argument is 'off' then no log is produced. If the argument is\n"
+      "'toggle' then the current mode is switched. No argument displays the\n"
+      "current state.",
+      NO_FILENAME_ARG
+    },
+    
+    { "logname", "",
+      "\"<filename>\"",
+      "Sets the filename of the logfile.",
+      FILENAME_ARG
+    },
+    
     { "", "",
       "",
       "Disk commands:",
@@ -723,7 +752,8 @@ static const mon_cmds_t mon_cmd_array[] = {
     { NULL, NULL, NULL, NULL, 0 }
 };
 
-int mon_get_nth_command(int index, const char** full_name, const char **short_name, int *takes_filename_as_arg)
+int mon_get_nth_command(int index, char **full_name, char **short_name,
+        int *takes_filename_as_arg)
 {
     if (index < 0 || index >= sizeof(mon_cmd_array) / sizeof(*mon_cmd_array) - 1) {
         return 0;
@@ -828,7 +858,7 @@ void mon_command_print_help(const char *cmd)
             if (mc->param_names == NULL) {
                 parameters = NULL;
             } else {
-                parameters = lib_stralloc(mc->param_names);
+                parameters = lib_strdup(mc->param_names);
             }
 
             mon_out("\nSyntax: %s %s\n", mc->str, parameters != NULL ? parameters : "");

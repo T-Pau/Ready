@@ -25,6 +25,7 @@
  *
  */
 
+
 #ifndef VICE_ARCHDEP_DEFS_H
 #define VICE_ARCHDEP_DEFS_H
 
@@ -45,8 +46,6 @@
  *      ARCHDEP_OS_BSD_NET
  *      ARCHDEP_OS_BSD_OPEN
  *      ARCHDEP_OS_BSD_DRAGON
- *    ARCHDEP_OS_QNX (?)
- *    ARCHDEP_OS_SOLARIS (?)
  *  ARCHDEP_OS_WINDOWS
  *  ARCHDEP_OS_OS2 (?)
  *  ARCHDEP_OS_BEOS
@@ -95,16 +94,6 @@
 
 /** \brief  OS is DragonFly BSD */
 #  define ARCHDEP_OS_BSD_DRAGON
-
-# elif defined(__QNX__)
-
-/**\brief   OS is QNX (do we even support this anymore?) */
-#  define ARCHDEP_OS_QNX
-
-# elif defined(sun) || defined(__sun)
-
-/** \brief  OS is Solaris (same question) */
-#  define ARCHDEP_OS_SOLARIS
 
 # endif /* ifdef UNIX_COMPILE */
 
@@ -164,7 +153,7 @@
 
 /** \brief  Extension used for autostart disks
  */
-#define ARCHDEP_AUTOSTART_DICK_EXTENSION    "d64"
+#define ARCHDEP_AUTOSTART_DISK_EXTENSION    "d64"
 
 
 #if defined(ARCHEP_OS_AMIGA) || defined(ARCHDEP_OS_MSDOS) \

@@ -366,93 +366,99 @@ static machine_timing_t machine_timing;
 /* C128-specific I/O initialization. */
 
 static io_source_t vicii_d000_device = {
-    "VIC-IIe",
-    IO_DETACH_CART, /* dummy */
-    NULL,           /* dummy */
-    0xd000, 0xd0ff, 0x7f,
-    1, /* read is always valid */
-    vicii_store,
-    vicii_read,
-    vicii_peek,
-    vicii_dump,
-    0, /* dummy (not a cartridge) */
-    IO_PRIO_HIGH, /* priority, device and mirrors never involved in collisions */
-    0
+    "VIC-IIe",             /* name of the chip */
+    IO_DETACH_NEVER,       /* chip is never involved in collisions, so no detach */
+    IO_DETACH_NO_RESOURCE, /* does not use a resource for detach */
+    0xd000, 0xd0ff, 0x7f,  /* regs: $d000-$d03f, mirrors: $d040-$d0ff */
+    1,                     /* read is always valid */
+    vicii_store,           /* store function */
+    NULL,                  /* NO poke function */
+    vicii_read,            /* read function */
+    vicii_peek,            /* peek function */
+    vicii_dump,            /* chip state information dump function */
+    IO_CART_ID_NONE,       /* not a cartridge */
+    IO_PRIO_HIGH,          /* high priority, chip and mirrors never involved in collisions */
+    0                      /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_t vicii_d100_device = {
-    "VIC-IIe $D100-$D1FF mirrors",
-    IO_DETACH_CART, /* dummy */
-    NULL,           /* dummy */
-    0xd100, 0xd1ff, 0x7f,
-    1, /* read is always valid */
-    vicii_store,
-    vicii_read,
-    vicii_peek,
-    vicii_dump,
-    0, /* dummy (not a cartridge) */
-    IO_PRIO_HIGH, /* priority, device and mirrors never involved in collisions */
-    0
+    "VIC-IIe $D100-$D1FF mirrors", /* name of the chip */
+    IO_DETACH_NEVER,               /* chip is never involved in collisions, so no detach */
+    IO_DETACH_NO_RESOURCE,         /* does not use a resource for detach */
+    0xd100, 0xd1ff, 0x7f,          /* mirrors of $d000-$d03f */
+    1,                             /* read is always valid */
+    vicii_store,                   /* store function */
+    NULL,                          /* NO poke function */
+    vicii_read,                    /* read function */
+    vicii_peek,                    /* peek function */
+    vicii_dump,                    /* chip state information dump function */
+    IO_CART_ID_NONE,               /* not a cartridge */
+    IO_PRIO_HIGH,                  /* high priority, mirrors never involved in collisions */
+    0                              /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_t vicii_d200_device = {
-    "VIC-IIe $D200-$D2FF mirrors",
-    IO_DETACH_CART, /* dummy */
-    NULL,           /* dummy */
-    0xd200, 0xd2ff, 0x7f,
-    1, /* read is always valid */
-    vicii_store,
-    vicii_read,
-    vicii_peek,
-    vicii_dump,
-    0, /* dummy (not a cartridge) */
-    IO_PRIO_HIGH, /* priority, device and mirrors never involved in collisions */
-    0
+    "VIC-IIe $D200-$D2FF mirrors", /* name of the chip */
+    IO_DETACH_NEVER,               /* chip is never involved in collisions, so no detach */
+    IO_DETACH_NO_RESOURCE,         /* does not use a resource for detach */
+    0xd200, 0xd2ff, 0x7f,          /* mirrors of $d000-$d03f */
+    1,                             /* read is always valid */
+    vicii_store,                   /* store function */
+    NULL,                          /* NO poke function */
+    vicii_read,                    /* read function */
+    vicii_peek,                    /* peek function */
+    vicii_dump,                    /* chip state information dump function */
+    IO_CART_ID_NONE,               /* not a cartridge */
+    IO_PRIO_HIGH,                  /* high priority, mirrors never involved in collisions */
+    0                              /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_t vicii_d300_device = {
-    "VIC-IIe $D300-$D3FF mirrors",
-    IO_DETACH_CART, /* dummy */
-    NULL,           /* dummy */
-    0xd300, 0xd3ff, 0x7f,
-    1, /* read is always valid */
-    vicii_store,
-    vicii_read,
-    vicii_peek,
-    vicii_dump,
-    0, /* dummy (not a cartridge) */
-    IO_PRIO_HIGH, /* priority, device and mirrors never involved in collisions */
-    0
+    "VIC-IIe $D300-$D3FF mirrors", /* name of the chip */
+    IO_DETACH_NEVER,               /* chip is never involved in collisions, so no detach */
+    IO_DETACH_NO_RESOURCE,         /* does not use a resource for detach */
+    0xd300, 0xd3ff, 0x7f,          /* mirrors of $d000-$d03f */
+    1,                             /* read is always valid */
+    vicii_store,                   /* store function */
+    NULL,                          /* NO poke function */
+    vicii_read,                    /* read function */
+    vicii_peek,                    /* peek function */
+    vicii_dump,                    /* chip state information dump function */
+    IO_CART_ID_NONE,               /* not a cartridge */
+    IO_PRIO_HIGH,                  /* high priority, mirrors never involved in collisions */
+    0                              /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_t sid_d400_device = {
-    "SID",
-    IO_DETACH_CART, /* dummy */
-    NULL,           /* dummy */
-    0xd400, 0xd41f, 0x1f,
-    1, /* read is always valid */
-    sid_store,
-    sid_read,
-    sid_peek,
-    sid_dump,
-    0, /* dummy (not a cartridge) */
-    IO_PRIO_HIGH, /* priority, device and mirrors never involved in collisions */
-    0
+    "SID",                 /* name of the chip */
+    IO_DETACH_NEVER,       /* chip is never involved in collisions, so no detach */
+    IO_DETACH_NO_RESOURCE, /* does not use a resource for detach */
+    0xd400, 0xd41f, 0x1f,  /* main SID registers $d400-$d41f */
+    1,                     /* read is always valid */
+    sid_store,             /* store function */
+    NULL,                  /* NO poke function */
+    sid_read,              /* read function */
+    sid_peek,              /* peek function */
+    sid_dump,              /* chip state information dump function */
+    IO_CART_ID_NONE,       /* not a cartridge */
+    IO_PRIO_HIGH,          /* high priority, mirrors never involved in collisions */
+    0                      /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_t sid_d420_device = {
-    "SID mirrors",
-    IO_DETACH_CART, /* dummy */
-    NULL,           /* dummy */
-    0xd420, 0xd4ff, 0x1f,
-    1, /* read is always valid */
-    sid_store,
-    sid_read,
-    sid_peek,
-    sid_dump,
-    0, /* dummy (not a cartridge) */
-    IO_PRIO_LOW, /* low priority, device and mirrors never involved in collisions */
-    0
+    "SID mirrors",         /* name of the chip */
+    IO_DETACH_NEVER,       /* chip is never involved in collisions, so no detach */
+    IO_DETACH_NO_RESOURCE, /* does not use a resource for detach */
+    0xd420, 0xd4ff, 0x1f,  /* mirrors of $d400-$d41f */
+    1,                     /* read is always valid */
+    sid_store,             /* store function */
+    NULL,                  /* NO poke function */
+    sid_read,              /* read function */
+    sid_peek,              /* peek function */
+    sid_dump,              /* chip state information dump function */
+    IO_CART_ID_NONE,       /* not a cartridge */
+    IO_PRIO_LOW,           /* low priority, chip never involved in collisions, this is to allow additional SID chips in the same range */
+    0                      /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_list_t *vicii_d000_list_item = NULL;
@@ -1072,7 +1078,7 @@ int machine_specific_init(void)
     if (delay == 0) {
         delay = 3; /* default */
     }
-    autostart_init((CLOCK)(delay * C128_PAL_RFSH_PER_SEC * C128_PAL_CYCLES_PER_RFSH), 1, 0xa27, 0xe0, 0xec, 0xee);
+    autostart_init((CLOCK)(delay * C128_PAL_RFSH_PER_SEC * C128_PAL_CYCLES_PER_RFSH), 1);
 
     /* Pre-init C128-specific parts of the menus before vdc_init() and
        vicii_init() create canvas windows with menubars at the top. */
@@ -1241,15 +1247,14 @@ void machine_kbdbuf_reset_c64(void)
 
 void machine_autostart_reset_c128(void)
 {
-    /* FIXME: at least 0xa26 is only for 40 cols */
-    autostart_reinit((CLOCK)(3 * machine_timing.rfsh_per_sec * machine_timing.cycles_per_rfsh), 1, 0xa27, 0xe0, 0xec, 0xee);
+    autostart_reinit((CLOCK)(3 * machine_timing.rfsh_per_sec * machine_timing.cycles_per_rfsh), 1);
 }
 
 void machine_autostart_reset_c64(void)
 {
-    autostart_reinit((CLOCK)(3 * machine_timing.rfsh_per_sec * machine_timing.cycles_per_rfsh), 1, 0xcc, 0xd1, 0xd3, 0xd5);
+    autostart_reinit((CLOCK)(3 * machine_timing.rfsh_per_sec * machine_timing.cycles_per_rfsh), 1);
 }
-
+ 
 /* ------------------------------------------------------------------------- */
 
 /* This hook is called at the end of every frame.  */
@@ -1347,12 +1352,20 @@ void machine_change_timing(int timeval, int border_mode)
 
 int machine_write_snapshot(const char *name, int save_roms, int save_disks, int event_mode)
 {
-    return c128_snapshot_write(name, save_roms, save_disks, event_mode);
+    int err = c128_snapshot_write(name, save_roms, save_disks, event_mode);
+    if ((err < 0) && (snapshot_get_error() == SNAPSHOT_NO_ERROR)) {
+        snapshot_set_error(SNAPSHOT_CANNOT_WRITE_SNAPSHOT);
+    }
+    return err;
 }
 
 int machine_read_snapshot(const char *name, int event_mode)
 {
-    return c128_snapshot_read(name, event_mode);
+    int err = c128_snapshot_read(name, event_mode);
+    if ((err < 0) && (snapshot_get_error() == SNAPSHOT_NO_ERROR)) {
+        snapshot_set_error(SNAPSHOT_CANNOT_READ_SNAPSHOT);
+    }
+    return err;
 }
 
 /* ------------------------------------------------------------------------- */
@@ -1471,11 +1484,11 @@ static void c128_userport_set_flag(uint8_t b)
 }
 
 static userport_port_props_t userport_props = {
-    1, /* has pa2 pin */
-    1, /* has pa3 pin */
-    c128_userport_set_flag, /* has flag pin */
-    1, /* has pc pin */
-    1  /* has cnt1, cnt2 and sp pins */
+    1,                      /* port has the pa2 pin */
+    1,                      /* port has the pa3 pin */
+    c128_userport_set_flag, /* port has the flag pin, set flag function */
+    1,                      /* port has the pc pin */
+    1                       /* port has the cnt1, cnt2 and sp pins */
 };
 
 int machine_register_userport(void)

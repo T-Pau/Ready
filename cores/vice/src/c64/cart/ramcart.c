@@ -144,33 +144,35 @@ static void ramcart_io2_store(uint16_t addr, uint8_t byte);
 static int ramcart_dump(void);
 
 static io_source_t ramcart_io1_device = {
-    CARTRIDGE_NAME_RAMCART,
-    IO_DETACH_RESOURCE,
-    "RAMCART",
-    0xde00, 0xdeff, 0x01,
-    1, /* read is always valid */
-    ramcart_io1_store,
-    ramcart_io1_read,
-    ramcart_io1_peek,
-    ramcart_dump,
-    CARTRIDGE_RAMCART,
-    0,
-    0
+    CARTRIDGE_NAME_RAMCART, /* name of the device */
+    IO_DETACH_RESOURCE,     /* use resource to detach the device when involved in a read-collision */
+    "RAMCART",              /* resource to set to '0' */
+    0xde00, 0xdeff, 0x01,   /* range for the device, regs:$de00-$de01, mirrors:$de02-$deff */
+    1,                      /* read is always valid */
+    ramcart_io1_store,      /* store function */
+    NULL,                   /* NO poke function */
+    ramcart_io1_read,       /* read function */
+    ramcart_io1_peek,       /* peek function */
+    ramcart_dump,           /* device state information dump function */
+    CARTRIDGE_RAMCART,      /* cartridge ID */
+    IO_PRIO_NORMAL,         /* normal priority, device read needs to be checked for collisions */
+    0                       /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_t ramcart_io2_device = {
-    CARTRIDGE_NAME_RAMCART,
-    IO_DETACH_RESOURCE,
-    "RAMCART",
-    0xdf00, 0xdfff, 0xff,
-    1, /* read is always valid */
-    ramcart_io2_store,
-    ramcart_io2_read,
-    ramcart_io2_read,
-    ramcart_dump,
-    CARTRIDGE_RAMCART,
-    0,
-    0
+    CARTRIDGE_NAME_RAMCART, /* name of the device */
+    IO_DETACH_RESOURCE,     /* use resource to detach the device when involved in a read-collision */
+    "RAMCART",              /* resource to set to '0' */
+    0xdf00, 0xdfff, 0xff,   /* range for the device, regs:$df00-$dfff */
+    1,                      /* read is always valid */
+    ramcart_io2_store,      /* store function */
+    NULL,                   /* NO poke function */
+    ramcart_io2_read,       /* read function */
+    ramcart_io2_read,       /* peek function */
+    ramcart_dump,           /* device state information dump function */
+    CARTRIDGE_RAMCART,      /* cartridge ID */
+    IO_PRIO_NORMAL,         /* normal priority, device read needs to be checked for collisions */
+    0                       /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_list_t *ramcart_io1_list_item = NULL;
@@ -706,7 +708,7 @@ int ramcart_snapshot_read_module(snapshot_t *s)
     }
 
     /* Do not accept versions higher than current */
-    if (vmajor > SNAP_MAJOR || vminor > SNAP_MINOR) {
+    if (snapshot_version_is_bigger(vmajor, vminor, SNAP_MAJOR, SNAP_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }

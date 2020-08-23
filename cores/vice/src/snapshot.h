@@ -59,6 +59,9 @@
 #define SNAPSHOT_WRITE_CLOSE_EOF_ERROR           23
 #define SNAPSHOT_MODULE_HIGHER_VERSION           24
 #define SNAPSHOT_MODULE_INCOMPATIBLE             25
+#define SNAPSHOT_CANNOT_WRITE_SNAPSHOT           26
+#define SNAPSHOT_CANNOT_READ_SNAPSHOT            27
+#define SNAPSHOT_MODULE_NOT_IMPLEMENTED          28
 
 typedef struct snapshot_module_s snapshot_module_t;
 typedef struct snapshot_s snapshot_t;
@@ -146,9 +149,13 @@ extern snapshot_t *snapshot_open(const char *filename,
 extern int snapshot_close(snapshot_t *s);
 
 extern void snapshot_set_error(int error);
+extern int snapshot_get_error(void);
 
-extern int snapshot_version_at_least(uint8_t major_version, uint8_t minor_version, uint8_t major_version_required, uint8_t minor_version_required);
-
-#define SNAPVAL snapshot_version_at_least
+extern int snapshot_version_is_equal(uint8_t major_version, uint8_t minor_version,
+                uint8_t major_version_required, uint8_t minor_version_required);
+extern int snapshot_version_is_bigger(uint8_t major_version, uint8_t minor_version,
+                uint8_t major_version_required, uint8_t minor_version_required);
+extern int snapshot_version_is_smaller(uint8_t major_version, uint8_t minor_version,
+                uint8_t major_version_required, uint8_t minor_version_required);
 
 #endif

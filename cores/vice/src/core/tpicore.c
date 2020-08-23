@@ -62,7 +62,7 @@ static void set_latch_bit(tpi_context_t *tpi_context, int bit)
 {
     if (mytpi_debug && !(bit & irq_latches)) {
         log_message(tpi_context->log, "set_latch_bit(%02x, mask=%02x)",
-                    bit, irq_mask);
+                    (unsigned int)bit, irq_mask);
     }
 
     irq_latches |= bit;
@@ -463,7 +463,7 @@ int tpicore_snapshot_read_module(tpi_context_t *tpi_context, snapshot_t *p)
     }
 
     /* Do not accept versions higher than current */
-    if (vmajor > TPI_DUMP_VER_MAJOR || vminor > TPI_DUMP_VER_MINOR) {
+    if (snapshot_version_is_bigger(vmajor, vminor, TPI_DUMP_VER_MAJOR, TPI_DUMP_VER_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         snapshot_module_close(m);
         return -1;
@@ -528,7 +528,7 @@ int tpicore_dump(tpi_context_t *tpi_context)
         mon_out("Port B:             %02x\n", tpi_context->c_tpi[TPI_PB]);
         mon_out("Port Direction A:   %02x\n", tpi_context->c_tpi[TPI_DDPA]);
         mon_out("Port Direction B:   %02x\n", tpi_context->c_tpi[TPI_DDPB]);
-        mon_out("Interrupt latch:    %02x\n", irq_latches & 0x1f);
+        mon_out("Interrupt latch:    %02x\n", irq_latches & 0x1fU);
         mon_out("Interrupt active:   %s\n", irq_active ? "yes" : "no");
         mon_out("Active Interrupt:   %02x\n", tpi_context->c_tpi[TPI_AIR]);
     } else {

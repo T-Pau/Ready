@@ -59,5 +59,4 @@ int tcbm_resources_init(void)
 void tcbm_resources_shutdown(void)
 {
     lib_free(dos_rom_name_1551);
-    dos_rom_name_1551 = NULL;
 }

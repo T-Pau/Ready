@@ -300,7 +300,7 @@ int charset_ucs_to_utf8(uint8_t *out, int code, int len)
         }
         return 4;
     }
-    log_error(LOG_DEFAULT, "Out-of-range code point U+%04x.", code);
+    log_error(LOG_DEFAULT, "Out-of-range code point U+%04x.", (unsigned int)code);
     return 0;
 }
 
@@ -399,7 +399,7 @@ char * charset_hexstring_to_byte(char *source, char *destination)
 
 char *charset_replace_hexcodes(char *source)
 {
-    char * destination = lib_stralloc(source ? source : "");
+    char * destination = lib_strdup(source ? source : "");
 
     if (destination) {
         char * pread = destination;

@@ -100,13 +100,13 @@ int cmdline_register_options(const cmdline_option_t *c)
             p = options + num_options;
         }
 
-        p->name = lib_stralloc(c->name);
+        p->name = lib_strdup(c->name);
         p->type = c->type;
         p->attributes = c->attributes;
         p->set_func = c->set_func;
         p->extra_param = c->extra_param;
         if (c->resource_name != NULL) {
-            p->resource_name = lib_stralloc(c->resource_name);
+            p->resource_name = lib_strdup(c->resource_name);
         } else {
             p->resource_name = NULL;
         }
@@ -151,7 +151,6 @@ void cmdline_shutdown(void)
     cmdline_free();
 
     lib_free(options);
-    options = NULL;
 }
 
 static cmdline_option_ram_t *lookup(const char *name, int *is_ambiguous)
@@ -301,7 +300,7 @@ void cmdline_show_help(void *userparam)
     /* AmigaOS used some translation function for this string: */
     printf("\nAvailable command-line options:\n\n");
     for (i = 0; i < num_options; i++) {
-        char *param = cmdline_options_get_param(i);
+        const char *param = cmdline_options_get_param(i);
         if ((options[i].attributes & CMDLINE_ATTRIB_NEED_ARGS) && param != NULL) {
             printf("%s %s\n", options[i].name, param);
         } else {
@@ -318,25 +317,25 @@ char *cmdline_options_get_name(int counter)
     return (char *)options[counter].name;
 }
 
-char *cmdline_options_get_param(int counter)
+const char *cmdline_options_get_param(int counter)
 {
-    return (char *)options[counter].param_name;
+    return options[counter].param_name;
 }
 
 char *cmdline_options_get_description(int counter)
 {
-    union char_func cf;
-
+    if (combined_string != NULL) {
+        lib_free(combined_string);
+        combined_string = NULL;
+    }
     if (options[counter].attributes & CMDLINE_ATTRIB_DYNAMIC_DESCRIPTION) {
-        if (combined_string) {
-            lib_free(combined_string);
-        }
+        union char_func cf;
         cf.c = options[counter].description;
         combined_string = cf.f(options[counter].attributes >> 8);
-        return combined_string;
     } else {
-        return (char *)options[counter].description;
+        combined_string = lib_strdup(options[counter].description);
     }
+    return combined_string;
 }
 
 char *cmdline_options_string(void)
@@ -345,7 +344,7 @@ char *cmdline_options_string(void)
     char *cmdline_string, *new_cmdline_string;
     char *add_to_options1, *add_to_options2, *add_to_options3;
 
-    cmdline_string = lib_stralloc("\n");
+    cmdline_string = lib_strdup("\n");
 
     for (i = 0; i < num_options; i++) {
         add_to_options1 = lib_msprintf("%s", options[i].name);

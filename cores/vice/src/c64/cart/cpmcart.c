@@ -202,18 +202,19 @@ static int cpmcart_dump(void)
 }
 
 static io_source_t cpmcart_device = {
-    "CP/M Cartridge",
-    IO_DETACH_RESOURCE,
-    "CPMCart",
-    0xde00, 0xdeff, 0xff,
-    0,
-    cpmcart_io_store,
-    NULL, /* no read */
-    NULL, /* no peek */
-    cpmcart_dump,
-    CARTRIDGE_CPM,
-    0,
-    0
+    "CP/M Cartridge",     /* name of the device */
+    IO_DETACH_RESOURCE,   /* use resource to detach the device when involved in a read-collision */
+    "CPMCart",            /* resource to set to '0' */
+    0xde00, 0xdeff, 0xff, /* range of the device, address is ignored, reg:$de00, mirrors:$de01-$deff */
+    0,                    /* read is never valid, device is write only */
+    cpmcart_io_store,     /* store function */
+    NULL,                 /* NO poke function */
+    NULL,                 /* NO read function */
+    NULL,                 /* NO peek function */
+    cpmcart_dump,         /* device state information dump function */
+    CARTRIDGE_CPM,        /* cartridge ID */
+    IO_PRIO_NORMAL,       /* normal priority, device read needs to be checked for collisions */
+    0                     /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_list_t *cpmcart_list_item = NULL;
@@ -6628,7 +6629,7 @@ int cpmcart_snapshot_read_module(snapshot_t *s)
     }
 
     /* Do not accept versions higher than current */
-    if (major > SNAP_MAJOR || minor > SNAP_MINOR) {
+    if (snapshot_version_is_bigger(major, minor, SNAP_MAJOR, SNAP_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     } 

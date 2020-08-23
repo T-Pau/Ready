@@ -78,14 +78,6 @@ static feature_list_t featurelist[] = {
 #endif
 #endif
 #ifdef UNIX /* (unix) */
-    { "HAS_JOYSTICK", "Enable joystick emulation.",
-#ifndef HAS_JOYSTICK
-        0 },
-#else
-        1 },
-#endif
-#endif
-#ifdef UNIX /* (unix) */
     { "HAS_USB_JOYSTICK", "Enable emulation for USB joysticks.",
 #ifndef HAS_USB_JOYSTICK
         0 },
@@ -273,8 +265,8 @@ static feature_list_t featurelist[] = {
         1 },
 #endif
 #if defined(UNIX) || defined(WIN32) /* (unix/windows) */
-    { "HAVE_OPENCBM", "Support for OpenCBM", /* (former CBM4Linux). */
-#ifndef HAVE_OPENCBM
+    { "HAVE_REALDEVICE", "Support for OpenCBM", /* (former CBM4Linux). */
+#ifndef HAVE_REALDEVICE
         0 },
 #else
         1 },
@@ -319,18 +311,20 @@ static feature_list_t featurelist[] = {
 #endif
 #endif
 /* (all) */
-    { "HAVE_RAWDRIVE", "Support for block device disk image access.",
-#ifndef HAVE_RAWDRIVE
-        0 },
-#else
-        1 },
-#endif
-/* (all) */
     { "HAVE_RESID", "Enable ReSID support.",
 #ifndef HAVE_RESID
         0 },
 #else
         1 },
+#endif
+#ifdef HAVE_RESID
+/* (all) */
+    { "HAVE_NEW_8580_FILTER", "Enable experimental new 8580 Filter emulation.",
+#ifndef HAVE_NEW_8580_FILTER
+        0 },
+#else
+        1 },
+#endif
 #endif
 /* (all) */
     { "HAVE_RESID_DTV", "Enable ReSID-DTV support.",
@@ -430,24 +424,8 @@ static feature_list_t featurelist[] = {
 #endif
 #endif
 #if defined(UNIX) /* (unix) */
-    { "USE_AIX_AUDIO", "Enable aix sound support.",
-#ifndef USE_AIX_AUDIO
-        0 },
-#else
-        1 },
-#endif
-#endif
-#if defined(UNIX) /* (unix) */
     { "USE_ALSA", "Enable alsa support.",
 #ifndef USE_ALSA
-        0 },
-#else
-        1 },
-#endif
-#endif
-#if defined(UNIX) /* (unix) */
-    { "USE_ARTS", "Enable aRts support.",
-#ifndef USE_ARTS
         0 },
 #else
         1 },
@@ -456,14 +434,6 @@ static feature_list_t featurelist[] = {
 #if defined(MACOSX_SUPPORT) /* (osx) */
     { "USE_COREAUDIO", "Enable CoreAudio support.",
 #ifndef USE_COREAUDIO
-        0 },
-#else
-        1 },
-#endif
-#endif
-#if defined(UNIX) /* (unix) */
-    { "USE_DMEDIA", "Enable sgi sound support.",
-#ifndef USE_DMEDIA
         0 },
 #else
         1 },

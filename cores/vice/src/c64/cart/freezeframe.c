@@ -133,33 +133,35 @@ static int freezeframe_dump(void)
 }
 
 static io_source_t freezeframe_io1_device = {
-    CARTRIDGE_NAME_FREEZE_FRAME,
-    IO_DETACH_CART,
-    NULL,
-    0xde00, 0xdeff, 0xff,
-    0, /* read is never valid */
-    freezeframe_io1_store,
-    freezeframe_io1_read,
-    freezeframe_io1_peek,
-    freezeframe_dump,
-    CARTRIDGE_FREEZE_FRAME,
-    0,
-    0
+    CARTRIDGE_NAME_FREEZE_FRAME, /* name of the device */
+    IO_DETACH_CART,              /* use cartridge ID to detach the device when involved in a read-collision */
+    IO_DETACH_NO_RESOURCE,       /* does not use a resource for detach */
+    0xde00, 0xdeff, 0xff,        /* range for the device, reg:$de00, unknown mirrors:$de01-$deff */
+    0,                           /* read is never valid */
+    freezeframe_io1_store,       /* store function */
+    NULL,                        /* NO poke function */
+    freezeframe_io1_read,        /* read function */
+    freezeframe_io1_peek,        /* peek function */
+    freezeframe_dump,            /* device state information dump function */
+    CARTRIDGE_FREEZE_FRAME,      /* cartridge ID */
+    IO_PRIO_NORMAL,              /* normal priority, device read needs to be checked for collisions */
+    0                            /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_t freezeframe_io2_device = {
-    CARTRIDGE_NAME_FREEZE_FRAME,
-    IO_DETACH_CART,
-    NULL,
-    0xdf00, 0xdfff, 0xff,
-    0, /* read is never valid */
-    freezeframe_io2_store,
-    freezeframe_io2_read,
-    freezeframe_io2_peek,
-    freezeframe_dump,
-    CARTRIDGE_FREEZE_FRAME,
-    0,
-    0
+    CARTRIDGE_NAME_FREEZE_FRAME, /* name of the device */
+    IO_DETACH_CART,              /* use cartridge ID to detach the device when involved in a read-collision */
+    IO_DETACH_NO_RESOURCE,       /* does not use a resource for detach */
+    0xdf00, 0xdfff, 0xff,        /* range for the device, reg:$df00, unknown mirrors:$df01-$dfff */
+    0,                           /* read is never valid */
+    freezeframe_io2_store,       /* store function */
+    NULL,                        /* NO poke function */
+    freezeframe_io2_read,        /* read function */
+    freezeframe_io2_peek,        /* peek function */
+    freezeframe_dump,            /* device state information dump function */
+    CARTRIDGE_FREEZE_FRAME,      /* cartridge ID */
+    IO_PRIO_NORMAL,              /* normal priority, device read needs to be checked for collisions */
+    0                            /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_list_t *freezeframe_io1_list_item = NULL;
@@ -295,13 +297,13 @@ int freezeframe_snapshot_read_module(snapshot_t *s)
     }
 
     /* Do not accept versions higher than current */
-    if (vmajor > SNAP_MAJOR || vminor > SNAP_MINOR) {
+    if (snapshot_version_is_bigger(vmajor, vminor, SNAP_MAJOR, SNAP_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }
 
     /* new in 0.1 */
-    if (SNAPVAL(vmajor, vminor, 0, 1)) {
+    if (!snapshot_version_is_smaller(vmajor, vminor, 0, 1)) {
         if (0
             || SMR_B_INT(m, &freezeframe_rom_8000) < 0
             || SMR_B_INT(m, &freezeframe_rom_e000) < 0) {

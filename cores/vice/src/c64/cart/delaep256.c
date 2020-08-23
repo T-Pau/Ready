@@ -109,18 +109,19 @@ static int delaep256_dump(void)
 /* ---------------------------------------------------------------------*/
 
 static io_source_t delaep256_device = {
-    CARTRIDGE_NAME_DELA_EP256,
-    IO_DETACH_CART,
-    NULL,
-    0xde00, 0xdeff, 0xff,
-    0,
-    delaep256_io1_store,
-    NULL,
-    delaep256_io1_peek,
-    delaep256_dump,
-    CARTRIDGE_DELA_EP256,
-    0,
-    0
+    CARTRIDGE_NAME_DELA_EP256, /* name of the device */
+    IO_DETACH_CART,            /* use cartridge ID to detach the device when involved in a read-collision */
+    IO_DETACH_NO_RESOURCE,     /* does not use a resource for detach */
+    0xde00, 0xdeff, 0xff,      /* range for the device, address is ignored, reg:$de00, mirrors:$de01-$deff */
+    0,                         /* read is never valid, device is write only */
+    delaep256_io1_store,       /* store function */
+    NULL,                      /* NO poke function */
+    NULL,                      /* NO read function */
+    delaep256_io1_peek,        /* peek function */
+    delaep256_dump,            /* device state information dump function */
+    CARTRIDGE_DELA_EP256,      /* cartridge ID */
+    IO_PRIO_NORMAL,            /* normal priority, device read needs to be checked for collisions */
+    0                          /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_list_t *delaep256_list_item = NULL;
@@ -246,13 +247,13 @@ int delaep256_snapshot_read_module(snapshot_t *s)
     }
 
     /* Do not accept higher versions than current */
-    if (vmajor > SNAP_MAJOR || vminor > SNAP_MINOR) {
+    if (snapshot_version_is_bigger(vmajor, vminor, SNAP_MAJOR, SNAP_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }
 
     /* new in 0.1 */
-    if (SNAPVAL(vmajor, vminor, 0, 1)) {
+    if (!snapshot_version_is_smaller(vmajor, vminor, 0, 1)) {
         if (SMR_B(m, &regval) < 0) {
             goto fail;
         }

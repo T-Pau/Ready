@@ -647,6 +647,7 @@ fail:
 
 int snapshot_module_close(snapshot_module_t *m)
 {
+
     /* Backpatch module size if writing.  */
     if (m->write_mode
         && (fseek(m->file, m->size_offset, SEEK_SET) < 0
@@ -965,6 +966,15 @@ void snapshot_display_error(void)
         case SNAPSHOT_MODULE_INCOMPATIBLE:
             display_error_with_vice_version("Snapshot %s is incompatible (too old)", current_filename);
             break;
+        case SNAPSHOT_MODULE_NOT_IMPLEMENTED:
+            ui_error("Snapshots are not implemented for module %s", current_module);
+            break;
+        case SNAPSHOT_CANNOT_WRITE_SNAPSHOT:
+            ui_error("Cannot write snapshot %s", current_filename);
+            break;
+        case SNAPSHOT_CANNOT_READ_SNAPSHOT:
+            ui_error("Cannot read snapshot %s", current_filename);
+            break;
     }
 }
 
@@ -973,13 +983,53 @@ void snapshot_set_error(int error)
     snapshot_error = error;
 }
 
-int snapshot_version_at_least(uint8_t major_version, uint8_t minor_version, uint8_t major_version_required, uint8_t minor_version_required)
+int snapshot_get_error(void)
 {
-    if (major_version != major_version_required) {
+    return snapshot_error;
+}
+
+/* check if version == required version */
+int snapshot_version_is_equal(uint8_t major_version, uint8_t minor_version,
+                              uint8_t major_version_required, uint8_t minor_version_required)
+{
+    if ((major_version == major_version_required) && (minor_version == minor_version_required)) {
+        return 1;
+    }
+    return 0;
+}
+
+/* check if version > required version */
+int snapshot_version_is_bigger(uint8_t major_version, uint8_t minor_version,
+                               uint8_t major_version_required, uint8_t minor_version_required)
+{
+    if (major_version > major_version_required) {
+        return 1;
+    }
+
+    if (major_version < major_version_required) {
         return 0;
     }
 
-    if (minor_version >= minor_version_required) {
+    if (minor_version > minor_version_required) {
+        return 1;
+    }
+
+    return 0;
+}
+
+/* check if version < required version */
+int snapshot_version_is_smaller(uint8_t major_version, uint8_t minor_version,
+                                uint8_t major_version_required, uint8_t minor_version_required)
+{
+    if (major_version < major_version_required) {
+        return 1;
+    }
+
+    if (major_version > major_version_required) {
+        return 0;
+    }
+
+    if (minor_version < minor_version_required) {
         return 1;
     }
 

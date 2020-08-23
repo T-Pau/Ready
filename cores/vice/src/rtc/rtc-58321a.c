@@ -103,7 +103,7 @@ rtc_58321a_t *rtc58321a_init(char *device)
     retval->old_offset = retval->offset;
 
     retval->hour24 = 1;
-    retval->device = lib_stralloc(device);
+    retval->device = lib_strdup(device);
 
     return retval;
 }
@@ -480,7 +480,7 @@ int rtc58321a_read_snapshot(rtc_58321a_t *context, snapshot_t *s)
     }
 
     /* Do not accept versions higher than current */
-    if (vmajor > SNAP_MAJOR || vminor > SNAP_MINOR) {
+    if (snapshot_version_is_bigger(vmajor, vminor, SNAP_MAJOR, SNAP_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }

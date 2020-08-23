@@ -153,6 +153,12 @@ static void maincpu_steal_cycles(void)
            cycles were stolen after the first fetch */
         /* (fall through) */
 
+        /* LXA */
+        case 0xab:
+        /* this is a hacky way of signaling LXA() that
+           cycles were stolen after the first fetch */
+        /* (fall through) */
+
         /* CLI */
         case 0x58:
             /* this is a hacky way of signaling CLI() that it
@@ -420,6 +426,7 @@ monitor_interface_t *maincpu_monitor_interface_get(void)
     maincpu_monitor_interface->mem_bank_read = mem_bank_read;
     maincpu_monitor_interface->mem_bank_peek = mem_bank_peek;
     maincpu_monitor_interface->mem_bank_write = mem_bank_write;
+    maincpu_monitor_interface->mem_bank_poke = mem_bank_poke;
 
     maincpu_monitor_interface->mem_ioreg_list_get = mem_ioreg_list_get;
 
@@ -577,7 +584,7 @@ void maincpu_mainloop(void)
     machine_trigger_reset(MACHINE_RESET_MODE_SOFT);
 
     maincpu_running = 1;
-    
+
     while (maincpu_running) {
 #define CLK maincpu_clk
 #define RMW_FLAG maincpu_rmw_flag
@@ -640,7 +647,7 @@ void maincpu_mainloop(void)
         }
 #endif
     }
-    
+
     o_bank_base = NULL;
     o_bank_start = NULL;
     o_bank_limit = NULL;

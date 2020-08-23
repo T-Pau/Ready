@@ -65,7 +65,7 @@ static char *sysfile_path = NULL;
 char *archdep_default_sysfile_pathlist(const char *emu_id)
 {
     const char *boot_path = archdep_boot_path();
-#ifndef ARCHDEP_OS_WINDOWS
+#if !defined(ARCHDEP_OS_WINDOWS) && !defined(ARCHDEP_OS_BEOS)
     const char *home_path = archdep_user_config_path();
 #endif
 
@@ -88,7 +88,7 @@ char *archdep_default_sysfile_pathlist(const char *emu_id)
 
     if (sysfile_path != NULL) {
         /* sysfile.c appears to free() this */
-        return lib_stralloc(sysfile_path);
+        return lib_strdup(sysfile_path);
     }
 
     /* zero out the array of paths to join later */
@@ -99,26 +99,15 @@ char *archdep_default_sysfile_pathlist(const char *emu_id)
 
 #ifdef ARCHDEP_OS_UNIX
 
-# ifdef MACOSX_BUNDLE
-
+# ifdef ARCHDEP_OS_OSX
     /* ROM paths relative to the Contents/Resources/bin directory 
        in the bundle */
     lib_machine_roms = archdep_join_paths(
-            boot_path, "..", "ROM", emu_id, NULL);
+            boot_path, "..", "lib", "vice", emu_id, NULL);
     lib_drive_roms = archdep_join_paths(
-            boot_path, "..", "ROM", "DRIVES", NULL);
+            boot_path, "..", "lib", "vice", "DRIVES", NULL);
     lib_printer_roms = archdep_join_paths(
-            boot_path, "..", "ROM", "PRINTER", NULL);
-
-    /* ROM paths relative to the Contents/MacOS directory in the bundle
-       (currently unused, but was used by SDL UI in VICE 3.2) */
-    boot_machine_roms = archdep_join_paths(
-            boot_path, "..", "Resources", "ROM", emu_id, NULL);
-    boot_drive_roms = archdep_join_paths(
-            boot_path, "..", "Resources", "ROM", "DRIVES", NULL);
-    boot_printer_roms = archdep_join_paths(
-            boot_path, "..", "Resources", "ROM", "PRINTER", NULL);
-
+            boot_path, "..", "lib", "vice", "PRINTER", NULL);
 # else
     lib_machine_roms = archdep_join_paths(LIBDIR, emu_id, NULL);
     lib_drive_roms = archdep_join_paths(LIBDIR, "DRIVES", NULL);
@@ -244,7 +233,7 @@ char *archdep_default_sysfile_pathlist(const char *emu_id)
     printf("%s(): paths = '%s'\n", __func__, sysfile_path);
 #endif
     /* sysfile.c appears to free() this (ie TODO: fix sysfile.c) */
-    return lib_stralloc(sysfile_path);
+    return lib_strdup(sysfile_path);
 }
 
 

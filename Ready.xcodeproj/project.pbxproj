@@ -194,7 +194,6 @@
 		4B49573D24C46A2C0074A053 /* libvice-rs232drv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FED22499132400A76E57 /* libvice-rs232drv.a */; };
 		4B49573E24C46A2C0074A053 /* libvice-samplerdrv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FEDA2499132800A76E57 /* libvice-samplerdrv.a */; };
 		4B49573F24C46A2C0074A053 /* libvice-serial.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FEE22499132F00A76E57 /* libvice-serial.a */; };
-		4B49574024C46A2C0074A053 /* libvice-socketdrv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FEEA2499133400A76E57 /* libvice-socketdrv.a */; };
 		4B49574124C46A2C0074A053 /* libvice-sounddrv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B6800152499FDD500A76E57 /* libvice-sounddrv.a */; };
 		4B49574224C46A2C0074A053 /* libvice-tape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FEF22499133900A76E57 /* libvice-tape.a */; };
 		4B49574324C46A2C0074A053 /* libvice-diag.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FD372498ECFD00A76E57 /* libvice-diag.a */; };
@@ -292,6 +291,28 @@
 		4B49583F24C473A70074A053 /* libvice-vicii.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B49580224C472B80074A053 /* libvice-vicii.a */; };
 		4B49584024C478A70074A053 /* ViceC128.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B49575D24C46A2C0074A053 /* ViceC128.framework */; };
 		4B49584124C4876E0074A053 /* c64io.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F99C321D7AD4B00C272C4 /* c64io.c */; };
+		4B4A69EC24F1427C00F6D9D6 /* archdep_default_hotkey_file_name.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B4A69BD24F1424A00F6D9D6 /* archdep_default_hotkey_file_name.c */; };
+		4B4A69ED24F1428700F6D9D6 /* archdep_default_joymap_file_name.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B4A69C324F1424E00F6D9D6 /* archdep_default_joymap_file_name.c */; };
+		4B4A69EE24F1429200F6D9D6 /* archdep_default_logger.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B4A69CF24F1425000F6D9D6 /* archdep_default_logger.c */; };
+		4B4A69EF24F1429C00F6D9D6 /* archdep_get_current_drive.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B4A69DC24F1425200F6D9D6 /* archdep_get_current_drive.c */; };
+		4B4A69F024F142AA00F6D9D6 /* archdep_is_haiku.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B4A69BE24F1424A00F6D9D6 /* archdep_is_haiku.c */; };
+		4B4A69F124F142AA00F6D9D6 /* archdep_is_windows_nt.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B4A69CD24F1424F00F6D9D6 /* archdep_is_windows_nt.c */; };
+		4B4A69F224F142C700F6D9D6 /* archdep_kbd_get_host_mapping.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B4A69C724F1424E00F6D9D6 /* archdep_kbd_get_host_mapping.c */; };
+		4B4A69F324F142D500F6D9D6 /* archdep_list_drives.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B4A69CC24F1424F00F6D9D6 /* archdep_list_drives.c */; };
+		4B4A69F424F1436800F6D9D6 /* archdep_mkstemp_fd.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B4A69D424F1425000F6D9D6 /* archdep_mkstemp_fd.c */; };
+		4B4A69F524F1436800F6D9D6 /* archdep_pref_path.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B4A69C524F1424E00F6D9D6 /* archdep_pref_path.c */; };
+		4B4A69F624F1436800F6D9D6 /* archdep_require_vkbd.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B4A69CB24F1424F00F6D9D6 /* archdep_require_vkbd.c */; };
+		4B4A69F724F1436800F6D9D6 /* archdep_rtc_get_centisecond.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B4A69C424F1424E00F6D9D6 /* archdep_rtc_get_centisecond.c */; };
+		4B4A69F824F1436800F6D9D6 /* archdep_set_current_drive.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B4A69DF24F1425200F6D9D6 /* archdep_set_current_drive.c */; };
+		4B4A69F924F1436800F6D9D6 /* archdep_signals.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B4A69E724F1425400F6D9D6 /* archdep_signals.c */; };
+		4B4A69FA24F1436800F6D9D6 /* archdep_spawn.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B4A69CA24F1424F00F6D9D6 /* archdep_spawn.c */; };
+		4B4A69FB24F1436800F6D9D6 /* archdep_usleep.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B4A69D824F1425100F6D9D6 /* archdep_usleep.c */; };
+		4B4A69FC24F1436800F6D9D6 /* console.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B4A69BF24F1424A00F6D9D6 /* console.c */; };
+		4B4A69FD24F1436800F6D9D6 /* coproc.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B4A69EB24F1425400F6D9D6 /* coproc.c */; };
+		4B4A69FE24F1436800F6D9D6 /* dynlib.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B4A69C224F1424D00F6D9D6 /* dynlib.c */; };
+		4B4A69FF24F1436800F6D9D6 /* rawnetarch.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B4A69D324F1425000F6D9D6 /* rawnetarch.c */; };
+		4B4A6A0024F1436800F6D9D6 /* rs232dev.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B4A69D624F1425100F6D9D6 /* rs232dev.c */; };
+		4B4A6A0124F1436800F6D9D6 /* signals.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B4A69DD24F1425200F6D9D6 /* signals.c */; };
 		4B52816A249E0A320023F453 /* ConnectorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B528169249E0A320023F453 /* ConnectorType.swift */; };
 		4B52816C249E442D0023F453 /* Port.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B52816B249E442D0023F453 /* Port.swift */; };
 		4B540E9B24A674E100F6925B /* VicePlus4.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B540E9924A674E100F6925B /* VicePlus4.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -343,7 +364,6 @@
 		4B540F3824A9B97B00F6925B /* libvice-rs232drv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FED22499132400A76E57 /* libvice-rs232drv.a */; };
 		4B540F3924A9B97B00F6925B /* libvice-samplerdrv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FEDA2499132800A76E57 /* libvice-samplerdrv.a */; };
 		4B540F3A24A9B97B00F6925B /* libvice-serial.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FEE22499132F00A76E57 /* libvice-serial.a */; };
-		4B540F3B24A9B97B00F6925B /* libvice-socketdrv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FEEA2499133400A76E57 /* libvice-socketdrv.a */; };
 		4B540F3C24A9B97B00F6925B /* libvice-sounddrv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B6800152499FDD500A76E57 /* libvice-sounddrv.a */; };
 		4B540F3D24A9B97B00F6925B /* libvice-tape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FEF22499133900A76E57 /* libvice-tape.a */; };
 		4B540F3E24A9BAC400F6925B /* libvice-resid.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FFE72499F95600A76E57 /* libvice-resid.a */; };
@@ -481,7 +501,6 @@
 		4B5412F824AB9A5D00F6925B /* libvice-rs232drv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FED22499132400A76E57 /* libvice-rs232drv.a */; };
 		4B5412F924AB9A5D00F6925B /* libvice-samplerdrv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FEDA2499132800A76E57 /* libvice-samplerdrv.a */; };
 		4B5412FA24AB9A5D00F6925B /* libvice-serial.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FEE22499132F00A76E57 /* libvice-serial.a */; };
-		4B5412FB24AB9A5E00F6925B /* libvice-socketdrv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FEEA2499133400A76E57 /* libvice-socketdrv.a */; };
 		4B5412FC24AB9A5E00F6925B /* libvice-sounddrv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B6800152499FDD500A76E57 /* libvice-sounddrv.a */; };
 		4B5412FD24AB9A5E00F6925B /* libvice-tape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FEF22499133900A76E57 /* libvice-tape.a */; };
 		4B5412FE24AB9AA300F6925B /* libvice-resid.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FFE72499F95600A76E57 /* libvice-resid.a */; };
@@ -506,7 +525,6 @@
 		4B54131324AB9B0500F6925B /* render2x2.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAB8E21D7AD8800C272C4 /* render2x2.c */; };
 		4B54131424AB9B0500F6925B /* render1x1.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAB9B21D7AD8800C272C4 /* render1x1.c */; };
 		4B54131524AB9B0500F6925B /* video-sound.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAB9221D7AD8800C272C4 /* video-sound.c */; };
-		4B54131624AB9B0500F6925B /* renderyuv.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAB8A21D7AD8800C272C4 /* renderyuv.c */; };
 		4B54131724AB9B0500F6925B /* render1x2.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAB9121D7AD8800C272C4 /* render1x2.c */; };
 		4B54131824AB9B0500F6925B /* render2x4crt.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAB9621D7AD8800C272C4 /* render2x4crt.c */; };
 		4B54131924AB9B0500F6925B /* render2x2ntsc.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAB7D21D7AD8800C272C4 /* render2x2ntsc.c */; };
@@ -696,9 +714,7 @@
 		4B6800172499FE6800A76E57 /* lamelib.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAA5321D7AD7400C272C4 /* lamelib.c */; };
 		4B6800182499FE6800A76E57 /* soundahi.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAA4121D7AD7400C272C4 /* soundahi.c */; };
 		4B6800192499FE6800A76E57 /* soundaiff.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAA3F21D7AD7400C272C4 /* soundaiff.c */; };
-		4B68001A2499FE6800A76E57 /* soundaix.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAA4D21D7AD7400C272C4 /* soundaix.c */; };
 		4B68001B2499FE6800A76E57 /* soundalsa.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAA5221D7AD7400C272C4 /* soundalsa.c */; };
-		4B68001C2499FE6800A76E57 /* soundarts.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAA5521D7AD7400C272C4 /* soundarts.c */; };
 		4B68001D2499FE6900A76E57 /* soundbeos.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAA3D21D7AD7400C272C4 /* soundbeos.cc */; };
 		4B68001E2499FE6900A76E57 /* soundbsp.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAA4221D7AD7400C272C4 /* soundbsp.cc */; };
 		4B68001F2499FE6900A76E57 /* soundcoreaudio.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAA4C21D7AD7400C272C4 /* soundcoreaudio.c */; };
@@ -708,13 +724,11 @@
 		4B6800232499FE6900A76E57 /* sounddx.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAA4721D7AD7400C272C4 /* sounddx.c */; };
 		4B6800242499FE6900A76E57 /* soundflac.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAA4921D7AD7400C272C4 /* soundflac.c */; };
 		4B6800252499FE6900A76E57 /* soundfs.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAA4321D7AD7400C272C4 /* soundfs.c */; };
-		4B6800262499FE6900A76E57 /* soundhpux.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAA5021D7AD7400C272C4 /* soundhpux.c */; };
 		4B6800272499FE6900A76E57 /* soundiff.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAA4A21D7AD7400C272C4 /* soundiff.c */; };
 		4B6800282499FE6900A76E57 /* soundmovie.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAA5721D7AD7400C272C4 /* soundmovie.c */; };
 		4B6800292499FE6900A76E57 /* soundmp3.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAA5821D7AD7400C272C4 /* soundmp3.c */; };
 		4B68002A2499FE6900A76E57 /* soundpulse.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAA3C21D7AD7400C272C4 /* soundpulse.c */; };
 		4B68002B2499FE6900A76E57 /* soundsdl.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAA4421D7AD7400C272C4 /* soundsdl.c */; };
-		4B68002C2499FE6900A76E57 /* soundsgi.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAA4F21D7AD7400C272C4 /* soundsgi.c */; };
 		4B68002D2499FE6900A76E57 /* soundsun.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAA4821D7AD7400C272C4 /* soundsun.c */; };
 		4B68002E2499FE6900A76E57 /* sounduss.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAA4B21D7AD7400C272C4 /* sounduss.c */; };
 		4B68002F2499FE6900A76E57 /* soundvoc.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAA5621D7AD7400C272C4 /* soundvoc.c */; };
@@ -1057,7 +1071,6 @@
 		4B68FE53249910E400A76E57 /* render2x4.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAB7B21D7AD8800C272C4 /* render2x4.c */; };
 		4B68FE54249910E400A76E57 /* render2x4crt.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAB9621D7AD8800C272C4 /* render2x4crt.c */; };
 		4B68FE55249910E400A76E57 /* renderscale2x.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAB8921D7AD8800C272C4 /* renderscale2x.c */; };
-		4B68FE56249910E400A76E57 /* renderyuv.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAB8A21D7AD8800C272C4 /* renderyuv.c */; };
 		4B68FE57249910E400A76E57 /* video-canvas.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAB8C21D7AD8800C272C4 /* video-canvas.c */; };
 		4B68FE58249910E400A76E57 /* video-cmdline-options.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAB9E21D7AD8800C272C4 /* video-cmdline-options.c */; };
 		4B68FE59249910E400A76E57 /* video-color.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FABA021D7AD8800C272C4 /* video-color.c */; };
@@ -1091,7 +1104,6 @@
 		4B68FF06249913D700A76E57 /* fsimage-p64.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FA9F821D7AD7000C272C4 /* fsimage-p64.c */; };
 		4B68FF07249913D700A76E57 /* fsimage-probe.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FA9F921D7AD7000C272C4 /* fsimage-probe.c */; };
 		4B68FF08249913D700A76E57 /* fsimage.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FA9F421D7AD7000C272C4 /* fsimage.c */; };
-		4B68FF09249913D700A76E57 /* rawimage.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FA9F621D7AD7000C272C4 /* rawimage.c */; };
 		4B68FF0A249913D700A76E57 /* realimage.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FA9EF21D7AD7000C272C4 /* realimage.c */; };
 		4B68FF0B249913F100A76E57 /* cbmfile.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAA3821D7AD7300C272C4 /* cbmfile.c */; };
 		4B68FF0C249913F100A76E57 /* fileio.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAA3621D7AD7300C272C4 /* fileio.c */; };
@@ -1182,7 +1194,6 @@
 		4B68FF612499172F00A76E57 /* serial-realdevice.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F98C221D7AD4A00C272C4 /* serial-realdevice.c */; };
 		4B68FF622499172F00A76E57 /* serial-trap.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F98BC21D7AD4A00C272C4 /* serial-trap.c */; };
 		4B68FF632499172F00A76E57 /* serial.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F98B621D7AD4A00C272C4 /* serial.c */; };
-		4B68FF642499175D00A76E57 /* socketdrv.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FAB2521D7AD7C00C272C4 /* socketdrv.c */; };
 		4B68FF652499177800A76E57 /* t64.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FA94621D7AD6700C272C4 /* t64.c */; };
 		4B68FF662499177800A76E57 /* tap.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FA94021D7AD6700C272C4 /* tap.c */; };
 		4B68FF672499177800A76E57 /* tape-internal.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3FA94121D7AD6700C272C4 /* tape-internal.c */; };
@@ -1202,7 +1213,6 @@
 		4B68FF75249918DD00A76E57 /* libvice-rs232drv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FED22499132400A76E57 /* libvice-rs232drv.a */; };
 		4B68FF76249918DD00A76E57 /* libvice-samplerdrv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FEDA2499132800A76E57 /* libvice-samplerdrv.a */; };
 		4B68FF77249918DD00A76E57 /* libvice-serial.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FEE22499132F00A76E57 /* libvice-serial.a */; };
-		4B68FF78249918DD00A76E57 /* libvice-socketdrv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FEEA2499133400A76E57 /* libvice-socketdrv.a */; };
 		4B68FF79249918DD00A76E57 /* libvice-tape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68FEF22499133900A76E57 /* libvice-tape.a */; };
 		4B68FF7A2499EE3300A76E57 /* ui.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBF864821D8D38E00EF99ED /* ui.m */; };
 		4B68FFA62499F25F00A76E57 /* alarm.c in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F9B3621D7AD5500C272C4 /* alarm.c */; };
@@ -3198,7 +3208,6 @@
 		4B3FA9EB21D7AD7000C272C4 /* fsimage-dxx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "fsimage-dxx.h"; sourceTree = "<group>"; };
 		4B3FA9EC21D7AD7000C272C4 /* fsimage-probe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "fsimage-probe.h"; sourceTree = "<group>"; };
 		4B3FA9ED21D7AD7000C272C4 /* fsimage-p64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "fsimage-p64.h"; sourceTree = "<group>"; };
-		4B3FA9EE21D7AD7000C272C4 /* rawimage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rawimage.h; sourceTree = "<group>"; };
 		4B3FA9EF21D7AD7000C272C4 /* realimage.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = realimage.c; sourceTree = "<group>"; };
 		4B3FA9F021D7AD7000C272C4 /* fsimage-create.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "fsimage-create.c"; sourceTree = "<group>"; };
 		4B3FA9F121D7AD7000C272C4 /* fsimage-gcr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "fsimage-gcr.c"; sourceTree = "<group>"; };
@@ -3206,7 +3215,6 @@
 		4B3FA9F321D7AD7000C272C4 /* fsimage-dxx.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "fsimage-dxx.c"; sourceTree = "<group>"; };
 		4B3FA9F421D7AD7000C272C4 /* fsimage.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fsimage.c; sourceTree = "<group>"; };
 		4B3FA9F521D7AD7000C272C4 /* x64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x64.h; sourceTree = "<group>"; };
-		4B3FA9F621D7AD7000C272C4 /* rawimage.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = rawimage.c; sourceTree = "<group>"; };
 		4B3FA9F721D7AD7000C272C4 /* diskimage.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = diskimage.c; sourceTree = "<group>"; };
 		4B3FA9F821D7AD7000C272C4 /* fsimage-p64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "fsimage-p64.c"; sourceTree = "<group>"; };
 		4B3FA9F921D7AD7000C272C4 /* fsimage-probe.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "fsimage-probe.c"; sourceTree = "<group>"; };
@@ -3290,15 +3298,11 @@
 		4B3FAA4A21D7AD7400C272C4 /* soundiff.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = soundiff.c; sourceTree = "<group>"; };
 		4B3FAA4B21D7AD7400C272C4 /* sounduss.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sounduss.c; sourceTree = "<group>"; };
 		4B3FAA4C21D7AD7400C272C4 /* soundcoreaudio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = soundcoreaudio.c; sourceTree = "<group>"; };
-		4B3FAA4D21D7AD7400C272C4 /* soundaix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = soundaix.c; sourceTree = "<group>"; };
 		4B3FAA4E21D7AD7400C272C4 /* soundmovie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = soundmovie.h; sourceTree = "<group>"; };
-		4B3FAA4F21D7AD7400C272C4 /* soundsgi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = soundsgi.c; sourceTree = "<group>"; };
-		4B3FAA5021D7AD7400C272C4 /* soundhpux.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = soundhpux.c; sourceTree = "<group>"; };
 		4B3FAA5121D7AD7400C272C4 /* soundvorbis.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = soundvorbis.c; sourceTree = "<group>"; };
 		4B3FAA5221D7AD7400C272C4 /* soundalsa.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = soundalsa.c; sourceTree = "<group>"; };
 		4B3FAA5321D7AD7400C272C4 /* lamelib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lamelib.c; sourceTree = "<group>"; };
 		4B3FAA5421D7AD7400C272C4 /* sounddart.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sounddart.c; sourceTree = "<group>"; };
-		4B3FAA5521D7AD7400C272C4 /* soundarts.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = soundarts.c; sourceTree = "<group>"; };
 		4B3FAA5621D7AD7400C272C4 /* soundvoc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = soundvoc.c; sourceTree = "<group>"; };
 		4B3FAA5721D7AD7400C272C4 /* soundmovie.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = soundmovie.c; sourceTree = "<group>"; };
 		4B3FAA5821D7AD7400C272C4 /* soundmp3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = soundmp3.c; sourceTree = "<group>"; };
@@ -3514,7 +3518,6 @@
 		4B3FAB8721D7AD8800C272C4 /* render1x1pal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = render1x1pal.h; sourceTree = "<group>"; };
 		4B3FAB8821D7AD8800C272C4 /* video-render-crt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "video-render-crt.c"; sourceTree = "<group>"; };
 		4B3FAB8921D7AD8800C272C4 /* renderscale2x.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = renderscale2x.c; sourceTree = "<group>"; };
-		4B3FAB8A21D7AD8800C272C4 /* renderyuv.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = renderyuv.c; sourceTree = "<group>"; };
 		4B3FAB8B21D7AD8800C272C4 /* video-color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "video-color.h"; sourceTree = "<group>"; };
 		4B3FAB8C21D7AD8800C272C4 /* video-canvas.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "video-canvas.c"; sourceTree = "<group>"; };
 		4B3FAB8D21D7AD8800C272C4 /* render2x2crt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = render2x2crt.h; sourceTree = "<group>"; };
@@ -3538,7 +3541,6 @@
 		4B3FAB9F21D7AD8800C272C4 /* render2x2crt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = render2x2crt.c; sourceTree = "<group>"; };
 		4B3FABA021D7AD8800C272C4 /* video-color.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "video-color.c"; sourceTree = "<group>"; };
 		4B3FABA121D7AD8800C272C4 /* video-canvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "video-canvas.h"; sourceTree = "<group>"; };
-		4B3FABA221D7AD8800C272C4 /* renderyuv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = renderyuv.h; sourceTree = "<group>"; };
 		4B3FABA321D7AD8800C272C4 /* debug.h.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = debug.h.in; sourceTree = "<group>"; };
 		4B460E1E2269F70100815E7F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		4B460E462274529200815E7F /* LightPenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightPenView.swift; sourceTree = "<group>"; };
@@ -3631,6 +3633,56 @@
 		4B49582924C473110074A053 /* viciidtv-color.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "viciidtv-color.c"; sourceTree = "<group>"; };
 		4B49582A24C473110074A053 /* vicii-phi1.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "vicii-phi1.c"; sourceTree = "<group>"; };
 		4B49582B24C473110074A053 /* vicii-resources.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "vicii-resources.c"; sourceTree = "<group>"; };
+		4B4A69BA24F1424900F6D9D6 /* dynlib-win32.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "dynlib-win32.c"; sourceTree = "<group>"; };
+		4B4A69BB24F1424900F6D9D6 /* archdep_require_vkbd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = archdep_require_vkbd.h; sourceTree = "<group>"; };
+		4B4A69BC24F1424900F6D9D6 /* archdep_usleep.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = archdep_usleep.h; sourceTree = "<group>"; };
+		4B4A69BD24F1424A00F6D9D6 /* archdep_default_hotkey_file_name.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = archdep_default_hotkey_file_name.c; sourceTree = "<group>"; };
+		4B4A69BE24F1424A00F6D9D6 /* archdep_is_haiku.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = archdep_is_haiku.c; sourceTree = "<group>"; };
+		4B4A69BF24F1424A00F6D9D6 /* console.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = console.c; sourceTree = "<group>"; };
+		4B4A69C024F1424A00F6D9D6 /* rawnetarch_unix.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rawnetarch_unix.c; sourceTree = "<group>"; };
+		4B4A69C124F1424A00F6D9D6 /* console_amiga.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = console_amiga.c; sourceTree = "<group>"; };
+		4B4A69C224F1424D00F6D9D6 /* dynlib.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = dynlib.c; sourceTree = "<group>"; };
+		4B4A69C324F1424E00F6D9D6 /* archdep_default_joymap_file_name.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = archdep_default_joymap_file_name.c; sourceTree = "<group>"; };
+		4B4A69C424F1424E00F6D9D6 /* archdep_rtc_get_centisecond.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = archdep_rtc_get_centisecond.c; sourceTree = "<group>"; };
+		4B4A69C524F1424E00F6D9D6 /* archdep_pref_path.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = archdep_pref_path.c; sourceTree = "<group>"; };
+		4B4A69C624F1424E00F6D9D6 /* archdep_mkstemp_fd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = archdep_mkstemp_fd.h; sourceTree = "<group>"; };
+		4B4A69C724F1424E00F6D9D6 /* archdep_kbd_get_host_mapping.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = archdep_kbd_get_host_mapping.c; sourceTree = "<group>"; };
+		4B4A69C824F1424F00F6D9D6 /* archdep_default_joymap_file_name.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = archdep_default_joymap_file_name.h; sourceTree = "<group>"; };
+		4B4A69C924F1424F00F6D9D6 /* console_none.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = console_none.c; sourceTree = "<group>"; };
+		4B4A69CA24F1424F00F6D9D6 /* archdep_spawn.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = archdep_spawn.c; sourceTree = "<group>"; };
+		4B4A69CB24F1424F00F6D9D6 /* archdep_require_vkbd.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = archdep_require_vkbd.c; sourceTree = "<group>"; };
+		4B4A69CC24F1424F00F6D9D6 /* archdep_list_drives.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = archdep_list_drives.c; sourceTree = "<group>"; };
+		4B4A69CD24F1424F00F6D9D6 /* archdep_is_windows_nt.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = archdep_is_windows_nt.c; sourceTree = "<group>"; };
+		4B4A69CE24F1425000F6D9D6 /* archdep_is_haiku.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = archdep_is_haiku.h; sourceTree = "<group>"; };
+		4B4A69CF24F1425000F6D9D6 /* archdep_default_logger.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = archdep_default_logger.c; sourceTree = "<group>"; };
+		4B4A69D024F1425000F6D9D6 /* dynlib-unix.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "dynlib-unix.c"; sourceTree = "<group>"; };
+		4B4A69D124F1425000F6D9D6 /* archdep_default_logger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = archdep_default_logger.h; sourceTree = "<group>"; };
+		4B4A69D224F1425000F6D9D6 /* archdep_signals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = archdep_signals.h; sourceTree = "<group>"; };
+		4B4A69D324F1425000F6D9D6 /* rawnetarch.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rawnetarch.c; sourceTree = "<group>"; };
+		4B4A69D424F1425000F6D9D6 /* archdep_mkstemp_fd.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = archdep_mkstemp_fd.c; sourceTree = "<group>"; };
+		4B4A69D524F1425100F6D9D6 /* archdep_spawn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = archdep_spawn.h; sourceTree = "<group>"; };
+		4B4A69D624F1425100F6D9D6 /* rs232dev.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rs232dev.c; sourceTree = "<group>"; };
+		4B4A69D724F1425100F6D9D6 /* archdep_win32.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = archdep_win32.h; sourceTree = "<group>"; };
+		4B4A69D824F1425100F6D9D6 /* archdep_usleep.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = archdep_usleep.c; sourceTree = "<group>"; };
+		4B4A69D924F1425100F6D9D6 /* rawnetarch_win32.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rawnetarch_win32.c; sourceTree = "<group>"; };
+		4B4A69DA24F1425100F6D9D6 /* rs232-win32-dev.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "rs232-win32-dev.c"; sourceTree = "<group>"; };
+		4B4A69DB24F1425200F6D9D6 /* archdep_os2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = archdep_os2.h; sourceTree = "<group>"; };
+		4B4A69DC24F1425200F6D9D6 /* archdep_get_current_drive.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = archdep_get_current_drive.c; sourceTree = "<group>"; };
+		4B4A69DD24F1425200F6D9D6 /* signals.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = signals.c; sourceTree = "<group>"; };
+		4B4A69DE24F1425200F6D9D6 /* archdep_default_hotkey_file_name.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = archdep_default_hotkey_file_name.h; sourceTree = "<group>"; };
+		4B4A69DF24F1425200F6D9D6 /* archdep_set_current_drive.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = archdep_set_current_drive.c; sourceTree = "<group>"; };
+		4B4A69E024F1425200F6D9D6 /* archdep_kbd_get_host_mapping.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = archdep_kbd_get_host_mapping.h; sourceTree = "<group>"; };
+		4B4A69E124F1425300F6D9D6 /* archdep_rtc_get_centisecond.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = archdep_rtc_get_centisecond.h; sourceTree = "<group>"; };
+		4B4A69E224F1425300F6D9D6 /* archdep_amiga.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = archdep_amiga.h; sourceTree = "<group>"; };
+		4B4A69E324F1425300F6D9D6 /* archdep_unix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = archdep_unix.h; sourceTree = "<group>"; };
+		4B4A69E424F1425300F6D9D6 /* coproc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = coproc.h; sourceTree = "<group>"; };
+		4B4A69E524F1425300F6D9D6 /* archdep_beos.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = archdep_beos.h; sourceTree = "<group>"; };
+		4B4A69E624F1425300F6D9D6 /* archdep_pref_path.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = archdep_pref_path.h; sourceTree = "<group>"; };
+		4B4A69E724F1425400F6D9D6 /* archdep_signals.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = archdep_signals.c; sourceTree = "<group>"; };
+		4B4A69E824F1425400F6D9D6 /* rs232-unix-dev.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "rs232-unix-dev.c"; sourceTree = "<group>"; };
+		4B4A69E924F1425400F6D9D6 /* console_unix.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = console_unix.c; sourceTree = "<group>"; };
+		4B4A69EA24F1425400F6D9D6 /* archdep_is_windows_nt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = archdep_is_windows_nt.h; sourceTree = "<group>"; };
+		4B4A69EB24F1425400F6D9D6 /* coproc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = coproc.c; sourceTree = "<group>"; };
 		4B528169249E0A320023F453 /* ConnectorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectorType.swift; sourceTree = "<group>"; };
 		4B52816B249E442D0023F453 /* Port.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Port.swift; sourceTree = "<group>"; };
 		4B540E9724A674E100F6925B /* VicePlus4.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = VicePlus4.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -5448,7 +5500,6 @@
 				4B49573E24C46A2C0074A053 /* libvice-samplerdrv.a in Frameworks */,
 				4B49574124C46A2C0074A053 /* libvice-sounddrv.a in Frameworks */,
 				4B49573B24C46A2C0074A053 /* libvice-mididrv.a in Frameworks */,
-				4B49574024C46A2C0074A053 /* libvice-socketdrv.a in Frameworks */,
 				4B49573824C46A2C0074A053 /* libvice-hwsiddrv.a in Frameworks */,
 				4B49573924C46A2C0074A053 /* libvice-iodrv.a in Frameworks */,
 				4B49573724C46A2C0074A053 /* libvice-gfxoutputdrv.a in Frameworks */,
@@ -5518,7 +5569,6 @@
 				4B540F3824A9B97B00F6925B /* libvice-rs232drv.a in Frameworks */,
 				4B540F3924A9B97B00F6925B /* libvice-samplerdrv.a in Frameworks */,
 				4B540F3A24A9B97B00F6925B /* libvice-serial.a in Frameworks */,
-				4B540F3B24A9B97B00F6925B /* libvice-socketdrv.a in Frameworks */,
 				4B540F3C24A9B97B00F6925B /* libvice-sounddrv.a in Frameworks */,
 				4B540F3D24A9B97B00F6925B /* libvice-tape.a in Frameworks */,
 				4B540F1B24A9B89B00F6925B /* libvice-archdep.a in Frameworks */,
@@ -5660,7 +5710,6 @@
 				4B5412F824AB9A5D00F6925B /* libvice-rs232drv.a in Frameworks */,
 				4B5412F924AB9A5D00F6925B /* libvice-samplerdrv.a in Frameworks */,
 				4B5412FA24AB9A5D00F6925B /* libvice-serial.a in Frameworks */,
-				4B5412FB24AB9A5E00F6925B /* libvice-socketdrv.a in Frameworks */,
 				4B5412FC24AB9A5E00F6925B /* libvice-sounddrv.a in Frameworks */,
 				4B5412FD24AB9A5E00F6925B /* libvice-tape.a in Frameworks */,
 				4B5412E724AB991200F6925B /* libvice-diag.a in Frameworks */,
@@ -5710,7 +5759,6 @@
 				4B68FF75249918DD00A76E57 /* libvice-rs232drv.a in Frameworks */,
 				4B68FF76249918DD00A76E57 /* libvice-samplerdrv.a in Frameworks */,
 				4B68FF77249918DD00A76E57 /* libvice-serial.a in Frameworks */,
-				4B68FF78249918DD00A76E57 /* libvice-socketdrv.a in Frameworks */,
 				4B68FF79249918DD00A76E57 /* libvice-tape.a in Frameworks */,
 				4B68FD702498EE3E00A76E57 /* libvice-archdep.a in Frameworks */,
 				4B68FD712498EE3E00A76E57 /* libvice-c64commoncart.a in Frameworks */,
@@ -7611,8 +7659,6 @@
 				4B3FA9EC21D7AD7000C272C4 /* fsimage-probe.h */,
 				4B3FA9F421D7AD7000C272C4 /* fsimage.c */,
 				4B3FA9EA21D7AD7000C272C4 /* fsimage.h */,
-				4B3FA9F621D7AD7000C272C4 /* rawimage.c */,
-				4B3FA9EE21D7AD7000C272C4 /* rawimage.h */,
 				4B3FA9EF21D7AD7000C272C4 /* realimage.c */,
 				4B3FA9FB21D7AD7000C272C4 /* realimage.h */,
 				4B3FA9F521D7AD7000C272C4 /* x64.h */,
@@ -7696,9 +7742,7 @@
 				4B3FAA4621D7AD7400C272C4 /* lamelib.h */,
 				4B3FAA4121D7AD7400C272C4 /* soundahi.c */,
 				4B3FAA3F21D7AD7400C272C4 /* soundaiff.c */,
-				4B3FAA4D21D7AD7400C272C4 /* soundaix.c */,
 				4B3FAA5221D7AD7400C272C4 /* soundalsa.c */,
-				4B3FAA5521D7AD7400C272C4 /* soundarts.c */,
 				4B3FAA3D21D7AD7400C272C4 /* soundbeos.cc */,
 				4B3FAA4221D7AD7400C272C4 /* soundbsp.cc */,
 				4B3FAA4C21D7AD7400C272C4 /* soundcoreaudio.c */,
@@ -7708,14 +7752,12 @@
 				4B3FAA4721D7AD7400C272C4 /* sounddx.c */,
 				4B3FAA4921D7AD7400C272C4 /* soundflac.c */,
 				4B3FAA4321D7AD7400C272C4 /* soundfs.c */,
-				4B3FAA5021D7AD7400C272C4 /* soundhpux.c */,
 				4B3FAA4A21D7AD7400C272C4 /* soundiff.c */,
 				4B3FAA5721D7AD7400C272C4 /* soundmovie.c */,
 				4B3FAA4E21D7AD7400C272C4 /* soundmovie.h */,
 				4B3FAA5821D7AD7400C272C4 /* soundmp3.c */,
 				4B3FAA3C21D7AD7400C272C4 /* soundpulse.c */,
 				4B3FAA4421D7AD7400C272C4 /* soundsdl.c */,
-				4B3FAA4F21D7AD7400C272C4 /* soundsgi.c */,
 				4B3FAA4821D7AD7400C272C4 /* soundsun.c */,
 				4B3FAA4B21D7AD7400C272C4 /* sounduss.c */,
 				4B3FAA5621D7AD7400C272C4 /* soundvoc.c */,
@@ -7775,8 +7817,10 @@
 		4B3FAA7A21D7AD7700C272C4 /* shared */ = {
 			isa = PBXGroup;
 			children = (
+				4B4A69E224F1425300F6D9D6 /* archdep_amiga.h */,
 				4B3FAA9221D7AD7700C272C4 /* archdep_atexit.c */,
 				4B3FAAB521D7AD7700C272C4 /* archdep_atexit.h */,
+				4B4A69E524F1425300F6D9D6 /* archdep_beos.h */,
 				4B3FAA8821D7AD7700C272C4 /* archdep_boot_path.c */,
 				4B3FAAA121D7AD7700C272C4 /* archdep_boot_path.h */,
 				4B3FAAA821D7AD7700C272C4 /* archdep_cbmfont.c */,
@@ -7787,6 +7831,12 @@
 				4B3FAA8521D7AD7700C272C4 /* archdep_default_autostart_disk_image_file_name.h */,
 				4B3FAAA321D7AD7700C272C4 /* archdep_default_fliplist_file_name.c */,
 				4B3FAA8C21D7AD7700C272C4 /* archdep_default_fliplist_file_name.h */,
+				4B4A69BD24F1424A00F6D9D6 /* archdep_default_hotkey_file_name.c */,
+				4B4A69DE24F1425200F6D9D6 /* archdep_default_hotkey_file_name.h */,
+				4B4A69C324F1424E00F6D9D6 /* archdep_default_joymap_file_name.c */,
+				4B4A69C824F1424F00F6D9D6 /* archdep_default_joymap_file_name.h */,
+				4B4A69CF24F1425000F6D9D6 /* archdep_default_logger.c */,
+				4B4A69D124F1425000F6D9D6 /* archdep_default_logger.h */,
 				4B3FAA9D21D7AD7700C272C4 /* archdep_default_resource_file_name.c */,
 				4B3FAAB821D7AD7700C272C4 /* archdep_default_resource_file_name.h */,
 				4B3FAABE21D7AD7700C272C4 /* archdep_default_rtc_file_name.c */,
@@ -7806,22 +7856,35 @@
 				4B3FAA9421D7AD7700C272C4 /* archdep_filename_parameter.h */,
 				4B3FAA9321D7AD7700C272C4 /* archdep_fix_permissions.c */,
 				4B3FAAB221D7AD7700C272C4 /* archdep_fix_permissions.h */,
+				4B4A69DC24F1425200F6D9D6 /* archdep_get_current_drive.c */,
 				4B3FAA7B21D7AD7700C272C4 /* archdep_get_vice_datadir.c */,
 				4B3FAA9F21D7AD7700C272C4 /* archdep_get_vice_datadir.h */,
 				4B3FAAA021D7AD7700C272C4 /* archdep_get_vice_docsdir.c */,
 				4B3FAA8921D7AD7700C272C4 /* archdep_get_vice_docsdir.h */,
 				4B3FAAB721D7AD7700C272C4 /* archdep_home_path.c */,
 				4B3FAA8F21D7AD7700C272C4 /* archdep_home_path.h */,
+				4B4A69BE24F1424A00F6D9D6 /* archdep_is_haiku.c */,
+				4B4A69CE24F1425000F6D9D6 /* archdep_is_haiku.h */,
+				4B4A69CD24F1424F00F6D9D6 /* archdep_is_windows_nt.c */,
+				4B4A69EA24F1425400F6D9D6 /* archdep_is_windows_nt.h */,
 				4B3FAA9C21D7AD7700C272C4 /* archdep_join_paths.c */,
 				4B3FAABA21D7AD7700C272C4 /* archdep_join_paths.h */,
+				4B4A69C724F1424E00F6D9D6 /* archdep_kbd_get_host_mapping.c */,
+				4B4A69E024F1425200F6D9D6 /* archdep_kbd_get_host_mapping.h */,
+				4B4A69CC24F1424F00F6D9D6 /* archdep_list_drives.c */,
 				4B3FAA9E21D7AD7700C272C4 /* archdep_make_backup_filename.c */,
 				4B3FAA7C21D7AD7700C272C4 /* archdep_make_backup_filename.h */,
 				4B3FAAAC21D7AD7700C272C4 /* archdep_mkdir.c */,
 				4B3FAA7E21D7AD7700C272C4 /* archdep_mkdir.h */,
+				4B4A69D424F1425000F6D9D6 /* archdep_mkstemp_fd.c */,
+				4B4A69C624F1424E00F6D9D6 /* archdep_mkstemp_fd.h */,
 				4B3FAA9721D7AD7700C272C4 /* archdep_open_default_log_file.c */,
 				4B3FAABF21D7AD7700C272C4 /* archdep_open_default_log_file.h */,
+				4B4A69DB24F1425200F6D9D6 /* archdep_os2.h */,
 				4B3FAA9021D7AD7700C272C4 /* archdep_path_is_relative.c */,
 				4B3FAAB421D7AD7700C272C4 /* archdep_path_is_relative.h */,
+				4B4A69C524F1424E00F6D9D6 /* archdep_pref_path.c */,
+				4B4A69E624F1425300F6D9D6 /* archdep_pref_path.h */,
 				4B3FAA8321D7AD7700C272C4 /* archdep_program_name.c */,
 				4B3FAAA721D7AD7700C272C4 /* archdep_program_name.h */,
 				4B3FAA8021D7AD7700C272C4 /* archdep_program_path.c */,
@@ -7830,20 +7893,49 @@
 				4B3FAA9B21D7AD7700C272C4 /* archdep_quote_parameter.h */,
 				4B3FAAA421D7AD7700C272C4 /* archdep_rename.c */,
 				4B3FAA8A21D7AD7700C272C4 /* archdep_rename.h */,
+				4B4A69CB24F1424F00F6D9D6 /* archdep_require_vkbd.c */,
+				4B4A69BB24F1424900F6D9D6 /* archdep_require_vkbd.h */,
 				4B3FAAB621D7AD7700C272C4 /* archdep_rmdir.c */,
 				4B3FAA8E21D7AD7700C272C4 /* archdep_rmdir.h */,
+				4B4A69C424F1424E00F6D9D6 /* archdep_rtc_get_centisecond.c */,
+				4B4A69E124F1425300F6D9D6 /* archdep_rtc_get_centisecond.h */,
 				4B3FAA8621D7AD7700C272C4 /* archdep_sanitize_filename.c */,
 				4B3FAAAA21D7AD7700C272C4 /* archdep_sanitize_filename.h */,
+				4B4A69DF24F1425200F6D9D6 /* archdep_set_current_drive.c */,
+				4B4A69E724F1425400F6D9D6 /* archdep_signals.c */,
+				4B4A69D224F1425000F6D9D6 /* archdep_signals.h */,
+				4B4A69CA24F1424F00F6D9D6 /* archdep_spawn.c */,
+				4B4A69D524F1425100F6D9D6 /* archdep_spawn.h */,
 				4B3FAA8B21D7AD7700C272C4 /* archdep_startup_log_error.c */,
 				4B3FAAA521D7AD7700C272C4 /* archdep_startup_log_error.h */,
 				4B3FAAAD21D7AD7700C272C4 /* archdep_stat.c */,
 				4B3FAA8121D7AD7700C272C4 /* archdep_stat.h */,
 				4B3FAAA221D7AD7700C272C4 /* archdep_tmpnam.c */,
 				4B3FAA8D21D7AD7700C272C4 /* archdep_tmpnam.h */,
+				4B4A69E324F1425300F6D9D6 /* archdep_unix.h */,
 				4B3FAABC21D7AD7700C272C4 /* archdep_user_config_path.c */,
 				4B3FAA9621D7AD7700C272C4 /* archdep_user_config_path.h */,
+				4B4A69D824F1425100F6D9D6 /* archdep_usleep.c */,
+				4B4A69BC24F1424900F6D9D6 /* archdep_usleep.h */,
+				4B4A69D724F1425100F6D9D6 /* archdep_win32.h */,
 				4B3FAAAF21D7AD7700C272C4 /* archdep_xdg.c */,
 				4B3FAA7F21D7AD7700C272C4 /* archdep_xdg.h */,
+				4B4A69C124F1424A00F6D9D6 /* console_amiga.c */,
+				4B4A69C924F1424F00F6D9D6 /* console_none.c */,
+				4B4A69E924F1425400F6D9D6 /* console_unix.c */,
+				4B4A69BF24F1424A00F6D9D6 /* console.c */,
+				4B4A69EB24F1425400F6D9D6 /* coproc.c */,
+				4B4A69E424F1425300F6D9D6 /* coproc.h */,
+				4B4A69D024F1425000F6D9D6 /* dynlib-unix.c */,
+				4B4A69BA24F1424900F6D9D6 /* dynlib-win32.c */,
+				4B4A69C224F1424D00F6D9D6 /* dynlib.c */,
+				4B4A69C024F1424A00F6D9D6 /* rawnetarch_unix.c */,
+				4B4A69D924F1425100F6D9D6 /* rawnetarch_win32.c */,
+				4B4A69D324F1425000F6D9D6 /* rawnetarch.c */,
+				4B4A69E824F1425400F6D9D6 /* rs232-unix-dev.c */,
+				4B4A69DA24F1425100F6D9D6 /* rs232-win32-dev.c */,
+				4B4A69D624F1425100F6D9D6 /* rs232dev.c */,
+				4B4A69DD24F1425200F6D9D6 /* signals.c */,
 			);
 			path = shared;
 			sourceTree = "<group>";
@@ -7952,8 +8044,6 @@
 				4B3FAB8221D7AD8800C272C4 /* render2x4crt.h */,
 				4B3FAB8921D7AD8800C272C4 /* renderscale2x.c */,
 				4B3FAB9A21D7AD8800C272C4 /* renderscale2x.h */,
-				4B3FAB8A21D7AD8800C272C4 /* renderyuv.c */,
-				4B3FABA221D7AD8800C272C4 /* renderyuv.h */,
 				4B3FAB8C21D7AD8800C272C4 /* video-canvas.c */,
 				4B3FABA121D7AD8800C272C4 /* video-canvas.h */,
 				4B3FAB9E21D7AD8800C272C4 /* video-cmdline-options.c */,
@@ -12922,7 +13012,6 @@
 				4B54132324AB9C2700F6925B /* c64-resources.c in Sources */,
 				4B54132E24AB9C2800F6925B /* c64fastiec.c in Sources */,
 				4B54131524AB9B0500F6925B /* video-sound.c in Sources */,
-				4B54131624AB9B0500F6925B /* renderyuv.c in Sources */,
 				4B54133424AB9C2800F6925B /* c64memlimit.c in Sources */,
 				4B54131724AB9B0500F6925B /* render1x2.c in Sources */,
 				4B54131824AB9B0500F6925B /* render2x4crt.c in Sources */,
@@ -13275,9 +13364,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B4A69FF24F1436800F6D9D6 /* rawnetarch.c in Sources */,
+				4B4A69F324F142D500F6D9D6 /* archdep_list_drives.c in Sources */,
+				4B4A69F224F142C700F6D9D6 /* archdep_kbd_get_host_mapping.c in Sources */,
+				4B4A69F024F142AA00F6D9D6 /* archdep_is_haiku.c in Sources */,
+				4B4A69F124F142AA00F6D9D6 /* archdep_is_windows_nt.c in Sources */,
+				4B4A69EF24F1429C00F6D9D6 /* archdep_get_current_drive.c in Sources */,
+				4B4A69EE24F1429200F6D9D6 /* archdep_default_logger.c in Sources */,
+				4B4A69ED24F1428700F6D9D6 /* archdep_default_joymap_file_name.c in Sources */,
+				4B4A69FB24F1436800F6D9D6 /* archdep_usleep.c in Sources */,
+				4B4A69FA24F1436800F6D9D6 /* archdep_spawn.c in Sources */,
+				4B4A69FC24F1436800F6D9D6 /* console.c in Sources */,
+				4B4A6A0124F1436800F6D9D6 /* signals.c in Sources */,
+				4B4A69EC24F1427C00F6D9D6 /* archdep_default_hotkey_file_name.c in Sources */,
+				4B4A69FD24F1436800F6D9D6 /* coproc.c in Sources */,
 				4B68FFDD2499F4E600A76E57 /* kbd.c in Sources */,
 				4B68FD98249905F900A76E57 /* archdep_filename_parameter.c in Sources */,
 				4B68FD94249905F800A76E57 /* archdep_expand_path.c in Sources */,
+				4B4A69F524F1436800F6D9D6 /* archdep_pref_path.c in Sources */,
 				4B68FD8D249905F800A76E57 /* archdep_boot_path.c in Sources */,
 				4B68FD93249905F800A76E57 /* archdep_default_sysfile_pathlist.c in Sources */,
 				4B68FDA0249905F900A76E57 /* archdep_open_default_log_file.c in Sources */,
@@ -13288,20 +13392,27 @@
 				4B68FDA1249905F900A76E57 /* archdep_path_is_relative.c in Sources */,
 				4B68FD9F249905F900A76E57 /* archdep_mkdir.c in Sources */,
 				4B68FFDE2499F4EA00A76E57 /* uimon.c in Sources */,
+				4B4A69F824F1436800F6D9D6 /* archdep_set_current_drive.c in Sources */,
 				4B68FDA5249905F900A76E57 /* archdep_rename.c in Sources */,
 				4B68FD9E249905F900A76E57 /* archdep_make_backup_filename.c in Sources */,
+				4B4A69F924F1436800F6D9D6 /* archdep_signals.c in Sources */,
 				4B68FD9B249905F900A76E57 /* archdep_get_vice_docsdir.c in Sources */,
 				4B68FD99249905F900A76E57 /* archdep_fix_permissions.c in Sources */,
 				4B68FD90249905F800A76E57 /* archdep_default_autostart_disk_image_file_name.c in Sources */,
+				4B4A6A0024F1436800F6D9D6 /* rs232dev.c in Sources */,
 				4B68FDA2249905F900A76E57 /* archdep_program_name.c in Sources */,
 				4B68FD97249905F900A76E57 /* archdep_file_is_chardev.c in Sources */,
 				4B68FDAA249905F900A76E57 /* archdep_tmpnam.c in Sources */,
+				4B4A69F624F1436800F6D9D6 /* archdep_require_vkbd.c in Sources */,
 				4B68FD92249905F800A76E57 /* archdep_default_resource_file_name.c in Sources */,
 				4B68FDA7249905F900A76E57 /* archdep_sanitize_filename.c in Sources */,
 				4B68FD96249905F800A76E57 /* archdep_file_is_blockdev.c in Sources */,
 				4B68FD9A249905F900A76E57 /* archdep_get_vice_datadir.c in Sources */,
+				4B4A69FE24F1436800F6D9D6 /* dynlib.c in Sources */,
 				4B68FDAC249905F900A76E57 /* archdep_xdg.c in Sources */,
+				4B4A69F724F1436800F6D9D6 /* archdep_rtc_get_centisecond.c in Sources */,
 				4B68FD95249905F800A76E57 /* archdep_extra_title_text.c in Sources */,
+				4B4A69F424F1436800F6D9D6 /* archdep_mkstemp_fd.c in Sources */,
 				4B68FDA6249905F900A76E57 /* archdep_rmdir.c in Sources */,
 				4B68FDAB249905F900A76E57 /* archdep_user_config_path.c in Sources */,
 				4B68FD8E249905F800A76E57 /* archdep_cbmfont.c in Sources */,
@@ -13603,7 +13714,6 @@
 				4B68FE4F249910E400A76E57 /* render2x2.c in Sources */,
 				4B68FE49249910E400A76E57 /* render1x1.c in Sources */,
 				4B68FE60249910E400A76E57 /* video-sound.c in Sources */,
-				4B68FE56249910E400A76E57 /* renderyuv.c in Sources */,
 				4B68FE4D249910E400A76E57 /* render1x2.c in Sources */,
 				4B68FE54249910E400A76E57 /* render2x4crt.c in Sources */,
 				4B68FE51249910E400A76E57 /* render2x2ntsc.c in Sources */,
@@ -13663,7 +13773,6 @@
 				4B68FF01249913D700A76E57 /* diskimage.c in Sources */,
 				4B68FF0A249913D700A76E57 /* realimage.c in Sources */,
 				4B68FF02249913D700A76E57 /* fsimage-check.c in Sources */,
-				4B68FF09249913D700A76E57 /* rawimage.c in Sources */,
 				4B68FF05249913D700A76E57 /* fsimage-gcr.c in Sources */,
 				4B68FF03249913D700A76E57 /* fsimage-create.c in Sources */,
 				4B68FF07249913D700A76E57 /* fsimage-probe.c in Sources */,
@@ -13843,7 +13952,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B68FF642499175D00A76E57 /* socketdrv.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -13960,21 +14068,17 @@
 				4B68002D2499FE6900A76E57 /* soundsun.c in Sources */,
 				4B6800232499FE6900A76E57 /* sounddx.c in Sources */,
 				4B68001D2499FE6900A76E57 /* soundbeos.cc in Sources */,
-				4B68001A2499FE6800A76E57 /* soundaix.c in Sources */,
 				4B68001B2499FE6800A76E57 /* soundalsa.c in Sources */,
 				4B68001E2499FE6900A76E57 /* soundbsp.cc in Sources */,
 				4B6800302499FE6900A76E57 /* soundvorbis.c in Sources */,
-				4B6800262499FE6900A76E57 /* soundhpux.c in Sources */,
 				4B68002F2499FE6900A76E57 /* soundvoc.c in Sources */,
 				4B68002B2499FE6900A76E57 /* soundsdl.c in Sources */,
 				4B6800192499FE6800A76E57 /* soundaiff.c in Sources */,
-				4B68001C2499FE6800A76E57 /* soundarts.c in Sources */,
 				4B68001F2499FE6900A76E57 /* soundcoreaudio.c in Sources */,
 				4B6800252499FE6900A76E57 /* soundfs.c in Sources */,
 				4B6800222499FE6900A76E57 /* sounddump.c in Sources */,
 				4B6800272499FE6900A76E57 /* soundiff.c in Sources */,
 				4B68002A2499FE6900A76E57 /* soundpulse.c in Sources */,
-				4B68002C2499FE6900A76E57 /* soundsgi.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -14513,6 +14617,8 @@
 					cores/vice/src/c64/cart,
 					cores/vice/src/c64,
 					cores/vice/src/drive,
+					cores/vice/src/rs232drv,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -14545,6 +14651,8 @@
 					cores/vice/src/c64/cart,
 					cores/vice/src/c64,
 					cores/vice/src/drive,
+					cores/vice/src/rs232drv,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -14580,6 +14688,8 @@
 					cores/vice/src/c64/cart,
 					cores/vice/src/c64,
 					cores/vice/src/drive/iec/c64exp,
+					cores/vice/src/arch/shared,
+					cores/vice/src/rs232drv,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -14615,6 +14725,8 @@
 					cores/vice/src/c64/cart,
 					cores/vice/src/c64,
 					cores/vice/src/drive/iec/c64exp,
+					cores/vice/src/arch/shared,
+					cores/vice/src/rs232drv,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -14668,6 +14780,7 @@
 					cores/vice/src,
 					cores/vice/src/arch/ios,
 					cores/vice/src/raster,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -14685,6 +14798,7 @@
 					cores/vice/src,
 					cores/vice/src/arch/ios,
 					cores/vice/src/raster,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -14707,6 +14821,7 @@
 					cores/vice/src/c64,
 					cores/vice/src/joyport,
 					cores/vice/src/raster,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -14729,6 +14844,7 @@
 					cores/vice/src/c64,
 					cores/vice/src/joyport,
 					cores/vice/src/raster,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -14855,6 +14971,8 @@
 					cores/vice/src/core,
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/rs232drv,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -14883,6 +15001,8 @@
 					cores/vice/src/core,
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/rs232drv,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15079,7 +15199,7 @@
 					cores/vice/src/rtc,
 					cores/vice/src/video,
 					cores/vice/src/lib/p64,
-					cores/vice/src/viciivsid,
+					"not-cores/vice/src/viciivsid",
 					cores/vice/src/viciisc,
 					cores/vice/src/userport,
 					cores/vice/src/tape,
@@ -15090,6 +15210,8 @@
 					cores/vice/src/c64/cart,
 					cores/vice/src/c64,
 					cores/vice/src/drive/iec/c64exp,
+					cores/vice/src/rs232drv,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15114,7 +15236,7 @@
 					cores/vice/src/rtc,
 					cores/vice/src/video,
 					cores/vice/src/lib/p64,
-					cores/vice/src/viciivsid,
+					"not-cores/vice/src/viciivsid",
 					cores/vice/src/viciisc,
 					cores/vice/src/userport,
 					cores/vice/src/tape,
@@ -15125,6 +15247,8 @@
 					cores/vice/src/c64/cart,
 					cores/vice/src/c64,
 					cores/vice/src/drive/iec/c64exp,
+					cores/vice/src/rs232drv,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15154,6 +15278,8 @@
 					cores/vice/src/vicii,
 					cores/vice/src/c64,
 					cores/vice/src/drive,
+					cores/vice/src/arch/shared,
+					cores/vice/src/rs232drv,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15179,6 +15305,8 @@
 					cores/vice/src/vicii,
 					cores/vice/src/c64,
 					cores/vice/src/drive,
+					cores/vice/src/arch/shared,
+					cores/vice/src/rs232drv,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15208,6 +15336,8 @@
 					cores/vice/src/vicii,
 					cores/vice/src/c64,
 					cores/vice/src/drive,
+					cores/vice/src/rs232drv,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15233,6 +15363,8 @@
 					cores/vice/src/vicii,
 					cores/vice/src/c64,
 					cores/vice/src/drive,
+					cores/vice/src/rs232drv,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15302,6 +15434,7 @@
 					cores/vice/src/joyport,
 					cores/vice/src/raster,
 					cores/vice/src/lib/p64,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15323,6 +15456,7 @@
 					cores/vice/src/joyport,
 					cores/vice/src/raster,
 					cores/vice/src/lib/p64,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15367,6 +15501,7 @@
 				HEADER_SEARCH_PATHS = (
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15383,6 +15518,7 @@
 				HEADER_SEARCH_PATHS = (
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15649,6 +15785,8 @@
 					cores/vice/src/drive,
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
+					cores/vice/src/rs232drv,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15677,6 +15815,8 @@
 					cores/vice/src/drive,
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
+					cores/vice/src/rs232drv,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15702,6 +15842,8 @@
 					cores/vice/src/c64/cart,
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/rs232drv,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15723,6 +15865,8 @@
 					cores/vice/src/c64/cart,
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/rs232drv,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15808,6 +15952,8 @@
 					cores/vice/src/drive,
 					cores/vice/src/lib/p64,
 					Emulator,
+					cores/vice/src/arch/shared,
+					cores/vice/src/rs232drv,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15829,6 +15975,8 @@
 					cores/vice/src/drive,
 					cores/vice/src/lib/p64,
 					Emulator,
+					cores/vice/src/arch/shared,
+					cores/vice/src/rs232drv,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15851,6 +15999,7 @@
 					cores/vice/src/rtc,
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15869,6 +16018,7 @@
 					cores/vice/src/rtc,
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15898,6 +16048,8 @@
 					cores/vice/src/core,
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/rs232drv,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15923,6 +16075,8 @@
 					cores/vice/src/core,
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/rs232drv,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16063,6 +16217,7 @@
 					cores/vice/src/vdrive,
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16085,6 +16240,7 @@
 					cores/vice/src/vdrive,
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16214,6 +16370,7 @@
 					cores/vice/src/drive,
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16233,6 +16390,7 @@
 					cores/vice/src/drive,
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16254,6 +16412,7 @@
 					cores/vice/src/lib/p64,
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16271,6 +16430,7 @@
 					cores/vice/src/lib/p64,
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16297,6 +16457,7 @@
 					cores/vice/src/vdrive,
 					cores/vice/src/drive,
 					cores/vice/src/arch/unix/readline,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16319,6 +16480,7 @@
 					cores/vice/src/vdrive,
 					cores/vice/src/drive,
 					cores/vice/src/arch/unix/readline,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16382,6 +16544,7 @@
 					cores/vice/src/joyport,
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16399,6 +16562,7 @@
 					cores/vice/src/joyport,
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16497,6 +16661,7 @@
 				HEADER_SEARCH_PATHS = (
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16513,6 +16678,7 @@
 				HEADER_SEARCH_PATHS = (
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16533,6 +16699,7 @@
 				HEADER_SEARCH_PATHS = (
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16549,6 +16716,7 @@
 				HEADER_SEARCH_PATHS = (
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16635,6 +16803,7 @@
 				HEADER_SEARCH_PATHS = (
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16651,6 +16820,7 @@
 				HEADER_SEARCH_PATHS = (
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16672,6 +16842,7 @@
 					cores/vice/src/lib/p64,
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16689,6 +16860,7 @@
 					cores/vice/src/lib/p64,
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16709,6 +16881,7 @@
 				HEADER_SEARCH_PATHS = (
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16725,6 +16898,7 @@
 				HEADER_SEARCH_PATHS = (
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16747,6 +16921,7 @@
 					cores/vice/src/vdrive,
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16765,6 +16940,7 @@
 					cores/vice/src/vdrive,
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16786,6 +16962,7 @@
 					cores/vice/src/sounddrv,
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16803,6 +16980,7 @@
 					cores/vice/src/sounddrv,
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16897,6 +17075,7 @@
 					cores/vice/src/samplerdrv,
 					cores/vice/src/arch/ios,
 					cores/vice/src/joyport,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16917,6 +17096,7 @@
 					cores/vice/src/samplerdrv,
 					cores/vice/src/arch/ios,
 					cores/vice/src/joyport,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16934,7 +17114,10 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				HEADER_SEARCH_PATHS = cores/vice/src;
+				HEADER_SEARCH_PATHS = (
+					cores/vice/src,
+					cores/vice/src/arch/shared,
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16947,7 +17130,10 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
-				HEADER_SEARCH_PATHS = cores/vice/src;
+				HEADER_SEARCH_PATHS = (
+					cores/vice/src,
+					cores/vice/src/arch/shared,
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16968,6 +17154,7 @@
 					cores/vice/src/userport,
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16985,6 +17172,7 @@
 					cores/vice/src/userport,
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -17005,6 +17193,8 @@
 				HEADER_SEARCH_PATHS = (
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
+					cores/vice/src/rs232drv,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -17021,6 +17211,8 @@
 				HEADER_SEARCH_PATHS = (
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
+					cores/vice/src/rs232drv,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -17109,6 +17301,7 @@
 				HEADER_SEARCH_PATHS = (
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -17125,6 +17318,7 @@
 				HEADER_SEARCH_PATHS = (
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -17145,6 +17339,7 @@
 				HEADER_SEARCH_PATHS = (
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -17161,6 +17356,7 @@
 				HEADER_SEARCH_PATHS = (
 					cores/vice/src,
 					cores/vice/src/arch/ios,
+					cores/vice/src/arch/shared,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -17197,8 +17393,9 @@
 					cores/vice/src/plus4,
 					cores/vice/src/monitor,
 					cores/vice/src/drive,
+					"cores/vice/src/lib/linenouse-ng",
+					cores/vice/src/arch/shared,
 					cores/vice/src/c64,
-					cores/vice/src/arch/unix/readline,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -17231,8 +17428,9 @@
 					cores/vice/src/plus4,
 					cores/vice/src/monitor,
 					cores/vice/src/drive,
+					"cores/vice/src/lib/linenouse-ng",
+					cores/vice/src/arch/shared,
 					cores/vice/src/c64,
-					cores/vice/src/arch/unix/readline,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";

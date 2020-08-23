@@ -822,18 +822,19 @@ static int magicvoice_io2_dump(void)
 /* ---------------------------------------------------------------------*/
 
 static io_source_t magicvoice_io2_device = {
-    CARTRIDGE_NAME_MAGIC_VOICE,
-    IO_DETACH_CART,
-    NULL,
-    0xdf80, 0xdfff, 0x07,
-    1, /* read is always valid */
-    magicvoice_io2_store,
-    magicvoice_io2_read,
-    magicvoice_io2_peek,
-    magicvoice_io2_dump,
-    CARTRIDGE_MAGIC_VOICE,
-    0,
-    0
+    CARTRIDGE_NAME_MAGIC_VOICE, /* name of the device */
+    IO_DETACH_CART,             /* use cartridge ID to detach the device when involved in a read-collision */
+    IO_DETACH_NO_RESOURCE,      /* does not use a resource for detach */
+    0xdf80, 0xdfff, 0x07,       /* range for the device, regs:$df80-$df87, mirrors:$df88-$dfff */
+    1,                          /* read is always valid */
+    magicvoice_io2_store,       /* store function */
+    NULL,                       /* NO poke function */
+    magicvoice_io2_read,        /* read function */
+    magicvoice_io2_peek,        /* peek function */
+    magicvoice_io2_dump,        /* device state information dump function */
+    CARTRIDGE_MAGIC_VOICE,      /* cartridge ID */
+    IO_PRIO_NORMAL,             /* normal priority, device read needs to be checked for collisions */
+    0                           /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_list_t *magicvoice_io2_list_item = NULL;
@@ -847,8 +848,6 @@ static const export_resource_t export_res = {
 static int magicvoice_sound_machine_init(sound_t *psid, int speed, int cycles_per_sec);
 static void magicvoice_sound_machine_close(sound_t *psid);
 static int magicvoice_sound_machine_calculate_samples(sound_t **psid, int16_t *pbuf, int nr, int sound_output_channels, int sound_chip_channels, int *delta_t);
-static void magicvoice_sound_machine_store(sound_t *psid, uint16_t addr, uint8_t byte);
-static uint8_t magicvoice_sound_machine_read(sound_t *psid, uint16_t addr);
 static void magicvoice_sound_machine_reset(sound_t *psid, CLOCK cpu_clk);
 
 static int magicvoice_sound_machine_cycle_based(void)
@@ -861,17 +860,18 @@ static int magicvoice_sound_machine_channels(void)
     return 1;
 }
 
+/* MagicVoice cartridge sound chip */
 static sound_chip_t magicvoice_sound_chip = {
-    NULL, /* no open */
-    magicvoice_sound_machine_init,
-    magicvoice_sound_machine_close,
-    magicvoice_sound_machine_calculate_samples,
-    magicvoice_sound_machine_store,
-    magicvoice_sound_machine_read,
-    magicvoice_sound_machine_reset,
-    magicvoice_sound_machine_cycle_based,
-    magicvoice_sound_machine_channels,
-    0 /* chip enabled */
+    NULL,                                       /* NO sound chip open function */ 
+    magicvoice_sound_machine_init,              /* sound chip init function */
+    magicvoice_sound_machine_close,             /* sound chip close function */
+    magicvoice_sound_machine_calculate_samples, /* sound chip calculate samples function */
+    NULL,                                       /* NO sound chip store function */
+    NULL,                                       /* NO sound chip read function */
+    magicvoice_sound_machine_reset,             /* sound chip reset function, currently only used for debug */
+    magicvoice_sound_machine_cycle_based,       /* sound chip 'is_cycle_based()' function, sound chip is NOT cycle based */
+    magicvoice_sound_machine_channels,          /* sound chip 'get_amount_of_channels()' function, sound chip has 1 channel */
+    0                                           /* chip enabled, toggled when sound chip is (de-)activated */
 };
 
 static uint16_t magicvoice_sound_chip_offset = 0;
@@ -1459,19 +1459,6 @@ void magicvoice_reset(void)
 
 /* ---------------------------------------------------------------------*/
 
-/* FIXME: what are these two about anyway ? */
-static uint8_t magicvoice_sound_machine_read(sound_t *psid, uint16_t addr)
-{
-    DBG(("MV: magicvoice_sound_machine_read\n"));
-
-    return 0; /* ? */
-}
-
-static void magicvoice_sound_machine_store(sound_t *psid, uint16_t addr, uint8_t byte)
-{
-    DBG(("MV: magicvoice_sound_machine_store\n"));
-}
-
 /*
     called periodically for every sound fragment that is played
 */
@@ -1525,8 +1512,6 @@ static void magicvoice_sound_machine_close(sound_t *psid)
 /* FIXME: implement snapshot support */
 int magicvoice_snapshot_write_module(snapshot_t *s)
 {
-    return -1;
-#if 0
     snapshot_module_t *m;
 
     m = snapshot_module_create(s, SNAP_MODULE_NAME,
@@ -1535,6 +1520,9 @@ int magicvoice_snapshot_write_module(snapshot_t *s)
         return -1;
     }
 
+    snapshot_set_error(SNAPSHOT_MODULE_NOT_IMPLEMENTED);
+    return -1;
+#if 0
     if (0) {
         snapshot_module_close(m);
         return -1;

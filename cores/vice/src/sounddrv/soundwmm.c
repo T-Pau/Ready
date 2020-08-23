@@ -36,7 +36,7 @@
 
 #include <stdio.h>
 
-#if __GNUC__>2 || (__GNUC__==2 && __GNUC_MINOR__>=91) || defined _MSC_VER || defined __WATCOMC__
+#if __GNUC__>2 || (__GNUC__==2 && __GNUC_MINOR__>=91)
 #include <windows.h>
 #include <mmsystem.h>
 #include <string.h>
@@ -47,7 +47,8 @@
 #include "types.h"
 #include "uiapi.h"
 
-#if !defined(_WIN64) && defined _MSC_VER && _MSC_VER < 1500 && defined WINVER && WINVER < 0x0500 && !defined(WATCOM_COMPILE)
+/* What the hell is this? */
+#if !defined(_WIN64)
 #define DWORD_PTR DWORD
 #endif
 

@@ -83,18 +83,19 @@ static int simon_dump(void)
 /* ---------------------------------------------------------------------*/
 
 static io_source_t simon_device = {
-    CARTRIDGE_NAME_SIMONS_BASIC,
-    IO_DETACH_CART,
-    NULL,
-    0xde00, 0xdeff, 0xff,
-    0, /* read is never valid */
-    simon_io1_store,
-    simon_io1_read,
-    simon_io1_peek,
-    simon_dump,
-    CARTRIDGE_SIMONS_BASIC,
-    0,
-    0
+    CARTRIDGE_NAME_SIMONS_BASIC, /* name of the device */
+    IO_DETACH_CART,              /* use cartridge ID to detach the device when involved in a read-collision */
+    IO_DETACH_NO_RESOURCE,       /* does not use a resource for detach */
+    0xde00, 0xdeff, 0xff,        /* range for the device, address is ignored, reg:$de00, mirrors:$de01-$deff */
+    0,                           /* read is never valid */
+    simon_io1_store,             /* store function */
+    NULL,                        /* NO poke function */
+    simon_io1_read,              /* read function */
+    simon_io1_peek,              /* peek function */
+    simon_dump,                  /* device state information dump function */
+    CARTRIDGE_SIMONS_BASIC,      /* cartridge ID */
+    IO_PRIO_NORMAL,              /* normal priority, device read needs to be checked for collisions */
+    0                            /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_list_t *simon_list_item = NULL;
@@ -213,13 +214,13 @@ int simon_snapshot_read_module(snapshot_t *s)
     }
 
     /* Do not accept versions higher than current */
-    if (vmajor > SNAP_MAJOR || vminor > SNAP_MINOR) {
+    if (snapshot_version_is_bigger(vmajor, vminor, SNAP_MAJOR, SNAP_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }
 
     /* new in 0.1 */
-    if (SNAPVAL(vmajor, vminor, 0, 1)) {
+    if (!snapshot_version_is_smaller(vmajor, vminor, 0, 1)) {
         if (SMR_B_INT(m, &simon_a000) < 0) {
             goto fail;
         }

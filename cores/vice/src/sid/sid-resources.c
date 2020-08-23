@@ -224,7 +224,6 @@ static int set_sid_model(int val, void *param)
         case SID_MODEL_6581:
         case SID_MODEL_8580:
         case SID_MODEL_8580D:
-        case SID_MODEL_6581R4:
 #ifdef HAVE_RESID
         case SID_MODEL_DTVSID:
 #endif
@@ -391,8 +390,13 @@ static const resource_int_t resid_resources_int[] = {
       &sid_resid_8580_passband, set_sid_resid_8580_passband, NULL },
     { "SidResid8580Gain", 97, RES_EVENT_NO, NULL,
       &sid_resid_8580_gain, set_sid_resid_8580_gain, NULL },
+#ifdef HAVE_NEW_8580_FILTER
     { "SidResid8580FilterBias", -3000, RES_EVENT_NO, NULL,
       &sid_resid_8580_filter_bias, set_sid_resid_8580_filter_bias, NULL },
+#else
+    { "SidResid8580FilterBias", 0, RES_EVENT_NO, NULL,
+      &sid_resid_8580_filter_bias, set_sid_resid_8580_filter_bias, NULL },
+#endif
     RESOURCE_INT_LIST_END
 };
 #endif

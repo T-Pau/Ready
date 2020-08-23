@@ -194,9 +194,6 @@ int c64exp_resources_init(void)
 void c64exp_resources_shutdown(void)
 {
     lib_free(profdos_1571_name);
-    profdos_1571_name = NULL;
     lib_free(supercard_name);
-    supercard_name = NULL;
     lib_free(stardos_name);
-    stardos_name = NULL;
 }

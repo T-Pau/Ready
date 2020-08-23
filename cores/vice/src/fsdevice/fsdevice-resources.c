@@ -138,11 +138,7 @@ int fsdevice_resources_init(void)
 void fsdevice_resources_shutdown(void)
 {
     lib_free(fsdevice_dir[0]);
-    fsdevice_dir[0] = NULL;
     lib_free(fsdevice_dir[1]);
-    fsdevice_dir[1] = NULL;
     lib_free(fsdevice_dir[2]);
-    fsdevice_dir[2] = NULL;
     lib_free(fsdevice_dir[3]);
-    fsdevice_dir[3] = NULL;
 }

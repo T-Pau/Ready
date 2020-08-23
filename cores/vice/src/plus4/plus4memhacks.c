@@ -48,6 +48,7 @@ static int set_memory_hack(int val, void *param)
         return 0;
     }
 
+    /* check if new memory hack is a valid one */
     switch (val) {
         case MEMORY_HACK_NONE:
         case MEMORY_HACK_C256K:
@@ -59,6 +60,7 @@ static int set_memory_hack(int val, void *param)
             return -1;
     }
 
+    /* disable active memory hack */
     switch (memory_hack) {
         case MEMORY_HACK_NONE:
             break;
@@ -74,6 +76,7 @@ static int set_memory_hack(int val, void *param)
 
     memory_hack = val;
 
+    /* enable new memory hack */
     switch (memory_hack) {
         case MEMORY_HACK_NONE:
             resources_get_int("RamSize", &ramsize);
@@ -100,6 +103,25 @@ static int set_memory_hack(int val, void *param)
     }
 
     return 0;
+}
+
+int plus4_memory_hacks_ram_inject(uint16_t addr, uint8_t value)
+{
+    switch (memory_hack) {
+        case MEMORY_HACK_C256K:
+            cs256k_ram_inject(addr, value);
+            break;
+        case MEMORY_HACK_H256K:
+        case MEMORY_HACK_H1024K:
+        case MEMORY_HACK_H4096K:
+            h256k_ram_inject(addr, value);
+            break;
+        case MEMORY_HACK_NONE:
+        default:
+            return 0;
+            break;
+    }
+    return 1;
 }
 
 static const resource_int_t resources_int[] = {

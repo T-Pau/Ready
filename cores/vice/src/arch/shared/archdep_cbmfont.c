@@ -25,26 +25,75 @@
  */
 
 #include "vice.h"
+#include "archdep_boot_path.h"
 #include "archdep_defs.h"
-#include "archdep_join_paths.h"
 #include "archdep_get_vice_datadir.h"
+#include "archdep_join_paths.h"
+#include "archdep_stat.h"
 #include "lib.h"
 #include "log.h"
 
 #include "archdep_cbmfont.h"
 
-#ifdef ARCHDEP_OS_UNIX
+
+/** \fn  int archdep_register_cbmfont(void)
+ * \brief    Try to register the CBM font with the OS
+ *
+ * This tries to use fontconfig on Unix, GDI on windows and CoreText on macOS.
+ *
+ * \return    bool as int
+ */
+
+#ifdef ARCHDEP_OS_OSX
+
+# include <CoreText/CTFontManager.h>
+
+int archdep_register_cbmfont(void)
+{
+    char *fontPath;
+    CFStringRef fontPathStringRef;
+    CFURLRef fontUrl;
+    CFArrayRef fontUrls;
+    CFArrayRef errors;
+    unsigned int len;
+    unsigned int isdir;
+
+    fontPath = archdep_join_paths(archdep_boot_path(),
+            "..", "lib", "vice", "common", "CBM.ttf", NULL);
+    if (-1 == archdep_stat(fontPath, &len, &isdir)) {
+        lib_free(fontPath);
+
+        log_error(LOG_ERR, "Failed to find CBM.ttf");
+        return 0;
+    }
+
+    fontPathStringRef = CFStringCreateWithCString(NULL, fontPath, kCFStringEncodingUTF8);
+    fontUrl = CFURLCreateWithFileSystemPath(NULL, fontPathStringRef, kCFURLPOSIXPathStyle, false);
+    fontUrls = CFArrayCreate(NULL, (const void **)&fontUrl, 1, NULL);
+
+    CFRelease(fontPathStringRef);
+
+    if(!CTFontManagerRegisterFontsForURLs(fontUrls, kCTFontManagerScopeProcess, &errors))
+    {
+        log_error(LOG_ERR, "Failed to register font for file: %s", fontPath);
+        CFRelease(fontUrls);
+        CFRelease(fontUrl);
+        lib_free(fontPath);
+        return 0;
+    }
+
+    CFRelease(fontUrls);
+    CFRelease(fontUrl);
+    lib_free(fontPath);
+    return 1;
+}
+
+#elif defined(ARCHDEP_OS_UNIX)
+
 # ifdef HAVE_FONTCONFIG
 
 #  include <fontconfig/fontconfig.h>
 
-
-/** \brief    Try to register the CBM font with the OS
- *
- * This tries to use fontconfig on Unix, and uses GDI on windows.
- *
- * \return    bool as int
- */
 int archdep_register_cbmfont(void)
 {
     FcConfig *fc_config;
@@ -57,7 +106,10 @@ int archdep_register_cbmfont(void)
 
     fc_config = FcConfigGetCurrent();
     datadir = archdep_get_vice_datadir();
-    path = archdep_join_paths(datadir, "..", "fonts", "CBM.ttf", NULL);
+    path = archdep_join_paths(datadir, "CBM.ttf", NULL);
+#if 0
+    printf("Path = '%s'\n", path);
+#endif
     lib_free(datadir);
 
     if (!FcConfigAppFontAddFile(fc_config, (FcChar8 *)path)) {
@@ -88,14 +140,18 @@ int archdep_register_cbmfont(void)
 
 # ifdef ARCHDEP_OS_WINDOWS
 
+/* Make sure AddFontResourceEx prototyped is used in wingdi.h */
+#ifndef _WIN32_WINNT
+#  define _WIN32_WINNT 0x0500
+#else
+#  if (_WIN32_WINNT < 0x0500)
+#    undef _WIN32_WINNT
+#    define _WIN32_WINNT 0x0500
+#  endif
+#endif
+
 #  include "windows.h"
 
-
-/** \brief  Attempt to register the CBM font with the OS's font API
- *
- *
- * \return  bool
- */
 int archdep_register_cbmfont(void)
 {
     char *datadir;

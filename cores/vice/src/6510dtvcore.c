@@ -373,6 +373,7 @@
                 addr = LOAD(0xfffc);                                           \
                 addr |= (LOAD(0xfffd) << 8);                                   \
                 bank_start = bank_limit = 0; /* prevent caching */             \
+                LOCAL_SET_INTERRUPT(1);                                        \
                 JUMP(addr);                                                    \
                 DMA_ON_RESET;                                                  \
             }                                                                  \
@@ -739,32 +740,82 @@
 
 /*
 The result of the ANE opcode is A = ((A | CONST) & X & IMM), with CONST apparently
-being both chip- and temperature dependent.
+being both chip- and temperature dependent. There is also a dependency on the RDY
+line, ie somehow bit4 and bit0 are affected in the cycle when a DMA starts.
 
 The commonly used value for CONST in various documents is 0xee, which is however
 not to be taken for granted (as it is unstable). see here:
 http://visual6502.org/wiki/index.php?title=6502_Opcode_8B_(XAA,_ANE)
 
 as seen in the list, there are several possible values, and its origin is still
-kinda unknown. instead of the commonly used 0xee we use 0xff here, since this
-will make the only known occurance of this opcode in actual code work. see here:
-https://sourceforge.net/tracker/?func=detail&aid=2110948&group_id=223021&atid=1057617
+kinda unknown. instead of the commonly used 0xee we use 0xef here, since this
+appears to work with all known occurances of this opcode in real code:
 
+known occurances of this opcode in actual code are:
+
+- spectipede (original tape), use of ANE is unstable. bits 7,6,5,0 MUST be set
+  in the magic constant (that makes it not work with the common 0xee, but 0xef
+  works)
+- turrican 3 (by smash designs), use of ANE is unstable. bits 6,1,0 MUST be set
+  in the magic constant (that makes it not work with the common 0xee, but 0xef
+  works)
+- the ocean/imagine tape loader (yie ar kung fu, rambo first blood part ii,
+  comic bakery), use of ANE is stable.
+
+also see here:
+
+https://sourceforge.net/tracker/?func=detail&aid=2110948&group_id=223021&atid=1057617
+  
 FIXME: in the unlikely event that other code surfaces that depends on another
 CONST value, it probably has to be made configureable somehow if no value can
 be found that works for both.
+
+FIXME: perhaps we really have to add some randomness to (some) bits
 */
 
+#define ANE_MAGIC       0xef
+#define ANE_RDY_MAGIC   0xee
+
+/* FIXME: perhaps we should make the log level a user setting */
+#if 1
+static int ane_log_level = 1; /* 0: none, 1: unstable only 2: all */
+
+#define ANE_LOGGING(rdy)                                                                    \
+    do {                                                                                    \
+        unsigned int result = ((reg_a_read | (rdy ? ANE_RDY_MAGIC : ANE_MAGIC)) & reg_x & p1); \
+        unsigned int unstablebits = ((reg_a_read ^ 0xff) & (p1 & reg_x));                   \
+        if ((ane_log_level == 2) || ((ane_log_level == 1) && (unstablebits != 0))) {        \
+            if (unstablebits == 0) {                                                        \
+                log_warning(LOG_DEFAULT, "%04x ANE #$%02x ; A=$%02x X=$%02x -> A=$%02x%s",  \
+                    reg_pc, p1, reg_a_read, reg_x, result, rdy ? " (RDY cycle)" : "");      \
+            } else {                                                                        \
+                log_warning(LOG_DEFAULT, "%04x ANE #$%02x ; A=$%02x X=$%02x -> A=$%02x (unstable bits: %c%c%c%c%c%c%c%c)%s", \
+                    reg_pc, p1, reg_a_read, reg_x, result,                                  \
+                    unstablebits & 0x80 ? '*' : '.', unstablebits & 0x40 ? '*' : '.',       \
+                    unstablebits & 0x20 ? '*' : '.', unstablebits & 0x10 ? '*' : '.',       \
+                    unstablebits & 0x08 ? '*' : '.', unstablebits & 0x04 ? '*' : '.',       \
+                    unstablebits & 0x02 ? '*' : '.', unstablebits & 0x01 ? '*' : '.',       \
+                    rdy ? " (RDY cycle)" : ""                                               \
+                    );                                                                      \
+            }                                                                               \
+        }                                                                                   \
+    } while (0)
+#else
+#define ANE_LOGGING(rdy)
+#endif
+    
 #define ANE()                                                       \
     do {                                                            \
         /* Set by main-cpu to signal steal after first fetch */     \
         if (OPINFO_ENABLES_IRQ(LAST_OPCODE_INFO)) {                 \
             /* Remove the signal */                                 \
             LAST_OPCODE_INFO &= ~OPINFO_ENABLES_IRQ_MSK;            \
-            /* TODO emulate the different behaviour */              \
-            reg_a_write = (uint8_t)((reg_a_read | 0xff) & reg_x & p1); \
+            /* TODO: the real behaviour is more complex */          \
+            ANE_LOGGING(1);                                         \
+            reg_a_write = (uint8_t)((reg_a_read | ANE_RDY_MAGIC) & reg_x & p1); \
         } else {                                                    \
-            reg_a_write = (uint8_t)((reg_a_read | 0xff) & reg_x & p1); \
+            ANE_LOGGING(0);                                         \
+            reg_a_write = (uint8_t)((reg_a_read | ANE_MAGIC) & reg_x & p1); \
         }                                                           \
         LOCAL_SET_NZ(reg_a_read);                                   \
         INC_PC(2);                                                  \
@@ -1152,13 +1203,70 @@ be found that works for both.
         INC_PC(1);                          \
     } while (0)
 
-/* Note: this is not always exact, as this opcode can be quite unstable!
-   Moreover, the behavior is different from the one described in 64doc. */
-#define LXA(value, pc_inc)                                             \
-    do {                                                               \
-        reg_a_write = reg_x = ((reg_a_read | 0xee) & ((uint8_t)(value))); \
-        LOCAL_SET_NZ(reg_a_read);                                      \
-        INC_PC(pc_inc);                                                \
+/*
+The result of the LXA opcode is A = X = ((A | CONST) & IMM), with CONST apparently
+being both chip- and temperature dependent. There is also a dependency on the RDY
+line, ie somehow bit4 and bit0 are affected in the cycle when a DMA starts.
+
+The commonly used value for CONST in various documents is 0xee, which is however
+not to be taken for granted (as it is unstable).
+
+FIXME: in the unlikely event that other code surfaces that depends on another
+CONST value, it probably has to be made configureable somehow if no value can
+be found that works for both.
+
+FIXME: perhaps we really have to add some randomness to (some) bits
+*/
+
+#define LXA_MAGIC       0xef
+#define LXA_RDY_MAGIC   0xee
+
+/* FIXME: perhaps we should make the log level a user setting */
+#if 1
+static int lxa_log_level = 1; /* 0: none, 1: unstable only 2: all */
+
+#define LXA_LOGGING(rdy)                                                                    \
+    do {                                                                                    \
+        unsigned int result = (reg_a_read | (rdy ? LXA_RDY_MAGIC : LXA_MAGIC)) & p1;        \
+        unsigned int unstablebits = (reg_a_read ^ 0xff) & p1;                               \
+        if ((lxa_log_level == 2) || ((lxa_log_level == 1) && (unstablebits != 0))) {        \
+            if (unstablebits == 0) {                                                        \
+                log_warning(LOG_DEFAULT, "%04x LAX #$%02x ; A=$%02x -> A=X=$%02x%s",        \
+                    reg_pc, p1, reg_a_read, result, rdy ? " (RDY cycle)" : "");             \
+            } else {                                                                        \
+                log_warning(LOG_DEFAULT, "%04x LAX #$%02x ; A=$%02x -> A=X=$%02x (unstable bits: %c%c%c%c%c%c%c%c)%s", \
+                    reg_pc, p1, reg_a_read, result,                                         \
+                    unstablebits & 0x80 ? '*' : '.', unstablebits & 0x40 ? '*' : '.',       \
+                    unstablebits & 0x20 ? '*' : '.', unstablebits & 0x10 ? '*' : '.',       \
+                    unstablebits & 0x08 ? '*' : '.', unstablebits & 0x04 ? '*' : '.',       \
+                    unstablebits & 0x02 ? '*' : '.', unstablebits & 0x01 ? '*' : '.',       \
+                    rdy ? " (RDY cycle)" : ""                                               \
+                    );                                                                      \
+            }                                                                               \
+        }                                                                                   \
+    } while (0)
+#else
+#define LXA_LOGGING(rdy)
+#endif
+
+#define LXA()                                                       \
+    do {                                                            \
+        /* Set by main-cpu to signal steal after first fetch */     \
+        if (OPINFO_ENABLES_IRQ(LAST_OPCODE_INFO)) {                 \
+            /* Remove the signal */                                 \
+            LAST_OPCODE_INFO &= ~OPINFO_ENABLES_IRQ_MSK;            \
+            /* TODO: the real behaviour is more complex */          \
+            LXA_LOGGING(1);                                         \
+            reg_a_write = reg_x = (uint8_t)((reg_a_read | LXA_RDY_MAGIC) & p1); \
+        } else {                                                    \
+            LXA_LOGGING(0);                                         \
+            reg_a_write = reg_x = (uint8_t)((reg_a_read | LXA_MAGIC) & p1); \
+        }                                                           \
+        LOCAL_SET_NZ(reg_a_read);                                   \
+        INC_PC(2);                                                  \
+        /* Pretend to be NOP #$nn to not trigger the special case   \
+           when cycles are stolen after the second fetch */         \
+        SET_LAST_OPCODE(0x80);                                      \
     } while (0)
 
 #define ORA(get_func, pc_inc)                       \
@@ -2264,7 +2372,7 @@ trap_skipped:
                 break;
 
             case 0xab:          /* LXA #$nn */
-                LXA(p1, 2);
+                LXA();
                 break;
 
             case 0xac:          /* LDY $nnnn */

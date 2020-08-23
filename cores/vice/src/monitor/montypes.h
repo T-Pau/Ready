@@ -100,7 +100,9 @@ enum t_reg_id {
     e_IXL,		/* z80 */
     e_IXH,		/* z80 */
     e_IYL,		/* z80 */
-    e_IYH		/* z80 */
+    e_IYH,		/* z80 */
+    e_Rasterline,	/* Rasterline */
+    e_Cycle	/* Cycle */
 };
 typedef enum t_reg_id REG_ID;
 
@@ -123,7 +125,13 @@ enum t_conditional {
     e_GTE,
     e_LTE,
     e_AND,
-    e_OR
+    e_OR,
+    e_ADD,
+    e_SUB,
+    e_MUL,
+    e_DIV,
+    e_BINARY_AND,
+    e_BINARY_OR
 };
 typedef enum t_conditional CONDITIONAL;
 

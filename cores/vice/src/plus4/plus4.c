@@ -803,7 +803,7 @@ int machine_specific_init(void)
     if (delay == 0) {
         delay = 2; /* default */
     }
-    autostart_init((CLOCK)(delay * PLUS4_PAL_RFSH_PER_SEC * PLUS4_PAL_CYCLES_PER_RFSH), 1, 0, 0xc8, 0xca, -40);
+    autostart_init((CLOCK)(delay * PLUS4_PAL_RFSH_PER_SEC * PLUS4_PAL_CYCLES_PER_RFSH), 1);
 
     /* Initialize the sidcart first */
     sidcart_sound_chip_init();
@@ -1021,12 +1021,20 @@ void machine_change_timing(int timeval, int border_mode)
 int machine_write_snapshot(const char *name, int save_roms, int save_disks,
                            int event_mode)
 {
-    return plus4_snapshot_write(name, save_roms, save_disks, event_mode);
+    int err = plus4_snapshot_write(name, save_roms, save_disks, event_mode);
+    if ((err < 0) && (snapshot_get_error() == SNAPSHOT_NO_ERROR)) {
+        snapshot_set_error(SNAPSHOT_CANNOT_WRITE_SNAPSHOT);
+    }
+    return err;
 }
 
 int machine_read_snapshot(const char *name, int event_mode)
 {
-    return plus4_snapshot_read(name, event_mode);
+    int err = plus4_snapshot_read(name, event_mode);
+    if ((err < 0) && (snapshot_get_error() == SNAPSHOT_NO_ERROR)) {
+        snapshot_set_error(SNAPSHOT_CANNOT_READ_SNAPSHOT);
+    }
+    return err;
 }
 
 /* ------------------------------------------------------------------------- */
@@ -1092,11 +1100,11 @@ const char *machine_get_name(void)
 /* ------------------------------------------------------------------------- */
 
 static userport_port_props_t userport_props = {
-    0, /* NO pa2 pin */
-    0, /* NO pa3 pin */
+    0,    /* port does NOT have the pa2 pin */
+    0,    /* port does NOT have the pa3 pin */
     NULL, /* NO flag pin */
-    0, /* NO pc pin */
-    0  /* NO cnt1, cnt2 or sp pins */
+    0,    /* port does NOT have the pc pin */
+    0     /* port does NOT have the cnt1, cnt2 or sp pins */
 };
 
 int machine_register_userport(void)

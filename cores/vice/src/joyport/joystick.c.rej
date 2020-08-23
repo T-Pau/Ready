@@ -1,0 +1,19 @@
+***************
+*** 534,541 ****
+      joyport_enable_joystick,
+      read_joystick,
+      NULL,               /* no store digital */
+-     NULL,               /* no read potx */
+-     NULL,               /* no read poty */
+      joystick_snapshot_write_module,
+      joystick_snapshot_read_module
+  };
+--- 552,559 ----
+      joyport_enable_joystick,
+      read_joystick,
+      NULL,               /* no store digital */
++     read_potx,
++     read_poty,
+      joystick_snapshot_write_module,
+      joystick_snapshot_read_module
+  };

@@ -265,8 +265,7 @@ int output_text_init_resources(void)
 
 void output_text_shutdown_resources(void)
 {
-    for (int i = 0; i < 3; i++) {
-        lib_free(PrinterDev[i]);
-        PrinterDev[i] = NULL;
-    }
+    lib_free(PrinterDev[0]);
+    lib_free(PrinterDev[1]);
+    lib_free(PrinterDev[2]);
 }

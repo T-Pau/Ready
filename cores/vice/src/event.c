@@ -123,12 +123,12 @@ static int event_image_append(const char *filename, char **mapped_name, int appe
             if (mapped_name != NULL) {
                 if (append == 0) {
                     if (event_image_list_ptr->next->mapped_filename != NULL) {
-                        *mapped_name = lib_stralloc(event_image_list_ptr->next->mapped_filename);
+                        *mapped_name = lib_strdup(event_image_list_ptr->next->mapped_filename);
                     } else {
                         return 1;
                     }
                 } else {
-                    event_image_list_ptr->next->mapped_filename = lib_stralloc(*mapped_name);
+                    event_image_list_ptr->next->mapped_filename = lib_strdup(*mapped_name);
                 }
             }
             return 0;
@@ -140,10 +140,10 @@ static int event_image_append(const char *filename, char **mapped_name, int appe
 
     event_image_list_ptr = event_image_list_ptr->next;
     event_image_list_ptr->next = NULL;
-    event_image_list_ptr->orig_filename = lib_stralloc(filename);
+    event_image_list_ptr->orig_filename = lib_strdup(filename);
     event_image_list_ptr->mapped_filename = NULL;
     if (mapped_name != NULL && append) {
-        event_image_list_ptr->mapped_filename = lib_stralloc(*mapped_name);
+        event_image_list_ptr->mapped_filename = lib_strdup(*mapped_name);
     }
 
     return 1;
@@ -248,7 +248,7 @@ static void event_playback_attach_image(void *data, unsigned int size)
             crc_to_attach = *(uint32_t *)(((char *)data) + 3);
 #endif
             /* looks weird, but crc_to_attach is used in messages */
-            crc_to_attach = crc32_from_le(data + 3);
+            crc_to_attach = crc32_from_le((const uint8_t *)data + 3);
             crc32_to_le(crc_file, crc_to_attach);
 
             while (1) {
@@ -383,7 +383,6 @@ static void next_alarm_set(void)
 
     alarm_set(event_alarm, new_value);
 }
-
 static void next_current_list(void)
 {
     event_list->current = event_list->current->next;
@@ -450,7 +449,8 @@ static void event_alarm_handler(CLOCK offset, void *data)
         case EVENT_OVERFLOW:
             break;
         default:
-            log_error(event_log, "Unknow event type %i.", event_list->current->type);
+            log_error(event_log, "Unknow event type %u.",
+                    event_list->current->type);
     }
 
     if (event_list->current->type != EVENT_LIST_END
@@ -515,7 +515,7 @@ void event_playback_event_list(event_list_state_t *list)
                 resources_set_value_event(current->data, current->size);
                 break;
             default:
-                log_error(event_log, "Unknow event type %i.", current->type);
+                log_error(event_log, "Unknow event type %u.", current->type);
         }
         current = current->next;
     }
@@ -583,7 +583,6 @@ static void destroy_list(void)
 {
     event_clear_list(event_list);
     lib_free(event_list);
-    event_list = NULL;
     event_destroy_image_list();
 }
 
@@ -678,9 +677,11 @@ static void event_record_start_trap(uint16_t addr, void *data)
 {
     switch (event_start_mode) {
         case EVENT_START_MODE_FILE_SAVE:
-            if (machine_write_snapshot(event_snapshot_path(event_start_snapshot),
-                                       1, 1, 0) < 0) {
-                ui_error("Could not create start snapshot file %s.", event_snapshot_path(event_start_snapshot));
+            if (machine_write_snapshot(
+                        event_snapshot_path(event_start_snapshot),
+                        1, 1, 0) < 0) {
+                ui_error("Could not create start snapshot file %s.",
+                        event_snapshot_path(event_start_snapshot));
                 ui_display_recording(0);
                 return;
             }
@@ -692,8 +693,10 @@ static void event_record_start_trap(uint16_t addr, void *data)
             current_timestamp = 0;
             break;
         case EVENT_START_MODE_FILE_LOAD:
-            if (machine_read_snapshot(event_snapshot_path(event_end_snapshot), 1) < 0) {
-                ui_error("Error reading end snapshot file %s.", event_snapshot_path(event_end_snapshot));
+            if (machine_read_snapshot(event_snapshot_path(event_end_snapshot),
+                        1) < 0) {
+                ui_error("Error reading end snapshot file %s.",
+                        event_snapshot_path(event_end_snapshot));
                 return;
             }
             warp_end_list();
@@ -731,6 +734,9 @@ static void event_record_start_trap(uint16_t addr, void *data)
     /* use alarm for timestamps */
     milestone_timestamp_alarm = 0;
     alarm_set(event_alarm, next_timestamp_clk);
+
+    record_active = 1;
+    ui_display_recording(1);
 }
 
 int event_record_start(void)
@@ -748,8 +754,6 @@ int event_record_start(void)
     }
 
     interrupt_maincpu_trigger_trap(event_record_start_trap, (void *)0);
-
-    ui_display_recording(1);
 
     return 0;
 }
@@ -853,7 +857,7 @@ static void event_playback_start_trap(uint16_t addr, void *unused)
                         event_snapshot_path((char *)(&data[1])), 0) < 0
                     && machine_read_snapshot(
                         event_snapshot_path(event_start_snapshot), 0) < 0) {
-                    char *st = lib_stralloc(event_snapshot_path((char *)(&data[1])));
+                    char *st = lib_strdup(event_snapshot_path((char *)(&data[1])));
                     ui_error("Error reading start snapshot file. Tried %s and %s", st, event_snapshot_path(event_start_snapshot));
                     lib_free(st);
                     ui_display_playback(0, NULL);
@@ -1246,11 +1250,8 @@ int event_resources_init(void)
 void event_shutdown(void)
 {
     lib_free(event_start_snapshot);
-    event_start_snapshot = NULL;
     lib_free(event_end_snapshot);
-    event_end_snapshot = NULL;
     lib_free(event_snapshot_dir);
-    event_snapshot_dir = NULL;
     lib_free(event_snapshot_path_str);
     event_snapshot_path_str = NULL;
     destroy_list();

@@ -58,18 +58,19 @@ static void stb_io1_store(uint16_t addr, uint8_t value);
 static int stb_dump(void);
 
 static io_source_t stb_device = {
-    CARTRIDGE_NAME_STRUCTURED_BASIC,
-    IO_DETACH_CART,
-    NULL,
-    0xde00, 0xdeff, 0xff,
-    0, /* read is never valid */
-    stb_io1_store,
-    stb_io1_read,
-    stb_io1_peek,
-    stb_dump,
-    CARTRIDGE_STRUCTURED_BASIC,
-    0,
-    0
+    CARTRIDGE_NAME_STRUCTURED_BASIC, /* name of the device */
+    IO_DETACH_CART,                  /* use cartridge ID to detach the device when involved in a read-collision */
+    IO_DETACH_NO_RESOURCE,           /* does not use a resource for detach */
+    0xde00, 0xdeff, 0x03,            /* range for the device, regs:$de00-$de03, mirrors:$de04-$deff */
+    0,                               /* read is never valid, regs are write only */
+    stb_io1_store,                   /* store function */
+    NULL,                            /* NO poke function */
+    stb_io1_read,                    /* read function */
+    stb_io1_peek,                    /* peek function */
+    stb_dump,                        /* device state information dump function */
+    CARTRIDGE_STRUCTURED_BASIC,      /* cartridge ID */
+    IO_PRIO_NORMAL,                  /* normal priority, device read needs to be checked for collisions */
+    0                                /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_list_t *stb_list_item = NULL;
@@ -256,13 +257,13 @@ int stb_snapshot_read_module(snapshot_t *s)
     }
 
     /* Do not accept versions higher than current */
-    if (vmajor > SNAP_MAJOR || vminor > SNAP_MINOR) {
+    if (snapshot_version_is_bigger(vmajor, vminor, SNAP_MAJOR, SNAP_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }
 
     /* new in 0.1 */
-    if (SNAPVAL(vmajor, vminor, 0, 1)) {
+    if (!snapshot_version_is_smaller(vmajor, vminor, 0, 1)) {
         if (0
             || SMR_B_INT(m, &stb_bank) < 0
             || SMR_B_INT(m, &stb_active) < 0) {

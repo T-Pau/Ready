@@ -59,7 +59,7 @@ extern "C" {
 extern char *strcpy(char *s1, char *s2);
 #endif
 
-#include "sid/sid.h" /* sid_engine_t */
+#include "../sid/sid.h" /* sid_engine_t */
 #include "lib.h"
 #include "log.h"
 #include "resid.h"
@@ -69,7 +69,7 @@ extern char *strcpy(char *s1, char *s2);
 
 } // extern "C"
 
-#include "resid/resid-sid.h"
+#include "resid/sid.h"
 /* resid-dtv/ is used for DTVSID, but the API is the same */
 
 using namespace reSID;
@@ -291,7 +291,7 @@ static void resid_prevent_clk_overflow(sound_t *psid, CLOCK sub)
 
 static char *resid_dump_state(sound_t *psid)
 {
-    return lib_stralloc("");
+    return lib_strdup("");
 }
 
 static void resid_state_read(sound_t *psid, sid_snapshot_state_t *sid_state)

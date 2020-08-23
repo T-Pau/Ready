@@ -46,13 +46,8 @@
 #include <mmsystem.h>
 #endif
 
-#if defined(WATCOM_COMPILE) || defined(__WATCOMC__)
-#define DIRECTSOUND_VERSION 0x0900
-#include <directx/dsound.h>
-#else
 #define DIRECTSOUND_VERSION 0x0500
 #include <dsound.h>
-#endif
 
 #if defined(USE_SDLUI) || defined(USE_SDLUI2)
 #define INCLUDE_SDL_SYSWM_H
@@ -61,6 +56,7 @@
 
 #include "lib.h"
 #include "log.h"
+#include "machine.h"
 #include "sound.h"
 #include "types.h"
 #include "uiapi.h"
@@ -320,8 +316,12 @@ static int dx_init(const char *param, int *speed, int *fragsize, int *fragnr,
             return -1;
         }
 
-        result = IDirectSound_SetCooperativeLevel(ds, ui_get_main_hwnd(),
-                                                  DSSCL_EXCLUSIVE);
+        if (console_mode || video_disabled_mode) {
+            result = IDirectSound_SetCooperativeLevel(ds, GetForegroundWindow() ? GetForegroundWindow() : GetDesktopWindow(), DSSCL_EXCLUSIVE);
+        } else {
+            result = IDirectSound_SetCooperativeLevel(ds, ui_get_main_hwnd(), DSSCL_EXCLUSIVE);
+        }
+        
         if (result != DS_OK) {
             log_error(LOG_DEFAULT, "Cannot set cooperative level:\n%s", ds_error(result));
             return -1;

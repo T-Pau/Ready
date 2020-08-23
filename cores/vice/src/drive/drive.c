@@ -290,11 +290,10 @@ void drive_shutdown(void)
     for (dnr = 0; dnr < DRIVE_NUM; dnr++) {
         lib_free(drive_context[dnr]->drive);
         lib_free(drive_context[dnr]);
-        drive_context[dnr] = NULL;
     }
-    
+
     driverom_shutdown();
-    
+
     rom_loaded = 0;
 }
 
@@ -601,6 +600,9 @@ void drive_set_half_track(int num, int side, drive_t *dptr)
    for `step' are `+1', '+2' and `-1'.  */
 void drive_move_head(int step, drive_t *drive)
 {
+    if ((step < -1) || (step > 1)) {
+        log_warning(drive_log, "ambiguous step count (%d)", step);
+    }
     drive_gcr_data_writeback(drive);
     drive_sound_head(drive->current_half_track, step, drive->mynumber);
     drive_set_half_track(drive->current_half_track + step, drive->side, drive);

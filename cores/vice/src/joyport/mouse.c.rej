@@ -1,0 +1,36 @@
+***************
+*** 691,698 ****
+      joyport_mouse_enable,
+      joyport_mouse_value,
+      NULL,				/* no store digital */
+-     mouse_get_paddle_x,
+-     mouse_get_paddle_y,
+      paddles_write_snapshot,
+      paddles_read_snapshot
+  };
+--- 718,725 ----
+      joyport_mouse_enable,
+      joyport_mouse_value,
+      NULL,				/* no store digital */
++     mouse_get_paddle_absolute_x,
++     mouse_get_paddle_absolute_y,
+      paddles_write_snapshot,
+      paddles_read_snapshot
+  };
+***************
+*** 911,917 ****
+      joyport_mouse_value,
+      NULL,               /* no store digital */
+      joyport_koalapad_pot_x,
+-     mouse_get_paddle_y,
+      koalapad_write_snapshot,
+      koalapad_read_snapshot
+  };
+--- 938,944 ----
+      joyport_mouse_value,
+      NULL,               /* no store digital */
+      joyport_koalapad_pot_x,
++     mouse_get_paddle_absolute_y,
+      koalapad_write_snapshot,
+      koalapad_read_snapshot
+  };

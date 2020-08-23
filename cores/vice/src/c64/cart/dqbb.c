@@ -111,18 +111,19 @@ static void dqbb_io1_store(uint16_t addr, uint8_t byte);
 static int dqbb_dump(void);
 
 static io_source_t dqbb_io1_device = {
-    CARTRIDGE_NAME_DQBB,
-    IO_DETACH_RESOURCE,
-    "DQBB",
-    0xde00, 0xdeff, 0x01,
-    0,
-    dqbb_io1_store,
-    NULL,
-    dqbb_io1_peek,
-    dqbb_dump,
-    CARTRIDGE_DQBB,
-    0,
-    0
+    CARTRIDGE_NAME_DQBB,  /* name of the device */
+    IO_DETACH_RESOURCE,   /* use resource to detach the device when involved in a read-collision */
+    "DQBB",               /* resource to set to '0' */
+    0xde00, 0xdeff, 0xff, /* range for the device, address is ignored, reg:$de00, mirrors: $de01-$deff */
+    0,                    /* read is never valid, device is write only */
+    dqbb_io1_store,       /* store function */
+    NULL,                 /* NO poke function */
+    NULL,                 /* NO read function */
+    dqbb_io1_peek,        /* peek function */
+    dqbb_dump,            /* device state information dump function */
+    CARTRIDGE_DQBB,       /* cartridge ID */
+    IO_PRIO_NORMAL,       /* normal priority, device read needs to be checked for collisions */
+    0                     /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_list_t *dqbb_io1_list_item = NULL;
@@ -538,7 +539,7 @@ int dqbb_snapshot_read_module(snapshot_t *s)
     }
 
     /* Do not accept versions higher than current */
-    if (vmajor > SNAP_MAJOR || vminor > SNAP_MINOR) {
+    if (snapshot_version_is_bigger(vmajor, vminor, SNAP_MAJOR, SNAP_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         snapshot_module_close(m);
         return -1;

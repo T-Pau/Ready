@@ -37,6 +37,7 @@
 #include "archdep.h"
 #include "attach.h"
 #include "autostart.h"
+#include "cartridge.h"
 #include "cmdline.h"
 #include "initcmdline.h"
 #include "ioutil.h"
@@ -123,6 +124,13 @@ static int cmdline_dumpconfig(const char *param, void *extra_param)
 
 static int cmdline_default(const char *param, void *extra_param)
 {
+    /* the cartridge system uses internal state variables so the default cartridge
+       can be unset without changing the attached cartridge and/or attach another
+       cartridge without changing the default. to completely restore the default,
+       which is no default cartridge, and no currently attached cartridge, call
+       the respective functions of the cartridge system here */
+    cartridge_unset_default();
+    cartridge_detach_image(-1);
     return resources_set_defaults();
 }
 
@@ -133,14 +141,19 @@ static int cmdline_chdir(const char *param, void *extra_param)
 
 static int cmdline_limitcycles(const char *param, void *extra_param)
 {
-    maincpu_clk_limit = strtoul(param, NULL, 0);
+    uint64_t clk_limit = strtoull(param, NULL, 0);
+    if (clk_limit > CLOCK_MAX) {
+        fprintf(stderr, "too many cycles, use max %u\n", CLOCK_MAX);
+        return -1;
+    }
+    maincpu_clk_limit = (CLOCK)clk_limit;
     return 0;
 }
 
 static int cmdline_autostart(const char *param, void *extra_param)
 {
     cmdline_free_autostart_string();
-    autostart_string = lib_stralloc(param);
+    autostart_string = lib_strdup(param);
     autostart_mode = AUTOSTART_MODE_RUN;
     return 0;
 }
@@ -148,7 +161,7 @@ static int cmdline_autostart(const char *param, void *extra_param)
 static int cmdline_autoload(const char *param, void *extra_param)
 {
     cmdline_free_autostart_string();
-    autostart_string = lib_stralloc(param);
+    autostart_string = lib_strdup(param);
     autostart_mode = AUTOSTART_MODE_LOAD;
     return 0;
 }
@@ -170,14 +183,14 @@ static int cmdline_attach(const char *param, void *extra_param)
     switch (unit) {
         case 1:
             lib_free(startup_tape_image);
-            startup_tape_image = lib_stralloc(param);
+            startup_tape_image = lib_strdup(param);
             break;
         case 8:
         case 9:
         case 10:
         case 11:
             lib_free(startup_disk_images[unit - 8]);
-            startup_disk_images[unit - 8] = lib_stralloc(param);
+            startup_disk_images[unit - 8] = lib_strdup(param);
             break;
         default:
             archdep_startup_log_error("cmdline_attach(): unexpected unit number %d?!\n", unit);
@@ -299,7 +312,7 @@ int initcmdline_check_args(int argc, char **argv)
 
     /* The last orphan option is the same as `-autostart'.  */
     if ((argc > 1) && (autostart_string == NULL)) {
-        autostart_string = lib_stralloc(argv[1]);
+        autostart_string = lib_strdup(argv[1]);
         autostart_mode = AUTOSTART_MODE_RUN;
         argc--, argv++;
     }

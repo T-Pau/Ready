@@ -33,6 +33,8 @@
 #include "archdep.h"
 #import "ViceThread.h"
 
+static int is_paused;
+
 /** \brief  Pre-initialize the UI before the canvas window gets created
  *
  * \return  0 on success, -1 on failure
@@ -325,13 +327,42 @@ void ui_display_tape_motor_status(int motor) {
 void ui_display_volume(int vol) {
 }
 
-
-/** \brief  Check if emulation is paused
+/** \brief  This should display some 'pause' status indicator on the statusbar
  *
- * \return  nonzero if emulation is paused
+ * \param[in]   flag    pause state
  */
-int ui_emulation_is_paused(void) {
-    return 0;
+void ui_display_paused(int flag)
+{
+    // TODO: implement
+}
+
+
+/** \brief  Get pause active state
+ *
+ * \return  boolean
+ */
+int ui_pause_active(void) {
+    return is_paused;
+}
+
+/** \brief  Pause emulation
+ */
+void ui_pause_enable(void) {
+    if (!ui_pause_active()) {
+        is_paused = 1;
+        ui_display_paused(1);
+    }
+}
+
+
+/** \brief  Unpause emulation
+ */
+void ui_pause_disable(void)
+{
+    if (ui_pause_active()) {
+        is_paused = 0;
+        ui_display_paused(0);
+    }
 }
 
 

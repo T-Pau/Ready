@@ -112,11 +112,7 @@ static void ssi2001_outb(unsigned int addrint, short value)
         }
     } else {
 #ifdef  _M_IX86
-#ifdef WATCOM_COMPILE
-        outp(addr, value);
-#else
         _outp(addr, value);
-#endif
 #endif
     }
 }
@@ -139,11 +135,7 @@ static BYTE ssi2001_inb(unsigned int addrint)
         }
     } else {
 #ifdef  _M_IX86
-#ifdef WATCOM_COMPILE
-        return inp(addr);
-#else
         return _inp(addr);
-#endif
 #endif
     }
     return retval;
@@ -168,24 +160,13 @@ void ssi2001_drv_store(uint16_t addr, uint8_t outval, int chipno)
 
 static HINSTANCE hLib = NULL;
 
-#ifdef _MSC_VER
-#  ifdef _WIN64
-#    define INPOUTDLLNAME "inpoutx64.dll"
-#    define WINIODLLNAME  "winio64.dll"
-#  else
-#    define INPOUTDLLNAME "inpout32.dll"
-#    define WINIODLLNAME  "winio32.dll"
-#    define WINIOOLDNAME  "winio.dll"
-#  endif
+#if defined(__amd64__) || defined(__x86_64__)
+#  define INPOUTDLLNAME "inpoutx64.dll"
+#  define WINIODLLNAME  "winio64.dll"
 #else
-#  if defined(__amd64__) || defined(__x86_64__)
-#    define INPOUTDLLNAME "inpoutx64.dll"
-#    define WINIODLLNAME  "winio64.dll"
-#  else
-#    define INPOUTDLLNAME "inpout32.dll"
-#    define WINIODLLNAME  "winio32.dll"
-#    define WINIOOLDNAME  "winio.dll"
-#  endif
+#  define INPOUTDLLNAME "inpout32.dll"
+#  define WINIODLLNAME  "winio32.dll"
+#  define WINIOOLDNAME  "winio.dll"
 #endif
 
 static int detect_sid(void)

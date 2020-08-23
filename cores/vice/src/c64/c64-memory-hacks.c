@@ -66,11 +66,12 @@ static int set_memory_hack(int value, void *param)
         return 0;
     }
 
-    old_pause_state = ui_emulation_is_paused();
+    old_pause_state = ui_pause_active();
     if (!old_pause_state) {
-        ui_pause_emulation(1);
+        ui_pause_enable();
     }
 
+    /* check if the new memory hack is a valid one */
     switch (value) {
         case MEMORY_HACK_NONE:
         case MEMORY_HACK_C64_256K:
@@ -79,11 +80,12 @@ static int set_memory_hack(int value, void *param)
             break;
         default:
             if (!old_pause_state) {
-                ui_pause_emulation(1);
+                ui_pause_disable();
             }
             return -1;
     }
 
+    /* disable already active memory hack */
     switch (memory_hack) {
         case MEMORY_HACK_C64_256K:
             set_c64_256k_enabled(0, 0);
@@ -99,6 +101,7 @@ static int set_memory_hack(int value, void *param)
             break;
     }
 
+    /* enable new memory hack */
     switch (value) {
         case MEMORY_HACK_C64_256K:
             set_c64_256k_enabled(1, 0);
@@ -113,7 +116,7 @@ static int set_memory_hack(int value, void *param)
             break;
         default:
             if (!old_pause_state) {
-                ui_pause_emulation(1);
+                ui_pause_disable();
             }
             return -1;
             break;
@@ -122,9 +125,29 @@ static int set_memory_hack(int value, void *param)
     memory_hack = value;
 
     if (!old_pause_state) {
-        ui_pause_emulation(1);
+        ui_pause_disable();
     }
     return 0;
+}
+
+int memory_hacks_ram_inject(uint16_t addr, uint8_t value)
+{
+    switch (memory_hack) {
+        case MEMORY_HACK_C64_256K:
+            c64_256k_ram_inject(addr, value);
+            break;
+        case MEMORY_HACK_PLUS60K:
+            plus60k_ram_inject(addr, value);
+            break;
+        case MEMORY_HACK_PLUS256K:
+            plus256k_ram_inject(addr, value);
+            break;
+        case MEMORY_HACK_NONE:
+        default:
+            return 0;
+            break;
+    }
+    return 1;
 }
 
 static const resource_int_t resources_int[] = {
@@ -217,7 +240,7 @@ int memhacks_snapshot_read_modules(struct snapshot_s *s)
     }
 
     /* do not accept higher versions than current */
-    if (vmajor > SNAP_MAJOR || vminor > SNAP_MINOR) {
+    if (snapshot_version_is_bigger(vmajor, vminor, SNAP_MAJOR, SNAP_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }

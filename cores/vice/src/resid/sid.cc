@@ -24,7 +24,7 @@
 #define _ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE 1
 #endif
 
-#include "resid-sid.h"
+#include "sid.h"
 #include <math.h>
 
 #ifndef round

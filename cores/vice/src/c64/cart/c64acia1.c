@@ -38,8 +38,8 @@
 
 /* resource defaults */
 #define MYACIA          "Acia1"
-#define MyDevice        0
-#define MyIrq           IK_IRQ
+#define MyDevice        1
+#define MyIrq           IK_NMI
 
 #define myaciadev       acia1dev
 
@@ -109,18 +109,19 @@ uint8_t aciacart_read(uint16_t addr);
 uint8_t aciacart_peek(uint16_t addr);
 
 static io_source_t acia_device = {
-    CARTRIDGE_NAME_ACIA,
-    IO_DETACH_RESOURCE,
-    "Acia1Enable",
-    0xde00, 0xde07, 0x07,
-    0,
-    acia1_store,
-    aciacart_read,
-    aciacart_peek,
-    NULL, /* TODO: dump */
-    CARTRIDGE_ACIA,
-    0,
-    0
+    CARTRIDGE_NAME_ACIA,  /* name of the device */
+    IO_DETACH_RESOURCE,   /* use resource to detach the device when involved in a read-collision */
+    "Acia1Enable",        /* resource to set to '0' */
+    0xde00, 0xde07, 0x07, /* range for the device, can be changed to other ranges */
+    0,                    /* read validity is determined by the device upon a read */
+    acia1_store,          /* store function */
+    NULL,                 /* NO poke function */
+    aciacart_read,        /* read function */
+    aciacart_peek,        /* peek function */
+    NULL,                 /* TODO: device state information dump function */
+    CARTRIDGE_ACIA,       /* cartridge ID */
+    IO_PRIO_NORMAL,       /* normal priority, device read needs to be checked for collisions */
+    0                     /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_list_t *acia_list_item = NULL;
@@ -222,6 +223,7 @@ static int set_acia_enabled(int value, void *param)
             return -1;
         }
         acia_enabled = 1;
+        acia1_reset();
     } else if ((!val) && (acia_enabled)) {
         acia1_disable();
         acia_enabled = 0;
@@ -292,7 +294,7 @@ static const resource_int_t resources_i[] = {
       &acia_enabled, set_acia_enabled, NULL },
     { "Acia1Irq", MyIrq, RES_EVENT_NO, NULL,
       &acia.irq_res, acia_set_irq, NULL },
-    { "Acia1Mode", ACIA_MODE_NORMAL, RES_EVENT_NO, NULL,
+    { "Acia1Mode", ACIA_MODE_SWIFTLINK, RES_EVENT_NO, NULL,
       &acia.mode, acia_set_mode, NULL },
     { "Acia1Base", 0xffff, RES_EVENT_STRICT, int_to_void_ptr(0xffff),
       &acia_base, set_acia_base, NULL },
@@ -317,7 +319,6 @@ void aciacart_resources_shutdown(void)
 #if defined(HAVE_RS232DEV) || defined(HAVE_RS232NET)
     if (acia_base_list) {
         lib_free(acia_base_list);
-        acia_base_list = NULL;
     }
 #endif
 }
@@ -381,11 +382,11 @@ int aciacart_cmdline_options_init(void)
 {
 #if defined(HAVE_RS232DEV) || defined(HAVE_RS232NET)
     if (machine_class == VICE_MACHINE_C128) {
-        acia_base_list = lib_stralloc("Set the base address of the ACIA cartridge. (0xD700, 0xDE00, 0xDF00)");
+        acia_base_list = lib_strdup("Set the base address of the ACIA cartridge. (0xD700, 0xDE00, 0xDF00)");
     } else if (machine_class == VICE_MACHINE_VIC20) {
-        acia_base_list = lib_stralloc("Set the base address of the ACIA cartridge. (0x9800, 0x9C00)");
+        acia_base_list = lib_strdup("Set the base address of the ACIA cartridge. (0x9800, 0x9C00)");
     } else {
-        acia_base_list = lib_stralloc("Set the base address of the ACIA cartridge. (0xDE00, 0xDF00)");
+        acia_base_list = lib_strdup("Set the base address of the ACIA cartridge. (0xDE00, 0xDF00)");
     }
 
     base_cmdline_options[0].description = acia_base_list;

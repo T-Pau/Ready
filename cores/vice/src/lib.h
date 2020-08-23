@@ -65,9 +65,9 @@ extern int lib_snprintf(char *str, size_t len, const char *fmt, ...);
 extern void *lib_malloc_pinpoint(size_t size, const char *name, unsigned int line);
 extern void *lib_calloc_pinpoint(size_t nmemb, size_t size, const char *name, unsigned int line);
 extern void *lib_realloc_pinpoint(void *p, size_t size, const char *name, unsigned int line);
-extern void lib_free_pinpoint(const void *p, const char *name, unsigned int line);
+extern void lib_free_pinpoint(void *p, const char *name, unsigned int line);
 
-extern char *lib_stralloc_pinpoint(const char *str, const char *name, unsigned int line);
+extern char *lib_strdup_pinpoint(const char *str, const char *name, unsigned int line);
 
 #ifndef COMPILING_LIB_DOT_C
 
@@ -75,7 +75,7 @@ extern char *lib_stralloc_pinpoint(const char *str, const char *name, unsigned i
 #define lib_free(x) (lib_free_pinpoint((x), __FILE__, __LINE__), (x) = NULL)
 #define lib_calloc(x, y) lib_calloc_pinpoint(x, y, __FILE__, __LINE__)
 #define lib_realloc(x, y) lib_realloc_pinpoint(x, y, __FILE__, __LINE__)
-#define lib_stralloc(x) lib_stralloc_pinpoint(x, __FILE__, __LINE__)
+#define lib_strdup(x) lib_strdup_pinpoint(x, __FILE__, __LINE__)
 
 #endif //not defined COMPILING_LIB_DOT_C
 
@@ -96,9 +96,9 @@ extern void lib_FreeMem_pinpoint(void *ptr, unsigned long size, char *name, unsi
 extern void *lib_malloc(size_t size);
 extern void *lib_calloc(size_t nmemb, size_t size);
 extern void *lib_realloc(void *p, size_t size);
-extern void lib_free(const void *ptr);
+extern void lib_free(void *ptr);
 
-extern char *lib_stralloc(const char *str);
+extern char *lib_strdup(const char *str);
 
 #if defined(AMIGA_SUPPORT) || defined(__VBCC__)
 extern void *lib_AllocVec(unsigned long size, unsigned long attributes);

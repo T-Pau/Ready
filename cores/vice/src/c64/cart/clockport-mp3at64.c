@@ -39,6 +39,7 @@
 #ifdef MP3AT64_DEBUG
 #include "log.h"
 #endif
+#include "monitor.h"
 #include "sound.h"
 #include "types.h"
 #include "uiapi.h"
@@ -182,17 +183,18 @@ static int clockport_mp3at64_sound_machine_channels(void)
     return 1;
 }
 
+/* ClockPort MP3@64 sound chip */
 static sound_chip_t clockport_mp3at64_sound_chip = {
-    NULL, /* no open */
-    clockport_mp3at64_sound_machine_init,
-    clockport_mp3at64_sound_machine_close,
-    clockport_mp3at64_sound_machine_calculate_samples,
-    NULL, /* no store */
-    NULL, /* no read */
-    clockport_mp3at64_sound_reset,
-    clockport_mp3at64_sound_machine_cycle_based,
-    clockport_mp3at64_sound_machine_channels,
-    0 /* chip enabled */
+    NULL,                                              /* NO sound chip open function */ 
+    clockport_mp3at64_sound_machine_init,              /* sound chip init function */
+    clockport_mp3at64_sound_machine_close,             /* sound chip close function */
+    clockport_mp3at64_sound_machine_calculate_samples, /* sound chip calculate samples function */
+    NULL,                                              /* NO sound chip store function */
+    NULL,                                              /* NO sound chip read function */
+    clockport_mp3at64_sound_reset,                     /* sound chip reset function */
+    clockport_mp3at64_sound_machine_cycle_based,       /* sound chip 'is_cycle_based()' function, sound chip is NOT cycle based */
+    clockport_mp3at64_sound_machine_channels,          /* sound chip 'get_amount_of_channels()' function, sound chip has 1 channel */
+    0                                                  /* chip enabled, toggled when sound chip is (de-)activated */
 };
 
 static uint16_t clockport_mp3at64_sound_chip_offset = 0;
@@ -695,6 +697,8 @@ static void clockport_mp3at64_reset(void *context)
 static int clockport_mp3at64_dump(void *context)
 {
     /* TODO */
+    /* FIXME: this is incomplete */
+    mon_out("mp3 status: $%02x\n", mp3at64_read_mp3_status());
     return 0;
 }
 
@@ -721,7 +725,7 @@ void clockport_mp3at64_shutdown(void)
     mp3at64_reset();
 }
 
-clockport_device_t *clockport_mp3at64_open_device(char *owner)
+clockport_device_t *clockport_mp3at64_open_device(const char *owner)
 {
     clockport_device_t *retval = NULL;
     if (clockport_mp3at64_sound_chip.chip_enabled) {

@@ -66,18 +66,19 @@ static void h256k_reg_store(uint16_t addr, uint8_t value);
 static int h256k_dump(void);
 
 static io_source_t h256k_device = {
-    "HANNES",
-    IO_DETACH_CART, /* dummy */
-    NULL,           /* dummy */
-    0xfd16, 0xfd16, 1,
-    1, /* read is always valid */
-    h256k_reg_store,
-    h256k_reg_read,
-    NULL, /* no peek */
-    h256k_dump,
-    0, /* dummy (not a cartridge) */
-    IO_PRIO_NORMAL,
-    0
+    "HANNES",             /* name of the device */
+    IO_DETACH_RESOURCE,   /* use resource to detach the device when involved in a read-collision */
+    "MemoryHack",         /* resource to set to '0' */
+    0xfd16, 0xfd16, 0x00, /* range for the device, reg:$fd16 */
+    1,                    /* read is always valid */
+    h256k_reg_store,      /* store function */
+    NULL,                 /* NO poke function */
+    h256k_reg_read,       /* read function */
+    NULL,                 /* TODO: peek function */
+    h256k_dump,           /* chip state information dump function */
+    IO_CART_ID_NONE,      /* not a cartridge */
+    IO_PRIO_NORMAL,       /* normal priority, device read needs to be checked for collisions */
+    0                     /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_list_t *h256k_list_item = NULL;
@@ -222,6 +223,11 @@ void h256k_store(uint16_t addr, uint8_t value)
     }
 }
 
+void h256k_ram_inject(uint16_t addr, uint8_t value)
+{
+    h256k_store(addr, value);
+}
+
 uint8_t h256k_read(uint16_t addr)
 {
     int real_bank;
@@ -253,7 +259,8 @@ uint8_t h256k_read(uint16_t addr)
 
 static int h256k_dump(void)
 {
-    mon_out("RAM at $%04X-$FFFF comes from bank %d\n", (h256k_bound) ? 0x4000 : 0x1000, h256k_bank);
+    mon_out("RAM at $%04X-$FFFF comes from bank %d\n",
+            (h256k_bound) ? 0x4000U : 0x1000U, h256k_bank);
 
     return 0;
 }

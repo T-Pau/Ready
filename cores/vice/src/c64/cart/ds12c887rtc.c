@@ -82,18 +82,19 @@ static void ds12c887rtc_store(uint16_t addr, uint8_t byte);
 static int ds12c887rtc_dump(void);
 
 static io_source_t ds12c887rtc_device = {
-    CARTRIDGE_NAME_DS12C887RTC,
-    IO_DETACH_RESOURCE,
-    "DS12C887RTC",
-    0xde00, 0xde01, 0xff,
-    0,
-    ds12c887rtc_store,
-    ds12c887rtc_read,
-    ds12c887rtc_read,
-    ds12c887rtc_dump,
-    CARTRIDGE_DS12C887RTC,
-    0,
-    0
+    CARTRIDGE_NAME_DS12C887RTC, /* name of the device */
+    IO_DETACH_RESOURCE,         /* use resource to detach the device when involved in a read-collision */
+    "DS12C887RTC",              /* resource to set to '0' */
+    0xde00, 0xde01, 0xff,       /* range for the device, regs: $de00-$de01, range is different for vic20 */
+    0,                          /* read validity is determined by the device upon a read */
+    ds12c887rtc_store,          /* store function */
+    NULL,                       /* NO poke function */
+    ds12c887rtc_read,           /* read function */
+    ds12c887rtc_read,           /* peek function */
+    ds12c887rtc_dump,           /* device state information dump function */
+    CARTRIDGE_DS12C887RTC,      /* cartridge ID */
+    IO_PRIO_NORMAL,             /* normal priority, device read needs to be checked for collisions */
+    0                           /* insertion order, gets filled in by the registration function */
 };
 
 static io_source_list_t *ds12c887rtc_list_item = NULL;
@@ -435,7 +436,7 @@ int ds12c887rtc_snapshot_read_module(snapshot_t *s)
     }
 
     /* Do not accept versions higher than current */
-    if (vmajor > SNAP_MAJOR || vminor > SNAP_MINOR) {
+    if (snapshot_version_is_bigger(vmajor, vminor, SNAP_MAJOR, SNAP_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }

@@ -75,18 +75,19 @@ static void ethernetcart_store(uint16_t io_address, uint8_t byte);
 static int ethernetcart_dump(void);
 
 static io_source_t ethernetcart_device = {
-    CARTRIDGE_NAME_ETHERNETCART,
-    IO_DETACH_RESOURCE,
-    "ETHERNETCART_ACTIVE",
-    0xde00, 0xde0f, 0x0f,
-    0,
-    ethernetcart_store,
-    ethernetcart_read,
-    ethernetcart_peek,
-    ethernetcart_dump,
-    CARTRIDGE_TFE,
-    0,
-    0
+    CARTRIDGE_NAME_ETHERNETCART, /* name of the device */
+    IO_DETACH_RESOURCE,          /* use resource to detach the device when involved in a read-collision */
+    "ETHERNETCART_ACTIVE",       /* resource to set to '0' */
+    0xde00, 0xde0f, 0x0f,        /* range for the device, address start can be changed, range will be different for vic20 */
+    0,                           /* read validity is determined by the device upon a read */
+    ethernetcart_store,          /* store function */
+    NULL,                        /* NO poke function */
+    ethernetcart_read,           /* read function */
+    ethernetcart_peek,           /* peek function */
+    ethernetcart_dump,           /* device state information dump function */
+    CARTRIDGE_TFE,               /* cartridge ID */
+    IO_PRIO_NORMAL,              /* normal priority, device read needs to be checked for collisions */
+    0                            /* insertion order, gets filled in by the registration function */
 };
 
 static export_resource_t export_res = {
@@ -149,6 +150,7 @@ static uint8_t ethernetcart_read(uint16_t io_address)
     if (ethernetcart_mode == ETHERNETCART_MODE_RRNET) {
         if (io_address < 2) {
             return 0;
+            ethernetcart_device.io_source_valid = 0;
         }
         io_address ^= 8;
     }
@@ -182,8 +184,8 @@ static void ethernetcart_store(uint16_t io_address, uint8_t byte)
 static int ethernetcart_dump(void)
 {
     mon_out("CS8900 mapped to $%04x ($%04x-$%04x), Mode: %s.\n",
-            ethernetcart_device.start_address & ~ethernetcart_device.address_mask,
-            ethernetcart_device.start_address + (ethernetcart_mode ? 2 : 0),
+            (unsigned int)(ethernetcart_device.start_address & ~ethernetcart_device.address_mask),
+            ethernetcart_device.start_address + (ethernetcart_mode ? 2U : 0U),
             ethernetcart_device.end_address,
             ethernetcart_mode ? "RR-Net" : "TFE" );
 
@@ -390,7 +392,6 @@ void ethernetcart_resources_shutdown(void)
 {
     if (ethernetcart_address_list) {
         lib_free(ethernetcart_address_list);
-        ethernetcart_address_list = NULL;
     }
     cs8900io_resources_shutdown();
 }
@@ -482,16 +483,16 @@ int ethernetcart_cmdline_options_init(void)
 /* FIXME: implement snapshot support */
 int ethernetcart_snapshot_write_module(snapshot_t *s)
 {
-    return -1;
-#if 0
     snapshot_module_t *m;
 
-    m = snapshot_module_create(s, SNAP_MODULE_NAME,
-                               CART_DUMP_VER_MAJOR, CART_DUMP_VER_MINOR);
+    m = snapshot_module_create(s, SNAP_MODULE_NAME, CART_DUMP_VER_MAJOR, CART_DUMP_VER_MINOR);
     if (m == NULL) {
         return -1;
     }
 
+    snapshot_set_error(SNAPSHOT_MODULE_NOT_IMPLEMENTED);
+    return -1;
+#if 0
     if (0) {
         snapshot_module_close(m);
         return -1;

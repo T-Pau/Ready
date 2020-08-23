@@ -1,10 +1,9 @@
-/*
- * c128mem.c -- Memory handling for the C128 emulator.
+/** \file   c128mem.c
+ * \brief   Memory handling for the C128 emulator
  *
- * Written by
- *  Andreas Boose <viceteam@t-online.de>
- *  Ettore Perazzoli <ettore@comm2000.it>
- *  Marco van den Heuvel <blackystardust68@yahoo.com>
+ * \author  Andreas Boose <viceteam@t-online.de>
+ * \author  Ettore Perazzoli <ettore@comm2000.it>
+ * \author  Marco van den Heuvel <blackystardust68@yahoo.com>
  *
  * Based on the original work in VICE 0.11.0 by
  *  Jouko Valta <jopi@stekt.oulu.fi>
@@ -687,9 +686,6 @@ void mem_read_base_set(unsigned int base, unsigned int index, uint8_t *mem_ptr)
     mem_read_base_tab[base][index] = mem_ptr;
 }
 
-#ifdef _MSC_VER
-#pragma optimize("",off)
-#endif
 
 void mem_initialize_memory(void)
 {
@@ -755,7 +751,7 @@ void mem_initialize_memory(void)
         mem_read_tab[128 + 9][i] = chargen_read;
         mem_read_tab[128 + 10][i] = chargen_read;
         mem_read_tab[128 + 11][i] = chargen_read;
-        mem_read_tab[128 + 25][i] = chargen_read;
+        /*mem_read_tab[128 + 25][i] = chargen_read;*/
         mem_read_tab[128 + 26][i] = chargen_read;
         mem_read_tab[128 + 27][i] = chargen_read;
         mem_read_base_tab[128 + 1][i] = NULL;
@@ -764,7 +760,7 @@ void mem_initialize_memory(void)
         mem_read_base_tab[128 + 9][i] = NULL;
         mem_read_base_tab[128 + 10][i] = NULL;
         mem_read_base_tab[128 + 11][i] = NULL;
-        mem_read_base_tab[128 + 25][i] = NULL;
+        /*mem_read_base_tab[128 + 25][i] = NULL;*/
         mem_read_base_tab[128 + 26][i] = NULL;
         mem_read_base_tab[128 + 27][i] = NULL;
     }
@@ -839,9 +835,6 @@ void mem_initialize_memory(void)
     cartridge_init_config();
 }
 
-#ifdef _MSC_VER
-#pragma optimize("",on)
-#endif
 
 void mem_mmu_translate(unsigned int addr, uint8_t **base, int *start, int *limit)
 {
@@ -891,8 +884,14 @@ void mem_get_basic_text(uint16_t *start, uint16_t *end)
     if (start != NULL) {
         *start = mem_ram[0x2b] | (mem_ram[0x2c] << 8);
     }
-    if (end != NULL) {
-        *end = mem_ram[0x1210] | (mem_ram[0x1211] << 8);
+    if (mmu_is_c64config()) {
+        if (end != NULL) {
+            *end = mem_ram[0x2d] | (mem_ram[0x2e] << 8);
+        }
+    } else {
+        if (end != NULL) {
+            *end = mem_ram[0x1210] | (mem_ram[0x1211] << 8);
+        }
     }
 }
 
@@ -900,8 +899,30 @@ void mem_set_basic_text(uint16_t start, uint16_t end)
 {
     mem_ram[0x2b] = mem_ram[0xac] = start & 0xff;
     mem_ram[0x2c] = mem_ram[0xad] = start >> 8;
-    mem_ram[0x1210] = end & 0xff;
-    mem_ram[0x1211] = end >> 8;
+    if (mmu_is_c64config()) {
+        mem_ram[0x2d] = mem_ram[0x2f] = mem_ram[0x31] = mem_ram[0xae] = end & 0xff;
+        mem_ram[0x2e] = mem_ram[0x30] = mem_ram[0x32] = mem_ram[0xaf] = end >> 8;
+    } else {
+        mem_ram[0x1210] = end & 0xff;
+        mem_ram[0x1211] = end >> 8;
+    }
+}
+
+/* this function should always read from the screen currently used by the kernal
+   for output, normally this does just return system ram - except when the 
+   videoram is not memory mapped.
+   used by autostart to "read" the kernal messages
+*/
+uint8_t mem_read_screen(uint16_t addr)
+{
+    /* we assume in C64 mode the kernal never uses the VDC :) */
+    if (mmu_is_c64config()) {
+        return ram_read(addr);
+    }
+    if (!(mem_ram[215] & 0x80)) {
+        return ram_read(addr);
+    }
+    return vdc_ram_read(addr);
 }
 
 void mem_inject(uint32_t addr, uint8_t value)
@@ -909,6 +930,17 @@ void mem_inject(uint32_t addr, uint8_t value)
     /* this could be altered to handle more that 64 Kb in some
        useful way */
     mem_ram[addr & 0xffff] = value;
+}
+
+/* In banked memory architectures this will always write to the bank that
+   contains the keyboard buffer and "number of keys in buffer", regardless of
+   what the CPU "sees" currently.
+   In all other cases this just writes to the first 64kb block, usually by
+   wrapping to mem_inject().
+*/
+void mem_inject_key(uint16_t addr, uint8_t value)
+{
+    mem_inject(addr, value);
 }
 
 /* ------------------------------------------------------------------------- */
@@ -1174,6 +1206,7 @@ uint8_t mem_bank_read(int bank, uint16_t addr, void *context)
     return mem_ram[addr];
 }
 
+/* used by monitor if sfx off */
 uint8_t mem_bank_peek(int bank, uint16_t addr, void *context)
 {
     switch (bank) {
@@ -1259,6 +1292,12 @@ void mem_bank_write(int bank, uint16_t addr, uint8_t byte, void *context)
     mem_ram[addr] = byte;
 }
 
+/* used by monitor if sfx off */
+void mem_bank_poke(int bank, uint16_t addr, uint8_t byte, void *context)
+{
+    mem_bank_write(bank, addr, byte, context);
+}
+
 static int mem_dump_io(void *context, uint16_t addr)
 {
     if ((addr >= 0xdc00) && (addr <= 0xdc3f)) {
@@ -1297,6 +1336,70 @@ void mem_get_screen_parameter(uint16_t *base, uint8_t *rows, uint8_t *columns, i
         *columns = vdc.regs[1];
         *bank = 9;
     }
+/*    printf("mem_get_screen_parameter (%s) base:%04x rows: %d colums: %d bank: %d\n",
+           mem_ram[215] & 0x80 ? "vdc" : "vicii", *base, *rows, *columns, *bank); */
+}
+
+/* used by autostart to locate and "read" kernal output on the current screen
+ * this function should return whatever the kernal currently uses, regardless
+ * what is currently visible/active in the UI 
+ */
+void mem_get_cursor_parameter(uint16_t *screen_addr, uint8_t *cursor_column, uint8_t *line_length, int *blinking)
+{
+    if (mmu_is_c64config()) {
+        /* VICII in C64 mode */
+        *screen_addr = mem_ram[0xd1] + mem_ram[0xd2] * 256; /* Current Screen Line Address */
+        *cursor_column = mem_ram[0xd3];    /* Cursor Column on Current Line */
+        *line_length = mem_ram[0xd5] + 1;  /* Physical Screen Line Length */
+        /* Cursor Blink enable: 1 = Flash Cursor, 0 = Cursor disabled, -1 = n/a */
+        *blinking = mem_ram[0xcc] ? 0 : 1;
+    } else {
+        if (!(mem_ram[215] & 0x80)) {
+            /* VICII */
+            *screen_addr = mem_ram[0xe0] + mem_ram[0xe1] * 256;
+            *cursor_column = mem_ram[0xec];
+            *line_length = 40;
+            *blinking = mem_ram[0xa27] ? 0 : 1;
+        } else { 
+            /* VDC */
+            /*
+              FIXME: somehow working out the cursor position and
+                     blink state can not be done in the same way
+                     as with the other videochips. the problem is
+                     likely that the vdc cursor is not advanced to
+                     the first column of the next line until
+                     actually some characters are being printed.
+                     
+                 6 ready.
+                 7 load"
+                 8 
+                 9 searching for
+                10 loading
+                11 ready.
+                12 run:
+            */
+            *screen_addr = mem_ram[0xe0] + mem_ram[0xe1] * 256;
+            *cursor_column = vdc.crsrpos - *screen_addr;
+            *line_length = vdc.regs[1];
+#if 1
+            /* FIXME: ugly hack to forward autostart to "searching" */
+            if ((*cursor_column > 4) && (mem_ram[0xeb] == 7)) {
+                *screen_addr += 80 * 2;
+                *cursor_column = 0;
+            }
+#endif
+#if 0
+            /* FIXME: ugly hack to forward to "ready" after "loading" */
+            if ((*cursor_column == 0) && (mem_ram[0xeb] == 11)) {
+                 *screen_addr += 80 * 1;
+            }
+#endif
+            /* *blinking = *cursor_column == 0 ? 1 : 0; */
+            *blinking = ((vdc.regs[10] & 0x60) == 0x20) ? 0 : 1;
+        }
+    }
+/*   printf("mem_get_cursor_parameter (%s) screen_addr:%04x cursor_column: %d line_length: %d blinking: %d\n",
+           mem_ram[215] & 0x80 ? "vdc" : "vicii", *screen_addr, *cursor_column, (int)*line_length, *blinking); */
 }
 
 /* ------------------------------------------------------------------------- */

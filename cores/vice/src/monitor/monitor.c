@@ -1,13 +1,15 @@
+/** \file   monitor.c
+ * \bief    The VICE built-in monitor.
+ *
+ * \author  Daniel Sladic <sladic@eecg.toronto.edu>
+ * \author  Ettore Perazzoli <ettore@comm2000.it>
+ * \author  Andreas Boose <viceteam@t-online.de>
+ * \author  Daniel Kahlin <daniel@kahlin.net>
+ * \author  Thomas Giesel <skoe@directbox.com>
+ * \author  Bas Wassink <b.wassink@ziggo.nl>
+ */
+
 /*
- * monitor.c - The VICE built-in monitor.
- *
- * Written by
- *  Daniel Sladic <sladic@eecg.toronto.edu>
- *  Ettore Perazzoli <ettore@comm2000.it>
- *  Andreas Boose <viceteam@t-online.de>
- *  Daniel Kahlin <daniel@kahlin.net>
- *  Thomas Giesel <skoe@directbox.com>
- *
  * This file is part of VICE, the Versatile Commodore Emulator.
  * See README for copyright notice.
  *
@@ -51,14 +53,11 @@
 #include "datasette.h"
 #include "drive.h"
 
-#ifdef HAVE_FULLSCREEN
-#include "fullscreenarch.h"
-#endif
-
 #include "interrupt.h"
 #include "ioutil.h"
 #include "kbdbuf.h"
 #include "lib.h"
+#include "util.h"
 #include "log.h"
 #include "machine.h"
 #include "machine-video.h"
@@ -240,11 +239,18 @@ static const char *cond_op_string[] = {
     ">=",
     "<=",
     "&&",
-    "||"
+    "||",
+    "+",
+    "-",
+    "*",
+    "/",
+    "&",
+    "|"
 };
 
 const char *mon_memspace_string[] = { "default", "C", "8", "9", "0", "1" };
 
+/* must match order in enum t_reg_id */
 static const char *register_string[] = {
 /* 6502/65c02 */
     "A",
@@ -288,11 +294,31 @@ static const char *register_string[] = {
     "DPR",
     "PBR",
     "DBR",
-    "EMUL",
+    /* "EMUL", */ /* FIXME: not in enum? */
 /* 6809 */
     "D",
     "U",
-    "DP"
+    "DP",
+    
+    "E",    /* 658xx/6309/z80 */
+/* 6309 */
+    "F",
+    "W",
+    "Q",
+    "V",
+    "MD",
+/* z80 */
+    "H",
+    "L",
+    "IXL",
+    "IXH",
+    "IYL",
+    "IYH",
+    
+    /* "CC", */ /* 6x09 */ /* FIXME: same as flags? */
+    
+    "RL",   /* Rasterline */
+    "CY",   /* Cycle in line */
 };
 
 /* Some local helper functions */
@@ -359,7 +385,7 @@ static void monitor_print_cpu_types_supported(MEMSPACE mem)
                     mon_out(" 65816/65802");
                     break;
                 default:
-                    mon_out(" unknown(%d)", ptr->monitor_cpu_type_p->cpu_type);
+                    mon_out(" unknown(%u)", ptr->monitor_cpu_type_p->cpu_type);
                     break;
             }
         }
@@ -634,7 +660,8 @@ const char *mon_get_current_bank_name(MEMSPACE mem)
     main entry point for the monitor to read a value from memory
 
     mem_bank_peek and mem_bank_read are set up in src/drive/drivecpu.c,
-    src/mainc64cpu.c:358, src/mainviccpu.c:237, src/maincpu.c:296
+    src/drive/drivecpu65c02.c, src/mainc64cpu.c, src/mainviccpu.c, 
+    src/maincpu.c, src/main65816cpu.c
 */
 
 uint8_t mon_get_mem_val_ex(MEMSPACE mem, int bank, uint16_t mem_addr)
@@ -670,6 +697,14 @@ void mon_get_mem_block(MEMSPACE mem, uint16_t start, uint16_t end, uint8_t *data
     mon_get_mem_block_ex(mem, mon_interfaces[mem]->current_bank, start, end, data);
 }
 
+/*
+    main entry point for the monitor to write a value to memory
+
+    mem_bank_peek and mem_bank_read are set up in src/drive/drivecpu.c,
+    src/drive/drivecpu65c02.c, src/mainc64cpu.c, src/mainviccpu.c, 
+    src/maincpu.c, src/main65816cpu.c
+*/
+
 void mon_set_mem_val(MEMSPACE mem, uint16_t mem_addr, uint8_t val)
 {
     int bank;
@@ -681,9 +716,12 @@ void mon_set_mem_val(MEMSPACE mem, uint16_t mem_addr, uint8_t val)
             return;
         }
     }
-
-    mon_interfaces[mem]->mem_bank_write(bank, mem_addr, val,
-                                        mon_interfaces[mem]->context);
+    
+    if ((sidefx == 0) && (mon_interfaces[mem]->mem_bank_poke != NULL)) {
+        mon_interfaces[mem]->mem_bank_poke(bank, mem_addr, val, mon_interfaces[mem]->context);
+    } else {
+        mon_interfaces[mem]->mem_bank_write(bank, mem_addr, val, mon_interfaces[mem]->context);
+    }    
 }
 
 /* exit monitor  */
@@ -751,12 +789,12 @@ void mon_print_bin(int val, char on, char off)
 
 static void print_hex(int val)
 {
-    mon_out(val > 0xff ? "$%04x\n" : "$%02x\n", val);
+    mon_out(val > 0xff ? "$%04x\n" : "$%02x\n", (unsigned int)val);
 }
 
 static void print_octal(int val)
 {
-    mon_out(val > 0777 ? "0%06o\n" : "0%03o\n", val);
+    mon_out(val > 0777 ? "0%06o\n" : "0%03o\n", (unsigned int)val);
 }
 
 
@@ -867,9 +905,14 @@ void mon_screenshot_save(const char* filename, int format)
     }
 }
 
+
+/** \brief  Display current working directory
+ */
 void mon_show_pwd(void)
 {
-    mon_out("%s\n", ioutil_current_dir());
+    char *p = ioutil_current_dir();
+    mon_out("%s\n", p);
+    lib_free(p);
 }
 
 void mon_show_dir(const char *path)
@@ -880,7 +923,7 @@ void mon_show_dir(const char *path)
     char *fullname;
 
     if (path) {
-        mpath = (char *)path;
+        mpath = lib_strdup(path);
     } else {
         mpath = ioutil_current_dir();
     }
@@ -889,6 +932,7 @@ void mon_show_dir(const char *path)
     dir = ioutil_opendir(mpath, IOUTIL_OPENDIR_ALL_FILES);
     if (!dir) {
         mon_out("Couldn't open directory.\n");
+        lib_free(mpath);
         return;
     }
 
@@ -906,12 +950,13 @@ void mon_show_dir(const char *path)
             if (isdir) {
                 mon_out("     <dir> %s\n", name);
             } else {
-                mon_out("%10d %s\n", len, name);
+                mon_out("%10u %s\n", len, name);
             }
         } else {
             mon_out("%-20s?????\n", name);
         }
     }
+    lib_free(mpath);
     ioutil_closedir(dir);
 }
 
@@ -1211,23 +1256,55 @@ static int set_keep_monitor_open(int val, void *param)
 }
 #endif
 
+static char *monitorlogfilename = NULL;
+static int monitorlogenabled = 0;
+
+static int set_monitor_log_filename(const char *val, void *param)
+{
+    util_string_set(&monitorlogfilename, val);
+    if (monitorlogenabled) {
+        mon_log_file_close();
+        mon_log_file_open(monitorlogfilename);
+    }
+    return 0;
+}
+
+static int set_monitor_log_enabled(int val, void *param)
+{
+    int old = monitorlogenabled;
+    monitorlogenabled = val ? 1 : 0;
+    
+    if (!old && monitorlogenabled) {
+        mon_log_file_open(monitorlogfilename);
+    }
+    if (old && !monitorlogenabled) {
+        mon_log_file_close();
+    }
+    return 0;
+}
+
+static const resource_string_t resources_string[] = {
+    { "MonitorLogFileName", "monitor.log", RES_EVENT_NO, NULL,
+      &monitorlogfilename, set_monitor_log_filename, (void *)0 },
+    RESOURCE_STRING_LIST_END
+};
+
 static const resource_int_t resources_int[] = {
 #ifdef ARCHDEP_SEPERATE_MONITOR_WINDOW
     { "KeepMonitorOpen", 1, RES_EVENT_NO, NULL,
       &keep_monitor_open, set_keep_monitor_open, NULL },
 #endif
+    { "MonitorLogEnabled", 0, RES_EVENT_NO, NULL,
+      &monitorlogenabled, set_monitor_log_enabled, NULL },
     RESOURCE_INT_LIST_END
 };
 
 int monitor_resources_init(void)
 {
+    if (resources_register_string(resources_string) < 0) {
+        return -1;
+    }
     return resources_register_int(resources_int);
-}
-
-/* FIXME: we should use a resource like MonitorLogFileName */
-static int set_monlog_name(const char *param, void *extra_param)
-{
-    return mon_log_file_open(param);
 }
 
 static const cmdline_option_t cmdline_options[] =
@@ -1235,9 +1312,15 @@ static const cmdline_option_t cmdline_options[] =
     { "-moncommands", CALL_FUNCTION, CMDLINE_ATTRIB_NEED_ARGS,
       set_playback_name, NULL, NULL, NULL,
       "<Name>", "Execute monitor commands from file" },
-    { "-monlog", CALL_FUNCTION, CMDLINE_ATTRIB_NEED_ARGS,
-      set_monlog_name, NULL, NULL, NULL,
-      "<Name>", "Write monitor output also to file" },
+    { "-monlogname", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
+      NULL, NULL, "MonitorLogFileName", NULL,
+      "<Name>", "Set name of monitor log file" },
+    { "-monlog", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
+      NULL, NULL, "MonitorLogEnabled", (resource_value_t)1,
+      NULL, "Enable logging monitor output to a file" },
+    { "+monlog", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
+      NULL, NULL, "MonitorLogEnabled", (resource_value_t)0,
+      NULL, "Disable logging monitor output to a file" },
     { "-initbreak", CALL_FUNCTION, CMDLINE_ATTRIB_NEED_ARGS,
       monitor_set_initial_breakpoint, NULL, NULL, NULL,
       "<value>", "Set an initial breakpoint for the monitor" },
@@ -1421,7 +1504,7 @@ void mon_ioreg_add_list(mem_ioreg_list_t **list, const char *name,
 
 void mon_change_dir(const char *path)
 {
-    if (ioutil_chdir((char*)path) < 0) {
+    if (ioutil_chdir(path) < 0) {
         mon_out("Cannot change to directory `%s':\n", path);
     }
 
@@ -1494,7 +1577,7 @@ void mon_end_recording(void)
 static int set_playback_name(const char *param, void *extra_param)
 {
     if (!playback_name) {
-        playback_name = lib_stralloc(param);
+        playback_name = lib_strdup(param);
         playback = 1;
     }
     return 0;
@@ -1543,7 +1626,7 @@ static void playback_commands(int current_playback)
 void mon_playback_init(const char *filename)
 {
     if (playback < MAX_PLAYBACK) {
-        playback_name = lib_stralloc(filename);
+        playback_name = lib_strdup(filename);
         ++playback;
     } else {
         mon_out("Playback for `%s' failed (recursion > %i).\n", filename, MAX_PLAYBACK);
@@ -1661,7 +1744,7 @@ void mon_add_name_to_symbol_table(MON_ADDR addr, char *name)
     if (old_addr >= 0) {
         if (old_addr != loc) {
             mon_out("Changing address of label %s from $%04x to $%04x\n",
-                    name, old_addr, loc);
+                    name, (unsigned int)old_addr, loc);
         }
         mon_remove_name_from_symbol_table(mem, name);
     }
@@ -1864,9 +1947,11 @@ void mon_print_conditional(cond_node_t *cnode)
             mon_out("%s", register_string[reg_regid(cnode->reg_num)]);
         }
         else if (cnode->banknum >= 0) {
-            mon_out("@:%s:$%04x", mon_get_bank_name_for_bank(default_memspace,cnode->banknum), cnode->value);
+            mon_out("@:%s:$%04x",
+                    mon_get_bank_name_for_bank(default_memspace,cnode->banknum),
+                    (unsigned int)cnode->value);
         } else {
-            mon_out("$%02x", cnode->value);
+            mon_out("$%02x", (unsigned int)cnode->value);
         }
     }
 
@@ -1914,18 +1999,49 @@ int mon_evaluate_conditional(cond_node_t *cnode)
             case e_OR:
                 cnode->value = (value_1 || value_2);
                 break;
+            case e_ADD:
+                cnode->value = (value_1 + value_2);
+                break;
+            case e_SUB:
+                cnode->value = (value_1 - value_2);
+                break;
+            case e_MUL:
+                cnode->value = (value_1 * value_2);
+                break;
+            case e_DIV:
+                if (value_2 == 0) {
+                    log_error(LOG_ERR, "Division by zero in conditional\n");
+                    return 0;                    
+                }
+                cnode->value = (value_1 / value_2);
+                break;
+            case e_BINARY_AND:
+                cnode->value = (value_1 && value_2);
+                break;
+            case e_BINARY_OR:
+                cnode->value = (value_1 || value_2);
+                break;
             default:
                 log_error(LOG_ERR, "Unexpected conditional operator: %d\n",
                           cnode->operation);
                 return 0;
         }
     } else {
-        if (cnode->is_reg) {
+        if (cnode->is_reg && (reg_regid(cnode->reg_num) == e_Rasterline) ) {
+            unsigned int line, cycle;
+            int half_cycle;
+            mon_interfaces[e_comp_space]->get_line_cycle(&line, &cycle, &half_cycle);
+            cnode->value = line;
+        } else if (cnode->is_reg && (reg_regid(cnode->reg_num) == e_Cycle) ) {
+            unsigned int line, cycle;
+            int half_cycle;
+            mon_interfaces[e_comp_space]->get_line_cycle(&line, &cycle, &half_cycle);
+            cnode->value = cycle;
+        } else if (cnode->is_reg) {
             cnode->value = (monitor_cpu_for_memspace[reg_memspace(cnode->reg_num)]->mon_register_get_val)
                                (reg_memspace(cnode->reg_num),
                                reg_regid(cnode->reg_num));
-        }
-        else if(cnode->banknum >= 0) {
+        } else if(cnode->banknum >= 0) {
             MEMSPACE src_mem = e_comp_space;
             uint16_t start = addr_location(cnode->value);
             uint8_t byte1;
@@ -2293,7 +2409,7 @@ static int monitor_process(char *cmd)
             if (!asm_mode) {
                 /* Repeat previous command */
                 lib_free(cmd);
-                cmd = last_cmd ? lib_stralloc(last_cmd) : NULL;
+                cmd = last_cmd ? lib_strdup(last_cmd) : NULL;
             } else {
                 /* Leave asm mode */
             }
@@ -2410,9 +2526,6 @@ void monitor_startup(MEMSPACE mem)
 static void monitor_trap(uint16_t addr, void *unused_data)
 {
     monitor_startup(e_default_space);
-#ifdef HAVE_FULLSCREEN
-    fullscreen_resume();
-#endif
 }
 
 void monitor_startup_trap(void)

@@ -67,6 +67,13 @@ static int set_maincpu_traceflg(int val, void *param)
     return 0;
 }
 
+static int set_iec_traceflg(int val, void *param)
+{
+    debug.iec = val ? 1 : 0;
+
+    return 0;
+}
+
 static int set_drive_traceflg(int val, void *param)
 {
     debug.drivecpu_traceflg[vice_ptr_to_uint(param)] = val ? 1 : 0;
@@ -109,6 +116,8 @@ static const resource_int_t resources_int[] = {
 #ifdef DEBUG
     { "MainCPU_TRACE", 0, RES_EVENT_NO, NULL,
       &debug.maincpu_traceflg, set_maincpu_traceflg, NULL },
+    { "IEC_TRACE", 0, RES_EVENT_NO, NULL,
+      &debug.iec, set_iec_traceflg, NULL },
     { "Drive0CPU_TRACE", 0, RES_EVENT_NO, NULL,
       &debug.drivecpu_traceflg[0], set_drive_traceflg, (void *)0 },
     { "Drive1CPU_TRACE", 0, RES_EVENT_NO, NULL,
@@ -139,6 +148,12 @@ static const cmdline_option_t cmdline_options[] =
     { "+trace_maincpu", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "MainCPU_TRACE", (resource_value_t)0,
       NULL, "Do not trace the main CPU" },
+    { "-trace_iec", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
+      NULL, NULL, "IEC_TRACE", (resource_value_t)1,
+      NULL, "Trace IEC bus activity" },
+    { "+trace_iec", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
+      NULL, NULL, "IEC_TRACE", (resource_value_t)0,
+      NULL, "Do not trace IEC bus activity" },
     { "-trace_drive0", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "Drive0CPU_TRACE", (resource_value_t)1,
       NULL, "Trace the drive0 CPU" },
@@ -227,13 +242,13 @@ void debug_maincpu(uint32_t reg_pc, CLOCK mclk, const char *dis, uint8_t reg_a,
 
                 sprintf(st, ".%04X %02X %02X %8lX %-20s "
                         "%02X%02X%02X%02X", (unsigned int)reg_pc,
-                        RLINE(mclk), RCYCLE(mclk), (long)mclk, dis,
+                        RLINE(mclk), RCYCLE(mclk), (unsigned long)mclk, dis,
                         reg_a, reg_x, reg_y, reg_sp);
                 debug_history_step(st);
                 break;
             }
         case DEBUG_NORMAL:
-            log_debug(".%04X %03i %03i %10ld  %-22s "
+            log_debug(".%04X %03u %03u %10ld  %-22s "
                       "%02x%02x%02x%02x", (unsigned int)reg_pc,
                       RLINE(mclk), RCYCLE(mclk), (long)mclk, dis,
                       reg_a, reg_x, reg_y, reg_sp);
@@ -265,7 +280,7 @@ void debug_main65816cpu(uint32_t reg_pc, CLOCK mclk, const char *dis, uint16_t r
                     small_dis[4] = dis[6];
                     small_dis[5] = dis[7];
                     small_dis[6] = '\0';
-                }  
+                }
             }
 
             log_debug("%02X%04X %ld %04X %04X %04X %s", reg_pbr, (unsigned int)reg_pc,
@@ -279,15 +294,15 @@ void debug_main65816cpu(uint32_t reg_pc, CLOCK mclk, const char *dis, uint16_t r
 
             sprintf(st, ".%02X%04X %02X %02X %8lX %-23s "
                     "%04X %04X %04X %02X", reg_pbr, (unsigned int)reg_pc,
-                    RLINE(mclk), RCYCLE(mclk), (long)mclk, dis,
+                    RLINE(mclk), RCYCLE(mclk), (unsigned long)mclk, dis,
                     reg_c, reg_x, reg_y, reg_sp);
             debug_history_step(st);
             break;
       }
       case DEBUG_NORMAL:
-            log_debug(".%02X%04X %03i %03i %10ld  %-25s "
+            log_debug(".%02X%04X %03u %03u %10ld  %-25s "
                     "%04x %04x %04x %04x", reg_pbr, (unsigned int)reg_pc,
-                    RLINE(mclk), RCYCLE(mclk), (long)mclk, dis,
+                    RLINE(mclk), RCYCLE(mclk),(long)mclk, dis,
                     reg_c, reg_x, reg_y, reg_sp);
             break;
       default:
@@ -327,7 +342,7 @@ static void debug_int(interrupt_cpu_status_t *cs, const char *name,
     unsigned int i;
     char *textout, *texttmp;
 
-    textout = lib_stralloc(name);
+    textout = lib_strdup(name);
 
     for (i = 0; i < cs->num_ints; i++) {
         if (cs->pending_int[i] & type) {

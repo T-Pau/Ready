@@ -231,7 +231,7 @@ void driver_select_shutdown(void)
         lib_free(list);
         list = next;
     }
-    
+
     driver_select_list = NULL;
 }
 

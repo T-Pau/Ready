@@ -77,17 +77,18 @@ static int userport_dac_sound_machine_channels(void)
     return 1;
 }
 
+/* Userport DAC device sound chip */
 static sound_chip_t userport_dac_sound_chip = {
-    NULL, /* no open */
-    userport_dac_sound_machine_init,
-    NULL, /* no close */
-    userport_dac_sound_machine_calculate_samples,
-    userport_dac_sound_machine_store,
-    userport_dac_sound_machine_read,
-    userport_dac_sound_reset,
-    userport_dac_sound_machine_cycle_based,
-    userport_dac_sound_machine_channels,
-    0 /* chip enabled */
+    NULL,                                         /* NO sound chip open function */ 
+    userport_dac_sound_machine_init,              /* sound chip init function */
+    NULL,                                         /* NO sound chip close function */
+    userport_dac_sound_machine_calculate_samples, /* sound chip calculate samples function */
+    userport_dac_sound_machine_store,             /* sound chip store function */
+    userport_dac_sound_machine_read,              /* sound chip read function */
+    userport_dac_sound_reset,                     /* sound chip reset function */
+    userport_dac_sound_machine_cycle_based,       /* sound chip 'is_cycle_based()' function, chip is NOT cycle based */
+    userport_dac_sound_machine_channels,          /* sound chip 'get_amount_of_channels()' function, sound chip has 1 channel */
+    0                                             /* sound chip enabled flag, toggled upon device (de-)activation */
 };
 
 static uint16_t userport_dac_sound_chip_offset = 0;
@@ -105,24 +106,24 @@ static int userport_dac_write_snapshot_module(snapshot_t *s);
 static int userport_dac_read_snapshot_module(snapshot_t *s);
 
 static userport_device_t dac_device = {
-    USERPORT_DEVICE_DAC,
-    "Userport DAC",
-    NULL, /* NO pbx read */
-    userport_dac_store_pbx,
-    NULL, /* NO pa2 read */
-    NULL, /* NO pa2 write */
-    NULL, /* NO pa3 read */
-    NULL, /* NO pa3 write */
-    0, /* NO pc pin needed */
-    NULL, /* NO sp1 write */
-    NULL, /* NO sp1 read */
-    NULL, /* NO sp2 write */
-    NULL, /* NO sp2 read */
-    "UserportDAC",
-    0xff,
-    0,
-    0,
-    0
+    USERPORT_DEVICE_DAC,    /* device id */
+    "Userport DAC",         /* device name */
+    NULL,                   /* NO read pb0-pb7 function */
+    userport_dac_store_pbx, /* store pb0-pb7 function */
+    NULL,                   /* NO read pa2 pin function */
+    NULL,                   /* NO store pa2 pin function */
+    NULL,                   /* NO read pa3 pin function */
+    NULL,                   /* NO store pa3 pin function */
+    0,                      /* pc pin is NOT needed */
+    NULL,                   /* NO store sp1 pin function */
+    NULL,                   /* NO read sp1 pin function */
+    NULL,                   /* NO store sp2 pin function */
+    NULL,                   /* NO read sp2 pin function */
+    "UserportDAC",          /* resource used by the device */
+    0xff,                   /* return value from a read, not used since the device is write only */
+    0,                      /* validity mask of the device, not used since the device is write only */
+    0,                      /* device involved in a read collision, to be filled in by the collision detection system */
+    0                       /* a tag to indicate the order of insertion */
 };
 
 static userport_snapshot_t dac_snapshot = {
@@ -223,7 +224,6 @@ static void userport_dac_sound_machine_store(sound_t *psid, uint16_t addr, uint8
 
 static uint8_t userport_dac_sound_machine_read(sound_t *psid, uint16_t addr)
 {
-    /* FIXME: most likely needs to return 0, but not sure */
     return userport_dac_sound_data;
 }
 
@@ -281,7 +281,7 @@ static int userport_dac_read_snapshot_module(snapshot_t *s)
     }
 
     /* Do not accept versions higher than current */
-    if (major_version > SNAP_MAJOR || minor_version > SNAP_MINOR) {
+    if (snapshot_version_is_bigger(major_version, minor_version, SNAP_MAJOR, SNAP_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }

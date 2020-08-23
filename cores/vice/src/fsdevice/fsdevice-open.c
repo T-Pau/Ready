@@ -85,13 +85,13 @@ static int fsdevice_open_directory(vdrive_t *vdrive, unsigned int secondary,
         } else {
             strcpy(bufinfo[secondary].dirmask, mask);
             lib_free(cmd_parse->parsecmd);
-            cmd_parse->parsecmd = lib_stralloc(fsdevice_get_path(vdrive->unit));
+            cmd_parse->parsecmd = lib_strdup(fsdevice_get_path(vdrive->unit));
         }
     } else {
         bufinfo[secondary].dirmask[0] = '\0';
         if (!*(cmd_parse->parsecmd)) {
             lib_free(cmd_parse->parsecmd);
-            cmd_parse->parsecmd = lib_stralloc(fsdevice_get_path(vdrive->unit));
+            cmd_parse->parsecmd = lib_strdup(fsdevice_get_path(vdrive->unit));
         }
     }
 
@@ -350,7 +350,9 @@ int fsdevice_open(vdrive_t *vdrive, const uint8_t *name, unsigned int length,
         not found" - so it is the best we can do in that case, too.
     */
     if (strlen((const char*)name) != length) {
-        log_message(LOG_DEFAULT, "Fsdevice: Warning - filename '%s' with bogus length '%d'.", cmd_parse.parsecmd, length);
+        log_message(LOG_DEFAULT,
+                "Fsdevice: Warning - filename '%s' with bogus length '%u'.",
+                cmd_parse.parsecmd, length);
         status = CBMDOS_IPE_NOT_FOUND;
         goto out;
     }

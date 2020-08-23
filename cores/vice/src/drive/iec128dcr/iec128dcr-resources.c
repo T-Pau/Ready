@@ -59,5 +59,4 @@ int iec128dcr_resources_init(void)
 void iec128dcr_resources_shutdown(void)
 {
     lib_free(dos_rom_name_1571cr);
-    dos_rom_name_1571cr = NULL;
 }

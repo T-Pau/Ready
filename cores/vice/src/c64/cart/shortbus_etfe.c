@@ -62,18 +62,19 @@ static void shortbus_etfe_store(uint16_t io_address, uint8_t byte);
 static int shortbus_etfe_dump(void);
 
 static io_source_t shortbus_etfe_device = {
-    "Shortbus ETFE",
-    IO_DETACH_RESOURCE,
-    "SBETFE",
-    0xde00, 0xde0f, 0x0f,
-    0,
-    shortbus_etfe_store,
-    shortbus_etfe_read,
-    shortbus_etfe_peek,
-    shortbus_etfe_dump,
-    CARTRIDGE_IDE64,
-    0,
-    0
+    "Shortbus ETFE",      /* name of the device */
+    IO_DETACH_RESOURCE,   /* use resource to detach the device when involved in a read-collision */
+    "SBETFE",             /* resource to set to '0' */
+    0xde00, 0xde0f, 0x0f, /* range for the device, regs:$de00-$de0f */
+    0,                    /* read validity determined by the device upon a read */
+    shortbus_etfe_store,  /* store function */
+    NULL,                 /* NO poke function */
+    shortbus_etfe_read,   /* read function */
+    shortbus_etfe_peek,   /* peek function */
+    shortbus_etfe_dump,   /* device state information dump function */
+    CARTRIDGE_IDE64,      /* cartridge ID */
+    IO_PRIO_NORMAL,       /* normal priority, device read needs to be checked for collisions */
+    0                     /* insertion order, gets filled in by the registration function */
 };
 
 /* current configurations */
@@ -226,16 +227,16 @@ static const cmdline_option_t cmdline_options[] =
     { "-sbetfe", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
       NULL, NULL, "SBETFE", (resource_value_t)1,
       NULL, "Enable the Short Bus ETFE expansion" },
-    { "+sbtfe", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
-      NULL, NULL, "SBTFE", (resource_value_t)0,
+    { "+sbetfe", SET_RESOURCE, CMDLINE_ATTRIB_NONE,
+      NULL, NULL, "SBETFE", (resource_value_t)0,
       NULL, "Disable the Short Bus ETFE expansion" },
     CMDLINE_LIST_END
 };
 
 static cmdline_option_t base_cmdline_options[] =
 {
-    { "-sbtfebase", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
-      NULL, NULL, "SBTFEbase", NULL,
+    { "-sbetfebase", SET_RESOURCE, CMDLINE_ATTRIB_NEED_ARGS,
+      NULL, NULL, "SBETFEbase", NULL,
       "<Base address>", "Base address of the Short Bus ETFE expansion. (56832: $de00, 56848: $de10, 57088: $df00)" },
     CMDLINE_LIST_END
 };
@@ -283,7 +284,7 @@ static void shortbus_etfe_store(uint16_t io_address, uint8_t byte)
 static int shortbus_etfe_dump(void)
 {
     mon_out("CS8900 mapped to $%04x ($%04x-$%04x).\n",
-            shortbus_etfe_device.start_address & ~shortbus_etfe_device.address_mask,
+            (unsigned int)(shortbus_etfe_device.start_address & ~shortbus_etfe_device.address_mask),
             shortbus_etfe_device.start_address,
             shortbus_etfe_device.end_address);
 

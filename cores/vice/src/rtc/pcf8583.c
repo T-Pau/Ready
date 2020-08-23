@@ -40,7 +40,7 @@
  * - 56 x 8 Battery-Backed General-Purpose RAM
  * - 24/12h mode with AM/PM indicator in 12h mode
  * - Clock Halt flag
- * - 240 × 8-bit RAM
+ * - 240 x 8-bit RAM
  * - Clock function with four year calendar
  * - Universal timer with alarm and overflow indication
  * - Programmable alarm, timer, and interrupt function
@@ -147,7 +147,7 @@ rtc_pcf8583_t *pcf8583_init(char *device, int read_bit_shift)
     retval->old_offset = retval->offset;
     memcpy(retval->old_clock_regs, retval->clock_regs, PCF8583_REG_SIZE);
 
-    retval->device = lib_stralloc(device);
+    retval->device = lib_strdup(device);
     retval->state = PCF8583_IDLE;
     retval->sclk_line = 1;
     retval->data_line = 1;
@@ -473,7 +473,8 @@ void pcf8583_set_data_line(rtc_pcf8583_t *context, uint8_t data)
 
 uint8_t pcf8583_read_data_line(rtc_pcf8583_t *context)
 {
-	switch (context->state) {
+
+switch (context->state) {
         case PCF8583_READ_REGS:
             return (context->reg & (1 << (7 - context->bit))) >> (7 - context->bit);
         case PCF8583_READ_REGS_TRAIN:
@@ -612,7 +613,7 @@ int pcf8583_read_snapshot(rtc_pcf8583_t *context, snapshot_t *s)
     }
 
     /* Do not accept versions higher than current */
-    if (vmajor > SNAP_MAJOR || vminor > SNAP_MINOR) {
+    if (snapshot_version_is_bigger(vmajor, vminor, SNAP_MAJOR, SNAP_MINOR)) {
         snapshot_set_error(SNAPSHOT_MODULE_HIGHER_VERSION);
         goto fail;
     }

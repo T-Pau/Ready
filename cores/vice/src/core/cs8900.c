@@ -1610,7 +1610,9 @@ int cs8900_dump(void)
 {
     /* FIXME: this is incomplete */
     mon_out("Link status: %s\n", (GET_PP_16(CS8900_PP_ADDR_SE_LINEST) & 0x80) ? "up" : "no link");
-    mon_out("Package Page Ptr: $%04X (autoincrement %s)\n", cs8900_packetpage_ptr & PP_PTR_ADDR_MASK, (cs8900_packetpage_ptr & PP_PTR_AUTO_INCR_FLAG) != 0 ? "enabled" : "disabled");
+    mon_out("Package Page Ptr: $%04X (autoincrement %s)\n",
+            (unsigned int)(cs8900_packetpage_ptr & PP_PTR_ADDR_MASK),
+            (cs8900_packetpage_ptr & PP_PTR_AUTO_INCR_FLAG) != 0 ? "enabled" : "disabled");
     return 0;
 }
 
@@ -1624,8 +1626,6 @@ int cs8900_dump(void)
 /* FIXME: implement snapshot support */
 int cs8900_snapshot_write_module(snapshot_t *s)
 {
-    return -1;
-#if 0
     snapshot_module_t *m;
 
     m = snapshot_module_create(s, SNAP_MODULE_NAME,
@@ -1633,7 +1633,9 @@ int cs8900_snapshot_write_module(snapshot_t *s)
     if (m == NULL) {
         return -1;
     }
-
+    snapshot_set_error(SNAPSHOT_MODULE_NOT_IMPLEMENTED);
+    return -1;
+#if 0
     if (0) {
         snapshot_module_close(m);
         return -1;
