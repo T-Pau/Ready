@@ -54,7 +54,7 @@ spi_step()
 
 	if (ss && !last_ss) {
 		bit_counter = 0;
-		sdcard_select();
+		sdcard_select(true);
 	}
 	last_ss = ss;
 
@@ -66,7 +66,7 @@ spi_step()
 			static int init_counter = 0;
 			init_counter++;
 			if (init_counter >= 70) {
-				sdcard_select();
+				sdcard_select(true);
 				initialized = true;
 			}
 		}

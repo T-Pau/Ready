@@ -57,10 +57,16 @@ extern bool save_on_exit;
 extern gif_recorder_state_t record_gif;
 extern char *gif_path;
 extern uint8_t keymap;
+extern bool warp_mode;
 
 extern void machine_dump();
 extern void machine_reset();
 extern void machine_paste();
+extern void machine_toggle_warp();
 extern void init_audio();
+
+extern bool video_is_tilemap_address(int addr);
+extern bool video_is_tiledata_address(int addr);
+extern bool video_is_special_address(int addr);
 
 #endif

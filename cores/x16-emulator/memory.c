@@ -4,6 +4,7 @@
 
 #include <sys/types.h>
 #include <string.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include "glue.h"
 #include "via.h"
@@ -11,12 +12,15 @@
 #include "video.h"
 #include "ym2151.h"
 #include "ps2.h"
+#include "cpu/fake6502.h"
 
 uint8_t ram_bank;
 uint8_t rom_bank;
 
 uint8_t *RAM;
 uint8_t ROM[ROM_SIZE];
+
+bool led_status;
 
 #define DEVICE_EMULATOR (0x9fb0)
 
@@ -202,6 +206,7 @@ emu_write(uint8_t reg, uint8_t value)
 		case 3: echo_mode = value; break;
 		case 4: save_on_exit = v; break;
 		case 5: emu_recorder_set((gif_recorder_command_t) value); break;
+		case 15: led_status = v; break;
 		default: printf("WARN: Invalid register %x\n", DEVICE_EMULATOR + reg);
 	}
 }
@@ -221,6 +226,16 @@ emu_read(uint8_t reg, bool debugOn)
 		return save_on_exit ? 1 : 0;
 	} else if (reg == 5) {
 		return record_gif;
+
+	} else if (reg == 8) {
+		return (clockticks6502 >> 0) & 0xff;
+	} else if (reg == 9) {
+		return (clockticks6502 >> 8) & 0xff;
+	} else if (reg == 10) {
+		return (clockticks6502 >> 16) & 0xff;
+	} else if (reg == 11) {
+		return (clockticks6502 >> 24) & 0xff;
+
 	} else if (reg == 13) {
 		return keymap;
 	} else if (reg == 14) {

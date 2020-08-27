@@ -4,12 +4,18 @@
 #ifndef _SD_CARD_H_
 #define _SD_CARD_H_
 #include <inttypes.h>
+#include <stdbool.h>
 #include <SDL.h>
 
 extern SDL_RWops *sdcard_file;
+extern bool sdcard_attached;
+
 extern char *sdcard_dir;
 
-void sdcard_select();
+void sdcard_attach();
+void sdcard_detach();
+
+void sdcard_select(bool select);
 uint8_t sdcard_handle(uint8_t inbyte);
 
 #endif
