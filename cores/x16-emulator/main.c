@@ -220,6 +220,7 @@ machine_reset()
 	via2_init();
 	video_reset();
 	reset6502();
+    io_init();
 }
 
 void
@@ -1009,14 +1010,11 @@ emulator_loop(void *param)
 #endif
 
 #ifdef LOAD_HYPERCALLS
-		if ((pc == 0xffd5 || pc == 0xffd8) && is_kernal() && RAM[FA] == 8 && !sdcard_file) {
-			if (pc == 0xffd5) {
-				LOAD();
-			} else {
-				SAVE();
-			}
-			pc = (RAM[0x100 + sp + 1] | (RAM[0x100 + sp + 2] << 8)) + 1;
-			sp += 2;
+        if ((pc == DOS || (pc >= KERNAL_OPEN && pc <= KERNAL_SAVE)) && is_kernal() && !sdcard_file) {
+            if (IO_CALL()) {
+                pc = (RAM[0x100 + sp + 1] | (RAM[0x100 + sp + 2] << 8)) + 1;
+                sp += 2;
+            }
 		}
 #endif
 

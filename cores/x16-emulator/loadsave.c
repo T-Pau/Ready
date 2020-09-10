@@ -14,11 +14,111 @@
 #include "memory.h"
 #include "video.h"
 #include "rom_symbols.h"
+#include "loadsave.h"
 
 #define MIN(a,b) (((a)<(b))?(a):(b))
 #define MAX(a,b) (((a)>(b))?(a):(b))
 
 char *sdcard_dir;
+
+#define IO_MAX_FILES 16
+
+enum mode {
+    FILE_COMMAND,
+    FILE_CLOSED,
+    FILE_WRITE,
+    FILE_READ,
+};
+
+struct io_file {
+    enum mode mode;
+    uint8_t *data;
+    size_t data_length;
+    size_t data_capacity;
+};
+
+static struct io_file files[IO_MAX_FILES];
+
+static int active_input;
+static int active_output;
+
+static const char *get_filename();
+
+static bool handle_dos();
+static void LOAD();
+static void SAVE();
+
+void io_init() {
+    active_input = -1;
+    active_output = -1;
+    
+    for (int i = 0; i < IO_MAX_FILES; i++) {
+        files[i].mode = FILE_CLOSED;
+        files[i].data = NULL;
+        files[i].data_length = 0;
+        files[i].data_capacity = 0;
+    }
+}
+
+bool IO_CALL() {
+    bool call_handled = false;
+    switch (pc) {
+    case DOS:
+        printf("dos...\n");
+        return handle_dos();
+
+    case KERNAL_CLOSE:
+        printf("CLOSE(%d)\n", a);
+        break;
+        
+    case KERNAL_CHKIN:
+        printf("CHKIN(%d)\n", x);
+        break;
+        
+    case KERNAL_CHKOUT:
+        printf("CHKIN(%d)\n", x);
+        break;
+        
+    case KERNAL_CHRIN:
+        printf("CHRIN()\n");
+        break;
+        
+    case KERNAL_CHROUT:
+        printf("CHROUT()\n");
+        break;
+        
+    case KERNAL_CLRCHN:
+        active_input = -1;
+        active_output = -1;
+        return false;
+        
+    case KERNAL_OPEN:
+        if (RAM[FA] == 8) {
+            printf("OPEN(%d, %d, %d, %s)\n", RAM[LA], RAM[FA], RAM[SA], get_filename());
+            call_handled = true;
+        }
+        break;
+        
+    case KERNAL_LOAD:
+        if (RAM[FA] == 8) {
+            LOAD();
+            call_handled = true;
+        }
+        break;
+        
+    case KERNAL_SAVE:
+        if (RAM[FA] == 8) {
+            SAVE();
+            call_handled = true;
+        }
+        break;
+        
+    default:
+        break;
+    }
+    
+    return call_handled;
+}
 
 #if 0
 static void convert_name(char *name, size_t length) {
@@ -35,7 +135,7 @@ static void convert_name(char *name, size_t length) {
 #define convert_name(name, length) (void)(0)
 #endif
 
-static void get_filename(char *full_name, size_t length, const char *directory, const char *filename) {
+static void get_full_name(char *full_name, size_t length, const char *directory, const char *filename) {
     int found = 0;
 
     if (strcspn(filename, "*?") != strlen(filename)) {
@@ -203,7 +303,7 @@ LOAD()
 		a = 0;
 	} else {
         char full_name[8192];
-        get_filename(full_name, sizeof(full_name), sdcard_dir, filename);
+        get_full_name(full_name, sizeof(full_name), sdcard_dir, filename);
 		SDL_RWops *f = SDL_RWFromFile(full_name, "rb");
 		if (!f) {
 			a = 4; // FNF
@@ -285,7 +385,7 @@ SAVE()
 	}
 
     char full_name[8192];
-    get_filename(full_name, sizeof(full_name), sdcard_dir, filename);
+    get_full_name(full_name, sizeof(full_name), sdcard_dir, filename);
 	SDL_RWops *f = SDL_RWFromFile(full_name, "wb");
 	if (!f) {
 		a = 4; // FNF
@@ -303,4 +403,37 @@ SAVE()
 	status &= 0xfe;
 	RAM[STATUS] = 0;
 	a = 0;
+}
+
+static const char *get_filename() {
+    static char filename[256];
+    
+    size_t len = RAM[FNLEN];
+    memcpy(filename, (char *)&RAM[RAM[FNADR] | RAM[FNADR + 1] << 8], len);
+    filename[len] = 0;
+
+    return filename;
+}
+
+static bool handle_dos() {
+    char command[256];
+    
+    /* TODO: check that current device is 8 */
+    
+    if ((status & 0x02) == 0x02 || a == 0) {
+        /* TODO: print status */
+        return true;
+    }
+    
+    memcpy(command, RAM + (RAM[INDEX1] + (RAM[INDEX1 + 1] << 8)), a);
+    command[a] = '\0';
+    
+    if (isdigit(command[0]) && command[1] == '\0') {
+        /* change device */
+        return false;
+    }
+    
+    printf("DOS(%s)\n", command);
+    
+    return true;
 }

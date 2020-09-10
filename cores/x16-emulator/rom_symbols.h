@@ -1,6 +1,9 @@
+#define DOS 0x00E143
+#define INDEX1 0x0000A9
 #define NDX 0x00A00A
 #define KEYD 0x00A000
 #define FA 0x000291
+#define LA 0x00028F
 #define VARTAB 0x0003E2
 #define FNLEN 0x00028E
 #define FNADR 0x00008C

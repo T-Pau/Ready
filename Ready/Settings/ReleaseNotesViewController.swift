@@ -41,8 +41,9 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
-        Release(name: "Release 1.6 build 9", year: 2020, month: 8, day: 28, changes: [
-            "Update x16-emulator to r38."
+        Release(name: "Release 1.6 build 9", year: 2020, month: 9, day: 10, changes: [
+            "Update x16-emulator to r38.",
+            "Write REU contents back to file."
         ]),
         Release(name: "Release 1.6 build 8", year: 2020, month: 8, day: 27, changes: [
             "Update Vice to 3.4.",
