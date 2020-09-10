@@ -173,6 +173,7 @@ extension RamExpansionUnit: Cartridge {
             resources[.REUsize] = .Int(Int32(size))
             if let fileName = url?.path {
                 resources[.REUfilename] = .String(fileName)
+                resources[.REUImageWrite] = .Bool(true)
             }
 
         case .vic20ExpansionPort:
