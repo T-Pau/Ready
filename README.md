@@ -22,7 +22,7 @@ It requires at least iPadOS 13.5.
 
 It aims to approximate the feeling of using actual hardware: 
 - Rather than configuring abstract settings, you select hardware components.
-- The software keyboard is a faccimile of the original, reflecting the different existing styles.
+- The software keyboard is a facsimile of the original, reflecting the different existing styles.
 - Even the noise of the disk drive is emulated.
 
 The **Library** section offers a way to organize a large collection of games, demos and programs. The emulated hardware can be customized for each entry.
