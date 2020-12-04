@@ -34,8 +34,8 @@
 
 #import <Foundation/Foundation.h>
 
-#import "Audio.h"
-#import "RingBuffer.h"
+#import <Emulator/Audio.h>
+#import <Emulator/RingBuffer.h>
 
 @interface BufferedAudio : Audio
 

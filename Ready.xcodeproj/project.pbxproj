@@ -2874,7 +2874,6 @@
 		4B3F9A8921D7AD5000C272C4 /* c128ui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = c128ui.h; sourceTree = "<group>"; };
 		4B3F9A8A21D7AD5000C272C4 /* uiapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uiapi.h; sourceTree = "<group>"; };
 		4B3F9A8B21D7AD5000C272C4 /* video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = video.h; sourceTree = "<group>"; };
-		4B3F9A8C21D7AD5000C272C4 /* rs232dev.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rs232dev.h; sourceTree = "<group>"; };
 		4B3F9A8D21D7AD5000C272C4 /* machine-printer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "machine-printer.h"; sourceTree = "<group>"; };
 		4B3F9A8E21D7AD5000C272C4 /* sysfile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sysfile.c; sourceTree = "<group>"; };
 		4B3F9A8F21D7AD5000C272C4 /* traps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = traps.h; sourceTree = "<group>"; };
@@ -2990,10 +2989,8 @@
 		4B3F9B3521D7AD5500C272C4 /* catweaselmkiii.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = catweaselmkiii.h; sourceTree = "<group>"; };
 		4B3F9B3621D7AD5500C272C4 /* alarm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = alarm.c; sourceTree = "<group>"; };
 		4B3F9B3721D7AD5500C272C4 /* monitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = monitor.h; sourceTree = "<group>"; };
-		4B3F9B3821D7AD5500C272C4 /* rs232net.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rs232net.h; sourceTree = "<group>"; };
 		4B3F9B3921D7AD5500C272C4 /* mididrv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mididrv.h; sourceTree = "<group>"; };
 		4B3F9B3A21D7AD5600C272C4 /* viewport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = viewport.h; sourceTree = "<group>"; };
-		4B3F9B3B21D7AD5600C272C4 /* blockdev.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = blockdev.h; sourceTree = "<group>"; };
 		4B3F9B3C21D7AD5600C272C4 /* init.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = init.c; sourceTree = "<group>"; };
 		4B3F9B3D21D7AD5600C272C4 /* color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = color.h; sourceTree = "<group>"; };
 		4B3F9B3E21D7AD5600C272C4 /* alarm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = alarm.h; sourceTree = "<group>"; };
@@ -3497,8 +3494,6 @@
 		4B3FAB7121D7AD8600C272C4 /* ssi2001.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ssi2001.h; sourceTree = "<group>"; };
 		4B3FAB7221D7AD8600C272C4 /* tpi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tpi.h; sourceTree = "<group>"; };
 		4B3FAB7321D7AD8700C272C4 /* tape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tape.h; sourceTree = "<group>"; };
-		4B3FAB7421D7AD8700C272C4 /* rsuser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rsuser.h; sourceTree = "<group>"; };
-		4B3FAB7521D7AD8700C272C4 /* rs232drv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rs232drv.h; sourceTree = "<group>"; };
 		4B3FAB7721D7AD8800C272C4 /* render1x1ntsc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = render1x1ntsc.c; sourceTree = "<group>"; };
 		4B3FAB7821D7AD8800C272C4 /* video-sound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "video-sound.h"; sourceTree = "<group>"; };
 		4B3FAB7921D7AD8800C272C4 /* render2x2pal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = render2x2pal.h; sourceTree = "<group>"; };
@@ -6374,7 +6369,6 @@
 				4B3F9C1921D7AD5C00C272C4 /* autostart-prg.h */,
 				4B3F97C721D7AD4800C272C4 /* autostart.c */,
 				4B3F97A821D7AD4700C272C4 /* autostart.h */,
-				4B3F9B3B21D7AD5600C272C4 /* blockdev.h */,
 				4B3F98A421D7AD4A00C272C4 /* buildtools */,
 				4B3F98C821D7AD4B00C272C4 /* c64 */,
 				4B3F9C1721D7AD5C00C272C4 /* c64ui.h */,
@@ -6533,11 +6527,7 @@
 				4B3F9C1D21D7AD5C00C272C4 /* riot.h */,
 				4B3FAB3E21D7AD8100C272C4 /* romset.c */,
 				4B3F9B2621D7AD5400C272C4 /* romset.h */,
-				4B3F9A8C21D7AD5000C272C4 /* rs232dev.h */,
 				4B3FAB2D21D7AD7D00C272C4 /* rs232drv */,
-				4B3FAB7521D7AD8700C272C4 /* rs232drv.h */,
-				4B3F9B3821D7AD5500C272C4 /* rs232net.h */,
-				4B3FAB7421D7AD8700C272C4 /* rsuser.h */,
 				4B3FAB4521D7AD8300C272C4 /* rtc */,
 				4B3F9B2B21D7AD5400C272C4 /* samplerdrv */,
 				4B3F98B121D7AD4A00C272C4 /* scpu64ui.h */,
@@ -12273,7 +12263,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1010;
-				LastUpgradeCheck = 1160;
+				LastUpgradeCheck = 1220;
 				ORGANIZATIONNAME = Spiderlab;
 				TargetAttributes = {
 					4B3F974221D7ACC700C272C4 = {
@@ -14354,6 +14344,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -14418,6 +14409,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -14462,7 +14454,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = libspectrum;
 				INFOPLIST_FILE = "$(SRCROOT)/Ready/Info.plist";
@@ -14489,7 +14481,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = libspectrum;
 				INFOPLIST_FILE = "$(SRCROOT)/Ready/Info.plist";

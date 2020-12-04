@@ -93,10 +93,25 @@ class MfiInputDevice: InputDevice {
 
                     buttons.update(dpad: gamepad.dpad)
                     buttons.update(radial: self.getRadial(from: gamepad.leftThumbstick))
-                    buttons.up = buttons.up || gamepad.buttonB.isPressed
-                    buttons.left = buttons.left || gamepad.leftShoulder.isPressed
-                    buttons.right = buttons.right || gamepad.rightShoulder.isPressed
-                    if self.deviceConfig.numberOfButtons >= 1 {
+
+                    if self.deviceConfig.numberOfButtons == 8 {
+                        /* MfI has a/b x/y swapped with respect to SNES */
+                        buttons.a = gamepad.buttonB.isPressed
+                        buttons.b = gamepad.buttonA.isPressed
+                        buttons.x = gamepad.buttonY.isPressed
+                        buttons.y = gamepad.buttonX.isPressed
+                        buttons.l = gamepad.leftShoulder.isPressed
+                        buttons.r = gamepad.rightShoulder.isPressed
+                        buttons.select = gamepad.buttonMenu.isPressed
+                        if #available(iOS 14.0, *) {
+                            buttons.start = gamepad.buttonHome?.isPressed ?? false
+                        }
+                    }
+                    else if self.deviceConfig.numberOfButtons >= 1 {
+                        buttons.left = buttons.left || gamepad.leftShoulder.isPressed
+                        buttons.right = buttons.right || gamepad.rightShoulder.isPressed
+                        buttons.up = buttons.up || gamepad.buttonB.isPressed
+                        
                         buttons.fire = gamepad.buttonA.isPressed
                         if self.deviceConfig.numberOfButtons >= 2 {
                             buttons.fire2 = gamepad.buttonX.isPressed

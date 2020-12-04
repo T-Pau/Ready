@@ -34,8 +34,8 @@
 
 @import UIKit;
 
-#include "Audio.h"
-#include "Renderer.h"
+#include <Emulator/Audio.h>
+#include <Emulator/Renderer.h>
 
 #define DISPLAY_SCREENS_ALL (-1)
 #define DISPLAY_SCREENS_AUTO (-2)

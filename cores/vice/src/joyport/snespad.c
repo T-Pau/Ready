@@ -44,6 +44,8 @@
    cport | SNES PAD | I/O
    -------------------------
      1   |   DATA1  |  I
+     2   |   DATA2  |  I
+     3   |   DATA3  |  I
      4   |   CLOCK  |  O
      6   |   RESET  |  O
  */
@@ -51,10 +53,29 @@
 
 static int snespad_enabled = 0;
 
+static int data_line = 0;
+
 static int counter = 0;
 
 static uint8_t clock_line = 0;
 static uint8_t reset_line = 0;
+
+/* Up Down Left Right Fire Fire2 Fire3  A L R Select Start */
+
+static uint8_t button_sequence[12] = {
+    4, /* B */
+    5, /* Y */
+    10, /* Select */
+    11, /* Start */
+    0, /* Up */
+    1, /* Down */
+    2, /* Left */
+    3, /* Right */
+    7, /* A */
+    6, /* X */
+    8, /* L */
+    9 /* R */
+};
 
 /* Change this to change the default fire button */
 #define SNESPAD_FIRE_BUTTON    SNESPAD_BUTTON_B
@@ -71,6 +92,7 @@ static int joyport_snespad_enable(int port, int value)
 
     if (val) {
         counter = 0;
+        data_line = 2; /* for Trap Them */
     }
 
     snespad_enabled = val;
@@ -80,32 +102,19 @@ static int joyport_snespad_enable(int port, int value)
 
 static uint8_t snespad_read(int port)
 {
-    uint8_t retval;
+    uint32_t retval;
 
-    switch (counter) {
-        case SNESPAD_FIRE_BUTTON:
-            retval = (get_joystick_value(port + 1) & 0x10) >> 4;
-            break;
-        case SNESPAD_UP:
-            retval = (get_joystick_value(port + 1) & 1);
-            break;
-        case SNESPAD_DOWN:
-            retval = (get_joystick_value(port + 1) & 2) >> 1;
-            break;
-        case SNESPAD_LEFT:
-            retval = (get_joystick_value(port + 1) & 4) >> 2;
-            break;
-        case SNESPAD_RIGHT:
-            retval = (get_joystick_value(port + 1) & 8) >> 3;
-            break;
-        case SNESPAD_EOS:
-            retval = 1;
-            break;
-        default:
-            retval = 0;
+    if (counter < 12) {
+        retval = get_joystick_value(port + 1) & (1 << button_sequence[counter]);
+    }
+    else if (counter < 16) {
+        retval = 1;
+    }
+    else {
+        retval = 0;
     }
 
-    return ~(retval);
+    return ((retval ? 1 : 0) << data_line) ^ 0xff;
 }
 
 static void snespad_store(uint8_t val)

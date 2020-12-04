@@ -59,6 +59,21 @@ extension JoystickButtons {
         if fire3 {
             value |= 0x40
         }
+        if a {
+            value |= 0x80
+        }
+        if l {
+            value |= 0x100
+        }
+        if r {
+            value |= 0x200
+        }
+        if select {
+            value |= 0x400
+        }
+        if start {
+            value |= 0x800
+        }
 
         return value
     }
@@ -267,7 +282,7 @@ extension JoystickButtons {
             cartridge_trigger_freeze()
             
         case .joystick(let port, let buttons, _):
-            joystick_set_value_absolute(UInt32(port), UInt8(buttons.value))
+            joystick_set_value_absolute(UInt32(port), UInt32(buttons.value))
             
         case .key(let key, pressed: let pressed):
             switch key {

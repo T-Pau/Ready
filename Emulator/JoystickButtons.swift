@@ -39,6 +39,24 @@ public struct JoystickButtons: Equatable {
     public var fire: Bool
     public var fire2: Bool
     public var fire3: Bool
+
+    public var a: Bool
+    public var b: Bool {
+        get { return fire }
+        set { fire = newValue }
+    }
+    public var x: Bool {
+        get { return fire3 }
+        set { fire3 = newValue }
+    }
+    public var y: Bool {
+        get { return fire2 }
+        set { fire2 = newValue }
+    }
+    public var l: Bool
+    public var r: Bool
+    public var select: Bool
+    public var start: Bool
     
     public init() {
         up = false
@@ -48,5 +66,55 @@ public struct JoystickButtons: Equatable {
         fire = false
         fire2 = false
         fire3 = false
+        a = false
+        l = false
+        r = false
+        select = false
+        start = false
+    }
+    
+    public func toString() -> String {
+        var pressed = [String]()
+        
+        if (up) {
+            pressed.append("up")
+        }
+        if (down) {
+            pressed.append("down")
+        }
+        if (left) {
+            pressed.append("left")
+        }
+        if (right) {
+            pressed.append("right")
+        }
+
+        if (a) {
+            pressed.append("a")
+        }
+        if (b) {
+            pressed.append("b")
+        }
+        if (x) {
+            pressed.append("x")
+        }
+        if (y) {
+            pressed.append("y")
+        }
+        if (l) {
+            pressed.append("l")
+        }
+        if (r) {
+            pressed.append("r")
+        }
+
+        if (select) {
+            pressed.append("select")
+        }
+        if (start) {
+            pressed.append("start")
+        }
+        
+        return pressed.joined(separator: ", ")
     }
 }

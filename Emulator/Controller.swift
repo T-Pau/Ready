@@ -73,7 +73,7 @@ public struct Controller: MachinePart {
             switch self {
             case .bbrtc, .none, .paperclip64, .script64Dongle, .vizawrite64Dongle, .waasoftDongle:
                 return .none
-            case .joystick:
+            case .joystick, .snespad:
                 return .joystick
             case .paddles:
                 return .paddle
@@ -83,7 +83,7 @@ public struct Controller: MachinePart {
                 return .lightGun
             case .koalaPad, .lightpenDatel, .lightpenInkwell, .lightpenL, .lightpenU:
                 return .lightPen
-            case .cardcoKeypad, .coplinKeypad, .cx21Keypad, .cx85Keypad, .rushwareKeypad, .sampler2bit, .sampler4bit, .snespad:
+            case .cardcoKeypad, .coplinKeypad, .cx21Keypad, .cx85Keypad, .rushwareKeypad, .sampler2bit, .sampler4bit:
                 return .none // TODO
             }
         }
@@ -122,6 +122,8 @@ public struct Controller: MachinePart {
                 return 3
             case .mouseMicromys:
                 return 5
+            case .snespad:
+                return 8
             default: // TODO
                 return 0
             }
@@ -263,7 +265,14 @@ public struct Controller: MachinePart {
                        fullName: "Elite Multi-Function 2002",
                        variantName: "Joystick Mode",
                        iconName: "Elite Multi-Function 2002 Joystick",
-                       viceType: .joystick)
+                       viceType: .joystick),
+            
+            Controller(identifier: "Trap Them",
+                       name: "Trap Them",
+                       fullName: "Polyplay Trap Them Controller",
+                       iconName: "Trap Them Controller",
+                       viceType: .snespad, // TODO: .trapthem
+                       numberOfButtons: 8)
         ]),
         
         MachinePartSection(title: "Mice", parts: [

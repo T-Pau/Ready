@@ -52,9 +52,9 @@ extern void cartridge_trigger_freeze(void);
 
 extern int file_system_attach_disk(unsigned int unit, const char *filename);
 
-void joystick_set_value_absolute(unsigned int joyport, uint8_t value);
-void joystick_set_value_or(unsigned int joyport, uint8_t value);
-void joystick_set_value_and(unsigned int joyport, uint8_t value);
+void joystick_set_value_absolute(unsigned int joyport, uint32_t value);
+void joystick_set_value_or(unsigned int joyport, uint32_t value);
+void joystick_set_value_and(unsigned int joyport, uint32_t value);
 
 extern void machine_trigger_reset(const unsigned int reset_mode);
 

@@ -91,11 +91,11 @@ static int joyport_joystick[5] = { 0, 0, 0, 0, 0 };
 
 /* Global joystick value.  */
 /*! \todo SRT: document: what are these values joystick_value[0, 1, 2, ..., 5] used for? */
-uint8_t joystick_value[JOYSTICK_NUM + 1] = { 0 };
+uint32_t joystick_value[JOYSTICK_NUM + 1] = { 0 };
 static uint8_t network_joystick_value[JOYSTICK_NUM + 1] = { 0 };
 
 /* Latched joystick status.  */
-static uint8_t latch_joystick_value[JOYSTICK_NUM + 1] = { 0 };
+static uint32_t latch_joystick_value[JOYSTICK_NUM + 1] = { 0 };
 
 /* mapping of the joystick ports */
 int joystick_port_map[JOYSTICK_NUM] = { 0 };
@@ -227,7 +227,7 @@ static void joystick_process_latch(void)
     }
 }
 
-void joystick_set_value_absolute(unsigned int joyport, uint8_t value)
+void joystick_set_value_absolute(unsigned int joyport, uint32_t value)
 {
     if (event_playback_active()) {
         return;
@@ -241,7 +241,7 @@ void joystick_set_value_absolute(unsigned int joyport, uint8_t value)
 }
 
 /* set joystick bits */
-void joystick_set_value_or(unsigned int joyport, uint8_t value)
+void joystick_set_value_or(unsigned int joyport, uint32_t value)
 {
     if (event_playback_active()) {
         return;
@@ -250,7 +250,7 @@ void joystick_set_value_or(unsigned int joyport, uint8_t value)
     latch_joystick_value[joyport] |= value;
 
     if (!joystick_opposite_enable) {
-        latch_joystick_value[joyport] &= (uint8_t)(~joystick_opposite_direction[value & 0xf]);
+        latch_joystick_value[joyport] &= (uint32_t)(~joystick_opposite_direction[value & 0xf]);
     }
 
     latch_joystick_value[0] = (uint8_t)joyport;
@@ -258,7 +258,7 @@ void joystick_set_value_or(unsigned int joyport, uint8_t value)
 }
 
 /* release joystick bits */
-void joystick_set_value_and(unsigned int joyport, uint8_t value)
+void joystick_set_value_and(unsigned int joyport, uint32_t value)
 {
     if (event_playback_active()) {
         return;
@@ -282,7 +282,7 @@ void joystick_clear_all(void)
     joystick_latch_matrix(0);
 }
 
-uint8_t get_joystick_value(int index)
+uint32_t get_joystick_value(int index)
 {
     return joystick_value[index];
 }
@@ -468,7 +468,7 @@ int joystick_check_set(signed long key, int keysetnum, unsigned int joyport)
                 }
             }
 
-            joystick_set_value_absolute(joyport, (uint8_t)value);
+            joystick_set_value_absolute(joyport, (uint32_t)value);
 
             DBGSTATUS(keysetnum, value, joyport, key, 0);
             return 1;
@@ -503,7 +503,7 @@ int joystick_check_clr(signed long key, int keysetnum, unsigned int joyport)
                 }
             }
 
-            joystick_set_value_absolute(joyport, (uint8_t)value);
+            joystick_set_value_absolute(joyport, (uint32_t)value);
 
             DBG(("joystick_check_clr:"));
             DBGSTATUS(keysetnum, value, joyport, key, 1);
@@ -894,10 +894,12 @@ static int joystick_snapshot_read_module(snapshot_t *s, int port)
         return -1;
     }
 
-    if (SMR_B(m, &joystick_value[port + 1]) < 0) {
+    uint8_t value;
+    if (SMR_B(m, &value) < 0) {
         snapshot_module_close(m);
         return -1;
     }
+    joystick_value[port + 1] = value;
 
     return snapshot_module_close(m);
 }
