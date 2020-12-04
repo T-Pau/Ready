@@ -147,10 +147,10 @@ public struct RamExpansionUnit {
             identifier = url.path
             self.url = url
             if let variant = variantName {
-                variantName = "\(identifier) (\(variant))"
+                variantName = "\(url.lastPathComponent) (\(variant))"
             }
             else {
-                variantName = identifier
+                variantName = url.lastPathComponent
             }
         }
         catch {
