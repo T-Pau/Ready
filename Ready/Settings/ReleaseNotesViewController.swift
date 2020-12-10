@@ -41,6 +41,9 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Realease 1.6 build 11", year: 2020, month: 12, day: 10, changes: [
+            "Improve file-backed REU naming."
+        ]),
         Release(name: "Realease 1.6 build 10", year: 2020, month: 12, day: 4, changes: [
             "Add Polyplay Trap Them Controller."
         ]),
