@@ -198,10 +198,13 @@ static void joystick_latch_handler(CLOCK offset, void *data)
 void joystick_event_delayed_playback(void *data)
 {
     /*! \todo SRT: why network_joystick_value?
-     * and why sizeof latch_joystick_value,
-     * if the target is network_joystick_value?
      */
-    memcpy(network_joystick_value, data, sizeof(latch_joystick_value));
+    /*! \todo Adapt network protocol for more buttons?
+     */
+    size_t i;
+    for (i = 0; i < sizeof(network_joystick_value); i++) {
+        network_joystick_value[i] = latch_joystick_value[i] & 0x7f;
+    }
     alarm_set(joystick_alarm, maincpu_clk + joystick_delay);
 }
 
