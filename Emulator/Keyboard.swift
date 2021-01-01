@@ -32,7 +32,13 @@
 import UIKit
 
 public struct Keyboard {
-    private struct Polygon {
+    public enum Region {
+        case polygon(_ pologon: Polygon)
+        case rect(_ rect: CGRect)
+        case rects(_ rects: [CGRect])
+    }
+        
+    public struct Polygon {
         var key: Key
         
         var vertices: [CGPoint]
@@ -99,6 +105,14 @@ public struct Keyboard {
         var left: Int
         var right: Int
         var keys: [Key]
+        var width: CGFloat
+
+        init(left: Int, right: Int, keys: [Key]) {
+            self.left = left
+            self.right = right
+            self.keys = keys
+            self.width = CGFloat(right - left) / CGFloat(keys.count)
+        }
         
         func hit(_ point: CGPoint) -> Key? {
             guard (Int(point.x) >= left && Int(point.x) < Int(right)) else { return nil }
@@ -147,23 +161,56 @@ public struct Keyboard {
             
             return nil
         }
+        
+        public func getKeyRegions() -> [Key : Region] {
+            var regions = [Key: Region]()
+            
+            for row in rows {
+                for span in row.spans {
+                    for (index, key) in span.keys.enumerated() {
+                        let region = Region.rect(CGRect(x: CGFloat(span.left) + CGFloat(index) * span.width, y: CGFloat(row.top), width: span.width, height: CGFloat(row.bottom - row.top)))
+                        
+                        if let _ = regions[key] {
+                            // TODO: merge
+                        }
+                        else {
+                            regions[key] = region
+                        }
+                    }
+                }
+            }
+            
+            // TODO: polygons
+
+            return regions
+        }
     }
 
     public var imageName: String
-    public var toggleKeys = [Key: String]()
+    public var hasPressedImage: Bool
+    public var toggleKeys = Set<Key>()
+    public var toggleImages = [Key: String]()
     public var keyboardSymbols: KeyboardSymbols
     
     public func hit(_ point: CGPoint) -> Key? {
         return layout.hit(point)
     }
     
+    public func getKeyRegions() -> [Key: Region] {
+        return layout.getKeyRegions()
+    }
+    
     private var layout: Layout
     
-    private init(amigaWithImageName imageName: String, rows: [Int], left: Int, right: Int, tildeRight: Int, tabRight: Int, returnUpperLeft: Int, controlRight: Int, returnLowerLeft: Int, leftShiftRight: Int, rightShiftLeft: Int, leftAltLeft: Int, spaceLeft: Int, spaceRight: Int, rightAltRight: Int, cursorLeft: Int, cursorRight: Int, keypadLeft: Int, keypadRight: Int, keypad0Right: Int, functionRowTop: Int, functionRowBottom: Int, escapeRight: Int, functionBlock1Left: Int, functionBlock1Right: Int, functionBlock2Left: Int, functionBlock2Right: Int) {
+    private init(amigaWithImageName imageName: String, hasPressedImage: Bool = false, rows: [Int], left: Int, right: Int, tildeRight: Int, tabRight: Int, returnUpperLeft: Int, controlRight: Int, returnLowerLeft: Int, leftShiftRight: Int, rightShiftLeft: Int, leftAltLeft: Int, spaceLeft: Int, spaceRight: Int, rightAltRight: Int, cursorLeft: Int, cursorRight: Int, keypadLeft: Int, keypadRight: Int, keypad0Right: Int, functionRowTop: Int, functionRowBottom: Int, escapeRight: Int, functionBlock1Left: Int, functionBlock1Right: Int, functionBlock2Left: Int, functionBlock2Right: Int) {
         self.imageName = imageName
-        self.toggleKeys = [
-            .CapsLock: imageName + " CapsLock",
-        ]
+        self.hasPressedImage = hasPressedImage
+        self.toggleKeys = [.CapsLock]
+        if !hasPressedImage {
+            self.toggleImages = [
+                .CapsLock: imageName + " CapsLock",
+            ]
+        }
         let cursorThirdWidth = (cursorRight - cursorLeft) / 3
         self.layout = Layout(rows: [
             Row(top: functionRowTop, bottom: functionRowBottom, spans: [
@@ -208,8 +255,9 @@ public struct Keyboard {
         self.keyboardSymbols = KeyboardSymbols.c128 // KeyboardSymbols.amiga
     }
 
-    private init(atariXlWithImageName imageName: String, rows: [Int], left: Int, right: Int, escapeRight: Int, tabRight: Int, returnLeft: Int, controlRight: Int, capsLeft: Int, leftShiftRight: Int, rightShiftLeft: Int, rightShiftRight: Int, spaceLeft: Int, spaceRight: Int, functionTop: Int, functionBottom: Int, functionLeft: Int, functionRight: Int) {
+    private init(atariXlWithImageName imageName: String, hasPressedImage: Bool = false, rows: [Int], left: Int, right: Int, escapeRight: Int, tabRight: Int, returnLeft: Int, controlRight: Int, capsLeft: Int, leftShiftRight: Int, rightShiftLeft: Int, rightShiftRight: Int, spaceLeft: Int, spaceRight: Int, functionTop: Int, functionBottom: Int, functionLeft: Int, functionRight: Int) {
         self.imageName = imageName
+        self.hasPressedImage = hasPressedImage
         let functionHeight = (functionBottom - functionTop) / 5
         self.layout = Layout(rows: [
             Row(top: rows[0], bottom: rows[1], spans: [
@@ -254,9 +302,13 @@ public struct Keyboard {
         self.keyboardSymbols = KeyboardSymbols.atariXl
     }
     
-    private init(c16WithImageName imageName: String, rows: [Int], topHalfLeft: Int, topHalfRight: Int, bottomHalfLeft: Int, bottomHalfRight: Int, functionKeysLeft: Int, functionKeysRight: Int, spaceLeft: Int, spaceRight: Int, ctrlRight: Int, clearLeft: Int, returnLeft: Int, leftShiftLeft: Int, leftShiftRight: Int, rightShiftLeft: Int, rightShiftRight: Int) {
+    private init(c16WithImageName imageName: String, hasPressedImage: Bool = false, rows: [Int], topHalfLeft: Int, topHalfRight: Int, bottomHalfLeft: Int, bottomHalfRight: Int, functionKeysLeft: Int, functionKeysRight: Int, spaceLeft: Int, spaceRight: Int, ctrlRight: Int, clearLeft: Int, returnLeft: Int, leftShiftLeft: Int, leftShiftRight: Int, rightShiftLeft: Int, rightShiftRight: Int) {
         self.imageName = imageName
-        self.toggleKeys = [.ShiftLock: imageName + " ShiftLock"]
+        self.hasPressedImage = hasPressedImage
+        self.toggleKeys = [.ShiftLock]
+        if !hasPressedImage {
+            self.toggleImages = [.ShiftLock: imageName + " ShiftLock"]
+        }
         self.layout = Layout(rows: [
             Row(top: rows[0], bottom: rows[1], spans: [
                 Span(left: topHalfLeft, right: topHalfRight, keys: [
@@ -296,13 +348,44 @@ public struct Keyboard {
         self.keyboardSymbols = KeyboardSymbols.plus4
     }
        
-    private init(c64WithImageName imageName: String, lockIsShift: Bool = true, poundIsYen: Bool = false, rows: [Int], topHalfLeft: Int, topHalfRight: Int, bottomHalfLeft: Int, bottomHalfRight: Int, functionKeysLeft: Int, functionKeysRight: Int, spaceLeft: Int, spaceRight: Int, ctrlRight: Int, restoreLeft: Int, returnLeft: Int, leftShiftLeft: Int, leftShiftRight: Int, rightShiftLeft: Int, rightShiftRight: Int) {
+    private init(c64WithRenderedImage imageName: String, lockIsShift: Bool = true, pundIsYen: Bool = false, keyWidth: Int, keyHeight: Int, top: Int, topHalfLeft: Int, bottomHalfLeft: Int, functionKeysLeft: Int, spaceLeft: Int, spaceRight: Int) {
+        let threeHalfsWidth = Int(Double(keyWidth) * 1.5)
+        self.init(c64WithImageName: imageName,
+                  hasPressedImage: true,
+                  rows: [top, top + keyHeight, top + keyHeight * 2, top + keyHeight * 3, top + keyHeight * 4, top + keyHeight * 5],
+                  topHalfLeft: topHalfLeft,
+                  topHalfRight: topHalfLeft + keyWidth * 16,
+                  bottomHalfLeft: bottomHalfLeft,
+                  bottomHalfRight: bottomHalfLeft + keyWidth * 16,
+                  functionKeysLeft: functionKeysLeft,
+                  functionKeysRight: functionKeysLeft + threeHalfsWidth,
+                  spaceLeft: spaceLeft,
+                  spaceRight: spaceRight,
+                  ctrlRight: topHalfLeft + threeHalfsWidth,
+                  restoreLeft: topHalfLeft + threeHalfsWidth + keyWidth * 13,
+                  returnLeft: bottomHalfLeft + keyWidth * 14,
+                  leftShiftLeft: bottomHalfLeft + keyWidth,
+                  leftShiftRight: bottomHalfLeft + keyWidth + threeHalfsWidth,
+                  rightShiftLeft: bottomHalfLeft + keyWidth * 11 + threeHalfsWidth,
+                  rightShiftRight: bottomHalfLeft + keyWidth * 14)
+    }
+    
+    private init(c64WithImageName imageName: String, hasPressedImage: Bool = false, lockIsShift: Bool = true, poundIsYen: Bool = false, rows: [Int], topHalfLeft: Int, topHalfRight: Int, bottomHalfLeft: Int, bottomHalfRight: Int, functionKeysLeft: Int, functionKeysRight: Int, spaceLeft: Int, spaceRight: Int, ctrlRight: Int, restoreLeft: Int, returnLeft: Int, leftShiftLeft: Int, leftShiftRight: Int, rightShiftLeft: Int, rightShiftRight: Int) {
         self.imageName = imageName
+        self.hasPressedImage = hasPressedImage
         if lockIsShift {
-            self.toggleKeys = [.ShiftLock: imageName + " ShiftLock"]
+            self.toggleKeys = [.ShiftLock]
         }
         else {
-            self.toggleKeys = [.CommodoreLock: imageName + " ShiftLock"]
+            self.toggleKeys = [.CommodoreLock]
+        }
+        if !hasPressedImage {
+            if lockIsShift {
+                self.toggleImages = [.ShiftLock: imageName + " ShiftLock"]
+            }
+            else {
+                self.toggleImages = [.CommodoreLock: imageName + " ShiftLock"]
+            }
         }
         self.layout = Layout(rows: [
             Row(top: rows[0], bottom: rows[1], spans: [
@@ -346,13 +429,17 @@ public struct Keyboard {
         }
     }
     
-    private init(c128WithImageName imageName: String, rows: [Int], left: Int, right: Int, controlRight: Int, restoreLeft: Int, returnLeft: Int, leftShiftLeft: Int, leftShiftRight: Int, rightShiftLeft: Int, rightShiftRight: Int, spaceLeft: Int, spaceRight: Int, keypadLeft: Int, keypadRight: Int, keypad0Right: Int, functionRowTop: Int, functionRowBottom: Int, functionBlock1Right: Int, functionBlock2Left: Int, functionBlock2Right: Int, functionBlock3Left: Int) {
+    private init(c128WithImageName imageName: String, hasPressedImage: Bool = false, rows: [Int], left: Int, right: Int, controlRight: Int, restoreLeft: Int, returnLeft: Int, leftShiftLeft: Int, leftShiftRight: Int, rightShiftLeft: Int, rightShiftRight: Int, spaceLeft: Int, spaceRight: Int, keypadLeft: Int, keypadRight: Int, keypad0Right: Int, functionRowTop: Int, functionRowBottom: Int, functionBlock1Right: Int, functionBlock2Left: Int, functionBlock2Right: Int, functionBlock3Left: Int) {
         self.imageName = imageName
-        self.toggleKeys = [
-            .CapsLock: imageName + " CapsLock",
-            .Display4080: imageName + " 40-80 Display",
-            .ShiftLock: imageName + " ShiftLock"
-        ]
+        self.hasPressedImage = hasPressedImage
+        self.toggleKeys = [.CapsLock, .Display4080, .ShiftLock]
+        if !hasPressedImage {
+            self.toggleImages = [
+                .CapsLock: imageName + " CapsLock",
+                .Display4080: imageName + " 40-80 Display",
+                .ShiftLock: imageName + " ShiftLock"
+            ]
+        }
         self.layout = Layout(rows: [
             Row(top: functionRowTop, bottom: functionRowBottom, spans: [
                 Span(left: left, right: functionBlock1Right, keys: [.Escape, .Tab, .Alt, .CapsLock]),
@@ -391,9 +478,13 @@ public struct Keyboard {
         self.keyboardSymbols = KeyboardSymbols.c128
     }
         
-    private init(plus4WithImageName imageName: String, rows: [Int], functionLeft: Int, functionRight: Int, left: Int, right: Int, leftControlRight: Int, rightControlLeft: Int,returnLeft: Int, returnRight: Int, leftShiftLeft: Int, leftShiftRight: Int, rightShiftLeft: Int, rightShiftRight: Int, spaceLeft: Int, spaceRight: Int, cursorTop: CGFloat, cursorLeft: CGFloat, cursorRight: CGFloat, cursorBottom: CGFloat) {
+    private init(plus4WithImageName imageName: String, hasPressedImage: Bool = false, rows: [Int], functionLeft: Int, functionRight: Int, left: Int, right: Int, leftControlRight: Int, rightControlLeft: Int,returnLeft: Int, returnRight: Int, leftShiftLeft: Int, leftShiftRight: Int, rightShiftLeft: Int, rightShiftRight: Int, spaceLeft: Int, spaceRight: Int, cursorTop: CGFloat, cursorLeft: CGFloat, cursorRight: CGFloat, cursorBottom: CGFloat) {
         self.imageName = imageName
-        self.toggleKeys = [.ShiftLock: imageName + " ShiftLock"]
+        self.hasPressedImage = hasPressedImage
+        self.toggleKeys = [.ShiftLock]
+        if !hasPressedImage {
+            self.toggleImages = [.ShiftLock: imageName + " ShiftLock"]
+        }
         
         let cursorWidth = cursorRight - cursorLeft
         let cursorHeight = cursorBottom - cursorTop
@@ -444,12 +535,16 @@ public struct Keyboard {
         self.keyboardSymbols = KeyboardSymbols.plus4
     }
     
-    init(x16WithImageName imageName: String, rows: [Int], left: Int, right: Int, backspaceLeft: Int, tabRight: Int, poundLeft: Int, shiftLockRight: Int, returnLeft: Int, leftShiftRight: Int, rightShiftLeft: Int, spaceLeft: Int, spaceRight: Int, extraLeft: Int, extraRight: Int, functionRowTop: Int, functionRowBottom: Int, escapeRight: Int, functionBlock1Left: Int, functionBlock1Right: Int, functionBlock2Left: Int, functionBlock2Right: Int, functionBlock3Left: Int) {
+    init(x16WithImageName imageName: String, hasPressedImage: Bool = false, rows: [Int], left: Int, right: Int, backspaceLeft: Int, tabRight: Int, poundLeft: Int, shiftLockRight: Int, returnLeft: Int, leftShiftRight: Int, rightShiftLeft: Int, spaceLeft: Int, spaceRight: Int, extraLeft: Int, extraRight: Int, functionRowTop: Int, functionRowBottom: Int, escapeRight: Int, functionBlock1Left: Int, functionBlock1Right: Int, functionBlock2Left: Int, functionBlock2Right: Int, functionBlock3Left: Int) {
         self.imageName = imageName
-        self.toggleKeys = [
-            .Display4080: imageName + " 40-80 Display",
-            .ShiftLock: imageName + " ShiftLock"
-        ]
+        self.hasPressedImage = hasPressedImage
+        self.toggleKeys = [.Display4080, .ShiftLock]
+        if !hasPressedImage {
+            self.toggleImages = [
+                .Display4080: imageName + " 40-80 Display",
+                .ShiftLock: imageName + " ShiftLock"
+            ]
+        }
         let extraWidth = extraRight - extraLeft
         self.layout = Layout(rows: [
             Row(top: functionRowTop, bottom: functionRowBottom, spans: [
@@ -491,7 +586,7 @@ public struct Keyboard {
         self.keyboardSymbols = KeyboardSymbols.x16
     }
     
-    init(zxSpectrumWithImageName imageName: String, rows: [Int], left: [Int], right: [Int], capsRight: Int, spaceLeft: Int) {
+    init(zxSpectrumWithImageName imageName: String, hasPressedImage: Bool = false, rows: [Int], left: [Int], right: [Int], capsRight: Int, spaceLeft: Int) {
         self.layout = Layout(rows: [
             Row(top: rows[0], bottom: rows[1], spans: [
                 Span(left: left[0], right: right[0], keys: [.Char("1"), .Char("2"), .Char("3"), .Char("4"), .Char("5"), .Char("6"), .Char("7"), .Char("8"), .Char("9"), .Char("0")])
@@ -509,10 +604,11 @@ public struct Keyboard {
             ])
         ])
         self.imageName = imageName
-        self.keyboardSymbols = KeyboardSymbols.zxSpectrum 
+        self.hasPressedImage = hasPressedImage
+        self.keyboardSymbols = KeyboardSymbols.zxSpectrum
     }
     
-    init(zxSpectrumPlusWithImageName imageName: String, rows: [Int], left: Int, right: Int, breakLeft: Int, deleteRight: Int, extendedRight: Int, editRight: Int, returnLeft: Int, leftCapsShiftRight: Int, rightCapsShiftLeft: Int, spaceLeft: Int, spaceRight: Int) {
+    init(zxSpectrumPlusWithImageName imageName: String, hasPressedImage: Bool = false, rows: [Int], left: Int, right: Int, breakLeft: Int, deleteRight: Int, extendedRight: Int, editRight: Int, returnLeft: Int, leftCapsShiftRight: Int, rightCapsShiftLeft: Int, spaceLeft: Int, spaceRight: Int) {
         self.layout = Layout(rows: [
             Row(top: rows[0], bottom: rows[1], spans: [
                 Span(left: left, right: breakLeft, keys: [.TrueVideo, .InverseVideo, .Char("1"), .Char("2"), .Char("3"), .Char("4"), .Char("5"), .Char("6"), .Char("7"), .Char("8"), .Char("9"), .Char("0")]),
@@ -540,6 +636,7 @@ public struct Keyboard {
             ])
         ])
         self.imageName = imageName
+        self.hasPressedImage = hasPressedImage
         self.keyboardSymbols = KeyboardSymbols.zxSpectrum
     }
 
@@ -581,23 +678,15 @@ public struct Keyboard {
                         rightShiftLeft: 2287,
                         rightShiftRight: 2566),
         
-        "C64": Keyboard(c64WithImageName: "C64 Keyboard",
-                        rows: [ 69, 257, 446, 635, 824, 1012 ],
-                        topHalfLeft: 100,
-                        topHalfRight: 3034,
-                        bottomHalfLeft: 49,
-                        bottomHalfRight: 2984,
-                        functionKeysLeft: 3115,
-                        functionKeysRight: 3415,
-                        spaceLeft: 544,
-                        spaceRight: 2207,
-                        ctrlRight: 330,
-                        restoreLeft: 2778,
-                        returnLeft: 2681,
-                        leftShiftLeft: 283,
-                        leftShiftRight: 559,
-                        rightShiftLeft: 2341,
-                        rightShiftRight: 2681),
+        "C64": Keyboard(c64WithRenderedImage: "C64 Keyboard",
+                        keyWidth: 210,
+                        keyHeight: 210,
+                        top: 90,
+                        topHalfLeft: 150,
+                        bottomHalfLeft: 93,
+                        functionKeysLeft: 3615,
+                        spaceLeft: 670,
+                        spaceRight: 2550),
         
         "C64 Japanese": Keyboard(c64WithImageName: "C64 Keyboard Japanese",
                                  lockIsShift: false,
@@ -619,24 +708,16 @@ public struct Keyboard {
                                  rightShiftLeft: 2436,
                                  rightShiftRight: 2723),
         
-        "C64C": Keyboard(c64WithImageName: "C64C Keyboard",
-                         rows: [ 69, 257, 446, 635, 824, 1012 ],
-                         topHalfLeft: 100,
-                         topHalfRight: 3034,
-                         bottomHalfLeft: 49,
-                         bottomHalfRight: 2984,
-                         functionKeysLeft: 3115,
-                         functionKeysRight: 3415,
-                         spaceLeft: 544,
-                         spaceRight: 2207,
-                         ctrlRight: 330,
-                         restoreLeft: 2778,
-                         returnLeft: 2681,
-                         leftShiftLeft: 283,
-                         leftShiftRight: 559,
-                         rightShiftLeft: 2341,
-                         rightShiftRight: 2681),
-        
+        "C64C": Keyboard(c64WithRenderedImage: "C64C Keyboard",
+                        keyWidth: 210,
+                        keyHeight: 210,
+                        top: 90,
+                        topHalfLeft: 150,
+                        bottomHalfLeft: 93,
+                        functionKeysLeft: 3615,
+                        spaceLeft: 670,
+                        spaceRight: 2550),
+       
         "C64C New": Keyboard(c64WithImageName: "C64C New Keyboard",
                              rows: [ 50, 233, 402, 571, 746, 917 ],
                              topHalfLeft: 97,
@@ -720,23 +801,15 @@ public struct Keyboard {
                         rightShiftLeft: 2390,
                         rightShiftRight: 2671),
         
-        "PET Style": Keyboard(c64WithImageName: "PET Style Keyboard",
-                              rows: [ 44, 194, 338, 485, 631, 772 ],
-                              topHalfLeft: 66,
-                              topHalfRight: 2388,
-                              bottomHalfLeft: 37,
-                              bottomHalfRight: 2351,
-                              functionKeysLeft: 2441,
-                              functionKeysRight: 2673,
-                              spaceLeft: 434,
-                              spaceRight: 1744,
-                              ctrlRight: 275,
-                              restoreLeft: 2183,
-                              returnLeft: 2071,
-                              leftShiftLeft: 175,
-                              leftShiftRight: 391,
-                              rightShiftLeft: 1853,
-                              rightShiftRight: 2071),
+        "PET Style": Keyboard(c64WithRenderedImage: "PET Style Keyboard",
+                        keyWidth: 210,
+                        keyHeight: 210,
+                        top: 90,
+                        topHalfLeft: 150,
+                        bottomHalfLeft: 93,
+                        functionKeysLeft: 3615,
+                        spaceLeft: 670,
+                        spaceRight: 2550),
         
         "Plus/4": Keyboard(plus4WithImageName: "Plus 4 Keyboard",
                            rows: [50, 231, 444, 656, 871, 1074, 1284],
@@ -777,24 +850,16 @@ public struct Keyboard {
                          rightShiftLeft: 2543,
                          rightShiftRight: 2837),
         
-        "VIC-20": Keyboard(c64WithImageName: "VIC-20 Keyboard",
-                           rows: [ 69, 257, 446, 635, 824, 1012 ],
-                           topHalfLeft: 100,
-                           topHalfRight: 3034,
-                           bottomHalfLeft: 49,
-                           bottomHalfRight: 2984,
-                           functionKeysLeft: 3115,
-                           functionKeysRight: 3415,
-                           spaceLeft: 544,
-                           spaceRight: 2207,
-                           ctrlRight: 330,
-                           restoreLeft: 2778,
-                           returnLeft: 2681,
-                           leftShiftLeft: 283,
-                           leftShiftRight: 559,
-                           rightShiftLeft: 2341,
-                           rightShiftRight: 2681),
-        
+        "VIC-20": Keyboard(c64WithRenderedImage: "VIC-20 Keyboard",
+                        keyWidth: 210,
+                        keyHeight: 210,
+                        top: 90,
+                        topHalfLeft: 150,
+                        bottomHalfLeft: 93,
+                        functionKeysLeft: 3615,
+                        spaceLeft: 670,
+                        spaceRight: 2550),
+
         "VIC-1001": Keyboard(c64WithImageName: "PET Style Keyboard Japanese",
                              poundIsYen: true,
                              rows: [ 73, 224, 370, 514, 668, 811 ],

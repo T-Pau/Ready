@@ -38,34 +38,41 @@ protocol KeyboardViewDelegate {
 }
 
 class KeyboardView: UIView {
-    var keyboardImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-    var toggleViews = [Key: UIImageView]()
+    var keyboardImage: UIImage?
+    var pressedImage: UIImage?
+    var toggleKeys = Set<Key>()
+    var toggleImages = [Key: UIImage]()
+    var keyRegions = [Key: Keyboard.Region]()
 
     var delegate: KeyboardViewDelegate?
-    
+
     var keyboard: Keyboard? {
         didSet {
-            for view in toggleViews.values {
-                view.removeFromSuperview()
-            }
-            toggleViews.removeAll()
+            keyboardImage = nil
+            pressedImage = nil
+            toggleKeys.removeAll()
+            keyRegions.removeAll()
+            toggleImages.removeAll()
+            
             if let keyboard = keyboard {
-                for (key, imageName) in keyboard.toggleKeys {
-                    let view = UIImageView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-                    view.image = UIImage(named: imageName)
-                    view.isHidden = true
-                    setup(view: view)
-                    toggleViews[key] = view
+                keyboardImage = UIImage(named: keyboard.imageName)
+                toggleKeys = keyboard.toggleKeys
+                
+                if keyboard.hasPressedImage {
+                    keyRegions = keyboard.getKeyRegions()
+                    pressedImage = UIImage(named: keyboard.imageName + " Pressed")
                 }
-                keyboardImageView.image = UIImage(named: keyboard.imageName)
-            }
-            else {
-                keyboardImageView.image = nil
+                else {
+                    for (key, imageName) in keyboard.toggleImages {
+                        toggleImages[key] = UIImage(named: imageName)
+                    }
+                }
             }
             if let constraint = aspectConstraint {
                 removeConstraint(constraint)
+                aspectConstraint = nil
             }
-            if let image = keyboardImageView.image, image.size.height > 0 {
+            if let image = keyboardImage, image.size.height > 0 {
                 let constraint = NSLayoutConstraint(item: self, attribute: .width, relatedBy: .equal, toItem: self, attribute: .height, multiplier: image.size.width / image.size.height, constant: 0)
                 addConstraint(constraint)
                 aspectConstraint = constraint
@@ -75,56 +82,88 @@ class KeyboardView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setup()
     }
     
     required init?(coder decoder: NSCoder) {
         super.init(coder: decoder)
-        setup()
-    }
-    
-    private func setup() {
-        setup(view: keyboardImageView)
-    }
-    
-    private func setup(view: UIView) {
-        addSubview(view)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            NSLayoutConstraint(item: self, attribute: .left, relatedBy: .equal, toItem: view, attribute: .left, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: self, attribute: .right, relatedBy: .equal, toItem: view, attribute: .right, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: self, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: self, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0),
-            ])
     }
     
     private var aspectConstraint: NSLayoutConstraint?
     
     private var keyTouches = [UITouch : Key]()
+    var pressedKeys = Set<Key>()
+    
+    override func draw(_ rect: CGRect) {
+        //super.draw(rect)
+        
+        if let image = keyboardImage, let context = UIGraphicsGetCurrentContext() {
+            let scale = min(bounds.width / image.size.width, bounds.height / image.size.height)
+            let size = CGSize(width: image.size.width * scale, height: image.size.height * scale)
+            let rect = CGRect(origin: CGPoint(x: bounds.origin.x + (bounds.width - size.width) / 2, y: bounds.origin.y + (bounds.height - size.height) / 2), size: size)
+            
+            image.draw(in: rect)
+            
+            for key in pressedKeys {
+                if let toggleImage = toggleImages[key] {
+                    toggleImage.draw(in: rect)
+                }
+            }
+            
+            if let pressedImage = pressedImage {
+                var needsDraw = false
+                for key in pressedKeys {
+                    if let region = keyRegions[key] {
+                        switch region {
+                        case .rect(let rect):
+                            let scaledRect = CGRect(x: bounds.origin.x + rect.minX * scale, y: bounds.origin.y + rect.minY * scale, width: rect.width * scale, height: rect.height * scale)
+                            context.addRect(scaledRect)
+                            needsDraw = true
+                            
+                        default:
+                            // TODO
+                            break
+                        }
+                    }
+                }
 
+                if needsDraw {
+                    context.saveGState()
+                    context.clip()
+                    pressedImage.draw(in: rect)
+                    //context.setFillColor(CGColor(red: 1, green: 0, blue: 0, alpha: 0.5))
+                    //context.fill(rect)
+                    context.restoreGState()
+                }
+            }
+        }
+    }
+
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         var unhandledTouches = Set<UITouch>()
         
         for touch in touches {
             var location = touch.location(in: self)
-            location.x *= (keyboardImageView.image?.size.width ?? 0) / frame.width
-            location.y *= (keyboardImageView.image?.size.height ?? 0) / frame.height
+            location.x *= (keyboardImage?.size.width ?? 0) / frame.width
+            location.y *= (keyboardImage?.size.height ?? 0) / frame.height
             
             if let key = keyboard?.hit(location) {
                 keyTouches[touch] = key
-                if let view = toggleViews[key] {
-                    if view.isHidden {
-                        view.isHidden = false
-                        delegate?.pressed(key: key)
+                if toggleKeys.contains(key) {
+                    if pressedKeys.contains(key) {
+                        pressedKeys.remove(key)
+                        delegate?.released(key: key)
                     }
                     else {
-                        view.isHidden = true
-                        delegate?.released(key: key)
+                        pressedKeys.insert(key)
+                        delegate?.pressed(key: key)
                     }
                 }
                 else {
+                    pressedKeys.insert(key)
                     delegate?.pressed(key: key)
                 }
+                setNeedsDisplay()
             }
             else {
                 unhandledTouches.insert(touch)
@@ -141,10 +180,13 @@ class KeyboardView: UIView {
 
         for touch in touches {
             if let key = keyTouches[touch] {
+                // TODO: keep keys pressed for toggle keys when havePressed
                 keyTouches.removeValue(forKey: touch)
-                if toggleViews[key] == nil {
+                if !toggleKeys.contains(key) {
+                    pressedKeys.remove(key)
                     delegate?.released(key: key)
                 }
+                setNeedsDisplay()
             }
             else {
                 unhandledTouches.insert(touch)
@@ -184,9 +226,5 @@ class KeyboardView: UIView {
         if !unhandledTouches.isEmpty {
             super.touchesEstimatedPropertiesUpdated(unhandledTouches)
         }
-    }
-    
-    @IBAction func tapped(_ sender: Any) {
-        print("keyboard tapped")
     }
 }

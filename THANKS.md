@@ -5,6 +5,8 @@ Thanks to these projects for their emulator cores:
 - [VICE - the Versatile Commodore Emulator](http://vice-emu.sourceforge.net/)
 - [x16-emulator - Commander X16 Emulator](https://github.com/commanderx16/x16-emulator/)
 
+Thanks to Axel Steinhanses  for providing rendered keyboard images.
+
 Thanks to these people for providing images:
 
 - Thomas Conté (via Wikipedia)

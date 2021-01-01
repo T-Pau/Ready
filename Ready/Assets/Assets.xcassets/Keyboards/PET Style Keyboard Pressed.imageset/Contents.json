@@ -1,8 +1,8 @@
 {
   "images" : [
     {
+      "filename" : "C64_Silver Hires Keyboard_pressed.png",
       "idiom" : "universal",
-      "filename" : "VIC-20 Keyboard ShiftLock.png",
       "scale" : "1x"
     },
     {
@@ -15,7 +15,7 @@
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }
