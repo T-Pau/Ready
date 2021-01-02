@@ -256,8 +256,9 @@ class GameViewController: UIViewController, UITextFieldDelegate, ShareableImageV
         guard let game = gameViewItem as? Game else { return }
 
         do {
+            let targetDirectoryURL = try uniqueName(directory: Defaults.exportedURL, name: makeFileName(game.name), pathExtension: "", options: [.directory])
             try ensureDirectory(Defaults.exportedURL)
-            try FileManager.default.copyItem(at: game.directoryURL, to: Defaults.exportedURL.appendingPathComponent(game.directory))
+            try FileManager.default.copyItem(at: game.directoryURL, to: targetDirectoryURL)
         }
         catch { }
     }

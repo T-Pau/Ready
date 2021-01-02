@@ -41,16 +41,19 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
-        Release(name: "Rlease 1.7 build 15", year: 2021, month: 1, day: 2, changes: [
+        Release(name: "Release 1.6 build 16", year: 2021, month: 1, day: 2, changes: [
+            "Use game title for export directory name, don't fail if directory already exists."
+        ]),
+        Release(name: "Release 1.6 build 15", year: 2021, month: 1, day: 2, changes: [
             "Rendered keyboards for C16, Japanese C64, and VIC-20."
         ]),
-        Release(name: "Release 1.7 build 14", year: 2021, month: 1, day: 1, changes: [
+        Release(name: "Release 1.6 build 14", year: 2021, month: 1, day: 1, changes: [
             "Rendered keyboards for C64C and C64 Silver."
         ]),
         Release(name: "Release 1.6 build 13", year: 2020, month: 12, day: 29, changes: [
             "Rendered C64 keyboard with visibly pressed keys."
         ]),
-        Release(name: "Realease 1.6 build 11", year: 2020, month: 12, day: 10, changes: [
+        Release(name: "Release 1.6 build 11", year: 2020, month: 12, day: 10, changes: [
             "Improve file-backed REU naming."
         ]),
         Release(name: "Realease 1.6 build 10", year: 2020, month: 12, day: 4, changes: [

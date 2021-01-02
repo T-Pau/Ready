@@ -66,6 +66,13 @@ struct UniqueNameOptions: OptionSet {
     static let directory = UniqueNameOptions(rawValue: 1 << 1)
 }
 
+func makeFileName(_ name: String) -> String {
+    var unsaveCharacters = CharacterSet()
+    unsaveCharacters.insert(charactersIn: ":/\t\n") // TOOD: more?
+    
+    return name.components(separatedBy: unsaveCharacters).joined(separator: "_")
+}
+
 func uniqueName(directory: URL, name: String?, pathExtension: String, options: UniqueNameOptions = []) throws -> URL {
     let fileManager = FileManager.default
     let basename = (name as NSString?)?.deletingPathExtension ?? "unknown"
