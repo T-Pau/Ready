@@ -1,8 +1,8 @@
 {
   "images" : [
     {
+      "filename" : "C64_Japanese Hires Keyboard_pressed.png",
       "idiom" : "universal",
-      "filename" : "C64 Keyboard Japanese ShiftLock.png",
       "scale" : "1x"
     },
     {
@@ -15,7 +15,7 @@
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }

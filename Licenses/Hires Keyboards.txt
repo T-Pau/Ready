@@ -1,5 +1,8 @@
 Rendered Hires Keyboards created by Axel Steinhanses:
 
+- C16
 - C64
 - C64C
+- C64 Japanese
 - PET Style C64/VC20
+- VIC-20

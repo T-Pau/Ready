@@ -12,7 +12,6 @@ Thanks to these people for providing images:
 - Thomas Conté (via Wikipedia)
 - Pawel Pieczul ([oldcrap.org](https://oldcrap.org))
 - Perifractic
-- queuebert ([Commodore Fan in Japan]((https://monochromeeffect.org/wp/)))
 
 Thanks to these people for suggestions, testing, and bug reports:
 

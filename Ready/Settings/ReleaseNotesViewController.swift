@@ -41,6 +41,9 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Rlease 1.7 build 15", year: 2021, month: 1, day: 2, changes: [
+            "Rendered keyboards for C16, Japanese C64, and VIC-20."
+        ]),
         Release(name: "Release 1.7 build 14", year: 2021, month: 1, day: 1, changes: [
             "Rendered keyboards for C64C and C64 Silver."
         ]),
