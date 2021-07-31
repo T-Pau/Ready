@@ -293,7 +293,7 @@ static uint32_t palette[] = {
     0xffcb83ff
 };
 
-int display_init() {
+int display_init(void) {
     RendererSize size = {Screen_visible_x2 - Screen_visible_x1, Screen_visible_y2 - Screen_visible_y1};
     RendererRect screenPosition = {{8, 24}, {320, 192}};
     [atari800Thread.renderer resize:size];
@@ -303,7 +303,7 @@ int display_init() {
     return 0;
 }
 
-void display_fini() {
+void display_fini(void) {
     [atari800Thread.renderer close];
 }
 

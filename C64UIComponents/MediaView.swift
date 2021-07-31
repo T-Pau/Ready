@@ -41,7 +41,7 @@ public protocol MediaItem {
     var url: URL? { get }
 }
 
-public protocol MediaViewDropDelegate: class {
+public protocol MediaViewDropDelegate: AnyObject {
     func mediaView(_ sender: MediaView, dropped item: UIDragItem, of type: String)
 }
 

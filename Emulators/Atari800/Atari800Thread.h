@@ -54,7 +54,7 @@ extern int joystickTrigger[4];
 
 extern Atari800Thread * _Nullable atari800Thread;
 
-void display_fini();
-int display_init();
+void display_fini(void);
+int display_init(void);
 
 #endif /* HAD_ATARI800_THREAD_H */
