@@ -41,6 +41,9 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Release 1.6 build 19", year: 2021, month: 7, day: 31, changes: [
+            "Support GMod2 CRT with EEPROM included, as defined by Ultimate firmware."
+        ]),
         Release(name: "Release 1.6 build 16", year: 2021, month: 1, day: 2, changes: [
             "Use game title for export directory name, don't fail if directory already exists."
         ]),

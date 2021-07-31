@@ -282,9 +282,14 @@ static int set_gmod2_eeprom_filename(const char *name, void *param)
         return 0;
     }
 
-    if ((name != NULL) && (*name != '\0')) {
-        if (util_check_filename_access(name) < 0) {
-            return -1;
+    if (name != NULL) {
+        if (*name == '\0') {
+            name = NULL;
+        }
+        else {
+            if (util_check_filename_access(name) < 0) {
+                return -1;
+            }
         }
     }
 
@@ -395,24 +400,31 @@ int gmod2_bin_attach(const char *filename, uint8_t *rawcart)
 int gmod2_crt_attach(FILE *fd, uint8_t *rawcart, const char *filename)
 {
     crt_chip_header_t chip;
-    int i;
 
     memset(rawcart, 0xff, GMOD2_FLASH_SIZE);
 
     gmod2_filetype = 0;
     gmod2_filename = NULL;
 
-    for (i = 0; i <= 63; i++) {
-        if (crt_read_chip_header(&chip, fd)) {
-            break;
+    while (crt_read_chip_header(&chip, fd) == 0) {
+        if (chip.start == 0xde00) {
+            if (chip.size != 0x800) {
+                return -1;
+            }
+            m93c86_close_image(gmod2_eeprom_rw);
+            if (crt_read_chip(m93c86_get_data(), 0, &chip, fd)) {
+                return -1;
+            }
+            m93c86_dirty = 0;
         }
-
-        if (chip.bank > 63 || chip.size != 0x2000) {
-            return -1;
-        }
-
-        if (crt_read_chip(rawcart, chip.bank << 13, &chip, fd)) {
-            return -1;
+        else {
+            if (chip.bank > 63 || chip.size != 0x2000) {
+                return -1;
+            }
+            
+            if (crt_read_chip(rawcart, chip.bank << 13, &chip, fd)) {
+                return -1;
+            }
         }
     }
 
@@ -474,6 +486,16 @@ int gmod2_crt_save(const char *filename)
         }
         data += 0x2000;
     }
+    if (gmod2_eeprom_filename == NULL) {
+        chip.type = 2;
+        chip.size = 0x800;
+        chip.start = 0xde00;
+        chip.bank = 0;
+        if (crt_write_chip(m93c86_get_data(), &chip, fd)) {
+            fclose(fd);
+            return -1;
+        }
+    }
 
     fclose(fd);
     return 0;
@@ -491,7 +513,7 @@ int gmod2_flush_image(void)
 
 void gmod2_detach(void)
 {
-    if (gmod2_flash_write && flashrom_state->flash_dirty) {
+    if ((gmod2_flash_write && flashrom_state->flash_dirty) || (gmod2_eeprom_filename == NULL && gmod2_eeprom_rw && m93c86_dirty)) {
         gmod2_flush_image();
     }
 
@@ -501,6 +523,7 @@ void gmod2_detach(void)
     lib_free(gmod2_filename);
     gmod2_filename = NULL;
     m93c86_close_image(gmod2_eeprom_rw);
+    gmod2_eeprom_filename = NULL;
     export_remove(&export_res);
     io_source_unregister(gmod2_io1_list_item);
     gmod2_io1_list_item = NULL;

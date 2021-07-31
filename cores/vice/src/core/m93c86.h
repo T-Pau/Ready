@@ -34,6 +34,9 @@ extern void m93c86_write_data(uint8_t value);
 extern void m93c86_write_select(uint8_t value);
 extern void m93c86_write_clock(uint8_t value);
 
+extern int m93c86_dirty;
+extern uint8_t *m93c86_get_data(void);
+
 extern int  m93c86_open_image(char *name, int rw);
 extern void m93c86_close_image(int rw);
 

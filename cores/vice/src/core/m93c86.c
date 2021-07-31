@@ -56,6 +56,7 @@
 static FILE *m93c86_image_file = NULL;
 
 static uint8_t m93c86_data[M93C86_SIZE];
+int m93c86_dirty = 0;
 
 static int eeprom_cs = 0;
 static int eeprom_clock = 0;
@@ -267,6 +268,7 @@ void m93c86_write_clock(uint8_t value)
                                 addr = ((input_shiftreg >> 0) & 0x3ff);
                                 ready_busy_status = STATUSBUSY;
                                 reset_input_shiftreg();
+                                m93c86_dirty = 1;
                                 m93c86_data[(addr << 1)] = 0xff;
                                 m93c86_data[(addr << 1) + 1] = 0xff;
                                 LOG(("CMD: erase addr %04x", addr));
@@ -280,6 +282,7 @@ void m93c86_write_clock(uint8_t value)
                             } else {
                                 ready_busy_status = STATUSBUSY;
                                 reset_input_shiftreg();
+                                m93c86_dirty = 1;
                                 memset(m93c86_data, 0xff, M93C86_SIZE);
                                 LOG(("CMD: erase all"));
                             }
@@ -299,6 +302,7 @@ void m93c86_write_clock(uint8_t value)
                                 data1 = ((input_shiftreg >> 0) & 0xff);
                                 ready_busy_status = STATUSBUSY;
                                 reset_input_shiftreg();
+                                m93c86_dirty = 1;
                                 m93c86_data[(addr << 1)] = data0;
                                 m93c86_data[(addr << 1) + 1] = data1;
                                 LOG(("CMD: write addr %04x %02x %02x", addr, data0, data1));
@@ -314,6 +318,7 @@ void m93c86_write_clock(uint8_t value)
                                 data1 = ((input_shiftreg >> 0) & 0xff);
                                 ready_busy_status = STATUSBUSY;
                                 reset_input_shiftreg();
+                                m93c86_dirty = 1;
                                 for (addr = 0; addr < (M93C86_SIZE / 2); addr++) {
                                     m93c86_data[(addr << 1)] = data0;
                                     m93c86_data[(addr << 1) + 1] = data1;
@@ -327,6 +332,11 @@ void m93c86_write_clock(uint8_t value)
         }
     }
     eeprom_clock = value;
+}
+
+uint8_t *m93c86_get_data(void)
+{
+    return m93c86_data;
 }
 
 int m93c86_open_image(char *name, int rw)
@@ -369,6 +379,7 @@ int m93c86_open_image(char *name, int rw)
         fseek(m93c86_image_file, 0, SEEK_SET);
         log_debug("opened eeprom card image (rw): %s", m93c86_image_filename);
     }
+    m93c86_dirty = 0;
     return 0;
 }
 
