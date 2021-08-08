@@ -85,7 +85,7 @@ typedef struct tap_s {
     int cycle_counter_total;
 
     /* Tape counter.  */
-    int counter;
+    double counter;
 
     /* Which mode is activated?  */
     int mode;

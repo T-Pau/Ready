@@ -199,22 +199,23 @@ int ui_cmdline_options_init(void) {
  *                      or the empty string or NULL (if unmounting).
  *  \todo This API is insufficient to describe drives with two disk units.
  */
-void ui_display_drive_current_image(unsigned int drive_number, const char *image) {
+void ui_display_drive_current_image(unsigned int unit_number, unsigned int drive_number, const char *image) {
 }
 
 
 /** \brief Statusbar API function to report changes in drive LED
  *         intensity.
  *  \param drive_number The unit to update (0-3 for drives 8-11)
- *  \param pwm1         The intensity of the first LED (0=off,
+ *  \param led_pwm1         The intensity of the first LED (0=off,
  *                      1000=maximum intensity)
  *  \param led_pwm2     The intensity of the second LED (0=off,
  *                      1000=maximum intensity)
  *  \todo The statusbar API does not yet support dual-unit disk
  *        drives.
  */
-void ui_display_drive_led(int drive_number, unsigned int pwm1, unsigned int led_pwm2) {
-    [viceThread.delegate updateDriveUnit:drive_number led1Intensity:pwm1 / 1000.0 led2Intensity: led_pwm2 / 1000.0];
+// TODO 3.5: what's drive_base?
+void ui_display_drive_led(unsigned int drive_number, unsigned int drive_base, unsigned int led_pwm1, unsigned int led_pwm2) {
+    [viceThread.delegate updateDriveUnit:drive_number led1Intensity:led_pwm1 / 1000.0 led2Intensity: led_pwm2 / 1000.0];
 }
 
 /** \brief Statusbar API function to report changes in drive head

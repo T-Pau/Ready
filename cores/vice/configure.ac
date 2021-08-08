@@ -1,0 +1,4022 @@
+dnl This file is part of VICE, the Versatile Commodore Emulator.
+dnl See README for copyright notice.
+dnl
+dnl Process this file with GNU autoconf to produce a configure script.
+dnl
+
+dnl Set VICE version number
+m4_define([vice_version_major], [3])
+m4_define([vice_version_minor], [5])
+m4_define([vice_version_build], [0])
+m4_define([vice_version_number], [vice_version_major.vice_version_minor])
+
+dnl The major/minor stuff gets replaced in autogen.sh
+AC_INIT([vice], [vice_version_number])
+AC_CONFIG_SRCDIR([src/maincpu.c])
+AM_INIT_AUTOMAKE([-Wno-portability foreign])
+
+dnl Make sure autotools doesn't add '-g -O2' by default when the user's CFLAGS
+dnl or CXXFLAGS are empty
+dnl This has to happen before any other AC_* calls, so leave it here please.
+: ${CFLAGS=""}
+: ${CXXFLAGS=""}
+: ${OBJCFLAGS=""}
+
+dnl Set VICE's compiler flags (can be overridden by the user)
+VICE_CPPFLAGS="-I\$(top_srcdir)/src/systemheaderoverride"
+VICE_CFLAGS="-g -O3"
+VICE_CXXFLAGS="-g -O3"
+VICE_OBJCFLAGS="-g -O3"
+VICE_LDFLAGS=""
+
+
+AC_CONFIG_MACRO_DIR([m4])
+
+dnl Again: sed substitutes this
+dnl NO, it doesn't
+VICE_VERSION_MAJOR=vice_version_major
+VICE_VERSION_MINOR=vice_version_minor
+VICE_VERSION_BUILD=vice_version_build
+
+
+dnl Command-line options
+dnl
+dnl The whitespace (2 spaces) before --with[out]-option is significant, as is
+dnl the whitespace before the option description, in order to align these
+dnl properly with the auto-generated options of configure.ac
+VICE_ARG_INIT()
+
+dnl
+dnl Sound options
+dnl
+VICE_ARG_WITH_LIST(alsa,                [  --without-alsa          do not use the ALSA sound system])
+VICE_ARG_WITH_LIST(fastsid,             [  --with-fastsid          use the FastSID engine])
+VICE_ARG_WITH_LIST(flac,                [  --with-flac             use FLAC support])
+VICE_ARG_WITH_LIST(mpg123,              [  --with-mpg123           use MPG123 support])
+VICE_ARG_WITH_LIST(oss,                 [  --with-oss              use the OSS sound system])
+VICE_ARG_WITH_LIST(pulse,               [  --without-pulse         do not use PulseAudio sound system])
+VICE_ARG_WITH_LIST(readline,            [  --without-readline      do not try to use the system readline library])
+VICE_ARG_WITH_LIST(resid,               [  --without-resid         do not use the reSID engine])
+VICE_ARG_WITH_LIST(sdlsound,            [  --with-sdlsound         use SDL sound system])
+VICE_ARG_WITH_LIST(sun,                 [  --without-sun           do not use the sun/netbsd sound system])
+VICE_ARG_WITH_LIST(vorbis,              [  --with-vorbis           use Ogg/Vorbis support])
+
+VICE_ARG_ENABLE_LIST(ahi,               [  --disable-ahi           disables AHI support])
+VICE_ARG_ENABLE_LIST(catweasel,         [  --disable-catweasel     disables CatWeasel (PCI/Zorro/Clockport SID card) support])
+VICE_ARG_ENABLE_LIST(hardsid,           [  --disable-hardsid       disables HardSID support])
+VICE_ARG_ENABLE_LIST(lame,              [  --enable-lame           Enable MP3 export with LAME])
+VICE_ARG_ENABLE_LIST(midi,              [  --enable-midi           enable MIDI support])
+VICE_ARG_ENABLE_LIST(new8580filter,     [  --disable-new8580filter  disable new 8580 filters])
+VICE_ARG_ENABLE_LIST(parsid,            [  --disable-parsid        disables ParSID support])
+VICE_ARG_ENABLE_LIST(portaudio,         [  --disable-portaudio     disables PortAudio support])
+VICE_ARG_ENABLE_LIST(ssi2001,           [  --disable-ssi2001       disables SSI2001 (ISA SID card) support])
+VICE_ARG_ENABLE_LIST(static-lame,       [  --enable-static-lame    enable static LAME linking])
+
+
+dnl
+dnl Graphics options
+dnl
+VICE_ARG_WITH_LIST(gif,                 [  --with-gif              use GIF screenshot system])
+VICE_ARG_WITH_LIST(jpeg,                [  --with-jpeg             use JPEG screenshot system])
+VICE_ARG_WITH_LIST(png,                 [  --without-png           do not use the PNG screenshot system])
+VICE_ARG_ENABLE_LIST(external-ffmpeg,   [  --enable-external-ffmpeg  enable external FFmpeg support])
+VICE_ARG_ENABLE_LIST(shared-ffmpeg,     [  --enable-shared-ffmpeg  enable included shared FFmpeg support])
+VICE_ARG_ENABLE_LIST(static-ffmpeg,     [  --enable-static-ffmpeg  enable included static FFmpeg support])
+VICE_ARG_ENABLE_LIST(quicktime,         [  --enable-quicktime      enables Apple QuickTime support])
+dnl Only supported for SDL1
+VICE_ARG_ENABLE_LIST(hwscale,           [  --disable-hwscale       disables GPU scaling of emulated screen (SDL1 UI only)])
+
+
+dnl
+dnl Misc build options
+dnl
+
+VICE_ARG_WITH_LIST(zlib,                [  --without-zlib          do not use the zlib support])
+VICE_ARG_ENABLE_LIST(arch,              [  --enable-arch[[=arch]]    enable architecture specific compilation [[default=yes]]], [], [enable_arch=yes])
+VICE_ARG_ENABLE_LIST(cpuhistory,        [  --enable-cpuhistory     enable the 65xx cpu history feature])
+VICE_ARG_ENABLE_LIST(ethernet,          [  --enable-ethernet       enables The Final Ethernet emulation])
+VICE_ARG_ENABLE_LIST(ipv6,              [  --disable-ipv6          disables the checking for IPv6 compatibility])
+VICE_ARG_ENABLE_LIST(libieee1284,       [  --enable-libieee1284    enables libieee1284 support])
+VICE_ARG_ENABLE_LIST(no-pic,            [  --enable-no-pic         enable the use of the no-pic switch [[default=yes]]])
+VICE_ARG_ENABLE_LIST(realdevice,        [  --disable-realdevice    disables access to real peripheral devices (CBM4Linux/OpenCBM)])
+VICE_ARG_ENABLE_LIST(rs232,             [  --disable-rs232         disable RS232 support])
+
+
+dnl
+dnl Developer options
+dnl
+VICE_ARG_ENABLE_LIST(cmake,             [  --enable-cmake          enable generation of CMakeLists.txt files [[default=no]]])
+VICE_ARG_ENABLE_LIST(debug,             [  --enable-debug          enable debug source options])
+VICE_ARG_ENABLE_LIST(debug-gtk3ui,      [  --enable-debug-gtk3ui   enables debugging for the GTK3 UI])
+VICE_ARG_ENABLE_LIST(debug-threads,     [  --enable-debug-threads  enable debug messages about the threading code [[default=no]]])
+VICE_ARG_ENABLE_LIST(embedded,          [  --enable-embedded       enable embedding of emulation data files])
+VICE_ARG_ENABLE_LIST(x64,               [  --enable-x64            enable building of the old x64 emulator [[default=no]]])
+VICE_ARG_ENABLE_LIST(x64-image,         [  --enable-x64-image      enable X64 image support [[default=no]]])
+VICE_ARG_ENABLE_LIST(optimization,      [  --disable-optimization   disable code optimization by passing -O0 [[default=no]]])
+
+
+dnl
+dnl UI options
+dnl
+VICE_ARG_ENABLE_LIST(headlessui,        [  --enable-headlessui     enables building without a UI])
+VICE_ARG_ENABLE_LIST(sdlui,             [  --enable-sdlui          enables SDL UI support])
+VICE_ARG_ENABLE_LIST(sdlui2,            [  --enable-sdlui2         enables SDL2 UI support])
+VICE_ARG_ENABLE_LIST(native-gtk3ui,     [  --enable-native-gtk3ui  enables native GTK3 UI support])
+
+dnl If enabled, tries to install XDG .desktop files for running the binaries
+dnl from a desktop menu. Only supported for Unix with the exception of MacOS.
+dnl Gtk3 only.
+VICE_ARG_ENABLE_LIST(desktop-files,     [  --enable-desktop-files  enable installation of XDG desktop files (GTK3 UI only)])
+VICE_ARG_ENABLE_LIST(hidmgr,            [  --disable-hidmgr        disable IOHIDManager joystick support on Mac])
+VICE_ARG_ENABLE_LIST(hidutils,          [  --disable-hidutils      disable HID Uitlities joystick support on Mac])
+VICE_ARG_ENABLE_LIST(sandbox-mode,      [  --enable-sandbox-mode   enable support for sandboxed mode on Linux (GTK3 UI only) [[default=no]]])
+
+
+dnl
+dnl Documentation options
+dnl
+VICE_ARG_ENABLE_LIST(html-docs,         [  --enable-html-docs      install the HTML documentation [[default=no]]])
+VICE_ARG_ENABLE_LIST(pdf-docs,          [  --enable-pdf-docs       generate the PDF documentation [[default=if possible]]])
+VICE_ARG_ENABLE_LIST(platformdox,       [  --enable-platformdox    enable generating of documentation specific to the current host])
+
+
+
+dnl
+dnl Check for disabling compiler optimization with --disable-optimization
+dnl
+if test x"$enable_optimization" = "xno"; then
+  VICE_CFLAGS="-g -O0"
+  VICE_CXXFLAGS="-g -O0"
+  VICE_OBJCFLAGS="-g -O0"
+fi
+
+
+AC_ARG_VAR(FW_DIR, [Location of support frameworks (macOS only)])
+
+
+dnl this hack is needed because the default for the auto-tools
+dnl is 'no', and we want the default to be 'yes' unless
+dnl '--disable-option-checking' is used.
+enable_option_checking=yes
+for command_option in $@
+do
+  AS_IF([test x"$command_option" = "x--disable-option-checking"], [enable_option_checking=no])
+done
+
+dnl check for invalid options
+echo "option checking is $enable_option_checking"
+AS_IF([test x"$enable_option_checking" = "xyes"], [VICE_ARG_LIST_CHECK()])
+
+dnl check for conflicting options
+VICE_ARG_LIST_AT_MOST_ONE([--enable-sdlui --enable-sdlui2 --enable-native-gtk3ui --enable-headlessui], [UI])
+VICE_ARG_LIST_AT_MOST_ONE([--enable-static-ffmpeg --enable-shared-ffmpeg --enable-external-ffmpeg], [FFMPEG])
+AS_IF([test x"$enable_native_gtk3ui" = "xno" -a x"$enable_sdlui" = "xno" -a x"$enable_sdlui2" = "xno" -a x"$enable_headlessui" = "xno"],
+      [AC_MSG_ERROR([You cannot disable all GUIs])])
+
+dnl cmake only works for in-tree configured source
+if test x"$enable_cmake" = x"yes" ; then
+  AC_CHECK_FILE(cmake-bootstrap.sh, [], [AC_MSG_ERROR([Out of source tree configure not supported with cmake])])
+fi
+
+dnl Try to find out which system we are on...
+AC_CANONICAL_HOST
+
+dnl Check for the existence of various programs that VICE and its component systems use
+
+dnl Find compiler
+AC_PROG_CC([gcc clang cc])
+
+dnl Make sure the compiler supports C99 at a minimum
+AC_PROG_CC_C99
+AS_IF([test x"$ac_cv_prog_cc_c99" = "xno"],
+      [AC_MSG_ERROR([A C99-compliant compiler is required.])])
+AC_PROG_CPP
+dnl C++ check, at least C++11
+AC_PROG_CXX([g++ clang++ cc])
+AX_CXX_COMPILE_STDCXX([11], [noext], [mandatory])
+AC_PROG_CXXCPP
+AC_PROG_OBJC([gcc clang cc])
+
+dnl Try global compiler warnings
+dnl
+dnl Temporarily removed:
+dnl     -Wextra (enables -Wsign-compare)
+dnl     -Wswitch-default
+dnl     -Wswitch-enum
+dnl     -Wconversion
+dnl     -Wredundant-decls
+dnl     -Wnested-externs
+dnl     -Wcast-qual
+dnl     -Wcast-align
+dnl     -Wsign-compare
+dnl
+dnl (Commenting these out in the following list makes configure barf)
+dnl
+dnl NOTE - before you optimise away the weird SUCCESS_CFLAGS thing, understand the following:
+dnl        clang doesn't exit with an error for an unsupported warning flag by default.
+dnl        clang has -Werror=x to promote a warning to an error, but gcc treats that as an error
+dnl        clang and gcc both support -Werror to promote all warnings to errors
+dnl        initialising and returning the value of arse removes the gcc warning that arse isn't used.
+dnl        So, until a better solution is found, -Werror is added while testing -W flag support.
+dnl
+dnl Warnings added to C should also be added to C++ compiler list. Except these ones because novte:
+dnl     -Wstrict-prototypes (g++ warning: "cc1plus: -Wstrict-prototypes is only valid of C/ObjC not C++" - but zero exit code)
+dnl     -Wformat-signedness         (novte warnings - these could be addressed with source changes)
+dnl
+dnl C++ warnings implied by other settings but explicitly disabled:
+dnl     -Waddress-of-packed-member  (novte warnings)
+dnl     -Wchar-subscripts           (novte warnings)
+dnl
+m4_foreach([flag],
+           [[-Wall],
+            [-Wformat],
+            [-Wformat-signedness],
+            [-Wformat-pedantic],
+            [-Wshadow],
+            [-Wpointer-arith],
+            [-Wstrict-prototypes],
+            [-Wuninitialized],
+            [-Wunreachable-code],
+            [-Wno-unused-parameter],
+            [-Wmacro-redefined],
+            [-Werror=implicit-function-declaration],
+            [-Wfatal-errors],
+            [-fdiagnostics-absolute-paths],
+            [-Wshorten-64-to-32],
+            [-Wdiscarded-qualifiers]],
+           [TEST_FLAG=flag
+            VICE_CFLAG_REQUEST([$TEST_FLAG])
+           ])
+AC_LANG_PUSH([C++])
+m4_foreach([flag],
+           [[-Wall],
+            [-Wformat],
+            [-Wformat-pedantic],
+            [-Wshadow],
+            [-Wpointer-arith],
+            [-Wuninitialized],
+            [-Wunreachable-code],
+            [-Wno-unused-parameter],
+            [-Werror=implicit-function-declaration],
+            [-Wfatal-errors],
+            [-fdiagnostics-absolute-paths],
+            [-Wshorten-64-to-32]],
+           [TEST_FLAG=flag
+            VICE_CXXFLAG_REQUEST([$TEST_FLAG])
+           ])
+AC_LANG_POP([C++])
+
+dnl VTE specific flags
+VTE_CXXFLAGS=""
+m4_foreach([flag],
+           [[-Wno-address-of-packed-member],
+            [-Wno-char-subscripts],
+            [-Wno-format-signedness],
+            [-Wno-c99-designator],
+            [-Wno-shorten-64-to-32],
+            [-Wno-nonnull-compare]],
+           [TEST_FLAG=flag
+            VICE_CXXFLAG_REQUEST([$TEST_FLAG], [VTE_CXXFLAGS])
+            ])
+AC_SUBST(VTE_CXXFLAGS)
+
+dnl Monitor specific flags (due to the code generated by yacc/lex)
+MONITOR_CFLAGS=""
+m4_foreach([flag],
+           [[-Wno-unused-label],
+            [-Wno-unreachable-code],
+            [-Wno-misleading-indentation]],
+           [TEST_FLAG=flag
+            VICE_CFLAG_REQUEST([$TEST_FLAG], [MONITOR_CFLAGS])
+            ])
+AC_SUBST(MONITOR_CFLAGS)
+
+AC_PROG_INSTALL
+AC_PROG_LN_S
+AC_PROG_LEX
+AS_IF([test x"$LEX" = "x:"], [AC_MSG_ERROR([Could not find either flex or lex!])])
+
+AC_LIB_PROG_LD
+
+AC_CHECK_PROG(AR, ar, ar, ar)
+AC_CHECK_PROG(SVN, svn, svn, :)
+AC_CHECK_PROG(TAR, tar, tar, :)
+AC_CHECK_PROG(SVNVERSION, svnversion, svnversion, :)
+AS_IF([test x"$enable_static_ffmpeg" = "xyes" -o x"$enable_shared_ffmpeg" = "xyes"],
+[
+  AC_CHECK_PROG(BASH, bash, bash, :)
+  AS_IF([test x"$BASH" = "x:"],
+        [AC_MSG_ERROR([bash is required for ffmpeg compiling])])
+  AS_CASE(["$host_cpu"], [i*86 | x86_64* | amd64*],
+  [
+    AC_CHECK_PROG(YASM, yasm, yasm, no)
+    AS_IF([test x"$YASM" = "xno"],
+          [AC_MSG_ERROR([yasm needed for ffmpeg compile])])
+    dnl Check minimum yasm version required
+    YASM_VERSION_MAJOR=1
+    YASM_VERSION_MINOR=2
+    YASM_VERSION_BUILD=0
+    yasm_ver=`$YASM --version | head -n 1 | cut -d ' ' -f 2`
+    yasm_maj=`echo "$yasm_ver" | cut -d '.' -f 1`
+    yasm_min=`echo "$yasm_ver" | cut -d '.' -f 2`
+    yasm_rev=`echo "$yasm_ver" | cut -d '.' -f 3`
+    yasm_ok=false
+
+    AS_IF([test $yasm_maj -gt $YASM_VERSION_MAJOR], [yasm_ok=true])
+    AS_IF([test $yasm_maj -eq $YASM_VERSION_MAJOR -a $yasm_min -gt $YASM_VERSION_MINOR], [yasm_ok=true])
+    AS_IF([test $yasm_maj -eq $YASM_VERSION_MAJOR -a $yasm_min -eq $YASM_VERSION_MINOR -a $yasm_rev -ge $YASM_VERSION_BUILD], [yasm_ok=true])
+    AS_IF([test x"$yasm_ok" != "xtrue"],
+          [AC_MSG_ERROR([yasm $YASM_VERSION_MAJOR.$YASM_VERSION_MINOR.$YASM_VERSION_BUILD or higher required])])
+  ], [])
+  make_cmd=""
+  AC_MSG_CHECKING(Whether our make is a GNU make)
+  for i in "$MAKE" make gmake gnumake
+  do
+    test -x "$i" && continue
+    AS_IF([ ( sh -c "$i --version" 2>/dev/null | grep GNU >/dev/null ) ],
+          [
+             AC_MSG_RESULT($i);
+             make_cmd=$i;
+             break;
+          ])
+  done
+  AS_IF([test x"$make_cmd" = "x"], [
+    AC_MSG_RESULT(no);
+    AC_MSG_ERROR([When using internal FFMPEG a GNU make command is needed])
+  ], [MAKE="$make_cmd"])
+])
+AC_CHECK_PROGS(YACC, byacc yacc 'bison -y', [no])
+AS_IF([test x"$YACC" = "xno"], [AC_MSG_ERROR([Could not find byacc, yacc or bison!])])
+
+dnl Check for makeinfo, might only be required for AmigaOS since we don't
+dnl generate info pages anymore ?
+AC_CHECK_PROGS(MAKEINFO, makeinfo, no)
+AS_IF([test x"$MAKEINFO" = "xno"],
+      [AC_MSG_ERROR([makeinfo is missing, please install texinfo])])
+
+dnl Check for dos2unix
+AC_CHECK_PROGS(DOS2UNIX, dos2unix, no)
+AS_IF([test x"$DOS2UNIX" = "xno"],
+      [AC_MSG_ERROR([The dos2unix tool is missing, please install dos2unix])])
+
+dnl Check for xa[65]
+AC_CHECK_PROGS(XA, [xa xa65], no)
+AS_IF([test x"$XA" = "xno"],
+      [AC_MSG_ERROR([The xa assembler is missing, either install it via your
+                  distribution or build and install it using the latest source
+                  from https://www.floodgap.com/retrotech/xa/])])
+
+if test x"$enable_pdf_docs" != xno; then
+  AC_CHECK_PROGS(TEXI2DVI, texi2dvi, no)
+  if test x"$TEXI2DVI" = "xno"; then
+    AC_MSG_ERROR([PDF docs were requested (--enable-pdf-docs), but texi2dvi is missing])
+  fi
+  AC_CHECK_PROGS(PDFTEX, pdftex, no)
+  if test x"$PDFTEX" = "xno"; then
+    AC_MSG_ERROR([PDF docs were requested (--enable-pdf-docs), but pdftex is missing])
+  fi
+
+fi
+
+AC_CHECK_PROGS(PERL, perl)
+
+if test x"${enable_html_docs:-no}" != xno -a x"$PERL" = x; then
+  AC_MSG_ERROR([Perl is required to generate the HTML documentation])]
+fi
+
+AM_CONDITIONAL([ENABLE_PDF_DOCS], [test x"${enable_pdf_docs}" != xno])
+if test x"${enable_pdf_docs}" != "xno"; then
+    VICE_PDF_FILE_NAME="vice.pdf"
+else
+    VICE_PDF_FILE_NAME=""
+fi
+AC_SUBST(VICE_PDF_FILE_NAME)
+
+AM_CONDITIONAL([ENABLE_HTML_DOCS], [test x"${enable_html_docs:-no}" != xno])
+AM_CONDITIONAL([HAVE_PERL], [test x"$PERL" != x])
+
+dnl Seems to be used for AmigaOS, not available on Debian:
+AC_CHECK_PROGS(MAKEGUIDE, makeguide, no)
+
+AC_CHECK_PROGS(ICONV, iconv, no)
+AS_IF([test x"$ICONV" = x"no"], [AC_MSG_ERROR([iconv is missing])])
+AC_CHECK_TOOL(RANLIB, ranlib, :)
+AC_CHECK_TOOL(STRIP, strip, :)
+AC_CHECK_TOOL(objdump, objdump, no)
+AC_CHECK_TOOL(sdl_config, sdl-config, no)
+
+dnl echo "Checking host_os for Windows: host_os = $host_os"
+dnl Check for windres, required to link icons into windows binaries
+if test x"$host_os" = "xmingw32"; then
+    AC_CHECK_TOOL([WINDRES], [windres], [no])
+    AS_IF([test x"$WINDRES" = "xno"],
+           [AC_MSG_ERROR([Could not find required windres binary!])])
+fi
+
+
+AM_PROG_AS
+
+dnl Other build environment checks
+AC_SYS_LARGEFILE
+
+AC_SUBST(VICE_VERSION_MAJOR)
+AC_SUBST(VICE_VERSION_MINOR)
+AC_SUBST(VICE_VERSION_BUILD)
+
+AS_IF([test x"$VICE_VERSION_BUILD" = "x" -o x"$VICE_VERSION_BUILD" = "x0"],
+      [VICE_VERSION=$VICE_VERSION_MAJOR"."$VICE_VERSION_MINOR
+       VERSION_RC=$VICE_VERSION_MAJOR","$VICE_VERSION_MINOR",0,0"],
+      [VICE_VERSION=$VICE_VERSION_MAJOR"."$VICE_VERSION_MINOR"."$VICE_VERSION_BUILD
+       VERSION_RC=$VICE_VERSION_MAJOR","$VICE_VERSION_MINOR","$VICE_VERSION_BUILD",0"
+       AC_DEFINE(UNSTABLE,,[Define if this version is unstable.])])
+AC_SUBST(VICE_VERSION)
+AC_SUBST(VERSION_RC)
+
+AC_CONFIG_HEADERS([src/config.h])
+
+VERSION_COMBINED=`expr $VICE_VERSION_MAJOR \* 65536 + $VICE_VERSION_MINOR \* 256 + $VICE_VERSION_BUILD`
+AC_SUBST(VERSION_COMBINED)
+
+is_unix=no
+is_unix_x11=no
+is_unix_macosx=no
+is_win32=no
+is_win32_gtk3=no
+is_beos=no
+
+
+BSD_JOYSTICK_SUPPORT="no "
+DEBUG_SUPPORT="no "
+DEBUG_THREADS_SUPPORT="no "
+FEATURE_CPUMEMHISTORY_SUPPORT="no "
+HAS_DIGITAL_JOYSTICK_SUPPORT="no "
+HAS_HIDMGR_SUPPORT="no "
+HAS_USB_JOYSTICK_SUPPORT="no "
+HAVE_AUDIO_UNIT_SUPPORT="no "
+HAVE_CATWEASELMKIII_SUPPORT="no "
+HAVE_DEVICES_AHI_H_SUPPORT="no "
+HAVE_DINPUT_SUPPORT="no "
+HAVE_DYNLIB_SUPPORT_TOO="no "
+HAVE_FASTSID_SUPPORT="no "
+HAVE_FFMPEG_AVRESAMPLE_SUPPORT="no "
+HAVE_FFMPEG_SUPPORT="no "
+HAVE_FFMPEG_SWRESAMPLE_SUPPORT="no "
+HAVE_FFMPEG_SWSCALE_SUPPORT="no "
+HAVE_FONTCONFIG_SUPPORT="no "
+HAVE_GIF_SUPPORT="no "
+HAVE_HARDSID_SUPPORT="no "
+HAVE_HWSCALE_SUPPORT="no "
+HAVE_IOSID_SUPPORT="no "
+HAVE_IPV6_SUPPORT="no "
+HAVE_JPEG_SUPPORT="no "
+HAVE_LIBIEEE1284_SUPPORT="no "
+HAVE_LIGHTPEN_SUPPORT="no "
+HAVE_MIDI_SUPPORT="no "
+HAVE_MOUSE_SUPPORT="no "
+HAVE_NETWORK_SUPPORT="no "
+HAVE_PARSID_SUPPORT="no "
+HAVE_PCIUTILS_SUPPORT="no "
+HAVE_PNG_SUPPORT="no "
+HAVE_PORTSID_SUPPORT="no "
+HAVE_PROTO_OPENPCI_H_SUPPORT="no "
+HAVE_RAWNET_SUPPORT="no "
+HAVE_REALDEVICE_SUPPORT="no "
+HAVE_RESID_SUPPORT="no "
+HAVE_RS232DEV_SUPPORT="no "
+HAVE_RS232NET_SUPPORT="no "
+HAVE_SDL_NUMJOYSTICKS_SUPPORT="no "
+HAVE_SSI2001_SUPPORT="no "
+HAVE_SYS_AUDIOIO_H_SUPPORT="no "
+HAVE_SYS_AUDIO_H_SUPPORT="no "
+HAVE_ZLIB_SUPPORT="no "
+LINUX_JOYSTICK_SUPPORT="no "
+MAC_JOYSTICK_SUPPORT="no "
+SHARED_FFMPEG_SUPPORT="no "
+STATIC_FFMPEG_SUPPORT="no "
+USE_ALSA_SUPPORT="no "
+USE_COREAUDIO_SUPPORT="no "
+USE_DMEDIA_SUPPORT="no "
+USE_DXSOUND_SUPPORT="no "
+USE_EMBEDDED_SUPPORT="no "
+USE_FLAC_SUPPORT="no "
+USE_LAMEMP3_SUPPORT="no "
+USE_MPG123_SUPPORT="no "
+USE_OSS_SUPPORT="no "
+USE_PORTAUDIO_SUPPORT="no "
+USE_PULSE_SUPPORT="no "
+USE_SANDBOX_MODE="no "
+USE_SDL_AUDIO_SUPPORT="no "
+USE_VORBIS_SUPPORT="no "
+USE_NEW_8580_FILTER="no "
+USE_DESKTOP_FILES="no "
+HAVE_X64_IMAGE_SUPPORT="no "
+
+
+dnl Why do we have this?
+AM_CONDITIONAL(DUMMY_COMPILE, false)
+
+AS_IF([test x"$enable_cpuhistory" = "xyes"],
+  [
+    AC_DEFINE(FEATURE_CPUMEMHISTORY,,[Use the 65xx cpu history feature.])
+    FEATURE_CPUMEMHISTORY_SUPPORT="yes"
+  ])
+
+dnl New 8580 filters: Changed on 2020-08-23 from default 'no' to default 'yes'.
+dnl If we don't get any (valid) complaints, we should make this non-configurable.
+AS_IF([test x"$enable_new8580filter" != "xno"],
+  [
+    AC_DEFINE(HAVE_NEW_8580_FILTER,,[Use the new 8580 filter])
+    USE_NEW_8580_FILTER="yes"
+  ])
+
+AM_CONDITIONAL(VICE_QUIET, test x"$verbose" != "xyes" -a x"$enable_silent_rules" = "x")
+
+user_cflags=$CFLAGS
+
+PKG_PROG_PKG_CONFIG
+
+SOUND_DRIVERS=""
+
+dnl Check if a GUI order check needs to be done
+AS_IF([test x"$enable_native_gtk3ui" != "xyes" -a x"$enable_sdlui" != "xyes" -a x"$enable_sdlui2" != "xyes" -a x"$enable_headlessui" != "xyes"],
+      [check_guis=yes])
+
+dnl Check if gtk3 ui should be checked
+if test x"$check_guis" = "xyes"; then
+  if test x"$enable_native_gtk3ui" != "xno"; then
+    check_gtk3=yes
+  fi
+else
+  if test x"$enable_native_gtk3ui" = "xyes"; then
+    check_gtk3=yes
+  fi
+fi
+
+
+old_CFLAGS="$CFLAGS"
+CFLAGS="$VICE_CFLAGS"
+dnl Do these checks before any Gtk3 flags are added
+AC_MSG_CHECKING(for time_t in time.h)
+AC_CACHE_VAL(bu_cv_decl_time_t_time_h,
+[AC_TRY_COMPILE([#include <time.h>], [time_t i;],
+bu_cv_decl_time_t_time_h=yes, bu_cv_decl_time_t_time_h=no)])
+AC_MSG_RESULT($bu_cv_decl_time_t_time_h)
+if test $bu_cv_decl_time_t_time_h = yes; then
+  AC_DEFINE([HAVE_TIME_T_IN_TIME_H],,
+            [Is the type time_t defined in <time.h>?])
+fi
+
+AC_MSG_CHECKING(for time_t in sys/types.h)
+AC_CACHE_VAL(bu_cv_decl_time_t_types_h,
+[AC_TRY_COMPILE([#include <sys/types.h>], [time_t i;],
+bu_cv_decl_time_t_types_h=yes, bu_cv_decl_time_t_types_h=no)])
+AC_MSG_RESULT($bu_cv_decl_time_t_types_h)
+if test $bu_cv_decl_time_t_types_h = yes; then
+  AC_DEFINE([HAVE_TIME_T_IN_TYPES_H],,
+            [Is the type time_t defined in <sys/types.h>?])
+fi
+
+if test $bu_cv_decl_time_t_time_h = yes; then
+  AC_CHECK_SIZEOF([time_t],[],[#include <time.h>])
+else
+  AC_CHECK_SIZEOF([time_t],[],[#include <sys/types.h>])
+fi
+
+if test "x$ac_cv_sizeof_time_t" = "x4"; then
+  AC_DEFINE([TIME_T_IS_32BIT],,[time_t is 32 bit])
+elif test "x$ac_cv_sizeof_time_t" = "x8"; then
+  AC_DEFINE([TIME_T_IS_64BIT],,[time_t is 64 bit])
+else
+  AC_MSG_ERROR([can not figure type of time_t])
+fi
+
+dnl We probably shouldn't need these:
+AM_CONDITIONAL([HAVE_BSD], false)
+AM_CONDITIONAL([HAVE_BSD_FREE], false)
+AM_CONDITIONAL([HAVE_BSD_NET], false)
+AM_CONDITIONAL([HAVE_BSD_OPEN], false)
+AM_CONDITIONAL([HAVE_BSD_DRAGON], false)
+
+CFLAGS="$old_CFLAGS"
+dnl Add runtime/linker paths for *BSD
+dnl
+dnl This needs to be altered to use VICE_**FLAGS, but I'm kinda busy making that
+dnl work on Linux and Windows. So once that works, alter this:
+case "$host_os" in
+  freebsd*)
+    AM_CONDITIONAL([HAVE_BSD], true)
+    AM_CONDITIONAL([HAVE_BSD_FREE], true)
+    dnl VICE_CPPFLAGS="$VICE_CPPFLAGS -I/usr/local/include"
+    dnl fbsdrtp=`${CONFIG_SHELL-/bin/sh} "$srcdir/config.rpath" "$CC" "$GCC" "$VICE_LDFLAGS" "$LD" "$with_gnu_ld" "$host" "/usr/local/lib"`
+    dnl VICE_LDFLAGS="$VICE_LDFLAGS $fbsdrtp -L/usr/local/lib"
+    ;;
+  netbsd*)
+    AM_CONDITIONAL([HAVE_BSD], true)
+    AM_CONDITIONAL([HAVE_BSD_NET], true)
+    CPPFLAGS="$CPPFLAGS -I/usr/pkg/include -I/usr/include"
+    nbsdrtp=`${CONFIG_SHELL-/bin/sh} "$srcdir/config.rpath" "$CC" "$GCC" "$VICE_LDFLAGS" "$LD" "$with_gnu_ld" "$host" "/usr/pkg/lib"`
+    VICE_LDFLAGS="$VICE_LDFLAGS $nbsdrtp -L/usr/pkg/lib"
+    if test -d "/usr/X11R7/lib"; then
+      rtp=`${CONFIG_SHELL-/bin/sh} "$srcdir/config.rpath" "$CC" "$GCC" "$VICE_LDFLAGS" "$LD" "$with_gnu_ld" "$host" "/usr/X11R7/lib"`
+      VICE_LDFLAGS="$VICE_LDFLAGS $rtp"
+      LDFLAGS="$LDFLAGS -L/usr/X11R7/lib"
+    else
+      if test -d "/usr/X11R6/lib"; then
+        rtp=`${CONFIG_SHELL-/bin/sh} "$srcdir/config.rpath" "$CC" "$GCC" "$VICE_LDFLAGS" "$LD" "$with_gnu_ld" "$host" "/usr/X11R6/lib"`
+        VICE_LDFLAGS="$VICE_LDFLAGS $rtp -L/usr/X11R6/lib"
+        LDFLAGS="$LDFLAGS -L/usr/X11R6/lib"
+      fi
+    fi
+    ;;
+  openbsd*)
+    dnl Either OpenBSD doesn't need the rpath stuff, or we never implemented it
+    AM_CONDITIONAL([HAVE_BSD], true)
+    AM_CONDITIONAL([HAVE_BSD_OPEN], true)
+    ;;
+  dragonfly*)
+    CPPFLAGS="$CPPFLAGS -I/usr/local/include"
+    dfbsdrtp=`${CONFIG_SHELL-/bin/sh} "$srcdir/config.rpath" "$CC" "$GCC" "$VICE_LDFLAGS" "$LD" "$with_gnu_ld" "$host" "/usr/local/lib"`
+    VICE_LDFLAGS="$VICE_LDFLAGS $dfbsdrtp -L/usr/local/lib"
+    ;;
+  *)
+    ;;
+esac
+
+
+if test "x$CC" = "xgcc"; then
+  GCC=yes
+fi
+
+
+if test x"$enable_arch" = "xno"; then
+  march=""
+  ENABLE_ARCH=no
+else
+  if test x"$enable_arch" = "xyes"; then
+    AC_MSG_CHECKING([if the compiler supports -march=native])
+    ORIG_CFLAGS="$VICE_CFLAGS"
+    VICE_CFLAGS="$VICE_CFLAGS -march=native"
+    AC_TRY_COMPILE([],
+                   [int test;],
+                   [ AC_MSG_RESULT(yes)
+                     ENABLE_ARCH=yes
+                     march="-march=native" ],
+                   [ AC_MSG_RESULT(no)
+                     ENABLE_ARCH=no
+                     march="" ])
+    VICE_CFLAGS="$ORIG_CFLAGS"
+  else
+    AC_MSG_CHECKING([if the compiler supports -march=$enable_arch])
+    ORIG_CFLAGS="$VICE_CFLAGS"
+    VICE_CFLAGS="$VICE_CFLAGS -march=$enable_arch"
+    AC_TRY_COMPILE([],
+                   [int test;],
+                   [ AC_MSG_RESULT(yes)
+                     ENABLE_ARCH=yes
+                     march="-march=$enable_arch" ],
+                   [ AC_MSG_RESULT(no)
+                     ENABLE_ARCH=no
+                     march="" ])
+    VICE_CFLAGS="$ORIG_CFLAGS"
+  fi
+fi
+
+AC_SUBST(ENABLE_ARCH)
+
+dnl check if the compiler supports -posix
+if test x"$posix_check" = "xyes"; then
+  AC_MSG_CHECKING([if the compiler supports -posix])
+  ORIG_CFLAGS="$CFLAGS"
+  CFLAGS="$CFLAGS -posix"
+  AC_TRY_COMPILE([],
+                 [int test;],
+                 [ AC_MSG_RESULT(yes)],
+                 [ AC_MSG_RESULT(no)
+                   CFLAGS=$ORIG_CFLAGS ])
+fi
+
+dnl check if ar truncates object names
+if test x"$ar_check" != "xno"; then
+  AC_MSG_CHECKING(if ar truncates object names)
+  rm -f vicetest.c
+  touch vicetest.c
+  $CC -c vicetest.c -o some_long_object_name.o
+  rm -f vicetest.c
+  rm -f libvicetest.a
+  $AR cru libvicetest.a some_long_object_name.o
+  rm -f some_long_object_name.o
+  $AR x libvicetest.a
+  if test -f some_long_object_name.o; then
+    AC_MSG_RESULT(no)
+    rm -f some_long_object_name.o libvicetest.a
+  else
+    AC_MSG_RESULT(yes)
+    rm -f some*.o libvicetest.a
+    AC_MSG_ERROR([ar is too old, upgrade your ar])
+  fi
+fi
+
+dnl check if ar needs a wrapper to get rid of the 'u' option
+if test x"$ar_check" != "xno"; then
+  AC_MSG_CHECKING(if ar complains about the 'u' option)
+  rm -f vicetest.c
+  touch vicetest.c
+  $CC -c vicetest.c -o vicetest.o
+  rm -f vicetest.c
+  rm -f libvicetest.a
+  complains=`$AR cru libvicetest.a vicetest.o 2>&1`
+  if test x"$complains" != "x"; then
+    AC_MSG_RESULT(yes)
+    echo "using ar wrapper instead of ar directly"
+    AR_WRAP="$AR"
+    AR="\$(top_srcdir)/src/wrap-u-ar.sh \"$AR_WRAP\""
+  else
+    AC_MSG_RESULT(no)
+  fi
+  rm -f libvicetest.a vicetest.o
+fi
+
+if test x"$SVN" != "x"; then
+  svnrevision=`$SVN 2>dummy.tmp info $srcdir | grep Revision | cut -d " " -f 2`
+  rm dummy.tmp
+  if test x"$svnrevision" != "x"; then
+    AM_CONDITIONAL(USE_SVN_REVISION, true)
+    AC_DEFINE(USE_SVN_REVISION,,[define when using the svn revision in addition to the version])
+  else
+    AM_CONDITIONAL(USE_SVN_REVISION, false)
+  fi
+else
+  AM_CONDITIONAL(USE_SVN_REVISION, false)
+fi
+
+dnl Setup crosscompiling.
+
+if test x"$host_os" = "xcygwin32" -o x"$host_os" = "xcygwin" -o x"$host_os" = "xmingw32" -o x"$host_os" = "xmingw32msvc" -o x"$is_win32_gtk3" = "xyes"; then
+
+  dnl This is used by subsequent tests.
+  ac_cv_prog_gcc=yes
+  GCC=yes
+
+  is_win32=yes
+
+  AC_CHECK_HEADERS([commctrl.h shlobj.h winioctl.h], [], [], [#include <windows.h>])
+
+  AC_DEFINE(HAVE_HTONL,,[Define to 1 if you have the htonl function.])
+  AC_DEFINE(HAVE_HTONS,,[Define to 1 if you have the htons function.])
+  AC_DEFINE(HAVE_NETWORK,,[Enable netplay support])
+  HAVE_NETWORK_SUPPORT="yes"
+  AC_DEFINE(HAVE_RS232NET,,[Enable RS232 network support])
+  HAVE_RS232NET_SUPPORT="yes"
+  if test x"$host_cpu" = "xx86_64" -o x"$host_cpu" = "xamd64"; then
+    LIBS="$LIBS -luserenv -lwinmm -lws2_32 -lntdll -ld2d1"
+  else
+    LIBS="$LIBS -luserenv -lwinmm -lwsock32 -lmingwex -lmsvcrt -lntdll -ld2d1"
+  fi
+  if test x"$enable_catweasel" != "xno"; then
+    AC_DEFINE(HAVE_CATWEASELMKIII,,[Support for Catweasel MKIII.])
+    HAVE_CATWEASELMKIII_SUPPORT="yes"
+  fi
+  if test x"$enable_hardsid" != "xno"; then
+    AC_DEFINE(HAVE_HARDSID,,[Support for HardSID.])
+    HAVE_HARDSID_SUPPORT="yes"
+  fi
+  if test x"$enable_parsid" != "xno"; then
+    AC_DEFINE(HAVE_PARSID,,[Support for ParSID.])
+    HAVE_PARSID_SUPPORT="yes"
+
+    if test x"$enable_libieee1284" = "xyes"; then
+      LIBIEEE1284_HEADERS_PRESENT=yes
+
+      dnl Check for needed io headers
+      AC_CHECK_HEADERS(ieee1284.h,,[LIBIEEE1284_HEADERS_PRESENT=no],)
+
+      if test x"$LIBIEEE1284_HEADERS_PRESENT" = "xyes"; then
+        AC_CHECK_LIB(ieee1284, ieee1284_find_ports,[LIBS="-lieee1284 $LIBS"; PARSID_SUPPORT=yes],,)
+        if test x"$PARSID_SUPPORT" = "xyes"; then
+          AC_DEFINE(HAVE_LIBIEEE1284,,[Define to 1 if you have the 'ieee1284' library (-lieee1284).])
+        else
+          AC_MSG_ERROR([libieee1284 is missing])
+        fi
+      else
+        AC_MSG_ERROR([libieee1284 header is missing])
+      fi
+    fi
+  fi
+  if test x"$enable_ssi2001" != "xno"; then
+    AC_DEFINE(HAVE_SSI2001,,[Support for SSI2001 (ISA SID card).])
+    HAVE_SSI2001_SUPPORT="yes"
+  fi
+  if test x"$enable_midi" = "xyes"; then
+    AC_DEFINE(HAVE_MIDI,,[Enable support for MIDI.])
+    HAVE_MIDI_SUPPORT="yes"
+  fi
+  if test x"$enable_ethernet" = "xyes"; then
+    AC_DEFINE(HAVE_PCAP,,[Support for PCAP library.])
+    AC_DEFINE(HAVE_RAWNET,,[Support for CS8900A ethernet controller.])
+    HAVE_RAWNET_SUPPORT="yes"
+  fi
+  if test x"$enable_rs232" != "xno"; then
+    AC_DEFINE(HAVE_RS232DEV,,[Enable RS232 device emulation.])
+    HAVE_RS232DEV_SUPPORT="yes"
+  fi
+
+  dinput_header_no_lib="no"
+
+  AC_CHECK_HEADER(dinput.h,
+              [ HAVE_DINPUT_SUPPORT="yes";
+                AC_DEFINE(HAVE_DINPUT,,[Use DirectInput joystick driver]) ]
+              [ AC_MSG_CHECKING(for -ldinput) ]
+              [SAVELIBS="$LIBS"] [ LIBS="-ldinput $LIBS" ]
+              [ AC_LINK_IFELSE([
+                               AC_LANG_PROGRAM([#include <dinput.h>],[return DirectInputCreateA(0,0,0,0);])
+                               ],
+                            [ AC_DEFINE(HAVE_DINPUT_LIB, [], [dinput.lib or libdinput.a are present]) ]
+                            [ AC_MSG_RESULT(yes) ],
+                            [ dinput_header_no_lib="yes" ]
+                            [ LIBS="$SAVELIBS" ]
+                            [ AC_MSG_RESULT(no) ]
+              )]
+     )
+
+  dnl warnings_cxx="-Wall -W -Wno-unused-parameter -Wno-missing-field-initializers -Wno-sign-compare"
+  dnl (Didn't we already check this?
+  if test x"$nowarnings" != "xyes"; then
+      warnings_cxx="-Wall -Wno-unused-parameter -Wno-sign-compare"
+      VICE_CFLAGS="$VICE_CFLAGS $warnings_cxx"
+      VICE_CXXFLAGS="$VICE_CXXFLAGS $warnings_cxx"
+  fi
+
+elif test x"$host_os" = "xbeos" -o x"$host_os" = "xhaiku"; then
+
+  dnl Again: ingnored for now
+
+  dnl This is used by subsequent tests.
+  ac_cv_prog_gcc=yes
+  GCC=yes
+
+  is_beos=yes
+  AC_DEFINE(BEOS_COMPILE,,[Are we compiling for either BeOS or Haiku?])
+
+  if test x"$enable_catweasel" != "xno"; then
+    AC_DEFINE(HAVE_CATWEASELMKIII,,[Support for Catweasel MKIII.])
+    HAVE_CATWEASELMKIII_SUPPORT="yes"
+  fi
+
+  if test x"$enable_hardsid" != "xno"; then
+    AC_DEFINE(HAVE_HARDSID,,[Support for HardSID.])
+    HAVE_HARDSID_SUPPORT="yes"
+  fi
+
+  if test x"$enable_parsid" != "xno"; then
+    AC_DEFINE(HAVE_PARSID,,[Support for ParSID.])
+    HAVE_PARSID_SUPPORT="yes"
+
+    if test x"$enable_libieee1284" = "xyes"; then
+      LIBIEEE1284_HEADERS_PRESENT=yes
+
+      dnl Check for needed io headers
+      AC_CHECK_HEADERS(ieee1284.h,,[LIBIEEE1284_HEADERS_PRESENT=no],)
+
+      if test x"$LIBIEEE1284_HEADERS_PRESENT" = "xyes"; then
+        AC_CHECK_LIB(ieee1284, ieee1284_find_ports,[LIBS="-lieee1284 $LIBS"; PARSID_SUPPORT=yes],,)
+        if test x"$PARSID_SUPPORT" = "xyes"; then
+          AC_DEFINE(HAVE_LIBIEEE1284,,[Define to 1 if you have the 'ieee1284' library (-lieee1284).])
+        else
+          AC_MSG_ERROR([libieee1284 is missing])
+        fi
+      else
+        AC_MSG_ERROR([libieee1284 header is missing])
+      fi
+    fi
+  fi
+
+  if test x"$enable_ssi2001" != "xno"; then
+    AC_DEFINE(HAVE_SSI2001,,[Support for SSI2001 (ISA SID card).])
+    HAVE_SSI2001_SUPPORT="yes"
+  fi
+
+  dnl Haiku needs a few compiler flags to compile:
+  dnl Probably can get rid off libstdc++, but who will ever notice?
+  VICE_CFLAGS="$VICE_CFLAGS -static -static-libgcc -static-libstdc++"
+
+else
+
+dnl check for darwin first.
+case "$host_os" in
+darwin*)
+  dnl check for needed CoreVideo header
+  AC_CHECK_HEADERS(CoreVideo/CVHostTime.h)
+
+  dnl check for needed CoreServices header
+  AC_CHECK_HEADERS(CoreServices/CoreServices.h)
+
+  dnl change the host_os to puredarwin to make the configure think it is
+  dnl just another unix.
+  if test x"$ac_cv_header_CoreServices_CoreServices_h" != "xyes"; then
+    host_os=puredarwin;
+    AC_DEFINE(DARWIN_COMPILE,,[Enable plain darwin compilation])
+  fi
+  ;;
+*)
+  ;;
+esac
+
+dnl Check for host os with version attached. Typically on UN*X like systems.
+case "$host_os" in
+
+dnl Mac OS X Host
+darwin*)
+
+  AC_PROG_OBJCPP
+
+  is_unix=yes
+  is_unix_macosx=yes
+  is_unix_x11=yes
+
+  dnl disable toolchain checking for macosx
+  toolchain_check=no
+
+  dnl The vice build system builds empty libs for things that are configured out,
+  dnl then links all of them together. This causes ranlib to complain like:
+  dnl
+  dnl   file: libarch.a(joy-win32-dinput-handle.o) has no symbols
+  dnl
+  dnl This warning can be disabled by passing -no_warning_for_no_symbols to ranlib.
+  dnl ar also calls ranlib, and there is no way to pass the argument.
+  dnl
+  dnl You can split an 'ar cru' call into separate ar and ranlib calls, but,
+  dnl sometimes ranlib will invoke libtool which has its own warning we can't
+  dnl change without major build system changes.
+  dnl
+  dnl Given all that it's simpler to just grep -v out the warnings we don't want,
+  dnl which these scripts do.
+
+  RANLIB="\$(top_srcdir)/src/arch/shared/macOS-wrap-ranlib.sh"
+  AR="\$(top_srcdir)/src/arch/shared/macOS-wrap-ar.sh"
+
+  dnl target OSX 10.9
+  VICE_CFLAGS="$VICE_CFLAGS -mmacosx-version-min=10.9"
+  VICE_CXXFLAGS="$VICE_CXXFLAGS -mmacosx-version-min=10.9"
+  VICE_LDFLAGS="$VICE_LDFLAGS -mmacosx-version-min=10.9"
+
+  if test x"$enable_rs232" != "xno"; then
+    AC_DEFINE(HAVE_RS232DEV,,[Enable RS232 device emulation.])
+    HAVE_RS232DEV_SUPPORT="yes"
+  fi
+
+  AC_DEFINE(HAVE_MOUSE,,[Enable 1351 mouse support])
+  HAVE_MOUSE_SUPPORT="yes"
+  AC_DEFINE(HAVE_LIGHTPEN,,[Enable lightpen support])
+  HAVE_LIGHTPEN_SUPPORT="yes"
+
+  AC_DEFINE(MACOSX_SUPPORT,,[Enable Mac OS X specific code.])
+  VICE_CFLAGS="$VICE_CFLAGS -I/opt/local/include -I/usr/local/include"
+  VICE_CXXFLAGS="$VICE_CXXFLAGS -I/opt/local/include -I/usr/local/include"
+  VICE_LDFLAGS="$VICE_LDFLAGS -L/opt/local/lib -Wl,-rpath,/opt/local/lib -L/usr/local/lib -Wl,-rpath,/usr/local/lib -headerpad_max_install_names"
+  FRAMEWORKS="-framework CoreText -framework CoreServices -framework AppKit -framework CoreGraphics"
+  LIBS="$LIBS $FRAMEWORKS"
+  ;;
+
+dnl All other UN*X systems
+*)
+  is_unix=yes
+  is_unix_x11=yes
+
+  AC_DEFINE(HAVE_MOUSE,,[Enable 1351 mouse support])
+  HAVE_MOUSE_SUPPORT="yes"
+  AC_DEFINE(HAVE_LIGHTPEN,,[Enable lightpen support])
+  HAVE_LIGHTPEN_SUPPORT="yes"
+  if test x"$enable_midi" = "xyes"; then
+    AC_DEFINE(HAVE_MIDI,,[Enable support for MIDI.])
+    HAVE_MIDI_SUPPORT="yes"
+  fi
+  if test x"$enable_rs232" != "xno"; then
+    AC_DEFINE(HAVE_RS232DEV,,[Enable RS232 device emulation.])
+    HAVE_RS232DEV_SUPPORT="yes"
+  fi
+  ;;
+esac
+fi
+
+dnl check for debug build
+if test x"$enable_debug" = "xyes"; then
+  have_backtrace_symbols="no"
+  DEBUGBUILD=1
+  STRIP=":"
+  DEBUG_SUPPORT="yes"
+  AC_CHECK_HEADERS(execinfo.h,,)
+
+  dnl PCBSD/FreeBSD/Haiku needs -lexecinfo for debug builds
+  AC_CHECK_FUNC(backtrace_symbols,
+                have_backtrace_symbols="yes",
+                have_backtrace_symbols="no")
+
+  if test x"$have_backtrace_symbols" != "xyes"; then
+    AC_CHECK_LIB(execinfo,
+                 backtrace_symbols,
+                 [ LIBS="$LIBS -lexecinfo"
+                   have_backtrace_symbols="yes" ],
+                 AC_MSG_WARN("Could not find backtrace_symbols in either libc or libexecinfo. Either install libexecinfo, or disable debugging. Please note that --enable-debug is only available for Linux, *BSD, Solaris and OSX."))
+
+  fi
+
+  if test x"$have_backtrace_symbols" = "xyes"; then
+    AC_DEFINE(HAVE_BT_SYMBOLS,,[Use backtrace facility of libC or libexecinfo])
+  fi
+
+else
+  dnl Disable asserts
+  VICE_CPPFLAGS="$VICE_CPPFLAGS -DNDEBUG"
+  DEBUGBUILD=0
+  dnl Remove super annoying horrible terminal window on Windows
+  dnl I have a feeling this should be in LDFLAGS, but I haven't got around to
+  dnl proper supporting VICE_LDFLAGS
+  if test x"$is_win32" = "xyes"; then
+     VICE_CPPFLAGS="$VICE_CPPFLAGS -mwindows"
+     VICE_CFLAGS="$VICE_CFLAGS -mwindows"
+     VICE_CXXFLAGS="$VICE_CXXFLAGS -mwindows"
+  fi
+fi
+
+AC_SUBST(DEBUGBUILD)
+
+
+dnl Check for threading code debugging
+AM_CONDITIONAL(HAVE_DEBUG_THREADS, test x"$enable_debug_threads" = "xyes")
+if test x"$enable_debug_threads" = x"yes"; then
+  DEBUG_THREADS_SUPPORT="yes"
+  AC_DEFINE(HAVE_DEBUG_THREADS,,[Enable threading debug support])
+fi
+
+
+dnl Check and setup native GTK3 compilation, only fail if the gtk3 ui was requested
+if test x"$check_gtk3" = "xyes"; then
+
+  PKG_CHECK_MODULES(GTK, [gtk+-3.0 >= 3.22], [have_gtk3_module=yes], [have_gtk3_module=no; AC_MSG_RESULT([no])])
+  PKG_CHECK_MODULES(GLIB, [glib-2.0], [have_glib2_module=yes], [have_glib2_module=no; AC_MSG_RESULT([no])])
+
+  dnl error out if gtk3 support is missing and gtk3 ui was requested
+  if test x"$have_gtk3_module" = "xno" -o x"$have_glib2_module" = "xno"; then
+    if test x"$enable_native_gtk3ui" = "xyes"; then
+      AC_MSG_ERROR([GTK3 UI requested, but GTK3 support packages are missing])
+    fi
+  fi
+
+  dnl only continue to test if gtk3 support was present
+  if test x"$have_gtk3_module" = "xyes" -a x"$have_glib2_module" = "xyes"; then
+
+    VICE_CFLAGS="$VICE_CFLAGS $GLIB_CFLAGS $GTK_CFLAGS"
+    VICE_CXXFLAGS="$VICE_CXXFLAGS $GLIB_CFLAGS $GTK_CFLAGS"
+    LIBS="$LIBS $GTK_LIBS $GLIB_LIBS"
+
+    if test x"$is_unix_macosx" = "xyes"; then
+      dnl GTK3-FIXME: put OSX specific checks here
+      :
+    elif test x"$is_win32" = "xyes"; then
+      dnl GTK3-FIXME: put windows specific checks here
+      :
+    else
+      dnl GTK3-FIXME: put *nix specific checks here
+      :
+    fi
+
+    dnl enforce OpenGL/GLEW usability unless explicitly disabled
+    if test x"$is_unix_macosx" = "xyes"; then
+      AC_MSG_CHECKING(whether we can use the OpenGL Framework)
+      old_LIBS="$LIBS"
+      LIBS="$LIBS -framework OpenGL"
+      AC_TRY_LINK([#define GL_GLEXT_PROTOTYPES
+                   #include <OpenGL/gl.h>],
+                   [glUniform4f(0,1,2,3,4);],
+                   [AC_MSG_RESULT(yes);
+                    have_opengl_lib=yes],
+                   [AC_MSG_RESULT(no);
+                    LIBS="$old_LIBS"])
+      if test x"$have_opengl_lib" != "xyes"; then
+        AC_MSG_ERROR([Cannot find the OpenGL framework. Something is seriously wrong with your build environment.])
+      fi
+      AC_SEARCH_LIBS(glewInit, [GLEW glew32], [have_glew=yes], [have_glew=no])
+      if test x"$have_glew" != "xyes"; then
+        AC_MSG_ERROR([Cannot find the OpenGL Extension Wrangler Library, GLEW. (brew install glew)])
+      fi
+    else
+      dnl Find where the GL functions live on this system
+      old_clags="$CFLAGS"
+      CFLAGS="$VICE_CFLAGS"
+      PKG_CHECK_MODULES(GLEW, [glew], have_pkg_glew="yes")
+      if test x"$have_pkg_glew" = "xyes"; then
+          LIBS="$LIBS $GLEW_LIBS"
+      fi
+      AC_SEARCH_LIBS(glViewport, [GL opengl32], [have_opengl_lib=yes], [have_opengl_lib=no])
+      AC_SEARCH_LIBS(glewInit, [GLEW glew32], [have_glew=yes], [have_glew=no])
+
+      if test x"$have_opengl_lib" != "xyes" -o x"$have_glew" != "xyes"; then
+        AC_MSG_CHECKING(whether the opengl32 and glew32 libraries work anyway)
+        old_LIBS="$LIBS"
+        LIBS="$LIBS -lopengl32 -lglew32"
+        AC_TRY_LINK([#include <GL/glew.h>],
+                    [glewInit();],
+                    [AC_MSG_RESULT(yes);
+                     have_opengl_lib=yes;
+                     have_glew=yes],
+                    [AC_MSG_RESULT(no);
+                     LIBS="$old_LIBS"])
+      fi
+
+      CFLAGS="$old_CFLAGS"
+
+      if test x"$have_opengl_lib" != "xyes" -o x"$have_glew" != "xyes"; then
+        AC_MSG_ERROR([Could not find OpenGL and GLEW libraries, aborting.])
+      fi
+    fi
+
+    AC_DEFINE(USE_NATIVE_GTK3,,[Use native GTK3 UI.])
+    if test x"$enable_debug_gtk3ui" = "xyes"; then
+      AC_DEFINE(HAVE_DEBUG_GTK3UI,,[Add native GTK3 UI debugging code.])
+    fi
+
+    dnl Platform canonical names for Win32-GTK3 have names like "i686-w64-mingw32"
+    case "$host_os" in
+      *mingw32)
+          host_os=mingw32-gtk3
+          is_win32_gtk3=yes
+
+          dnl Needed for cross-building win32, -static makes some CoInitialize
+          dnl check fail, so I had to leave that out. This also works on msys2.
+          LIBS="$LIBS -static-libgcc"
+
+    esac
+
+    dnl Don't check for fontconfig on MacOS or Windows, we don't use fontconfig
+    dnl directly on those platforms
+    if test x"$is_unix_macosx" != "xyes" -a x"$is_win32" != "xyes"; then
+      dnl check for fontconfig
+      PKG_CHECK_MODULES([FONTCONFIG], [fontconfig >= 2.0.0],
+          [HAVE_FONTCONFIG_SUPPORT=yes; LIBS="$LIBS -lfontconfig"],
+          AC_MSG_ERROR([failed to find fontconfig]))
+      AC_DEFINE(HAVE_FONTCONFIG,,[Use fontconfig for custom fonts.])
+    fi
+
+    dnl now that the GTK3 UI support has been detected, define enable_native_gtk3ui and undefine the others to prevent checks
+    enable_native_gtk3ui=yes
+    enable_sdlui=no
+    enable_sdlui2=no
+    enable_headlessui=no
+    found_gui=gtk3
+
+
+    dnl Gtk3 always has HW scaling
+    AC_DEFINE(HAVE_HWSCALE,,[Enable arbitrary window scaling])
+    HAVE_HWSCALE_SUPPORT="yes"
+  fi
+fi
+
+dnl Check if sdl2 ui should be checked
+if test x"$check_guis" = "xyes"; then
+  if test x"$enable_sdlui2" != "xno"; then
+    check_sdl2=yes
+  fi
+else
+  if test x"$enable_sdlui2" = "xyes"; then
+    check_sdl2=yes
+  fi
+fi
+if test x"$with_sdlsound" = "xyes"; then
+  check_sdl2=yes
+fi
+
+dnl Check and setup SDL2 compilation, only fail if the sdl2 ui was requested
+if test x"$check_sdl2" = "xyes"; then
+  user_cflags="$CFLAGS"
+  user_cxxflags="$CXXFLAGS"
+  backup_CFLAGS="$VICE_CFLAGS"
+  backup_CXXFLAGS="$VICE_CXXFLAGS"
+  old_libs=$LIBS
+
+  found_sdl2=no
+
+  PKG_CHECK_MODULES(SDL2, sdl2, [
+    use_sdl_prefix=no
+    found_sdl2=yes
+    VICE_CFLAGS="$VICE_CFLAGS $SDL2_CFLAGS"
+    VICE_CXXFLAGS="$VICE_CXXFLAGS $SDL2_CFLAGS"
+    LIBS="$LIBS $SDL2_LIBS"
+  ],[
+    dnl fail if SDL2 ui was requested, otherwise restore flags and continue
+    if test x"$enable_sdlui2" = "xyes"; then
+      AC_MSG_ERROR([SDL2 UI requested, but SDL2 is missing])
+    fi
+  ])
+
+  dnl only continue if sdl2 was found
+  if test x"$found_sdl2" = "xyes"; then
+
+    dnl check for the 2 cases where audio needs to be checked
+    check_sdl2audio=no
+    if test x"$enable_sdlui2" = "xyes" -o x"$with_sdlsound" = "xyes"; then
+      check_sdl2audio=yes
+    fi
+
+    user_CFLAGS="$CFLAGS"
+    user_CXXFLAGS="$CXXFLAGS"
+    CFLAGS="$VICE_CFLAGS"
+    CXXFLAGS="$VICE_CXXFLAGS"
+
+    dnl only do if audio needs to be checked
+    if test x"$check_sdl2audio" = "xyes"; then
+      AC_MSG_CHECKING(for SDL audio support)
+      AC_TRY_LINK([#include <SDL_audio.h>],
+                  [SDL_OpenAudio(NULL, NULL)],
+                  [AC_MSG_RESULT(yes);
+                    USE_SDL_AUDIO_SUPPORT="yes";
+                    AC_DEFINE(USE_SDL_AUDIO,,[Enable SDL sound support.])],
+                  [AC_MSG_RESULT(no);])
+
+      dnl fail if --with-sdlsound was given
+      if test x"$USE_SDL_AUDIO_SUPPORT" != "xyes"; then
+        if test x"$with_sdlsound" = "xyes"; then
+          AC_MSG_ERROR([SDL sound support missing])
+        fi
+      else
+        SOUND_DRIVERS="$SOUND_DRIVERS soundsdl.o"
+      fi
+    fi
+
+    dnl SDL2 now definitely works, so set the last few settings.
+    dnl SDL2 is much more consistent than SDL1 so none of these
+    dnl actually require tests.
+    if test x"$enable_sdlui2" != "xno"; then
+      AC_DEFINE(USE_SDLUI2,,[Enable SDL2 UI support.])
+      AC_DEFINE(HAVE_FULLSCREEN,,[Enable Fullscreen support.])
+      HAVE_FULLSCREEN_SUPPORT="yes"
+      AC_DEFINE(HAVE_HWSCALE,,[Enable arbitrary window scaling])
+      HAVE_HWSCALE_SUPPORT="yes"
+
+      AC_CHECK_FUNCS(SDL_NumJoysticks)
+
+      dnl now that the SDL2 UI support has been detected, define
+      dnl enable_sdlui2 and undefine the others to prevent checks
+
+      enable_native_gtk3ui=no
+      enable_sdlui=no
+      enable_sdlui2=yes
+      enable_headlessui=no
+      found_gui=sdl2
+
+      dnl Require SDL2_image
+      PKG_CHECK_MODULES(SDL2_IMAGE,
+                        [SDL2_image >= 2.0.0],
+                        [have_sdl2_image=yes],
+                        [have_sdl2_image=no; AC_MSG_RESULT([no])])
+      if test x"$have_sdl2_image" = "xyes"; then
+        LIBS="$LIBS -lSDL2_image"
+      else
+        AC_MSG_ERROR([SDL2_image-dev is required.])
+      fi
+    fi
+    # LIBS="$LIBS -static-libstdc++"
+
+    CFLAGS="$user_CFLAGS"
+    CXXFLAGS="$user_CXXFLAGS"
+  fi
+fi
+
+dnl Check if sdl ui should be checked
+if test x"$check_guis" = "xyes"; then
+  if test x"$enable_sdlui" != "xno"; then
+    check_sdl1=yes
+  fi
+else
+  if test x"$enable_sdlui" = "xyes"; then
+    check_sdl1=yes
+  fi
+fi
+if test x"$with_sdlsound" = "xyes"; then
+  check_sdl1=yes
+fi
+
+dnl Check and setup SDL compilation.
+if test x"$check_sdl1" = "xyes"; then
+
+  dnl check for the 2 cases where audio needs to be checked
+  check_sdlaudio=no
+  if test x"$ac_cv_lib_SDL2_SDL_OpenAudio" != "xyes"; then
+    if test x"$enable_sdlui" = "xno"; then
+      if test x"$with_sdlsound" = "xyes"; then
+        check_sdlaudio=yes
+      fi
+    else
+      check_sdlaudio=yes
+    fi
+  fi
+
+  dnl fail if SDL ui was requested
+  if test x"$sdl_config" = "xno" -a x"$enable_sdlui" = "xyes"; then
+    AC_MSG_ERROR([SDL UI requested, but sdl-config is missing])
+  fi
+
+  dnl only continue if sdl-config was found
+  if test x"$sdl_config" != "xno"; then
+    user_cflags="$CFLAGS"
+    user_cxxflags="$CXXFLAGS"
+    old_libs=$LIBS
+
+    CFLAGS="$VICE_CFLAGS `$sdl_config --cflags`"
+    CXXFLAGS="$VICE_CXXFLAGS `$sdl_config --cflags`"
+    LIBS="$LIBS `$sdl_config --libs`"
+
+    dnl only do if audio needs to be checked
+    if test x"$check_sdlaudio" = "xyes"; then
+      AC_CHECK_HEADERS(SDL/SDL_audio.h,[AC_CHECK_LIB(SDL, SDL_OpenAudio,
+                       [use_sdl_prefix=yes;
+                        USE_SDL_AUDIO_SUPPORT="yes";
+                        AC_DEFINE(USE_SDL_PREFIX,,[Enable SDL prefix for header inclusion.])
+                        AC_DEFINE(USE_SDL_AUDIO,,[Enable SDL sound support.])],
+                       [CFLAGS="$user_cflags"; CXXFLAGS="$user_cxxflags"; LIBS=$old_libs; break],$EXTRA_SDL_LIBS)],
+                       [CFLAGS="$user_cflags"; CXXFLAGS="$old_cxxflags"; LIBS=$old_libs; break])
+
+      if test x"$ac_cv_lib_SDL_SDL_OpenAudio" != "xyes"; then
+        unset ac_cv_lib_SDL_SDL_OpenAudio
+        AC_CHECK_HEADERS(SDL_audio.h,[AC_CHECK_LIB(SDL, SDL_OpenAudio,
+                         [use_sdl_prefix=no;
+                          USE_SDL_AUDIO_SUPPORT="yes";
+                          AC_DEFINE(USE_SDL_AUDIO,,[Enable SDL sound support.])],
+                         [CFLAGS="$user_cflags"; CXXFLAGS="$user_cxxflags"; LIBS=$old_libs; break],$EXTRA_SDL_LIBS)],
+                         [CFLAGS="$old_cflags"; CXXFLAGS="$old_cxxflags"; LIBS=$old_libs; break])
+      fi
+
+      dnl fail if --with-sdlsound was given
+      if test x"$ac_cv_lib_SDL_SDL_OpenAudio" != "xyes"; then
+        if test x"$with_sdlsound" = "xyes"; then
+          AC_MSG_ERROR([SDL sound support missing])
+        fi
+      else
+        SOUND_DRIVERS="$SOUND_DRIVERS soundsdl.o"
+      fi
+    fi
+
+    dnl only check if sdl ui is needed
+    if test x"$enable_sdlui" != "xno"; then
+      AC_CHECK_HEADERS(SDL/SDL.h,[AC_CHECK_LIB(SDL, SDL_SetVideoMode,
+                         [use_sdl_prefix=yes;
+                          AC_DEFINE(USE_SDL_PREFIX,,[Enable SDL prefix for header inclusion.])
+                          AC_DEFINE(USE_SDLUI,,[Enable SDL UI support.])],
+                         [CFLAGS="$user_cflags"; CXXFLAGS="$user_cxxflags"; LIBS=$old_libs; break],$EXTRA_SDL_LIBS)],
+                         [CFLAGS="$user_cflags"; CXXFLAGS="$user_cxxflags"; LIBS=$old_libs; break])
+
+        if test x"$ac_cv_lib_SDL_SDL_SetVideoMode" != "xyes"; then
+          unset ac_cv_lib_SDL_SDL_SetVideoMode
+          AC_CHECK_HEADERS(SDL.h,[AC_CHECK_LIB(SDL, SDL_SetVideoMode,
+                           [use_sdl_prefix=no;
+                            AC_DEFINE(USE_SDLUI,,[Enable SDL UI support.])],
+                           [CFLAGS=$old_cflags; CXXFLAGS=$old_cxxflags; LIBS=$old_libs; break],$EXTRA_SDL_LIBS)],
+                           [CFLAGS=$old_cflags; CXXFLAGS=$old_cxxflags; LIBS=$old_libs; break])
+        fi
+
+        dnl fail if SDL ui was requested
+        if test x"$ac_cv_lib_SDL_SDL_SetVideoMode" != "xyes" -a x"$enable_sdlui" = "xyes"; then
+          AC_MSG_ERROR([SDL headers and/or libraries missing])
+        fi
+
+      dnl only continue if SDL headers/libs are present
+      if test x"$ac_cv_lib_SDL_SDL_SetVideoMode" = "xyes"; then
+        AC_DEFINE(HAVE_FULLSCREEN,,[Enable Fullscreen support.])
+        HAVE_FULLSCREEN_SUPPORT="yes"
+
+        AC_CHECK_FUNCS(SDL_NumJoysticks)
+
+        if test x"$enable_hwscale" != "xno"; then
+          if test x"$is_unix_macosx" = "xyes"; then
+            AC_MSG_CHECKING(whether we can use the OpenGL Framework)
+            old_LIBS="$LIBS"
+            LIBS="$LIBS -framework OpenGL"
+
+            if test x"$use_sdl_prefix" = "xyes"; then
+              AC_TRY_LINK([#include <SDL/SDL_opengl.h>],
+                          [glViewport(1,2,3,4)],
+                          [AC_MSG_RESULT(yes);
+                           have_opengl_lib=yes],
+                          [AC_MSG_RESULT(no);
+                           LIBS="$old_LIBS"])
+            else
+              AC_TRY_LINK([#include <SDL_opengl.h>],
+                          [glViewport(1,2,3,4)],
+                          [AC_MSG_RESULT(yes);
+                           have_opengl_lib=yes],
+                          [AC_MSG_RESULT(no);
+                           LIBS="$old_LIBS"])
+            fi
+          else
+            AC_SEARCH_LIBS(glViewport, [GL opengl32], [have_opengl_lib=yes], [have_opengl_lib=no])
+          fi
+
+          if test x"$have_opengl_lib" != "xyes"; then
+            AC_MSG_ERROR(The SDL1 UI requires OpenGL for hardware scaling. Install OpenGL development headers or set --disable-hwscale to disable scaling.)
+          fi
+        fi
+
+        if test x"$enable_hwscale" != "xno"; then
+          AC_DEFINE(HAVE_HWSCALE,,[Enable arbitrary window scaling])
+          HAVE_HWSCALE_SUPPORT="yes"
+        fi
+
+        dnl check for the SDL_main.h header
+        if test x"$use_sdl_prefix" = "xyes"; then
+          AC_CHECK_HEADERS(SDL/SDL_main.h)
+        else
+          AC_CHECK_HEADERS(SDL_main.h)
+        fi
+
+        AC_MSG_CHECKING(whether we can use the SDLmain library)
+        old_LIBS="$LIBS"
+        LIBS="$LIBS -lSDLmain -lSDL $EXTRA_SDL_LIBS"
+        if test x"$use_sdl_prefix" = "xyes"; then
+          AC_TRY_LINK([#include <SDL/SDL_main.h>
+                       int main(int argc, char *argv[])
+                       { return 0; }
+                       #undef main
+                       #define main something_else],
+                      [return 0;],
+                      [AC_MSG_RESULT(yes);
+                       have_sdlmain=yes],
+                      [AC_MSG_RESULT(no);
+                       LIBS="$old_LIBS"])
+        else
+          AC_TRY_LINK([#include <SDL_main.h>
+                       int main(int argc, char *argv[])
+                       { return 0; }
+                       #undef main
+                       #define main something_else],
+                      [return 0;],
+                      [AC_MSG_RESULT(yes);
+                       have_sdlmain=yes],
+                      [AC_MSG_RESULT(no);
+                       LIBS="$old_LIBS"])
+        fi
+
+        if test x"$have_sdlmain" != "xyes"; then
+          AC_MSG_CHECKING(whether we can use the SDLmain library when adding -lmingw32)
+          old_LIBS="$LIBS"
+          LIBS="$LIBS -lmingw32 -lSDLmain -lSDL"
+          if test x"$use_sdl_prefix" = "xyes"; then
+            AC_TRY_LINK([#include <SDL/SDL_main.h>
+                         int main(int argc, char *argv[])
+                         { return 0; }
+                         #undef main
+                         #define main something_else],
+                        [return 0;],
+                        [AC_MSG_RESULT(yes);
+                         have_sdlmain=yes],
+                        [AC_MSG_RESULT(no);
+                         LIBS="$old_LIBS"])
+          else
+            AC_TRY_LINK([#include <SDL_main.h>
+                         int main(int argc, char *argv[])
+                         { return 0; }
+                         #undef main
+                         #define main something_else],
+                        [return 0;],
+                        [AC_MSG_RESULT(yes);
+                         have_sdlmain=yes],
+                        [AC_MSG_RESULT(no);
+                         LIBS="$old_LIBS"])
+          fi
+        fi
+
+        if test x"$have_sdlmain" = "xyes"; then
+          AC_DEFINE(HAVE_SDLMAIN,,[Enable SDLmain replacement])
+        fi
+
+        dnl Require SDL_image
+        dnl The version number I sucked out of my thumb, on my Debian the
+        dnl version is 1.2.12
+        dnl
+        PKG_CHECK_MODULES(SDL_IMAGE,
+                          [SDL_image >= 1.2.0],
+                          [have_sdl_image=yes],
+                          [have_sdl_image=no; AC_MSG_RESULT([no])])
+        if test x"$have_sdl_image" = "xyes"; then
+          LIBS="$LIBS -lSDL_image"
+        else
+          AC_MSG_ERROR([SDL_image1.2-dev is required.])
+        fi
+
+        dnl now that the SDL1 UI support has been detected, define enable_sdlui and undefine the others to prevent checks
+        enable_native_gtk3ui=no
+        enable_sdlui=yes
+        enable_sdlui2=no
+        enable_headlessui=no
+        found_gui=sdl1
+      fi
+    fi
+  fi
+fi
+
+if test x"$enable_headlessui" = "xyes"; then
+  enable_native_gtk3ui=no
+  enable_sdlui=no
+  enable_sdlui2=no
+  found_gui=headless
+fi
+
+dnl check if any gui support was found
+if test x"$found_gui" = "x"; then
+  AC_MSG_ERROR([No GUI support found])
+fi
+
+
+dnl Check if --disable-hwscale was requested for the Gtk3 UI
+if test x"$enable_native_gtk3ui" = "xyes" -a x"$enable_hwscale" = "xno"; then
+  AC_MSG_ERROR([The option `--disable-hwscale` is illegal for the Gtk3 UI. Please remove the option and make sure the OpenGL development headers are installed.])
+fi
+
+
+dnl Check if --disable-hwscale was requested for the Gtk3 UI
+if test x"$enable_sdlui2" = "xyes" -a x"$enable_hwscale" = "xno"; then
+  AC_MSG_ERROR([The option `--disable-hwscale` is illegal for the SDL2 UI.])
+fi
+
+
+
+dnl check if sdl sound was requested but not found
+if test x"$with_sdlsound" = "xyes"; then
+  if test x"$USE_SDL_AUDIO_SUPPORT" != "xyes"; then
+    AC_MSG_ERROR([No SDL sound support found])
+  fi
+fi
+
+dnl are we putting emu into a background thread (requires UI code support)
+if test x"$enable_native_gtk3ui" = "xyes"; then
+  AC_DEFINE(USE_VICE_THREAD,,[UI and emu each on different threads])
+  VICE_CFLAGS="$VICE_CFLAGS -pthread"
+  VICE_CXXFLAGS="$VICE_CXXFLAGS -pthread"
+  VICE_LDFLAGS="$VICE_LDFLAGS -pthread"
+  show_multithreaded="yes"
+
+  if test x"$is_unix_x11" = x"yes" -a x"$is_unix_macosx" != x"yes"; then
+    dnl xlib is used for adding a native child window for opengl rendering
+    LIBS="$LIBS -lX11"
+  fi
+
+else
+  show_multithreaded="no"
+fi
+
+
+dnl Check/setup XDG desktop files support
+dnl
+dnl XDG .desktop files are only supported for the Gtk3 UI on Unix (excl. MacOS)
+dnl
+AM_CONDITIONAL(INSTALL_DESKTOP_FILES, false)
+if test x"$enable_desktop_files" = "xyes"; then
+    dnl Check Gtk3 UI
+    if test x"$enable_native_gtk3ui" != "xyes"; then
+        AC_MSG_ERROR([XDG desktop files requested but UI is not Gtk3.])
+    fi
+    dnl Check OS (Unix)
+    if test x"$is_unix_x11" != "xyes"; then
+        AC_MSG_ERROR([XDG desktop files requested but OS is not Unix.])
+    fi
+    dnl Check OS (not MacOS)
+    if test x"$is_unix_macos" = "xyes"; then
+        AC_MSG_ERROR([XDG desktop files requested but OS is MacOS.])
+    fi
+    dnl Check for xdg-desktop-menu
+    AC_CHECK_PROG(XDG_DESKTOP_MENU, xdg-desktop-menu, xdg-desktop-menu, no)
+    echo "$XDG_DESKTOP_MENU"
+    if test x"$XDG_DESKTOP_MENU" = "xno"; then
+        AC_MSG_ERROR([XDG desktop files requested but required tool xdg-desktop-menu is missing. Please install xgd-utils.])
+    fi
+
+    dnl We got the UI + OS + tools:
+    USE_DESKTOP_FILES="yes"
+    AM_CONDITIONAL(INSTALL_DESKTOP_FILES, true)
+    AC_SUBST([XDG_DESKTOP_MENU], ["$XDG_DESKTOP_MENU"])
+
+fi
+
+
+dnl Check for the icotool binary to generate Windows .ico files
+AC_CHECK_PROG(ICOTOOL, icotool, icotool, no)
+if test x"$is_win32" = "xyes"; then
+  if test x"$ICOTOOL" = "xno"; then
+    AC_MSG_ERROR([Building for Windows, but icotool is missing. Please install icoutils."])
+  fi
+fi
+
+
+dnl This enables the embedded data files feature, which should
+dnl only be used for developing new ports or for ports for which
+dnl the loading of the datafiles is hard/impossible.
+if test x"$enable_embedded" = "xyes"; then
+  AC_DEFINE(USE_EMBEDDED,,[Use embedded data files.])
+  USE_EMBEDDED_SUPPORT="yes"
+  AM_CONDITIONAL(EMBEDDED, true)
+else
+  AM_CONDITIONAL(EMBEDDED, false)
+fi
+
+
+dnl Extension for executable files in this system
+AC_EXEEXT
+
+AC_CHECK_LIB(iconv, libiconv_open,,)
+
+dnl Check if --param inline-unit-growth=60 can be used.
+old_CFLAGS=$CFLAGS
+CFLAGS="$CFLAGS -Werror --param inline-unit-growth=60"
+AC_MSG_CHECKING([if the compiler accepts --param inline-unit-growth=60])
+AC_TRY_COMPILE([],
+               [int test;],
+               [ AC_MSG_RESULT(yes)
+                 INLINE_UNIT_GROWTH="--param inline-unit-growth=60"
+                ],
+               [ AC_MSG_RESULT(no)
+                INLINE_UNIT_GROWTH=""
+                ])
+CFLAGS=$old_CFLAGS
+AC_SUBST(INLINE_UNIT_GROWTH)
+
+dnl Check if --param max-inline-insns-single=600 can be used.
+old_CFLAGS=$CFLAGS
+CFLAGS="$CFLAGS -Werror --param max-inline-insns-single=600"
+AC_MSG_CHECKING([if the compiler accepts --param max-inline-insns-single=600])
+AC_TRY_COMPILE([],
+               [int test;],
+               [ AC_MSG_RESULT(yes)
+                 MAX_INLINE_INSN_SINGLE="--param max-inline-insns-single=600"
+                ],
+               [ AC_MSG_RESULT(no)
+                MAX_INLINE_INSN_SINGLE=""
+                ])
+CFLAGS=$old_CFLAGS
+AC_SUBST(MAX_INLINE_INSN_SINGLE)
+
+
+dnl Check for SID engines
+dnl
+dnl FastSID is disabled by default, so we check against "yes", ReSID is enabled
+dnl by default so we check against "no" ($with_resid being empty means the
+dnl default, ie "yes")
+dnl
+dnl Remove this check to allow building without a SID engine
+if test x"$with_fastsid" != "xyes" -a x"$with_resid" = "xno"; then
+  AC_MSG_ERROR([Neither FastSID nor ReSID sound engine enabled, please enable at least one.])
+fi
+
+
+dnl FastSID
+AM_CONDITIONAL(HAVE_FASTSID, test x"$with_fastsid" = "xyes")
+if test x"$with_fastsid" = "xyes"; then
+  HAVE_FASTSID_SUPPORT="yes"
+  AC_DEFINE(HAVE_FASTSID,,[This version provides FastSID support.])
+fi
+
+dnl Set output drivers to none
+GFXOUTPUT_DRIVERS=""
+
+RESID_DIR=
+RESID_LIBS=
+RESID_INCLUDES=
+RESID_DEP=
+
+RESID_DTV_DIR=
+RESID_DTV_LIBS=
+RESID_DTV_INCLUDES=
+RESID_DTV_DEP=
+
+dnl Set linker to C++ compiler/linker: even SDL builds use C++ code (linenoise-ng)
+LINKCC='$(CXX)'
+
+dnl disable reSID for certain platforms
+
+RESIDSUB=""
+RESIDDTVSUB=""
+
+if test x"$with_resid" = "xno"; then
+  dnl Do not attempt to configure reSID.
+  dnl NOTE: no_recursion is set because directories specified with
+  dnl AC_CONFIG_SUBDIRS are always recursed into regardless of where the
+  dnl macro is used.
+  dnl Another workaround must be found if other self-contained packages go
+  dnl into VICE.
+  if test x"$enable_shared_ffmpeg" != "xyes" -a x"$enable_static_ffmpeg" != "xyes"; then
+    no_recursion=yes
+  fi
+  dnl A workaround for an autoconf bug when not using/checking the C++
+  dnl compiler, we'll define am__fastdepCXX_TRUE as #
+  am__fastdepCXX_TRUE=#
+  am__fastdepCXX_FALSE=
+else
+  AC_LANG_SAVE
+  AC_LANG_CPLUSPLUS
+  AC_PROG_CXX([g++ clang++ cc])
+
+  dnl disable resid when no C++ compiler is found
+  if test x"$CXX" != "x" ; then
+    LINKCC='$(CXX)'
+
+    dnl Set CXXFLAGS. Use -fno-exceptions for G++ if supported.
+    if test "$ac_test_CXXFLAGS" != set; then
+      if test "$GXX" = yes; then
+        old_CXXFLAGS=$CXXFLAGS
+        CXXFLAGS="$CXXFLAGS -fno-exceptions"
+        AC_MSG_CHECKING([whether the C++ compiler ($CXX $CXXFLAGS $LDFLAGS) works])
+        AC_TRY_COMPILE([],
+                       [ int test; ],
+                       [ AC_MSG_RESULT(yes) ],
+                       [ AC_MSG_RESULT(no)
+                         CXXFLAGS=$old_CXXFLAGS
+                         ])
+      fi
+    fi
+    AC_PROG_CXXCPP
+  fi
+
+  if test x"$with_resid" = "xyes" -o x"$with_resid" = "x"; then
+    AC_DEFINE(HAVE_RESID,,[This version provides ReSID support.])
+    HAVE_RESID_SUPPORT="yes"
+    AC_CONFIG_SUBDIRS(src/resid)
+    RESID_DIR=resid
+    RESID_LIBS="\$(top_builddir)/src/resid/libresid.a"
+    RESID_INCLUDES="-I\$(top_builddir)/src/resid"
+    RESID_DEP=libresid
+    RESIDSUB=resid
+
+    AC_DEFINE(HAVE_RESID_DTV,,[This version provides ReSID-DTV support.])
+    AC_CONFIG_SUBDIRS(src/resid-dtv)
+    RESID_DTV_DIR=resid-dtv
+    RESID_DTV_LIBS="\$(top_builddir)/src/resid-dtv/libresiddtv.a"
+    RESID_DTV_INCLUDES="-I\$(top_builddir)/src/resid-dtv"
+    RESID_DTV_DEP=libresiddtv
+    RESIDDTVSUB=resid-dtv
+  fi
+  AC_LANG_RESTORE
+fi
+
+AC_SUBST(RESIDSUB)
+AC_SUBST(RESIDDTVSUB)
+
+if test x"$RESIDSUB" = "xresid"; then
+  AM_CONDITIONAL(RESID_DIR_USED, true)
+else
+  AM_CONDITIONAL(RESID_DIR_USED, false)
+fi
+
+AC_SUBST(LINKCC)
+
+AM_CONDITIONAL(HAVE_RESID, test x"$with_resid" != "xno")
+
+AC_SUBST(RESID_DIR)
+AC_SUBST(RESID_LIBS)
+AC_SUBST(RESID_INCLUDES)
+AC_SUBST(RESID_DEP)
+
+AM_CONDITIONAL(HAVE_RESID_DTV, test x"$with_resid" != "xno")
+AC_SUBST(RESID_DTV_DIR)
+AC_SUBST(RESID_DTV_LIBS)
+AC_SUBST(RESID_DTV_INCLUDES)
+AC_SUBST(RESID_DTV_DEP)
+
+dnl Check for typedefs, structures, and compiler characteristics.
+AC_CHECK_HEADERS(sys/types.h)
+
+AC_TYPE_OFF_T
+AC_TYPE_PID_T
+AC_TYPE_SIZE_T
+AC_TYPE_SSIZE_T
+
+
+
+dnl Define the type sizes. (No, it doesn't)
+if [[ x"$ac_cv_prog_cc_cross" != "xyes" ]]; then
+  dnl This appears to define `WORDS_BIGENDIAN`. Not sure if it gets AC_SUBST'ed
+  AC_C_BIGENDIAN
+else
+  dnl if cross-compiling, we have to do this by hand
+  dnl
+  dnl This is bollocks, cross-compiling doesn't suddenly make the assumption
+  dnl it's compiling for what looks like a 32-bit target. Any code that requires
+  dnl a certain width of a type uses types from <stdint.h>, or at least it should,
+  dnl this is VICE after all. --cpx
+  echo "warning: assuming sizeof(unsigned short) == 2,"
+  echo "                  sizeof(unsigned int) == 4,"
+  echo "                  sizeof(unsigned long) == 4"
+fi
+
+if test x"$cross_compiling" = "xyes"; then
+  AM_CONDITIONAL(CROSS, true)
+  CROSS=true
+else
+  AM_CONDITIONAL(CROSS, false)
+  CROSS=false
+fi
+AC_SUBST(CROSS)
+
+AC_CHECK_SIZEOF(unsigned short, 2)
+AC_CHECK_SIZEOF(unsigned int, 4)
+AC_CHECK_SIZEOF(unsigned long, 4)
+
+
+dnl Check for header files.
+AC_HEADER_DIRENT
+AC_CHECK_HEADERS(direct.h errno.h fcntl.h limits.h regex.h unistd.h strings.h \
+sys/dirent.h sys/stat.h inttypes.h libgen.h sys/ioctl.h \
+dir.h io.h process.h signal.h alloca.h wchar.h stdint.h sys/time.h)
+
+
+AC_CHECK_HEADER(regexp.h,,,
+                [#define    INIT        register char *sp = instring;
+                 #define    GETC()      (*sp++)
+                 #define    PEEKC()     (*sp)
+                 #define    UNGETC(c)   sp
+                 #define    RETURN(ptr) return NULL;
+                 #define    ERROR(val)  _RegExpError(val)
+])
+AC_DECL_SYS_SIGLIST
+
+dnl ----- Dynamic Lib Loading Support -----
+dynlib_support=no
+DYNLIB_LIBS=
+dnl check for dlopen support on unix and beos/haiku systems
+if test x"$is_unix" = "xyes" -o x"$is_beos" = "xyes"; then
+  AC_CHECK_HEADER(dlfcn.h,,)
+  if test x"$ac_cv_header_dlfcn_h" = "xyes" ; then
+    AC_CHECK_FUNC(dlopen,
+                 [ DYNLIB_LIBS="";
+                   AC_DEFINE(HAVE_DYNLIB_SUPPORT,,
+                             [Support for dynamic library loading.])
+                   dynlib_support=yes;
+                   HAVE_DYNLIB_SUPPORT_TOO="yes"
+                 ])
+    if test x"$dynlib_support" != "xyes" ; then
+      AC_CHECK_LIB(dl, dlopen,
+                 [ DYNLIB_LIBS="-ldl";
+                   AC_DEFINE(HAVE_DYNLIB_SUPPORT,,
+                             [Support for dynamic library loading.])
+                   dynlib_support=yes;
+                   HAVE_DYNLIB_SUPPORT_TOO="yes";
+                   LIBS="-ldl $LIBS"
+                 ],,)
+    fi
+  fi
+elif test x"$is_win32" = "xyes" ; then
+  AC_DEFINE(HAVE_DYNLIB_SUPPORT,,[Support for dynamic library loading.])
+  HAVE_DYNLIB_SUPPORT_TOO="yes"
+fi
+AC_SUBST(DYNLIB_LIBS)
+
+dnl ----- Joystick support -----
+JOY_LIBS=
+if test x"$is_unix_x11" = "xyes" -a x"$enable_sdlui" != "xyes" -a x"$enable_sdlui2" != "xyes"; then
+  AC_CHECK_HEADER(linux/joystick.h,
+                  [ LINUX_JOYSTICK_SUPPORT="yes";
+                    AC_DEFINE(LINUX_JOYSTICK,,
+                              [Enable support for Linux style joysticks.])],)
+  if test x"$ac_cv_header_linux_joystick_h" = "xyes" ; then
+    AC_MSG_CHECKING(whether linux/joystick.h supports digital joysticks)
+    AC_TRY_COMPILE([ #include <linux/joystick.h> ],
+                   [ struct DJS_DATA_TYPE djs; ],
+                   [ HAS_DIGITAL_JOYSTICK_SUPPORT="yes";
+                     AC_DEFINE(HAS_DIGITAL_JOYSTICK,,
+                               [Enable emulation for digital joysticks.])
+                     AC_MSG_RESULT(yes) ], AC_MSG_RESULT(no))
+  fi
+
+  AC_CHECK_HEADER(machine/joystick.h,
+                  [ BSD_JOYSTICK_SUPPORT="yes";
+                    AC_DEFINE(HAVE_MACHINE_JOYSTICK_H,,
+                              [Define to 1 if you have the <machine/joystick.h> header file.])
+                    AC_DEFINE(BSD_JOYSTICK,,
+                              [Enable support for BSD style joysticks.])],)
+
+  if test x"$ac_cv_header_machine_joystick_h" != "xyes"; then
+    AC_CHECK_HEADER(sys/joystick.h,
+                    [ BSD_JOYSTICK_SUPPORT="yes";
+                      AC_DEFINE(HAVE_SYS_JOYSTICK_H,,
+                                [Define to 1 if you have the <sys/joystick.h> header file.])
+                      AC_DEFINE(BSD_JOYSTICK,,
+                                [Enable support for BSD style joysticks.])],)
+  fi
+
+  dnl NetBSD/FreeBSD USB joystick support
+  usbhid_header=no
+  usbhid_lib=no
+  usb_lib=no
+  AC_CHECK_LIB(usbhid, hid_get_report_desc, usbhid_lib=yes)
+  if test x"$usbhid_lib" = "xyes" ; then
+    AC_CHECK_HEADER(usbhid.h,
+                    [AC_DEFINE(HAVE_USBHID_H,1,
+                      [Define to 1 if you have the <usbhid.h> header file.])
+                    usb_header=yes])
+    AC_CHECK_HEADER(libusbhid.h,
+                    [AC_DEFINE(HAVE_LIBUSBHID_H,1,
+                      [Define to 1 if you have the <libusbhid.h> header file.])
+                    usb_header=yes])
+
+    if test x"$usb_header" = "xyes" ; then
+      AC_DEFINE(HAS_USB_JOYSTICK,,[Enable emulation for USB joysticks.])
+      JOY_LIBS="-lusbhid"
+      HAS_USB_JOYSTICK_SUPPORT="yes"
+    fi
+  else
+    AC_CHECK_LIB(usb, hid_get_report_desc, usb_lib=yes)
+    if test x"$usb_lib" = "xyes"; then
+      AC_CHECK_HEADER(usb.h,
+                      [AC_DEFINE(HAVE_USB_H,1,
+                        [Define to 1 if you have the <usb.h> header file.])
+                      usb_header=yes])
+      AC_CHECK_HEADER(libusb.h,
+                      [AC_DEFINE(HAVE_LIBUSB_H,1,
+                        [Define to 1 if you have the <libusb.h> header file.])
+                      usb_header=yes])
+      if test x"$usb_header" = "xyes" ; then
+        AC_DEFINE(HAS_USB_JOYSTICK,,[Enable emulation for USB joysticks.])
+        JOY_LIBS="-lusb"
+        HAS_USB_JOYSTICK_SUPPORT="yes"
+      fi
+    fi
+  fi
+fi
+
+if test x"$is_unix_macosx" = "xyes" -a x"$enable_sdlui" != "xyes" -a x"$enable_sdlui2" != "xyes"; then
+  dnl --- Mac joystick support ---
+
+  dnl check for HID Manager
+  if test x"$enable_hidmgr" != "xno" ; then
+    AC_CHECK_HEADER(IOKit/hid/IOHIDManager.h,,)
+    if test x"$ac_cv_header_IOKit_hid_IOHIDManager_h" = "xyes" ; then
+      AC_MSG_CHECKING(whether we can link the (mac) IOHIDManager)
+      old_LIBS="${LIBS}"
+      LIBS="$LIBS -framework IOKit -framework CoreServices"
+      AC_TRY_LINK([#include <IOKit/hid/IOHIDManager.h>],
+                  [IOHIDManagerCreate(NULL,0)],
+                  [AC_MSG_RESULT(yes);
+                   JOY_LIBS="-framework IOKit -framework CoreServices";
+                   MAC_JOYSTICK_SUPPORT="yes";
+                   HAS_HIDMGR_SUPPORT="yes";
+                   AC_DEFINE(MAC_JOYSTICK,,[Enable Mac Joystick support.])
+                   AC_DEFINE(HAS_HIDMGR,,[Enable Mac IOHIDManager Joystick driver.])
+                   enable_hidutils=no
+                   ],
+                  [AC_MSG_RESULT(no);
+                   LIBS=${old_LIBS}])
+      LIBS="${old_LIBS}"
+    fi
+  fi
+
+  dnl check for HID utility library
+  if test x"$enable_hidutils" != "xno" ; then
+    AC_CHECK_HEADER(HID_Utilities_External.h,,)
+    if test x"$ac_cv_header_HID_Utilities_External_h" = "xyes" ; then
+      AC_MSG_CHECKING(whether we can link the (mac) HIDUtilities library)
+      old_LIBS="${LIBS}"
+      LIBS="$LIBS -lHIDUtilities -framework IOKit -framework CoreServices"
+      AC_TRY_LINK([#include <HID_Utilities_External.h>],
+                  [HIDCountDevices()],
+                  [AC_MSG_RESULT(yes);
+                   JOY_LIBS="-lHIDUtilities -framework IOKit -framework CoreServices";
+                   MAC_JOYSTICK_SUPPORT="yes";
+                   AC_DEFINE(MAC_JOYSTICK,,[Enable Mac Joystick support.])],
+                  [AC_MSG_RESULT(no);
+                   LIBS=${old_LIBS}])
+      LIBS="${old_LIBS}"
+    fi
+  fi
+fi
+AC_SUBST(JOY_LIBS)
+
+dnl Check for math library
+AC_CHECK_HEADERS(math.h)
+AC_CHECK_LIB(m, sqrt,,,$LIBS)
+
+
+dnl ----- ZLib -----
+ZLIB_LIBS=
+
+if test x"$with_zlib" != "xno" ; then
+  AC_CHECK_HEADER(zlib.h,,)
+  if test x"$ac_cv_header_zlib_h" = "xyes" ; then
+    ac_cv_lib_z_zlibVersion=yes
+    AC_CHECK_LIB(z, zlibVersion,
+               [ ZLIB_LIBS="-lz";
+                 HAVE_ZLIB_SUPPORT="yes";
+                 AC_DEFINE(HAVE_ZLIB,,
+                 [Can we use the ZLIB compression library?]) ],,)
+  fi
+fi
+
+AC_SUBST(ZLIB_LIBS)
+
+
+dnl ----- Netplay Support -----
+NETPLAY_LIBS=
+old_LIBS="$LIBS"
+if test x"$is_unix_x11" = "xyes" -o x"$is_unix_macosx" = "xyes"; then
+
+  dnl Check for needed network headers
+  UNIX_NETWORK_HEADERS_PRESENT=yes
+  AC_CHECK_HEADERS(sys/types.h unistd.h sys/socket.h sys/time.h sys/select.h netinet/in.h arpa/inet.h netdb.h,,
+                   [UNIX_NETWORK_HEADERS_PRESENT=no],)
+
+  if test x"$UNIX_NETWORK_HEADERS_PRESENT" = "xyes"; then
+
+    dnl Check for possible extra needed network libraries
+    AC_CHECK_LIB(intl, dgettext,[ NETPLAY_LIBS="-lintl $NETPLAY_LIBS";
+                                  LIBS="-lintl $LIBS"],,)
+    AC_CHECK_LIB(nsl, gethostbyname,[ NETPLAY_LIBS="-lnsl $NETPLAY_LIBS";
+                                      LIBS="-lnsl $LIBS"],,)
+    AC_CHECK_LIB(socket, gethostbyname,[ NETPLAY_LIBS="-lsocket $NETPLAY_LIBS";
+                                         LIBS="-lsocket $LIBS"],,)
+    AC_CHECK_LIB(bsd, gethostbyname,[ NETPLAY_LIBS="-lbsd $NETPLAY_LIBS";
+                                      LIBS="-lbsd $LIBS"],,)
+    AC_CHECK_LIB(net, gethostbyname,[ NETPLAY_LIBS="-lnet $NETPLAY_LIBS";
+                                      LIBS="-lnet $LIBS"],,)
+    AC_CHECK_LIB(inet, gethostbyname,[ NETPLAY_LIBS="-linet $NETPLAY_LIBS";
+                                       LIBS="-linet $LIBS"],,)
+
+    dnl Check for needed functions
+    UNIX_NETWORK_FUNCS_PRESENT=yes
+
+    dnl Check for netinet/tcp.h
+    AC_CHECK_HEADERS([netinet/tcp.h])
+
+    AC_CHECK_FUNCS(socket send bind listen gethostbyname connect recv accept,,
+                   [UNIX_NETWORK_FUNCS_PRESENT=no],)
+
+    if test x"$UNIX_NETWORK_FUNCS_PRESENT" = "xyes"; then
+      AC_DEFINE(HAVE_NETWORK,,[Enable netplay support])
+      HAVE_NETWORK_SUPPORT="yes"
+      AC_DEFINE(HAVE_RS232NET,,[Enable RS232 network support])
+      HAVE_RS232NET_SUPPORT="yes"
+      AC_CHECK_FUNCS(htons htonl)
+      AC_CHECK_FUNCS(getdtablesize getrlimit)
+      AC_MSG_CHECKING([For socklen_t])
+      AC_TRY_COMPILE([#include <sys/types.h>
+                      #include <sys/socket.h>],
+                     [socklen_t foo; foo = 1235;],
+                     [AC_DEFINE(HAVE_SOCKLEN_T,,[Define if the socklen_t type is present.])
+                      AC_MSG_RESULT(yes)],
+                     [AC_MSG_RESULT(no)])
+
+      AC_MSG_CHECKING([for in_addr_t])
+      AC_TRY_COMPILE([#include <sys/types.h>
+                      #include <stdlib.h>
+                      #include <stddef.h>
+                      #include <netinet/in.h>], [in_addr_t foo;],
+                      [AC_DEFINE(HAVE_IN_ADDR_T,,[Define if the in_addr_t type is present.])
+                       AC_MSG_RESULT(yes)],
+                      [AC_MSG_RESULT(no)])
+
+      AC_MSG_CHECKING([for Unix domain sockets])
+      AC_TRY_COMPILE([#include <sys/socket.h>
+                      #include <sys/un.h>], [
+                      static struct sockaddr_un addr;
+                      socket(AF_UNIX, SOCK_STREAM, 0);],
+                      [AC_DEFINE(HAVE_UNIX_DOMAIN_SOCKETS,,[Define if Unix domain sockets are supported])
+                      AC_MSG_RESULT(yes)],
+                      AC_MSG_RESULT(no))
+
+    fi
+  fi
+elif test x"$is_beos" = "xyes"; then
+
+  dnl Check for needed network headers
+  BEOS_NETWORK_HEADERS_PRESENT=yes
+  AC_CHECK_HEADERS(sys/socket.h netdb.h ByteOrder.h,,
+                   [BEOS_NETWORK_HEADERS_PRESENT=no],)
+
+  if test x"$BEOS_NETWORK_HEADERS_PRESENT" = "xyes"; then
+
+    dnl Check for possible extra needed network libraries
+
+    AC_CHECK_LIB(network, gethostbyname,[ NETPLAY_LIBS="-lnetwork $NETPLAY_LIBS";
+                                      LIBS="-lnetwork $LIBS"],,)
+
+    AC_CHECK_LIB(net, gethostbyname,[ NETPLAY_LIBS="-lnet -lnetapi $NETPLAY_LIBS";
+                                      LIBS="-lnet -lnetapi $LIBS"],,)
+
+    dnl Check for needed functions
+
+    BEOS_NETWORK_FUNCS_PRESENT=yes
+
+    AC_CHECK_FUNCS(socket send bind listen gethostbyname connect recv accept,,
+                   [BEOS_NETWORK_FUNCS_PRESENT=no],)
+
+    if test x"$BEOS_NETWORK_FUNCS_PRESENT" = "xyes"; then
+      AC_DEFINE(HAVE_NETWORK,,[Enable netplay support])
+      HAVE_NETWORK_SUPPORT="yes"
+      AC_DEFINE(HAVE_RS232NET,,[Enable RS232 network support])
+      HAVE_RS232NET_SUPPORT="yes"
+      AC_CHECK_FUNCS(getdtablesize getrlimit)
+    fi
+  fi
+fi
+
+dnl Check for availability of IPV6
+if test x"$is_unix_x11" = "xyes" -o x"$is_unix_macosx" = "xyes" ; then
+  if test x"$UNIX_NETWORK_FUNCS_PRESENT" = "xyes"; then
+    AC_MSG_CHECKING([if IPV6 should be enabled])
+    if test x"$enable_ipv6" != "xno"; then
+      have_ipv6=no
+      AC_TRY_COMPILE([
+        #include <sys/socket.h>
+        #include <sys/types.h>
+        #include <netinet/in.h>], [
+        struct sockaddr_storage ss;
+        struct in6_addr in6;
+        socket(AF_INET6, SOCK_STREAM, 0);
+        in6 = in6addr_any;
+        ],
+        have_ipv6=yes,
+        have_ipv6=no
+      )
+      AC_MSG_RESULT($have_ipv6)
+
+      if test $have_ipv6 = yes; then
+        have_broken_ss_family=no
+
+        dnl on some platforms, the structure sockaddr doesn't have a
+        dnl ss_family, but __ss_family. If we find no ss_family then we
+        dnl check for __ss_family, and if found define NEED_PREFIXED_SS_FAMILY.
+        AC_MSG_CHECKING([struct sockaddr::ss_family])
+        AC_TRY_COMPILE([
+          #include <sys/socket.h>
+          #include <sys/types.h>], [
+          struct sockaddr_storage ss ;
+          ss.ss_family = 0 ;
+          ],
+          have_ss_family=yes,
+          have_ss_family=no
+        )
+        AC_MSG_RESULT($have_ss_family)
+        if test x"$have_ss_family" = "xno" ; then
+          AC_MSG_CHECKING([broken struct sockaddr::ss_family])
+          AC_TRY_COMPILE([
+            #include <sys/socket.h>
+            #include <sys/types.h>], [
+            struct sockaddr_storage ss ;
+            ss.__ss_family = 0 ;
+            ],
+            have_broken_ss_family=yes,
+            have_broken_ss_family=no
+          )
+          AC_MSG_RESULT($have_broken_ss_family)
+          if test x$have_broken_ss_family = xyes ; then
+            AC_DEFINE(NEED_PREFIXED_SS_FAMILY, [],
+            [Whether struct sockaddr::__ss_family exists])
+            AC_DEFINE(ss_family, __ss_family,
+            [ss_family is not defined here, use __ss_family instead])
+          else
+            AC_MSG_WARN(ss_family and __ss_family not found)
+          fi
+        fi
+
+        have_gethostbyname2=no
+        AC_CHECK_FUNC(gethostbyname2, have_gethostbyname2=yes)
+        if test $have_gethostbyname2 = yes; then
+          AC_DEFINE([HAVE_GETHOSTBYNAME2], [], [Define if gethostbyname2 can be used])
+          AC_DEFINE([HAVE_IPV6], [], [Define if ipv6 can be used])
+          HAVE_IPV6_SUPPORT="yes"
+        else
+          have_getipnodebyname=no
+          AC_CHECK_FUNC(getipnodebyname, have_getipnodebyname=yes)
+          if test $have_getipnodebyname = yes; then
+            AC_DEFINE([HAVE_GETIPNODEBYNAME], [], [Define if getipnodebyname can be used])
+            AC_DEFINE([HAVE_IPV6], [], [Define if ipv6 can be used])
+            HAVE_IPV6_SUPPORT="yes"
+          fi
+        fi
+      fi
+    else
+      AC_MSG_RESULT("no")
+    fi
+  fi
+fi
+LIBS="$old_LIBS"
+AC_SUBST(NETPLAY_LIBS)
+
+dnl ----- FFMPEG -----
+FFMPEG_DIR=
+FFMPEG_LIBS=
+FFMPEG_INCLUDES=
+FFMPEG_DEP=
+
+HAVE_SHARED_FFMPEG=no
+HAVE_STATIC_FFMPEG=no
+HAVE_EXTERNAL_FFMPEG=no
+
+AC_MSG_CHECKING([for FFMPEG support])
+
+dnl shared vice included ffmpeg
+if test x"$enable_shared_ffmpeg" = "xyes"; then
+  if test x"$is_win32" = "xyes" -o x"$is_unix" = "xyes" -a x"$dynlib_support" = "xyes" ; then
+    FFMPEG_DEP=libffmpeg
+    FFMPEG_LIBS="\$(top_builddir)/src/libffmpeg.a"
+    FFMPEG_DIR="$FFMPEG_DIR liblame libx264 libffmpeg"
+    AC_DEFINE([HAVE_FFMPEG],,[Have FFMPEG av* libs available])
+    HAVE_FFMPEG_SUPPORT="yes"
+    AC_DEFINE([SHARED_FFMPEG],,[FFMPEG libraries are shared])
+    SHARED_FFMPEG_SUPPORT="yes"
+    FFMPEG_INCLUDES="-I\$(top_srcdir)/src/lib/libffmpeg"
+
+    FFMPEG_DO_SUBDIRS=yes
+    HAVE_SHARED_FFMPEG=yes
+
+    dnl --- define obsolete variables as long as they are not removed from driver code ---
+    AC_DEFINE([HAVE_FFMPEG_SWSCALE],,[Have FFMPEG swscale lib available])
+    HAVE_FFMPEG_SWSCALE_SUPPORT="yes"
+    AC_DEFINE([HAVE_FFMPEG_HEADER_SUBDIRS],,[FFMPEG uses subdirs for headers])
+    AC_MSG_RESULT([yes (shared internal)])
+    GFXOUTPUT_DRIVERS="$GFXOUTPUT_DRIVERS ffmpegdrv.o ffmpeglib.o"
+  else
+    AC_MSG_RESULT([shared not available])
+  fi
+fi
+
+dnl static vice included ffmpeg
+if test x"$enable_static_ffmpeg" = "xyes"; then
+  FFMPEG_DEP=libffmpeg
+  FFMPEG_LIBS="\$(top_builddir)/src/lib/libffmpeg/libavformat/libavformat.a \$(top_builddir)/src/lib/libffmpeg/libavcodec/libavcodec.a \$(top_builddir)/src/lib/libffmpeg/libavutil/libavutil.a \$(top_builddir)/src/lib/libffmpeg/libswscale/libswscale.a \$(top_builddir)/src/lib/libffmpeg/libswresample/libswresample.a \$(top_builddir)/src/lib/libffmpeg/lib/libmp3lame.a \$(top_builddir)/src/lib/libffmpeg/lib/libx264.a"
+  FFMPEG_DIR="$FFMPEG_DIR liblame libx264 libffmpeg"
+  AC_DEFINE([HAVE_FFMPEG],,[Have FFMPEG av* libs available])
+  HAVE_FFMPEG_SUPPORT="yes"
+  AC_DEFINE([STATIC_FFMPEG],,[FFMPEG libraries are static])
+  STATIC_FFMPEG_SUPPORT="yes"
+  FFMPEG_INCLUDES="-I\$(top_srcdir)/src/lib/libffmpeg"
+
+  AC_MSG_RESULT([yes (static internal)])
+
+  AC_CHECK_LIB(rt, clock_gettime,,)
+  AC_CHECK_LIB(bz2, BZ2_bzDecompressInit,,)
+  AC_CHECK_LIB(lzma, lzma_code,,)
+  AC_CHECK_LIB(va, vaBeginPicture,,)
+  AC_CHECK_LIB(m, sqrt,,)
+
+  if test x"$is_win32" = "xyes"; then
+    win32_pthreads=no
+    AC_CHECK_LIB(pthreadGC2, _imp__pthread_self, [ win32_pthreads=yes ])
+    if test x"$win32_pthreads" = "xno"; then
+      AC_CHECK_LIB(pthreadGC2, pthread_self, [ win32_pthreads=yes ])
+    fi
+    if test x"$win32_pthreads" = "xno"; then
+      AC_CHECK_LIB(pthread, _imp__pthread_self, [ win32_pthreads=yes ])
+    else
+      LIBS="$LIBS -lpthreadGC2"
+    fi
+    if test x"$win32_pthreads" = "xno"; then
+      AC_CHECK_LIB(pthread, pthread_self, [ win32_pthreads=yes ])
+    else
+      LIBS="$LIBS -lpthread"
+    fi
+    if test x"$win32_pthreads" = "xno"; then
+      AC_MSG_ERROR([Needed pthread lib missing])
+    else
+      LIBS="$LIBS -lpthread"
+    fi
+    dnl Add -lws2_32
+    LIBS="$LIBS -lws2_32"
+  else
+    AC_CHECK_LIB(pthread, pthread_create,,)
+  fi
+
+  FFMPEG_DO_SUBDIRS=yes
+  HAVE_STATIC_FFMPEG=yes
+
+  dnl --- define obsolete variables as long as they are not removed from driver code ---
+  AC_DEFINE([HAVE_FFMPEG_SWSCALE],,[Have FFMPEG swscale lib available])
+  HAVE_FFMPEG_SWSCALE_SUPPORT="yes"
+  AC_DEFINE([HAVE_FFMPEG_HEADER_SUBDIRS],,[FFMPEG uses subdirs for headers])
+
+  GFXOUTPUT_DRIVERS="$GFXOUTPUT_DRIVERS ffmpegdrv.o ffmpeglib.o"
+fi
+
+dnl external ffmpeg
+if test x"$enable_external_ffmpeg" = "xyes"; then
+  PKG_PROG_PKG_CONFIG
+
+  valid_ffmpeg_platform="no"
+
+  if test x"$is_unix" = "xyes"; then
+    dnl --- unix (requires dynlib support) ---
+    if test x"$dynlib_support" = "xyes"; then
+      valid_ffmpeg_platform="yes"
+    fi
+  else
+    valid_ffmpeg_platform="yes"
+  fi
+
+  if test x"$valid_ffmpeg_platform" = "xyes"; then
+    AC_MSG_RESULT([via pkg-config])
+    PKG_CHECK_MODULES(FFMPEG_AV,  [libavcodec libavformat libavutil],
+      [old_CFLAGS=$CFLAGS
+       old_CPPFLAGS=$CPPFLAGS
+       CFLAGS="$CFLAGS $FFMPEG_AV_CFLAGS"
+       CPPFLAGS="$CPPFLAGS $FFMPEG_AV_CFLAGS"
+
+       AC_CHECK_HEADER(libavformat/avformat.h,
+        [AC_DEFINE([HAVE_FFMPEG_HEADER_SUBDIRS],,[FFMPEG uses subdirs for headers])],
+        [AC_CHECK_HEADER(avformat.h,,
+          [AC_MSG_ERROR([No suitable FFMPEG header found!])])])
+
+       CFLAGS=$old_CFLAGS
+       CPPFLAGS=$old_CPPFLAGS
+
+      PKG_CHECK_MODULES(FFMPEG_SWSCALE, [libswscale],
+        [have_swscale=yes],
+        [echo "no. trying img_convert"]
+        [old_LIBS=$LIBS]
+        [AC_CHECK_LIB(avcodec, img_convert,[have_imgconvert=yes])]
+        [LIBS=$old_LIBS]
+      )
+      if (test x"${have_swscale}" = x"yes") || (test x"${have_imgconvert}" = x"yes") ; then
+        AC_DEFINE([HAVE_FFMPEG],,[Have FFMPEG av* libs available])
+        HAVE_FFMPEG_SUPPORT="yes"
+        FFMPEG_INCLUDES="$FFMPEG_AV_CFLAGS"
+        GFXOUTPUT_DRIVERS="$GFXOUTPUT_DRIVERS ffmpegdrv.o ffmpeglib.o"
+        dlopen_pthread=yes
+      fi
+      if (test x"${have_swscale}" = x"yes") ; then
+        AC_DEFINE([HAVE_FFMPEG_SWSCALE],,[Have FFMPEG swscale lib available])
+        HAVE_FFMPEG_SWSCALE_SUPPORT="yes"
+        FFMPEG_INCLUDES="$FFMPEG_INCLUDES $FFMPEG_SWSCALE_CFLAGS"
+        dlopen_pthread=yes
+      fi
+       ],
+      [echo "no. disabled."]
+    )
+    AC_DEFINE([EXTERNAL_FFMPEG],,[External FFMPEG libraries are used])
+    HAVE_EXTERNAL_FFMPEG=yes
+    PKG_CHECK_MODULES(FFMPEG_SWRESAMPLE, [libswresample], [have_swresample=yes], [have_swresample=no])
+    if test x"$have_swresample" = "xyes"; then
+      AC_DEFINE([HAVE_FFMPEG_SWRESAMPLE],,[Have FFMPEG swresample lib available])
+      HAVE_FFMPEG_SWRESAMPLE_SUPPORT="yes"
+    else
+      PKG_CHECK_MODULES(FFMPEG_AVRESAMPLE, [libavresample], [have_avresample=yes], [have_avresample=no])
+      if test x"$have_avresample" = "xyes"; then
+        AC_DEFINE([HAVE_FFMPEG_AVRESAMPLE],,[Have FFMPEG avresample lib available])
+        HAVE_FFMPEG_AVRESAMPLE_SUPPORT="yes"
+      else
+        AC_MSG_ERROR([No swresample or avresample library available!])
+      fi
+    fi
+  else
+    AC_MSG_RESULT([not available])
+  fi
+fi
+
+AC_SUBST(FFMPEG_INCLUDES)
+AC_SUBST(FFMPEG_LIBS)
+AC_SUBST(FFMPEG_DIR)
+AC_SUBST(FFMPEG_DEP)
+
+if test x"$HAVE_SHARED_FFMPEG" != "xyes" -a x"$HAVE_STATIC_FFMPEG" != "xyes" -a x"$HAVE_EXTERNAL_FFMPEG" != "xyes"; then
+  AC_MSG_RESULT([disabled])
+fi
+
+if test x"$FFMPEG_DO_SUBDIRS" = "xyes"; then
+  if test x"$is_win32" = "xyes"; then
+      ac_configure_args="$ac_configure_args --enable-yasm-command=${YASM} --enable-make-command=${MAKE-make} --enable-w32threads --enable-full-host=${ac_cv_host} --enable-compiler=${CC} --prefix=${prefix}"
+  else
+      ac_configure_args="$ac_configure_args --enable-yasm-command=${YASM} --enable-make-command=${MAKE-make} --enable-full-host=${ac_cv_host} --enable-compiler=${CC} --prefix=${prefix}"
+  fi
+  AC_CONFIG_SUBDIRS(src/lib/ffmpeg)
+fi
+
+if test x"$HAVE_SHARED_FFMPEG" = "xyes"; then
+  AM_CONDITIONAL(HAVE_SHARED_FFMPEG, true)
+else
+  AM_CONDITIONAL(HAVE_SHARED_FFMPEG, false)
+fi
+
+if test x"$HAVE_STATIC_FFMPEG" = "xyes"; then
+  AM_CONDITIONAL(HAVE_STATIC_FFMPEG, true)
+else
+  AM_CONDITIONAL(HAVE_STATIC_FFMPEG, false)
+fi
+
+if test x"$enable_shared_ffmpeg" = "xyes" -o x"$enable_static_ffmpeg" = "xyes"; then
+  LAMEMP3SUB=liblame
+  LIBX264SUB=libx264
+  LIBFFMPEGSUB=libffmpeg
+  FFMPEGSUB=ffmpeg
+else
+  LAMEMP3SUB=""
+  LIBX264SUB=""
+  LIBFFMPEGSUB=""
+  FFMPEGSUB=""
+fi
+
+AC_SUBST(LAMEMP3SUB)
+AC_SUBST(LIBX264SUB)
+AC_SUBST(LIBFFMPEGSUB)
+AC_SUBST(FFMPEGSUB)
+
+if test x"$LAMEMP3SUB" = "xliblame"; then
+  AM_CONDITIONAL(LAMEMP3_DIR_USED, true)
+else
+  AM_CONDITIONAL(LAMEMP3_DIR_USED, false)
+fi
+
+
+
+dnl check for glibc 2.20+
+linux_glibc_220_and_up=yes
+AC_MSG_CHECKING(if we are using glibc-2.20 and up)
+AC_TRY_LINK([#ifdef __linux
+             #  include <ctype.h>
+             #  ifdef __GLIBC__
+             #    if (__GLIBC__>=2)
+             #      if ((__GLIBC__==2 && __GLIBC_MINOR__>=20) || __GLIBC__>=3)
+             #        error GLIBC2.20+
+             #      endif
+             #    endif
+             #  endif
+             #endif],
+             [int a=0],
+             linux_glibc_220_and_up=no)
+AC_MSG_RESULT($linux_glibc_220_and_up)
+
+dnl ----- Ethernet -----
+TFE_LIBS=""
+if test x"$enable_ethernet" = "xyes"; then
+  have_tuntap="no"
+  if test x"$is_win32_gtk3" = "xyes"; then
+    AC_DEFINE(HAVE_PCAP,,[Support for PCAP library.])
+    AC_DEFINE(HAVE_RAWNET,,[Support for CS8900A ethernet controller.])
+    HAVE_RAWNET_SUPPORT="yes"
+  else
+    if test x"$is_win32" = "xno"; then
+    dnl libpcap.a
+      AC_CHECK_LIB(nsl, gethostbyname,[ LIBS="-lnsl $LIBS" ],,)
+      AC_CHECK_LIB(socket, gethostbyname,[ LIBS="-lsocket $LIBS" ],,)
+      AC_CHECK_LIB(pcap, pcap_inject,[
+        AC_DEFINE(HAVE_PCAP,,[Support for PCAP library.])
+        AC_DEFINE(HAVE_RAWNET,,[Support for CS8900A ethernet controller.])
+        HAVE_RAWNET_SUPPORT="yes";
+        AC_DEFINE(HAVE_PCAP_INJECT,,[A libpcap version with pcap_inject is available])
+        TFE_LIBS="-lpcap"
+      ],,$LIBS)
+      AC_CHECK_LIB(pcap, pcap_sendpacket,[
+        AC_DEFINE(HAVE_PCAP,,[Support for PCAP library.])
+        AC_DEFINE(HAVE_RAWNET,,[Support for CS8900A ethernet controller.])
+        HAVE_RAWNET_SUPPORT="yes";
+        AC_DEFINE(HAVE_PCAP_SENDPACKET,,[A libpcap version with pcap_sendpacket is available])
+        TFE_LIBS="-lpcap"
+      ],,$LIBS)
+    dnl libpcap.a
+    dnl libnet.a
+      AC_CHECK_LIB(pcap, pcap_open_live,[
+        AC_CHECK_LIB(net, libnet_init,[
+          AC_DEFINE(HAVE_PCAP,,[Support for PCAP library.])
+          AC_DEFINE(HAVE_RAWNET,,[Support for CS8900A ethernet controller.])
+          HAVE_RAWNET_SUPPORT="yes";
+          AC_DEFINE(VICE_USE_LIBNET_1_1,,[Support for The Final Ethernet])
+          TFE_LIBS="-lpcap `libnet-config --libs`"
+          libnet_cflags="`libnet-config --defines`"
+      ],,$LIBS)],,$LIBS)
+    dnl libpcap.a
+    dnl libnet.a
+      AC_CHECK_LIB(pcap, pcap_open_live,[
+        AC_CHECK_LIB(net, libnet_write_link_layer,[
+          AC_DEFINE(HAVE_PCAP,,[Support for PCAP library.])
+          AC_DEFINE(HAVE_RAWNET,,[Support for CS8900A ethernet controller.])
+          HAVE_RAWNET_SUPPORT="yes";
+          TFE_LIBS="-lpcap `libnet-config --libs`"
+          libnet_cflags="`libnet-config --defines`"
+      ],,$LIBS)],,$LIBS)
+      if test x"$libnet_cflags" != "x"; then
+        if test x"$linux_glibc_220_and_up" = "xyes"; then
+          new_libnet_cflags=""
+          for i in $libnet_cflags
+          do
+            if test x"$i" = "x-D_BSD_SOURCE"; then
+              new_libnet_cflags="$new_libnet_cflags -D_DEFAULT_SOURCE"
+            else
+              new_libnet_cflags="$new_libnet_cflags $i"
+            fi
+          done
+          CFLAGS="$CFLAGS $new_libnet_cflags"
+        else
+          CFLAGS="$CFLAGS $libnet_cflags"
+        fi
+      fi
+    dnl check for tuntap
+      AC_CHECK_HEADER(linux/if_tun.h,[AC_DEFINE(HAVE_TUNTAP,, [TUN/TAP support using <linux/if_tun.h>])
+                      AC_DEFINE(HAVE_RAWNET,,[Support for CS8900A ethernet controller.])
+                      have_tuntap=yes
+                      HAVE_RAWNET_SUPPORT="yes"])
+    fi
+  fi
+  if test x"$TFE_LIBS" = "x" -a x"$is_win32" = "xno" -a x"$is_win32_gtk3" = "xno" -a x"$have_tuntap" = "xno"; then
+    AC_MSG_ERROR([Needed pcap library not found, please install libpcap-dev or equivalent])
+  fi
+fi
+AC_SUBST(TFE_LIBS)
+
+dnl ----- Sound Drivers -----
+if test x"$is_unix" = "xyes" -a x"$is_unix_macosx" = "xno"; then
+  if test x"$with_pulse" != "xno"; then
+    AC_CHECK_HEADERS(pulse/simple.h,[AC_CHECK_LIB(pulse-simple, pa_simple_new,
+                     [SOUND_DRIVERS="$SOUND_DRIVERS soundpulse.o";
+                      SOUND_LIBS="$SOUND_LIBS -lpulse-simple -lpulse";
+                      USE_PULSE_SUPPORT="yes";
+                      AC_DEFINE(USE_PULSE,,[Enable pulseaudio support.])],,$SOUND_LIBS)])
+    if test x"$with_pulse" != "xno" -a x"$USE_PULSE_SUPPORT" != "xyes"; then
+      AC_MSG_ERROR([pulse audio support missing])
+    fi
+  fi
+
+  dnl ALSA support checks
+  if test x"$with_alsa" != "xno"; then
+    AC_CHECK_HEADERS(alsa/asoundlib.h,[AC_CHECK_LIB(asound, snd_pcm_open,
+                     [SOUND_DRIVERS="$SOUND_DRIVERS soundalsa.o";
+                      SOUND_LIBS="$SOUND_LIBS -lasound";
+                      USE_ALSA_SUPPORT="yes";
+                      AC_DEFINE(USE_ALSA,,[Enable alsa support.])],,$SOUND_LIBS)])
+    AC_CHECK_LIB(asound, snd_pcm_avail,
+                 [AC_DEFINE(HAVE_SND_PCM_AVAIL,,[Use more accurate buffer fill reporting])])
+    if test x"$with_alsa" != "xno" -a x"$USE_ALSA_SUPPORT" != "xyes"; then
+      AC_MSG_ERROR([alsa support is missing])
+    fi
+  fi
+
+
+  dnl OSS support checks
+  dnl
+  dnl For some reason 'sounduss.o' is actually correct. you'd expect soundoss.o
+  dnl but that fails to compile
+  dnl
+  if test x"$with_oss" = "xyes"; then
+    AC_CHECK_HEADERS(linux/soundcard.h machine/soundcard.h sys/soundcard.h soundcard.h,
+                     [SOUND_DRIVERS="$SOUND_DRIVERS sounduss.o";
+                      USE_OSS_SUPPORT="yes";
+                      AC_DEFINE(USE_OSS,,[Enable oss support.])])
+    AC_CHECK_LIB(ossaudio, _oss_ioctl,,,$SOUND_LIBS)
+    if test x"$USE_OSS_SUPPORT" != "xyes"; then
+      AC_MSG_ERROR([OSS support missing])
+    fi
+  fi
+
+  dnl <sys/audioio.h> for sun / netbsd audio
+  if test x"$with_sun" != "xno" -a x"$host_os" != "openbsd"; then
+    AC_CHECK_HEADERS(sys/audioio.h,
+                    [SOUND_DRIVERS="$SOUND_DRIVERS soundsun.o"; break])
+  fi
+
+fi
+
+
+dnl --- Lame ---
+
+if test x"$enable_lame" = "xyes" ; then
+
+  old_CFLAGS="$CFLAGS"
+  CFLAGS="$VICE_CFLAGS"
+
+  AC_CHECK_HEADER(lame/lame.h,,)
+
+  dnl the header is available!
+  if test x"$ac_cv_header_lame_lame_h" = "xyes" ; then
+    AC_MSG_CHECKING([for lame lib linking])
+    if test x"$dynlib_support" = "xyes" -a x"$enable_static_lame" != "xyes" ; then
+      dnl dynlib linking
+      SOUND_DRIVERS="$SOUND_DRIVERS soundmp3.o lamelib.o"
+      AC_DEFINE(USE_LAMEMP3,,[Enable lamemp3 support.])
+      USE_LAMEMP3_SUPPORT="yes"
+      AC_DEFINE(HAVE_EXTERNAL_LAME,,[External linking for lame libs])
+      AC_MSG_RESULT([dynlib])
+    else
+      dnl try static linking
+      AC_MSG_RESULT([trying static])
+      AC_CHECK_LIB(mp3lame, lame_encode_buffer,[ADD_MPGDECODER=0],,)
+      if test "$ac_cv_lib_mp3lame_lame_encode_buffer" = "no"; then
+        unset ac_cv_lib_mp3lame_lame_encode_buffer
+        AC_CHECK_LIB(mp3lame, lame_encode_buffer,[ADD_MPGDECODER=1],,[-lmpgdecoder])
+      fi
+      if test "$ac_cv_lib_mp3lame_lame_encode_buffer" != "no"; then
+        SOUND_DRIVERS="$SOUND_DRIVERS soundmp3.o";
+        SOUND_LIBS="$SOUND_LIBS -lmp3lame";
+        if test "$ADD_MPGDECODER" = "1" ; then
+          SOUND_LIBS="$SOUND_LIBS -lmpgdecoder";
+        fi
+        AC_DEFINE(USE_LAMEMP3,,[Enable lamemp3 support.])
+        USE_LAMEMP3_SUPPORT="yes"
+        AC_DEFINE(HAVE_STATIC_LAME,,[Static linking for lame libs])
+      fi
+      if test x"$USE_LAMEMP3_SUPPORT" != "xyes" -a x"$enable_lame" = "xyes"; then
+        AC_MSG_ERROR([lame mp3 support is missing])
+      fi
+    fi
+  else
+    AC_MSG_ERROR([lame mp3 support is missing])
+  fi
+
+  CFLAGS="$old_CFLAGS"
+fi
+
+AC_PATH_PROGS(FCCACHE, fc-cache, false)
+if test x"$FCCACHE" = "xfalse"; then
+  AM_CONDITIONAL(HAVE_FC_CACHE, false)
+else
+  AM_CONDITIONAL(HAVE_FC_CACHE, true)
+fi
+
+dsound_header_no_lib="no"
+
+if test x"$is_win32" = "xyes" -o x"$is_win32_gtk3" = "xyes"; then
+    if test x"$enable_sdlui" != "xyes" -a x"$enable_sdlui2" != "xyes"; then
+        SOUND_DRIVERS="$SOUND_DRIVERS soundwmm.o"
+        AC_MSG_CHECKING(whether we can use directx sound)
+        AC_CHECK_HEADER(dsound.h,
+              [ AC_DEFINE(USE_DXSOUND,,[Enable directx sound support.])
+                USE_DXSOUND_SUPPORT="yes" ]
+              [ SOUND_DRIVERS="$SOUND_DRIVERS sounddx.o" ]
+              [ AC_MSG_CHECKING(for -ldsound) ]
+              [ old_LIBS="$LIBS" ]
+              [ LIBS="$LIBS -ldsound" ]
+              [ AC_LINK_IFELSE([
+                               AC_LANG_PROGRAM(
+                                               [#define DIRECTSOUND_VERSION 0x500
+                                                #include <dsound.h>],
+                                               [LPDIRECTSOUNDBUFFER buffer=NULL;
+                                                IDirectSoundBuffer_Restore(buffer);]
+                                              )
+                               ],
+                            [ AC_DEFINE(HAVE_DSOUND_LIB, [], [dsound.lib or libdsound.a are present]) ]
+                            [ AC_MSG_RESULT(yes) ]
+                            [ SOUND_LIBS="$SOUND_LIBS -ldsound" ],
+                            [ AC_MSG_RESULT(no) ]
+                            [ dsound_header_no_lib="yes" ]
+              )]
+              [ LIBS="$old_LIBS" ]
+        )
+
+        if test x"$dsound_header_no_lib" = "xyes" -o x"$dinput_header_no_lib" = "xyes"; then
+              AC_MSG_CHECKING(if CoInitialize can be linked)
+              LIBS="$LIBS -lole32"
+              AC_LINK_IFELSE([
+                               AC_LANG_PROGRAM(
+                                               [#include <objbase.h>],
+                                               [CoInitialize(NULL);]
+                                              )
+                               ],
+                               [ AC_MSG_RESULT(yes) ],
+                               [ AC_MSG_ERROR(no) ]
+                              )
+        fi
+    else
+        SOUND_DRIVERS="$SOUND_DRIVERS soundwmm.o"
+    fi
+fi
+
+dnl Do not remove (yet), for some reason these things are required even for
+dnl SDL2 on Haiku.
+if test x"$is_beos" = "xyes"; then
+    SOUND_DRIVERS="$SOUND_DRIVERS soundbeos.o soundbsp.o"
+fi
+
+
+dnl Check for Ogg/Vorbis support
+if test x"$with_vorbis" != "xyes"; then
+    VORBIS_PRESENT=no
+else
+    VORBIS_PRESENT=yes
+    AC_CHECK_HEADERS(vorbis/vorbisfile.h,,[VORBIS_PRESENT=no],)
+
+    if test x"$VORBIS_PRESENT" = "xyes"; then
+        AC_CHECK_LIB(ogg, ogg_stream_flush,, [VORBIS_PRESENT=no])
+    fi
+
+    if test x"$VORBIS_PRESENT" = "xyes"; then
+        AC_CHECK_LIB(vorbis, vorbis_info_clear,, [VORBIS_PRESENT=no])
+    fi
+
+    if test x"$VORBIS_PRESENT" = "xyes"; then
+        AC_CHECK_LIB(vorbisfile, ov_open_callbacks,, [VORBIS_PRESENT=no])
+    fi
+
+    if test x"$VORBIS_PRESENT" = "xyes"; then
+        AC_CHECK_LIB(vorbisenc, vorbis_encode_init_vbr,, [VORBIS_PRESENT=no])
+    fi
+
+    if test x"$with_vorbis" = "xyes" -a x"$VORBIS_PRESENT" = "xno"; then
+        AC_MSG_ERROR([Ogg/Vorbis requested but missing.])
+    fi
+    dnl Where does soundvorbis.o come from?
+    SOUND_DRIVERS="$SOUND_DRIVERS soundvorbis.o";
+    LIBS="$LIBS -lvorbisfile -logg -lvorbis -lvorbisenc"
+    USE_VORBIS_SUPPORT="yes"
+    AC_DEFINE(USE_VORBIS,,[Enable ogg/vorbis support.])
+fi
+
+
+dnl Check FLAC support
+if test x"$with_flac" != "xyes"; then
+    FLAC_PRESENT=no
+else
+    FLAC_PRESENT=yes
+
+    AC_CHECK_HEADERS(FLAC/stream_decoder.h,,[FLAC_PRESENT=no],)
+
+    if test x"$FLAC_PRESENT" = "xyes"; then
+        AC_CHECK_LIB(FLAC, FLAC__stream_decoder_get_channels,, [FLAC_PRESENT=no])
+    fi
+
+    if test x"$FLAC_PRESENT" = "xno"; then
+        unset ac_cv_lib_FLAC_FLAC__stream_decoder_get_channels
+        dnl Windows-specific check:
+        AC_CHECK_LIB(FLAC, FLAC__stream_decoder_get_channels,, [FLAC_PRESENT=no], [-lwinmm])
+        if test x"$FLAC_PRESENT" = "xyes"; then
+            LIBS="$LIBS -lwinmm"
+        fi
+    fi
+
+    if test x"$FLAC_PRESENT" = "xno"; then
+        AC_MSG_ERROR([FLAC support requested, but missing.])
+    fi
+    LIBS="$LIBS -lFLAC"
+    SOUND_DRIVERS="$SOUND_DRIVERS soundflac.o"
+    USE_FLAC_SUPPORT="yes"
+    AC_DEFINE(USE_FLAC,,[Enable FLAC support.])
+
+fi
+
+
+if test x"$is_unix_macosx" = "xyes"; then
+
+  dnl --- check for CoreAudio ---
+  AC_CHECK_HEADER(CoreAudio/CoreAudio.h,,)
+  if test x"$ac_cv_header_CoreAudio_CoreAudio_h" = "xyes" ; then
+    AC_CHECK_HEADER(AudioToolbox/AudioToolbox.h,,)
+    if test x"$ac_cv_header_AudioToolbox_AudioToolbox_h" = "xyes" ; then
+      AC_MSG_CHECKING(whether we can link the CoreAudio framework)
+      old_LIBS="${LIBS}"
+      LIBS="${LIBS} -framework CoreAudio -framework AudioToolbox"
+      AC_TRY_LINK([#include <CoreAudio/CoreAudio.h>],
+                  [AudioDeviceStart(0,0);],
+                  [AC_MSG_RESULT(yes);
+                   SOUND_DRIVERS="$SOUND_DRIVERS soundcoreaudio.o";
+                   SOUND_LIBS="$SOUND_LIBS -framework CoreAudio -framework AudioToolbox";
+                   USE_COREAUDIO_SUPPORT="yes";
+                   AC_DEFINE(USE_COREAUDIO,,[Enable CoreAudio support.])],
+                  [AC_MSG_RESULT(no)])
+      LIBS=${old_LIBS}
+
+      AC_CHECK_HEADER(AudioUnit/AudioUnit.h,,)
+      if test x"$ac_cv_header_AudioUnit_AudioUnit_h" = "xyes" ; then
+        AC_MSG_CHECKING(whether we can link the AudioUnit framework)
+        old_LIBS="${LIBS}"
+        LIBS="${LIBS} -framework AudioUnit"
+        AC_TRY_LINK([#include <AudioUnit/AudioUnit.h>],
+                    [AudioOutputUnitStart(NULL);],
+                    [AC_MSG_RESULT(yes);
+                     SOUND_LIBS="$SOUND_LIBS -framework AudioUnit";
+                     HAVE_AUDIO_UNIT_SUPPORT="yes";
+                     AC_DEFINE(HAVE_AUDIO_UNIT,,[Enable AudioUnit support.])],
+                    [AC_MSG_RESULT(no)])
+        LIBS=${old_LIBS}
+      fi
+    fi
+  fi
+
+  dnl --- check for CoreMIDI ---
+  if test x"$enable_midi" = "xyes"; then
+    AC_MSG_CHECKING(whether we can link the CoreMIDI framework)
+    old_LIBS="${LIBS}"
+    LIBS="$LIBS -framework CoreMidi -framework CoreServices"
+    AC_TRY_LINK([#include <CoreMIDI/MIDIServices.h>],
+                [MIDIGetNumberOfDevices()],
+                [AC_MSG_RESULT(yes);
+                 AC_DEFINE(HAVE_MIDI,,[Enable MIDI emulation.])
+                 HAVE_MIDI_SUPPORT="yes"],
+               [AC_MSG_RESULT(no);
+                 LIBS=${old_LIBS}])
+  fi
+  if test x"$enable_midi" = "xyes" -a x"$HAVE_MIDI_SUPPORT" != "xyes"; then
+    AC_MSG_ERROR([MIDI support missing])
+  fi
+fi
+
+if test x"$is_win32_gtk3" = "xyes" -a x"$enable_native_gtk3ui" = "xyes"; then
+  SOUND_DRIVERS="$SOUND_DRIVERS soundwmm.o"
+fi
+
+AC_SUBST(SOUND_DRIVERS)
+AC_SUBST(SOUND_LIBS)
+
+dnl Check for ParSID/SSI2001/HardSID/CW support
+if test x"$is_unix" = "xyes"; then
+
+  dnl Check cpu first
+  case "$host_cpu" in
+  i*86 | x86_64* | amd64*)
+      ;;
+  *)
+      enable_parsid=no
+      enable_ssi2001=no
+      enable_hardsid=no
+      enable_catweasel=no
+      ;;
+  esac
+
+  if test x"$enable_parsid" != "xno" -o x"$enable_ssi2001" != "xno" -o x"$enable_hardsid" != "xno" -o x"$enable_catweasel" != "xno"; then
+
+    if test x"$enable_libieee1284" = "xyes"; then
+      LIBIEEE1284_HEADERS_PRESENT=yes
+    else
+      LIBIEEE1284_HEADERS_PRESENT=no
+    fi
+    LINUX_HARDSID_HEADER_PRESENT=yes
+    LINUX_PARPORT_HEADERS_PRESENT=yes
+    CATWEASEL_HEADER_PRESENT=yes
+    BSD_SET_IOPERM_HEADERS_PRESENT=yes
+    PARSID_SUPPORT=no
+    IOSID_SUPPORT=no
+    PORTSID_SUPPORT=no
+    PCIUTILS_HEADER_PRESENT=yes
+    PCIUTILS_LIB_PRESENT=no
+
+    dnl Check for needed io headers
+    if test x"$enable_libieee1284" = "xyes"; then
+      AC_CHECK_HEADERS(ieee1284.h,,[LIBIEEE1284_HEADERS_PRESENT=no],)
+    fi
+    AC_CHECK_HEADERS(linux/hardsid.h,,[LINUX_HARDSID_HEADER_PRESENT=no],)
+    AC_CHECK_HEADERS(linux/ppdev.h linux/parport.h,,[LINUX_PARPORT_HEADERS_PRESENT=no],)
+    AC_CHECK_HEADERS(dev/ppbus/ppi.h dev/ppbus/ppbconf.h,,[FREEBSD_PARPORT_HEADERS_PRESENT=no],)
+    AC_CHECK_HEADERS(cwsid.h,,[CATWEASEL_HEADER_PRESENT=no],)
+    AC_CHECK_HEADERS(machine/sysarch.h,,[BSD_SET_IOPERM_HEADERS_PRESENT=no],)
+    AC_CHECK_HEADERS(unistd.h sys/io.h machine/pio.h machine/cpufunc.h)
+    AC_CHECK_HEADERS(pci/pci.h,,[PCIUTILS_HEADER_PRESENT=no],)
+
+    if test x"$PCIUTILS_HEADER_PRESENT" = "xyes"; then
+      AC_CHECK_LIB(pciutils, pci_fill_info,[LIBS="-lpciutils $LIBS"; PCIUTILS_LIB_PRESENT=yes],,)
+      if test x"$PCIUTILS_LIB_PRESENT" = "xno"; then
+        AC_CHECK_LIB(pci, pci_fill_info,[LIBS="-lpci $LIBS"; PCIUTILS_LIB_PRESENT=yes],,)
+      fi
+      if test x"$PCIUTILS_LIB_PRESENT" != "xno"; then
+        AC_DEFINE(HAVE_LIBPCI,,[Define to 1 if you have the 'pciutils' library.])
+        HAVE_PCIUTILS_SUPPORT=yes
+      fi
+    fi
+
+    if test x"$LIBIEEE1284_HEADERS_PRESENT" = "xyes"; then
+      AC_CHECK_LIB(ieee1284, ieee1284_find_ports,[LIBS="-lieee1284 $LIBS"; PARSID_SUPPORT=yes],,)
+      if test x"$PARSID_SUPPORT" = "xyes"; then
+        AC_DEFINE(HAVE_LIBIEEE1284,
+                  [Define to 1 if you have the 'ieee1284' library (-lieee1284).])
+        HAVE_LIBIEEE1284_SUPPORT="yes"
+      else
+        AC_MSG_ERROR([libieee1284 is missing])
+      fi
+    else
+      if test x"$enable_libieee1284" = "xyes"; then
+        AC_MSG_ERROR([libieee1284 header is missing])
+      fi
+    fi
+
+    if test x"$PARSID_SUPPORT" != "xno" -a x"$enable_ssi2001" = "xno" -a x"$enable_hardsid" = "xno"; then
+      IOSID_SUPPORT=yes
+      HAVE_IOSID_SUPPORT=yes
+    fi
+
+    if test x"$LINUX_PARPORT_HEADERS_PRESENT" = "xyes"; then
+      AC_DEFINE(HAVE_LINUX_PARPORT_HEADERS,,[Support for Linux par port device file.])
+      PORTSID_SUPPORT=yes
+      HAVE_PORTSID_SUPPORT=yes
+    fi
+
+    if test x"$FREEBSD_PARPORT_HEADERS_PRESENT" = "xyes"; then
+      AC_DEFINE(HAVE_FREEBSD_PARPORT_HEADERS,,[Support for FreeBSD par port device file.])
+      PORTSID_SUPPORT=yes
+      HAVE_PORTSID_SUPPORT=yes
+    fi
+
+    if test x"$IOSID_SUPPORT" = "xno"; then
+      if test x"$BSD_SET_IOPERM_HEADERS_PRESENT" = "xyes"; then
+        AC_CHECK_LIB(amd64, amd64_set_ioperm,[LIBS="-lamd64 $LIBS"; IOSID_SUPPORT=yes],,)
+        if test x"$IOSID_SUPPORT" = "xyes"; then
+          AC_DEFINE(HAVE_LIBAMD64,,
+                    [Define to 1 if you have the 'amd64' library (-lamd64).])
+        fi
+      fi
+    fi
+
+    if test x"$IOSID_SUPPORT" = "xno"; then
+      if test x"$BSD_SET_IOPERM_HEADERS_PRESENT" = "xyes"; then
+        AC_CHECK_LIB(i386, i386_get_ioperm,[LIBS="-li386 $LIBS"],,)
+        AC_CHECK_FUNCS(i386_set_ioperm,[IOSID_SUPPORT=yes],)
+      fi
+    fi
+
+    if test x"$IOSID_SUPPORT" = "xno"; then
+      AC_CHECK_FUNCS(ioperm,[IOSID_SUPPORT=yes],)
+      AC_CHECK_FUNCS(inb outb outb_p inb_p inbv outbv)
+    fi
+
+    if test x"$IOSID_SUPPORT" = "xyes"; then
+      if test x"$enable_parsid" != "xno"; then
+        AC_DEFINE(HAVE_PARSID,,[Support for ParSID.])
+        HAVE_PARSID_SUPPORT="yes"
+      fi
+      if test x"$enable_ssi2001" != "xno"; then
+        AC_DEFINE(HAVE_SSI2001,,[Support for SSI2001 (ISA SID card).])
+        HAVE_SSI2001_SUPPORT="yes"
+      fi
+      if test x"$enable_catweasel" != "xno"; then
+        AC_DEFINE(HAVE_CATWEASELMKIII,,[Support for Catweasel MKIII.])
+        AC_DEFINE(HAVE_CATWEASELMKIII_IO,,[Support for direct PCI I/O access Catweasel MKIII.])
+        HAVE_CATWEASELMKIII_SUPPORT="yes"
+      fi
+      if test x"$enable_hardsid" != "xno"; then
+        AC_DEFINE(HAVE_HARDSID,,[Support for HardSID.])
+        AC_DEFINE(HAVE_HARDSID_IO,,[Support for PCI/ISA HardSID.])
+        HAVE_HARDSID_SUPPORT="yes"
+      fi
+    else
+      if test x"$enable_hardsid" != "xno" -a x"$LINUX_HARDSID_HEADER_PRESENT" = "xyes"; then
+        AC_DEFINE(HAVE_HARDSID,,[Support for HardSID.])
+        HAVE_HARDSID_SUPPORT="yes"
+      fi
+      if test x"$enable_catweasel" != "xno" -a x"$CATWEASEL_HEADER_PRESENT" = "xyes"; then
+        AC_DEFINE(HAVE_CATWEASELMKIII,,[Support for Catweasel MKIII.])
+        HAVE_CATWEASELMKIII_SUPPORT="yes"
+      fi
+    fi
+
+    if test x"$PORTSID_SUPPORT" = "xyes"; then
+      if test x"$enable_parsid" != "xno" -a x"HAVE_PARSID_SUPPORT" != "xyes"; then
+        AC_DEFINE(HAVE_PARSID,,[Support for ParSID.])
+        AC_DEFINE(HAVE_PORTSID,,[Support for file device based access to ParSID.])
+        HAVE_PARSID_SUPPORT="yes"
+      fi
+    fi
+
+    if test x"$enable_catweasel" = "xyes" -a x"$HAVE_CATWEASELMKIII_SUPPORT" != "xyes"; then
+      AC_MSG_ERROR([CatWeaselMKIII support is missing])
+    fi
+
+    if test x"$enable_hardsid" = "xyes" -a x"$HAVE_HARDSID_SUPPORT" != "xyes"; then
+      AC_MSG_ERROR([HardSID support is missing])
+    fi
+
+  fi
+fi
+
+AC_TYPE_SIGNAL
+AC_FUNC_VFORK
+AC_CHECK_TYPES(u_short)
+AC_CHECK_TYPES(socklen_t, [], [], [[#include <sys/socket.h>]])
+
+dnl some platforms have some of the functions in libbsd,
+dnl so we check it out first.
+AC_CHECK_LIB(bsd,gettimeofday,,,$LIBS)
+
+dnl some platforms have some of the functions in libposix,
+dnl so we check it out second.
+AC_CHECK_LIB(posix,gettimeofday,,,$LIBS)
+
+AC_CHECK_FUNCS(gettimeofday memmove atexit strerror strcasecmp strncasecmp dirname mkstemp swab getcwd getpwuid random rewinddir strtok strtok_r strtoul snprintf vsnprintf ltoa ultoa stpcpy strlcpy strlwr strrev fseeko)
+AC_CHECK_FUNCS(strdup, [have_strdup_func=yes], [have_strdup_func=no])
+
+if test x"$have_strdup_func" = "xno"; then
+  AC_MSG_CHECKING(whether strdup is defined as a macro)
+  AC_TRY_LINK([#include <string.h>],
+               [char *something = strdup("something")],
+               [AC_MSG_RESULT(yes); have_strdup_func=yes],
+               [AC_MSG_RESULT(no); have_strdup_func=no])
+
+  if test x"$have_strdup_func" = "xyes"; then
+    AC_DEFINE(HAVE_STRDUP,,[Define to 1 if you have the 'strdup' function.])
+  fi
+fi
+
+AC_SUBST(LIBS)
+
+dnl check for usleep (do we need this anymore?)
+if test x"$is_win32" != "xyes" ; then
+  AC_REPLACE_FUNCS(usleep)
+fi
+
+AC_CHECK_FUNC(nanosleep,
+              [ AC_DEFINE(HAVE_NANOSLEEP,,[Use nanosleep instead of usleep]) ])
+
+dnl Check time.h.
+
+dnl AC_HEADER_TIME
+dnl AC_STRUCT_TM
+
+dnl GTK3-FIXME: check if readline is even needed for native GTK3 UI and disable the check if needed
+
+dnl ----- Readline -----
+dnl Check whether we have GNU readline.  If not, use our replacement.
+dnl The user can force us to use the replacement with '--without-readline'.
+READLINE_LIBS=
+EDITLINE_LIBS=
+if test x"$is_unix_x11" = "xyes"; then
+  if test x"$with_readline" != "xno" ; then
+    READLINE_HEADER_PRESENT=yes
+    AC_CHECK_HEADERS(readline/readline.h,,[READLINE_HEADER_PRESENT=no],)
+    READLINE=""
+    unset ac_cv_lib_readline_readline
+    old_LIBS="$LIBS"
+    AC_CHECK_LIB(readline, readline,
+               [ READLINE="" READLINE_LIBS="-lreadline"],
+               [],,)
+
+    if test "$ac_cv_lib_readline_readline" = "no"; then
+      unset ac_cv_lib_readline_readline
+      AC_CHECK_LIB(readline, readline,
+               [ READLINE="" READLINE_LIBS="-lreadline -ltermcap"],
+               [], [-ltermcap],)
+    fi
+
+    if test "$ac_cv_lib_readline_readline" = "no"; then
+      unset ac_cv_lib_readline_readline
+      AC_CHECK_LIB(readline, readline,
+               [ READLINE="" READLINE_LIBS="-lreadline -lncurses"],
+               [], [-lncurses],)
+    fi
+
+    if test "$ac_cv_lib_readline_readline" = "no"; then
+      unset ac_cv_lib_readline_readline
+      AC_CHECK_LIB(readline, readline,
+             [ READLINE="" READLINE_LIBS="-lreadline -lcurses"],
+             [ ],
+              [-lcurses],)
+    fi
+
+    if test x"$enable_sdlui" != "xno" -o x"$enable_sdlui2" != "xno"; then
+      READLINE=""
+    fi
+
+    if test "$ac_cv_lib_readline_readline" = "yes"; then
+      AC_CHECK_LIB(readline, rl_readline_name,
+             [ AC_DEFINE(HAVE_RLNAME,,
+             [Does the 'readline' library support 'rl_readline_name'?]) ],,)
+    fi
+    LIBS="${old_LIBS}"
+  else
+    if test x"$enable_sdlui" != "xyes" -a x"$enable_sdlui2" != "xyes"; then
+      READLINE="\$(top_builddir)/src/arch/unix/readline/libreadline.a"
+    fi
+  fi
+else
+  READLINE=""
+fi
+AM_CONDITIONAL(NEED_READLINE, test x"$READLINE" != "x")
+AC_SUBST(READLINE)
+AC_SUBST(READLINE_LIBS)
+
+dnl Configure graphics output drivers
+old_LIBS="$LIBS"
+GFXOUTPUT_LIBS=
+
+dnl check for png support
+if test x"$with_png" != "xno" ; then
+  dnl Check for the PNG library.
+  AC_CHECK_HEADER(png.h,,)
+  if test x"$ac_cv_header_png_h" = "xyes" ; then
+    unset ac_cv_lib_png_png_sig_cmp
+    AC_CHECK_LIB(png, png_sig_cmp,
+                 [ GFXOUTPUT_LIBS="-lpng $GFXOUTPUT_LIBS";
+                   GFXOUTPUT_DRIVERS="$GFXOUTPUT_DRIVERS pngdrv.o";
+                   HAVE_PNG_SUPPORT="yes";
+                   AC_DEFINE(HAVE_PNG,,[Can we use the PNG library?]) ],,)
+    if test "$ac_cv_lib_png_png_sig_cmp" = "no"; then
+      unset ac_cv_lib_png_png_sig_cmp
+      AC_CHECK_LIB(png, png_sig_cmp,
+                   [ GFXOUTPUT_LIBS="-lpng -lz $GFXOUTPUT_LIBS";
+                     GFXOUTPUT_DRIVERS="$GFXOUTPUT_DRIVERS pngdrv.o";
+                     HAVE_PNG_SUPPORT="yes";
+                     AC_DEFINE(HAVE_PNG,,
+                               [Can we use the PNG library?]) ],,"-lz")
+    fi
+  fi
+
+  if test x"$HAVE_PNG_SUPPORT" != "xyes" -a x"$cross_compiling" != "xyes"; then
+    PKG_PROG_PKG_CONFIG
+    if test x"$PKG_CONFIG" != "x"; then
+      AC_MSG_CHECKING([if pkgconfig libpng is present])
+      PKG_CHECK_MODULES(PNG, [libpng], HAVE_PNG_SUPPORT="yes")
+      if test x"$HAVE_PNG_SUPPORT" = "xyes"; then
+          GFXOUTPUT_LIBS="$PNG_LIBS $GFXOUTPUT_LIBS"
+          GFXOUTPUT_DRIVERS="$GFXOUTPUT_DRIVERS pngdrv.o";
+          VICE_CFLAGS="$VICE_CFLAGS $PNG_CFLAGS";
+          AC_DEFINE(HAVE_PNG,,[Can we use the PNG library?])
+          AC_MSG_RESULT([yes])
+      else
+          AC_MSG_RESULT([no])
+      fi
+    fi
+  fi
+
+  if test x"$HAVE_PNG_SUPPORT" != "xyes"; then
+    AC_MSG_ERROR([PNG support is missing])
+  fi
+fi
+
+dnl Check for the GIF or UNGIF library.
+if test x"$with_gif" = "xyes"; then
+  AC_CHECK_HEADER(gif_lib.h,,)
+  if test x"$ac_cv_header_gif_lib_h" = "xyes" ; then
+    AC_CHECK_LIB(ungif, EGifPutLine, [
+                 GFXOUTPUT_LIBS="-lungif $GFXOUTPUT_LIBS";
+                 GFXOUTPUT_DRIVERS="$GFXOUTPUT_DRIVERS gifdrv.o";
+                 HAVE_GIF_SUPPORT="yes";
+                 AC_DEFINE(HAVE_GIF,,[Can we use the GIF or UNGIF library?]) ],,)
+    if test "$ac_cv_lib_ungif_EGifPutLine" = "no"; then
+      AC_CHECK_LIB(gif, EGifPutLine, [
+                   GFXOUTPUT_LIBS="-lgif $GFXOUTPUT_LIBS";
+                   GFXOUTPUT_DRIVERS="$GFXOUTPUT_DRIVERS gifdrv.o";
+                   HAVE_GIF_SUPPORT="yes";
+                   AC_DEFINE(HAVE_GIF,,[Can we use the GIF or UNGIF library?]) ],,)
+    fi
+ fi
+ if test x"$HAVE_GIF_SUPPORT" != "xyes"; then
+   AC_MSG_ERROR([GIF support not present])
+ fi
+fi
+
+dnl check for jpeg support
+if test x"$with_jpeg" = "xyes" ; then
+  dnl Check for the JPEG library.
+  AC_CHECK_HEADER(jpeglib.h,,)
+
+  if test x"$ac_cv_header_jpeglib_h" = "xyes" ; then
+    AC_CHECK_LIB(jpeg, jpeg_CreateCompress, [
+                 GFXOUTPUT_LIBS="-ljpeg $GFXOUTPUT_LIBS";
+                 GFXOUTPUT_DRIVERS="$GFXOUTPUT_DRIVERS jpegdrv.o";
+                 HAVE_JPEG_SUPPORT="yes";
+                 AC_DEFINE(HAVE_JPEG,,[Can we use the JPEG library?]) ],,)
+  fi
+  if test x"$with_jpeg" = "xyes" -a x"$HAVE_JPEG_SUPPORT" != "xyes"; then
+    AC_MSG_ERROR([JPEG support is missing])
+  fi
+fi
+
+LIBS="$old_LIBS"
+AC_SUBST(GFXOUTPUT_DRIVERS)
+AC_SUBST(GFXOUTPUT_LIBS)
+
+
+dnl PortAudio support checks
+
+if test x"$enable_portaudio" != "xno"; then
+  AC_CHECK_HEADERS(portaudio.h, PA_HEADERS="yes", PA_HEADERS="no")
+
+  if test x"$PA_HEADERS" = "xyes"; then
+    if test x"$is_win32" = "xyes" -o x"$is_win32_gtk3" = "xyes"; then
+      AC_CHECK_LIB(portaudio, Pa_Initialize,
+                   [LIBS="$LIBS -lportaudio -lwinmm";
+                    USE_PORTAUDIO_SUPPORT="yes";
+                    AC_DEFINE(USE_PORTAUDIO,,[Enable portaudio sampling support.])],,-lwinmm)
+    else
+      AC_CHECK_LIB(portaudio, Pa_Initialize,
+                 [LIBS="$LIBS -lportaudio";
+                  USE_PORTAUDIO_SUPPORT="yes";
+                  AC_DEFINE(USE_PORTAUDIO,,[Enable portaudio sampling support.])],,)
+    fi
+  fi
+
+  if test x"$enable_portaudio" = "xyes" -a x"$USE_PORTAUDIO_SUPPORT" != "xyes"; then
+    AC_MSG_ERROR([PortAudio support is missing])
+  fi
+fi
+
+dnl Check MP3 decoding support
+if test x"$with_mpg123" = "xyes"; then
+    AC_CHECK_HEADERS(mpg123.h,[AC_CHECK_LIB(mpg123, mpg123_init,
+                     [LIBS="$LIBS -lmpg123";
+                     USE_MPG123_SUPPORT="yes";
+                     AC_DEFINE(USE_MPG123,,[Enable mpg123 mp3 decoding support.])],,)])
+    if test x"$USE_MPG123_SUPPORT" != "xyes"; then
+        AC_MSG_ERROR([MPG123 support requested but missing])
+    fi
+fi
+
+dnl Check for libraries and header files
+if test x"$is_beos" = "xyes"; then
+
+  dnl On BEOS, we already know what we want.
+
+  LIBS="$LIBS -lbe -ltracker -ldevice -lmedia -lgame"
+  dnl AC_SUBST(LDFLAGS)
+fi
+
+dnl CBM4Linux/OpenCBM
+AC_MSG_CHECKING([for OpenCBM support])
+if test x"$enable_realdevice" != "xno"; then
+  if test x"$host_os" = "xcygwin32" -o x"$host_os" = "xcygwin" -o x"$host_os" = "xmingw32" -o x"$host_os" = "xmingw32msvc" -o x"$host_os" = "xmingw32-gtk3"; then
+    AC_DEFINE(HAVE_REALDEVICE,,[Support for OpenCBM (former CBM4Linux).])
+    HAVE_REALDEVICE_SUPPORT="yes"
+    AM_CONDITIONAL(HAVE_REALDEVICE, true)
+    AC_MSG_RESULT([yes])
+  else
+    if test x"$dynlib_support" = "xyes"; then
+      if test x"$is_beos" != "xyes"; then
+        AC_DEFINE(HAVE_REALDEVICE,,[Support for OpenCBM (former CBM4Linux).])
+        HAVE_REALDEVICE_SUPPORT="yes"
+        AM_CONDITIONAL(HAVE_REALDEVICE, true)
+        AC_MSG_RESULT([yes])
+      else
+        AM_CONDITIONAL(HAVE_REALDEVICE, false)
+        AC_MSG_RESULT([no (not supported on current host)])
+      fi
+    else
+      AM_CONDITIONAL(HAVE_REALDEVICE, false)
+      AC_MSG_RESULT([no (dynamic lib support missing)])
+    fi
+  fi
+else
+  AM_CONDITIONAL(HAVE_REALDEVICE, false)
+  AC_MSG_RESULT([no (realdevice disabled)])
+fi
+
+AC_SUBST(VICE_CPPFLAGS)
+AC_SUBST(VICE_CFLAGS)
+AC_SUBST(VICE_CXXFLAGS)
+AC_SUBST(VICE_LDFLAGS)
+
+if test x"$is_unix_macosx" = "xyes"; then
+  dnl For now, OBJCFLAGS is the same as CFLAGS
+  VICE_OBJCFLAGS="$VICE_CFLAGS $OBJCFLAGS"
+  AC_SUBST(VICE_OBJCFLAGS)
+fi
+
+AC_SUBST(vsid_LDFLAGS)
+AC_SUBST(x64_LDFLAGS)
+AC_SUBST(x128_LDFLAGS)
+AC_SUBST(xscpu64_LDFLAGS)
+AC_SUBST(xvic_LDFLAGS)
+AC_SUBST(xpet_LDFLAGS)
+AC_SUBST(xplus4_LDFLAGS)
+AC_SUBST(xcbm2_LDFLAGS)
+
+
+dnl Do we need to build x64?
+if test x"$enable_x64" = "xyes"; then
+  X64_INCLUDED="yes"
+  AM_CONDITIONAL(SUPPORT_X64, true)
+else
+  AM_CONDITIONAL(SUPPORT_X64, false)
+  X64_INCLUDED="no"
+fi
+
+dnl Do we use sandbox mode?
+if test x"$enable_sandbox_mode" = "xyes"; then
+  USE_SANDBOX_MODE="yes"
+  AM_CONDITIONAL(SANDBOX_MODE, true)
+  AC_DEFINE(SANDBOX_MODE,,[Use Linux sandbox mode])
+else
+  AM_CONDITIONAL(SANDBOX_MODE, false)
+fi
+
+
+dnl Setup the system-specific object files.
+if test x"$enable_sdlui" = "xyes" -o x"$enable_sdlui2" = "xyes"; then
+  ARCH_DIR="\$(top_builddir)/src/arch/sdl"
+  ARCH_SRC_DIR="\$(top_srcdir)/src/arch/sdl"
+  ARCH_LIBS="$ARCH_DIR/libarch.a"
+  if test x"$is_win32" = "xyes"; then
+    ARCH_INCLUDES="-I$ARCH_SRC_DIR -I\$(top_srcdir)/src/arch/mingw32-pcap/wpcap"
+  else
+    ARCH_INCLUDES="-I$ARCH_SRC_DIR -I\$(top_srcdir)/src/arch"
+  fi
+  if test x"$ac_cv_lib_readline_readline" = "xyes"; then
+    AC_DEFINE(HAVE_READLINE,,[Enable the readline library])
+  fi
+  AC_DEFINE(HAVE_MOUSE,,[Enable 1351 mouse support])
+  HAVE_MOUSE_SUPPORT="yes"
+  AC_DEFINE(HAVE_LIGHTPEN,,[Enable lightpen support])
+  HAVE_LIGHTPEN_SUPPORT="yes"
+  AM_CONDITIONAL(SDL_COMPILE, true)
+  if test x"$enable_sdlui2" = "xyes"; then
+    AM_CONDITIONAL(SDL2_COMPILE, true)
+    SDL_VERSION=2
+    SDLCONFIG="$sdl2_config"
+  else
+    AM_CONDITIONAL(SDL2_COMPILE, false)
+    SDL_VERSION=1
+    SDLCONFIG="$sdl_config"
+  fi
+  AC_SUBST(SDL_VERSION)
+  AC_SUBST(SDLCONFIG)
+else
+  AM_CONDITIONAL(SDL_COMPILE, false)
+  AM_CONDITIONAL(SDL2_COMPILE, false)
+fi
+
+SDL_EXTRA_LIBS=""
+
+AM_CONDITIONAL(MAKE_INSTALL, true)
+AM_CONDITIONAL(MAKE_BINDIST, false)
+
+
+dnl
+dnl Set up X64 image support
+dnl
+if test x"$enable_x64_image" = "xyes"; then
+  HAVE_X64_IMAGE_SUPPORT="yes"
+  AM_CONDITIONAL(HAVE_X64_IMAGE, true)
+  AC_DEFINE(HAVE_X64_IMAGE,,[Support X64 images])
+else
+  AM_CONDITIONAL(HAVE_X64_IMAGE, false)
+fi
+
+
+if test x"$enable_native_gtk3ui" = "xyes"; then
+  dnl Use C++ compiler/linker since novte uses C++
+  LINKCC='$(CXX)'
+  ARCH_DIR="\$(top_builddir)/src/arch/gtk3"
+  ARCH_SRC_DIR="\$(top_srcdir)/src/arch/gtk3"
+  ARCH_LIBS="$ARCH_DIR/libarch.a $ARCH_DIR/widgets/libwidgets.a $ARCH_DIR/widgets/base/libbasewidgets.a $ARCH_DIR/novte/libnovte.a"
+  if test x"$is_win32" = "xyes" -o x"$is_win32_gtk3" = "xyes"; then
+    ARCH_INCLUDES="-I$ARCH_SRC_DIR -I\$(top_srcdir)/src/arch/mingw32-pcap/wpcap"
+    AM_CONDITIONAL(MAKE_INSTALL, false)
+    AM_CONDITIONAL(MAKE_BINDIST, true)
+  else
+    ARCH_INCLUDES="-I$ARCH_SRC_DIR -I\$(top_srcdir)/src/arch"
+  fi
+  if test x"$ac_cv_lib_readline_readline" = "xyes"; then
+    AC_DEFINE(HAVE_READLINE,,[Enable the readline library])
+  fi
+  AC_DEFINE(HAVE_MOUSE,,[Enable 1351 mouse support])
+  HAVE_MOUSE_SUPPORT="yes"
+  AC_DEFINE(HAVE_LIGHTPEN,,[Enable lightpen support])
+  HAVE_LIGHTPEN_SUPPORT="yes"
+
+  AM_CONDITIONAL(NATIVE_GTK3_COMPILE, true)
+
+else
+  AM_CONDITIONAL(NATIVE_GTK3_COMPILE, false)
+fi
+
+
+# WINDRES_LIB is used to link some Windows resource file to Windows binaries
+# It's not longer used by Gtk3, that uses its own per-emu files, so right now it's
+# only used for SDL. But the Gtk3 Windows .res files should also be used for SDL
+# on Windows, which means moving around some autotools stuff.
+#
+# For now though, let's keep this intact. -- compyx
+#
+if test x"$enable_sdl" = "xyes" -o x"$enable_sdlui2" = "xyes"; then
+  WINDRES_LIB="$ARCH_DIR/icon.res"
+else
+  WINDRES_LIB=""
+fi
+
+
+if test x"$enable_headlessui" = "xyes"; then
+  ARCH_DIR="\$(top_builddir)/src/arch/headless"
+  ARCH_SRC_DIR="\$(top_srcdir)/src/arch/headless"
+  ARCH_LIBS="$ARCH_DIR/libarch.a"
+  if test x"$is_win32" = "xyes"; then
+    ARCH_INCLUDES="-I$ARCH_SRC_DIR -I\$(top_srcdir)/src/arch/mingw32-pcap/wpcap"
+    AM_CONDITIONAL(MAKE_INSTALL, false)
+    AM_CONDITIONAL(MAKE_BINDIST, true)
+  else
+    ARCH_INCLUDES="-I$ARCH_SRC_DIR -I\$(top_srcdir)/src/arch"
+  fi
+  if test x"$ac_cv_lib_readline_readline" = "xyes"; then
+    AC_DEFINE(HAVE_READLINE,,[Enable the readline library])
+  fi
+  AC_DEFINE(HAVE_MOUSE,,[Enable 1351 mouse support])
+  HAVE_MOUSE_SUPPORT="yes"
+  AC_DEFINE(HAVE_LIGHTPEN,,[Enable lightpen support])
+  HAVE_LIGHTPEN_SUPPORT="yes"
+
+  AM_CONDITIONAL(HEADLESS_COMPILE, true)
+else
+  AM_CONDITIONAL(HEADLESS_COMPILE, false)
+fi
+
+if test x"$is_unix" = "xyes"; then
+
+  if test x"$is_win32_gtk3" = "xyes"; then
+    AC_DEFINE(WIN32_COMPILE,,[Are we compiling for windows?])
+    LIBS="$LIBS -lntdll"
+  else
+    AC_DEFINE(UNIX_COMPILE,,[Are we compiling for unix?])
+  fi
+
+  AM_CONDITIONAL(UNIX_COMPILE, true)
+  if test x"$is_win32_gtk3" = "xyes"; then
+     AM_CONDITIONAL(WIN32_COMPILE, true)
+  else
+     AM_CONDITIONAL(WIN32_COMPILE, false)
+  fi
+  AM_CONDITIONAL(BEOS_COMPILE, false)
+  AM_CONDITIONAL(AMIGA_COMPILE, false)
+
+  if test x"$is_unix_macosx" = "xyes" ; then
+    AM_CONDITIONAL(UNIX_MACOSX_COMPILE, true)
+    dnl macOS supports both make install and make bindist
+    AM_CONDITIONAL(MAKE_BINDIST, true)
+  else
+    AM_CONDITIONAL(UNIX_MACOSX_COMPILE, false)
+  fi
+
+
+elif test x"$is_win32" = "xyes"; then
+  AC_DEFINE(WIN32_COMPILE,,[Are we compiling for win32?])
+
+  if test x"$enable_sdlui" = "xyes" -o x"$enable_sdlui2" = "xyes"; then
+    if test x"$host_cpu" = "xx86_64" -o x"$host_cpu" = "xamd64"; then
+      SDL_EXTRA_LIBS="$UI_LIBS -lwinmm -lws2_32"
+    else
+      SDL_EXTRA_LIBS="$UI_LIBS -lwinmm -lwsock32"
+    fi
+  fi
+
+  AM_CONDITIONAL(WIN32_COMPILE, true)
+  AM_CONDITIONAL(UNIX_COMPILE, false)
+  AM_CONDITIONAL(BEOS_COMPILE, false)
+  AM_CONDITIONAL(AMIGA_COMPILE, false)
+  AM_CONDITIONAL(UNIX_MACOSX_COMPILE, false)
+  AM_CONDITIONAL(MAKE_INSTALL, false)
+  AM_CONDITIONAL(MAKE_BINDIST, true)
+elif test x"$is_beos" = "xyes"; then
+  AM_CONDITIONAL(UNIX_COMPILE, false)
+  AM_CONDITIONAL(WIN32_COMPILE, false)
+  AM_CONDITIONAL(BEOS_COMPILE, true)
+  AM_CONDITIONAL(AMIGA_COMPILE, false)
+  AM_CONDITIONAL(UNIX_MACOSX_COMPILE, false)
+  AM_CONDITIONAL(MAKE_INSTALL, false)
+  AM_CONDITIONAL(MAKE_BINDIST, true)
+else
+  AC_MSG_WARN([No architecture defined!])
+fi
+
+dnl Check wether we have gcc
+if test x"$GCC" = "xyes" ; then
+  AC_DEFINE(USE_GCC,, [Define when using gcc] )
+fi
+
+
+AC_SUBST(HAVE_READLINE)
+AC_SUBST(ARCH_INCLUDES)
+AC_SUBST(ARCH_LIBS)
+AC_SUBST(ARCH_DIR)
+AC_SUBST(ARCH_SRC_DIR)
+AC_SUBST(ARCH_MAKE_BINDIST_DIR)
+AC_SUBST(ARCH_EXTRA_SUBDIR)
+AC_SUBST(UI_LIBS)
+AC_SUBST(SDL_EXTRA_LIBS)
+AC_SUBST(SOUND_USS_OBJ)
+AC_SUBST(SOUND_MIDAS_OBJ)
+AC_SUBST(SOUND_SDL_OBJ)
+AC_SUBST(WINDRES_LIB)
+
+PLATFORM_DOX_FLAGS=""
+if test x"$enable_platformdox" = "xyes"; then
+  if test x"$enable_sdlui" = "xyes" -o x"$enable_sdlui2" = "xyes"; then
+    PLATFORM_DOX_FLAGS="platformsdl"
+  fi
+  if test x"$enable_native_gtk3ui" = "xyes"; then
+    PLATFORM_DOX_FLAGS="platformgtk3"
+  fi
+fi
+if test x"$PLATFORM_DOX_FLAGS" = "x"; then
+  PLATFORM_DOX_FLAGS="platformall"
+fi
+AC_SUBST(PLATFORM_DOX_FLAGS)
+
+if test "$prefix" = NONE && test "$exec_prefix" = NONE; then
+  PREFIX="$ac_default_prefix"
+elif test "$prefix" = NONE; then
+  PREFIX="$exec_prefix"
+else
+  PREFIX="$prefix"
+fi
+
+dnl Set up directories for the various OS'es
+AC_DEFINE_UNQUOTED(PREFIX, "$PREFIX", [Where do we want to install the executable?])
+
+dnl Exceptions for Windows and perhaps MacOS need to be made in the code since
+dnl those are 'portable' (meaning any data is relative to the binary)
+
+dnl VICEDIR="$datadir/$PACKAGE"
+dnl VICE_ROOTDIR="$PREFIX"
+dnl VICE_BINDIR="$bindir"
+dnl VICE_DATADIR="$datadir/$PACKAGE"
+dnl VICE_DOCDIR="$docdir"
+
+dnl Set directories used by archdep
+dnl
+dnl Some of these are probably not required, we can either set some dirs to be
+dnl relative, or use code to determine the location of files with bindists (ie
+dnl Windows and MacOS)
+dnl
+dnl That will obviously require some target checks, the current stuff works
+dnl targets that use `make install`, so at least Linux and BSD and perhaps
+dnl MacOS when doing the 'Unix thing'.
+dnl
+dnl -- compyx, 2020-02-08
+dnl
+dnl AC_SUBST(VICEDIR, [$datadir/$PACKAGE])
+dnl AC_SUBST(VICE_ROOTDIR, [$PREFIX])
+dnl AC_SUBST(VICE_BINDIR, [$bindir])
+AC_SUBST(VICE_DATADIR, [$datadir/$PACKAGE])
+AC_SUBST(VICE_DOCDIR, [$docdir])
+
+
+dnl Export --program-prefix and --program-suffix for the .desktop files
+if test x"$program_prefix" = "xNONE"; then
+    AC_SUBST(PROGRAM_PREFIX, "")
+    #AC_MSG_ERROR([No prefix!])
+else
+    AC_SUBST(PROGRAM_PREFIX, [$program_prefix])
+fi
+
+if test x"$program_suffix" = "xNONE"; then
+    AC_SUBST(PROGRAM_SUFFIX, "")
+else
+    AC_SUBST(PROGRAM_SUFFIX, [$program_suffix])
+fi
+
+dnl I think this is supposed to handle --enable-internal-ffmpeg
+dnl It does not check for that situation and internal-ffmpeg on Unix (the only
+dnl system supported,I think) requires running `make` as root, which sucks.
+dnl So let's not do that.
+# Add path with private dynamic ffmpeg libs to the search path
+#rpath_line=`${CONFIG_SHELL-/bin/sh} "$srcdir/config.rpath" "$CC" "$GCC" "$LDFLAGS" "$LD" "$with_gnu_ld" "$host" "$VICEDIR/lib"`
+#LDFLAGS="$LDFLAGS $rpath_line"
+
+
+AC_OUTPUT([Makefile
+           build/Makefile
+           build/android/Makefile
+           build/beos/Makefile
+           build/mingw/Makefile
+           build/mingw/frankenvice/Makefile
+           data/Makefile
+           data/C128/Makefile
+           data/C64/Makefile
+           data/C64DTV/Makefile
+           data/CBM-II/Makefile
+           data/DRIVES/Makefile
+           data/PET/Makefile
+           data/PLUS4/Makefile
+           data/SCPU64/Makefile
+           data/PRINTER/Makefile
+           data/VIC20/Makefile
+           data/common/Makefile
+           doc/Makefile
+           doc/building/Makefile
+           doc/html/Makefile
+           doc/readmes/Makefile
+           src/Makefile
+           src/debug.h
+           src/arch/Makefile
+           src/arch/android/Makefile
+           src/arch/android/AnVICE/AndroidManifest.xml
+           src/arch/android/AnVICE/Makefile
+           src/arch/android/AnVICE/.settings/Makefile
+           src/arch/android/AnVICE/assets-proto/Makefile
+           src/arch/android/AnVICE/jni/Makefile
+           src/arch/android/AnVICE/jni/locnet/Makefile
+           src/arch/android/AnVICE/jni/locnet_x64/Makefile
+           src/arch/android/AnVICE/jni/locnet_x64dtv/Makefile
+           src/arch/android/AnVICE/jni/locnet_x64sc/Makefile
+           src/arch/android/AnVICE/jni/locnet_x128/Makefile
+           src/arch/android/AnVICE/jni/locnet_xcbm2/Makefile
+           src/arch/android/AnVICE/jni/locnet_xcbm5x0/Makefile
+           src/arch/android/AnVICE/jni/locnet_xpet/Makefile
+           src/arch/android/AnVICE/jni/locnet_xplus4/Makefile
+           src/arch/android/AnVICE/jni/locnet_xscpu64/Makefile
+           src/arch/android/AnVICE/jni/locnet_xvic/Makefile
+           src/arch/android/AnVICE/jni/locnet_al/Makefile
+           src/arch/android/AnVICE/jni/sdl/Makefile
+           src/arch/android/AnVICE/jni/vice_x64/Makefile
+           src/arch/android/AnVICE/jni/vice_x64_128_5x0/Makefile
+           src/arch/android/AnVICE/jni/vice_x64_dtv_128_5x0/Makefile
+           src/arch/android/AnVICE/jni/vice_x64_sc/Makefile
+           src/arch/android/AnVICE/jni/vice_x64_sc_128/Makefile
+           src/arch/android/AnVICE/jni/vice_x64_sc_128_2_5x0_pet_4_20/Makefile
+           src/arch/android/AnVICE/jni/vice_x64_sc_dtv/Makefile
+           src/arch/android/AnVICE/jni/vice_x64_sc_dtv_128_2_5x0_pet_4_20/Makefile
+           src/arch/android/AnVICE/jni/vice_x64_sc_dtv_scpu/Makefile
+           src/arch/android/AnVICE/jni/vice_x64_sc_dtv_scpu_128/Makefile
+           src/arch/android/AnVICE/jni/vice_x64_sc_dtv_scpu_128_2_5x0_20/Makefile
+           src/arch/android/AnVICE/jni/vice_x64_sc_dtv_scpu_128_2_5x0_4_20/Makefile
+           src/arch/android/AnVICE/jni/vice_x64_sc_dtv_scpu_128_2_5x0_pet_4/Makefile
+           src/arch/android/AnVICE/jni/vice_x64_sc_dtv_scpu_128_2_5x0_pet_4_20/Makefile
+           src/arch/android/AnVICE/jni/vice_x64_sc_dtv_scpu_128_2_pet_4_20/Makefile
+           src/arch/android/AnVICE/jni/vice_x64_sc_dtv_scpu_128_4_20/Makefile
+           src/arch/android/AnVICE/jni/vice_x64_sc_dtv_scpu_128_20/Makefile
+           src/arch/android/AnVICE/jni/vice_x64_sc_scpu/Makefile
+           src/arch/android/AnVICE/jni/vice_x64_sc_scpu_128/Makefile
+           src/arch/android/AnVICE/jni/vice_x64_sc_scpu_128_2/Makefile
+           src/arch/android/AnVICE/jni/vice_x64_sc_scpu_128_2_5x0_pet_4_20/Makefile
+           src/arch/android/AnVICE/jni/vice_x64_sc_scpu_128_2_pet_4_20/Makefile
+           src/arch/android/AnVICE/jni/vice_x64_sc_scpu_128_2_pet_20/Makefile
+           src/arch/android/AnVICE/jni/vice_x64_sc_scpu_128_4/Makefile
+           src/arch/android/AnVICE/jni/vice_x64_sc_scpu_128_20/Makefile
+           src/arch/android/AnVICE/jni/vice_x64_sc_scpu_128_5x0_4_20/Makefile
+           src/arch/android/AnVICE/jni/vice_x64dtv/Makefile
+           src/arch/android/AnVICE/jni/vice_x64sc/Makefile
+           src/arch/android/AnVICE/jni/vice_x64sc_scpu/Makefile
+           src/arch/android/AnVICE/jni/vice_x64sc_scpu_128_2_pet_4_20/Makefile
+           src/arch/android/AnVICE/jni/vice_x128/Makefile
+           src/arch/android/AnVICE/jni/vice_x128_2_5x0_pet/Makefile
+           src/arch/android/AnVICE/jni/vice_xcbm2/Makefile
+           src/arch/android/AnVICE/jni/vice_xcbm2_5x0/Makefile
+           src/arch/android/AnVICE/jni/vice_xcbm2_pet/Makefile
+           src/arch/android/AnVICE/jni/vice_xcbm5x0/Makefile
+           src/arch/android/AnVICE/jni/vice_xpet/Makefile
+           src/arch/android/AnVICE/jni/vice_xplus4/Makefile
+           src/arch/android/AnVICE/jni/vice_xscpu64/Makefile
+           src/arch/android/AnVICE/jni/vice_xvic/Makefile
+           src/arch/android/AnVICE/res-proto/Makefile
+           src/arch/android/AnVICE/res-proto/layout/Makefile
+           src/arch/android/AnVICE/res-proto/values/Makefile
+           src/arch/android/AnVICE/src-proto/Makefile
+           src/arch/android/AnVICE/src-proto/com/Makefile
+           src/arch/android/AnVICE/src-proto/com/locnet/Makefile
+           src/arch/android/AnVICE/src-proto/com/locnet/vice/Makefile
+           src/arch/gtk3/Makefile
+           src/arch/gtk3/data/Makefile
+           src/arch/gtk3/data/macos/Makefile
+           src/arch/gtk3/data/unix/Makefile
+           src/arch/gtk3/data/win32/Makefile
+           src/arch/gtk3/novte/Makefile
+           src/arch/gtk3/widgets/Makefile
+           src/arch/gtk3/widgets/base/Makefile
+           src/arch/mingw32-pcap/Makefile
+           src/arch/mingw32-pcap/wpcap/Makefile
+           src/arch/mingw32-pcap/wpcap/net/Makefile
+           src/arch/sdl/Makefile
+           src/arch/headless/Makefile
+           src/arch/shared/Makefile
+           src/buildtools/Makefile
+           src/c128/Makefile
+           src/c64/Makefile
+           src/c64/cart/Makefile
+           src/c64dtv/Makefile
+           src/scpu64/Makefile
+           src/cbm2/Makefile
+           src/core/Makefile
+           src/crtc/Makefile
+           src/datasette/Makefile
+           src/diag/Makefile
+           src/diskimage/Makefile
+           src/drive/Makefile
+           src/drive/iec/Makefile
+           src/drive/iec/c64exp/Makefile
+           src/drive/iec/plus4exp/Makefile
+           src/drive/iec128dcr/Makefile
+           src/drive/iecieee/Makefile
+           src/drive/ieee/Makefile
+           src/drive/tcbm/Makefile
+           src/fileio/Makefile
+           src/fsdevice/Makefile
+           src/gfxoutputdrv/Makefile
+           src/hwsiddrv/Makefile
+           src/hvsc/Makefile
+           src/iecbus/Makefile
+           src/imagecontents/Makefile
+           src/iodrv/Makefile
+           src/joyport/Makefile
+           src/lib/Makefile
+           src/lib/ffmpeg/Makefile
+           src/lib/p64/Makefile
+           src/lib/linenoise-ng/Makefile
+           src/mididrv/Makefile
+           src/monitor/Makefile
+           src/parallel/Makefile
+           src/pet/Makefile
+           src/plus4/Makefile
+           src/printerdrv/Makefile
+           src/raster/Makefile
+           src/rs232drv/Makefile
+           src/rtc/Makefile
+           src/samplerdrv/Makefile
+           src/serial/Makefile
+           src/sid/Makefile
+           src/socketdrv/Makefile
+           src/sounddrv/Makefile
+           src/tape/Makefile
+           src/tapeport/Makefile
+           src/userport/Makefile
+           src/vdc/Makefile
+           src/vdrive/Makefile
+           src/vic20/Makefile
+           src/vic20/cart/Makefile
+           src/vicii/Makefile
+           src/viciisc/Makefile
+           src/viciivsid/Makefile
+           src/video/Makefile
+           src/version.h
+           src/vice-version.sh
+           ])
+
+if test x"$enable_cmake" = x"yes" ; then
+  ./cmake-bootstrap.sh
+fi
+
+dnl Local Variables:
+dnl mode: autoconf
+dnl compile-command: "autoconf"
+dnl End:
+
+dnl construct show_arch
+if test "$is_beos" != "xyes" -a x"$is_unix_macosx" != "xyes" -a x"$is_win32" != "xyes" -a x"$is_win32_gtk3" != "xyes"; then
+    show_arch="Unix"
+    real_arch="Unix"
+else
+    if test x"$is_beos" = "xyes"; then
+        show_arch="BeOS"
+        real_arch="BeOS"
+    fi
+    if test x"$is_unix_macosx" = "xyes"; then
+        show_arch="Mac OS X"
+        real_arch="OSX"
+    fi
+    if test x"$is_win32" = "xyes" -o x"$is_win32_gtk3" = "xyes"; then
+        if test x"$enable_native_gtk3ui" = "xyes"; then
+            show_arch="Win32-GTK3 (treated as Unix)"
+            real_arch="Unix"
+        fi
+    fi
+fi
+
+
+
+dnl construct show_gui
+show_gui="Unknown"
+if test x"$enable_sdlui" = "xyes"; then
+    show_gui="SDL1"
+fi
+
+if test x"$enable_sdlui2" = "xyes"; then
+    show_gui="SDL2"
+fi
+
+if test x"$enable_native_gtk3ui" = "xyes"; then
+    if test x"$enable_debug_gtk3ui" = "xyes"; then
+        show_gui="NATIVE GTK3 (debug)"
+    else
+        show_gui="NATIVE GTK3"
+    fi
+fi
+
+if test x"$enable_headlessui" = "xyes"; then
+    show_gui="Headless"
+fi
+
+if test "x$ac_cv_header_sys_audio_h" = xyes; then
+    HAVE_SYS_AUDIO_H_SUPPORT="yes"
+fi
+
+if test "x$ac_cv_header_sys_audioio_h" = xyes; then
+    HAVE_SYS_AUDIOIO_H_SUPPORT="yes"
+fi
+
+if test "x$ac_cv_func_SDL_NumJoysticks" = xyes; then
+    HAVE_SDL_NUMJOYSTICKS_SUPPORT="yes"
+fi
+
+if test "x$ac_cv_header_proto_openpci_h" = xyes; then
+    HAVE_PROTO_OPENPCI_H_SUPPORT="yes"
+fi
+
+echo "----------------------------------------------------------------------"
+echo ""
+echo "configure summary:"
+echo ""
+
+echo "Platform canonical: $ac_cv_host"
+echo "Architecture      : $show_arch"
+echo "GUI               : $show_gui"
+echo "Multithreaded     : $show_multithreaded"
+echo ""
+
+echo "SCREEN/UI"
+echo "---------"
+
+if test x"$real_arch" != "xBeOS"; then
+    echo "Hardware scaling support       : $HAVE_HWSCALE_SUPPORT"
+fi
+
+
+echo ""
+echo "SOUND"
+echo "-----"
+echo "FastSID support              : $HAVE_FASTSID_SUPPORT (--with/without-fastsid)"
+echo "ReSID support                : $HAVE_RESID_SUPPORT (--with/without-resid)"
+echo "New 8580 filter support      : $USE_NEW_8580_FILTER (--enable/disable-new8580filter)"
+
+if test x"$real_arch" != "xAmiga"; then
+    echo "PortAudio sound input support: $USE_PORTAUDIO_SUPPORT (--enable/disable-portaudio)"
+fi
+
+if test x"$real_arch" = "xUnix"; then
+    echo "OSS sound support            : $USE_OSS_SUPPORT (--with/without-oss)"
+    echo "ALSA sound support           : $USE_ALSA_SUPPORT (--with/without-alsa)"
+    echo "Pulseaudio sound support     : $USE_PULSE_SUPPORT (--with/without-pulse)"
+fi
+
+if test x"$real_arch" = "xOSX"; then
+    echo "CoreAudio sound support      : $USE_COREAUDIO_SUPPORT"
+    echo "AudioUnit sound support      : $HAVE_AUDIO_UNIT_SUPPORT"
+fi
+
+if test x"$real_arch" = "xAmiga"; then
+    echo "AHI sound support            : $HAVE_DEVICES_AHI_H_SUPPORT (--enable/disable-ahi)"
+fi
+
+if test x"$real_arch" = "xWin32" -o x"$is_win32_gtk3" = "xyes"; then
+    echo "DirectX sound support        : $USE_DXSOUND_SUPPORT"
+fi
+
+if test x"$real_arch" != "xDOS"; then
+    echo "SDL sound support            : $USE_SDL_AUDIO_SUPPORT (--with/without-sdlsound)"
+fi
+
+if test x"$real_arch" = "xUnix"; then
+    echo "NetBSD/Solaris sound support : $HAVE_SYS_AUDIOIO_H_SUPPORT"
+fi
+
+if test x"$real_arch" = "xUnix" -o x"$real_arch" = "xOSX" -o x"$real_arch" = "xWin32"; then
+    echo "MIDI support                 : $HAVE_MIDI_SUPPORT (--enable/disable-midi)"
+fi
+
+if test x"$real_arch" != "xOSX" -a x"$real_arch" != "xBeOS"; then
+    echo "Catweasel MK3 support        : $HAVE_CATWEASELMKIII_SUPPORT (--enable/disable-catweasel)"
+    echo "HardSID support              : $HAVE_HARDSID_SUPPORT (--enable/disable-hardsid)"
+fi
+
+if test x"$real_arch" = "xUnix" -o x"$real_arch" = "xDOS" -o x"$real_arch" = "xWin32"; then
+    echo "ParSID support               : $HAVE_PARSID_SUPPORT (--enable/disable-parsid)"
+    echo "SSI2001 support              : $HAVE_SSI2001_SUPPORT (--enable/disable-ssi2001)"
+    echo "direct I/O access support    : $HAVE_IOSID_SUPPORT"
+    echo "lpt port access              : $HAVE_PORTSID_SUPPORT"
+fi
+
+echo "PCI utils support            : $HAVE_PCIUTILS_SUPPORT"
+
+echo "MP3 encoding support         : $USE_LAMEMP3_SUPPORT (--enable/disable-lame)"
+echo "MP3 decoding support         : $USE_MPG123_SUPPORT (--with/without-mpg123)"
+echo "FLAC en/de-coding support    : $USE_FLAC_SUPPORT (--with/without-flac)"
+echo "Vorbis en/de-coding support  : $USE_VORBIS_SUPPORT (--with/without-vorbis)"
+
+echo ""
+echo "SCREENSHOTS"
+echo "-----------"
+
+echo "GIF encoding support : $HAVE_GIF_SUPPORT (--with/without-gif)"
+echo "JPEG encoding support: $HAVE_JPEG_SUPPORT (--with/without-jpeg)"
+echo "PNG encoding support : $HAVE_PNG_SUPPORT (--with/without-png)"
+
+echo ""
+echo "VIDEO RECORDING"
+echo "---------------"
+
+echo "FFMPEG support                : $HAVE_FFMPEG_SUPPORT (--enable-shared-ffmpeg/--enable-static-ffmpeg/--enable-external-ffmpeg)"
+echo "FFMPEG swscale support        : $HAVE_FFMPEG_SWSCALE_SUPPORT"
+echo "FFMPEG swresample support     : $HAVE_FFMPEG_SWRESAMPLE_SUPPORT"
+echo "FFMPEG avresample support     : $HAVE_FFMPEG_AVRESAMPLE_SUPPORT"
+echo "included shared FFMPEG support: $SHARED_FFMPEG_SUPPORT (--enable-shared-ffmpeg)"
+echo "included static FFMPEG support: $STATIC_FFMPEG_SUPPORT (--enable-static-ffmpeg)"
+
+echo ""
+echo "INPUT"
+echo "-----"
+
+echo "Mouse support               : $HAVE_MOUSE_SUPPORT"
+
+if test x"$real_arch" = "xAmiga" -o x"$real_arch" = "xBeOS"; then
+    if test x"$show_gui" = "xSDL" -o x"$show_gui" = "xSDL2"; then
+        echo "Lightpen support            : $HAVE_LIGHTPEN_SUPPORT"
+    fi
+else
+    echo "Lightpen support            : $HAVE_LIGHTPEN_SUPPORT"
+fi
+
+if test x"$real_arch" = "xUnix"; then
+    if test x"$show_gui" != "xSDL" -a x"$show_gui" != "xSDL2"; then
+        echo "Linux style joystick support: $LINUX_JOYSTICK_SUPPORT"
+        echo "BSD style joystick support  : $BSD_JOYSTICK_SUPPORT"
+        echo "Digital joystick support    : $HAS_DIGITAL_JOYSTICK_SUPPORT"
+        echo "USB joystick support        : $HAS_USB_JOYSTICK_SUPPORT"
+    fi
+fi
+
+if test x"$real_arch" = "xOSX"; then
+    if test x"$show_gui" != "xSDL" -a x"$show_gui" != "xSDL2"; then
+        echo "Mac joystick support         : $MAC_JOYSTICK_SUPPORT"
+        echo "IOHIDManager joystick support: $HAS_HIDMGR_SUPPORT (--enable/disable-hidmgr)"
+    fi
+fi
+
+if test x"$real_arch" = "xWin32" -o x"$is_win32_gtk3" = "xyes"; then
+    if test x"$show_gui" != "xSDL" -a x"$show_gui" != "xSDL2"; then
+        echo "DirectInput joystick support: $HAVE_DINPUT_SUPPORT"
+    fi
+fi
+
+if test x"$show_gui" = "xSDL" -o x"$show_gui" = "xSDL2"; then
+    echo "SDL joystick support        : $HAVE_SDL_NUMJOYSTICKS_SUPPORT"
+fi
+
+echo ""
+echo "MODEM/NETWORK"
+echo "-------------"
+
+if test x"$real_arch" = "xUnix" -o x"$real_arch" = "xWin32"; then
+    echo "RS232 device support             : $HAVE_RS232DEV_SUPPORT (--enable/disable-rs232)"
+fi
+
+echo "Network support                  : $HAVE_NETWORK_SUPPORT"
+echo "RS232 network support            : $HAVE_RS232NET_SUPPORT"
+echo "IPv6 network support             : $HAVE_IPV6_SUPPORT (--enable/disable-ipv6)"
+echo "Network capture/injection support: $HAVE_RAWNET_SUPPORT (--enable/disable-ethernet)"
+
+echo ""
+echo "DRIVE"
+echo "-----"
+
+if test x"$real_arch" = "xUnix" -o x"$real_arch" = "xWin32"; then
+  echo "Real device (OpenCBM support)    : $HAVE_REALDEVICE_SUPPORT (--enable/disable-realdevice)"
+fi
+echo "X64 image support                : $HAVE_X64_IMAGE_SUPPORT (--enable/disable--x64-image)"
+
+dnl echo ""
+dnl echo "MONITOR"
+dnl echo "-------"
+dnl echo "Native Gtk3 monitor support: $HAVE_GTK3_MONITOR_SUPPORT"
+
+echo ""
+echo "LIBS"
+echo "----"
+
+if test x"$real_arch" = "xUnix" -o x"$real_arch" = "xOSX" -o x"$real_arch" = "xWin32"; then
+    echo "Dynamic linking support: $HAVE_DYNLIB_SUPPORT_TOO"
+fi
+
+echo "Zlib support           : $HAVE_ZLIB_SUPPORT (--with/without-zlib)"
+
+if test x"$real_arch" = "xUnix"; then
+    echo "Libieee1284 support    : $HAVE_LIBIEEE1284_SUPPORT"
+fi
+
+if test x"$real_arch" = "xAmiga"; then
+    echo "OpenPCI support        : $HAVE_PROTO_OPENPCI_H_SUPPORT"
+fi
+
+echo ""
+echo "DOCUMENTATION"
+echo "-------------"
+echo -n "Generate Info/text: "
+if test x"$MAKEINFO" = "x:"; then
+    echo "no (install texinfo)"
+else
+    echo "yes"
+fi
+echo -n "Generate PDF      : "
+if test x"$enable_pdf_docs" = xno; then
+    echo "no (install texinfo)"
+else
+    echo "yes"
+fi
+echo -n "Install HTML      : "
+if test x"${enable_html_docs:-no}" = xno; then
+    echo "no"
+else
+    echo "yes"
+fi
+
+echo ""
+echo "MISC"
+echo "----"
+
+echo "65xx CPU history support   : $FEATURE_CPUMEMHISTORY_SUPPORT (--enable/disable-cpuhistory)"
+echo "Debug support              : $DEBUG_SUPPORT (--enable/disable-debug)"
+echo "Threading debug support    : $DEBUG_THREADS_SUPPORT (--enable/disable-debug-threads"
+echo "Embedded data files support: $USE_EMBEDDED_SUPPORT (--enable/disable-embedded)"
+echo "Build old x64 emulator     : $X64_INCLUDED (--enable/--disable-x64)"
+# Enabling Gtk3 native dialogs should help with Flatpack and other container
+# formats
+if test x"$real_arch" = "xUnix"; then
+    echo "Gtk3 sandbox mode          : $USE_SANDBOX_MODE (--enable/disable-sandbox-mode)"
+fi
+echo "Install XDG .desktop files : $USE_DESKTOP_FILES"
+echo "icotool for Windows found  : $ICOTOOL"
+
+echo ""
+echo "User CPPFLAGS:  $CPPFLAGS"
+echo "VICE_CPPFLAGS:  $VICE_CPPFLAGS"
+echo "User CFLAGS:    $CFLAGS"
+echo "VICE CFLAGS:    $VICE_CFLAGS"
+echo "User CXXFLAGS:  $CXXFLAGS"
+echo "VICE CXXFLAGS:  $VICE_CXXFLAGS"
+if test x"$is_unix_macosx" = "xyes"; then
+  echo "User OBJCFLAGS: $OBJCFLAGS"
+  echo "VICE OBJCFLAGS: $VICE_OBJCFLAGS"
+fi
+echo "VTE_CXXFLAGS:   $VTE_CXXFLAGS"
+echo "MONITOR_CFLAGS: $MONITOR_CFLAGS"
+echo "User LDFLAGS:   $LDFLAGS"
+echo "VICE LDFLAGS:   $VICE_LDFLAGS"
+echo "----------------------------------------------------------------------"

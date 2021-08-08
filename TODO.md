@@ -1,5 +1,12 @@
 #  TODO
 
+## Vice 3.5
+
+- Plus/4 disk auto start not working (missing RUN) (Did this work in 3.4?)
+- disable datasette by default
+- is datasette sound audible on real hardware?
+- add RAMLink, CMD HD
+
 ## Support for Multiple Computers
 
 - split machine specific ui callbacks into their own files
@@ -10,7 +17,6 @@
 
 ## Commodore 128
 
-- **Starting emulator a second time hangs.**
 - **Don't inject program when autostarting disk.**
 - Map remaining extended keys in hardware keyboard.
 - Add more models.
@@ -18,7 +24,6 @@
 
 ## Plus/4
 
-- **Starting emulator a second time hangs.**
 - Detect cartridge images by boot signature.
 - Add C116.
 
@@ -93,7 +98,7 @@
 - Superpad64 (snespad for user port)
 - all 12 buttons on SNES controller
 - 3.5" drive sounds
-    
+
 ## less important
 
 - option to disable disk autoload by injection

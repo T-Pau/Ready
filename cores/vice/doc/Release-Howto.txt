@@ -1,0 +1,102 @@
+
+Prerequisites:
+--------------
+
+- update README and NEWS
+
+to get a list of all changes since last release you can use svn log like this:
+
+$ svn log -r <rev of last release>:<current rev> > log.txt
+
+you can look up the revision of the last release in the tags directory in the
+repo: https://sourceforge.net/p/vice-emu/code/HEAD/tree/tags/
+
+- update the html pages in doc/html (index.html, windows.html, macosx.html). use
+  the checklinks.sh script to check the links.
+
+$ ./checklinks.sh
+
+- update vice.texi. use checkdoc.mak to find missing resources and options in
+  the documentation.
+
+$ make -f checkdoc.mak full
+
+- make sure (c) dates are correct (README, index.html, vice.texi,
+  src/sounddrv/soundflac.c, src/arch/gtk3/uiabout.c)
+
+- make sure the list of team members is correct (vice.texi, infocontrib.sed)
+  vice.texi contains the author list twice, once under "@c
+  ---vice-core-team---", and once under "@node Copyright"
+
+- after changing any of the above, make sure to run "make" so the changes will
+  propagate to various files, and then commit the changed files.
+
+- ANNOUNCE A CODE FREEZE ;)
+
+- make sure the version in configure.ac is updated:
+
+    m4_define([vice_version_major], [3])
+    m4_define([vice_version_minor], [4])
+    m4_define([vice_version_build], [0])
+
+- make sure the version is updated in other files (html/index.html).
+
+These actually update the user-visible version in the binary/docs, so it should
+happen only immediatly before the release.
+
+while at it, also check the following:
+
+- are the "banners" on various sourceforge pages (tickets) still up to date?
+- are the "readmes" in the files areas still up to date?
+
+
+generate tarball:
+-----------------
+
+(make sure dos2unix is installed)
+
+first update and clean your sourcetree
+
+$ svn up
+$ make distclean
+
+now configure the source tree with sid engines included. this is
+needed because make dist propagates through the source tree, and if resid is
+not configured it will not have any makefiles to get 'make dist'ed
+
+$ ./autogen.sh
+$ ./configure --enable-native-gtk3ui --enable-arch=no --enable-midi --enable-lame --with-flac --with-vorbis --with-gif --with-jpeg --with-png --enable-static-ffmpeg --enable-ethernet --enable-cpuhistory
+$ make dist
+
+now unpack into a seperate directory and test if compiling works. fix makefiles
+in case files are missing and build the tarball again.
+
+create a tagged branch on the svn
+
+$ svn cp <url of svn trunk> <url of svn tag>
+
+eg
+
+$ svn cp --username=gpz svn+ssh://gpz@svn.code.sf.net/p/vice-emu/code/trunk/ svn+ssh://gpz@svn.code.sf.net/p/vice-emu/code/tags/v3.4/
+
+
+generate windows binaries:
+--------------------------
+
+in msys2 configure the source as decribed above, then do
+
+$ make bindistzip
+
+
+publish the release
+-------------------
+
+- upload changes to the website on sf (don't forget the html documentation)
+
+- upload the tarball to sf
+
+- announce the release on the ml (and eventually elsewhere)
+
+- update the TODO wiki page (remove old crossed out things)
+
+- PROFIT!!!

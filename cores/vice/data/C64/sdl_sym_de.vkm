@@ -125,6 +125,21 @@
 # @ (-> ue, altgr+Q)
 # @+shift (-> UE)
 
+# some extra keys with AltGr
+109 6 6 545            /*       altr+M -> pi (shift+arrow up) */
+56 5 5 545             /*       altr+8 -> [  (shift+:)        */
+57 6 2 545             /*       altr+9 -> ]  (shift+;)        */
+113 7 6 32             /*            Q -> Q            */
+113 5 6 544            /*       altr+Q -> @                   */
+60 3 5 545             /*       altr+< -> |  (shift+h)        */
+
+# key requires SHIFT on host, generates a key without shift but with CBM on emulated machine
+#45 5 6 16+2048+128+32    /*            _ -> _ (cbm+@)    */
+45 5 6 2224            /*            _ -> _ (cbm+@)    */
+45 5 3 0               /*            - -> -            */
+
+# add CTRL to keypress
+#49 7 0 4096            /*            1 -> CTRL+1       */
 
 94 6 6 8               /*            ^ -> Up Arrow     */
 # 94 6 6 17              /*            ° -> Pi           */
@@ -135,18 +150,21 @@
 53 2 0 8               /*            5 -> 5            */
 54 2 3 8               /*            6 -> 6            */
 55 3 0 32              /*            7 -> 7            */
-55 6 7 16              /*            / -> /            */
+#55 6 7 128+16          /*            / -> /            */
+55 6 7 144             /*            / -> /            */
 56 3 3 8               /*            8 -> 8            */
 57 4 0 8               /*            9 -> 9            */
 48 4 3 32              /*            0 -> 0            */
-48 6 5 17              /*            = -> =            */
+#48 6 5 128+16          /*            = -> =            */
+48 6 5 144             /*            = -> =            */
 223 6 0 32             /* (de)      sz -> Pound        */
 223 6 7 1              /* (de) shft+sz -> ?            */
 180 7 1 8              /* (de)     ? ` -> Left Arrow   */
 8 0 0 8                /*    Backspace -> Ins          */
 
-9 7 2 8                /*          TAB -> Ctrl         */
-113 7 6 8              /*            Q -> Q            */
+#9 7 2 8+16384  key is CTRL              /*          TAB -> Ctrl         */
+9 7 2 16392             /*          TAB -> Ctrl         */
+#113 7 6 8              /*            Q -> Q            */
 119 1 1 8              /*            W -> W            */
 101 1 6 8              /*            E -> E            */
 114 2 1 8              /*            R -> R            */

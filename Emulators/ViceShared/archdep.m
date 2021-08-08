@@ -42,8 +42,11 @@
 #include "autostart-prg.h"
 #include "machine.h"
 #include "sid.h"
+#include "joy.h"
 
 #import "ViceThread.h"
+
+static bool is_exiting;
 
 char *bundle_directory;
 
@@ -103,6 +106,7 @@ int archdep_default_logger(const char *level_string, const char *txt) {
  * \return  0
  */
 int archdep_init(int *argc, char **argv) {
+    is_exiting = false;
     return 0;
 }
 
@@ -174,12 +178,17 @@ int archdep_vice_atexit(void (*function)(void))
 }
 
 
+bool archdep_is_exiting(void) {
+    return is_exiting;
+}
+
 /** \brief  Wrapper around exit()
  *
  * \param[in]   excode  exit code
  */
 void archdep_vice_exit(int excode)
 {
+    is_exiting = true;
     while (n_atexit_functions > 0) {
         atexit_functions[--n_atexit_functions]();
     }
@@ -201,6 +210,8 @@ int archdep_late_init(void) {
 #include "drive.h"
 
 const char *drive_get_status(int unit) {
+    // TODO 3.5: adapt to new drive structures
+#if 0
     static char buffer[0x30];
     int length = drive_context[unit - 8]->drive->drive_ram[0x0249] - 0xd4;
     if (length < 0) {
@@ -209,6 +220,9 @@ const char *drive_get_status(int unit) {
     memcpy(buffer, drive_context[unit - 8]->drive->drive_ram + 0x02d5, length);
     buffer[length] = '\0';
     return buffer;
+#else
+    return "";
+#endif
 }
 
 void drive_set_id(int unit, uint8_t id1, uint8_t id2) {
@@ -216,3 +230,7 @@ void drive_set_id(int unit, uint8_t id1, uint8_t id2) {
     drive_set_initial_disk_id(unit - 8, id);
 }
 
+
+void joystick(void) {
+    // TODO 3.5: implement
+}

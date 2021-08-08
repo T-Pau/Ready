@@ -39,6 +39,8 @@ public class MachineOld {
         case CartridgeFile
         case CartridgeType
         case CPMCart
+        case Datasette
+        case DatasetteSound
         case DosName1541
         case DosName1541II
         case DosName1581

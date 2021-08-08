@@ -1,0 +1,16 @@
+***************
+*** 98,103 ****
+  #ifdef USE_COREAUDIO
+      { "coreaudio", sound_init_coreaudio_device, SOUND_PLAYBACK_DEVICE },
+  #endif
+  #ifdef USE_OSS
+  
+  /* don't use oss for FreeBSD or BSDI */
+--- 98,104 ----
+  #ifdef USE_COREAUDIO
+      { "coreaudio", sound_init_coreaudio_device, SOUND_PLAYBACK_DEVICE },
+  #endif
++     { "ios", sound_init_ios_device, SOUND_PLAYBACK_DEVICE },
+  #ifdef USE_OSS
+  
+  /* don't use oss for FreeBSD or BSDI */

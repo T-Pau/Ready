@@ -1,0 +1,176 @@
+VICE on Windows - The Next G(TK)eneration
+=========================================
+
+These are some instructions about getting VICE with the GTK3 GUI
+compiled on Windows under MinGW.
+
+1. Get MSYS2 (includes mingw):
+ http://www.msys2.org/
+Install as per that webpage; but, don't bother with step 8 (GIT),
+unless you actually want GIT.
+
+Close that initial shell after doing the updates etc.
+
+
+2. Check your MSYS2 username for spaces, for example:
+
+$ whoami
+David Hogan
+
+If your Windows username has spaces like mine (David Hogan), then your
+home dir will also have spaces in it, which causes problems with our
+bindist build script later. To fix this, you'll need to change your MSYS2
+home dir to something without spaces in it.
+
+$ /usr/bin/mkpasswd > /etc/passwd
+
+Use your favourite editor to change your home dir entry in /etc/passwd:
+
+$ # pacman -S vim
+$ # vim /etc/passwd
+
+For example, change /home/David Hogan to /home/dqh. You can also change
+the username at the start of the entry if you like.
+
+Finally, rename your existing homedir folder and exit and relaunch the
+MSYS2 shell:
+
+$ cd /home
+$ # mv 'David Hogan' dqh
+$ exit
+
+<relaunch MSYS2 MinGW>
+
+$ pwd
+/home/dqh
+
+$ whoami
+dqh
+
+
+3. Install the stuff that you actually need to build VICE:
+Launch either the MSYS2 MinGW 64-bit shell or the MSYS2 MinGW 32-bit shell
+(use the one that matches the version of MSYS2 that you installed).
+
+DON'T USE THE NON-MINGW ONE, STUFF WON'T WORK.
+
+
+3.1 Update the mirrors files (optional)
+I (compyx) noticed the default mirror (msys2.org) is very slow (60-80KB/s), so
+it might be a good idea to edit the mirror files:
+
+Get updated mirror list
+$ pacman -S pacman-mirrors
+
+Now edit three files: /etc/pacman.d/mirrorlist.{mingw32,mingw64,msys}.
+I commented out the first few (msys2 is slow, sourceforge seems out-of-data,
+and I don't trust .ru or .cn stuff).
+Exit and restart the shell you use and see if you get a decent download speed.
+
+
+Run the following command lines to install your prerequisites:
+
+$ pacman -S --needed --noconfirm base-devel
+$ pacboy sync pkg-config gcc ntldd zip: subversion: gtk3 glew giflib lame
+$ pacman -S mingw-w64-x86_64-libvorbis mingw-w64-x86_64-flac mingw-w64-x86_64-mpg123 mingw-w64-x86_64-icoutils
+
+(Note: type the colons that you see in the second command; they are important.
+ Hit enter for the default on all the prompts, then wait for the 306 MiB
+ of stuff to download and install.)
+
+
+4. Then you need the xa 6502 cross-assembler, which is used to assemble the
+"driver" program for vsid (the SID player that comes with VICE). It can be found
+here: http://www.floodgap.com/retrotech/xa/
+
+Don't log out of the shell.  After you download xa, go back to the shell.
+
+Alternatively use wget to download it:
+
+$ cd /c/Users/<login-name>/Downloads/
+$ wget http://www.floodgap.com/retrotech/xa/dists/xa-2.3.11.tar.gz
+
+Make the directory "/usr/local/src/".
+Use tar to unpack xa (use the MSYS2 path to where you downloaded it):
+
+$ cd /usr/local
+$ mkdir -p src
+$ cd src
+$ tar -xzf /c/Users/<login-name>/Downloads/xa-2.3.11.tar.gz
+
+NOTE: if fetching the above mentioned tarball fails, then probably XA was 
+      updated, have a look at http://www.floodgap.com/retrotech/xa/dists/ and
+      change the name of the tarball accordingly.
+
+Then, build and install it:
+
+$ cd xa-2.3.11
+$ make mingw install
+$ mv ../../bin/xa.exe ../../bin/xa65.exe
+
+
+5. Get MiKTeX to build the PDF documentation (optional).
+NOTE if you skip this step you will need to ./configure with --disable-pdf-docs
+
+Download and install: https://miktex.org/howto/install-miktex
+
+Set $PATH so configure will find the required binaries:
+
+(my MiKTeX path is C:\miktex, I'll use that. Assumes msys 64-bit)
+$ export PATH="$PATH:/c/miktex/miktex/bin/x64"
+
+Remember to either do this last step every time you open the msys64 terminal
+or edit your ~/.bash_profile
+
+
+6. Get VICE's source code.
+To checkout the source with Subversion (to "~/vice/", for example),
+you could type:
+
+$ cd ~
+$ svn checkout http://svn.code.sf.net/p/vice-emu/code/trunk/vice vice
+
+Now, you can try to build VICE:
+
+$ cd ~/vice
+$ ./autogen.sh
+$ ./configure -C --enable-native-gtk3ui
+$ make
+$ make bindist
+
+NOTE: if you want to help us out, with bug reports, please instead configure
+with:
+
+$ ./configure -C --enable-native-gtk3ui --enable-debug-gtk3ui --enable-debug
+
+
+7. If it got through all those steps, you should have some executables to play
+with in "GTK3VICE-3.?-win??-*/" (the "win??" part of that name tells you which
+type [32-bit or 64-bit] you built).
+
+8. You can build the 32-bit version of VICE and/or the 64-bit version.  You
+make the choice by choosing to run a particular one of the MSYS2 MinGW shells
+(its environment variables control VICE's configuration).
+
+If you build one version, then want to build the other version, you must clean
+away some object files first.  Then, you must configure VICE again.
+
+$ make clean
+$ rm config.cache
+$ ./configure -C --enable-native-gtk3ui
+$ make
+$ make bindist
+
+
+9. If you want the distribution in a ZIP archive instead of a subdirectory,
+then use the command
+
+$ make bindistzip
+
+instead of
+
+$ make bindist
+
+Enjoy!
+
+

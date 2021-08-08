@@ -31,6 +31,7 @@
 #ifndef VICE_JOY_UNIX_H
 #define VICE_JOY_UNIX_H
 
+void joystick(void);
 void joystick_close(void);
 void old_joystick_init(void);
 void old_joystick_close(void);

@@ -26,6 +26,7 @@
 
 #include "vice.h"
 
+#include <string.h>
 #ifdef HAVE_STRINGS_H
 #include <strings.h>
 #endif
@@ -53,12 +54,11 @@ enum {
     BLOCK_5 = 1 << 5
 };
 
-static struct model_s vic20models[] = {
+static const struct model_s vic20models[] = {
     { MACHINE_SYNC_PAL,  NO_EXTRA_RAM, "kernal", "chargen" },
     { MACHINE_SYNC_NTSC, NO_EXTRA_RAM, "kernal", "chargen" },
     { MACHINE_SYNC_NTSC, BLOCK_1 | BLOCK_2, "kernal", "chargen" }, /* SuperVIC */
-    { MACHINE_SYNC_NTSC, NO_EXTRA_RAM, "kernal", "jpchrgen" }, /* jpkernal breaks keyboard in lowercase mode ®*/
-};
+    { MACHINE_SYNC_NTSC, NO_EXTRA_RAM, "kernal", "jpchrgen" }, /* jpkernal breaks keyboard in lowercase mode */};
 
 /* ------------------------------------------------------------------------- */
 

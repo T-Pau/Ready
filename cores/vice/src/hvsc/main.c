@@ -12,7 +12,7 @@
 
 /*
  *  HVSClib - a library to work with High Voltage SID Collection files
- *  Copyright (C) 2018  Bas Wassink <b.wassink@ziggo.nl>
+ *  Copyright (C) 2018-2020  Bas Wassink <b.wassink@ziggo.nl>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -40,7 +40,7 @@
 #include "stil.h"
 #include "sldb.h"
 
-#include "hsvc_main.h"
+#include "main.h"
 
 
 /** \brief  Initialize the library

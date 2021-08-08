@@ -46,6 +46,8 @@
 
 #import "ViceThread.h"
 
+extern int16_t mouse_x, mouse_y;
+
 @implementation ViceThread
 
 - (void)runEmulator {
@@ -88,6 +90,22 @@
 - (void)releaseKeyRow: (int)row column: (int) column {
     keyarr[row] &= ~(1 << column);
     rev_keyarr[column] &= ~(1 << row);
+}
+
+- (int)mouseX {
+    return mouse_x;
+}
+
+- (void)setMouseX:(int)mouseX {
+    mouse_x = mouseX;
+}
+
+- (int)mouseY {
+    return mouse_y;
+}
+
+- (void)setMouseY:(int)mouseY {
+    mouse_y = mouseY;
 }
 
 @end

@@ -1,6 +1,6 @@
 /*
  ReleaseNotesViewController.swift
- Copyright (C) 2019 Dieter Baron
+ Copyright (C) 2019-2021 Dieter Baron
  
  This file is part of Ready, a home computer emulator for iPad.
  The authors can be contacted at <ready@tpau.group>.
@@ -41,6 +41,9 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Release 1.6 build 20", year: 2021, month: 8, day: 13, changes: [
+            "Update Vice to 3.5."
+        ]),
         Release(name: "Release 1.6 build 19", year: 2021, month: 7, day: 31, changes: [
             "Support GMod2 CRT with EEPROM included, as defined by Ultimate firmware."
         ]),

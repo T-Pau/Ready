@@ -136,6 +136,7 @@ extension JoystickButtons {
         //machineSpecification.resources[.VICIIBorderMode] = .Int(VICII_TALL_BORDERS)
         machine.resources[.Mouse] = .Bool(true)
         machine.resources[.LogFileName] = .String(Defaults.documentURL.appendingPathComponent("vice-log.txt").path)
+        //machine.resources[.DatasetteSound] = .Bool(true)
         machine.resources[.Drive8IdleMethod] = .Int(DRIVE_IDLE_TRAP_IDLE)
         machine.resources[.Drive9IdleMethod] = .Int(DRIVE_IDLE_TRAP_IDLE)
         machine.resources[.Drive10IdleMethod] = .Int(DRIVE_IDLE_TRAP_IDLE)
@@ -143,7 +144,7 @@ extension JoystickButtons {
 
         viceThread?.borderMode = machine.specification.borderMode.cValue
         
-        var args = [ "vice" ]
+        var args = [ "vice", "-default" ]
         
         var autostartDisk = machine.autostart
         
