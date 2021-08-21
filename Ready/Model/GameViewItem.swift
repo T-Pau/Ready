@@ -450,7 +450,7 @@ struct GameViewItemMedia {
         var items: [MediaItem]
      
         var isActive: Bool {
-            return !items.isEmpty
+            return true
         }
         var title: String? {
             return type.title(plural: supportsMultiple)
@@ -462,8 +462,9 @@ struct GameViewItemMedia {
     }
     
     var sections: [Section]
-    var activeSections: [Section] {
-        return sections.filter({ $0.isActive })
+    
+    var isEmpty: Bool {
+        return sections.count == 0 || sections[0].items.isEmpty
     }
     
     var supportedTypeIdentifiers: Set<String> {
@@ -477,7 +478,7 @@ struct GameViewItemMedia {
     }
     
     func item(for indexPath: IndexPath) -> MediaItem {
-        return activeSections[indexPath.section].items[indexPath.row]
+        return sections[indexPath.section].items[indexPath.row]
     }
     
     func sectionIndexFor(activeIndex: Int) -> Int {
@@ -503,7 +504,7 @@ struct GameViewItemMedia {
     }
     
     func activeSectionIndex(for sectionType: SectionType) -> Int? {
-        return activeSections.firstIndex(where: { $0.type == sectionType })
+        return sections.firstIndex(where: { $0.type == sectionType })
     }
 }
 

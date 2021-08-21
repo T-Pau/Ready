@@ -1,5 +1,5 @@
 /*
- DriveInfo.swift -- Configure DriveStatusView
+ MediaItem.swift -- Protocol for Media Item
  Copyright (C) 2019 Dieter Baron
  
  This file is part of Ready, a home computer emulator for iPad.
@@ -30,41 +30,14 @@
  */
 
 import Foundation
-import C64UIComponents
-import Emulator
 
-extension DriveStatusView {
-    func configureFrom(drive: DiskDrive) {
-        for index in (0 ..< numberOfLeds) {
-            if index < drive.leds.count {
-                ledViews[index].isRound = drive.leds[index].isRound
-                ledViews[index].darkColor = drive.leds[index].darkColor
-                ledViews[index].lightColor = drive.leds[index].lightColor
-                ledViews[index].isHidden = false
-            }
-            else {
-                ledViews[index].isHidden = true
-            }
-        }
-        
-        backgroundColor = drive.caseColor
-        textColor = drive.textColor
-        trackView.isDoubleSided = drive.isDoubleSided
-
-        configureFrom(image: drive.image)
-    }
+public protocol MediaItem {
+    var displayTitle: String? { get }
+    var displaySubtitle: String? { get }
+    var subtitleIsPETASCII: Bool { get }
+    var displayIcon: UIImage? { get }
     
-    func configureFrom(image: DiskImage?) {
-        if let image = image {
-            trackView.tracks = image.tracks
-            if trackView.isDoubleSided && !DiskDrive.isDoubleSided(connector: image.connector) {
-                // single sided disk in double sided drive: only first side is used
-                trackView.tracks *= 2
-            }
-        }
-        else {
-            trackView.tracks = 35
-        }
-        trackView.currentTrack = 1
-    }
+    var connector: ConnectorType { get }
+    var typeIdentifier: String? { get }
+    var url: URL? { get }
 }

@@ -37,6 +37,7 @@ public protocol TapeImage {
 
     var url: URL? { get set }
     var name: String? { get }
+    var connector: ConnectorType { get }
 }
 
 extension TapeImage {
@@ -74,6 +75,7 @@ public struct T64Image: TapeImage {
     public var bytes: Data
     public var url: URL? = nil
     public var name: String?
+    public var connector: ConnectorType { return .tapeCommodore }
     
     private static let signatures = [
         "C64 tape image file",
@@ -102,6 +104,7 @@ public struct TapImage: TapeImage {
     public var bytes: Data
     public var url: URL? = nil
     public var name: String? { return nil }
+    public var connector: ConnectorType { return .tapeCommodore }
     
     public init?(bytes: Data) {
         guard bytes.count > 14 else { return nil } // too short for header
@@ -115,6 +118,7 @@ public struct SpectrumTapImage: TapeImage {
     public var bytes: Data
     public var url: URL?
     public var name: String?
+    public var connector: ConnectorType { return .tapeSpectrum }
     
     public init?(bytes: Data) {
         guard bytes.count > 21 else { return nil } // too short for header
@@ -135,7 +139,8 @@ public struct SpectrumTZXImage: TapeImage {
     public var bytes: Data
     public var url: URL?
     public var name: String?
-    
+    public var connector: ConnectorType { return .tapeSpectrum }
+
     public init?(bytes: Data) {
         guard bytes.count > 8 else { return nil } // too short for header
         guard String(bytes: bytes[0..<7], encoding: .ascii) == "ZXTape!" && bytes[7] == 26 else { return nil }

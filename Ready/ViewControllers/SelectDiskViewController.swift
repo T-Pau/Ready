@@ -43,8 +43,8 @@ class SelectDiskViewController: UIViewController {
     
     var drive: DiskDrive?
     var unit: Int?
-    var diskImages = [DiskImage]()
-    var currentDiskImage: DiskImage?
+    var diskImages = [MediaItem]()
+    var currentDiskImage: MediaItem?
     var status: String?
     
     var changeCallback: ((_: DiskImage?) -> ())?
@@ -92,7 +92,7 @@ extension SelectDiskViewController: UITableViewDelegate, UITableViewDataSource {
         
         if let cell = cell as? MediaTableViewCell {
             let diskImage = diskImages[indexPath.row]
-            cell.mediaView?.item = diskImage as? MediaItem
+            cell.mediaView?.item = diskImage
             cell.accessoryType = diskImage.url == currentDiskImage?.url ? .checkmark : .none
         }
         
@@ -100,7 +100,7 @@ extension SelectDiskViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        changeCallback?(diskImages[indexPath.row])
+        changeCallback?(diskImages[indexPath.row] as? DiskImage)
         dismiss(animated: true)
     }
 }

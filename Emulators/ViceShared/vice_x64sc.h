@@ -50,7 +50,7 @@ void mem_pla_config_changed(void);
 
 extern void cartridge_trigger_freeze(void);
 
-extern int file_system_attach_disk(unsigned int unit, const char *filename);
+extern int file_system_attach_disk(unsigned int unit, unsigned int drive, const char *filename);
 
 void joystick_set_value_absolute(unsigned int joyport, uint32_t value);
 void joystick_set_value_or(unsigned int joyport, uint32_t value);

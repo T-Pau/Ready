@@ -257,7 +257,7 @@ extension keyboard_key_name: Hashable { }
         if !Defaults.standard.spectrumAccellerateTape { 
             args.append(contentsOf: ["--no-traps", "--no-fastload", "--no-accelerate-loader"])
         }
-        if let tapeImage = machine.tapeImages.first, let url = tapeImage.url {
+        if let tapeImage = machine.mediaItems.first(where: { $0.connector == .tapeSpectrum }), let url = tapeImage.url {
             args.append("--tape")
             args.append(url.path)
         }

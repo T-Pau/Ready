@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4B0409B326C83FCD00311EAF /* CMD RAMLink.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B0409B226C83FCD00311EAF /* CMD RAMLink.png */; };
 		4B0E62C522086FE700C3681A /* DriveTrackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B0E62C422086FE700C3681A /* DriveTrackView.swift */; };
 		4B0E62C72208714700C3681A /* LedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B0E62C62208714700C3681A /* LedView.swift */; };
 		4B0E62C92208794B00C3681A /* DriveInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B0E62C82208794B00C3681A /* DriveInfo.swift */; };
@@ -1342,8 +1343,9 @@
 		4B841CFA21F75C12009CAF4B /* Floppy35Document.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B841CF921F75C12009CAF4B /* Floppy35Document.png */; };
 		4B841CFC21F76AB3009CAF4B /* Floppy525Document.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B841CFB21F76AB3009CAF4B /* Floppy525Document.png */; };
 		4B841CFD21F8CE78009CAF4B /* ShareableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB22EA821EA27570075E694 /* ShareableImageView.swift */; };
-		4B841CFF21F8CEDF009CAF4B /* MediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B841CFE21F8CEDF009CAF4B /* MediaView.swift */; };
 		4B841D0321FCAADA009CAF4B /* MediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B841D0221FCAADA009CAF4B /* MediaItem.swift */; };
+		4B864F7526CE5266005D267D /* MediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B841CFE21F8CEDF009CAF4B /* MediaView.swift */; };
+		4B864F7626D15DCC005D267D /* Ramlink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B0409B426C8428400311EAF /* Ramlink.swift */; };
 		4B94397124ADDF9700FD0237 /* uidisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B94396F24ADD6E900FD0237 /* uidisplay.m */; };
 		4B94397424ADECF300FD0237 /* 128-1.rom in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B54113F24AB363900F6925B /* 128-1.rom */; };
 		4B94397524ADECF300FD0237 /* 128-0.rom in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4B54114024AB363900F6925B /* 128-0.rom */; };
@@ -1452,7 +1454,6 @@
 		4B9E578C24C9BEE000CEE0D6 /* SD Card.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B9E578B24C9BEE000CEE0D6 /* SD Card.png */; };
 		4BA0AE7D22957B1600E54C96 /* PillButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA0AE7C22957B1600E54C96 /* PillButton.swift */; };
 		4BA1E9B924B314C100D935D3 /* MultiSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA1E9B824B314C100D935D3 /* MultiSet.swift */; };
-		4BA1E9BB24B49A4F00D935D3 /* Machine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA1E9BA24B49A4F00D935D3 /* Machine.swift */; };
 		4BA1E9C524B49EDE00D935D3 /* RetroMedia.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BA1E9C324B49EDE00D935D3 /* RetroMedia.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4BA1E9C824B49EDE00D935D3 /* RetroMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BA1E9C124B49EDE00D935D3 /* RetroMedia.framework */; };
 		4BA1E9C924B49EDE00D935D3 /* RetroMedia.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4BA1E9C124B49EDE00D935D3 /* RetroMedia.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -1543,6 +1544,8 @@
 		4BF9A34C220856120012DC9C /* SelectDiskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF9A34B220856120012DC9C /* SelectDiskViewController.swift */; };
 		4BFB7B47225739C400F8C39F /* Inbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFB7B46225739C400F8C39F /* Inbox.swift */; };
 		4BFB7B49225746D200F8C39F /* GameViewNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFB7B48225746D200F8C39F /* GameViewNavigationController.swift */; };
+		4BFBE48726CD259F0021E85B /* MediaList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFBE48626CD259F0021E85B /* MediaList.swift */; };
+		4BFBE48926CE489F0021E85B /* MediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFBE48826CE489F0021E85B /* MediaItem.swift */; };
 		4BFDBBF924B0D7B0005CABEE /* MachineConfigStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFDBBF824B0D7B0005CABEE /* MachineConfigStore.swift */; };
 /* End PBXBuildFile section */
 
@@ -2244,6 +2247,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4B0409B226C83FCD00311EAF /* CMD RAMLink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CMD RAMLink.png"; sourceTree = "<group>"; };
+		4B0409B426C8428400311EAF /* Ramlink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ramlink.swift; sourceTree = "<group>"; };
 		4B0E62C422086FE700C3681A /* DriveTrackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriveTrackView.swift; sourceTree = "<group>"; };
 		4B0E62C62208714700C3681A /* LedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedView.swift; sourceTree = "<group>"; };
 		4B0E62C82208794B00C3681A /* DriveInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriveInfo.swift; sourceTree = "<group>"; };
@@ -5517,6 +5522,8 @@
 		4BF9A34B220856120012DC9C /* SelectDiskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDiskViewController.swift; sourceTree = "<group>"; };
 		4BFB7B46225739C400F8C39F /* Inbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inbox.swift; sourceTree = "<group>"; };
 		4BFB7B48225746D200F8C39F /* GameViewNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewNavigationController.swift; sourceTree = "<group>"; };
+		4BFBE48626CD259F0021E85B /* MediaList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaList.swift; sourceTree = "<group>"; };
+		4BFBE48826CE489F0021E85B /* MediaItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaItem.swift; sourceTree = "<group>"; };
 		4BFDBBF824B0D7B0005CABEE /* MachineConfigStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineConfigStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -6272,6 +6279,7 @@
 				4BFB7B46225739C400F8C39F /* Inbox.swift */,
 				4B467E35248B7A88007E631D /* KeyPressHandler.swift */,
 				4B841D0221FCAADA009CAF4B /* MediaItem.swift */,
+				4BFBE48626CD259F0021E85B /* MediaList.swift */,
 				4B9DBB632231431B0032B280 /* MfiInputDevice.swift */,
 				4B3E4A5E220F0E5C00511F08 /* Tools.swift */,
 				4B9DBB65223143540032B280 /* TouchInputDevice.swift */,
@@ -9681,12 +9689,14 @@
 				4B52816B249E442D0023F453 /* Port.swift */,
 				4B841D0421FCB96B009CAF4B /* ProgramFile.swift */,
 				4B460E50227A064E00815E7F /* RamExpansionUnit.swift */,
+				4B0409B426C8428400311EAF /* Ramlink.swift */,
 				4B1CA21A24BF18290074D45C /* Renderer.h */,
 				4B1CA21824BF181D0074D45C /* Renderer.m */,
 				4BCC49FF24CC9DDC00AEFFE7 /* RingBuffer.h */,
 				4BCC4A0124CC9FB000AEFFE7 /* RingBuffer.m */,
 				4BAE5BF321FDE0990098ADFF /* TapeImage.swift */,
 				4B9DBB732233CAA00032B280 /* UserPortModule.swift */,
+				4BFBE48826CE489F0021E85B /* MediaItem.swift */,
 			);
 			path = Emulator;
 			sourceTree = "<group>";
@@ -9883,6 +9893,7 @@
 			isa = PBXGroup;
 			children = (
 				4B1B2DB0227AE5090022B053 /* CartridgeDocument.png */,
+				4B0409B226C83FCD00311EAF /* CMD RAMLink.png */,
 				4B3182C42281E320006D86AC /* Compact Flash Card.png */,
 				4B3182C52281E320006D86AC /* IDE Hard Disk.png */,
 				4BAE5BF121FDD72E0098ADFF /* FileDocument.png */,
@@ -12610,6 +12621,7 @@
 				4B54100A24A9E16000F6925B /* Icon-C16-76.png in Resources */,
 				4B3E4A56220EE8A000511F08 /* Licenses in Resources */,
 				4BF2110924D157AE00CD233F /* Icon-Amiga-83.5.png in Resources */,
+				4B0409B326C83FCD00311EAF /* CMD RAMLink.png in Resources */,
 				4BEA24AD24D2B2C000903BAC /* Icon-ST-60.png in Resources */,
 				4B54101224AA7FF000F6925B /* Icon-ZX48-60.png in Resources */,
 				4B540ECC24A8D84100F6925B /* Icon-SX64-83.5.png in Resources */,
@@ -12710,6 +12722,7 @@
 				4B697C7121E378DE0091BFCC /* SingleSelectionTableViewController.swift in Sources */,
 				4B9DBB60222A8B9A0032B280 /* MachinePartTableViewCell.swift in Sources */,
 				4B3E4A5B220EF32E00511F08 /* BiosSettingsViewController.swift in Sources */,
+				4BFBE48726CD259F0021E85B /* MediaList.swift in Sources */,
 				4B1CCBAA223AB7920032B9F0 /* VirtualControlsView.swift in Sources */,
 				4B9DBB66223143540032B280 /* TouchInputDevice.swift in Sources */,
 				4B69AFDC21E8AEDF00D90C42 /* Game.swift in Sources */,
@@ -12750,6 +12763,7 @@
 				4BFB7B49225746D200F8C39F /* GameViewNavigationController.swift in Sources */,
 				4BB22ECF21F1DD910075E694 /* MediaTableViewCell.swift in Sources */,
 				4BB22EA721EA1F820075E694 /* Utils.swift in Sources */,
+				4B864F7526CE5266005D267D /* MediaView.swift in Sources */,
 				4B79795821DCE1210047FBE6 /* GameCollectionViewController.swift in Sources */,
 				4B79795621DCDFEB0047FBE6 /* GameCollectionViewCell.swift in Sources */,
 				4BB22EA321E9EB740075E694 /* ManagedObjectObserver.swift in Sources */,
@@ -13388,7 +13402,7 @@
 				4BCC4A0224CC9FB000AEFFE7 /* RingBuffer.m in Sources */,
 				4B2FA1A724B1B792002A11BA /* MachinePartRegister.swift in Sources */,
 				4B68FB612497524B00A76E57 /* CasstteDrive.swift in Sources */,
-				4BA1E9BB24B49A4F00D935D3 /* Machine.swift in Sources */,
+				4BFBE48926CE489F0021E85B /* MediaItem.swift in Sources */,
 				4B81F2A524AF12B50090B21A /* EmulatorThread.m in Sources */,
 				4B68FB5E2497520300A76E57 /* CartridgeImage.swift in Sources */,
 				4B68FB632497525A00A76E57 /* MachineConfigOld.swift in Sources */,
@@ -13403,6 +13417,7 @@
 				4B68FB6F24975FA900A76E57 /* Defaults.swift in Sources */,
 				4B68FB652497530300A76E57 /* RamExpansionUnit.swift in Sources */,
 				4B1CA21924BF181D0074D45C /* Renderer.m in Sources */,
+				4B864F7626D15DCC005D267D /* Ramlink.swift in Sources */,
 				4B68FB64249752FA00A76E57 /* InputMapping.swift in Sources */,
 				4BFDBBF924B0D7B0005CABEE /* MachineConfigStore.swift in Sources */,
 				4B68FB72249774D100A76E57 /* Chargen.swift in Sources */,
@@ -14294,7 +14309,6 @@
 				4B0E62C522086FE700C3681A /* DriveTrackView.swift in Sources */,
 				4BF57F012262543500909B2B /* PlaceholderView.swift in Sources */,
 				4B540EAA24A7805F00F6925B /* GridView.swift in Sources */,
-				4B841CFF21F8CEDF009CAF4B /* MediaView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -14653,7 +14667,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = libspectrum;
 				INFOPLIST_FILE = "$(SRCROOT)/Ready/Info.plist";
@@ -14680,7 +14694,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = libspectrum;
 				INFOPLIST_FILE = "$(SRCROOT)/Ready/Info.plist";

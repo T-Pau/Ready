@@ -43,14 +43,20 @@ public protocol Cartridge {
     var resources: [MachineOld.ResourceName: MachineOld.ResourceValue] { get }
     var numberOfSlots: Int { get }
     var cartridgeType: CartridgeType { get }
+    var hasFreeze: Bool { get }
 }
 
 extension Cartridge {
     public var resources: [MachineOld.ResourceName: MachineOld.ResourceValue] {
         return [:]
     }
+
     public var numberOfSlots: Int {
         return 0
+    }
+    
+    public var hasFreeze: Bool {
+        return false
     }
 }
 

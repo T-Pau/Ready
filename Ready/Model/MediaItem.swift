@@ -37,7 +37,7 @@ import Emulator
 
 extension DiskImage where Self: MediaItem {
     public var displayIcon: UIImage? {
-        return mediaType.is5_25Inch ? UIImage(named: "Floppy 5.25") : UIImage(named: "Floppy 3.5")
+        return DiskDrive.is5_25(connector: connector) ? UIImage(named: "Floppy 5.25") : UIImage(named: "Floppy 3.5")
     }
     public var displayTitle: String? {
         return url?.lastPathComponent
@@ -182,6 +182,8 @@ extension MediaItem {
             return ProgramFile(url: url)
         case .ramExpansionUnit:
             return RamExpansionUnit(url: url)
+        case .ramlink:
+            return nil // return Ramlink(url: url)
         case .tape:
             return TapImage.image(from: url) as? MediaItem
         }
@@ -249,6 +251,10 @@ extension Game {
                 case .ramExpansionUnit:
                     ramExpansionFile = fileName
                     
+                case .ramlink:
+                    // TODO
+                    break
+                    
                 case .tape:
                     tapeFile = fileName
                 }
@@ -293,4 +299,30 @@ extension IdeDiskImage: MediaItem {
             return UIImage(named: "SD Card")
         }
     }
+    
+    public var connector: ConnectorType { return .ide }
 }
+
+/*
+extension Ramlink : MediaItem {
+    public var displayTitle: String? {
+        return url?.lastPathComponent
+    }
+    
+    public var displaySubtitle: String? {
+        return "RAMLink (\(size / (1024 * 1024)) megabyte)"
+    }
+    
+    public var subtitleIsPETASCII: Bool {
+        return false
+    }
+    
+    public var displayIcon: UIImage? {
+        return icon
+    }
+    
+    var mediaType: C64FileType.MediaType {
+        return .cartridge
+    }
+}
+*/

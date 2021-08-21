@@ -469,22 +469,23 @@ class GameViewController: UIViewController, UITextFieldDelegate, ShareableImageV
 
 extension GameViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        let count = media.activeSections.count
-        mediaTableView?.backgroundView?.isHidden = count != 0
+        let count = media.sections.count
+        mediaTableView?.backgroundView?.isHidden = !media.isEmpty
         return count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return media.activeSections[section].items.count
+        return media.sections[section].items.count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return media.activeSections[section].title
+        return media.sections[section].title
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Media", for: indexPath) as! MediaTableViewCell
-        cell.mediaView?.item = media.activeSections[indexPath.section].items[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Media", for: indexPath) as? MediaTableViewCell
+        guard let cell = cell else { fatalError("can't get Media cell") }
+        cell.mediaView?.item = media.sections[indexPath.section].items[indexPath.row]
         return cell
     }
     
@@ -519,14 +520,14 @@ extension GameViewController: UITableViewDataSource, UITableViewDelegate {
     } */
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return media.activeSections[indexPath.section].supportsReorder
+        return media.sections[indexPath.section].supportsReorder
     }
 
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         guard sourceIndexPath.section == destinationIndexPath.section else { return }
-        guard media.activeSections[sourceIndexPath.section].supportsReorder else { return }
+        guard media.sections[sourceIndexPath.section].supportsReorder else { return }
         
-        gameViewItem?.moveMedia(from: sourceIndexPath.row, to: destinationIndexPath.row, sectionType: media.activeSections[sourceIndexPath.section].type)
+        gameViewItem?.moveMedia(from: sourceIndexPath.row, to: destinationIndexPath.row, sectionType: media.sections[sourceIndexPath.section].type)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -598,7 +599,7 @@ extension GameViewController: UITableViewDragDelegate {
     }
     
     private func dragItems(tableView: UITableView, for indexPath: IndexPath) -> [UIDragItem] {
-        let mediaItem = media.activeSections[indexPath.section].items[indexPath.row]
+        let mediaItem = media.sections[indexPath.section].items[indexPath.row]
         guard let url = mediaItem.url else { return [] }
         
         guard let mediaItemProvider = itemProvider(for: url) else { return [] }
@@ -659,7 +660,7 @@ extension GameViewController: UITableViewDropDelegate {
     private func dropSession(_ session: UIDropSession, canInsertAt indexPath: IndexPath?) -> Bool {
         guard let indexPath = indexPath else { return false }
         
-        let section = media.activeSections[indexPath.section]
+        let section = media.sections[indexPath.section]
         
         if !section.supportsMultiple || !section.supportsReorder {
             return false

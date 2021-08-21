@@ -1,10 +1,13 @@
 #  TODO
 
+- selecting item in inbox to start doesn't work
+
+- adding drl doesn't work
+
 ## Vice 3.5
 
-- Plus/4 disk auto start not working (missing RUN) (Did this work in 3.4?)
+- Plus/4 disk auto start not working (missing RUN)
 - disable datasette by default
-- is datasette sound audible on real hardware?
 - add RAMLink, CMD HD
 
 ## Support for Multiple Computers
@@ -12,7 +15,6 @@
 - split machine specific ui callbacks into their own files
 - rewrite machine configuration, embed in scroll view
 - hierarchical configuration
-- don't split media in games by type, use single list
 - Fix auto cassette drive (vice & fuse).
 
 ## Commodore 128
@@ -58,7 +60,7 @@
 
 ## other
 
-- multiple tape images
+- export is losing everything after . in game name
 - warn if media can't be used due to machine configuration
 - controller auto-mapping: input device priority per input type
 - fix dragging files out of Ready

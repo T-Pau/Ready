@@ -38,6 +38,7 @@ struct C64FileType {
         case ideDisk
         case programFile
         case ramExpansionUnit
+        case ramlink
         case tape
         
         var typeIdentifiers: Set<String> {
@@ -50,6 +51,8 @@ struct C64FileType {
                 return ["at.spiderlab.c64.cfa", "at.spiderlab.c64.hdd", "at.spiderlab.c64.iso", "at.spiderlab.c64.sdcard"]
             case .ramExpansionUnit:
                 return ["at.spiderlab.c64.reu"]
+            case .ramlink:
+                return ["at.spiderlab.c64.drl"]
             case .programFile:
                 return ["at.spiderlab.c64.p00", "at.spiderlab.c64.prg", "org.sidmusic.prg"]
             case .tape:
@@ -74,6 +77,7 @@ struct C64FileType {
         "d80": .disk,
         "d81": .disk,
         "d82": .disk,
+        "drl": .ramlink,
         "g64": .disk,
         "g71": .disk,
         "hdd": .ideDisk,
@@ -109,6 +113,10 @@ struct C64FileType {
         }
         
         return nil
+    }
+    
+    static func type(for fileExtension: String) -> MediaType? {
+        return knownExtensions[fileExtension]
     }
 
     init?(pathExtension: String) {

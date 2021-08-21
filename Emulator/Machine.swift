@@ -42,7 +42,7 @@ public class Machine {
     
     public var computer: Device
     
-    public init(config: MachineConfig, media: [Medium]) {
+    public init(config: MachineConfig, media: [MediaItem]) {
         self.config = config
         self.media = media
         self.register = MachinePartRegister(media: media)
@@ -55,7 +55,7 @@ public class Machine {
             var computer: Computer?
             
             if let medium = media.first {
-                computer = computers.first(where: { ($0 as? Computer)?.model.type.supportedMediaTypes.contains(medium.type) ?? false }) as? Computer
+                computer = computers.first(where: { ($0 as? Computer)?.model.type.supportedMediaTypes.contains(medium.connector) ?? false }) as? Computer
             }
             else {
                 computer = computers.first as? Computer

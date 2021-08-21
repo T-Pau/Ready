@@ -53,8 +53,10 @@ class BiosSettingsViewController: UIViewController {
             Row(name: "Commodore 1581", defaultsKey: .BiosJiffyDos1581)
         ]),
         Section(title: "Device ROM", rows: [
-            Row(name: "CMD FD-2000", defaultsKey: .BiosFD2000),
-            Row(name: "CMD FD-4000", defaultsKey: .BiosFD4000)
+            Row(name: "CMD FD-2000", defaultsKey: .BiosCmdFd2000),
+            Row(name: "CMD FD-4000", defaultsKey: .BiosCmdFd4000),
+            Row(name: "CMD HD", defaultsKey: .BiosCmdHd),
+            Row(name: "CMD RAMLink", defaultsKey: .BiosCmdRamlink)
         ])
     ]
     

@@ -83,6 +83,11 @@ public class MachineOld {
         case RAMBlock2
         case RAMBlock3
         case RAMBlock5
+        case RAMLINK
+        case RAMLINKfilename
+        case RAMLINKImageWrite
+        case RAMLINKmode
+        case RAMLINKsize
         case REU
         case REUfilename
         case REUImageWrite
@@ -143,12 +148,7 @@ public class MachineOld {
 
     public var directoryURL: URL?
 
-    public var cartridgeImage: CartridgeImage?
-    public var ramExpansionUnit: RamExpansionUnit?
-    public var programFile: ProgramFile?
-    public var diskImages = [DiskImage]()
-    public var ideDiskImages = [IdeDiskImage]()
-    public var tapeImages = [TapeImage]()
+    public var mediaItems = [MediaItem]()
 
     public var diskDrives = [DiskDrive]()
     public var controllers = [Controller]()
@@ -229,7 +229,7 @@ public class MachineOld {
             }
         }
         
-        for (index, disk) in ideDiskImages.enumerated() {
+        for (index, disk) in mediaItems.filter({ $0.connector == .ide }).enumerated() {
             if let name = ResourceName(ide64Image: index + 1),
                 let url = disk.url {
                 viceSetResource(name: name, value: .String(url.path))
@@ -252,7 +252,7 @@ public class MachineOld {
     
     public func mountDisks() {
         // TODO: use MachineSpecification.automount
-        for disk in diskImages {
+        for disk in mediaItems.compactMap({ $0 as? DiskImage }) {
             var mountable = false
             for (index, drive) in diskDrives.enumerated() {
                 if drive.supports(image: disk) {
@@ -283,11 +283,17 @@ public class MachineOld {
         }
         
         cartridges = specification.cartridges(for: self)
+        // TODO: add cartridge from mediaItems
         // TODO: remove all but first main slot cartridge
 
-        if !tapeImages.isEmpty && specification.string(for: .cassetteDrive) == "auto" {
+        if mediaItems.contains(where: { $0.connector == .tapeCommodore || $0.connector == .tapeSpectrum }) && specification.string(for: .cassetteDrive) == "auto" {
             cassetteDrive = CasstteDrive.drives.parts.sorted(by: { $0.priority > $1.priority })[0] as! CasstteDrive
         }
+    }
+    
+    public var hasFreeze: Bool {
+        guard let cartridge = mediaItems.first(where: { $0 as? Cartridge != nil }) as? Cartridge else { return false }
+        return cartridge.hasFreeze
     }
 }
 

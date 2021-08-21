@@ -76,7 +76,7 @@ import X16C
             "-ram", "2048"
         ]
         
-        if let file = machine.programFile?.url?.path {
+        if let file = machine.mediaItems.first(where: { $0.connector == .programCommodore })?.url?.path {
             args.append(contentsOf: ["-prg", file, "-run"])
         }
         
@@ -85,7 +85,7 @@ import X16C
         if let emulatorInfo = machine.specification.computer.emulatorInfo(for: .x16) as? X16EmulatorInfo {
             args.append(contentsOf: emulatorInfo.arguments);
         }
-        if let sdimage = machine.ideDiskImages.first(where: { $0.ideType == .sdCard }), let url = sdimage.url {
+        if let sdimage = machine.mediaItems.first(where: { $0.connector == .sdCard }), let url = sdimage.url {
             args.append(contentsOf: ["-sdcard-dir", url.path])
         }
 

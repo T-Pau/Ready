@@ -34,44 +34,11 @@ import C64UIComponents
 import Emulator
 
 class Tools {
-    struct OldSerialized: Codable {
-        struct Item: Codable {
-            var name: String
-        }
-        
-        var selectedCartridge: String?
-        var cartridges: [Item]
-        var disks: [Item]
-    }
-    
-    struct Serialized: Codable {
-        var cartridges: [String]
-        var disks: [String]
-        
-        init(tools: Tools) {
-            cartridges = tools.cartridges.compactMap({ $0.url?.lastPathComponent })
-            disks = tools.disks.compactMap({ $0.url?.lastPathComponent })
-        }
-
-        init(migrate old: OldSerialized) {
-            cartridges = old.cartridges.map({ $0.name }).filter({ $0 != old.selectedCartridge })
-            if let cartridge = old.selectedCartridge {
-                cartridges.insert(cartridge, at: 0)
-            }
-            disks = old.disks.map({ $0.name })
-        }
-    }
-    
     var directoryURL: URL
-    
-    var cartridges = [CartridgeImage]()
-    var disks = [DiskImage]()
+    var mediaItems = [MediaItem]()
     
     var selectedCartridge: CartridgeImage? {
-        if cartridges.isEmpty {
-            return nil
-        }
-        return cartridges[0]
+        return mediaItems.first(where: { $0.connector == .c64ExpansionPort }) as? CartridgeImage
     }
     
     private static var standardInstance: Tools?
@@ -93,53 +60,15 @@ class Tools {
     
     static func create() -> Tools {
         let tools = Tools()
-        let infoURL = tools.directoryURL.appendingPathComponent("tools.json")
+        let mediaList = MediaList(directory: tools.directoryURL)
         
-        if FileManager.default.fileExists(atPath: infoURL.path) {
-            let decoder = JSONDecoder()
-            do {
-                let data = try Data(contentsOf: infoURL)
-                var serialized: Serialized
-                do {
-                    serialized = try decoder.decode(Tools.Serialized.self, from: data)
-                    
-                }
-                catch {
-                    let oldSerialized = try decoder.decode(Tools.OldSerialized.self, from: data)
-
-                    serialized = Serialized(migrate: oldSerialized)
-                }
-                
-                tools.cartridges = serialized.cartridges.compactMap({ CartridgeImage(directory: tools.directoryURL, file: $0) })
-                tools.disks = serialized.disks.compactMap({ DxxImage.image(from: tools.directoryURL.appendingPathComponent($0)) })
-                
-                return tools
-            }
-            catch {
-                return Tools()
-            }
-        }
-        else {
-            let tools = Tools()
-            if let cartridgeFile = Defaults.standard.toolsCartridgeFile,
-                let cartridge = CartridgeImage(directory: tools.directoryURL, file: cartridgeFile) {
-                tools.cartridges.append(cartridge)
-            }
-            return tools
-        }
+        tools.mediaItems = mediaList.mediaItems
+        
+        return tools
     }
     
     func save() {
-        let infoURL = directoryURL.appendingPathComponent("tools.json")
-
-        let encoder = JSONEncoder()
-        
-        do {
-            let serialized = Serialized(tools: self)
-            let data = try encoder.encode(serialized)
-            try data.write(to: infoURL)
-        }
-        catch { }
+        try? MediaList(mediaItems: mediaItems).save(directory: directoryURL)
     }
 }
 
@@ -154,63 +83,29 @@ extension Tools: GameViewItem {
     
     var media: GameViewItemMedia {
         return GameViewItemMedia(sections: [
-            GameViewItemMedia.Section(type: .cartridge, supportsMultiple: true, supportsReorder: true, addInFront: false, items: cartridges),
-            GameViewItemMedia.Section(type: .disks, supportsMultiple: true, supportsReorder: true, addInFront: false, items: disks as! [MediaItem])
+            GameViewItemMedia.Section(type: .mixed, supportsMultiple: true, supportsReorder: true, addInFront: false, items: mediaItems)
         ])
     }
     
     var machine: MachineOld {
         let machine = MachineOld(specification: Defaults.standard.machineSpecification.appending(layer: MachineConfigOld()))
 
-        if !cartridges.isEmpty {
-            machine.cartridgeImage = cartridges[0]
-        }
-        machine.diskImages = disks
+        machine.mediaItems = mediaItems
         
         return machine
     }
     
     func addMedia(mediaItem: MediaItem, at row: Int, sectionType: GameViewItemMedia.SectionType) {
-        switch sectionType {
-        case .cartridge:
-            guard let cartridge = mediaItem as? CartridgeImage else { return }
-            cartridges.insert(cartridge, at: row)
-            
-        case .disks:
-            guard let disk = mediaItem as? DiskImage else { return }
-            disks.insert(disk, at: row)
-
-        default:
-            return
-        }
+        mediaItems.insert(mediaItem, at: row)
     }
     
     func moveMedia(from sourceRow: Int, to destinationRow: Int, sectionType: GameViewItemMedia.SectionType) {
-        switch sectionType {
-        case .cartridge:
-            let cartridge = cartridges.remove(at: sourceRow)
-            cartridges.insert(cartridge, at: destinationRow)
-            
-        case .disks:
-            let disk = disks.remove(at: sourceRow)
-            disks.insert(disk, at: destinationRow)
-
-        default:
-            return
-        }
+        let item = mediaItems.remove(at: sourceRow)
+        mediaItems.insert(item, at: destinationRow)
     }
     
     func removeMedia(at row: Int, sectionType: GameViewItemMedia.SectionType) {
-        switch sectionType {
-        case .cartridge:
-            cartridges.remove(at: row)
-            
-        case .disks:
-            disks.remove(at: row)
-            
-        default:
-            return
-        }
+        mediaItems.remove(at: row)
     }
     
     func renameMedia(name: String, at: Int, sectionType: GameViewItemMedia.SectionType) {

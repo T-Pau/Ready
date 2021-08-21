@@ -140,31 +140,10 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
             machine.directoryURL = gameViewItem.directoryURL
             
             if let mediaItem = selectedMedia {
-                switch mediaItem.mediaType {
-                case .cartridge:
-                    machine.cartridgeImage = mediaItem as? CartridgeImage
-                case .disk:
-                    if let index = machine.diskImages.firstIndex(where: { $0.url == mediaItem.url }) {
-                        machine.diskImages.remove(at: index)
-                    }
-                    machine.diskImages.insert(mediaItem as! DiskImage, at: 0)
-
-                case .ideDisk:
-                    if let index = machine.ideDiskImages.firstIndex(where: { $0.url == mediaItem.url }) {
-                        machine.ideDiskImages.remove(at: index)
-                    }
-                    machine.ideDiskImages.insert(mediaItem as! IdeDiskImage, at: 0)
-
-                case .programFile:
-                    machine.programFile = mediaItem as? ProgramFile
-                case .ramExpansionUnit:
-                    machine.ramExpansionUnit = mediaItem as? RamExpansionUnit
-                case .tape:
-                    if let index = machine.tapeImages.firstIndex(where: { $0.url == mediaItem.url }) {
-                        machine.tapeImages.remove(at: index)
-                    }
-                    machine.tapeImages.insert(mediaItem as! TapeImage, at: 0)
+                if let index = machine.mediaItems.firstIndex(where: { $0.url == mediaItem.url }) {
+                    machine.mediaItems.remove(at: index)
                 }
+                machine.mediaItems.insert(mediaItem, at: 0)
             }
         }
         else {
@@ -172,7 +151,9 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
         }
         
         if toolsMode {
-            machine.cartridgeImage = Tools.standard.selectedCartridge
+            if let cartridge = Tools.standard.selectedCartridge {
+                machine.mediaItems.insert(cartridge, at: 0)
+            }
             machine.autostart = false
         }
 
@@ -208,7 +189,7 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
         }
 
         if gameViewItem?.type != .tools && toolsMode {
-            machine.diskImages.append(contentsOf: Tools.standard.disks)
+            machine.mediaItems.append(contentsOf: Tools.standard.mediaItems)
         }
         
         machine.mountDisks()
@@ -231,7 +212,7 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
             singularStatus.isHidden = true
         }
         
-        if let tapeFile = (machine.tapeImages.isEmpty ? nil : machine.tapeImages[0])?.url, machine.cassetteDrive.hasStatus {
+        if let tapeFile = machine.mediaItems.first(where: { $0.connector == .tapeCommodore })?.url, machine.cassetteDrive.hasStatus {
             tapeStatus.ledView?.isRound = true
             tapeStatus.ledView?.darkColor = UIColor(named: "LED 1530 Off")!
             tapeStatus.ledView?.lightColor = UIColor(named: "LED 1530 On")!
@@ -252,7 +233,7 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
         
         let biosURL = Defaults.biosURL
 
-        if !toolsMode && machine.tapeImages.isEmpty && Defaults.standard.enableJiffyDOS {
+        if !toolsMode && machine.mediaItems.contains(where: { $0.connector == .tapeCommodore }) && Defaults.standard.enableJiffyDOS {
             if let romC64 = Defaults.standard.biosJiffyDosC64 {
                 if machine.specification.computer.model.type == .c64 {
                     machine.resources[.KernalName] = .String(biosURL.appendingPathComponent(romC64).path)
@@ -269,10 +250,10 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
             }
         }
         
-        if let rom2000 = Defaults.standard.biosFD2000 {
+        if let rom2000 = Defaults.standard.biosCmdFd2000 {
             machine.resources[.DosName2000] = .String(biosURL.appendingPathComponent(rom2000).path)
         }
-        if let rom4000 = Defaults.standard.biosFD4000 {
+        if let rom4000 = Defaults.standard.biosCmdFd4000 {
             machine.resources[.DosName4000] = .String(biosURL.appendingPathComponent(rom4000).path)
         }
         
@@ -293,7 +274,7 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
             imageView2.layer.magnificationFilter = .nearest
         }
     
-        if machine.cartridgeImage?.hasFreeze ?? false != true {
+        if machine.hasFreeze {
             navigationItem.rightBarButtonItems?.removeAll(where: { $0 == freezeButton })
         }
         if computer.keyboard == nil {
@@ -342,7 +323,7 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
                 UIKeyCommand(title: "Reset", action: #selector(resetMachine(_:)), input: "r", modifierFlags: .command, discoverabilityTitle: "Reset")
             ]
             
-            if machine.cartridgeImage?.hasFreeze ?? false {
+            if machine.hasFreeze {
                 _keyboardCommands.append(UIKeyCommand(title: "Freeze", action: #selector(freezeMachine(_:)), input: "z", modifierFlags: .command, discoverabilityTitle: "Freeze"))
             }
         }
@@ -443,8 +424,8 @@ class EmulatorViewController: FullScreenViewController, KeyboardViewDelegate, Se
             let drive = emulator.machine.diskDrives[unit - 8]
             destination.drive = drive
             destination.unit = unit
-            destination.diskImages = emulator.machine.diskImages.filter({ drive.supports(image: $0) })
-            destination.currentDiskImage = drive.image
+            destination.diskImages = emulator.machine.mediaItems.filter({ drive.supports(image: $0) })
+            destination.currentDiskImage = drive.image as? MediaItem
             //destination.status = String(cString: drive_get_status(Int32(unit)))
 
             destination.changeCallback = { diskImage in

@@ -150,13 +150,10 @@ extension MachineSpecification {
         var machineCartridges = [Cartridge]()
 
         if let machine = machine {
-            if let cartridge = machine.cartridgeImage {
+            if let cartridge = machine.mediaItems.first(where: { ($0 as? Cartridge) != nil }) as? Cartridge {
                 machineCartridges.append(cartridge)
             }
-            if let ramExpansionUnit = machine.ramExpansionUnit {
-                machineCartridges.append(ramExpansionUnit)
-            }
-            if !machine.ideDiskImages.isEmpty {
+            if machine.mediaItems.contains(where: { $0.connector == .ide }) {
                 machineCartridges.append(Ide64Cartridge.standard)
             }
         }
@@ -339,7 +336,7 @@ extension MachineSpecification {
                 guard let driveNumber = key.driveNumber else { break }
                 let index = driveNumber - 8
                 let specification = self.appending(layer: [ key: .string("auto") ])
-                let (drives, _) = specification.automount(images: machine.diskImages)
+                let (drives, _) = specification.automount(images: machine.mediaItems.compactMap({ $0 as? DiskImage }))
                 
                 if index < drives.count {
                     part = drives[index]

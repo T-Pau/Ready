@@ -35,6 +35,7 @@ public struct ProgramFile {
     public var bytes: Data
     public var name: String?
     public var url: URL?
+    public var connector: ConnectorType { return .programCommodore }
 
     public init?(directory: URL, file: String?) {
         guard let file = file else { return nil }

@@ -141,6 +141,7 @@ extension JoystickButtons {
         machine.resources[.Drive9IdleMethod] = .Int(DRIVE_IDLE_TRAP_IDLE)
         machine.resources[.Drive10IdleMethod] = .Int(DRIVE_IDLE_TRAP_IDLE)
         machine.resources[.Drive11IdleMethod] = .Int(DRIVE_IDLE_TRAP_IDLE)
+        machine.resources[.Datasette] = .Bool(false)
 
         viceThread?.borderMode = machine.specification.borderMode.cValue
         
@@ -148,13 +149,15 @@ extension JoystickButtons {
         
         var autostartDisk = machine.autostart
         
-        if let programFileURL = machine.programFile?.url {
+        if let programFileURL = machine.mediaItems.first(where: { $0.connector == .programCommodore })?.url {
             args.append("-autostart")
             args.append(programFileURL.path)
             autostartDisk = false
         }
         
-        if let tapeImageURL = (machine.tapeImages.isEmpty ? nil : machine.tapeImages[0])?.url {
+        if let tapeImageURL = machine.mediaItems.first(where: { $0.connector == .tapeCommodore })?.url {
+            // TODO: move this to datasette device
+            machine.resources[.Datasette] = .Bool(true)
             if autostartDisk {
                 args.append("-autostart")
                 autostartDisk = false
@@ -273,7 +276,7 @@ extension JoystickButtons {
         switch event {
         case .attach(let unit, let image):
             if let url = image?.url {
-                file_system_attach_disk(UInt32(unit), url.path)
+                file_system_attach_disk(UInt32(unit), 0, url.path)
             }
             else {
                 // TODO: detach image

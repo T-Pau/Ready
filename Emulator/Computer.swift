@@ -57,75 +57,54 @@ public struct Computer: MachinePart {
             }
         }
         
-        var supportedMediaTypes: Set<MediaType> {
+        var supportedMediaTypes: Set<ConnectorType> {
             switch self {
             case .atari8Bit:
-                return [] // TODO
-            case .c64:
+                return []
+            case .c64, .c128:
                 return [
-                    .cartridgeCommodore64,
-                    .cassetteCommodore,
-                    .compactFlashIde64,
-                    .cd,
-                    .disk3_5DoubleDensityCmd,
-                    .disk3_5DoubleDensityCommodore,
-                    .disk3_5HighDensityCmd,
-                    .disk3_5HighDensityCmd,
-                    .disk5_25SingleDensitySingleSidedCommodore,
-                    .disk5_25SingleDensityDoubleSidedCommodore,
-                    .disk5_25DoubleDensitySingleSidedCommodore,
-                    .harddiskIdeIde64
+                    .c64ExpansionPort,
+                    .ide,
+                    .tapeCommodore,
+                    .floppy3_5ExtendedDensityDoubleSidedCmd,
+                    .floppy3_5DoubleDensityDoubleSidedCmd,
+                    .floppy3_5DoubleDensityDoubleSidedCommodore,
+                    .floppy3_5HighDensityDoubleSidedCmd,
+                    .floppy5_25SingleDensitySingleSidedCommodore,
+                    .floppy5_25SingleDensityDoubleSidedCommodore
                 ]
-
-            case .c128:
-                return [
-                    .cartridgeCommodore64,
-                    .cassetteCommodore,
-                    .compactFlashIde64,
-                    .cd,
-                    .disk3_5DoubleDensityCmd,
-                    .disk3_5DoubleDensityCommodore,
-                    .disk3_5HighDensityCmd,
-                    .disk3_5HighDensityCmd,
-                    .disk5_25SingleDensitySingleSidedCommodore,
-                    .disk5_25SingleDensityDoubleSidedCommodore,
-                    .disk5_25DoubleDensitySingleSidedCommodore,
-                    .harddiskIdeIde64
-                ] // TODO
 
             case .plus4:
                 return [
-                    .cartridgeCommodorePlus4,
-                    .cassetteCommodore,
-                    .disk3_5DoubleDensityCmd,
-                    .disk3_5DoubleDensityCommodore,
-                    .disk3_5HighDensityCmd,
-                    .disk3_5HighDensityCmd,
-                    .disk5_25SingleDensitySingleSidedCommodore,
-                    .disk5_25SingleDensityDoubleSidedCommodore,
-                    .disk5_25DoubleDensitySingleSidedCommodore,
+                    .plus4ExpansionPort,
+                    .tapeCommodore,
+                    .floppy3_5ExtendedDensityDoubleSidedCmd,
+                    .floppy3_5DoubleDensityDoubleSidedCmd,
+                    .floppy3_5DoubleDensityDoubleSidedCommodore,
+                    .floppy3_5HighDensityDoubleSidedCmd,
+                    .floppy5_25SingleDensitySingleSidedCommodore,
+                    .floppy5_25SingleDensityDoubleSidedCommodore
                 ]
 
             case .spectrum:
                 return [
-                    .cassetteSpectrum
+                    .tapeSpectrum
                 ]
 
             case .vic:
                 return [
-                    .cartridgeCommodoreVIC20,
-                    .cassetteCommodore,
-                    .disk3_5DoubleDensityCmd,
-                    .disk3_5DoubleDensityCommodore,
-                    .disk3_5HighDensityCmd,
-                    .disk3_5HighDensityCmd,
-                    .disk5_25SingleDensitySingleSidedCommodore,
-                    .disk5_25SingleDensityDoubleSidedCommodore,
-                    .disk5_25DoubleDensitySingleSidedCommodore,
+                    .vic20ExpansionPort,
+                    .tapeCommodore,
+                    .floppy3_5ExtendedDensityDoubleSidedCmd,
+                    .floppy3_5DoubleDensityDoubleSidedCmd,
+                    .floppy3_5DoubleDensityDoubleSidedCommodore,
+                    .floppy3_5HighDensityDoubleSidedCmd,
+                    .floppy5_25SingleDensitySingleSidedCommodore,
+                    .floppy5_25SingleDensityDoubleSidedCommodore
                 ]
                 
             case .x16:
-                return [] // TODO
+                return []
             }
         }
         
@@ -144,7 +123,8 @@ public struct Computer: MachinePart {
                     Port(name: "Disk Drive 10", key: .diskDrive10, connectorTypes: [.commodoreIEC], iconWidth: 2),
                     Port(name: "Disk Drive 11", key: .diskDrive11, connectorTypes: [.commodoreIEC], iconWidth: 2),
                     Port(name: "Control Port 1", key: .controlPort1, connectorTypes: [.atariJoystick, .atariJoystickAnalog, .c64JoystickLightpen], supportsHotSwap: true),
-                    Port(name: "Control Port 2", key: .controlPort2, connectorTypes: [.atariJoystick, .atariJoystickAnalog], supportsHotSwap: true)
+                    Port(name: "Control Port 2", key: .controlPort2, connectorTypes: [.atariJoystick, .atariJoystickAnalog], supportsHotSwap: true),
+                    Port(name: "Program", key: .programFile, connectorTypes: [.programCommodore])
                 ]
 
             case .c128:
@@ -158,7 +138,8 @@ public struct Computer: MachinePart {
                     Port(name: "Disk Drive 10", key: .diskDrive10, connectorTypes: [.commodoreIEC], iconWidth: 2),
                     Port(name: "Disk Drive 11", key: .diskDrive11, connectorTypes: [.commodoreIEC], iconWidth: 2),
                     Port(name: "Control Port 1", key: .controlPort1, connectorTypes: [.atariJoystick, .atariJoystickAnalog, .c64JoystickLightpen], supportsHotSwap: true),
-                    Port(name: "Control Port 2", key: .controlPort2, connectorTypes: [.atariJoystick, .atariJoystickAnalog], supportsHotSwap: true)
+                    Port(name: "Control Port 2", key: .controlPort2, connectorTypes: [.atariJoystick, .atariJoystickAnalog], supportsHotSwap: true),
+                    Port(name: "Program", key: .programFile, connectorTypes: [.programCommodore])
                 ]
 
             case .plus4:
@@ -172,7 +153,8 @@ public struct Computer: MachinePart {
                     Port(name: "Disk Drive 10", key: .diskDrive10, connectorTypes: [.commodoreIEC], iconWidth: 2),
                     Port(name: "Disk Drive 11", key: .diskDrive11, connectorTypes: [.commodoreIEC], iconWidth: 2),
                     Port(name: "Joy 0", key: .controlPort1, connectorTypes: [.atariJoystick], supportsHotSwap: true),
-                    Port(name: "Joy 1", key: .controlPort2, connectorTypes: [.atariJoystick], supportsHotSwap: true)
+                    Port(name: "Joy 1", key: .controlPort2, connectorTypes: [.atariJoystick], supportsHotSwap: true),
+                    Port(name: "Program", key: .programFile, connectorTypes: [.programCommodore])
                 ]
                 
             case .spectrum:
@@ -192,7 +174,8 @@ public struct Computer: MachinePart {
                     Port(name: "Disk Drive 9", key: .diskDrive9, connectorTypes: [.commodoreIEC], iconWidth: 2),
                     Port(name: "Disk Drive 10", key: .diskDrive10, connectorTypes: [.commodoreIEC], iconWidth: 2),
                     Port(name: "Disk Drive 11", key: .diskDrive11, connectorTypes: [.commodoreIEC], iconWidth: 2),
-                    Port(name: "Control Port", key: .controlPort1, connectorTypes: [.atariJoystick, .atariJoystickAnalog], supportsHotSwap: true) // TODO: lightpen
+                    Port(name: "Control Port", key: .controlPort1, connectorTypes: [.atariJoystick, .atariJoystickAnalog], supportsHotSwap: true), // TODO: lightpen
+                    Port(name: "Program", key: .programFile, connectorTypes: [.programCommodore])
                 ]
                 
             case .x16:

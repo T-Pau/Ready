@@ -30,16 +30,7 @@
  */
 
 import UIKit
-
-public protocol MediaItem {
-    var displayTitle: String? { get }
-    var displaySubtitle: String? { get }
-    var subtitleIsPETASCII: Bool { get }
-    var displayIcon: UIImage? { get }
-    
-    var typeIdentifier: String? { get }
-    var url: URL? { get }
-}
+import Emulator
 
 public protocol MediaViewDropDelegate: AnyObject {
     func mediaView(_ sender: MediaView, dropped item: UIDragItem, of type: String)

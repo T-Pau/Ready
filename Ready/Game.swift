@@ -436,85 +436,18 @@ public class Game: NSManagedObject {
     }
     
     private var imagesLoaded = false
-    private var _cartridge: CartridgeImage? = nil
-    private var _ramExpansionUnit: RamExpansionUnit? = nil
-    private var _program: ProgramFile? = nil
-    private var _diskImages = [DiskImage]()
-    private var _ideDiskImages = [IdeDiskImage]()
-    private var _tape: TapeImage? = nil
+    private var imagesChanged = false
+    private var _mediaItems = [MediaItem]()
     
-    var cartridge: CartridgeImage? {
-        if !imagesLoaded {
-            loadImages()
-        }
-        return _cartridge
+    var mediaItems: [MediaItem] {
+        loadImages()
+        return _mediaItems
     }
     
-    var ramExpansionUnit: RamExpansionUnit? {
-        if !imagesLoaded {
-            loadImages()
-        }
-        
-        return _ramExpansionUnit
-    }
-    
-    var program: ProgramFile? {
-        if !imagesLoaded {
-            loadImages()
-        }
-        return _program
-    }
-    
-    var diskImages: [DiskImage] {
-        if !imagesLoaded {
-            loadImages()
-        }
-        return _diskImages
-    }
-    
-    var ideDiskImages: [IdeDiskImage] {
-        if !imagesLoaded {
-            loadImages()
-        }
-        return _ideDiskImages
-    }
-    
-    var tape: TapeImage? {
-        if !imagesLoaded {
-            loadImages()
-        }
-        return _tape
-    }
-    
-    var tapes: [TapeImage] {
-        if !imagesLoaded {
-            loadImages()
-        }
-        
-        if let tape = tape {
-            return [ tape ]
-        }
-        else {
-            return []
-        }
-    }
-
     private func loadImages() {
-        _cartridge = CartridgeImage(directory: directoryURL, file: cartridgeFile, eeprom: cartridgeEEPROM)
-        _program = ProgramFile(directory: directoryURL, file: programFile)
-        let diskObjects = disks?.array as? [Disk] ?? []
-        _diskImages = diskObjects.compactMap({ return DxxImage.image(from: directoryURL.appendingPathComponent($0.fileName)) })
-        let ideDiskObjects = ideDisks?.array as? [Disk] ?? []
-        _ideDiskImages = ideDiskObjects.compactMap({ return IdeDiskImage(url: directoryURL.appendingPathComponent($0.fileName)) })
-        _tape = T64Image.image(directory: directoryURL, file: tapeFile)
+        guard !imagesLoaded else { return }
+        _mediaItems = MediaList(game: self).mediaItems
         imagesLoaded = true
-
-        if let ramExpansionFile = ramExpansionFile {
-            _ramExpansionUnit = RamExpansionUnit(url: directoryURL.appendingPathComponent(ramExpansionFile))
-        }
-        else {
-            _ramExpansionUnit = nil
-        }
     }
 }
 
@@ -599,12 +532,7 @@ extension MachineOld {
     convenience init(game: Game) {
         self.init(specification: game.machineSpecification)
         
-        cartridgeImage = game.cartridge
-        ramExpansionUnit = game.ramExpansionUnit
-        programFile = game.program
-        tapeImages = game.tapes
-        diskImages = game.diskImages
-        ideDiskImages = game.ideDiskImages
+        mediaItems = game.mediaItems
     }
 }
 
@@ -628,173 +556,40 @@ extension Game: GameViewItem {
     }
     
     var media: GameViewItemMedia {
-
-        var cartridgeSection = GameViewItemMedia.Section(type: .cartridge, supportsMultiple: false, supportsReorder: false, addInFront: false, items: [])
-        
-        if let cartridge = cartridge {
-            cartridgeSection.items.append(cartridge)
-        }
-        
-        var ramExpansionSection = GameViewItemMedia.Section(type: .ramExpansionUnit, supportsMultiple: false, supportsReorder: false, addInFront: false, items: [])
-        
-        if let ramExpansionUint = ramExpansionUnit {
-            ramExpansionSection.items.append(ramExpansionUint)
-        }
-     
-        var programSection = GameViewItemMedia.Section(type: .programFile, supportsMultiple: false, supportsReorder: false, addInFront: false, items: [])
-
-        if let program = program {
-            programSection.items.append(program)
-        }
-        
-        let diskSection = GameViewItemMedia.Section(type: .disks, supportsMultiple: true, supportsReorder: true, addInFront: false, items: diskImages as! [MediaItem])
-
-        let ideDiskSection = GameViewItemMedia.Section(type: .ideDisks, supportsMultiple: true, supportsReorder: true, addInFront: false, items: ideDiskImages)
-
-        let tapeSection = GameViewItemMedia.Section(type: .tapes, supportsMultiple: false, supportsReorder: false, addInFront: false, items: tapes as! [MediaItem])
-
-        return GameViewItemMedia(sections: [ cartridgeSection, ramExpansionSection, programSection, diskSection, ideDiskSection, tapeSection ])
+        return GameViewItemMedia(sections: [GameViewItemMedia.Section(type: .mixed, supportsMultiple: true, supportsReorder: true, addInFront: false, items: mediaItems)])
     }
     
     func addMedia(mediaItem: MediaItem, at row: Int, sectionType: GameViewItemMedia.SectionType) {
-        switch sectionType {
-        case .cartridge, .mixed, .programFile, .ramExpansionUnit:
-            return
-
-        case .disks:
-            guard let managedObjectContext = managedObjectContext,
-                let disk = mediaItem as? DiskImage,
-                let fileName = disk.url?.lastPathComponent  else { return }
-            insertIntoDisks(Disk(fileName: fileName, insertInto: managedObjectContext), at: row)
-            _diskImages.insert(disk, at: row)
-
-        case .ideDisks:
-            guard let managedObjectContext = managedObjectContext,
-                let disk = mediaItem as? IdeDiskImage,
-                let fileName = disk.url?.lastPathComponent  else { return }
-            insertIntoIdeDisks(Disk(fileName: fileName, insertInto: managedObjectContext), at: row)
-            _ideDiskImages.insert(disk, at: row)
-
-        case .tapes:
-            // TODO
-            return
-        }
+        _mediaItems.insert(mediaItem, at: row)
+        imagesChanged = true
     }
     
     func moveMedia(from sourceRow: Int, to destinationRow: Int, sectionType: GameViewItemMedia.SectionType) {
-        switch sectionType {
-        case .cartridge, .mixed, .programFile, .ramExpansionUnit:
-            return
-
-        case .disks:
-            guard let disk = disks?[sourceRow] as? Disk else { return }
-            let diskImage = _diskImages[sourceRow]
-            removeFromDisks(at: sourceRow)
-            _diskImages.remove(at: sourceRow)
-            insertIntoDisks(disk, at: destinationRow)
-            _diskImages.insert(diskImage, at: destinationRow)
-            
-        case .ideDisks:
-            guard let disk = ideDisks?[sourceRow] as? Disk else { return }
-            let diskImage = _ideDiskImages[sourceRow]
-            removeFromIdeDisks(at: sourceRow)
-            _ideDiskImages.remove(at: sourceRow)
-            insertIntoIdeDisks(disk, at: destinationRow)
-            _ideDiskImages.insert(diskImage, at: destinationRow)
-            
-        case .tapes:
-            // TODO
-            return
-        }
+        let item = _mediaItems[sourceRow]
+        _mediaItems.remove(at: sourceRow)
+        _mediaItems.insert(item, at: destinationRow)
+        imagesChanged = true
     }
-    
+        
     func removeMedia(at row: Int, sectionType: GameViewItemMedia.SectionType) {
-        switch sectionType {
-        case .cartridge:
-            removeFile(cartridgeFile)
-            cartridgeFile = nil
-            removeFile(cartridgeEEPROM)
-            cartridgeEEPROM = nil
-            _cartridge = nil
-            
-        case .disks:
-            guard let disk = disks?[row] as? Disk else { return }
-            removeFile(disk.fileName)
-            removeFromDisks(at: row)
-            _diskImages.remove(at: row)
-            
-        case .ideDisks:
-            guard let disk = ideDisks?[row] as? Disk else { return }
-            removeFile(disk.fileName)
-            removeFromIdeDisks(at: row)
-            _ideDiskImages.remove(at: row)
-            
-        case .mixed:
-            return
-            
-        case .programFile:
-            removeFile(programFile)
-            programFile = nil
-            _program = nil
-            
-        case .ramExpansionUnit:
-            removeFile(ramExpansionFile)
-            ramExpansionFile = nil
-            _ramExpansionUnit = nil
-            
-        case .tapes:
-            removeFile(tapeFile)
-            tapeFile = nil
-            _tape = nil
-        }
+        _mediaItems.remove(at: row)
+        imagesChanged = true
     }
     
     func renameMedia(name: String, at: Int, sectionType: GameViewItemMedia.SectionType) {
         // TODO
+        imagesChanged = true
     }
     
     func replaceMedia(mediaItem: MediaItem, sectionType: GameViewItemMedia.SectionType) {
-        switch sectionType {
-        case .cartridge:
-            guard let cartridge = mediaItem as? CartridgeImage,
-                let fileName = cartridge.url?.lastPathComponent else { return }
-            removeFile(cartridgeFile)
-            removeFile(cartridgeEEPROM)
-            cartridgeFile = fileName
-            cartridgeEEPROM = cartridge.eepromUrl?.lastPathComponent
-            _cartridge = cartridge
-            
-        case .disks, .ideDisks:
-            break
-            
-        case .programFile:
-            guard let program = mediaItem as? ProgramFile,
-                let fileName = program.url?.lastPathComponent else { return }
-            removeFile(programFile)
-            programFile = fileName
-            _program = program
-
-        case .ramExpansionUnit:
-            guard let ramExpansionUnit = mediaItem as? RamExpansionUnit,
-                let fileName = ramExpansionUnit.url?.lastPathComponent else { return }
-            removeFile(ramExpansionFile)
-            ramExpansionFile = fileName
-            _ramExpansionUnit = ramExpansionUnit
-            break
-
-        case .tapes:
-            guard let tape = mediaItem as? TapeImage,
-                let fileName = tape.url?.lastPathComponent else { return }
-            removeFile(tapeFile)
-            tapeFile = fileName
-            _tape = tape
-
-        case .mixed:
-            break
-        }
     }
     
     func save() throws {
         try managedObjectContext?.save()
+        if imagesChanged {
+            let list = MediaList(mediaItems: mediaItems)
+            try list.save(directory: directoryURL)
+            imagesChanged = false
+        }
     }
 }

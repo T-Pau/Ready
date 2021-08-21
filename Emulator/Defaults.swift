@@ -55,8 +55,10 @@ public class Defaults {
     }
     
     public enum Key: String {
-        case BiosFD2000
-        case BiosFD4000
+        case BiosCmdFd2000
+        case BiosCmdFd4000
+        case BiosCmdHd
+        case BiosCmdRamlink
         case BiosJiffyDosC64
         case BiosJiffyDos1541
         case BiosJiffyDos1541II
@@ -77,16 +79,26 @@ public class Defaults {
         case VideoFilter
     }
     
-    public var biosFD2000: String? {
-        get { return stringValue(for: .BiosFD2000) }
-        set { set(value: newValue, for: .BiosFD2000) }
+    public var biosCmdFd2000: String? {
+        get { return stringValue(for: .BiosCmdFd2000) }
+        set { set(value: newValue, for: .BiosCmdFd2000) }
     }
 
-    public var biosFD4000: String? {
-        get { return stringValue(for: .BiosFD4000) }
-        set { set(value: newValue, for: .BiosFD4000) }
+    public var biosCmdFd4000: String? {
+        get { return stringValue(for: .BiosCmdFd4000) }
+        set { set(value: newValue, for: .BiosCmdFd4000) }
     }
 
+    public var biosCmdHd: String? {
+        get { return stringValue(for: .BiosCmdHd) }
+        set { set(value: newValue, for: .BiosCmdHd) }
+    }
+    
+    public var biosCmdRamlink: String? {
+        get { return stringValue(for: .BiosCmdRamlink) }
+        set { set(value: newValue, for: .BiosCmdRamlink) }
+    }
+    
     public var biosJiffyDosC64: String? {
         get { return stringValue(for: .BiosJiffyDosC64) }
         set { set(value: newValue, for: .BiosJiffyDosC64) }
@@ -111,7 +123,7 @@ public class Defaults {
         get { return stringValue(for: .BiosJiffyDos1581) }
         set { set(value: newValue, for: .BiosJiffyDos1581) }
     }
-    
+
     public var capsLockAsCommodore: Bool {
         get {
             return boolValue(for: .CapsLockAsCommodore)

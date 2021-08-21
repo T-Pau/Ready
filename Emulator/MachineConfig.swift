@@ -63,7 +63,7 @@ public class MachineConfig {
         case expansionPort1 // expansionPort.expansionPort
         case userPortJoystick1 // userPort.joystickPort
         case userPortJoystick2 // userPort.joystickPort
-        
+        case programFile
         
         // compatibility methods to allow replacing MachineConfig.Key
         public var driveNumber: Int? {

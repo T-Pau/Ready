@@ -177,6 +177,22 @@
 				<string>at.spiderlab.c64.sdcard</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeIconFiles</key>
+			<array>
+				<string>CMD RAMLink.png</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>CMD RAMLink Image</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>at.spiderlab.c64.drl</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
@@ -767,6 +783,28 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<string>sdcard</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>at.spiderlab.c64.disk</string>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>CMD RAMLink Image</string>
+			<key>UTTypeIconFiles</key>
+			<array>
+				<string>CMD RAMLink.png</string>
+			</array>
+			<key>UTTypeIdentifier</key>
+			<string>at.spiderlab.c64.drl</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>drl</string>
+				</array>
 			</dict>
 		</dict>
 	</array>

@@ -43,16 +43,25 @@ public enum ConnectorType: Hashable {
     case c64JoystickLightpen
     case c64UserPort
     case computer // used for computers, which are the root of the device tree
-    case commodoreCassette
     case commodoreIEC
     case commodoreTapePort
+    case floppy3_5DoubleDensityDoubleSidedCmd // CMD FD
+    case floppy3_5DoubleDensityDoubleSidedCommodore // 1581
+    case floppy3_5ExtendedDensityDoubleSidedCmd // CMD FD
+    case floppy3_5HighDensityDoubleSidedCmd // CMD FD-4000
+    case floppy5_25SingleDensityDoubleSidedCommodore // 1571
+    case floppy5_25SingleDensitySingleSidedCommodore // 1541, 1551, 1570
     case ide
     case kempstonMouse
+    case programCommodore
     case plus4TapePort
     case plus4ExpansionPort
     case atariSio
+    case sdCard
     case spectrumExpansionPort
     case supernesJoystick
+    case tapeCommodore
+    case tapeSpectrum
     case vic20ExpansionPort
     case videoComponent
     case videoRGBi

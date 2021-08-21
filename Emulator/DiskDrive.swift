@@ -54,35 +54,6 @@ public struct DiskDrive: MachinePart {
         }
     }
     
-    public enum MediaType {
-        case singleDensitySingleSided5_25
-        case singleDensityDoubleSided5_25
-        case doubleDensitySingleSided5_25
-        case doubleDensityDoubleSided5_25
-        case doubleDensity3_5
-        case cmdDoubleDensity3_5
-        case cmdHighDensity3_5
-        case cmdExtendedDensity3_5
-        
-        public var is5_25Inch: Bool {
-            switch self {
-            case .singleDensitySingleSided5_25, .singleDensityDoubleSided5_25, .doubleDensitySingleSided5_25, .doubleDensityDoubleSided5_25:
-                return true
-            case .doubleDensity3_5, .cmdDoubleDensity3_5, .cmdHighDensity3_5, .cmdExtendedDensity3_5:
-                return false
-            }
-        }
-        
-        public var isDoubleSided: Bool {
-            switch self {
-            case .singleDensitySingleSided5_25, .doubleDensitySingleSided5_25:
-                return false
-            case .singleDensityDoubleSided5_25, .doubleDensityDoubleSided5_25, .doubleDensity3_5, .cmdDoubleDensity3_5, .cmdHighDensity3_5, .cmdExtendedDensity3_5:
-                return true
-            }
-        }
-    }
-    
     public var identifier: String
     public var name: String
     public var fullName: String
@@ -92,7 +63,7 @@ public struct DiskDrive: MachinePart {
     public var connector: ConnectorType { .commodoreIEC }
     
     public var viceType: ViceType
-    public var supportedMediaTypes: Set<MediaType>
+    public var supportedMediaTypes: Set<ConnectorType>
     public var leds: [Led]
     public var caseColor: UIColor?
     public var textColor: UIColor?
@@ -101,8 +72,43 @@ public struct DiskDrive: MachinePart {
     public var isDoubleSided: Bool
 
     public var image: DiskImage?
+    
+    public static func isDoubleSided(connector: ConnectorType) -> Bool {
+        switch connector {
+        case .floppy3_5DoubleDensityDoubleSidedCmd,
+                .floppy3_5DoubleDensityDoubleSidedCommodore,
+                .floppy3_5ExtendedDensityDoubleSidedCmd,
+                .floppy3_5HighDensityDoubleSidedCmd,
+                .floppy5_25SingleDensityDoubleSidedCommodore:
+            return true
 
-    public init(identifier: String, name: String, fullName: String? = nil, variantName: String? = nil, iconName: String?, priority: Int = MachinePartNormalPriority, viceType: ViceType, supportedMediaTypes: Set<MediaType>, leds: [Led], caseColorName: String?, textColorName: String? = nil, biosKey: Defaults.Key? = nil, jiffyDosKey: Defaults.Key? = nil, image: DiskImage? = nil) {
+        case .floppy5_25SingleDensitySingleSidedCommodore:
+            return false
+
+        default:
+            return false
+        }
+    }
+    
+    public static func is5_25(connector: ConnectorType) -> Bool {
+        switch connector {
+        case .floppy3_5DoubleDensityDoubleSidedCmd,
+                .floppy3_5DoubleDensityDoubleSidedCommodore,
+                .floppy3_5ExtendedDensityDoubleSidedCmd,
+                .floppy3_5HighDensityDoubleSidedCmd:
+            return false
+            
+        case .floppy5_25SingleDensityDoubleSidedCommodore,
+                .floppy5_25SingleDensitySingleSidedCommodore:
+            return true
+            
+        default:
+            return false
+        }
+
+    }
+
+    public init(identifier: String, name: String, fullName: String? = nil, variantName: String? = nil, iconName: String?, priority: Int = MachinePartNormalPriority, viceType: ViceType, supportedMediaTypes: Set<ConnectorType>, leds: [Led], caseColorName: String?, textColorName: String? = nil, biosKey: Defaults.Key? = nil, jiffyDosKey: Defaults.Key? = nil, image: DiskImage? = nil) {
         self.identifier = identifier
         self.name = name
         self.fullName = fullName ?? name
@@ -126,7 +132,7 @@ public struct DiskDrive: MachinePart {
         self.biosKey = biosKey
         self.jiffyDosKey = jiffyDosKey
         self.image = image
-        self.isDoubleSided = supportedMediaTypes.contains(where: { $0.isDoubleSided })
+        self.isDoubleSided = supportedMediaTypes.contains(where: { DiskDrive.isDoubleSided(connector: $0) })
     }
     
     public var hasStatus: Bool { return viceType != .none }
@@ -144,7 +150,7 @@ public struct DiskDrive: MachinePart {
                                 name: "SX 64",
                                 iconName: "Commodore SX64",
                                 viceType: .cbm1541,
-                                supportedMediaTypes: [ .singleDensitySingleSided5_25 ],
+                                supportedMediaTypes: [ .floppy5_25SingleDensitySingleSidedCommodore ],
                                 leds: [Led(isRound: true, colorName: "1541")],
                                 caseColorName: "SX64 Case",
                                 textColorName: "SX64 Frame",
@@ -162,7 +168,7 @@ public struct DiskDrive: MachinePart {
                       variantName: "Alps Drive",
                       iconName: "Commodore 1541 Alps",
                       viceType: .cbm1541,
-                      supportedMediaTypes: [ .singleDensitySingleSided5_25 ],
+                      supportedMediaTypes: [ .floppy5_25SingleDensitySingleSidedCommodore ],
                       leds: [Led(isRound: true, colorName: "1541")],
                       caseColorName: "C64 Case",
                       jiffyDosKey: .BiosJiffyDos1541),
@@ -174,7 +180,7 @@ public struct DiskDrive: MachinePart {
                       iconName: "Commodore 1541 Newtronics",
                       priority: MachinePartLowPriority,
                       viceType: .cbm1541,
-                      supportedMediaTypes: [ .singleDensitySingleSided5_25 ],
+                      supportedMediaTypes: [ .floppy5_25SingleDensitySingleSidedCommodore ],
                       leds: [Led(isRound: false, colorName: "1541")],
                       caseColorName: "C64 Case",
                       jiffyDosKey: .BiosJiffyDos1541),
@@ -186,7 +192,7 @@ public struct DiskDrive: MachinePart {
                       iconName: "Commodore 1541C Alps",
                       priority: MachinePartLowPriority,
                       viceType: .cbm1541,
-                      supportedMediaTypes: [ .singleDensitySingleSided5_25 ],
+                      supportedMediaTypes: [ .floppy5_25SingleDensitySingleSidedCommodore ],
                       leds: [Led(isRound: false, colorName: "1541")],
                       caseColorName: "C64C Case",
                       jiffyDosKey: .BiosJiffyDos1541),
@@ -198,7 +204,7 @@ public struct DiskDrive: MachinePart {
                       iconName: "Commodore 1541C Newtronics",
                       priority: MachinePartLowPriority,
                       viceType: .cbm1541,
-                      supportedMediaTypes: [ .singleDensitySingleSided5_25 ],
+                      supportedMediaTypes: [ .floppy5_25SingleDensitySingleSidedCommodore ],
                       leds: [Led(isRound: false, colorName: "1541")],
                       caseColorName: "C64C Case",
                       jiffyDosKey: .BiosJiffyDos1541),
@@ -210,7 +216,7 @@ public struct DiskDrive: MachinePart {
                       iconName: "Commodore 1541-II JPN",
                       priority: MachinePartHighPriority,
                       viceType: .cbm1541II,
-                      supportedMediaTypes: [ .singleDensitySingleSided5_25 ],
+                      supportedMediaTypes: [ .floppy5_25SingleDensitySingleSidedCommodore ],
                       leds: [Led(isRound: false, colorName: "1541-II JPN")],
                       caseColorName: "C64C Case",
                       jiffyDosKey: .BiosJiffyDos1541II),
@@ -222,7 +228,7 @@ public struct DiskDrive: MachinePart {
                       iconName: "Commodore 1541-II Chinon",
                       priority: MachinePartLowPriority,
                       viceType: .cbm1541II,
-                      supportedMediaTypes: [ .singleDensitySingleSided5_25 ],
+                      supportedMediaTypes: [ .floppy5_25SingleDensitySingleSidedCommodore ],
                       leds: [Led(isRound: false, colorName: "1541-II Chinon")],
                       caseColorName: "C64C Case",
                       jiffyDosKey: .BiosJiffyDos1541II),
@@ -232,7 +238,7 @@ public struct DiskDrive: MachinePart {
                       iconName: "Commodore 1571",
                       priority: MachinePartLowPriority,
                       viceType: .cbm1571,
-                      supportedMediaTypes: [ .singleDensitySingleSided5_25, .singleDensityDoubleSided5_25 ],
+                      supportedMediaTypes: [ .floppy5_25SingleDensitySingleSidedCommodore, .floppy5_25SingleDensityDoubleSidedCommodore ],
                       leds: [Led(isRound: false, colorName: "1541-II Chinon")],
                       caseColorName: "C64C Case",
                       jiffyDosKey: .BiosJiffyDos1571)
@@ -244,7 +250,7 @@ public struct DiskDrive: MachinePart {
                       fullName: "Commodore 1581",
                       iconName: "Commodore 1581",
                       viceType: .cbm1581,
-                      supportedMediaTypes: [ .doubleDensity3_5 ],
+                      supportedMediaTypes: [ .floppy3_5DoubleDensityDoubleSidedCommodore ],
                       leds: [Led(isRound: false, colorName: "1581")],
                       caseColorName: "C64C Case",
                       jiffyDosKey: .BiosJiffyDos1581),
@@ -254,22 +260,22 @@ public struct DiskDrive: MachinePart {
                       fullName: "CMD FD-2000",
                       iconName: "CMD FD",
                       viceType: .cmd_fd2000,
-                      supportedMediaTypes: [ .doubleDensity3_5, .cmdDoubleDensity3_5, .cmdHighDensity3_5 ],
+                      supportedMediaTypes: [ .floppy3_5DoubleDensityDoubleSidedCommodore, .floppy3_5DoubleDensityDoubleSidedCmd, .floppy3_5HighDensityDoubleSidedCmd ],
                       leds: [Led(isRound: false, colorName: "FD Green"), Led(isRound: false, colorName: "FD Red")],
                       caseColorName: "CMD FD Case",
                       textColorName: "CMD FD Text",
-                      biosKey: .BiosFD2000),
+                      biosKey: .BiosCmdFd2000),
             
             DiskDrive(identifier: "FD-4000",
                       name: "FD-4000",
                       fullName: "CMD FD-4000",
                       iconName: "CMD FD",
                       viceType: .cmd_fd4000,
-                      supportedMediaTypes: [ .doubleDensity3_5, .cmdDoubleDensity3_5, .cmdHighDensity3_5, .cmdExtendedDensity3_5 ],
+                      supportedMediaTypes: [ .floppy3_5DoubleDensityDoubleSidedCommodore, .floppy3_5DoubleDensityDoubleSidedCmd, .floppy3_5HighDensityDoubleSidedCmd, .floppy3_5ExtendedDensityDoubleSidedCmd ],
                       leds: [Led(isRound: false, colorName: "FD Green"), Led(isRound: false, colorName: "FD Red")],
                       caseColorName: "CMD FD Case",
                       textColorName: "CMD FD Text",
-                      biosKey: .BiosFD4000)
+                      biosKey: .BiosCmdFd4000)
         ])
     ])
     
@@ -286,19 +292,23 @@ public struct DiskDrive: MachinePart {
     }
     
     public static func getDriveSupporting(image: DiskImage) -> DiskDrive? {
-        return getDriveSupporting(mediaType: image.mediaType)
+        return getDriveSupporting(connector: image.connector)
     }
 
-    public static func getDriveSupporting(mediaType: MediaType) -> DiskDrive? {
+    public static func getDriveSupporting(connector: ConnectorType) -> DiskDrive? {
             for drive in drives.parts.sorted(by: { $0.priority > $1.priority }) as? [DiskDrive] ?? [] {
-                if drive.supportedMediaTypes.contains(mediaType) {
+                if drive.supportedMediaTypes.contains(connector) {
                     return drive
                 }
         }
         return nil
     }
     
+    public func supports(image: MediaItem) -> Bool {
+        return supportedMediaTypes.contains(image.connector)
+    }
+
     public func supports(image: DiskImage) -> Bool {
-        return supportedMediaTypes.contains(image.mediaType)
+        return supportedMediaTypes.contains(image.connector)
     }
 }

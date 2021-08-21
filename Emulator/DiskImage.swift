@@ -37,9 +37,9 @@ public protocol DiskImage {
 
     var directoryTrack: UInt8 { get }
     var directorySector: UInt8 { get }
-    var mediaType: DiskDrive.MediaType { get }
     var tracks: Int { get }
     var url: URL? { get set }
+    var connector: ConnectorType { get }
 
     var diskId: [UInt8]? { get }
     
@@ -72,10 +72,10 @@ extension DiskImage {
         return nil
     }
     
-    public static func blankImage(url: URL, mediaType: DiskDrive.MediaType, namePETSCII: [UInt8], idPETSCII: [UInt8]) -> DiskImage? {
+    public static func blankImage(url: URL, connector: ConnectorType, namePETSCII: [UInt8], idPETSCII: [UInt8]) -> DiskImage? {
         var optinalImage: DiskImage?
         
-        optinalImage = DxxImage(blank: mediaType, namePETSCII: namePETSCII, idPETSCII: idPETSCII)
+        optinalImage = DxxImage(blank: connector, namePETSCII: namePETSCII, idPETSCII: idPETSCII)
         
         guard var image = optinalImage else { return nil }
         image.url = url
@@ -126,12 +126,12 @@ extension DiskImage {
         let name: [UInt8]
         let diskId: [UInt8]
         
-        switch mediaType {
-        case .doubleDensity3_5:
+        switch connector {
+        case .floppy3_5DoubleDensityDoubleSidedCommodore:
             name = [UInt8](bytes[0x04 ..< 0x14])
             diskId = [UInt8](bytes[0x16 ..< 0x1b])
             
-        case .singleDensitySingleSided5_25:
+        case .floppy5_25SingleDensitySingleSidedCommodore:
             name = [UInt8](bytes[0x90..<0xa0])
             diskId = [UInt8](bytes[0xa2..<0xa7])
 
@@ -175,8 +175,8 @@ extension DiskImage {
     }
     
     public func readFreeBlocks() -> Int? {
-        switch mediaType {
-        case .singleDensitySingleSided5_25:
+        switch connector {
+        case .floppy5_25SingleDensitySingleSidedCommodore:
             var freeBlocks = 0
         
             guard let bytes = getBlock(track: directoryTrack, sector: 0) else { return nil }
@@ -192,7 +192,7 @@ extension DiskImage {
             
             return freeBlocks
             
-        case .doubleDensity3_5:
+        case .floppy3_5DoubleDensityDoubleSidedCommodore:
             var freeBlocks = 0
             
             for sector in (UInt8(1) ... UInt8(2)) {
@@ -215,11 +215,11 @@ extension DiskImage {
     
     public var diskId: [UInt8]? {
         guard let bytes = getBlock(track: directoryTrack, sector: 0) else { return nil }
-        switch mediaType {
-        case .singleDensitySingleSided5_25:
+        switch connector {
+        case .floppy5_25SingleDensitySingleSidedCommodore:
             return Array(bytes[0xa2 ... 0xa3])
             
-        case .doubleDensity3_5:
+        case .floppy3_5DoubleDensityDoubleSidedCommodore:
             return Array(bytes[0x16 ... 0x17])
             
         default:
@@ -284,7 +284,7 @@ public struct DxxImage : DiskImage {
         var directoryTrack: UInt8
         var directorySector: UInt8
         var hasErrorMap: Bool
-        var mediaType: DiskDrive.MediaType
+        var connector: ConnectorType
         
         var fileSize: Int {
             return totalSectors * (hasErrorMap ? 257 : 256)
@@ -310,7 +310,7 @@ public struct DxxImage : DiskImage {
             
             self.directoryTrack = template.directoryTrack
             self.directorySector = template.directorySector
-            self.mediaType = template.mediaType
+            self.connector = template.connector
             self.hasErrorMap = hasErrorMap
         }
         
@@ -404,22 +404,22 @@ public struct DxxImage : DiskImage {
         0xff, 0xff, 0xff, 0xff, 0x28, 0xff, 0xff, 0xff, 0xff, 0xff, 0x28, 0xff, 0xff, 0xff, 0xff, 0xff,
     ])
     
-    public init?(blank mediaType: DiskDrive.MediaType, namePETSCII: [UInt8], idPETSCII: [UInt8]) {
+    public init?(blank connector: ConnectorType, namePETSCII: [UInt8], idPETSCII: [UInt8]) {
         DxxImage.initLayouts()
         
-        guard let layout = DxxImage.layoutByMeidaType[mediaType] else { return nil }
+        guard let layout = DxxImage.layoutByConnector[connector] else { return nil }
         self.layout = layout
         bytes = Data(count: layout.fileSize)
 
         var bam: Data
         let nameOffset: Int
 
-        switch mediaType {
-        case .singleDensitySingleSided5_25:
+        switch connector {
+        case .floppy5_25SingleDensitySingleSidedCommodore:
             bam = DxxImage.bam1541
             nameOffset = 0x90
             
-        case .doubleDensity3_5:
+        case .floppy3_5DoubleDensityDoubleSidedCommodore:
             bam = DxxImage.bam1581
             nameOffset = 0x04
             
@@ -469,7 +469,7 @@ public struct DxxImage : DiskImage {
     
     public var directoryTrack: UInt8 { return layout.directoryTrack }
     public var directorySector: UInt8 { return layout.directorySector }
-    public var mediaType: DiskDrive.MediaType { return layout.mediaType }
+    public var connector: ConnectorType { return layout.connector }
     public var tracks: Int { return layout.trackOffsets.count - 1 }
     
     public func getBlock(track: UInt8, sector: UInt8) -> Data? {
@@ -502,10 +502,10 @@ public struct DxxImage : DiskImage {
         var tracks: [Int]
         var directoryTrack: UInt8
         var directorySector: UInt8
-        var mediaType: DiskDrive.MediaType
+        var connector: ConnectorType
     }
     private static var layoutBySize = [Int : DiskLayout]()
-    private static var layoutByMeidaType = [DiskDrive.MediaType: DiskLayout]()
+    private static var layoutByConnector = [ConnectorType: DiskLayout]()
     private static var layoutTemplates: [DiskLayoutTemplate] = [
         // 1541
         DiskLayoutTemplate(zones: [
@@ -513,7 +513,7 @@ public struct DxxImage : DiskImage {
             TrackSizeZone(firstTrack: 18, sectors: 19),
             TrackSizeZone(firstTrack: 25, sectors: 18),
             TrackSizeZone(firstTrack: 31, sectors: 17),
-            ], tracks: [35, 40, 42], directoryTrack: 18, directorySector: 1, mediaType: .singleDensitySingleSided5_25),
+            ], tracks: [35, 40, 42], directoryTrack: 18, directorySector: 1, connector: .floppy5_25SingleDensitySingleSidedCommodore),
         
         // 1571
         DiskLayoutTemplate(zones: [
@@ -525,12 +525,12 @@ public struct DxxImage : DiskImage {
             TrackSizeZone(firstTrack: 53, sectors: 19),
             TrackSizeZone(firstTrack: 60, sectors: 18),
             TrackSizeZone(firstTrack: 66, sectors: 17)
-            ], tracks: [70], directoryTrack: 18, directorySector: 1, mediaType: .singleDensityDoubleSided5_25),
+        ], tracks: [70], directoryTrack: 18, directorySector: 1, connector: .floppy5_25SingleDensitySingleSidedCommodore),
         
         // 1581
         DiskLayoutTemplate(zones: [
             TrackSizeZone(firstTrack: 1, sectors: 40)
-            ], tracks: [80, 81, 82, 83], directoryTrack: 40, directorySector: 3, mediaType: .doubleDensity3_5),
+            ], tracks: [80, 81, 82, 83], directoryTrack: 40, directorySector: 3, connector: .floppy3_5DoubleDensityDoubleSidedCommodore),
         
         // 8050
         DiskLayoutTemplate(zones: [
@@ -538,7 +538,7 @@ public struct DxxImage : DiskImage {
             TrackSizeZone(firstTrack: 40, sectors: 27),
             TrackSizeZone(firstTrack: 54, sectors: 25),
             TrackSizeZone(firstTrack: 65, sectors: 23)
-            ], tracks: [77], directoryTrack: 39, directorySector: 1, mediaType: .doubleDensitySingleSided5_25),
+            ], tracks: [77], directoryTrack: 39, directorySector: 1, connector: .floppy5_25SingleDensitySingleSidedCommodore), // TODO: correct connector?
         
         // 8250
         DiskLayoutTemplate(zones: [
@@ -550,7 +550,7 @@ public struct DxxImage : DiskImage {
             TrackSizeZone(firstTrack: 117, sectors: 27),
             TrackSizeZone(firstTrack: 131, sectors: 25),
             TrackSizeZone(firstTrack: 142, sectors: 23)
-            ], tracks: [134], directoryTrack: 39, directorySector: 1, mediaType: .doubleDensityDoubleSided5_25)
+            ], tracks: [134], directoryTrack: 39, directorySector: 1, connector: .floppy5_25SingleDensityDoubleSidedCommodore) // TODO: correct connector?
     ]
     
     private static func initLayouts() {
@@ -562,7 +562,7 @@ public struct DxxImage : DiskImage {
                 let layoutWithErrorMap = DiskLayout(template: template, tracks: tracks, hasErrorMap: true)
                 layoutBySize[layout.fileSize] = layout
                 layoutBySize[layoutWithErrorMap.fileSize] = layoutWithErrorMap
-                layoutByMeidaType[layout.mediaType] = layout
+                layoutByConnector[layout.connector] = layout
             }
         }
     }
@@ -640,7 +640,7 @@ public class GxxImage: DiskImage {
     
     public var directoryTrack = UInt8(18)
     public var directorySector = UInt8(1)
-    public var mediaType: DiskDrive.MediaType
+    public var connector: ConnectorType
     
     
     enum TrackData : Equatable {
@@ -670,10 +670,10 @@ public class GxxImage: DiskImage {
         
         switch signature {
         case "GCR-1541":
-            mediaType = .singleDensitySingleSided5_25
+            connector = .floppy5_25SingleDensitySingleSidedCommodore
             
         case "GCR-1571":
-            mediaType = .singleDensityDoubleSided5_25
+            connector = .floppy5_25SingleDensityDoubleSidedCommodore
             
         default:
             return nil
@@ -838,33 +838,33 @@ public class GxxImage: DiskImage {
 public struct StubImage: DiskImage {
     public var directoryTrack = UInt8(18)
     public var directorySector = UInt8(1)
-    public var mediaType: DiskDrive.MediaType
+    public var connector: ConnectorType
     public var tracks: Int
     public var url: URL?
     
     private struct Layout {
-        var mediaType: DiskDrive.MediaType
+        var connector: ConnectorType
         var tracks: Int
     }
     
     private static let layouts = [
-        "d1m": Layout(mediaType: .cmdDoubleDensity3_5, tracks: 81),
-        "d2m": Layout(mediaType: .cmdHighDensity3_5, tracks: 81),
-        "d4m": Layout(mediaType: .cmdExtendedDensity3_5, tracks: 81),
-        "d64": Layout(mediaType: .singleDensitySingleSided5_25, tracks: 35),
-        // "d67": Layout(mediaType: .singleDensitySingleSided5_25, tracks: 35), // not used on C64
-        // "d71": Layout(mediaType: .singleDensityDoubleSided5_25, tracks: 70), // not used on C64
-        // "d80": Layout(mediaType: .doubleDensitySingleSided5_25, tracks: 77), // not used on C64
-        "d81": Layout(mediaType: .doubleDensity3_5, tracks: 80),
-        // "d82": Layout(mediaType: .doubleDensityDoubleSided5_25, tracks: 134), // not used on C64
-        "g64": Layout(mediaType: .singleDensitySingleSided5_25, tracks: 35),
-        // "g71": Layout(mediaType: .singleDensityDoubleSided5_25, tracks: 70), // not used on C64
-        "p64": Layout(mediaType: .singleDensitySingleSided5_25, tracks: 35)
+        "d1m": Layout(connector: .floppy3_5DoubleDensityDoubleSidedCmd, tracks: 81),
+        "d2m": Layout(connector: .floppy3_5HighDensityDoubleSidedCmd, tracks: 81),
+        "d4m": Layout(connector: .floppy3_5ExtendedDensityDoubleSidedCmd, tracks: 81),
+        "d64": Layout(connector: .floppy5_25SingleDensitySingleSidedCommodore, tracks: 35),
+        // "d67": Layout(connector: .floppy5_25SingleDensitySingleSidedCommodore, tracks: 35), // not used on C64
+        "d71": Layout(connector: .floppy5_25SingleDensityDoubleSidedCommodore, tracks: 70), // not used on C64
+        // "d80": Layout(connector: .doubleDensitySingleSided5_25, tracks: 77), // not used on C64
+        "d81": Layout(connector: .floppy3_5DoubleDensityDoubleSidedCommodore, tracks: 80),
+        // "d82": Layout(connector: .doubleDensityDoubleSided5_25, tracks: 134), // not used on C64
+        "g64": Layout(connector: .floppy5_25SingleDensitySingleSidedCommodore, tracks: 35),
+        // "g71": Layout(connector: .floppy5_25SingleDensityDoubleSidedCommodore, tracks: 70), // not used on C64
+        "p64": Layout(connector: .floppy5_25SingleDensitySingleSidedCommodore, tracks: 35)
     ]
     
     public init?(url: URL) {
         guard let layout = StubImage.layouts[url.pathExtension.lowercased()] else { return nil }
-        self.mediaType = layout.mediaType
+        self.connector = layout.connector
         self.tracks = layout.tracks
         self.url = url
     }
