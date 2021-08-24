@@ -41,6 +41,9 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
+        Release(name: "Release 1.6 build 22", year: 2021, month: 8, day: 24, changes: [
+            "Add CMD RAMLink. (You need to add BIOS file and a .DRL image file.)"
+        ]),
         Release(name: "Release 1.6 build 21", year: 2021, month: 8, day: 24, changes: [
             "Remove sections from media item list.",
             "Fix changing disks during emulation."

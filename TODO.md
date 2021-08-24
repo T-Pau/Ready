@@ -1,14 +1,14 @@
 #  TODO
 
-- selecting item in inbox to start doesn't work
+- don't add RAMLink if BIOS is missing.
 
-- adding drl doesn't work
+- selecting item in inbox to start doesn't work
 
 ## Vice 3.5
 
 - Plus/4 disk auto start not working (missing RUN)
 - disable datasette by default
-- add RAMLink, CMD HD
+- add CMD HD
 
 ## Support for Multiple Computers
 

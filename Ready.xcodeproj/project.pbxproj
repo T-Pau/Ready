@@ -5235,7 +5235,6 @@
 		4B9E578B24C9BEE000CEE0D6 /* SD Card.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SD Card.png"; sourceTree = "<group>"; };
 		4BA0AE7C22957B1600E54C96 /* PillButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillButton.swift; sourceTree = "<group>"; };
 		4BA1E9B824B314C100D935D3 /* MultiSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSet.swift; sourceTree = "<group>"; };
-		4BA1E9BA24B49A4F00D935D3 /* Machine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Machine.swift; sourceTree = "<group>"; };
 		4BA1E9C124B49EDE00D935D3 /* RetroMedia.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RetroMedia.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BA1E9C324B49EDE00D935D3 /* RetroMedia.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RetroMedia.h; sourceTree = "<group>"; };
 		4BA1E9C424B49EDE00D935D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -9678,7 +9677,6 @@
 				4BC5BBDA21DF548000D44A10 /* Key.swift */,
 				4B1638C2224672A50056A275 /* Keyboard.swift */,
 				4BBA0E3724A09CAD00BA166B /* KeyboardSymbols.swift */,
-				4BA1E9BA24B49A4F00D935D3 /* Machine.swift */,
 				4B2FA1A224B1AD32002A11BA /* MachineConfig.swift */,
 				4B9DBB69223247B10032B280 /* MachineConfigOld.swift */,
 				4BFDBBF824B0D7B0005CABEE /* MachineConfigStore.swift */,
@@ -14667,7 +14665,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = libspectrum;
 				INFOPLIST_FILE = "$(SRCROOT)/Ready/Info.plist";
@@ -14694,7 +14692,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = libspectrum;
 				INFOPLIST_FILE = "$(SRCROOT)/Ready/Info.plist";

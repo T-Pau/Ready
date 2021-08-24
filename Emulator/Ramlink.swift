@@ -45,8 +45,8 @@ public struct Ramlink {
         do {
             let attributes = try FileManager.default.attributesOfItem(atPath: url.path)
             guard let fileSize = attributes[FileAttributeKey.size] as? UInt64 else { return nil }
-            guard fileSize % (1024 * 1024) != 0 else { return nil }
-            guard [1, 2, 3, 4, 5, 8, 9, 12, 13, 16].contains(fileSize) else { return nil }
+            guard fileSize % (1024 * 1024) == 0 else { return nil }
+            guard [1, 2, 3, 4, 5, 8, 9, 12, 13, 16].contains(fileSize / (1024 * 1024)) else { return nil }
 
             identifier = url.path
             size = Int(fileSize)
@@ -68,11 +68,14 @@ extension Ramlink: Cartridge {
     }
     
     public var resources: [MachineOld.ResourceName: MachineOld.ResourceValue] {
-        guard let url = url else { return [:] }
+        guard let url = url, let bios = Defaults.standard.biosCmdRamlink else { return [:] }
         return [
             .RAMLINK: .Bool(true),
             .RAMLINKImageWrite: .Bool(true),
-            .RAMLINKfilename: .String(url.lastPathComponent)
+            .RAMLINKfilename: .String(url.path),
+            .RAMLINKsize: .Int(Int32(size / (1024 * 1024))),
+            .CartridgeType: .Int(73),
+            .CartridgeFile: .String(Defaults.biosURL.appendingPathComponent(bios).path)
         ]
     }
 }

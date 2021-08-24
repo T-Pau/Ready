@@ -183,7 +183,7 @@ extension MediaItem {
         case .ramExpansionUnit:
             return RamExpansionUnit(url: url)
         case .ramlink:
-            return nil // return Ramlink(url: url)
+            return Ramlink(url: url)
         case .tape:
             return TapImage.image(from: url) as? MediaItem
         }
@@ -303,7 +303,7 @@ extension IdeDiskImage: MediaItem {
     public var connector: ConnectorType { return .ide }
 }
 
-/*
+
 extension Ramlink : MediaItem {
     public var displayTitle: String? {
         return url?.lastPathComponent
@@ -325,4 +325,4 @@ extension Ramlink : MediaItem {
         return .cartridge
     }
 }
-*/
+

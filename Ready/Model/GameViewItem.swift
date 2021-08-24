@@ -599,23 +599,13 @@ extension GameViewItem {
     }
     
     func addGmod2(name: String?, flashData: Data, eepromData: Data) -> MediaItem? {
-        let gmod2Info = Gmod2(fileName: name ?? "untitled-flash")
+        let crtName = (name ?? "unnamed").replacingOccurrences(of: "(-flash)?.bin", with: "", options: [.regularExpression], range: nil)
 
-        guard let flashURL = self.addFile(name: gmod2Info.flashName, pathExtension: "bin", data: flashData) else { return nil }
-        guard let eepromURL = self.addFile(name: gmod2Info.eepromName, pathExtension: "bin", data: eepromData) else {
-            do {
-                try FileManager.default.removeItem(at: flashURL)
-            }
-            catch { }
-            return nil
-        }
-        
-        guard let cartridge = CartridgeImage(directory: directoryURL, file: flashURL.lastPathComponent, eeprom: eepromURL.lastPathComponent) else {
-            do {
-                try FileManager.default.removeItem(at: flashURL)
-                try FileManager.default.removeItem(at: eepromURL)
-            }
-            catch { }
+        let crt = Gmod2Crt(flash: flashData, eeprom: eepromData)
+        guard let crtURL = self.addFile(name: crtName, pathExtension: "crt", data: crt.crt) else { return nil }
+
+        guard let cartridge = CartridgeImage(directory: directoryURL, file: crtURL.lastPathComponent) else {
+            try? FileManager.default.removeItem(at: crtURL)
             return nil
         }
         
