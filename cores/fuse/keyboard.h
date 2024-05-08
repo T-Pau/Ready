@@ -24,7 +24,7 @@
 #ifndef FUSE_KEYBOARD_H
 #define FUSE_KEYBOARD_H
 
-#include <libspectrum.h>
+#include <../../cores/libspectrum/libspectrum.h>
 
 #include "input.h"
 

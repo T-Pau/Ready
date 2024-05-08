@@ -26,7 +26,7 @@
 
 #include <limits.h>
 
-#include "libspectrum.h"
+#include <../../cores/libspectrum/libspectrum.h>
 
 #include "config.h"
 #include "compat.h"
