@@ -135,8 +135,8 @@ static tapeport_snapshot_t tapecart_snapshot = {
 
 static tapeport_device_list_t *tapecart_list_item;
 
-static alarm_t *tapecart_logic_alarm;
-static alarm_t *tapecart_pulse_alarm;
+static alarm_t *tapecart_logic_alarm = NULL;
+static alarm_t *tapecart_pulse_alarm = NULL;
 static log_t    tapecart_log = LOG_ERR;
 
 /* current physical state of tape port lines */
@@ -1958,6 +1958,15 @@ void tapecart_exit(void)
     if (tapecart_buffers != NULL) {
         lib_free(tapecart_buffers);
         tapecart_buffers = NULL;
+    }
+    
+    if (tapecart_logic_alarm != NULL) {
+        /* alarm_destroy(tapecart_logic_alarm); */
+        tapecart_logic_alarm = NULL;
+    }
+    if (tapecart_pulse_alarm != NULL) {
+        /* alarm_destroy(tapecart_pulse_alarm); */
+        tapecart_pulse_alarm = NULL;
     }
 }
 
