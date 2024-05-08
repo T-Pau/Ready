@@ -104,7 +104,7 @@ struct MediaList: Codable {
             case .ramExpansionUnit:
                 return RamExpansionUnit(url: url)
             case .ramlink:
-                return Ramlink(url: url) as? MediaItem
+                return Ramlink(url: url)
             case .tape:
                 return T64Image.image(from: url) as? MediaItem
             }
