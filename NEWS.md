@@ -1,3 +1,12 @@
+## Release 1.6.1 (2024-05-09)
+
+- Add Commodore 128.
+- Add Atari 8-Bit Computers.
+- Add Commander X16.
+- Add Polyplay Trap Them Controller.
+- Add VIC-20 32K RAM expansion.
+- Update Vice to 3.5.
+
 ## Release 1.6 (2020-07-08)
 
 - Rename to Ready.

@@ -41,62 +41,13 @@ class ReleaseNotesViewController: UIViewController {
     }
     
     var releases = [
-        Release(name: "Release 1.6 build 22", year: 2021, month: 8, day: 24, changes: [
-            "Add CMD RAMLink. (You need to add BIOS file and a .DRL image file.)"
-        ]),
-        Release(name: "Release 1.6 build 21", year: 2021, month: 8, day: 24, changes: [
-            "Remove sections from media item list.",
-            "Fix changing disks during emulation."
-        ]),
-        Release(name: "Release 1.6 build 20", year: 2021, month: 8, day: 13, changes: [
+        Release(name: "Release 1.6.1", year: 2024, month: 5, day: 9, changes: [
+            "Add Commodore 128.",
+            "Add Atari 8-Bit Computers.",
+            "Add Commander X16.",
+            "Add Polyplay Trap Them Controller.",
+            "Add VIC-20 32K RAM expansion.",
             "Update Vice to 3.5."
-        ]),
-        Release(name: "Release 1.6 build 19", year: 2021, month: 7, day: 31, changes: [
-            "Support GMod2 CRT with EEPROM included, as defined by Ultimate firmware."
-        ]),
-        Release(name: "Release 1.6 build 16", year: 2021, month: 1, day: 2, changes: [
-            "Use game title for export directory name, don't fail if directory already exists."
-        ]),
-        Release(name: "Release 1.6 build 15", year: 2021, month: 1, day: 2, changes: [
-            "Rendered keyboards for C16, Japanese C64, and VIC-20."
-        ]),
-        Release(name: "Release 1.6 build 14", year: 2021, month: 1, day: 1, changes: [
-            "Rendered keyboards for C64C and C64 Silver."
-        ]),
-        Release(name: "Release 1.6 build 13", year: 2020, month: 12, day: 29, changes: [
-            "Rendered C64 keyboard with visibly pressed keys."
-        ]),
-        Release(name: "Release 1.6 build 11", year: 2020, month: 12, day: 10, changes: [
-            "Improve file-backed REU naming."
-        ]),
-        Release(name: "Realease 1.6 build 10", year: 2020, month: 12, day: 4, changes: [
-            "Add Polyplay Trap Them Controller."
-        ]),
-        Release(name: "Release 1.6 build 9", year: 2020, month: 9, day: 10, changes: [
-            "Update x16-emulator to r38.",
-            "Write REU contents back to file."
-        ]),
-        Release(name: "Release 1.6 build 8", year: 2020, month: 8, day: 27, changes: [
-            "Update Vice to 3.4.",
-            "Add VIC-20 32K RAM expansion."
-        ]),
-        Release(name: "Release 1.6 build 7", year: 2020, month: 7, day: 25, changes: [
-            "Add option to disable accellerated tape loading on ZX Spectrum.",
-            "Add directory as SD Card for Commander X16."
-        ]),
-        Release(name: "Release 1.6 build 6", year: 2020, month: 7, day: 22, changes: [
-            "Allow choosing which screen to show (automatic not implemented yet).",
-            "Add C128 PAL/NTSC with US keyboard.",
-            "Implement 40/08 Display key."
-        ]),
-        Release(name: "Release 1.6 build 5", year: 2020, month: 7, day: 21, changes: [
-            "Preliminary Commodore 128 support."
-        ]),
-        Release(name: "Release 1.6 build 4", year: 2020, month: 7, day: 15, changes: [
-            "Preliminary Commander X16 support. (No peripherals supported yet.)"
-        ]),
-        Release(name: "Release 1.6 build 3", year: 2020, month: 7, day: 11, changes: [
-            "Preliminary Atari 800XL support. (No peripherals supported yet. It starts in diagnostic mode, press reset to exit to BASIC.)"
         ]),
         Release(name: "Release 1.6", year: 2020, month: 7, day: 8, changes: [
             "Rename to Ready.",
