@@ -1,4 +1,4 @@
-## Release 1.6.1 (2024-05-09)
+## Release 1.6.1 (2024-05-10)
 
 - Add Commodore 128.
 - Add Atari 8-Bit Computers.
