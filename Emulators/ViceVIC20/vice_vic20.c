@@ -30,6 +30,7 @@
  */
 
 #include <stdio.h>
+#include <stdint.h>
 
 void mem_pla_config_changed(void) {
 }

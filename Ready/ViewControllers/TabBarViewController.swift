@@ -40,7 +40,7 @@ class TabBarViewController: UITabBarController {
         case deleted = 4
     }
     
-    var selectedTab: Tab {
+    var mySelectedTab: Tab {
         get {
             return Tab(rawValue: selectedIndex)!
         }

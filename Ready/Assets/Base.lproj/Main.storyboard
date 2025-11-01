@@ -3,7 +3,7 @@
     <device id="ipad12_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -1889,7 +1889,7 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Oj-vZ-2lb" userLabel="Start Button" customClass="PillButton" customModule="C64UIComponents">
-                                                                <rect key="frame" x="83.5" y="128" width="52" height="32"/>
+                                                                <rect key="frame" x="83.5" y="128" width="84" height="32"/>
                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                                 <state key="normal" title="START">
                                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1899,7 +1899,7 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KQT-o5-uyI" customClass="PillButton" customModule="C64UIComponents">
-                                                                <rect key="frame" x="167.5" y="128" width="55" height="32"/>
+                                                                <rect key="frame" x="199.5" y="128" width="87" height="32"/>
                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                                 <state key="normal" title="TOOLS">
                                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2092,7 +2092,7 @@
                                                                             <rect key="frame" x="0.0" y="0.0" width="482" height="59"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                             <subviews>
-                                                                                <view opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rSo-nS-zEu" customClass="MediaView" customModule="Ready" customModuleProvider="target">
+                                                                                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rSo-nS-zEu" customClass="MediaView" customModule="Ready" customModuleProvider="target">
                                                                                     <rect key="frame" x="8" y="10" width="474" height="39"/>
                                                                                     <userDefinedRuntimeAttributes>
                                                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="subtitleIsPETASCII" value="YES"/>
@@ -2128,7 +2128,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="482" height="33"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WU8-RS-VWj" userLabel="Start Button" customClass="PillButton" customModule="C64UIComponents">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="32" height="33"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="33"/>
                                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                                         <state key="normal" title="START">
                                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2138,7 +2138,7 @@
                                                                         </connections>
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NaR-ga-Aoz" customClass="PillButton" customModule="C64UIComponents">
-                                                                        <rect key="frame" x="64" y="0.0" width="55" height="33"/>
+                                                                        <rect key="frame" x="32" y="0.0" width="87" height="33"/>
                                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                                         <state key="normal" title="TOOLS">
                                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2774,19 +2774,19 @@
     </scenes>
     <designables>
         <designable name="0Oj-vZ-2lb">
-            <size key="intrinsicContentSize" width="52" height="32"/>
+            <size key="intrinsicContentSize" width="84" height="32"/>
         </designable>
         <designable name="KQT-o5-uyI">
-            <size key="intrinsicContentSize" width="55" height="32"/>
+            <size key="intrinsicContentSize" width="87" height="32"/>
         </designable>
         <designable name="NaR-ga-Aoz">
-            <size key="intrinsicContentSize" width="55" height="32"/>
+            <size key="intrinsicContentSize" width="87" height="32"/>
         </designable>
         <designable name="SWR-KU-dfI">
-            <size key="intrinsicContentSize" width="30" height="33"/>
+            <size key="intrinsicContentSize" width="38" height="33"/>
         </designable>
         <designable name="WU8-RS-VWj">
-            <size key="intrinsicContentSize" width="52" height="32"/>
+            <size key="intrinsicContentSize" width="84" height="32"/>
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
@@ -2794,7 +2794,7 @@
         <segue reference="Uko-dl-en4"/>
         <segue reference="Bls-LH-JL0"/>
         <segue reference="fyt-Cy-pp8"/>
-        <segue reference="F0r-Rm-INo"/>
+        <segue reference="L40-fc-b91"/>
         <segue reference="aJA-5G-D1v"/>
         <segue reference="HEU-xw-QdH"/>
         <segue reference="tS1-wI-YaV"/>
@@ -2850,13 +2850,13 @@
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="opaqueSeparatorColor">
-            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGroupedBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

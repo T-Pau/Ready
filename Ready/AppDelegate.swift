@@ -105,7 +105,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             if ok /* TODO: && viceThread == nil */ {
                 if let tabBarController = window?.rootViewController as? TabBarViewController {
-                    tabBarController.selectedTab = .inbox
+                    tabBarController.mySelectedTab = .inbox
                 }
             }
             

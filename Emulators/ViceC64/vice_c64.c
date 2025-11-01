@@ -30,6 +30,7 @@
  */
 
 #include <stdio.h>
+#include <stdint.h>
 
 // TODO: include correct file?
 extern void c64model_set(int model);

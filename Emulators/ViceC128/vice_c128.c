@@ -30,6 +30,7 @@
  */
 
 #include <stdio.h>
+#include <stdint.h>
 
 // TODO: include correct file?
 extern void c128model_set(int model);

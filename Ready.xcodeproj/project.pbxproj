@@ -1431,7 +1431,7 @@
 		4B9ABEF224B89A5000678531 /* Atari800.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B9ABEF024B89A5000678531 /* Atari800.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B9ABEF524B89A5000678531 /* Atari800.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B9ABEEE24B89A5000678531 /* Atari800.framework */; };
 		4B9ABEF624B89A5000678531 /* Atari800.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4B9ABEEE24B89A5000678531 /* Atari800.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		4B9ABEFE24B89B8800678531 /* libatari800.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B9ABEB324B88A5300678531 /* libatari800.a */; };
+		4B9ABEFE24B89B8800678531 /* libatari800-emulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B9ABEB324B88A5300678531 /* libatari800-emulator.a */; };
 		4B9ABEFF24B89B8D00678531 /* Emulator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B68F8B12496407700A76E57 /* Emulator.framework */; };
 		4B9DBB60222A8B9A0032B280 /* MachinePartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9DBB5F222A8B9A0032B280 /* MachinePartTableViewCell.swift */; };
 		4B9DBB62222A8BE60032B280 /* SelectMachinePartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9DBB61222A8BE60032B280 /* SelectMachinePartViewController.swift */; };
@@ -5206,7 +5206,7 @@
 		4B9ABCE924B8887100678531 /* bit3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bit3.c; sourceTree = "<group>"; };
 		4B9ABCEA24B8887100678531 /* pokeysnd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pokeysnd.h; sourceTree = "<group>"; };
 		4B9ABCEB24B8887100678531 /* colours_pal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = colours_pal.h; sourceTree = "<group>"; };
-		4B9ABEB324B88A5300678531 /* libatari800.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libatari800.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B9ABEB324B88A5300678531 /* libatari800-emulator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libatari800-emulator.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B9ABEEE24B89A5000678531 /* Atari800.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Atari800.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B9ABEF024B89A5000678531 /* Atari800.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Atari800.h; sourceTree = "<group>"; };
 		4B9ABEF124B89A5000678531 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -6196,7 +6196,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B9ABEFF24B89B8D00678531 /* Emulator.framework in Frameworks */,
-				4B9ABEFE24B89B8800678531 /* libatari800.a in Frameworks */,
+				4B9ABEFE24B89B8800678531 /* libatari800-emulator.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6419,7 +6419,7 @@
 				4B54144A24ABA66F00F6925B /* libvice-viciisc.a */,
 				4B54151324ABABC600F6925B /* libfuse-libspectrum.a */,
 				4BA1E9C124B49EDE00D935D3 /* RetroMedia.framework */,
-				4B9ABEB324B88A5300678531 /* libatari800.a */,
+				4B9ABEB324B88A5300678531 /* libatari800-emulator.a */,
 				4B9ABEEE24B89A5000678531 /* Atari800.framework */,
 				4BCF7CFD24BDA93E00172C24 /* libx16-emulator.a */,
 				4BCF7D0324BDA9E900172C24 /* X16.framework */,
@@ -12320,9 +12320,9 @@
 			productReference = 4B7609F021F47B900058FBCD /* C64UIComponents.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		4B9ABE9324B88A5300678531 /* atari800 */ = {
+		4B9ABE9324B88A5300678531 /* atari800-emulator */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4B9ABEB024B88A5300678531 /* Build configuration list for PBXNativeTarget "atari800" */;
+			buildConfigurationList = 4B9ABEB024B88A5300678531 /* Build configuration list for PBXNativeTarget "atari800-emulator" */;
 			buildPhases = (
 				4B9ABE9424B88A5300678531 /* Sources */,
 				4B9ABEAE24B88A5300678531 /* Frameworks */,
@@ -12332,9 +12332,9 @@
 			);
 			dependencies = (
 			);
-			name = atari800;
+			name = "atari800-emulator";
 			productName = libvic20;
-			productReference = 4B9ABEB324B88A5300678531 /* libatari800.a */;
+			productReference = 4B9ABEB324B88A5300678531 /* libatari800-emulator.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		4B9ABEED24B89A5000678531 /* Atari800 */ = {
@@ -12513,7 +12513,7 @@
 				4B540E9624A674E100F6925B /* VicePlus4 */,
 				4B68FB802498DC0600A76E57 /* ViceVIC20 */,
 				4BCF7D0224BDA9E900172C24 /* X16 */,
-				4B9ABE9324B88A5300678531 /* atari800 */,
+				4B9ABE9324B88A5300678531 /* atari800-emulator */,
 				4B54128224AB367700F6925B /* fuse */,
 				4B5414F024ABABC600F6925B /* fuse-libspectrum */,
 				4B68FCA82498EC2500A76E57 /* vice-archdep */,
@@ -14454,7 +14454,7 @@
 /* Begin PBXTargetDependency section */
 		4B1CA1FE24BE2FF90074D45C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4B9ABE9324B88A5300678531 /* atari800 */;
+			target = 4B9ABE9324B88A5300678531 /* atari800-emulator */;
 			targetProxy = 4B1CA1FD24BE2FF90074D45C /* PBXContainerItemProxy */;
 		};
 		4B27F66524ACFF5100BFD1EF /* PBXTargetDependency */ = {
@@ -14665,7 +14665,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = libspectrum;
 				INFOPLIST_FILE = "$(SRCROOT)/Ready/Info.plist";
@@ -14692,7 +14692,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = libspectrum;
 				INFOPLIST_FILE = "$(SRCROOT)/Ready/Info.plist";
@@ -18763,7 +18763,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4B9ABEB024B88A5300678531 /* Build configuration list for PBXNativeTarget "atari800" */ = {
+		4B9ABEB024B88A5300678531 /* Build configuration list for PBXNativeTarget "atari800-emulator" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4B9ABEB124B88A5300678531 /* Debug */,
