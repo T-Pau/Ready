@@ -14665,7 +14665,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -14676,7 +14676,7 @@
 					"cores/x16-emulator",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Ready/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -14685,14 +14685,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = at.spiderlab.c64;
 				PRODUCT_NAME = Ready;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_INCLUDE_PATHS = "$(inherited) Emulators/Atari800 Emulators/FuseZX Emulators/ViceShared Emulators/X16";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_INCLUDE_PATHS = (
-					"$(inherited)",
-					Emulators/Atari800,
-					Emulators/FuseZX,
-					Emulators/ViceShared,
-					Emulators/X16,
-				);
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -14706,7 +14700,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -14717,7 +14711,7 @@
 					"cores/x16-emulator",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Ready/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -14726,13 +14720,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = at.spiderlab.c64;
 				PRODUCT_NAME = Ready;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_INCLUDE_PATHS = (
-					"$(inherited)",
-					Emulators/Atari800,
-					Emulators/FuseZX,
-					Emulators/ViceShared,
-					Emulators/X16,
-				);
+				SWIFT_INCLUDE_PATHS = "$(inherited) Emulators/Atari800 Emulators/FuseZX Emulators/ViceShared Emulators/X16";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
