@@ -14665,9 +14665,16 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
-				HEADER_SEARCH_PATHS = libspectrum;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					cores/libspectrum,
+					cores/atari800/src,
+					cores/vice/src,
+					"cores/x16-sdl/include",
+					"cores/x16-emulator",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Ready/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -14679,6 +14686,13 @@
 				PRODUCT_NAME = Ready;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_INCLUDE_PATHS = (
+					"$(inherited)",
+					Emulators/Atari800,
+					Emulators/FuseZX,
+					Emulators/ViceShared,
+					Emulators/X16,
+				);
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -14692,9 +14706,16 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
-				HEADER_SEARCH_PATHS = libspectrum;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					cores/libspectrum,
+					cores/atari800/src,
+					cores/vice/src,
+					"cores/x16-sdl/include",
+					"cores/x16-emulator",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Ready/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -14705,6 +14726,13 @@
 				PRODUCT_BUNDLE_IDENTIFIER = at.spiderlab.c64;
 				PRODUCT_NAME = Ready;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_INCLUDE_PATHS = (
+					"$(inherited)",
+					Emulators/Atari800,
+					Emulators/FuseZX,
+					Emulators/ViceShared,
+					Emulators/X16,
+				);
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
