@@ -14581,7 +14581,7 @@
 				GCC_WARN_UNUSED_FUNCTION = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -14644,7 +14644,7 @@
 				GCC_WARN_UNUSED_FUNCTION = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -14676,7 +14676,7 @@
 					"cores/x16-emulator",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Ready/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -14711,7 +14711,7 @@
 					"cores/x16-emulator",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Ready/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -14752,6 +14752,7 @@
 				);
 				INFOPLIST_FILE = Emulators/ViceC128/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -14795,6 +14796,7 @@
 				);
 				INFOPLIST_FILE = Emulators/ViceC128/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -14840,6 +14842,7 @@
 					cores/vice/src/arch/shared,
 					cores/vice/src/datasette,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -14875,6 +14878,7 @@
 					cores/vice/src/arch/shared,
 					cores/vice/src/datasette,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -14913,6 +14917,7 @@
 					cores/vice/src/rs232drv,
 					cores/vice/src/datasette,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -14951,6 +14956,7 @@
 					cores/vice/src/rs232drv,
 					cores/vice/src/datasette,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -14969,6 +14975,7 @@
 					cores/vice/src/lib/p64,
 					cores/vice/src/drive,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -14987,6 +14994,7 @@
 					cores/vice/src/lib/p64,
 					cores/vice/src/drive,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -15005,6 +15013,7 @@
 					cores/vice/src/raster,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -15023,6 +15032,7 @@
 					cores/vice/src/raster,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -15046,6 +15056,7 @@
 					cores/vice/src/raster,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -15069,6 +15080,7 @@
 					cores/vice/src/raster,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -15107,6 +15119,7 @@
 				);
 				INFOPLIST_FILE = Emulators/VicePlus4/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -15154,6 +15167,7 @@
 				);
 				INFOPLIST_FILE = Emulators/VicePlus4/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -15198,6 +15212,7 @@
 					cores/vice/src/arch/shared,
 					cores/vice/src/datasette,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -15229,6 +15244,7 @@
 					cores/vice/src/arch/shared,
 					cores/vice/src/datasette,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -15251,6 +15267,7 @@
 					cores/vice/src/drive,
 					cores/vice/src,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -15269,6 +15286,7 @@
 					cores/vice/src/drive,
 					cores/vice/src,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -15286,6 +15304,7 @@
 					cores/fuse,
 					cores/libspectrum,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -15308,6 +15327,7 @@
 					cores/fuse,
 					cores/libspectrum,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -15346,6 +15366,7 @@
 				);
 				INFOPLIST_FILE = Emulators/FuseZX/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -15388,6 +15409,7 @@
 				);
 				INFOPLIST_FILE = Emulators/FuseZX/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -15439,6 +15461,7 @@
 					cores/vice/src/arch/shared,
 					cores/vice/src/datasette,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -15477,6 +15500,7 @@
 					cores/vice/src/arch/shared,
 					cores/vice/src/datasette,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -15508,6 +15532,7 @@
 					cores/vice/src/arch/shared,
 					cores/vice/src/rs232drv,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -15535,6 +15560,7 @@
 					cores/vice/src/arch/shared,
 					cores/vice/src/rs232drv,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -15566,6 +15592,7 @@
 					cores/vice/src/rs232drv,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -15593,6 +15620,7 @@
 					cores/vice/src/rs232drv,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -15617,6 +15645,7 @@
 					cores/vice/src/drive/iec,
 					cores/vice/src/drive,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -15637,6 +15666,7 @@
 					cores/vice/src/drive/iec,
 					cores/vice/src/drive,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -15663,6 +15693,7 @@
 					cores/vice/src/lib/p64,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -15685,6 +15716,7 @@
 					cores/vice/src/lib/p64,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -15698,6 +15730,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = cores/libspectrum;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -15710,6 +15743,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = cores/libspectrum;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -15730,6 +15764,7 @@
 					cores/vice/src/tapeport,
 					cores/vice/src,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -15747,6 +15782,7 @@
 					cores/vice/src/tapeport,
 					cores/vice/src,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -15768,6 +15804,7 @@
 					cores/vice/src/arch/ios,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -15785,6 +15822,7 @@
 					cores/vice/src/arch/ios,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -15811,11 +15849,13 @@
 				HEADER_SEARCH_PATHS = Emulator;
 				INFOPLIST_FILE = Emulator/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				PRODUCT_BUNDLE_IDENTIFIER = at.tpau.Emulator;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -15841,11 +15881,13 @@
 				HEADER_SEARCH_PATHS = Emulator;
 				INFOPLIST_FILE = Emulator/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				PRODUCT_BUNDLE_IDENTIFIER = at.tpau.Emulator;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -15882,6 +15924,7 @@
 				);
 				INFOPLIST_FILE = Emulators/ViceC64/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -15925,6 +15968,7 @@
 				);
 				INFOPLIST_FILE = Emulators/ViceC64/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -15968,6 +16012,7 @@
 				);
 				INFOPLIST_FILE = Emulators/ViceVIC20/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -16010,6 +16055,7 @@
 				);
 				INFOPLIST_FILE = Emulators/ViceVIC20/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -16054,6 +16100,7 @@
 					cores/vice/src/rs232drv,
 					cores/vice/src/datasette,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16085,6 +16132,7 @@
 					cores/vice/src/rs232drv,
 					cores/vice/src/datasette,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16112,6 +16160,7 @@
 					cores/vice/src/rs232drv,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16135,6 +16184,7 @@
 					cores/vice/src/rs232drv,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16167,6 +16217,7 @@
 					cores/vice/src,
 					cores/vice/src/arch/ios,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16195,6 +16246,7 @@
 					cores/vice/src,
 					cores/vice/src/arch/ios,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16222,6 +16274,7 @@
 					cores/vice/src/arch/shared,
 					cores/vice/src/rs232drv,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16245,6 +16298,7 @@
 					cores/vice/src/arch/shared,
 					cores/vice/src/rs232drv,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16269,6 +16323,7 @@
 					cores/vice/src/arch/shared,
 					cores/vice/src/datasette,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16289,6 +16344,7 @@
 					cores/vice/src/arch/shared,
 					cores/vice/src/datasette,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16320,6 +16376,7 @@
 					cores/vice/src/rs232drv,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16347,6 +16404,7 @@
 					cores/vice/src/rs232drv,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16368,6 +16426,7 @@
 					cores/vice/src/drive,
 					cores/vice/src,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16385,6 +16444,7 @@
 					cores/vice/src/drive,
 					cores/vice/src,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16406,6 +16466,7 @@
 					cores/vice/src/drive,
 					cores/vice/src,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16423,6 +16484,7 @@
 					cores/vice/src/drive,
 					cores/vice/src,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16444,6 +16506,7 @@
 					cores/vice/src/drive,
 					cores/vice/src,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16461,6 +16524,7 @@
 					cores/vice/src/drive,
 					cores/vice/src,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16488,6 +16552,7 @@
 					cores/vice/src/arch/ios,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16511,6 +16576,7 @@
 					cores/vice/src/arch/ios,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16532,6 +16598,7 @@
 					cores/vice/src/drive,
 					cores/vice/src,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16549,6 +16616,7 @@
 					cores/vice/src/drive,
 					cores/vice/src,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16566,6 +16634,7 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = cores/vice/src;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16579,6 +16648,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = cores/vice/src;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16600,6 +16670,7 @@
 					cores/vice/src/drive,
 					cores/vice/src,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16617,6 +16688,7 @@
 					cores/vice/src/drive,
 					cores/vice/src,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16641,6 +16713,7 @@
 					cores/vice/src/arch/ios,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16661,6 +16734,7 @@
 					cores/vice/src/arch/ios,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16683,6 +16757,7 @@
 					cores/vice/src/arch/ios,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16701,6 +16776,7 @@
 					cores/vice/src/arch/ios,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16729,6 +16805,7 @@
 					cores/vice/src/arch/shared,
 					cores/vice/src/datasette,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16753,6 +16830,7 @@
 					cores/vice/src/arch/shared,
 					cores/vice/src/datasette,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16776,6 +16854,7 @@
 					cores/vice/src,
 					cores/vice/src/sid,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16795,6 +16874,7 @@
 					cores/vice/src,
 					cores/vice/src/sid,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16817,6 +16897,7 @@
 					cores/vice/src/arch/ios,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16835,6 +16916,7 @@
 					cores/vice/src/arch/ios,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16861,6 +16943,7 @@
 					cores/vice/src/diag,
 					cores/vice/src/arch/ios,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16883,6 +16966,7 @@
 					cores/vice/src/diag,
 					cores/vice/src/arch/ios,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16903,6 +16987,7 @@
 					cores/vice/src,
 					cores/vice/src/datasette,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16919,6 +17004,7 @@
 					cores/vice/src,
 					cores/vice/src/datasette,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16940,6 +17026,7 @@
 					cores/vice/src/arch/ios,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16957,6 +17044,7 @@
 					cores/vice/src/arch/ios,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16978,6 +17066,7 @@
 					cores/vice/src/arch/ios,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16995,6 +17084,7 @@
 					cores/vice/src/arch/ios,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17016,6 +17106,7 @@
 					cores/vice/src/vdrive,
 					cores/vice/src,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17033,6 +17124,7 @@
 					cores/vice/src/vdrive,
 					cores/vice/src,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17049,6 +17141,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17061,6 +17154,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17082,6 +17176,7 @@
 					cores/vice/src/arch/ios,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17099,6 +17194,7 @@
 					cores/vice/src/arch/ios,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17121,6 +17217,7 @@
 					cores/vice/src/arch/ios,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17139,6 +17236,7 @@
 					cores/vice/src/arch/ios,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17160,6 +17258,7 @@
 					cores/vice/src/arch/ios,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17177,6 +17276,7 @@
 					cores/vice/src/arch/ios,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17200,6 +17300,7 @@
 					cores/vice/src/arch/ios,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17219,6 +17320,7 @@
 					cores/vice/src/arch/ios,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17241,6 +17343,7 @@
 					cores/vice/src/arch/ios,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17259,6 +17362,7 @@
 					cores/vice/src/arch/ios,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17281,6 +17385,7 @@
 					cores/vice/src/sid,
 					cores/vice/src,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17299,6 +17404,7 @@
 					cores/vice/src/sid,
 					cores/vice/src,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17316,6 +17422,7 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = cores/vice/src;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17329,6 +17436,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = cores/vice/src;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17354,6 +17462,7 @@
 					cores/vice/src/joyport,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17375,6 +17484,7 @@
 					cores/vice/src/joyport,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17395,6 +17505,7 @@
 					cores/vice/src,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17411,6 +17522,7 @@
 					cores/vice/src,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17433,6 +17545,7 @@
 					cores/vice/src/arch/ios,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17451,6 +17564,7 @@
 					cores/vice/src/arch/ios,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17473,6 +17587,7 @@
 					cores/vice/src/arch/shared,
 					cores/vice/src/rs232drv,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17491,6 +17606,7 @@
 					cores/vice/src/arch/shared,
 					cores/vice/src/rs232drv,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17508,6 +17624,7 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = cores/vice/src;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17521,6 +17638,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = cores/vice/src;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17542,6 +17660,7 @@
 					cores/vice/src/drive,
 					cores/vice/src,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17559,6 +17678,7 @@
 					cores/vice/src/drive,
 					cores/vice/src,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17580,6 +17700,7 @@
 					cores/vice/src/arch/ios,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17597,6 +17718,7 @@
 					cores/vice/src/arch/ios,
 					cores/vice/src/arch/shared,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17619,6 +17741,7 @@
 					cores/vice/src/arch/shared,
 					cores/vice/src/datasette,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17637,6 +17760,7 @@
 					cores/vice/src/arch/shared,
 					cores/vice/src/datasette,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17678,6 +17802,7 @@
 					cores/vice/src/datasette,
 					cores/vice/src/fsdevice,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17715,6 +17840,7 @@
 					cores/vice/src/datasette,
 					cores/vice/src/fsdevice,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17735,6 +17861,7 @@
 					cores/vice/src,
 					cores/vice/src/arch/ios,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17751,6 +17878,7 @@
 					cores/vice/src,
 					cores/vice/src/arch/ios,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17767,6 +17895,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17779,6 +17908,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17800,6 +17930,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = C64UIComponents/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -17830,6 +17961,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = C64UIComponents/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -17852,6 +17984,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = cores/atari800/src;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17866,6 +17999,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = cores/atari800/src;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17894,6 +18028,7 @@
 				HEADER_SEARCH_PATHS = cores/atari800/src;
 				INFOPLIST_FILE = Emulators/Atari800/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -17932,6 +18067,7 @@
 				HEADER_SEARCH_PATHS = cores/atari800/src;
 				INFOPLIST_FILE = Emulators/Atari800/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -17973,6 +18109,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				INFOPLIST_FILE = RetroMedia/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -18009,6 +18146,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				INFOPLIST_FILE = RetroMedia/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -18037,6 +18175,7 @@
 					"cores/x16-emulator/extern/src",
 					"cores/x16-sdl/include",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -18057,6 +18196,7 @@
 					"cores/x16-emulator/extern/src",
 					"cores/x16-sdl/include",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -18090,6 +18230,7 @@
 				);
 				INFOPLIST_FILE = Emulators/X16/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -18131,6 +18272,7 @@
 				);
 				INFOPLIST_FILE = Emulators/X16/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -18153,6 +18295,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = "cores/x16-sdl/include";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -18166,6 +18309,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27CVJNWXK;
 				HEADER_SEARCH_PATHS = "cores/x16-sdl/include";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
